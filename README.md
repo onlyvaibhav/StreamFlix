@@ -8,13 +8,12 @@
 </a>
 
 <h3 align="center">StreamFlix</h3>
+<h4 align="center"><a href="https://streamflix-a0l5.onrender.com/">🔴 View Live Project</a></h4>
 
   <p align="center">
     A fully-featured, Netflix-like streaming platform that uses Telegram as a highly scalable backend storage server.
     <br/>
     <br/>
-    <a href="https://streamflix-a0l5.onrender.com/"><strong>View Live »</strong></a>
-    .
     <a href="#features"><strong>Explore the features »</strong></a>
     <br/>
     <br/>
