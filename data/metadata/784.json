@@ -1,0 +1,37 @@
+{
+  "fileId": "784",
+  "fileName": "Gen.V.S02E06.720p.WEB-DL.HIN-ENG.x264.ESub-Vegamovies.Hot.mkv",
+  "type": "tv",
+  "title": "Gen V",
+  "originalTitle": "Gen V",
+  "overview": "At America's only college for superheroes, gifted students put their moral boundaries to the test, competing for the university's top ranking, and a chance to join The Seven, Vought International's elite superhero team. When the school's dark secrets come to light, they must decide what kind of heroes they want to become.",
+  "releaseDate": "2023-09-28",
+  "year": 2023,
+  "runtime": 46,
+  "genres": [
+    "Action & Adventure",
+    "Drama",
+    "Sci-Fi & Fantasy"
+  ],
+  "rating": 7.693,
+  "popularity": 25.5081,
+  "poster": "/data/posters/show_205715.jpg",
+  "backdrop": "/data/backdrops/show_205715_bd.jpg",
+  "tmdbId": 205715,
+  "fetchedAt": "2026-02-15T14:38:26.697Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Gen V",
+    "originalShowTitle": "Gen V",
+    "seasonNumber": 2,
+    "episodeNumber": 6,
+    "episodeTitle": "Cooking Lessons",
+    "episodeOverview": "Worried about the coming culture war and apocalypse? Ride it out in style and comfort! Sustainable septic systems AND Feng Shui! Blast proof and billionaire approved! The world may be burning, but you'll be 35 feet underground with a glass of ’82 Bordeaux! Act now before it's too late",
+    "showTmdbId": 205715,
+    "episodeRuntime": 46,
+    "totalSeasons": 2,
+    "totalEpisodes": 16
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

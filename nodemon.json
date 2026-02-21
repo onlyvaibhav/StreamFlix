@@ -1,0 +1,8 @@
+{
+    "ignore": [
+        "data/*",
+        "data/movies/*",
+        "data/posters/*",
+        "data/backdrops/*"
+    ]
+}

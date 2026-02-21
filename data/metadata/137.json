@@ -1,0 +1,37 @@
+{
+  "fileId": "137",
+  "fileName": "Mirzapur_S02_E01_Hindi_720p_HEVC_WEB_DL_x265_ESub_Vegamovies_NL.mkv",
+  "type": "tv",
+  "title": "Mirzapur",
+  "originalTitle": "Mirzapur",
+  "overview": "The iron-fisted Akhandanand Tripathi is a millionaire carpet exporter and the mafia don of Mirzapur. His son, Munna, is an unworthy, power-hungry heir who will stop at nothing to inherit his father's legacy. An incident at a wedding procession forces him to cross paths with Ramakant Pandit, an upstanding lawyer, and his sons, Guddu and Bablu. It snowballs into a game of ambition, power and greed that threatens the fabric of this lawless city.",
+  "releaseDate": "2018-11-15",
+  "year": 2018,
+  "runtime": 61,
+  "genres": [
+    "Crime",
+    "Action & Adventure",
+    "Drama"
+  ],
+  "rating": 8.023,
+  "popularity": 8.2673,
+  "poster": "/data/posters/show_84105.jpg",
+  "backdrop": "/data/backdrops/show_84105_bd.jpg",
+  "tmdbId": 84105,
+  "fetchedAt": "2026-02-15T17:16:39.713Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Mirzapur",
+    "originalShowTitle": "Mirzapur",
+    "seasonNumber": 2,
+    "episodeNumber": 1,
+    "episodeTitle": "DHENKUL",
+    "episodeOverview": "The Gorakhpur wedding massacre is a thing of the past for Akhandanand Tripathi. His focus is now on the present - the business and conquering larger territory to remain the King of Mirzapur. Everyone who survived that violent night has come out a different person. Despite horrific memories, they know that survival is their only option.",
+    "showTmdbId": 84105,
+    "episodeRuntime": 61,
+    "totalSeasons": 3,
+    "totalEpisodes": 29
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

@@ -1,0 +1,36 @@
+{
+  "fileId": "513",
+  "fileName": "Bada_Naam_Karenge_S01E04_720p_Hindi_WEB_DL_5_1_ESub_x264_Vegamovies.mkv",
+  "type": "tv",
+  "title": "Bada Naam Karenge",
+  "originalTitle": "Bada Naam Karenge",
+  "overview": "Rishabh and Surbhi, two young individuals, find themselves at the crossroads of an arranged marriage. The story unfolds in two timelines: one in Mumbai, in the past, and another in Madhya Pradesh, where their families meet. In Mumbai, they find themselves alone in his room due to the lockdown, creating a pivotal moment in their relationship. In the present, Rishabh is hesitant to reveal his past with Surbhi to their families, his being a much more traditional one, fearing disapproval.",
+  "releaseDate": "2025-02-07",
+  "year": 2025,
+  "runtime": 36,
+  "genres": [
+    "Drama",
+    "Family"
+  ],
+  "rating": 7.5,
+  "popularity": 1.3235,
+  "poster": "/data/posters/show_280889.jpg",
+  "backdrop": "/data/backdrops/show_280889_bd.jpg",
+  "tmdbId": 280889,
+  "fetchedAt": "2026-02-15T15:32:11.584Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Bada Naam Karenge",
+    "originalShowTitle": "Bada Naam Karenge",
+    "seasonNumber": 1,
+    "episodeNumber": 4,
+    "episodeTitle": "Positive or Negative",
+    "episodeOverview": "In Mumbai, Rishabh agrees to take a COVID test after realizing the seriousness of his symptoms. Surbhi decides to stay with him till his test report is out, offering care and support, which deepens their bond. In Ratlam, Surbhi and her family prepare to leave the Rathi residence. Rishabh seeks permission to accompany Surbhi and show her around the city and is filled with excitement, but Surbhi, still emotionally weighed down, admits that she can't go through with a marriage based on a lie.",
+    "showTmdbId": 280889,
+    "episodeRuntime": 36,
+    "totalSeasons": 1,
+    "totalEpisodes": 9
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

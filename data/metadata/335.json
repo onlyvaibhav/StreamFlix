@@ -1,0 +1,36 @@
+{
+  "fileId": "335",
+  "fileName": "Gutar_Gu_S02_E02_WebRip_720p_Hindi_AAC_2_0_x264_ESub_Vegamovies.mkv",
+  "type": "tv",
+  "title": "Gutar Gu",
+  "originalTitle": "Gutar Gu",
+  "overview": "Ritu joins a coaching class in Bhopal and notices Anuj on the first day. She introduces herself to Anuj, which startles him. He seeks advice from friends on how to impress her. Ritu asks Anuj to help her explore the city but he cancels at the last minute. Anuj writes a love letter and must now confess his feelings to Ritu and pray she feels the same way.",
+  "releaseDate": "2023-04-05",
+  "year": 2023,
+  "runtime": 30,
+  "genres": [
+    "Drama",
+    "Comedy"
+  ],
+  "rating": 8,
+  "popularity": 1.2929,
+  "poster": "/data/posters/show_223952.jpg",
+  "backdrop": "/data/backdrops/show_223952_bd.jpg",
+  "tmdbId": 223952,
+  "fetchedAt": "2026-02-15T16:08:00.695Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Gutar Gu",
+    "originalShowTitle": "Gutar Gu",
+    "seasonNumber": 2,
+    "episodeNumber": 2,
+    "episodeTitle": "Long Distance Wali Gutar Gu",
+    "episodeOverview": "Ritu and Anuj begin their long-distance relationship with caution and sincerity. They set alarms for breakfast, lunch, and dinner to text and call each other, ensuring their 'Gutar Gu' continues. As the pressure of fitting into their respective colleges and pursuing their passion takes a toll on their schedules, Anuj grows anxious about weakening his bond with Ritu.",
+    "showTmdbId": 223952,
+    "episodeRuntime": 30,
+    "totalSeasons": 3,
+    "totalEpisodes": 18
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

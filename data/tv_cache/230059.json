@@ -1,0 +1,147 @@
+{
+  "showTmdbId": 230059,
+  "showTitle": "A Sign of Affection",
+  "originalShowTitle": "ゆびさきと恋々",
+  "overview": "Yuki Itose is just a typical student dealing with the pressures of college. She is struggling one day on the train when an upperclassman named Itsuomi Nagi helps her out. As he gradually opens a new world to her, Yuki develops feelings for Itsuomi. A pure love story begins to grow.",
+  "genres": [
+    "Animation",
+    "Drama"
+  ],
+  "rating": 8,
+  "popularity": 14.3414,
+  "poster": "/data/posters/show_230059.jpg",
+  "backdrop": "/data/backdrops/show_230059_bd.jpg",
+  "totalSeasons": 1,
+  "totalEpisodes": 12,
+  "year": 2024,
+  "releaseDate": "2024-01-06",
+  "seasons": {
+    "1": [
+      {
+        "fileId": "544",
+        "fileName": "S01E01-Yuki's World [EF98727B].mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 1,
+        "episodeTitle": "Yuki's World",
+        "episodeOverview": "Yuki, who was born in a world where sounds don't sound like anything, runs into the enigmatic Itsuomi and immediately takes an interest in him.",
+        "runtime": 24,
+        "tracks": null
+      },
+      {
+        "fileId": "545",
+        "fileName": "S01E02-To Affection [50FD7C2E].mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 2,
+        "episodeTitle": "To Affection",
+        "episodeOverview": "Yuki tries to come to terms with her newfound feelings for Itsuomi, while Oushi offers a glimpse into what he's been trying to come to terms with for a long time.",
+        "runtime": 24,
+        "tracks": null
+      },
+      {
+        "fileId": "546",
+        "fileName": "S01E03-Someone Is Thinking of Someone [2EA0A2CF].mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 3,
+        "episodeTitle": "Someone Is Thinking of Someone",
+        "episodeOverview": "Having come to terms with her feelings for Itsuomi, Yuki prepares to make her move, but she encounters a sight that throws her into confusion and doubt.",
+        "runtime": 24,
+        "tracks": null
+      },
+      {
+        "fileId": "547",
+        "fileName": "S01E04-What Kind of Voice [93C5A339].mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 4,
+        "episodeTitle": "What Kind of Voice?",
+        "episodeOverview": "Having made plans with Kyouya to go shopping, Rin invites Yuki and Itsuomi to join them.",
+        "runtime": 24,
+        "tracks": null
+      },
+      {
+        "fileId": "548",
+        "fileName": "S01E05-The Answer [48936B91].mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 5,
+        "episodeTitle": "The Answer",
+        "episodeOverview": "Itsuomi and Yuki have a chat at his place, and several lingering questions are answered.",
+        "runtime": 24,
+        "tracks": null
+      },
+      {
+        "fileId": "549",
+        "fileName": "S01E06_I_Thought_I_Wanted_to_Keep_Watching_Her_Forever_25FF2722.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 6,
+        "episodeTitle": "I Thought I Wanted to Keep Watching Her Forever",
+        "episodeOverview": "Yuki and Kyouya each urge Itsuomi to make himself clear on where he stands in his relationship with Yuki, and he surprises them with his answer.",
+        "runtime": 24,
+        "tracks": null
+      },
+      {
+        "fileId": "550",
+        "fileName": "S01E07-Let Me Introduce You to My Girlfriend [0CF3C03C].mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 7,
+        "episodeTitle": "Let Me Introduce You to My Girlfriend",
+        "episodeOverview": "Itsuomi is away on his trip, and Yuki is left trying to come to grips with their new reality.",
+        "runtime": 24,
+        "tracks": null
+      },
+      {
+        "fileId": "551",
+        "fileName": "S01E08-One Small Step [481FDDFD].mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 8,
+        "episodeTitle": "One Small Step",
+        "episodeOverview": "Being introduced to Yuki gets Shin reminiscing about his high school days with Itsuomi and Emma.",
+        "runtime": 24,
+        "tracks": null
+      },
+      {
+        "fileId": "552",
+        "fileName": "S01E09-I Don't Want to Leave [2551C597].mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 9,
+        "episodeTitle": "I Don't Want to Leave",
+        "episodeOverview": "The gang heads up the mountains for a very eventful boot camp.",
+        "runtime": 24,
+        "tracks": null
+      },
+      {
+        "fileId": "553",
+        "fileName": "S01E10-Oushi's World [49E56EB1].mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 10,
+        "episodeTitle": "Oushi's World",
+        "episodeOverview": "Itsuomi knows that a confrontation with Oushi is inevitable and decides to take matters into his own hands.",
+        "runtime": 24,
+        "tracks": null
+      },
+      {
+        "fileId": "554",
+        "fileName": "S01E11-Promise [1A644CD0].mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 11,
+        "episodeTitle": "Promise",
+        "episodeOverview": "Yuki faces her nerves before an interview for her part-time job, and Shin has to battle his to finally break the news to Emma.",
+        "runtime": 24,
+        "tracks": null
+      },
+      {
+        "fileId": "555",
+        "fileName": "S01E12-Our World [DBA82E42].mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 12,
+        "episodeTitle": "Our World",
+        "episodeOverview": "Yuki and Itsuomi have their first date as a couple, and it leads to them learning more about each other.",
+        "runtime": 24,
+        "tracks": null
+      }
+    ]
+  },
+  "episodes": [],
+  "availableSeasons": [
+    1
+  ],
+  "availableEpisodeCount": 12
+}

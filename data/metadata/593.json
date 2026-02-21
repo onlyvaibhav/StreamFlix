@@ -1,0 +1,36 @@
+{
+  "fileId": "593",
+  "fileName": "Undekhi_S01_E03_WebRip_720p_Hindi_AAC_x264_ESub_Vegamovies_NL.mkv",
+  "type": "tv",
+  "title": "Undekhi",
+  "originalTitle": "अनदेखी",
+  "overview": "Show depicts the two aspects of the society - the power-drunk influential people who think they can get away with anything and the oppressed, subjected to years of torture, who finally decide to bring themselves to justice",
+  "releaseDate": "2020-07-10",
+  "year": 2020,
+  "runtime": 35,
+  "genres": [
+    "Crime",
+    "Drama"
+  ],
+  "rating": 8.2,
+  "popularity": 4.0398,
+  "poster": "/data/posters/show_105759.jpg",
+  "backdrop": "/data/backdrops/show_105759_bd.jpg",
+  "tmdbId": 105759,
+  "fetchedAt": "2026-02-15T15:29:07.857Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Undekhi",
+    "originalShowTitle": "अनदेखी",
+    "seasonNumber": 1,
+    "episodeNumber": 3,
+    "episodeTitle": "For Cash Only",
+    "episodeOverview": "Ghosh interrogates Saloni and team to Rinku’s chagrin and finds discrepancies in their stories. Meanwhile, the wedding festivities continue. Teji confronts Daman about the shooting. Saloni cracks a deal with Rinku in exchange for Rishi’s silence.",
+    "showTmdbId": 105759,
+    "episodeRuntime": 35,
+    "totalSeasons": 3,
+    "totalEpisodes": 28
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

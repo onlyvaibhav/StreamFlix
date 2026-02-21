@@ -1,0 +1,24 @@
+{
+  "fileId": "432",
+  "fileName": "The_Sorcerer’s_Apprentice_2010_Hindi_ORG_Dual_Audio_720p_BluRay.mkv",
+  "type": "movie",
+  "title": "The Sorcerer's Apprentice",
+  "originalTitle": "The Sorcerer's Apprentice",
+  "overview": "Balthazar Blake is a master sorcerer in modern-day Manhattan trying to defend the city from his arch-nemesis, Maxim Horvath. Balthazar can't do it alone, so he recruits Dave Stutler, a seemingly average guy who demonstrates hidden potential, as his reluctant protégé. The sorcerer gives his unwilling accomplice a crash course in the art and science of magic, and together, these unlikely partners work to stop the forces of darkness.",
+  "releaseDate": "2010-07-13",
+  "year": 2010,
+  "runtime": 109,
+  "genres": [
+    "Fantasy",
+    "Adventure",
+    "Action"
+  ],
+  "rating": 6.135,
+  "popularity": 5.5758,
+  "poster": "/data/posters/432.jpg",
+  "backdrop": "/data/backdrops/432_bd.jpg",
+  "tmdbId": 27022,
+  "fetchedAt": "2026-02-15T13:45:23.230Z",
+  "needsRetry": false,
+  "tv": null
+}

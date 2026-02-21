@@ -1,0 +1,36 @@
+{
+  "fileId": "96",
+  "fileName": "Khakee_The_Bihar_Chapter_S01_E02_720p_HEVC_Hindi_WEB_DL_ESub_x265.mkv",
+  "type": "tv",
+  "title": "Khakee: The Bihar Chapter",
+  "originalTitle": "पुलिस: द बिहार चैप्टर",
+  "overview": "As a righteous cop pursues a merciless criminal in Bihar, he finds himself navigating a deadly chase and a moral battle mired in corruption.",
+  "releaseDate": "2022-11-25",
+  "year": 2022,
+  "runtime": 51,
+  "genres": [
+    "Crime",
+    "Drama"
+  ],
+  "rating": 7.803,
+  "popularity": 1.869,
+  "poster": "/data/posters/show_213635.jpg",
+  "backdrop": "/data/backdrops/show_213635_bd.jpg",
+  "tmdbId": 213635,
+  "fetchedAt": "2026-02-15T17:24:59.803Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Khakee: The Bihar Chapter",
+    "originalShowTitle": "पुलिस: द बिहार चैप्टर",
+    "seasonNumber": 1,
+    "episodeNumber": 2,
+    "episodeTitle": "CHANDANWA KA JANM !",
+    "episodeOverview": "Chandan Mahto's notoriety grows after a bold move. As Amit's career advances, deep-rooted social mindsets and political pressures create hurdles.",
+    "showTmdbId": 213635,
+    "episodeRuntime": 51,
+    "totalSeasons": 1,
+    "totalEpisodes": 7
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

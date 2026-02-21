@@ -1,0 +1,24 @@
+{
+  "fileId": "673",
+  "fileName": "Se7en.1995.1080p.Hindi-English.Vegamovies.NL.mkv",
+  "type": "movie",
+  "title": "Se7en",
+  "originalTitle": "Se7en",
+  "overview": "Two homicide detectives are on a desperate hunt for a serial killer whose crimes are based on the \"seven deadly sins\" in this dark and haunting film that takes viewers from the tortured remains of one victim to the next. The seasoned Det. Somerset researches each sin in an effort to get inside the killer's mind, while his novice partner, Mills, scoffs at his efforts to unravel the case.",
+  "releaseDate": "1995-09-22",
+  "year": 1995,
+  "runtime": 127,
+  "genres": [
+    "Crime",
+    "Mystery",
+    "Thriller"
+  ],
+  "rating": 8.378,
+  "popularity": 20.4645,
+  "poster": "/data/posters/673.jpg",
+  "backdrop": "/data/backdrops/673_bd.jpg",
+  "tmdbId": 807,
+  "fetchedAt": "2026-02-15T13:42:36.773Z",
+  "needsRetry": false,
+  "tv": null
+}

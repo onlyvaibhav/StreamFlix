@@ -1,0 +1,36 @@
+{
+  "fileId": "487",
+  "fileName": "Paatal_Lok_S02E06_720p_Hindi_WEB_DL_5_1_ESub_x264_Vegamovies_is.mkv",
+  "type": "tv",
+  "title": "Paatal Lok",
+  "originalTitle": "पाताल लोक",
+  "overview": "A down and out cop lands the case of a lifetime when four suspects are nabbed in the assassination attempt of a prime time journalist. The case turns out to be a devious maze where nothing is what it looks like. The pursuit of it leads him to the dark netherworld - the 'Paatal Lok', and to shocking discoveries in the past of the four suspects.",
+  "releaseDate": "2020-05-15",
+  "year": 2020,
+  "runtime": 45,
+  "genres": [
+    "Crime",
+    "Drama"
+  ],
+  "rating": 7.395,
+  "popularity": 8.6272,
+  "poster": "/data/posters/show_103051.jpg",
+  "backdrop": "/data/backdrops/show_103051_bd.jpg",
+  "tmdbId": 103051,
+  "fetchedAt": "2026-02-15T15:34:11.806Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Paatal Lok",
+    "originalShowTitle": "पाताल लोक",
+    "seasonNumber": 2,
+    "episodeNumber": 6,
+    "episodeTitle": "Of Mothers And Daughters",
+    "episodeOverview": "Hathi Ram and Meghna unite their meagre forces against a raging mob of Thom’s supporters that attacks the hospital Rose Lizo is admitted in. Hathi Ram investigates the murder of a businessman and realises that Reuben has been made the fall guy for the murder. A personal injury leads Hathi Ram to the startling discovery that Rose has a child.",
+    "showTmdbId": 103051,
+    "episodeRuntime": 45,
+    "totalSeasons": 2,
+    "totalEpisodes": 17
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

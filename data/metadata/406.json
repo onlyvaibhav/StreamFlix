@@ -1,0 +1,33 @@
+{
+  "fileId": "406",
+  "fileName": "Scam.1992.S01.E02.Hindi.720p.HEVC.WEB-DL.x265-HDHubu4u.Link.mkv",
+  "type": "tv",
+  "title": "My Romance Scammer",
+  "originalTitle": "My Romance Scammer รักจริง หลังแต่ง",
+  "overview": "After marrying a con artist for love, a billionaire heir must navigate a messy prenuptial trap while his cousin falls for another scammer.",
+  "releaseDate": "2026-02-01",
+  "year": 2026,
+  "runtime": 62,
+  "genres": [
+    "Drama"
+  ],
+  "rating": 0,
+  "popularity": 4.3915,
+  "poster": "/data/posters/show_278157.jpg",
+  "backdrop": "/data/backdrops/show_278157_bd.jpg",
+  "tmdbId": 278157,
+  "fetchedAt": "2026-02-15T16:46:00.327Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "My Romance Scammer",
+    "originalShowTitle": "My Romance Scammer รักจริง หลังแต่ง",
+    "seasonNumber": 1,
+    "episodeNumber": 2,
+    "episodeTitle": "Episode 2",
+    "episodeOverview": "When Pai finds out about North's secret marriage to Yu, he's furious and demands that North contact a divorce lawyer immediately. Tim immediately sees Yu's scheme for what it is.",
+    "showTmdbId": 278157,
+    "episodeRuntime": 62,
+    "totalSeasons": 1,
+    "totalEpisodes": 12
+  }
+}

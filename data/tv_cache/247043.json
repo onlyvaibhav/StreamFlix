@@ -1,0 +1,97 @@
+{
+  "showTmdbId": 247043,
+  "showTitle": "The Ba***ds of Bollywood",
+  "originalShowTitle": "The Ba***ds of Bollywood",
+  "overview": "In this high-stakes drama, an ambitious outsider and his friends navigate the chaotic, larger-than-life, yet uncertain world of Bollywood.",
+  "genres": [
+    "Comedy",
+    "Action & Adventure"
+  ],
+  "rating": 6.833,
+  "popularity": 4.48,
+  "poster": "/data/posters/show_247043.jpg",
+  "backdrop": "/data/backdrops/show_247043_bd.jpg",
+  "totalSeasons": 1,
+  "totalEpisodes": 7,
+  "year": 2025,
+  "releaseDate": "2025-09-18",
+  "seasons": {
+    "1": [
+      {
+        "fileId": "700",
+        "fileName": "The_Bads_of_Bollywood_S01E01_720p_WEB_DL_HIN_x264_ESub_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 1,
+        "episodeTitle": "Meet The Ba***ds",
+        "episodeOverview": "Aasmaan's debut film scores big, earning him a contract at a star-studded bash. At an actors' roundtable, he throws shade at nepo-baby Karishma Talvar.",
+        "runtime": 56,
+        "tracks": null
+      },
+      {
+        "fileId": "701",
+        "fileName": "The_Bads_of_Bollywood_S01E02_720p_WEB_DL_HIN_x264_ESub_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 2,
+        "episodeTitle": "⁠⁠Movie Mafia",
+        "episodeOverview": "Aasmaan meets Freddy and later signs a commercial to fund his father's surgery. Ajay disapproves of the male lead cast opposite his daughter.",
+        "runtime": 40,
+        "tracks": null
+      },
+      {
+        "fileId": "702",
+        "fileName": "The_Bads_of_Bollywood_S01E03_720p_WEB_DL_HIN_x264_ESub_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 3,
+        "episodeTitle": "Barbaad Mohabbat",
+        "episodeOverview": "Parvaiz fanboys over Aasmaan and Karishma's new intimacy coach. A video of the leads goes viral for the wrong reasons. Freddy seeks Ajay's help.",
+        "runtime": 43,
+        "tracks": null
+      },
+      {
+        "fileId": "703",
+        "fileName": "The_Bads_of_Bollywood_S01E04_720p_WEB_DL_HIN_x264_ESub_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 4,
+        "episodeTitle": "Bullshit Party",
+        "episodeOverview": "Avtar's hit song catches Karan Johar's attention. Ajay objects to the film's intimate scenes. Karishma's birthday party brings a huge surprise.",
+        "runtime": 47,
+        "tracks": null
+      },
+      {
+        "fileId": "704",
+        "fileName": "The_Bads_of_Bollywood_S01E05_720p_WEB_DL_HIN_x264_ESub_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 5,
+        "episodeTitle": "My Hero",
+        "episodeOverview": "Jaraj shows Freddy an incriminating video of Aasmaan and pitches a plan. After falling out with Parvaiz, Aasmaan receives upsetting news.",
+        "runtime": 47,
+        "tracks": null
+      },
+      {
+        "fileId": "705",
+        "fileName": "The_Bads_of_Bollywood_S01E06_720p_WEB_DL_HIN_x264_ESub_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 6,
+        "episodeTitle": "The Filmfirst Awards",
+        "episodeOverview": "Avtar turns away an unexpected guest. At a glamorous awards show, Aasmaan faces a pleasant surprise — but soon finds himself in trouble.",
+        "runtime": 44,
+        "tracks": null
+      },
+      {
+        "fileId": "706",
+        "fileName": "The_Bads_of_Bollywood_S01E07_720p_WEB_DL_HIN_x264_ESub_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 7,
+        "episodeTitle": "Picture Ka Title Hoga…",
+        "episodeOverview": "As Aasmaan and Karishma try to elope with Parvaiz's help, Ajay chases after them. A shocking revelation threatens to upend Aasmaan's world.",
+        "runtime": 42,
+        "tracks": null
+      }
+    ]
+  },
+  "episodes": [],
+  "availableSeasons": [
+    1
+  ],
+  "availableEpisodeCount": 7
+}

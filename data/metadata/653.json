@@ -1,0 +1,37 @@
+{
+  "fileId": "653",
+  "fileName": "S.Line.2025.S01E05.720p.x264.WEB-DL.ESub-Vegamovies.is.mkv",
+  "type": "tv",
+  "title": "S Line",
+  "originalTitle": "S라인",
+  "overview": "A young woman with the ability to see mysterious red connections between lovers discovers her secret gift is no longer unique when special glasses granting similar powers appear on the black market.",
+  "releaseDate": "2025-07-11",
+  "year": 2025,
+  "runtime": 54,
+  "genres": [
+    "Sci-Fi & Fantasy",
+    "Drama",
+    "Mystery"
+  ],
+  "rating": 7.541,
+  "popularity": 4.7589,
+  "poster": "/data/posters/show_232402.jpg",
+  "backdrop": "/data/backdrops/show_232402_bd.jpg",
+  "tmdbId": 232402,
+  "fetchedAt": "2026-02-15T15:24:26.694Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "S Line",
+    "originalShowTitle": "S라인",
+    "seasonNumber": 1,
+    "episodeNumber": 5,
+    "episodeTitle": "The Glasses",
+    "episodeOverview": "Ji -wook, who finally discovered glasses in the bloody bathtub of aesthetic, admits that the words of Hyun -suk were true. Use the power of glasses to start an investigation into sexual violence in the runway. And I think that the person connected to the only one S line of Sun -ah is the culprit of the Sun -a case.",
+    "showTmdbId": 232402,
+    "episodeRuntime": 54,
+    "totalSeasons": 1,
+    "totalEpisodes": 6
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

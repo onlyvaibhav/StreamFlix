@@ -1,0 +1,36 @@
+{
+  "fileId": "338",
+  "fileName": "Gutar_Gu_S02_E05_WebRip_720p_Hindi_AAC_2_0_x264_ESub_Vegamovies.mkv",
+  "type": "tv",
+  "title": "Gutar Gu",
+  "originalTitle": "Gutar Gu",
+  "overview": "Ritu joins a coaching class in Bhopal and notices Anuj on the first day. She introduces herself to Anuj, which startles him. He seeks advice from friends on how to impress her. Ritu asks Anuj to help her explore the city but he cancels at the last minute. Anuj writes a love letter and must now confess his feelings to Ritu and pray she feels the same way.",
+  "releaseDate": "2023-04-05",
+  "year": 2023,
+  "runtime": 28,
+  "genres": [
+    "Drama",
+    "Comedy"
+  ],
+  "rating": 8,
+  "popularity": 1.2929,
+  "poster": "/data/posters/show_223952.jpg",
+  "backdrop": "/data/backdrops/show_223952_bd.jpg",
+  "tmdbId": 223952,
+  "fetchedAt": "2026-02-15T16:07:19.206Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Gutar Gu",
+    "originalShowTitle": "Gutar Gu",
+    "seasonNumber": 2,
+    "episodeNumber": 5,
+    "episodeTitle": "3,2,1… Happy New Year",
+    "episodeOverview": "Ritu and Anuj have glorious and hopeful New Year's Eve plans, which also include the possibility of Anuj booking a hotel room for them. Ritu takes up an internship where her experience is not what she anticipated. Anuj stands with Ritu like a rock and comforts her. On New Year's Eve, the duo dines together in a unique set-up and we know that long distance has only strengthened their bond.",
+    "showTmdbId": 223952,
+    "episodeRuntime": 28,
+    "totalSeasons": 3,
+    "totalEpisodes": 18
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

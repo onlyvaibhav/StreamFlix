@@ -1,0 +1,28 @@
+{
+  "fileId": "353",
+  "fileName": "The.Tuxedo.2002.720p.BRRip.Hindi.Dual-Audio.Vegamovies.NL.mkv",
+  "type": "movie",
+  "title": "The Tuxedo",
+  "originalTitle": "The Tuxedo",
+  "overview": "Cabbie-turned-chauffeur Jimmy Tong learns there is really only one rule when you work for playboy millionaire Clark Devlin : Never touch Devlin's prized tuxedo. But when Devlin is temporarily put out of commission in an explosive accident, Jimmy puts on the tux and soon discovers that this extraordinary suit may be more black belt than black tie. Paired with a partner as inexperienced as he is, Jimmy becomes an unwitting secret agent.",
+  "releaseDate": "2002-09-27",
+  "year": 2002,
+  "runtime": 98,
+  "genres": [
+    "Thriller",
+    "Action",
+    "Comedy",
+    "Science Fiction"
+  ],
+  "rating": 5.7,
+  "popularity": 3.5623,
+  "poster": "/data/posters/353.jpg",
+  "backdrop": "/data/backdrops/353_bd.jpg",
+  "tmdbId": 10771,
+  "fetchedAt": "2026-02-15T13:46:46.913Z",
+  "needsRetry": false,
+  "tv": null,
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "_tracksDetected": true
+}

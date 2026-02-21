@@ -1,0 +1,24 @@
+{
+  "fileId": "275",
+  "fileName": "Total.Recall.2012.720p.Hindi.English.Vegamovies.NL.mkv",
+  "type": "movie",
+  "title": "Total Recall",
+  "originalTitle": "Total Recall",
+  "overview": "Factory worker Doug Quaid takes a virtual mind-trip vacation with the Rekall company, opting for implanted memories of being a spy. When the procedure goes wrong, Quaid becomes a wanted man by the police and joins forces with a rebel fighter to stop the evil Chancellor Cohaagen.",
+  "releaseDate": "2012-08-02",
+  "year": 2012,
+  "runtime": 118,
+  "genres": [
+    "Action",
+    "Science Fiction",
+    "Thriller"
+  ],
+  "rating": 6.025,
+  "popularity": 7.6686,
+  "poster": "/data/posters/275.jpg",
+  "backdrop": "/data/backdrops/275_bd.jpg",
+  "tmdbId": 64635,
+  "fetchedAt": "2026-02-15T13:47:47.405Z",
+  "needsRetry": false,
+  "tv": null
+}

@@ -1,0 +1,36 @@
+{
+  "fileId": "485",
+  "fileName": "Paatal_Lok_S02E04_720p_Hindi_WEB_DL_5_1_ESub_x264_Vegamovies_is.mkv",
+  "type": "tv",
+  "title": "Paatal Lok",
+  "originalTitle": "पाताल लोक",
+  "overview": "A down and out cop lands the case of a lifetime when four suspects are nabbed in the assassination attempt of a prime time journalist. The case turns out to be a devious maze where nothing is what it looks like. The pursuit of it leads him to the dark netherworld - the 'Paatal Lok', and to shocking discoveries in the past of the four suspects.",
+  "releaseDate": "2020-05-15",
+  "year": 2020,
+  "runtime": 44,
+  "genres": [
+    "Crime",
+    "Drama"
+  ],
+  "rating": 7.395,
+  "popularity": 8.6272,
+  "poster": "/data/posters/show_103051.jpg",
+  "backdrop": "/data/backdrops/show_103051_bd.jpg",
+  "tmdbId": 103051,
+  "fetchedAt": "2026-02-15T15:34:38.198Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Paatal Lok",
+    "originalShowTitle": "पाताल लोक",
+    "seasonNumber": 2,
+    "episodeNumber": 4,
+    "episodeTitle": "Missed Call",
+    "episodeOverview": "Hathi Ram and Ansari investigate the murder of the three individuals, only to realise that the three were set up for this. Hathi Ram discovers Raghu Paswan’s link to Reddy’s hotel before travelling to Delhi for his son’s birthday. Meanwhile, Ansari discovers a lead on Rose Lizo and goes looking for her, but so do Reuben and Daniel, Thom’s security officer.",
+    "showTmdbId": 103051,
+    "episodeRuntime": 44,
+    "totalSeasons": 2,
+    "totalEpisodes": 17
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

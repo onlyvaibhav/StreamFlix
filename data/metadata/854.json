@@ -1,0 +1,73 @@
+{
+  "fileId": "854",
+  "fileName": "Wish.Dragon.2021.720p.Hindi.Eng.Esubs.Vegamovies.to.mkv",
+  "type": "movie",
+  "title": "Wish Dragon",
+  "originalTitle": "Wish Dragon",
+  "overview": "Determined teen Din is longing to reconnect with his childhood best friend when he meets a wish-granting dragon who shows him the magic of possibilities.",
+  "releaseDate": "2021-01-15",
+  "year": 2021,
+  "runtime": 99,
+  "genres": [
+    "Animation",
+    "Family",
+    "Comedy",
+    "Fantasy",
+    "Romance",
+    "Adventure"
+  ],
+  "rating": 7.852,
+  "popularity": 4.8372,
+  "poster": "/data/posters/854.jpg",
+  "backdrop": "/data/backdrops/854_bd.jpg",
+  "tmdbId": 550205,
+  "fetchedAt": "2026-02-17T21:25:15.435Z",
+  "needsRetry": false,
+  "tv": null,
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "_tracksDetected": true,
+  "container": "matroska,webm",
+  "duration": 6143.776,
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "Vegamovies.to",
+      "channels": 6,
+      "channelLayout": "5.1",
+      "browserPlayable": true,
+      "isDefault": true
+    },
+    {
+      "index": 1,
+      "streamIndex": 2,
+      "codec": "aac",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Vegamovies.to",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": false
+    }
+  ],
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 3,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Vegamovies.to",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    }
+  ]
+}

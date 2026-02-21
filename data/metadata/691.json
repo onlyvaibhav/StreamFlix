@@ -1,0 +1,37 @@
+{
+  "fileId": "691",
+  "fileName": "My_Happy_Marriage_S01E07_Glamorous_Lady_of_Summer_720p_10Bit_Hindi.mkv",
+  "type": "tv",
+  "title": "My Happy Marriage",
+  "originalTitle": "わたしの幸せな結婚",
+  "overview": "Miyo's abusive family deems her worthless – but together with her powerful husband-to-be, her true self and hidden powers slowly begin to shine.",
+  "releaseDate": "2023-07-05",
+  "year": 2023,
+  "runtime": 24,
+  "genres": [
+    "Animation",
+    "Drama",
+    "Sci-Fi & Fantasy"
+  ],
+  "rating": 8.307,
+  "popularity": 16.9271,
+  "poster": "/data/posters/show_196944.jpg",
+  "backdrop": "/data/backdrops/show_196944_bd.jpg",
+  "tmdbId": 196944,
+  "fetchedAt": "2026-02-15T14:55:42.080Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "My Happy Marriage",
+    "originalShowTitle": "わたしの幸せな結婚",
+    "seasonNumber": 1,
+    "episodeNumber": 7,
+    "episodeTitle": "Glamorous Lady of Summer",
+    "episodeOverview": "Kiyoka accompanies Miyo to the remains of the Saimori home at her request. Later, a stunning visitor comes by their home.",
+    "showTmdbId": 196944,
+    "episodeRuntime": 24,
+    "totalSeasons": 1,
+    "totalEpisodes": 25
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

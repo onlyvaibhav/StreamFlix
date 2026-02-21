@@ -1,0 +1,37 @@
+{
+  "fileId": "48",
+  "fileName": "Alice_In_Borderland_S02E06_720p_10Bit_Hindi_English_Msubs_Vegamovies.mkv",
+  "type": "tv",
+  "title": "Alice in Borderland",
+  "originalTitle": "今際の国のアリス",
+  "overview": "With his two friends, a video-game-obsessed young man finds himself in a strange version of Tokyo where they must compete in dangerous games to win.",
+  "releaseDate": "2020-12-10",
+  "year": 2020,
+  "runtime": 76,
+  "genres": [
+    "Mystery",
+    "Drama",
+    "Action & Adventure"
+  ],
+  "rating": 8.1,
+  "popularity": 31.959,
+  "poster": "/data/posters/show_110316.jpg",
+  "backdrop": "/data/backdrops/show_110316_bd.jpg",
+  "tmdbId": 110316,
+  "fetchedAt": "2026-02-15T14:51:20.172Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Alice in Borderland",
+    "originalShowTitle": "今際の国のアリス",
+    "seasonNumber": 2,
+    "episodeNumber": 6,
+    "episodeTitle": "Episode 6",
+    "episodeOverview": "Usagi will have to change the hearts and minds of the cynical players on the Queen's team. At the Supreme Court, Chishiya meets the King of Diamonds.",
+    "showTmdbId": 110316,
+    "episodeRuntime": 76,
+    "totalSeasons": 3,
+    "totalEpisodes": 22
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

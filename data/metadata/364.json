@@ -1,0 +1,38 @@
+{
+  "fileId": "364",
+  "fileName": "Chainsaw_Man_S01E08_BDRip_720p_x264_Multi_Audio_ESub_Vegamovies.mkv",
+  "type": "tv",
+  "title": "Chainsaw Man",
+  "originalTitle": "チェンソーマン",
+  "overview": "Denji has a simple dream—to live a happy and peaceful life, spending time with a girl he likes. This is a far cry from reality, however, as Denji is forced by the yakuza into killing devils in order to pay off his crushing debts. Using his pet devil Pochita as a weapon, he is ready to do anything for a bit of cash.",
+  "releaseDate": "2022-10-12",
+  "year": 2022,
+  "runtime": 24,
+  "genres": [
+    "Animation",
+    "Action & Adventure",
+    "Sci-Fi & Fantasy",
+    "Comedy"
+  ],
+  "rating": 8.51,
+  "popularity": 23.6767,
+  "poster": "/data/posters/show_114410.jpg",
+  "backdrop": "/data/backdrops/show_114410_bd.jpg",
+  "tmdbId": 114410,
+  "fetchedAt": "2026-02-15T16:02:54.844Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Chainsaw Man",
+    "originalShowTitle": "チェンソーマン",
+    "seasonNumber": 1,
+    "episodeNumber": 8,
+    "episodeTitle": "GUNFIRE",
+    "episodeOverview": "Denji experiences his first, yet devastating, kiss.\n\nAn intoxicated Denji is taken to Himeno's house, where she starts seducing him. Feeling torn between Makima, whom he admires, and Himeno, who is standing in front of him, he decides to fall into temptation. However, Denji then finds something in his pocket: The Chupa Chups lollipop that Makima gave him.",
+    "showTmdbId": 114410,
+    "episodeRuntime": 24,
+    "totalSeasons": 1,
+    "totalEpisodes": 12
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

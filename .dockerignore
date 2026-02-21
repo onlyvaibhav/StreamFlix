@@ -1,0 +1,10 @@
+node_modules/
+data/
+temp/
+.env
+.git
+.gitignore
+Debug Trash/
+ffmpeg_err.log
+*.log
+*.txt

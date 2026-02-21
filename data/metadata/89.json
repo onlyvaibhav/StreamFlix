@@ -1,0 +1,56 @@
+{
+  "fileId": "89",
+  "fileName": "The_Dark_Knight_2008_720p_Dual_Audio_Hin_Eng_Vegamovies_NL.mkv",
+  "type": "movie",
+  "title": "The Dark Knight",
+  "originalTitle": "The Dark Knight",
+  "overview": "Batman raises the stakes in his war on crime. With the help of Lt. Jim Gordon and District Attorney Harvey Dent, Batman sets out to dismantle the remaining criminal organizations that plague the streets. The partnership proves to be effective, but they soon find themselves prey to a reign of chaos unleashed by a rising criminal mastermind known to the terrified citizens of Gotham as the Joker.",
+  "releaseDate": "2008-07-16",
+  "year": 2008,
+  "runtime": 152,
+  "genres": [
+    "Action",
+    "Crime",
+    "Thriller"
+  ],
+  "rating": 8.526,
+  "popularity": 30.9861,
+  "poster": "/data/posters/89.jpg",
+  "backdrop": "/data/backdrops/89_bd.jpg",
+  "tmdbId": 155,
+  "fetchedAt": "2026-02-15T13:50:26.299Z",
+  "needsRetry": false,
+  "tv": null,
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "_tracksDetected": true,
+  "container": "matroska,webm",
+  "duration": 9133.249,
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 0,
+      "codec": "aac",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "EnCoDeR BUZZccd",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": false
+    },
+    {
+      "index": 1,
+      "streamIndex": 2,
+      "codec": "aac",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "EnCoDeR BUZZccd",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": true
+    }
+  ],
+  "subtitleTracks": []
+}

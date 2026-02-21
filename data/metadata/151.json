@@ -1,0 +1,23 @@
+{
+  "fileId": "151",
+  "fileName": "Iratta_2023_720p_NF_WEB_DL_Multi_DDP5_1_H_264_Vegamovies_to.mkv",
+  "type": "movie",
+  "title": "Iratta",
+  "originalTitle": "ഇരട്ട",
+  "overview": "After a cop is found dead, a policeman's investigation sparks a chilling search for the truth connected to his estranged twin and their fraught past.",
+  "releaseDate": "2023-02-03",
+  "year": 2023,
+  "runtime": 110,
+  "genres": [
+    "Drama",
+    "Thriller"
+  ],
+  "rating": 6.744,
+  "popularity": 0.9378,
+  "poster": "/data/posters/151.jpg",
+  "backdrop": "/data/backdrops/151_bd.jpg",
+  "tmdbId": 945167,
+  "fetchedAt": "2026-02-15T13:50:05.871Z",
+  "needsRetry": false,
+  "tv": null
+}

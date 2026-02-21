@@ -1,0 +1,27 @@
+{
+  "fileId": "506",
+  "fileName": "Red_One_2024_720p_10bit_WEBRip_HEVC_x265_Hindi_AMZN_DDP_5_1_192kbps.mkv",
+  "type": "movie",
+  "title": "Red One",
+  "originalTitle": "Red One",
+  "overview": "After Santa Claus (codename: Red One) is kidnapped, the North Pole's Head of Security must team up with the world's most infamous tracker in a globe-trotting, action-packed mission to save Christmas.",
+  "releaseDate": "2024-10-31",
+  "year": 2024,
+  "runtime": 124,
+  "genres": [
+    "Action",
+    "Comedy",
+    "Fantasy"
+  ],
+  "rating": 7.002,
+  "popularity": 14.1449,
+  "poster": "/data/posters/506.jpg",
+  "backdrop": "/data/backdrops/506_bd.jpg",
+  "tmdbId": 845781,
+  "fetchedAt": "2026-02-15T13:44:10.668Z",
+  "needsRetry": false,
+  "tv": null,
+  "audioCodec": "eac3",
+  "browserPlayable": false,
+  "_tracksDetected": true
+}

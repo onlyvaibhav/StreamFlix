@@ -1,0 +1,36 @@
+{
+  "fileId": "663",
+  "fileName": "Panchayat_S04E01_Case_Mukadma_720p_AMZN_WEB_DL_DDP5_1_x264_Vegamovies.mkv",
+  "type": "tv",
+  "title": "Panchayat",
+  "originalTitle": "पंचायत",
+  "overview": "Panchayat is a comedy-drama, which captures the journey of an engineering graduate Abhishek, who for lack of a better job option joins as secretary of a panchayat office in a remote village of Uttar Pradesh. Stuck between crazy villagers and a difficult village lifestyle Abhishek starts his job with the sole motivation of getting out of there as soon as possible, for which he even prepares for CAT.",
+  "releaseDate": "2020-03-05",
+  "year": 2020,
+  "runtime": 38,
+  "genres": [
+    "Comedy",
+    "Drama"
+  ],
+  "rating": 8.2,
+  "popularity": 6.009,
+  "poster": "/data/posters/show_101352.jpg",
+  "backdrop": "/data/backdrops/show_101352_bd.jpg",
+  "tmdbId": 101352,
+  "fetchedAt": "2026-02-15T15:21:19.594Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Panchayat",
+    "originalShowTitle": "पंचायत",
+    "seasonNumber": 4,
+    "episodeNumber": 1,
+    "episodeTitle": "Case-Mukadma",
+    "episodeOverview": "Abhishek fears the police case for slapping Bhushan could ruin his career. Drunk and frustrated, he vents and tries to apologise, hoping Bhushan will drop the case. But Bhushan has other plans because he wants Abhishek’s help to clear his name in the Pradhan shooting. The situation escalates when the MLA also gets involved in the deal.",
+    "showTmdbId": 101352,
+    "episodeRuntime": 38,
+    "totalSeasons": 5,
+    "totalEpisodes": 32
+  },
+  "audioCodec": "eac3",
+  "browserPlayable": false
+}

@@ -1,0 +1,97 @@
+{
+  "showTmdbId": 213635,
+  "showTitle": "Khakee: The Bihar Chapter",
+  "originalShowTitle": "पुलिस: द बिहार चैप्टर",
+  "overview": "As a righteous cop pursues a merciless criminal in Bihar, he finds himself navigating a deadly chase and a moral battle mired in corruption.",
+  "genres": [
+    "Crime",
+    "Drama"
+  ],
+  "rating": 7.803,
+  "popularity": 1.869,
+  "poster": "/data/posters/show_213635.jpg",
+  "backdrop": "/data/backdrops/show_213635_bd.jpg",
+  "totalSeasons": 1,
+  "totalEpisodes": 7,
+  "year": 2022,
+  "releaseDate": "2022-11-25",
+  "seasons": {
+    "1": [
+      {
+        "fileId": "97",
+        "fileName": "Khakee_The_Bihar_Chapter_S01_E01_720p_HEVC_Hindi_WEB_DL_ESub_x265.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 1,
+        "episodeTitle": "PATRA PARICHAY !",
+        "episodeOverview": "Upon arriving in Bihar, police officer Amit Lodha grapples with a tough new way of life — but when a child is kidnapped, he springs into action.",
+        "runtime": 57,
+        "tracks": null
+      },
+      {
+        "fileId": "96",
+        "fileName": "Khakee_The_Bihar_Chapter_S01_E02_720p_HEVC_Hindi_WEB_DL_ESub_x265.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 2,
+        "episodeTitle": "CHANDANWA KA JANM !",
+        "episodeOverview": "Chandan Mahto's notoriety grows after a bold move. As Amit's career advances, deep-rooted social mindsets and political pressures create hurdles.",
+        "runtime": 51,
+        "tracks": null
+      },
+      {
+        "fileId": "95",
+        "fileName": "Khakee_The_Bihar_Chapter_S01_E03_720p_HEVC_Hindi_WEB_DL_ESub_x265.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 3,
+        "episodeTitle": "AMIT KAUN ???",
+        "episodeOverview": "In the lead-up to state elections, violence breaks out. Amit stands up to political power but receives backlash. Chandan makes a new adversary.",
+        "runtime": 54,
+        "tracks": null
+      },
+      {
+        "fileId": "94",
+        "fileName": "Khakee_The_Bihar_Chapter_S01_E04_720p_HEVC_Hindi_WEB_DL_ESub_x265.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 4,
+        "episodeTitle": "MOOH DIKHAI !!!",
+        "episodeOverview": "After a bloody massacre orchestrated by Chandan, Amit is tasked with capturing the criminal — and faces a vexing road ahead.",
+        "runtime": 46,
+        "tracks": null
+      },
+      {
+        "fileId": "93",
+        "fileName": "Khakee_The_Bihar_Chapter_S01_E05_720p_HEVC_Hindi_WEB_DL_ESub_x265.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 5,
+        "episodeTitle": "MEETA JI KI LOVE STORY !!!",
+        "episodeOverview": "Chandan's elusive whereabouts spark a new plan, with Amit and Ranjan using phone calls to track him. A secret tryst offers crucial clues.",
+        "runtime": 42,
+        "tracks": null
+      },
+      {
+        "fileId": "92",
+        "fileName": "Khakee_The_Bihar_Chapter_S01_E06_720p_HEVC_Hindi_WEB_DL_ESub_x265.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 6,
+        "episodeTitle": "MEETA JI KI LOVE STORY PART 2",
+        "episodeOverview": "Amit makes a major announcement at a press meet. Chandan sets a trap with deadly consequences, while an explosive revelation stuns the team.",
+        "runtime": 41,
+        "tracks": null
+      },
+      {
+        "fileId": "91",
+        "fileName": "Khakee_The_Bihar_Chapter_S01_E07_720p_HEVC_Hindi_WEB_DL_ESub_x265.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 7,
+        "episodeTitle": "PHACE TO PHACE !",
+        "episodeOverview": "The chase approaches a dramatic end, but peril lurks at every corner. The question remains: can Amit close the case, or will Chandan slip away?",
+        "runtime": 68,
+        "tracks": null
+      }
+    ]
+  },
+  "episodes": [],
+  "availableSeasons": [
+    1
+  ],
+  "availableEpisodeCount": 7
+}

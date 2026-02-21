@@ -1,0 +1,36 @@
+{
+  "fileId": "678",
+  "fileName": "Court_Kacheri_2025_S01E05_Judgment_720p_SONY_WEB_DL_MULTi_DDP5_1.mkv",
+  "type": "tv",
+  "title": "Court Kacheri",
+  "originalTitle": "Court Kacheri",
+  "overview": "In a chaotic district court of rural India, the son of a legendary lawyer wrestles with his unwanted inheritance while cases expose the messy truth behind local justice.",
+  "releaseDate": "2025-08-12",
+  "year": 2025,
+  "runtime": 51,
+  "genres": [
+    "Comedy",
+    "Drama"
+  ],
+  "rating": 0,
+  "popularity": 0.842,
+  "poster": "/data/posters/show_298052.jpg",
+  "backdrop": "/data/backdrops/show_298052_bd.jpg",
+  "tmdbId": 298052,
+  "fetchedAt": "2026-02-15T14:56:39.911Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Court Kacheri",
+    "originalShowTitle": "Court Kacheri",
+    "seasonNumber": 1,
+    "episodeNumber": 5,
+    "episodeTitle": "Judgment",
+    "episodeOverview": "Param thinks he's done the right thing, until he realizes his judgment was flawed. Racing to fix the damage and protect his father, he witnesses a side of Harish Mathur he never knew: a man of justice, not just victory. The courtroom, once repulsive, now feels purposeful. With clarity and conviction, Param abandons his Canada dream and chooses law - not out of duty, but out of belief.",
+    "showTmdbId": 298052,
+    "episodeRuntime": 51,
+    "totalSeasons": 1,
+    "totalEpisodes": 5
+  },
+  "audioCodec": "eac3",
+  "browserPlayable": false
+}

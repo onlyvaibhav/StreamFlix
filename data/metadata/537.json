@@ -1,0 +1,23 @@
+{
+  "fileId": "537",
+  "fileName": "Every Day (2018)-002.mkv",
+  "type": "movie",
+  "title": "Every Day",
+  "originalTitle": "Every Day",
+  "overview": "16-year old Rhiannon falls in love with a mysterious spirit named “A” that inhabits a different body every day. Feeling an unmatched connection, Rhiannon and “A” work each day to find each other, not knowing what the next day will bring.",
+  "releaseDate": "2018-02-22",
+  "year": 2018,
+  "runtime": 97,
+  "genres": [
+    "Romance",
+    "Fantasy"
+  ],
+  "rating": 7.2,
+  "popularity": 5.1038,
+  "poster": "/data/posters/537.jpg",
+  "backdrop": "/data/backdrops/537_bd.jpg",
+  "tmdbId": 465136,
+  "fetchedAt": "2026-02-15T20:13:22.915Z",
+  "needsRetry": false,
+  "tv": null
+}

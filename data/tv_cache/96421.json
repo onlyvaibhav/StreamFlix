@@ -1,0 +1,77 @@
+{
+  "showTmdbId": 96421,
+  "showTitle": "Hostel Daze",
+  "originalShowTitle": "Hostel Daze",
+  "overview": "Four naive and vulnerable wing-mates develop lasting bonds as they jostle hard to survive the first semester in a hostel. Peppered with absurdities, chutzpahs, clashes and debacles inherent to hostel life, 'Hostel Daze' depicts the grill that every Indian hostel-resident goes through.",
+  "genres": [
+    "Drama",
+    "Comedy"
+  ],
+  "rating": 7.348,
+  "popularity": 3.4988,
+  "poster": "/data/posters/show_96421.jpg",
+  "backdrop": "/data/backdrops/show_96421_bd.jpg",
+  "totalSeasons": 4,
+  "totalEpisodes": 21,
+  "year": 2019,
+  "releaseDate": "2019-12-13",
+  "seasons": {
+    "1": [
+      {
+        "fileId": "153",
+        "fileName": "hostel.daze.S01EP01.720p.[Vegamovies.NL].mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 1,
+        "episodeTitle": "Intro",
+        "episodeOverview": "Ankit Pandey enters hostel to ﬁnd that the room allotted to him is already occupied by Chirag and Jaat. He has to ﬁnd himself a room, and a bed that too in the ragging period.",
+        "runtime": 33,
+        "tracks": null
+      },
+      {
+        "fileId": "154",
+        "fileName": "hostel.daze.S01EP02.720p.[Vegamovies.NL].mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 2,
+        "episodeTitle": "Proving Identity",
+        "episodeOverview": "Ankit grapples with identity crisis as he ﬁnds himself pretty ordinary amongst his batch-mates.",
+        "runtime": 32,
+        "tracks": null
+      },
+      {
+        "fileId": "155",
+        "fileName": "hostel.daze.S01EP03.720p.[Vegamovies.NL].mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 3,
+        "episodeTitle": "F.O.S.L.A",
+        "episodeOverview": "Ankit is smitten by Akanksha, the most prized catch of not only his batch but entire college. Will a coy Ankit succeed?",
+        "runtime": 31,
+        "tracks": null
+      },
+      {
+        "fileId": "156",
+        "fileName": "hostel.daze.S01EP04.720p.[Vegamovies.NL].mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 4,
+        "episodeTitle": "GPL",
+        "episodeOverview": "Ankit tries to hide his birthday from his wing-mates to avoid the dreaded GPL. Will he succeed?",
+        "runtime": 31,
+        "tracks": null
+      },
+      {
+        "fileId": "157",
+        "fileName": "hostel.daze.S01EP05.720p.[Vegamovies.NL].mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 5,
+        "episodeTitle": "End Sem",
+        "episodeOverview": "With Chirag suddenly gone unavailable at the last moment, Ankit and Jhantoo have to survive the end-sems.",
+        "runtime": 32,
+        "tracks": null
+      }
+    ]
+  },
+  "episodes": [],
+  "availableSeasons": [
+    1
+  ],
+  "availableEpisodeCount": 5
+}

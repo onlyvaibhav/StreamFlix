@@ -1,0 +1,36 @@
+{
+  "fileId": "528",
+  "fileName": "Aashram_S01_E01_2020_WebRip_Hindi_720p_x264_AAC_Vegamovies_NL.mkv",
+  "type": "tv",
+  "title": "Aashram",
+  "originalTitle": "आश्रम",
+  "overview": "A duplicitous, aashram based, Indian Godman's good deeds serve activities criminal and unholy, such as rapes, murders, drugs, vote bank politics and forced male emasculation. The law and a few crusaders investigate to bring him to account.",
+  "releaseDate": "2020-08-28",
+  "year": 2020,
+  "runtime": 53,
+  "genres": [
+    "Drama",
+    "Crime"
+  ],
+  "rating": 5.176,
+  "popularity": 4.3857,
+  "poster": "/data/posters/show_107588.jpg",
+  "backdrop": "/data/backdrops/show_107588_bd.jpg",
+  "tmdbId": 107588,
+  "fetchedAt": "2026-02-15T15:30:39.221Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Aashram",
+    "originalShowTitle": "आश्रम",
+    "seasonNumber": 1,
+    "episodeNumber": 1,
+    "episodeTitle": "Pran Pratishtha",
+    "episodeOverview": "Pammi, the wrestling champion has always faced discrimination and tried her best to raise her voice against the system for the discrimination she has been a victim of, but to no avail. But then, like a ray of hope, Baba Nirala comes to her in the form of a saviour. And then, a body is dug out from a construction site in a forest. Stream the full episode of the latest Hindi web series Ashram online on MX Player!",
+    "showTmdbId": 107588,
+    "episodeRuntime": 53,
+    "totalSeasons": 3,
+    "totalEpisodes": 33
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

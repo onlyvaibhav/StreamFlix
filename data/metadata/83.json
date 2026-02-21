@@ -1,0 +1,27 @@
+{
+  "fileId": "83",
+  "fileName": "Interstellar_2014_720p_BluRay_Hindi_ORG_English_ESub_x264_Vegamovies.mkv",
+  "type": "movie",
+  "title": "Interstellar",
+  "originalTitle": "Interstellar",
+  "overview": "The adventures of a group of explorers who make use of a newly discovered wormhole to surpass the limitations on human space travel and conquer the vast distances involved in an interstellar voyage.",
+  "releaseDate": "2014-11-05",
+  "year": 2014,
+  "runtime": 169,
+  "genres": [
+    "Adventure",
+    "Drama",
+    "Science Fiction"
+  ],
+  "rating": 8.467,
+  "popularity": 46.8378,
+  "poster": "/data/posters/83.jpg",
+  "backdrop": "/data/backdrops/83_bd.jpg",
+  "tmdbId": 157336,
+  "fetchedAt": "2026-02-15T13:50:32.931Z",
+  "needsRetry": false,
+  "tv": null,
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "_tracksDetected": true
+}

@@ -1,0 +1,57 @@
+{
+  "fileId": "75",
+  "fileName": "Your.Name.(2016).720p.Dual.Audio.(Hin-Eng).Vegamovies.NL.mkv",
+  "type": "movie",
+  "title": "Your Name.",
+  "originalTitle": "君の名は。",
+  "overview": "High schoolers Mitsuha and Taki are complete strangers living separate lives. But one night, they suddenly switch places. Mitsuha wakes up in Taki’s body, and he in hers. This bizarre occurrence continues to happen randomly, and the two must adjust their lives around each other.",
+  "releaseDate": "2016-08-26",
+  "year": 2016,
+  "runtime": 106,
+  "genres": [
+    "Animation",
+    "Romance",
+    "Drama"
+  ],
+  "rating": 8.479,
+  "popularity": 17.7326,
+  "poster": "/data/posters/75.jpg",
+  "backdrop": "/data/backdrops/75_bd.jpg",
+  "tmdbId": 372058,
+  "fetchedAt": "2026-02-15T13:50:49.761Z",
+  "needsRetry": false,
+  "tv": null,
+  "container": "matroska,webm",
+  "duration": 6400.2,
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 0,
+      "codec": "mp3",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "Hindi - [Dubbed by AnimeTm Dubbers]",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": true
+    }
+  ],
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "ass",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Hinglish (Subtitles/Signs)",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": true,
+      "isForced": false
+    }
+  ],
+  "audioCodec": "mp3",
+  "browserPlayable": true
+}

@@ -1,0 +1,57 @@
+{
+  "fileId": "851",
+  "fileName": "Dhurandhar_2025_720p_NF_WEB_DL_Hindi_DDP5_1_H_264_Vegamovies_is.mkv",
+  "type": "movie",
+  "title": "Dhurandhar",
+  "originalTitle": "धुरंधर",
+  "overview": "A mysterious traveler slips into the heart of Karachi's underbelly and rises through its ranks with lethal precision, only to tear the notorious ISI-Underworld nexus apart from within.",
+  "releaseDate": "2025-12-05",
+  "year": 2025,
+  "runtime": 212,
+  "genres": [
+    "Action",
+    "Thriller"
+  ],
+  "rating": 6.932,
+  "popularity": 30.61,
+  "poster": "/data/posters/851.jpg",
+  "backdrop": "/data/backdrops/851_bd.jpg",
+  "tmdbId": 1291608,
+  "fetchedAt": "2026-02-15T13:41:42.370Z",
+  "needsRetry": false,
+  "tv": null,
+  "audioCodec": "opus",
+  "browserPlayable": true,
+  "_tracksDetected": true,
+  "container": "matroska,webm",
+  "duration": 12334.784,
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "opus",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "Vegamovies.is",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": true
+    }
+  ],
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 2,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Vegamovies.is",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    }
+  ]
+}

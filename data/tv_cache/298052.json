@@ -1,0 +1,77 @@
+{
+  "showTmdbId": 298052,
+  "showTitle": "Court Kacheri",
+  "originalShowTitle": "Court Kacheri",
+  "overview": "In a chaotic district court of rural India, the son of a legendary lawyer wrestles with his unwanted inheritance while cases expose the messy truth behind local justice.",
+  "genres": [
+    "Comedy",
+    "Drama"
+  ],
+  "rating": 0,
+  "popularity": 0.842,
+  "poster": "/data/posters/show_298052.jpg",
+  "backdrop": "/data/backdrops/show_298052_bd.jpg",
+  "totalSeasons": 1,
+  "totalEpisodes": 5,
+  "year": 2025,
+  "releaseDate": "2025-08-12",
+  "seasons": {
+    "1": [
+      {
+        "fileId": "674",
+        "fileName": "Court_Kacheri_2025_S01E01_Summon_720p_SONY_WEB_DL_MULTi_DDP5_1_Atmos.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 1,
+        "episodeTitle": "Summon",
+        "episodeOverview": "Param Mathur is destined to be a lawyer like his father, but the courtroom makes him sick. In a reckless bid for freedom, he forges a degree and ends up in jail. Rescued by Suraj, his father's loyal aide, Param is forced back into the legal world he despises. As Suraj lands his first case, Param finds himself trapped in a life he never chose, with no escape in sight.",
+        "runtime": 28,
+        "tracks": null
+      },
+      {
+        "fileId": "675",
+        "fileName": "Court_Kacheri_2025_S01E02_Objection_720p_SONY_WEB_DL_MULTi_DDP5.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 2,
+        "episodeTitle": "Objection!",
+        "episodeOverview": "No matter how hard Param tries, the legal world rejects him. A disastrous mistake turns a simple case into courtroom chaos, crushing Suraj's dreams and humiliating Param. Just as hope fades, Param eyes a way out - Canada PR. Meanwhile, Suraj, urged by his childhood friend, must decide: stay in Harish Mathur's shadow or rise on his own.",
+        "runtime": 24,
+        "tracks": null
+      },
+      {
+        "fileId": "676",
+        "fileName": "Court_Kacheri_2025_S01E03_Cross_Examination_720p_SONY_WEB_DL_MULTi.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 3,
+        "episodeTitle": "Cross-Examination",
+        "episodeOverview": "As Param fights to escape to Canada, every step - money, exams, paperwork - feels impossible. But he won't give up. Meanwhile, the divorce case he botched spirals into a courtroom war. Suraj, chasing his dream of independence, hits a financial wall and faces a tough, morally gray decision. With no easy exits, both men must confront the cost of chasing freedom.",
+        "runtime": 31,
+        "tracks": null
+      },
+      {
+        "fileId": "677",
+        "fileName": "Court_Kacheri_2025_S01E04_Final_Argument_720p_SONY_WEB_DL_MULTi.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 4,
+        "episodeTitle": "Final Argument",
+        "episodeOverview": "As Param awaits his visa, he uncovers key evidence in the divorce case. Torn between loyalty and justice, he defies his father to reveal the truth, igniting a courtroom war. For the first time, he feels he's made a difference. Meanwhile, Suraj, burdened by guilt over a shady deal, faces a crushing fallout with Japtap - shattering his dream of independence.",
+        "runtime": 39,
+        "tracks": null
+      },
+      {
+        "fileId": "678",
+        "fileName": "Court_Kacheri_2025_S01E05_Judgment_720p_SONY_WEB_DL_MULTi_DDP5_1.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 5,
+        "episodeTitle": "Judgment",
+        "episodeOverview": "Param thinks he's done the right thing, until he realizes his judgment was flawed. Racing to fix the damage and protect his father, he witnesses a side of Harish Mathur he never knew: a man of justice, not just victory. The courtroom, once repulsive, now feels purposeful. With clarity and conviction, Param abandons his Canada dream and chooses law - not out of duty, but out of belief.",
+        "runtime": 51,
+        "tracks": null
+      }
+    ]
+  },
+  "episodes": [],
+  "availableSeasons": [
+    1
+  ],
+  "availableEpisodeCount": 5
+}

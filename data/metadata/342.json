@@ -1,0 +1,23 @@
+{
+  "fileId": "342",
+  "fileName": "Ted_2_2015_BluRay_EXTENDED_720p_Hindi_English_AAC_5_1_x264_ESub.mkv",
+  "type": "movie",
+  "title": "Ted 2",
+  "originalTitle": "Ted 2",
+  "overview": "Newlywed couple Ted and Tami-Lynn want to have a baby, but in order to qualify to be a parent, Ted will have to prove he's a person in a court of law.",
+  "releaseDate": "2015-06-25",
+  "year": 2015,
+  "runtime": 115,
+  "genres": [
+    "Comedy",
+    "Fantasy"
+  ],
+  "rating": 6.315,
+  "popularity": 9.5487,
+  "poster": "/data/posters/342.jpg",
+  "backdrop": "/data/backdrops/342_bd.jpg",
+  "tmdbId": 214756,
+  "fetchedAt": "2026-02-15T13:47:00.241Z",
+  "needsRetry": false,
+  "tv": null
+}

@@ -1,0 +1,37 @@
+{
+  "fileId": "290",
+  "fileName": "Gen.V.S01E07.720p.10bit.Hindi.English.Esubs.Vegamovies.To.mkv",
+  "type": "tv",
+  "title": "Gen V",
+  "originalTitle": "Gen V",
+  "overview": "At America's only college for superheroes, gifted students put their moral boundaries to the test, competing for the university's top ranking, and a chance to join The Seven, Vought International's elite superhero team. When the school's dark secrets come to light, they must decide what kind of heroes they want to become.",
+  "releaseDate": "2023-09-28",
+  "year": 2023,
+  "runtime": 49,
+  "genres": [
+    "Action & Adventure",
+    "Drama",
+    "Sci-Fi & Fantasy"
+  ],
+  "rating": 7.693,
+  "popularity": 25.5081,
+  "poster": "/data/posters/show_205715.jpg",
+  "backdrop": "/data/backdrops/show_205715_bd.jpg",
+  "tmdbId": 205715,
+  "fetchedAt": "2026-02-15T14:39:45.488Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Gen V",
+    "originalShowTitle": "Gen V",
+    "seasonNumber": 1,
+    "episodeNumber": 7,
+    "episodeTitle": "Sick",
+    "episodeOverview": "Calling all God U #Hometeamers! Today we’re protesting Socialist Victoria Neuman’s town hall on campus! Let’s show Neuman and her Supe-hating woke mob that we won’t put up with their anti-Superhero agenda! THEY WILL NOT CONTROL US! #MakeAmericaSuperAgain #SupeLivesMatter",
+    "showTmdbId": 205715,
+    "episodeRuntime": 49,
+    "totalSeasons": 2,
+    "totalEpisodes": 16
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

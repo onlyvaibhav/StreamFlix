@@ -1,0 +1,27 @@
+{
+  "fileId": "430",
+  "fileName": "Bhoothakaalam 2022 Malayalam 1080p SONYLIV WEB-DL x264 ESub.mkv",
+  "type": "movie",
+  "title": "Bhoothakaalam",
+  "originalTitle": "ഭൂതകാലം",
+  "overview": "Following the death of a family member, a mother and son experience mysterious events which distort their sense of reality and make them question their sanity.",
+  "releaseDate": "2022-01-21",
+  "year": 2022,
+  "runtime": 105,
+  "genres": [
+    "Thriller",
+    "Mystery",
+    "Horror"
+  ],
+  "rating": 6.759,
+  "popularity": 0.5399,
+  "poster": "/data/posters/430.jpg",
+  "backdrop": "/data/backdrops/430_bd.jpg",
+  "tmdbId": 881099,
+  "fetchedAt": "2026-02-15T15:19:44.854Z",
+  "needsRetry": false,
+  "tv": null,
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "_tracksDetected": true
+}

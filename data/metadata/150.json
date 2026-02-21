@@ -1,0 +1,23 @@
+{
+  "fileId": "150",
+  "fileName": "OPPENHEIMER_2023_1080p_10bit_BluRay_HEVC_x265_Hindi_AMZN_DDP_5_1.mkv",
+  "type": "movie",
+  "title": "Oppenheimer",
+  "originalTitle": "Oppenheimer",
+  "overview": "The story of J. Robert Oppenheimer's role in the development of the atomic bomb during World War II.",
+  "releaseDate": "2023-07-19",
+  "year": 2023,
+  "runtime": 181,
+  "genres": [
+    "Drama",
+    "History"
+  ],
+  "rating": 8.036,
+  "popularity": 25.5283,
+  "poster": "/data/posters/150.jpg",
+  "backdrop": "/data/backdrops/150_bd.jpg",
+  "tmdbId": 872585,
+  "fetchedAt": "2026-02-15T13:50:08.338Z",
+  "needsRetry": false,
+  "tv": null
+}

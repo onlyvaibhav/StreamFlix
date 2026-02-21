@@ -1,0 +1,37 @@
+{
+  "fileId": "801",
+  "fileName": "From_S01E09_Into_The_Woods_720p_x264_Hindi_English_Esubs_Vegamovies.mkv",
+  "type": "tv",
+  "title": "FROM",
+  "originalTitle": "FROM",
+  "overview": "Unravel the mystery of a nightmarish town in middle America that traps all those who enter. As the unwilling residents fight to keep a sense of normalcy and search for a way out, they must also survive the threats of the surrounding forest – including the terrifying creatures that come out when the sun goes down.",
+  "releaseDate": "2022-02-20",
+  "year": 2022,
+  "runtime": 46,
+  "genres": [
+    "Mystery",
+    "Drama",
+    "Sci-Fi & Fantasy"
+  ],
+  "rating": 8.154,
+  "popularity": 95.6652,
+  "poster": "/data/posters/show_124364.jpg",
+  "backdrop": "/data/backdrops/show_124364_bd.jpg",
+  "tmdbId": 124364,
+  "fetchedAt": "2026-02-15T14:36:16.569Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "FROM",
+    "originalShowTitle": "FROM",
+    "seasonNumber": 1,
+    "episodeNumber": 9,
+    "episodeTitle": "Into the Woods",
+    "episodeOverview": "Boyd and Sara journey deeper into the forest than Boyd has ever gone, encountering new and terrifying mysteries. Jim’s confidence in the radio tower begins to wane. An unexpected tragedy causes Donna to unravel. Kenny and Kristi share a moment.",
+    "showTmdbId": 124364,
+    "episodeRuntime": 46,
+    "totalSeasons": 4,
+    "totalEpisodes": 40
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

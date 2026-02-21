@@ -1,0 +1,22 @@
+{
+  "fileId": "387",
+  "fileName": "Veronica_2017_English_Subtitles_720p_BluRay_800MB_Vegamovies_NL.mkv",
+  "type": "movie",
+  "title": "Veronica",
+  "originalTitle": "Verónica",
+  "overview": "In 1991 Madrid, after holding a séance at school, a teen girl minding her younger siblings at home suspects an evil force has entered their apartment.",
+  "releaseDate": "2017-08-25",
+  "year": 2017,
+  "runtime": 105,
+  "genres": [
+    "Horror"
+  ],
+  "rating": 6.232,
+  "popularity": 3.6815,
+  "poster": "/data/posters/387.jpg",
+  "backdrop": "/data/backdrops/387_bd.jpg",
+  "tmdbId": 441701,
+  "fetchedAt": "2026-02-15T13:46:10.057Z",
+  "needsRetry": false,
+  "tv": null
+}

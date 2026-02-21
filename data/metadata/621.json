@@ -1,0 +1,22 @@
+{
+  "fileId": "621",
+  "fileName": "Triangle.2009.720p.BluRay.English.Esubs.Vegamovies.NL.mkv",
+  "type": "movie",
+  "title": "Triangle",
+  "originalTitle": "Triangle",
+  "overview": "When Jess sets sail on a yacht with a group of friends, she cannot shake the feeling that there is something wrong.",
+  "releaseDate": "2009-10-16",
+  "year": 2009,
+  "runtime": 98,
+  "genres": [
+    "Horror"
+  ],
+  "rating": 6.919,
+  "popularity": 5.1447,
+  "poster": "/data/posters/621.jpg",
+  "backdrop": "/data/backdrops/621_bd.jpg",
+  "tmdbId": 26466,
+  "fetchedAt": "2026-02-15T13:42:58.928Z",
+  "needsRetry": false,
+  "tv": null
+}

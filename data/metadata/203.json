@@ -1,0 +1,25 @@
+{
+  "fileId": "203",
+  "fileName": "Kung_Fu_Panda_1_2008_1080p_BluRay_x264_Dual_Audio_Hindi_DD_5_1_English.mkv",
+  "type": "movie",
+  "title": "Kung Fu Panda",
+  "originalTitle": "Kung Fu Panda",
+  "overview": "Chosen by prophecy but doubted by all, Po is an unlikely Dragon Warrior—a clumsy panda thrust into the world of kung fu as a deadly enemy threatens the Valley of Peace. Guided by Master Shifu and the Furious Five, Po must embrace who he is to unlock the power that no scroll can teach.",
+  "releaseDate": "2008-06-04",
+  "year": 2008,
+  "runtime": 90,
+  "genres": [
+    "Animation",
+    "Family",
+    "Comedy",
+    "Action"
+  ],
+  "rating": 7.314,
+  "popularity": 13.3145,
+  "poster": "/data/posters/203.jpg",
+  "backdrop": "/data/backdrops/203_bd.jpg",
+  "tmdbId": 9502,
+  "fetchedAt": "2026-02-15T13:49:34.381Z",
+  "needsRetry": false,
+  "tv": null
+}

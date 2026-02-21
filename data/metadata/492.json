@@ -1,0 +1,26 @@
+{
+  "fileId": "492",
+  "fileName": "Love Today-2022-tamil-web-dl-1080p.mkv",
+  "type": "movie",
+  "title": "Love Today",
+  "originalTitle": "லவ் டுடே",
+  "overview": "A young couple is made to exchange their phones for a day. What follows is a hilarious and emotional sequence of events that puts their lives in misery.",
+  "releaseDate": "2022-11-04",
+  "year": 2022,
+  "runtime": 154,
+  "genres": [
+    "Comedy",
+    "Romance"
+  ],
+  "rating": 6.989,
+  "popularity": 0.7575,
+  "poster": "/data/posters/492.jpg",
+  "backdrop": "/data/backdrops/492_bd.jpg",
+  "tmdbId": 1032627,
+  "fetchedAt": "2026-02-15T13:44:39.187Z",
+  "needsRetry": false,
+  "tv": null,
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "_tracksDetected": true
+}

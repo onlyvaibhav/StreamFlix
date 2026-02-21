@@ -1,0 +1,36 @@
+{
+  "fileId": "610",
+  "fileName": "Undekhi_S02E10_Thats_The_Way_The_Cookie_Crumbles_720p_SONYLIV_WEB.mkv",
+  "type": "tv",
+  "title": "Undekhi",
+  "originalTitle": "अनदेखी",
+  "overview": "Show depicts the two aspects of the society - the power-drunk influential people who think they can get away with anything and the oppressed, subjected to years of torture, who finally decide to bring themselves to justice",
+  "releaseDate": "2020-07-10",
+  "year": 2020,
+  "runtime": 33,
+  "genres": [
+    "Crime",
+    "Drama"
+  ],
+  "rating": 8.2,
+  "popularity": 4.0398,
+  "poster": "/data/posters/show_105759.jpg",
+  "backdrop": "/data/backdrops/show_105759_bd.jpg",
+  "tmdbId": 105759,
+  "fetchedAt": "2026-02-15T15:26:50.971Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Undekhi",
+    "originalShowTitle": "अनदेखी",
+    "seasonNumber": 2,
+    "episodeNumber": 10,
+    "episodeTitle": "That’s The Way The Cookie Crumbles",
+    "episodeOverview": "Old players reappear as do some new ones in this game of Russian roulette, where the stakes are higher than life itself. Each one has a motive to take down the other – driven by their thirst for power, revenge and love.",
+    "showTmdbId": 105759,
+    "episodeRuntime": 33,
+    "totalSeasons": 3,
+    "totalEpisodes": 28
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

@@ -1,0 +1,88 @@
+{
+  "showTmdbId": 232402,
+  "showTitle": "S Line",
+  "originalShowTitle": "S라인",
+  "overview": "A young woman with the ability to see mysterious red connections between lovers discovers her secret gift is no longer unique when special glasses granting similar powers appear on the black market.",
+  "genres": [
+    "Sci-Fi & Fantasy",
+    "Drama",
+    "Mystery"
+  ],
+  "rating": 7.541,
+  "popularity": 4.7589,
+  "poster": "/data/posters/show_232402.jpg",
+  "backdrop": "/data/backdrops/show_232402_bd.jpg",
+  "totalSeasons": 1,
+  "totalEpisodes": 6,
+  "year": 2025,
+  "releaseDate": "2025-07-11",
+  "seasons": {
+    "1": [
+      {
+        "fileId": "649",
+        "fileName": "S.Line.2025.S01E01.720p.x264.WEB-DL.ESub-Vegamovies.is.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 1,
+        "episodeTitle": "Girl With Sunglasses",
+        "episodeOverview": "Hyun-heup, a girl who was born with the ability to see the S-line that indicates sexual relations. Because of this ability, Hyun-heup's family faces tragedy, and Hyun-heup becomes a reclusive loner for a long time. Then one day, a series of suspicious murders occur around Hyun-heup, and Hyun-heup uses his ability to see the S-line to track down the case...",
+        "runtime": 50,
+        "tracks": null
+      },
+      {
+        "fileId": "650",
+        "fileName": "S.Line.2025.S01E02.720p.x264.WEB-DL.ESub-Vegamovies.is.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 2,
+        "episodeTitle": "Animal Kingdom",
+        "episodeOverview": "Hyun-heup goes to Bangju High School after receiving a mysterious text message. There, he reunites with Seon-ah, a middle school classmate and Ji-wook's niece. However, Seon-ah is a victim of bullying from bullies. One day, when the bullying from bullies reaches its peak, Seon-ah discovers a mysterious pair of glasses in her locker...",
+        "runtime": 50,
+        "tracks": null
+      },
+      {
+        "fileId": "651",
+        "fileName": "S.Line.2025.S01E03.720p.x264.WEB-DL.ESub-Vegamovies.is.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 3,
+        "episodeTitle": "Apartment",
+        "episodeOverview": "Seon-ah falls from the rooftop and falls into a coma. Ji-wook cries out in self-reproach and anger, and cooperates with Hyun-heup to find the culprit. Meanwhile, Jung-woo, an English teacher at Bangju High School, witnesses his girlfriend's affair before their wedding and breaks off the engagement. And soon after, he finds a pair of glasses on his desk...",
+        "runtime": 56,
+        "tracks": null
+      },
+      {
+        "fileId": "652",
+        "fileName": "S.Line.2025.S01E04.720p.x264.WEB-DL.ESub-Vegamovies.is.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 4,
+        "episodeTitle": "Meishin Hotel",
+        "episodeOverview": "Ji-wook, who was continuing the investigation to find the culprit of the Seon-ah incident, hears about the S-line from Hyun-heup, but doesn't believe it. Meanwhile, Bang Ju-goo, an employee who lives in a goshiwon and dreams of becoming an actor, finds S-line glasses at Mi-seong's house and feels liberated, but soon after, he sees a woman connected to the music teacher he had a crush on and feels strong jealousy...",
+        "runtime": 54,
+        "tracks": null
+      },
+      {
+        "fileId": "653",
+        "fileName": "S.Line.2025.S01E05.720p.x264.WEB-DL.ESub-Vegamovies.is.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 5,
+        "episodeTitle": "The Glasses",
+        "episodeOverview": "Ji -wook, who finally discovered glasses in the bloody bathtub of aesthetic, admits that the words of Hyun -suk were true. Use the power of glasses to start an investigation into sexual violence in the runway. And I think that the person connected to the only one S line of Sun -ah is the culprit of the Sun -a case.",
+        "runtime": 54,
+        "tracks": null
+      },
+      {
+        "fileId": "654",
+        "fileName": "S.Line.2025.S01E06.720p.x264.WEB-DL.ESub-Vegamovies.is.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 6,
+        "episodeTitle": "S Line",
+        "episodeOverview": "Ji -wook finds out the truth about Sun -ah's S -line through glasses. Meanwhile, Hyun -suk, ahead of his 18 -year -old birthday, makes a big decision and meets the Jun -sun, which leads to an unknown confusion.",
+        "runtime": 50,
+        "tracks": null
+      }
+    ]
+  },
+  "episodes": [],
+  "availableSeasons": [
+    1
+  ],
+  "availableEpisodeCount": 6
+}

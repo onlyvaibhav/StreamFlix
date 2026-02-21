@@ -1,0 +1,36 @@
+{
+  "fileId": "531",
+  "fileName": "Aashram_S01_E05_2020_WebRip_Hindi_720p_x264_AAC_Vegamovies_NL.mkv",
+  "type": "tv",
+  "title": "Aashram",
+  "originalTitle": "आश्रम",
+  "overview": "A duplicitous, aashram based, Indian Godman's good deeds serve activities criminal and unholy, such as rapes, murders, drugs, vote bank politics and forced male emasculation. The law and a few crusaders investigate to bring him to account.",
+  "releaseDate": "2020-08-28",
+  "year": 2020,
+  "runtime": 45,
+  "genres": [
+    "Drama",
+    "Crime"
+  ],
+  "rating": 5.176,
+  "popularity": 4.3857,
+  "poster": "/data/posters/show_107588.jpg",
+  "backdrop": "/data/backdrops/show_107588_bd.jpg",
+  "tmdbId": 107588,
+  "fetchedAt": "2026-02-15T15:30:20.168Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Aashram",
+    "originalShowTitle": "आश्रम",
+    "seasonNumber": 1,
+    "episodeNumber": 5,
+    "episodeTitle": "Amrit Sudha",
+    "episodeOverview": "Baba Nirala has organized the event of Mass Marriage in the ashram, where Satti would be one of the grooms. The event is attended by Hukum Singh, who offers Baba a luring deal to participate in the upcoming elections. Ujagar Singh makes progress on the case when the skeleton gets identified by a girl and the story unfolds. Will Baba now enter the world of politics and accept Hukum Singh’s deal? Ashram, the latest Hindi show streaming on MX Player now!",
+    "showTmdbId": 107588,
+    "episodeRuntime": 45,
+    "totalSeasons": 3,
+    "totalEpisodes": 33
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

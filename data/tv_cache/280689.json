@@ -1,0 +1,37 @@
+{
+  "showTmdbId": 280689,
+  "showTitle": "The Secret Of The Shiledars",
+  "originalShowTitle": "The Secret Of The Shiledars",
+  "overview": "A secret society unravels a hidden treasure belonging to Chhatrapati Shivaji Maharaj, with Rajeev leading the quest to protect it from falling into wrong hands, ultimately becoming the chief of the Shiledars.",
+  "genres": [
+    "Drama",
+    "Action & Adventure"
+  ],
+  "rating": 5.2,
+  "popularity": 2.0078,
+  "poster": "/data/posters/show_280689.jpg",
+  "backdrop": "/data/backdrops/show_280689_bd.jpg",
+  "totalSeasons": 1,
+  "totalEpisodes": 6,
+  "year": 2025,
+  "releaseDate": "2025-01-31",
+  "seasons": {
+    "1": [
+      {
+        "fileId": "543",
+        "fileName": "The_Secrets_of_the_Shiledars_2025_Hindi_ORG_S01E01_06_Series_720p.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 1,
+        "episodeTitle": "The Beckoning",
+        "episodeOverview": "History enthusiast Dr. Ravi's strange encounter with Judge Dixit changes the course of his life. However, he also finds himself implicated in a crime.",
+        "runtime": 31,
+        "tracks": null
+      }
+    ]
+  },
+  "episodes": [],
+  "availableSeasons": [
+    1
+  ],
+  "availableEpisodeCount": 1
+}

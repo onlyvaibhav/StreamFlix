@@ -1,0 +1,37 @@
+{
+  "fileId": "780",
+  "fileName": "Gen_V_S02E02_Justice_Never_Forgets_720p_AMZN_WEB_DL_DDP5_1_x264.mkv",
+  "type": "tv",
+  "title": "Gen V",
+  "originalTitle": "Gen V",
+  "overview": "At America's only college for superheroes, gifted students put their moral boundaries to the test, competing for the university's top ranking, and a chance to join The Seven, Vought International's elite superhero team. When the school's dark secrets come to light, they must decide what kind of heroes they want to become.",
+  "releaseDate": "2023-09-28",
+  "year": 2023,
+  "runtime": 46,
+  "genres": [
+    "Action & Adventure",
+    "Drama",
+    "Sci-Fi & Fantasy"
+  ],
+  "rating": 7.693,
+  "popularity": 25.5081,
+  "poster": "/data/posters/show_205715.jpg",
+  "backdrop": "/data/backdrops/show_205715_bd.jpg",
+  "tmdbId": 205715,
+  "fetchedAt": "2026-02-15T14:39:18.028Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Gen V",
+    "originalShowTitle": "Gen V",
+    "seasonNumber": 2,
+    "episodeNumber": 2,
+    "episodeTitle": "Justice Never Forgets",
+    "episodeOverview": "Think you're a history buff? Think again! Even a know-it-all will learn a thing or two in the God U Archives. To book a six hour educational adventure led by the world's best archivist, contact Kyle@remembererforever.com.",
+    "showTmdbId": 205715,
+    "episodeRuntime": 46,
+    "totalSeasons": 2,
+    "totalEpisodes": 16
+  },
+  "audioCodec": "eac3",
+  "browserPlayable": false
+}

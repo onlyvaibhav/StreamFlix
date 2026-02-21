@@ -1,0 +1,37 @@
+{
+  "fileId": "466",
+  "fileName": "Dahaad_S01E03_In_Plain_Sight_720p_AMZN_WEB_DL_Hindi_H_264_Vegamovies.mkv",
+  "type": "tv",
+  "title": "Dahaad",
+  "originalTitle": "दहाड़",
+  "overview": "Women are disappearing without a trace in Rajasthan and nobody seems surprised. But police officer Anjali Bhaati notices a similarity in the cases: long nightly phone calls and a boyfriend that no one in the neighbourhood has ever seen.",
+  "releaseDate": "2023-05-12",
+  "year": 2023,
+  "runtime": 51,
+  "genres": [
+    "Crime",
+    "Mystery",
+    "Drama"
+  ],
+  "rating": 7.2,
+  "popularity": 3.0186,
+  "poster": "/data/posters/show_201050.jpg",
+  "backdrop": "/data/backdrops/show_201050_bd.jpg",
+  "tmdbId": 201050,
+  "fetchedAt": "2026-02-15T15:37:37.117Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Dahaad",
+    "originalShowTitle": "दहाड़",
+    "seasonNumber": 1,
+    "episodeNumber": 3,
+    "episodeTitle": "In Plain Sight",
+    "episodeOverview": "A potential new witness in the case emerges as the cops dig into old case files to hunt for leads.",
+    "showTmdbId": 201050,
+    "episodeRuntime": 51,
+    "totalSeasons": 1,
+    "totalEpisodes": 8
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

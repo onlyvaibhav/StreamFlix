@@ -1,0 +1,37 @@
+{
+  "fileId": "779",
+  "fileName": "Gen_V_S02E01_New_Year_New_U_720p_AMZN_WEB_DL_DDP5_1_x264_Vegamovies.mkv",
+  "type": "tv",
+  "title": "Gen V",
+  "originalTitle": "Gen V",
+  "overview": "At America's only college for superheroes, gifted students put their moral boundaries to the test, competing for the university's top ranking, and a chance to join The Seven, Vought International's elite superhero team. When the school's dark secrets come to light, they must decide what kind of heroes they want to become.",
+  "releaseDate": "2023-09-28",
+  "year": 2023,
+  "runtime": 50,
+  "genres": [
+    "Action & Adventure",
+    "Drama",
+    "Sci-Fi & Fantasy"
+  ],
+  "rating": 7.693,
+  "popularity": 25.5081,
+  "poster": "/data/posters/show_205715.jpg",
+  "backdrop": "/data/backdrops/show_205715_bd.jpg",
+  "tmdbId": 205715,
+  "fetchedAt": "2026-02-15T14:39:27.860Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Gen V",
+    "originalShowTitle": "Gen V",
+    "seasonNumber": 2,
+    "episodeNumber": 1,
+    "episodeTitle": "New Year, New U",
+    "episodeOverview": "Welcome to a new year at God U! Check out all the super security upgrades around campus! Hear from our new fearless leader, Dean Cipher, during a special welcome assembly! Reunite with old friends in our brand new Victoria Neuman Student Union, and make new friends through our revitalized, robust Greek life! This year will be way better than last year, and we can't wait!",
+    "showTmdbId": 205715,
+    "episodeRuntime": 50,
+    "totalSeasons": 2,
+    "totalEpisodes": 16
+  },
+  "audioCodec": "eac3",
+  "browserPlayable": false
+}

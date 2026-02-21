@@ -1,0 +1,94 @@
+{
+  "fileId": "284",
+  "fileName": "GEN.V.2023.S01E01.720p.10bit.HIN-ENG.x265.ESub.Vegamovies.to.mkv",
+  "type": "tv",
+  "title": "Gen V",
+  "originalTitle": "Gen V",
+  "overview": "At America's only college for superheroes, gifted students put their moral boundaries to the test, competing for the university's top ranking, and a chance to join The Seven, Vought International's elite superhero team. When the school's dark secrets come to light, they must decide what kind of heroes they want to become.",
+  "releaseDate": "2023-09-28",
+  "year": 2023,
+  "runtime": 59,
+  "genres": [
+    "Action & Adventure",
+    "Drama",
+    "Sci-Fi & Fantasy"
+  ],
+  "rating": 7.693,
+  "popularity": 25.5081,
+  "poster": "/data/posters/show_205715.jpg",
+  "backdrop": "/data/backdrops/show_205715_bd.jpg",
+  "tmdbId": 205715,
+  "fetchedAt": "2026-02-15T14:40:38.213Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Gen V",
+    "originalShowTitle": "Gen V",
+    "seasonNumber": 1,
+    "episodeNumber": 1,
+    "episodeTitle": "God U.",
+    "episodeOverview": "Congratulations! You have been chosen for admission to Godolkin University! We're thrilled to be a part of your journey to discovering what kind of super you are! Since its founding in 1965, God U has produced some of the best and brightest superheroes the world has ever known, including three members of The Seven! And who knows? Maybe you'll be next!",
+    "showTmdbId": 205715,
+    "episodeRuntime": 59,
+    "totalSeasons": 2,
+    "totalEpisodes": 16
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "_tracksDetected": true,
+  "container": "matroska,webm",
+  "duration": 3525.227,
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "Vegamovies.to",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": true
+    },
+    {
+      "index": 1,
+      "streamIndex": 2,
+      "codec": "aac",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Vegamovies.to",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": false
+    }
+  ],
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 3,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Vegamovies.to",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    },
+    {
+      "index": 1,
+      "streamIndex": 4,
+      "codec": "subrip",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "Vegamovies.to",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    }
+  ]
+}

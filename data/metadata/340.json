@@ -1,0 +1,24 @@
+{
+  "fileId": "340",
+  "fileName": "Selfless.2015.720p.Hindi.English.Vegamovies.NL.mkv",
+  "type": "movie",
+  "title": "Self/less",
+  "originalTitle": "Self/less",
+  "overview": "An extremely wealthy elderly man dying from cancer undergoes a radical medical procedure that transfers his consciousness to the body of a healthy young man but everything may not be as good as it seems when he starts to uncover the mystery of the body's origins and the secret organization that will kill to keep its secrets.",
+  "releaseDate": "2015-07-10",
+  "year": 2015,
+  "runtime": 117,
+  "genres": [
+    "Science Fiction",
+    "Action",
+    "Thriller"
+  ],
+  "rating": 6.417,
+  "popularity": 7.6807,
+  "poster": "/data/posters/340.jpg",
+  "backdrop": "/data/backdrops/340_bd.jpg",
+  "tmdbId": 238615,
+  "fetchedAt": "2026-02-15T13:47:04.434Z",
+  "needsRetry": false,
+  "tv": null
+}

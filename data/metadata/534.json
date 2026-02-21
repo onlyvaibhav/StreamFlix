@@ -1,0 +1,36 @@
+{
+  "fileId": "534",
+  "fileName": "Aashram_S01_E08_2020_WebRip_Hindi_720p_x264_AAC_Vegamovies_NL.mkv",
+  "type": "tv",
+  "title": "Aashram",
+  "originalTitle": "आश्रम",
+  "overview": "A duplicitous, aashram based, Indian Godman's good deeds serve activities criminal and unholy, such as rapes, murders, drugs, vote bank politics and forced male emasculation. The law and a few crusaders investigate to bring him to account.",
+  "releaseDate": "2020-08-28",
+  "year": 2020,
+  "runtime": 45,
+  "genres": [
+    "Drama",
+    "Crime"
+  ],
+  "rating": 5.176,
+  "popularity": 4.3857,
+  "poster": "/data/posters/show_107588.jpg",
+  "backdrop": "/data/backdrops/show_107588_bd.jpg",
+  "tmdbId": 107588,
+  "fetchedAt": "2026-02-15T15:29:57.824Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Aashram",
+    "originalShowTitle": "आश्रम",
+    "seasonNumber": 1,
+    "episodeNumber": 8,
+    "episodeTitle": "Shuddhi Karan",
+    "episodeOverview": "Baba Nirala wants more support from the younger generation and for this, he calls the famous pop star Tinka Singh to arrange a music show in the ashram which he refuses flatly and also insults Bhopa. Meanwhile, Babita’s looks have created an impression on Baba and he tries to remove Satti from his way. What will Baba do now with Satti and pop star Tinka Singh? All the episodes of the Hindi web show Ashram available on MX Player without signing up. Watch now!",
+    "showTmdbId": 107588,
+    "episodeRuntime": 45,
+    "totalSeasons": 3,
+    "totalEpisodes": 33
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

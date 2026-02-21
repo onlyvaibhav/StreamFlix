@@ -1,0 +1,36 @@
+{
+  "fileId": "573",
+  "fileName": "_Ookami_to_Koushinryou_Merchant_Meets_the_Wise_Wolf_II_1_Wolf_and.mkv",
+  "type": "tv",
+  "title": "Spice and Wolf: MERCHANT MEETS THE WISE WOLF",
+  "originalTitle": "狼と香辛料 MERCHANT MEETS THE WISE WOLF",
+  "overview": "Lawrence is a traveling merchant selling various goods from a horse-drawn cart. One day, he arrives at a village and meets a beautiful girl with the ears and tail of an animal! Her name is Holo the Wisewolf and she brings bountiful harvests. She wishes to return to her homeland, and Lawrence offers to take her. Now, the once-lonely merchant and the once-lonely wisewolf begin their journey north.",
+  "releaseDate": "2024-04-02",
+  "year": 2024,
+  "runtime": 23,
+  "genres": [
+    "Animation",
+    "Sci-Fi & Fantasy",
+    "Drama",
+    "Action & Adventure"
+  ],
+  "rating": 8,
+  "popularity": 12.7372,
+  "poster": "/data/posters/show_229676.jpg",
+  "backdrop": "/data/backdrops/show_229676_bd.jpg",
+  "tmdbId": 229676,
+  "fetchedAt": "2026-02-16T09:47:50.060Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Spice and Wolf: MERCHANT MEETS THE WISE WOLF",
+    "originalShowTitle": "狼と香辛料 MERCHANT MEETS THE WISE WOLF",
+    "seasonNumber": 1,
+    "episodeNumber": 15,
+    "episodeTitle": "Bird Feather and Mysterious Ore",
+    "episodeOverview": "With no real information on how to get to Yoitsu, Lawrence uses all his resources to find more information. Will pagan stories of the North yield any clues?",
+    "showTmdbId": 229676,
+    "episodeRuntime": 23,
+    "totalSeasons": 2,
+    "totalEpisodes": 25
+  }
+}

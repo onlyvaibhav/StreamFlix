@@ -1,0 +1,36 @@
+{
+  "fileId": "183",
+  "fileName": "A_Business_Proposal_S01E12_720p_x265_Hindi_Korean_English_Msubs.mkv",
+  "type": "tv",
+  "title": "Business Proposal",
+  "originalTitle": "사내맞선",
+  "overview": "In disguise as her friend, Ha-ri shows up to a blind date to scare him away. But plans go awry when he turns out to be her CEO — and makes a proposal.",
+  "releaseDate": "2022-02-28",
+  "year": 2022,
+  "runtime": 61,
+  "genres": [
+    "Comedy",
+    "Drama"
+  ],
+  "rating": 8.4,
+  "popularity": 10.4058,
+  "poster": "/data/posters/show_154825.jpg",
+  "backdrop": "/data/backdrops/show_154825_bd.jpg",
+  "tmdbId": 154825,
+  "fetchedAt": "2026-02-15T17:19:46.631Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Business Proposal",
+    "originalShowTitle": "사내맞선",
+    "seasonNumber": 1,
+    "episodeNumber": 12,
+    "episodeTitle": "We're getting married",
+    "episodeOverview": "Ha-ri tries to win Da-goo over by keeping him company at his hospital bedside. A worried Tae-moo asks Ha-ri to go to the U.S. with him.",
+    "showTmdbId": 154825,
+    "episodeRuntime": 61,
+    "totalSeasons": 1,
+    "totalEpisodes": 12
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

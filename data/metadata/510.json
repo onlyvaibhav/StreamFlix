@@ -1,0 +1,36 @@
+{
+  "fileId": "510",
+  "fileName": "Bada_Naam_Karenge_S01E01_720p_Hindi_WEB_DL_5_1_ESub_x264_Vegamovies.mkv",
+  "type": "tv",
+  "title": "Bada Naam Karenge",
+  "originalTitle": "Bada Naam Karenge",
+  "overview": "Rishabh and Surbhi, two young individuals, find themselves at the crossroads of an arranged marriage. The story unfolds in two timelines: one in Mumbai, in the past, and another in Madhya Pradesh, where their families meet. In Mumbai, they find themselves alone in his room due to the lockdown, creating a pivotal moment in their relationship. In the present, Rishabh is hesitant to reveal his past with Surbhi to their families, his being a much more traditional one, fearing disapproval.",
+  "releaseDate": "2025-02-07",
+  "year": 2025,
+  "runtime": 57,
+  "genres": [
+    "Drama",
+    "Family"
+  ],
+  "rating": 7.5,
+  "popularity": 1.3235,
+  "poster": "/data/posters/show_280889.jpg",
+  "backdrop": "/data/backdrops/show_280889_bd.jpg",
+  "tmdbId": 280889,
+  "fetchedAt": "2026-02-15T15:33:00.854Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Bada Naam Karenge",
+    "originalShowTitle": "Bada Naam Karenge",
+    "seasonNumber": 1,
+    "episodeNumber": 1,
+    "episodeTitle": "Main Tujhe Phir Milungi",
+    "episodeOverview": "Rishabh and Surbhi, two young individuals, find themselves at the crossroads of an arranged marriage. The story unfolds in two timelines: one in Mumbai, in the past, and another in Madhya Pradesh, where their families meet. In Mumbai, they find themselves alone in his room due to the lockdown, creating a pivotal moment in their relationship. In the present, Rishabh is hesitant to reveal his past with Surbhi to their families, his being a much more traditional one, fearing disapproval.",
+    "showTmdbId": 280889,
+    "episodeRuntime": 57,
+    "totalSeasons": 1,
+    "totalEpisodes": 9
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

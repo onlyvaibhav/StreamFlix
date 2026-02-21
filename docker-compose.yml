@@ -1,0 +1,13 @@
+services:
+  streamflix_backend:
+    build: ./
+    container_name: streamflix_backend
+    restart: unless-stopped
+    network_mode: host
+    volumes:
+      - ./data:/app/data
+      - ./temp:/app/temp
+    env_file:
+      - ./.env
+    environment:
+      - NODE_ENV=production

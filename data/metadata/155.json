@@ -1,0 +1,34 @@
+{
+  "fileId": "155",
+  "fileName": "hostel.daze.S01EP03.720p.[Vegamovies.NL].mkv",
+  "type": "tv",
+  "title": "Hostel Daze",
+  "originalTitle": "Hostel Daze",
+  "overview": "Four naive and vulnerable wing-mates develop lasting bonds as they jostle hard to survive the first semester in a hostel. Peppered with absurdities, chutzpahs, clashes and debacles inherent to hostel life, 'Hostel Daze' depicts the grill that every Indian hostel-resident goes through.",
+  "releaseDate": "2019-12-13",
+  "year": 2019,
+  "runtime": 31,
+  "genres": [
+    "Drama",
+    "Comedy"
+  ],
+  "rating": 7.348,
+  "popularity": 3.4988,
+  "poster": "/data/posters/show_96421.jpg",
+  "backdrop": "/data/backdrops/show_96421_bd.jpg",
+  "tmdbId": 96421,
+  "fetchedAt": "2026-02-15T21:11:34.355Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Hostel Daze",
+    "originalShowTitle": "Hostel Daze",
+    "seasonNumber": 1,
+    "episodeNumber": 3,
+    "episodeTitle": "F.O.S.L.A",
+    "episodeOverview": "Ankit is smitten by Akanksha, the most prized catch of not only his batch but entire college. Will a coy Ankit succeed?",
+    "showTmdbId": 96421,
+    "episodeRuntime": 31,
+    "totalSeasons": 4,
+    "totalEpisodes": 21
+  }
+}

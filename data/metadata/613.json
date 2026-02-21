@@ -1,0 +1,36 @@
+{
+  "fileId": "613",
+  "fileName": "Undekhi.S03E03.720p.Hindi.WEB-DL.5.1.ESub.x264.Vegamovies.to.mkv",
+  "type": "tv",
+  "title": "Undekhi",
+  "originalTitle": "अनदेखी",
+  "overview": "Show depicts the two aspects of the society - the power-drunk influential people who think they can get away with anything and the oppressed, subjected to years of torture, who finally decide to bring themselves to justice",
+  "releaseDate": "2020-07-10",
+  "year": 2020,
+  "runtime": 35,
+  "genres": [
+    "Crime",
+    "Drama"
+  ],
+  "rating": 8.2,
+  "popularity": 4.0398,
+  "poster": "/data/posters/show_105759.jpg",
+  "backdrop": "/data/backdrops/show_105759_bd.jpg",
+  "tmdbId": 105759,
+  "fetchedAt": "2026-02-15T15:26:29.754Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Undekhi",
+    "originalShowTitle": "अनदेखी",
+    "seasonNumber": 3,
+    "episodeNumber": 3,
+    "episodeTitle": "Bite The Bullet",
+    "episodeOverview": "Ghosh manages to outwit the Atwals and finally arrests Papaji while Rinku confronts the new player in town, Rajveer Malhotra, who offers him a partnership. Samarth is on the run and asks for Ghosh’s help in exchange for information. However, Rinku is hot on his trail.",
+    "showTmdbId": 105759,
+    "episodeRuntime": 35,
+    "totalSeasons": 3,
+    "totalEpisodes": 28
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

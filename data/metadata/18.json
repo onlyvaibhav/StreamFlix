@@ -1,0 +1,92 @@
+{
+  "fileId": "18",
+  "fileName": "Its_Okay_to_Not_Be_Okay_S01E02_720p_10bit_WEBRip_Hindi_Korean_x265.mkv",
+  "type": "tv",
+  "title": "It's Okay to Not Be Okay",
+  "originalTitle": "사이코지만 괜찮아",
+  "overview": "Desperate to escape from his emotional baggage and the heavy responsibility he’s had all his life, a psychiatric ward worker begins to heal with help from the unexpected – a woman who writes fairy tales but doesn’t believe in them.",
+  "releaseDate": "2020-06-20",
+  "year": 2020,
+  "runtime": 74,
+  "genres": [
+    "Drama",
+    "Comedy"
+  ],
+  "rating": 8.519,
+  "popularity": 8.9754,
+  "poster": "/data/posters/show_96462.jpg",
+  "backdrop": "/data/backdrops/show_96462_bd.jpg",
+  "tmdbId": 96462,
+  "fetchedAt": "2026-02-16T18:07:02.044Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "It's Okay to Not Be Okay",
+    "originalShowTitle": "사이코지만 괜찮아",
+    "seasonNumber": 1,
+    "episodeNumber": 2,
+    "episodeTitle": "The Lady in Red Shoes",
+    "episodeOverview": "Mun-yeong invites Moon Sang-tae to a book signing event that ends with a nasty commotion. Gang-tae hears about a job opening in his hometown.",
+    "showTmdbId": 96462,
+    "episodeRuntime": 74,
+    "totalSeasons": 1,
+    "totalEpisodes": 16
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "container": "matroska,webm",
+  "duration": 4414.752,
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 0,
+      "codec": "aac",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "OlaMovies.Top",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": true
+    },
+    {
+      "index": 1,
+      "streamIndex": 2,
+      "codec": "aac",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "OlaMovies.Top",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": false
+    }
+  ],
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 3,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "OlaMovies.Top",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    },
+    {
+      "index": 1,
+      "streamIndex": 4,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "OlaMovies.Top",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    }
+  ]
+}

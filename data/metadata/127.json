@@ -1,0 +1,33 @@
+{
+  "fileId": "127",
+  "fileName": "Campus_Beats_S01_2023_Hindi_Complete_Amazon_miniTV_Series_720p_HD.mkv",
+  "type": "tv",
+  "title": "Campus Beats",
+  "originalTitle": "Campus Beats",
+  "overview": "What starts as an agenda to get closure for her past , a GenZ girl uncovers her hidden dancing talent and in the process experiences the real meaning of friendship, love, freedom and justice in a modern dance academy divided sharply across socio-economic class.",
+  "releaseDate": "2023-09-21",
+  "year": 2023,
+  "runtime": 36,
+  "genres": [
+    "Drama"
+  ],
+  "rating": 1.5,
+  "popularity": 3.3173,
+  "poster": "/data/posters/show_236445.jpg",
+  "backdrop": "/data/backdrops/show_236445_bd.jpg",
+  "tmdbId": 236445,
+  "fetchedAt": "2026-02-15T21:07:48.092Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Campus Beats",
+    "originalShowTitle": "Campus Beats",
+    "seasonNumber": 1,
+    "episodeNumber": 1,
+    "episodeTitle": "Status Quo",
+    "episodeOverview": "In a college divided between OGs and BGs, Leader of the OG gang 'Ruthless' , Rihanna plans a rebellion. Netra, an outsider, is left stumped. Chaos ensues as the Police arrives after receiving a panic call.As tensions rise, Netra makes a big confession setting the stage for a power struggle!",
+    "showTmdbId": 236445,
+    "episodeRuntime": 36,
+    "totalSeasons": 6,
+    "totalEpisodes": 60
+  }
+}

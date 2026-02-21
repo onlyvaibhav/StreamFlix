@@ -1,0 +1,24 @@
+{
+  "fileId": "82",
+  "fileName": "Blue_Beetle_2023_1080p_10Bit_WeBDL_Hindi_English_Esubs_Vegamovies.mkv",
+  "type": "movie",
+  "title": "Blue Beetle",
+  "originalTitle": "Blue Beetle",
+  "overview": "Recent college grad Jaime Reyes returns home full of aspirations for his future, only to find that home is not quite as he left it. As he searches to find his purpose in the world, fate intervenes when Jaime unexpectedly finds himself in possession of an ancient relic of alien biotechnology: the Scarab.",
+  "releaseDate": "2023-08-16",
+  "year": 2023,
+  "runtime": 128,
+  "genres": [
+    "Action",
+    "Science Fiction",
+    "Adventure"
+  ],
+  "rating": 6.649,
+  "popularity": 9.0536,
+  "poster": "/data/posters/82.jpg",
+  "backdrop": "/data/backdrops/82_bd.jpg",
+  "tmdbId": 565770,
+  "fetchedAt": "2026-02-15T13:50:35.098Z",
+  "needsRetry": false,
+  "tv": null
+}

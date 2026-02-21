@@ -1,0 +1,37 @@
+{
+  "fileId": "523",
+  "fileName": "Bank_Under_Siege_S01E01_720p_WEB_DL_HIN_ENG_x264_ESub_Vegamovies.mkv",
+  "type": "tv",
+  "title": "Bank Under Siege",
+  "originalTitle": "Asalto al Banco Central",
+  "overview": "Spain, 1981: When armed men hold up a bank and take hundreds hostage, a reporter races against the authorities to uncover the true motive for the heist.",
+  "releaseDate": "2024-11-08",
+  "year": 2024,
+  "runtime": 41,
+  "genres": [
+    "Crime",
+    "Drama",
+    "Action & Adventure"
+  ],
+  "rating": 6.699,
+  "popularity": 3.544,
+  "poster": "/data/posters/show_236449.jpg",
+  "backdrop": "/data/backdrops/show_236449_bd.jpg",
+  "tmdbId": 236449,
+  "fetchedAt": "2026-02-15T15:31:19.773Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Bank Under Siege",
+    "originalShowTitle": "Asalto al Banco Central",
+    "seasonNumber": 1,
+    "episodeNumber": 1,
+    "episodeTitle": "Everybody Down!",
+    "episodeOverview": "Three months after a failed coup d'état, armed men storm Barcelona's Central Bank, taking hundreds hostage. A young journalist is the first on the scene.",
+    "showTmdbId": 236449,
+    "episodeRuntime": 41,
+    "totalSeasons": 1,
+    "totalEpisodes": 5
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

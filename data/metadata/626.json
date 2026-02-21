@@ -1,0 +1,37 @@
+{
+  "fileId": "626",
+  "fileName": "Squid.Game.S03E02.720p.HIN-ENG-KOR.x264.ESub-Vegamovies.is.mkv",
+  "type": "tv",
+  "title": "Squid Game",
+  "originalTitle": "오징어 게임",
+  "overview": "Hundreds of cash-strapped players accept a strange invitation to compete in children's games. Inside, a tempting prize awaits — with deadly high stakes.",
+  "releaseDate": "2021-09-17",
+  "year": 2021,
+  "runtime": 60,
+  "genres": [
+    "Action & Adventure",
+    "Mystery",
+    "Drama"
+  ],
+  "rating": 7.858,
+  "popularity": 62.0435,
+  "poster": "/data/posters/show_93405.jpg",
+  "backdrop": "/data/backdrops/show_93405_bd.jpg",
+  "tmdbId": 93405,
+  "fetchedAt": "2026-02-15T15:25:33.158Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Squid Game",
+    "originalShowTitle": "오징어 게임",
+    "seasonNumber": 3,
+    "episodeNumber": 2,
+    "episodeTitle": "The Starry Night",
+    "episodeOverview": "The games resume, and Gi-hun fixates on confronting Kang Dae-ho. Meanwhile, Kim Jun-hee faces a sudden crisis that pushes her willpower to its limits.",
+    "showTmdbId": 93405,
+    "episodeRuntime": 60,
+    "totalSeasons": 3,
+    "totalEpisodes": 22
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

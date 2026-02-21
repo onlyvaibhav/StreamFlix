@@ -1,0 +1,36 @@
+{
+  "fileId": "512",
+  "fileName": "Bada_Naam_Karenge_S01E03_720p_Hindi_WEB_DL_5_1_ESub_x264_Vegamovies.mkv",
+  "type": "tv",
+  "title": "Bada Naam Karenge",
+  "originalTitle": "Bada Naam Karenge",
+  "overview": "Rishabh and Surbhi, two young individuals, find themselves at the crossroads of an arranged marriage. The story unfolds in two timelines: one in Mumbai, in the past, and another in Madhya Pradesh, where their families meet. In Mumbai, they find themselves alone in his room due to the lockdown, creating a pivotal moment in their relationship. In the present, Rishabh is hesitant to reveal his past with Surbhi to their families, his being a much more traditional one, fearing disapproval.",
+  "releaseDate": "2025-02-07",
+  "year": 2025,
+  "runtime": 32,
+  "genres": [
+    "Drama",
+    "Family"
+  ],
+  "rating": 7.5,
+  "popularity": 1.3235,
+  "poster": "/data/posters/show_280889.jpg",
+  "backdrop": "/data/backdrops/show_280889_bd.jpg",
+  "tmdbId": 280889,
+  "fetchedAt": "2026-02-15T15:32:19.263Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Bada Naam Karenge",
+    "originalShowTitle": "Bada Naam Karenge",
+    "seasonNumber": 1,
+    "episodeNumber": 3,
+    "episodeTitle": "Jhooth",
+    "episodeOverview": "In Mumbai, Rishabh realizes they're locked out of the flat. Fearing that Surbhi might be noticed by his neighbour, he arranges for a keymaker. Rishabh and Surbhi spend time together, discussing their goals and family expectations, but the situation takes a turn when they realize that the keymaker has tested positive for COVID. In the present, the Gupta family visits the Rathi household. Surbhi is overcome with guilt when Vivek presents her with a silver coin, symbolizing the family’s acceptance.",
+    "showTmdbId": 280889,
+    "episodeRuntime": 32,
+    "totalSeasons": 1,
+    "totalEpisodes": 9
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

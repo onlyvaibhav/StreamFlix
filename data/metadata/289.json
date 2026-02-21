@@ -1,0 +1,37 @@
+{
+  "fileId": "289",
+  "fileName": "GEN_V_2023_S01_E06_720p_AMZN_WEBRip_10bit_HEVC_x265_Hindi_AMZN_ORG.mkv",
+  "type": "tv",
+  "title": "Gen V",
+  "originalTitle": "Gen V",
+  "overview": "At America's only college for superheroes, gifted students put their moral boundaries to the test, competing for the university's top ranking, and a chance to join The Seven, Vought International's elite superhero team. When the school's dark secrets come to light, they must decide what kind of heroes they want to become.",
+  "releaseDate": "2023-09-28",
+  "year": 2023,
+  "runtime": 41,
+  "genres": [
+    "Action & Adventure",
+    "Drama",
+    "Sci-Fi & Fantasy"
+  ],
+  "rating": 7.693,
+  "popularity": 25.5081,
+  "poster": "/data/posters/show_205715.jpg",
+  "backdrop": "/data/backdrops/show_205715_bd.jpg",
+  "tmdbId": 205715,
+  "fetchedAt": "2026-02-15T14:39:53.333Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Gen V",
+    "originalShowTitle": "Gen V",
+    "seasonNumber": 1,
+    "episodeNumber": 6,
+    "episodeTitle": "Jumanji",
+    "episodeOverview": "The Godolkin University School of Crimefighting is excited to announce its newest course offering: THE PSYCHOLOGY OF SUPERVILLAINS! By studying the most well-known example of a supervillain, Soldier Boy, the course will investigate what makes a superhero go bad, from their flawed origin story, to the vices and moral compromises that lead them astray! Space is limited! Sign up today!",
+    "showTmdbId": 205715,
+    "episodeRuntime": 41,
+    "totalSeasons": 2,
+    "totalEpisodes": 16
+  },
+  "audioCodec": "eac3",
+  "browserPlayable": false
+}

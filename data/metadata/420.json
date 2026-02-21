@@ -1,0 +1,33 @@
+{
+  "fileId": "420",
+  "fileName": "Scam_2003_The_Telgi_Story_Hindi_S01E05_I_Love_You_720p_SONYLIV_WEB.mkv",
+  "type": "tv",
+  "title": "My Romance Scammer",
+  "originalTitle": "My Romance Scammer รักจริง หลังแต่ง",
+  "overview": "After marrying a con artist for love, a billionaire heir must navigate a messy prenuptial trap while his cousin falls for another scammer.",
+  "releaseDate": "2026-02-01",
+  "year": 2026,
+  "runtime": 60,
+  "genres": [
+    "Drama"
+  ],
+  "rating": 0,
+  "popularity": 4.3915,
+  "poster": "/data/posters/show_278157.jpg",
+  "backdrop": "/data/backdrops/show_278157_bd.jpg",
+  "tmdbId": 278157,
+  "fetchedAt": "2026-02-15T16:46:09.042Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "My Romance Scammer",
+    "originalShowTitle": "My Romance Scammer รักจริง หลังแต่ง",
+    "seasonNumber": 1,
+    "episodeNumber": 5,
+    "episodeTitle": "Episode 5",
+    "episodeOverview": "",
+    "showTmdbId": 278157,
+    "episodeRuntime": 60,
+    "totalSeasons": 1,
+    "totalEpisodes": 12
+  }
+}

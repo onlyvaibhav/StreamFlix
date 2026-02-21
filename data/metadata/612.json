@@ -1,0 +1,36 @@
+{
+  "fileId": "612",
+  "fileName": "Undekhi.S03E02.720p.Hindi.WEB-DL.5.1.ESub.x264.Vegamovies.to.mkv",
+  "type": "tv",
+  "title": "Undekhi",
+  "originalTitle": "अनदेखी",
+  "overview": "Show depicts the two aspects of the society - the power-drunk influential people who think they can get away with anything and the oppressed, subjected to years of torture, who finally decide to bring themselves to justice",
+  "releaseDate": "2020-07-10",
+  "year": 2020,
+  "runtime": 40,
+  "genres": [
+    "Crime",
+    "Drama"
+  ],
+  "rating": 8.2,
+  "popularity": 4.0398,
+  "poster": "/data/posters/show_105759.jpg",
+  "backdrop": "/data/backdrops/show_105759_bd.jpg",
+  "tmdbId": 105759,
+  "fetchedAt": "2026-02-15T15:26:37.248Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Undekhi",
+    "originalShowTitle": "अनदेखी",
+    "seasonNumber": 3,
+    "episodeNumber": 2,
+    "episodeTitle": "Catch Me If You Can",
+    "episodeOverview": "Ghosh arrives in Manali and assumes leadership of a team which has been put together to arrest Papaji for Kanak’s murder. Daman hires a lawyer to defend Papaji while Rinku scrambles to put together a plan to thwart Ghosh and a game of cat and mouse ensues. Meanwhile, Teji makes a shocking discovery about someone from her past.",
+    "showTmdbId": 105759,
+    "episodeRuntime": 40,
+    "totalSeasons": 3,
+    "totalEpisodes": 28
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

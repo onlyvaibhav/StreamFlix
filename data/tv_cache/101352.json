@@ -1,0 +1,356 @@
+{
+  "showTmdbId": 101352,
+  "showTitle": "Panchayat",
+  "originalShowTitle": "पंचायत",
+  "overview": "Panchayat is a comedy-drama, which captures the journey of an engineering graduate Abhishek, who for lack of a better job option joins as secretary of a panchayat office in a remote village of Uttar Pradesh. Stuck between crazy villagers and a difficult village lifestyle Abhishek starts his job with the sole motivation of getting out of there as soon as possible, for which he even prepares for CAT.",
+  "genres": [
+    "Comedy",
+    "Drama"
+  ],
+  "rating": 8.2,
+  "popularity": 6.009,
+  "poster": "/data/posters/show_101352.jpg",
+  "backdrop": "/data/backdrops/show_101352_bd.jpg",
+  "totalSeasons": 5,
+  "totalEpisodes": 32,
+  "year": 2020,
+  "releaseDate": "2020-03-05",
+  "seasons": {
+    "1": [
+      {
+        "fileId": "632",
+        "fileName": "Panchayat.S01E01.720p.10bit.2CH.x265.HEVC-Vegamovies.is.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 1,
+        "episodeTitle": "Gram Panchayat Phulera",
+        "episodeOverview": "An unwilling Abhishek Tripathi reaches Phulera to join as panchayat secretary of the village panchayat office. However, his first day at work turns out to be far worse than what he imagined.",
+        "runtime": 35,
+        "tracks": null
+      },
+      {
+        "fileId": "633",
+        "fileName": "Panchayat.S01E02.720p.10bit.2CH.x265.HEVC-Vegamovies.is.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 2,
+        "episodeTitle": "Bhootha Ped",
+        "episodeOverview": "As frequent power cuts hamper Abhishek's CAT preparation, he decides to take the matter in his own hands. Little did he know what he's up against.",
+        "runtime": 33,
+        "tracks": null
+      },
+      {
+        "fileId": "634",
+        "fileName": "Panchayat.S01E03.720p.10bit.2CH.x265.HEVC-Vegamovies.is.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 3,
+        "episodeTitle": "Chakke Wali Kursi",
+        "episodeOverview": "To make his life easier Abhishek buys a new comfortable chair, which has \"wheels\". In the process, he unknowingly ends up disrupting the panchayat office's power balance.",
+        "runtime": 30,
+        "tracks": null
+      },
+      {
+        "fileId": "635",
+        "fileName": "Panchayat.S01E04.720p.10bit.2CH.x265.HEVC-Vegamovies.is.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 4,
+        "episodeTitle": "Hamara Neta Kaisa Ho?",
+        "episodeOverview": "Under severe pressure to implement a government scheme, Abhishek pushes Pradhan Ji to make an extremely unpopular move. Will Pradhan Ji bow?",
+        "runtime": 25,
+        "tracks": null
+      },
+      {
+        "fileId": "636",
+        "fileName": "Panchayat.S01E05.720p.10bit.2CH.x265.HEVC-Vegamovies.is.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 5,
+        "episodeTitle": "Computer Nahi Monitor",
+        "episodeOverview": "Bored with his mundane life, Abhishek decides to have a little bit of fun. But sometimes with great fun comes grave consequence.",
+        "runtime": 33,
+        "tracks": null
+      },
+      {
+        "fileId": "637",
+        "fileName": "Panchayat.S01E06.720p.10bit.2CH.x265.HEVC-Vegamovies.is.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 6,
+        "episodeTitle": "Bahot Hua Samman",
+        "episodeOverview": "To focus on his studies, Abhishek decides to put aside his ego. But for how long?",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "638",
+        "fileName": "Panchayat.S01E07.720p.10bit.2CH.x265.HEVC-Vegamovies.is.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 7,
+        "episodeTitle": "Ladka Tez Hai Lekin..",
+        "episodeOverview": "Finally, the much-awaited CAT exam is around the corner. As Abhishek juggles between his work and studies, Pradhan Ji sees him as a potential groom for his daughter. Is he the right choice?",
+        "runtime": 30,
+        "tracks": null
+      },
+      {
+        "fileId": "639",
+        "fileName": "Panchayat.S01E08.720p.10bit.2CH.x265.HEVC-Vegamovies.is.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 8,
+        "episodeTitle": "Jab Jaago Tabhi Savera",
+        "episodeOverview": "Demotivated by his performance in CAT, Abhishek tries to come at peace with his reality. However, motivation comes to him in the most unexpected way.",
+        "runtime": 36,
+        "tracks": null
+      }
+    ],
+    "2": [
+      {
+        "fileId": "641",
+        "fileName": "Panchayat_S02E01_Naach_720p_AMZN_WEB_DL_DDP5_1_H_264_Vegamovies.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 1,
+        "episodeTitle": "Naach",
+        "episodeOverview": "Abhishek tries to save a deal derailed by an overenthusiastic Manju Devi. Prahlad and Vikas struggle with their doubts about Abhishek and Rinki.",
+        "runtime": 43,
+        "tracks": null
+      },
+      {
+        "fileId": "642",
+        "fileName": "Panchayat_S02E02_Bol_Chaal_Band_720p_AMZN_WEB_DL_DDP5_1_H_264_Vegamovies.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 2,
+        "episodeTitle": "Bol Chaal Band",
+        "episodeOverview": "Due to lagging village development work, a political opposition starts to emerge against Pradhan Ji. Abhishek's loyalty gets tested.",
+        "runtime": 36,
+        "tracks": null
+      },
+      {
+        "fileId": "643",
+        "fileName": "Panchayat_S02E03_Kranti_720p_AMZN_WEB_DL_DDP5_1_H_264_Vegamovies.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 3,
+        "episodeTitle": "Kranti",
+        "episodeOverview": "Abhishek gives pace to the village development work. But not without hindrance.",
+        "runtime": 31,
+        "tracks": null
+      },
+      {
+        "fileId": "644",
+        "fileName": "Panchayat_S02E04_Tension_720p_AMZN_WEB_DL_DDP5_1_H_264_Vegamovies.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 4,
+        "episodeTitle": "Tension",
+        "episodeOverview": "On a slow office day Abhishek and Vikas find themselves in an unusual situation. It's a big day for Pradhan's family.",
+        "runtime": 36,
+        "tracks": null
+      },
+      {
+        "fileId": "645",
+        "fileName": "Panchayat_S02E05_Jaise_Ko_Taisa_720p_AMZN_WEB_DL_DDP5_1_H_264_Vegamovies.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 5,
+        "episodeTitle": "Jaise Ko Taisa",
+        "episodeOverview": "Political opposition against Pradhan's family takes its final shape. Abhishek picks a side, loud and clear.",
+        "runtime": 29,
+        "tracks": null
+      },
+      {
+        "fileId": "646",
+        "fileName": "Panchayat_S02E06_Aukaat_720P_720p_AMZN_WEB_DL_DDP5_1_H_264_Vegamovies.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 6,
+        "episodeTitle": "Aukaat",
+        "episodeOverview": "A desperate Pradhan Ji makes an attempt to full-fill his biggest election promise. Abhishek gets a reality check, but in a harsh way.",
+        "runtime": 35,
+        "tracks": null
+      },
+      {
+        "fileId": "647",
+        "fileName": "Panchayat_S02E07_Dost_Yaar_720p_AMZN_WEB_DL_DDP5_1_H_264_Vegamovies.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 7,
+        "episodeTitle": "Dost Yaar",
+        "episodeOverview": "Abhishek questions his importance in Pradhan's team. Pradhan Ji and Manju Devi have their own dilemmas.",
+        "runtime": 35,
+        "tracks": null
+      },
+      {
+        "fileId": "648",
+        "fileName": "Panchayat_S02E08_Parivaar_720p_AMZN_WEB_DL_DDP5_1_H_264_Vegamovies.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 8,
+        "episodeTitle": "Parivaar",
+        "episodeOverview": "Afraid of losing the perception battle to his political opponent Pradhan Ji makes a tough call. An upset Abhishek tries to emotionally detach himself from the people around.",
+        "runtime": 46,
+        "tracks": null
+      }
+    ],
+    "3": [
+      {
+        "fileId": "655",
+        "fileName": "Panchayat_S03E01_720p_Hindi_WEB_DL_5_1_ESub_x264_Vegamovies_to.mkv",
+        "seasonNumber": 3,
+        "episodeNumber": 1,
+        "episodeTitle": "Rangbaazi",
+        "episodeOverview": "Pradhan's desperate attempt to prevent Abhishek's impending transfer intensifies the conflict between the Pradhan gang and the MLA. Prahlad finds it difficult to make peace with his new reality.",
+        "runtime": 48,
+        "tracks": null
+      },
+      {
+        "fileId": "656",
+        "fileName": "Panchayat_S03E02_720p_Hindi_WEB_DL_5_1_ESub_x264_Vegamovies_to.mkv",
+        "seasonNumber": 3,
+        "episodeNumber": 2,
+        "episodeTitle": "Gaddha",
+        "episodeOverview": "Abhishek returns with the resolve of staying away from the village politics. Fearing the loss of public reputation, Pradhan and Manju Devi need Abhishek's help to handle a rebel.",
+        "runtime": 41,
+        "tracks": null
+      },
+      {
+        "fileId": "657",
+        "fileName": "Panchayat_S03E03_720p_Hindi_WEB_DL_5_1_ESub_x264_Vegamovies_to.mkv",
+        "seasonNumber": 3,
+        "episodeNumber": 3,
+        "episodeTitle": "Ghar Ya Eent-Patthar?",
+        "episodeOverview": "After Bhushan senses an opportunity to attack Pradhan, Abhishek jumps into damage control mode. Prahlad doesn't like the way Pradhan uses Abhishek for political benefit.",
+        "runtime": 35,
+        "tracks": null
+      },
+      {
+        "fileId": "658",
+        "fileName": "Panchayat_S03E04_720p_Hindi_WEB_DL_5_1_ESub_x264_Vegamovies_to.mkv",
+        "seasonNumber": 3,
+        "episodeNumber": 4,
+        "episodeTitle": "Atma Manthan",
+        "episodeOverview": "The final blow to Pradhan's reputation comes after he gets accused of partiality in a welfare scheme implementation. Meanwhile to topple Pradhan's rule, Bhushan allies with the MLA.",
+        "runtime": 34,
+        "tracks": null
+      },
+      {
+        "fileId": "659",
+        "fileName": "Panchayat_S03E05_720p_Hindi_WEB_DL_5_1_ESub_x264_Vegamovies_to.mkv",
+        "seasonNumber": 3,
+        "episodeNumber": 5,
+        "episodeTitle": "Shanti Samjhauta",
+        "episodeOverview": "Manju Devi reluctantly agrees to Bhushan's proposal of entering into a peace agreement with the MLA. Abhishek too gives his nod as it's impossible to get the road built without MLA's support.",
+        "runtime": 36,
+        "tracks": null
+      },
+      {
+        "fileId": "660",
+        "fileName": "Panchayat_S03E06_720p_Hindi_WEB_DL_5_1_ESub_x264_Vegamovies_to.mkv",
+        "seasonNumber": 3,
+        "episodeNumber": 6,
+        "episodeTitle": "Chingaari",
+        "episodeOverview": "To fix their dented image, the Pradhan gang sets a trap to capitalize on a lethal mistake committed by the MLA. Amidst all the political chaos an unexpected news brings joy to the Pradhan gang.",
+        "runtime": 35,
+        "tracks": null
+      },
+      {
+        "fileId": "661",
+        "fileName": "Panchayat_S03E07_720p_Hindi_WEB_DL_5_1_ESub_x264_Vegamovies_to.mkv",
+        "seasonNumber": 3,
+        "episodeNumber": 7,
+        "episodeTitle": "Shola",
+        "episodeOverview": "Fully aware of his actions, MLA not only walks into the trap but also raises the stakes. Pradhan gang needs to walk the talk or it's all over.",
+        "runtime": 35,
+        "tracks": null
+      },
+      {
+        "fileId": "662",
+        "fileName": "Panchayat_S03E08_720p_Hindi_WEB_DL_5_1_ESub_x264_Vegamovies_to.mkv",
+        "seasonNumber": 3,
+        "episodeNumber": 8,
+        "episodeTitle": "Hamla",
+        "episodeOverview": "Finally, Pradhan rallies the whole Phulera behind him to fight one last battle for glory. Abhishek finds himself too deep into the murky waters of village politics and loses his objectivity.",
+        "runtime": 50,
+        "tracks": null
+      }
+    ],
+    "4": [
+      {
+        "fileId": "663",
+        "fileName": "Panchayat_S04E01_Case_Mukadma_720p_AMZN_WEB_DL_DDP5_1_x264_Vegamovies.mkv",
+        "seasonNumber": 4,
+        "episodeNumber": 1,
+        "episodeTitle": "Case-Mukadma",
+        "episodeOverview": "Abhishek fears the police case for slapping Bhushan could ruin his career. Drunk and frustrated, he vents and tries to apologise, hoping Bhushan will drop the case. But Bhushan has other plans because he wants Abhishek’s help to clear his name in the Pradhan shooting. The situation escalates when the MLA also gets involved in the deal.",
+        "runtime": 38,
+        "tracks": null
+      },
+      {
+        "fileId": "664",
+        "fileName": "Panchayat_S04E02_Zakhm_720p_AMZN_WEB_DL_DDP5_1_x264_Vegamovies_is.mkv",
+        "seasonNumber": 4,
+        "episodeNumber": 2,
+        "episodeTitle": "Zakhm",
+        "episodeOverview": "Pradhan, a survivor of an \"assassination\" attempt, tries to leverage sympathy as he kicks off his election campaign. His team organises a public event where he cleans a dirty village spot despite being wounded. Meanwhile, Bhushan’s camp makes a pre-emptive strike to steal Pradhan’s thunder and gain the upper hand.",
+        "runtime": 33,
+        "tracks": null
+      },
+      {
+        "fileId": "665",
+        "fileName": "Panchayat_S04E03_Vachan_720p_AMZN_WEB_DL_DDP5_1_x264_Vegamovies.mkv",
+        "seasonNumber": 4,
+        "episodeNumber": 3,
+        "episodeTitle": "Vachan",
+        "episodeOverview": "After noticing a crack in Bhushan’s camp, Pradhan sees an opportunity to weaken his rival. Following his instructions, his team tries to break the unity of Bhushan’s camp by targeting one of his key loyalists. But the plan does not go as smoothly as hoped. Loyalties run deep, and winning him over proves more difficult than expected.",
+        "runtime": 31,
+        "tracks": null
+      },
+      {
+        "fileId": "666",
+        "fileName": "Panchayat_S04E04_Shakti_Pradarshan_720p_AMZN_WEB_DL_DDP5_1_x264.mkv",
+        "seasonNumber": 4,
+        "episodeNumber": 4,
+        "episodeTitle": "Shakti Pradarshan",
+        "episodeOverview": "While Pradhan and Manju Devi prepare for a grand nomination, Bhushan and the MLA hatch a plan to humiliate Pradhan's family in front of the villagers. Acting on a secret tip, a team of government officials pays a surprise visit to members of Pradhan’s camp.",
+        "runtime": 36,
+        "tracks": null
+      },
+      {
+        "fileId": "667",
+        "fileName": "Panchayat_S04E05_Ashirvaad_720p_AMZN_WEB_DL_DDP5_1_x264_Vegamovies.mkv",
+        "seasonNumber": 4,
+        "episodeNumber": 5,
+        "episodeTitle": "Ashirvaad",
+        "episodeOverview": "A few days before the election, Manju Devi's father visits Phulera to bless his daughter. During a door-to-door campaign, a physical altercation breaks out between rival camps after Kranti Devi insults Khushbu, Vikas’s pregnant wife, deeply offending both Prahlad and Vikas.",
+        "runtime": 34,
+        "tracks": null
+      },
+      {
+        "fileId": "668",
+        "fileName": "Panchayat_S04E06_Sanjeevani_720p_AMZN_WEB_DL_DDP5_1_x264_Vegamovies.mkv",
+        "seasonNumber": 4,
+        "episodeNumber": 6,
+        "episodeTitle": "Sanjeevani",
+        "episodeOverview": "Jealous of Bhushan gaining strong support in the village, Pradhan’s camp grows anxious. A temporary reprieve comes when the local MP, the MLA’s superior, offers a chance to solve their problems. However, this opportunity comes with a twist, creating a moral dilemma among the camp members, especially Prahlad.",
+        "runtime": 34,
+        "tracks": null
+      },
+      {
+        "fileId": "669",
+        "fileName": "Panchayat_S04E07_Dramabaaz_720p_AMZN_WEB_DL_DDP5_1_x264_Vegamovies.mkv",
+        "seasonNumber": 4,
+        "episodeNumber": 7,
+        "episodeTitle": "Dramabaaz",
+        "episodeOverview": "Just before election day, the local electricity transformer malfunctions, causing a power outage across the village. Pradhan’s camp scrambles to get it repaired but faces a dilemma when they learn where the electrician is from. Meanwhile, Bhushan’s camp prepares to deliver the final blow to Pradhan’s campaign.",
+        "runtime": 46,
+        "tracks": null
+      },
+      {
+        "fileId": "670",
+        "fileName": "Panchayat_S04E08_Dabdaba_720p_AMZN_WEB_DL_DDP5_1_x264_Vegamovies.mkv",
+        "seasonNumber": 4,
+        "episodeNumber": 8,
+        "episodeTitle": "Dabdaba",
+        "episodeOverview": "As Abhishek plans his next move after receiving his CAT results, Pradhan’s family anxiously awaits the election outcome. The advance order of sweets becomes both a topic of conversation and a subtle display of confidence. While both factions try to project strength before the villagers, the MLA keeps a sharp eye on Phulera’s political future.",
+        "runtime": 46,
+        "tracks": null
+      }
+    ]
+  },
+  "episodes": [],
+  "availableSeasons": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "availableEpisodeCount": 32
+}

@@ -1,0 +1,25 @@
+{
+  "fileId": "500",
+  "fileName": "Men.In.Black.(1997).720p.Dual.Audio.(Hin.Eng)Vegamovies.NL.mkv",
+  "type": "movie",
+  "title": "Men in Black",
+  "originalTitle": "Men in Black",
+  "overview": "After a police chase with an otherworldly being, a New York City cop is recruited as an agent in a top-secret organization established to monitor and police alien activity on Earth: the Men in Black. Agent K and new recruit Agent J find themselves in the middle of a deadly plot by an intergalactic terrorist who has arrived on Earth to assassinate two ambassadors from opposing galaxies.",
+  "releaseDate": "1997-07-02",
+  "year": 1997,
+  "runtime": 98,
+  "genres": [
+    "Action",
+    "Adventure",
+    "Comedy",
+    "Science Fiction"
+  ],
+  "rating": 7.216,
+  "popularity": 9.5948,
+  "poster": "/data/posters/500.jpg",
+  "backdrop": "/data/backdrops/500_bd.jpg",
+  "tmdbId": 607,
+  "fetchedAt": "2026-02-15T13:44:22.335Z",
+  "needsRetry": false,
+  "tv": null
+}

@@ -1,0 +1,37 @@
+{
+  "fileId": "816",
+  "fileName": "From.S03E04.720p.WEB-DL.HIN-ENG.x264.ESub-Vegamovies.is.mkv",
+  "type": "tv",
+  "title": "FROM",
+  "originalTitle": "FROM",
+  "overview": "Unravel the mystery of a nightmarish town in middle America that traps all those who enter. As the unwilling residents fight to keep a sense of normalcy and search for a way out, they must also survive the threats of the surrounding forest – including the terrifying creatures that come out when the sun goes down.",
+  "releaseDate": "2022-02-20",
+  "year": 2022,
+  "runtime": 44,
+  "genres": [
+    "Mystery",
+    "Drama",
+    "Sci-Fi & Fantasy"
+  ],
+  "rating": 8.154,
+  "popularity": 95.6652,
+  "poster": "/data/posters/show_124364.jpg",
+  "backdrop": "/data/backdrops/show_124364_bd.jpg",
+  "tmdbId": 124364,
+  "fetchedAt": "2026-02-15T13:53:04.674Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "FROM",
+    "originalShowTitle": "FROM",
+    "seasonNumber": 3,
+    "episodeNumber": 4,
+    "episodeTitle": "There and Back Again",
+    "episodeOverview": "Boyd is forced to make a tough decision when newcomers arrive in town at nightfall; Victor unearths memories from the past in the hopes of finding answers.",
+    "showTmdbId": 124364,
+    "episodeRuntime": 44,
+    "totalSeasons": 4,
+    "totalEpisodes": 40
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

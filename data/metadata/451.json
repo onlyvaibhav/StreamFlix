@@ -1,0 +1,34 @@
+{
+  "fileId": "451",
+  "fileName": "Bandish Bandits (2024) S02 EP06.Vegamovies.is.mkv",
+  "type": "tv",
+  "title": "Bandish Bandits",
+  "originalTitle": "बंदिश बैंडिट्स",
+  "overview": "A classical singer Radhe falls in love with pop singer Tamanna and embarks on a path that forces him to compromise his classical roots. With time, both the singers try to get out of their comfort zone while  trying to protect their stardom. This series tests their resolve for their passion and love.",
+  "releaseDate": "2020-08-02",
+  "year": 2020,
+  "runtime": 49,
+  "genres": [
+    "Family",
+    "Drama"
+  ],
+  "rating": 7.591,
+  "popularity": 3.9145,
+  "poster": "/data/posters/show_106872.jpg",
+  "backdrop": "/data/backdrops/show_106872_bd.jpg",
+  "tmdbId": 106872,
+  "fetchedAt": "2026-02-20T17:51:26.037Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Bandish Bandits",
+    "originalShowTitle": "बंदिश बैंडिट्स",
+    "seasonNumber": 2,
+    "episodeNumber": 6,
+    "episodeTitle": "Hitchki",
+    "episodeOverview": "After qualifying for IBC, Radhe’s band gets paired with Rock and Mahi as their mentor for a round. Radhe reconciles with Mahi and accepts his guidance, leading to a successful performance. Tamanna’s secret relationship with Ayaan causes tension. Radhe sees Ayaan kiss Tamanna, leading to a confrontation where Radhe and Tamanna express their unresolved feelings in a passionate embrace.",
+    "showTmdbId": 106872,
+    "episodeRuntime": 49,
+    "totalSeasons": 2,
+    "totalEpisodes": 18
+  }
+}

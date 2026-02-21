@@ -1,0 +1,37 @@
+{
+  "fileId": "47",
+  "fileName": "Alice_In_Borderland_S02E05_720p_10Bit_Hindi_English_Msubs_Vegamovies.mkv",
+  "type": "tv",
+  "title": "Alice in Borderland",
+  "originalTitle": "今際の国のアリス",
+  "overview": "With his two friends, a video-game-obsessed young man finds himself in a strange version of Tokyo where they must compete in dangerous games to win.",
+  "releaseDate": "2020-12-10",
+  "year": 2020,
+  "runtime": 68,
+  "genres": [
+    "Mystery",
+    "Drama",
+    "Action & Adventure"
+  ],
+  "rating": 8.1,
+  "popularity": 31.959,
+  "poster": "/data/posters/show_110316.jpg",
+  "backdrop": "/data/backdrops/show_110316_bd.jpg",
+  "tmdbId": 110316,
+  "fetchedAt": "2026-02-15T14:51:31.229Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Alice in Borderland",
+    "originalShowTitle": "今際の国のアリス",
+    "seasonNumber": 2,
+    "episodeNumber": 5,
+    "episodeTitle": "Episode 5",
+    "episodeOverview": "Aguni has one thing on his mind: to find and kill the King of Spades. He's joined by Arisu and a determined high schooler named Akane Heiya.",
+    "showTmdbId": 110316,
+    "episodeRuntime": 68,
+    "totalSeasons": 3,
+    "totalEpisodes": 22
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

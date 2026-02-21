@@ -1,0 +1,37 @@
+{
+  "fileId": "288",
+  "fileName": "Gen_V_S01E05_Welcome_to_the_Monster_Club_720p_AMZN_WEB_DL_DUAL_DDP5.mkv",
+  "type": "tv",
+  "title": "Gen V",
+  "originalTitle": "Gen V",
+  "overview": "At America's only college for superheroes, gifted students put their moral boundaries to the test, competing for the university's top ranking, and a chance to join The Seven, Vought International's elite superhero team. When the school's dark secrets come to light, they must decide what kind of heroes they want to become.",
+  "releaseDate": "2023-09-28",
+  "year": 2023,
+  "runtime": 41,
+  "genres": [
+    "Action & Adventure",
+    "Drama",
+    "Sci-Fi & Fantasy"
+  ],
+  "rating": 7.693,
+  "popularity": 25.5081,
+  "poster": "/data/posters/show_205715.jpg",
+  "backdrop": "/data/backdrops/show_205715_bd.jpg",
+  "tmdbId": 205715,
+  "fetchedAt": "2026-02-15T14:40:03.562Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Gen V",
+    "originalShowTitle": "Gen V",
+    "seasonNumber": 1,
+    "episodeNumber": 5,
+    "episodeTitle": "Welcome to the Monster Club",
+    "episodeOverview": "REWARD! Last night, The Incredible Steve attended an off-campus party where his penis was lost. He just wants it back, so his family is offering a $10,000 REWARD for its safe return, no questions asked. Please contact the Godolkin Daily Classifieds Office or the Lost-and-Found Desk at the Godolkin Student Union.",
+    "showTmdbId": 205715,
+    "episodeRuntime": 41,
+    "totalSeasons": 2,
+    "totalEpisodes": 16
+  },
+  "audioCodec": "eac3",
+  "browserPlayable": false
+}

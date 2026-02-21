@@ -1,0 +1,91 @@
+{
+  "showTmdbId": 19885,
+  "showTitle": "Sherlock",
+  "originalShowTitle": "Sherlock",
+  "overview": "A modern update finds the famous sleuth and his doctor partner solving crime in 21st century London.",
+  "genres": [
+    "Crime",
+    "Drama",
+    "Mystery"
+  ],
+  "rating": 8.513,
+  "popularity": 41.4983,
+  "poster": "/data/posters/show_19885.jpg",
+  "backdrop": "/data/backdrops/show_19885_bd.jpg",
+  "totalSeasons": 4,
+  "totalEpisodes": 12,
+  "year": 2010,
+  "releaseDate": "2010-07-25",
+  "seasons": {
+    "1": [
+      {
+        "fileId": "261",
+        "fileName": "Sherlock.S01E01.720p.English.Esubs.Vegamovies.NL.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 1,
+        "episodeTitle": "A Study in Pink",
+        "episodeOverview": "A war hero, invalided home from Afghanistan, meets a strange but charismatic genius who is looking for a flatmate; it is London, 2010, and Dr Watson and Sherlock Holmes are meeting for the first time. A string of impossible suicides has Scotland Yard baffled - and only one man can help.",
+        "runtime": 88,
+        "tracks": null
+      },
+      {
+        "fileId": "262",
+        "fileName": "Sherlock.S01E02.720p.English.Esubs.Vegamovies.NL.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 2,
+        "episodeTitle": "The Blind Banker",
+        "episodeOverview": "A mysterious cipher is being scrawled on the walls around London. The first person to see the cipher is dead within hours of reading it. Sherlock plunges into a world of codes and symbols, consulting with London's best graffiti artists. He soon learns that the city is in the grip a gang of international smugglers, a secret society called the Black Lotus.",
+        "runtime": 89,
+        "tracks": null
+      },
+      {
+        "fileId": "263",
+        "fileName": "Sherlock.S01E03.720p.English.Esubs.Vegamovies.NL.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 3,
+        "episodeTitle": "The Great Game",
+        "episodeOverview": "A strange clue in an empty room, a blood-soaked car, a priceless Old Master, a deranged bomber. With the clock ticking, the curtain rises on a battle of wits between Sherlock, John and the shadowy stranger who seems to know all the answers...",
+        "runtime": 90,
+        "tracks": null
+      }
+    ],
+    "2": [
+      {
+        "fileId": "264",
+        "fileName": "Sherlock.S02E01.720p.English.Esubs.Vegamovies.NL.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 1,
+        "episodeTitle": "A Scandal in Belgravia",
+        "episodeOverview": "Blackmail threatens the monarchy and Sherlock is about to meet the woman who beats him.",
+        "runtime": 90,
+        "tracks": null
+      },
+      {
+        "fileId": "265",
+        "fileName": "Sherlock.S02E02.720p.English.Esubs.Vegamovies.NL.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 2,
+        "episodeTitle": "The Hounds of Baskerville",
+        "episodeOverview": "A hound from hell. Sherlock's most famous case. But is a monster really stalking Dartmoor?",
+        "runtime": 89,
+        "tracks": null
+      },
+      {
+        "fileId": "266",
+        "fileName": "Sherlock.S02E03.720p.English.Esubs.Vegamovies.NL.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 3,
+        "episodeTitle": "The Reichenbach Fall",
+        "episodeOverview": "The return of Moriarty. The crime of the century. Can Sherlock possibly survive?",
+        "runtime": 89,
+        "tracks": null
+      }
+    ]
+  },
+  "episodes": [],
+  "availableSeasons": [
+    1,
+    2
+  ],
+  "availableEpisodeCount": 6
+}

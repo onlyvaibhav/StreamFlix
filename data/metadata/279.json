@@ -1,0 +1,36 @@
+{
+  "fileId": "279",
+  "fileName": "Shekhar_Home_S01E02_1080p_Hindi_WEB_DL_5_1_ESub_x264_Vegamovies.mkv",
+  "type": "tv",
+  "title": "Shekhar Home",
+  "originalTitle": "Shekhar Home",
+  "overview": "Set in 1990s Lonpur, Bengal, “Shekhar Home” combines suspense & comedy as eccentric Shekhar and his new housemate Jayavrat solve a variety of cases while interacting with a vibrant cast of characters in a charming, pre-technology era.",
+  "releaseDate": "2024-08-14",
+  "year": 2024,
+  "runtime": 39,
+  "genres": [
+    "Drama",
+    "Crime"
+  ],
+  "rating": 6.65,
+  "popularity": 1.4031,
+  "poster": "/data/posters/show_260203.jpg",
+  "backdrop": "/data/backdrops/show_260203_bd.jpg",
+  "tmdbId": 260203,
+  "fetchedAt": "2026-02-15T16:42:01.446Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Shekhar Home",
+    "originalShowTitle": "Shekhar Home",
+    "seasonNumber": 1,
+    "episodeNumber": 2,
+    "episodeTitle": "Dasbabu Ki Dulhan",
+    "episodeOverview": "Shekhar dives into a village scam where a jungle adventure leads to a bank heist. With a bride-to-be's father missing, he uncovers a tangled plot revealing a cunning robber with a grudge, while the looming threat of \"M\" draws ever closer.",
+    "showTmdbId": 260203,
+    "episodeRuntime": 39,
+    "totalSeasons": 1,
+    "totalEpisodes": 6
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

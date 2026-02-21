@@ -1,0 +1,37 @@
+{
+  "fileId": "286",
+  "fileName": "GEN_V_2023_S01E03_720p_WEBRip_HIN_ENG_x264_ESub_Vegamovies_to.mkv",
+  "type": "tv",
+  "title": "Gen V",
+  "originalTitle": "Gen V",
+  "overview": "At America's only college for superheroes, gifted students put their moral boundaries to the test, competing for the university's top ranking, and a chance to join The Seven, Vought International's elite superhero team. When the school's dark secrets come to light, they must decide what kind of heroes they want to become.",
+  "releaseDate": "2023-09-28",
+  "year": 2023,
+  "runtime": 52,
+  "genres": [
+    "Action & Adventure",
+    "Drama",
+    "Sci-Fi & Fantasy"
+  ],
+  "rating": 7.693,
+  "popularity": 25.5081,
+  "poster": "/data/posters/show_205715.jpg",
+  "backdrop": "/data/backdrops/show_205715_bd.jpg",
+  "tmdbId": 205715,
+  "fetchedAt": "2026-02-15T14:40:21.196Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Gen V",
+    "originalShowTitle": "Gen V",
+    "seasonNumber": 1,
+    "episodeNumber": 3,
+    "episodeTitle": "#ThinkBrink",
+    "episodeOverview": "You're invited to the #ThinkBrink Memorial Gala and Fundraiser tonight at Godolkin University! Make sure to dress your best when the doors open at 7PM and you hit the red carpet! Then join the world's hottest superheroes and celebrities for selfies and complimentary champagne, and enjoy a touching tribute video to the legendary Professor Brinkerhoff, featuring A-Train, The Deep, and Polarity!",
+    "showTmdbId": 205715,
+    "episodeRuntime": 52,
+    "totalSeasons": 2,
+    "totalEpisodes": 16
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

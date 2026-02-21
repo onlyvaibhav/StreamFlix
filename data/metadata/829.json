@@ -1,0 +1,37 @@
+{
+  "fileId": "829",
+  "fileName": "S01E01_The_Fragrant_Flower_Blooms_Rintaro_and_Kaoruko_AV1_Tsundere.mkv",
+  "type": "tv",
+  "title": "The Fragrant Flower Blooms with Dignity",
+  "originalTitle": "薫る花は凛と咲く",
+  "overview": "When the intimidating Rintaro meets the open-minded Kaoruko, the unlikely duo grows closer. The issue? Their neighboring high schools hate each other.",
+  "releaseDate": "2025-07-06",
+  "year": 2025,
+  "runtime": 24,
+  "genres": [
+    "Animation",
+    "Drama"
+  ],
+  "rating": 8.693,
+  "popularity": 18.6383,
+  "poster": "/data/posters/show_271607.jpg",
+  "backdrop": "/data/backdrops/show_271607_bd.jpg",
+  "tmdbId": 271607,
+  "fetchedAt": "2026-02-15T18:46:06.656Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "The Fragrant Flower Blooms with Dignity",
+    "originalShowTitle": "薫る花は凛と咲く",
+    "seasonNumber": 1,
+    "episodeNumber": 1,
+    "episodeTitle": "Rintaro and Kaoruko",
+    "episodeOverview": "While helping at his family's patisserie, Rintaro meets Kaoruko. He fears his appearance has scared her off — but she returns the next day to see him.",
+    "showTmdbId": 271607,
+    "episodeRuntime": 24,
+    "totalSeasons": 1,
+    "totalEpisodes": 13
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "_tracksDetected": true
+}

@@ -1,0 +1,24 @@
+{
+  "fileId": "347",
+  "fileName": "Only Yesterday Sub 1080p.mp4",
+  "type": "movie",
+  "title": "Only Yesterday",
+  "originalTitle": "おもひでぽろぽろ",
+  "overview": "In lyrical switches between the present and the past, Taeko contemplates the arc of her life, and wonders if she has been true to the dreams of her childhood self.",
+  "releaseDate": "1991-07-20",
+  "year": 1991,
+  "runtime": 119,
+  "genres": [
+    "Animation",
+    "Drama",
+    "Romance"
+  ],
+  "rating": 7.382,
+  "popularity": 2.8771,
+  "poster": "/data/posters/347.jpg",
+  "backdrop": "/data/backdrops/347_bd.jpg",
+  "tmdbId": 15080,
+  "fetchedAt": "2026-02-15T20:36:23.671Z",
+  "needsRetry": false,
+  "tv": null
+}

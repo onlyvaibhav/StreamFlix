@@ -1,0 +1,37 @@
+{
+  "fileId": "739",
+  "fileName": "Summer_Time_Rendering_S01E22_720p_Hindi_Japanese_Esub_Vegamovies.mkv",
+  "type": "tv",
+  "title": "Summer Time Rendering",
+  "originalTitle": "サマータイムレンダ",
+  "overview": "Shinpei Ajiro travels home to attend the funeral of a childhood friend, and finds the remote island plagued by a sinister, supernatural force.",
+  "releaseDate": "2022-04-15",
+  "year": 2022,
+  "runtime": 23,
+  "genres": [
+    "Animation",
+    "Drama",
+    "Mystery"
+  ],
+  "rating": 8.099,
+  "popularity": 14.8559,
+  "poster": "/data/posters/show_117933.jpg",
+  "backdrop": "/data/backdrops/show_117933_bd.jpg",
+  "tmdbId": 117933,
+  "fetchedAt": "2026-02-15T14:46:18.893Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Summer Time Rendering",
+    "originalShowTitle": "サマータイムレンダ",
+    "seasonNumber": 1,
+    "episodeNumber": 22,
+    "episodeTitle": "Return",
+    "episodeOverview": "Ushio fully comes back to life. Shinpei heads to Hiruko's grotto.",
+    "showTmdbId": 117933,
+    "episodeRuntime": 23,
+    "totalSeasons": 1,
+    "totalEpisodes": 25
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

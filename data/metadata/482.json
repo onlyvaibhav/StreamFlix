@@ -1,0 +1,36 @@
+{
+  "fileId": "482",
+  "fileName": "Paatal_Lok_S02E01_720p_Hindi_WEB_DL_5_1_ESub_x264_Vegamovies_is.mkv",
+  "type": "tv",
+  "title": "Paatal Lok",
+  "originalTitle": "पाताल लोक",
+  "overview": "A down and out cop lands the case of a lifetime when four suspects are nabbed in the assassination attempt of a prime time journalist. The case turns out to be a devious maze where nothing is what it looks like. The pursuit of it leads him to the dark netherworld - the 'Paatal Lok', and to shocking discoveries in the past of the four suspects.",
+  "releaseDate": "2020-05-15",
+  "year": 2020,
+  "runtime": 44,
+  "genres": [
+    "Crime",
+    "Drama"
+  ],
+  "rating": 7.395,
+  "popularity": 8.6272,
+  "poster": "/data/posters/show_103051.jpg",
+  "backdrop": "/data/backdrops/show_103051_bd.jpg",
+  "tmdbId": 103051,
+  "fetchedAt": "2026-02-15T15:35:04.235Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Paatal Lok",
+    "originalShowTitle": "पाताल लोक",
+    "seasonNumber": 2,
+    "episodeNumber": 1,
+    "episodeTitle": "Head On",
+    "episodeOverview": "On a cold winter morning in Lutyens’ Delhi, the room service staff at Nagaland Sadan discover a decapitated head. The victim Jonathan Thom, a Naga leader, was in Delhi for the important Naga Business Summit. IPS officer Ansari leads the murder investigation. Meanwhile, Hathi Ram, investigates a migrant worker's disappearance, only to chance upon a startling discovery.",
+    "showTmdbId": 103051,
+    "episodeRuntime": 44,
+    "totalSeasons": 2,
+    "totalEpisodes": 17
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

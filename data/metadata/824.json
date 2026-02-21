@@ -1,0 +1,36 @@
+{
+  "fileId": "824",
+  "fileName": "Bhay_The_Gaurav_Tiwari_Mystery_S01E03_720p_AMZN_WEB_DL_x264_Vegamovies.mkv",
+  "type": "tv",
+  "title": "Bhay: The Gaurav Tiwari Story",
+  "originalTitle": "भय: गौरव तिवारी की कहानी",
+  "overview": "Gaurav Tiwari, a paranormal investigator, faces his greatest challenge when his pursuit of the truth behind unexplained phenomena leads him into a deadly spiral. As his mysterious death leaves questions unanswered, a journalist delves into his eerie and celebrated legacy, unearthing secrets that blur the line between reality and the supernatural.",
+  "releaseDate": "2025-12-12",
+  "year": 2025,
+  "runtime": 22,
+  "genres": [
+    "Drama",
+    "Mystery"
+  ],
+  "rating": 8,
+  "popularity": 3.3793,
+  "poster": "/data/posters/show_308053.jpg",
+  "backdrop": "/data/backdrops/show_308053_bd.jpg",
+  "tmdbId": 308053,
+  "fetchedAt": "2026-02-15T13:51:37.056Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Bhay: The Gaurav Tiwari Story",
+    "originalShowTitle": "भय: गौरव तिवारी की कहानी",
+    "seasonNumber": 1,
+    "episodeNumber": 3,
+    "episodeTitle": "Khauff Ki Dastak",
+    "episodeOverview": "Gaurav's journey starts unfolding further with the story of Bachchua… as the IPS becoming more receptive to Irene but she has a past of her own that she isn't willing to divulge yet. ",
+    "showTmdbId": 308053,
+    "episodeRuntime": 22,
+    "totalSeasons": 1,
+    "totalEpisodes": 8
+  },
+  "audioCodec": "eac3",
+  "browserPlayable": false
+}

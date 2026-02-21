@@ -1,0 +1,34 @@
+{
+  "fileId": "546",
+  "fileName": "S01E03-Someone Is Thinking of Someone [2EA0A2CF].mkv",
+  "type": "tv",
+  "title": "A Sign of Affection",
+  "originalTitle": "ゆびさきと恋々",
+  "overview": "Yuki Itose is just a typical student dealing with the pressures of college. She is struggling one day on the train when an upperclassman named Itsuomi Nagi helps her out. As he gradually opens a new world to her, Yuki develops feelings for Itsuomi. A pure love story begins to grow.",
+  "releaseDate": "2024-01-06",
+  "year": 2024,
+  "runtime": 24,
+  "genres": [
+    "Animation",
+    "Drama"
+  ],
+  "rating": 8,
+  "popularity": 14.3414,
+  "poster": "/data/posters/show_230059.jpg",
+  "backdrop": "/data/backdrops/show_230059_bd.jpg",
+  "tmdbId": 230059,
+  "fetchedAt": "2026-02-16T09:24:11.239Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "A Sign of Affection",
+    "originalShowTitle": "ゆびさきと恋々",
+    "seasonNumber": 1,
+    "episodeNumber": 3,
+    "episodeTitle": "Someone Is Thinking of Someone",
+    "episodeOverview": "Having come to terms with her feelings for Itsuomi, Yuki prepares to make her move, but she encounters a sight that throws her into confusion and doubt.",
+    "showTmdbId": 230059,
+    "episodeRuntime": 24,
+    "totalSeasons": 1,
+    "totalEpisodes": 12
+  }
+}

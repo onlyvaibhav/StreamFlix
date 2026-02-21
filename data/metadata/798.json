@@ -1,0 +1,37 @@
+{
+  "fileId": "798",
+  "fileName": "From_S01E06_Book_74_720p_x264_Hindi_English_Esubs_Vegamovies_is.mkv",
+  "type": "tv",
+  "title": "FROM",
+  "originalTitle": "FROM",
+  "overview": "Unravel the mystery of a nightmarish town in middle America that traps all those who enter. As the unwilling residents fight to keep a sense of normalcy and search for a way out, they must also survive the threats of the surrounding forest – including the terrifying creatures that come out when the sun goes down.",
+  "releaseDate": "2022-02-20",
+  "year": 2022,
+  "runtime": 49,
+  "genres": [
+    "Mystery",
+    "Drama",
+    "Sci-Fi & Fantasy"
+  ],
+  "rating": 8.154,
+  "popularity": 95.6652,
+  "poster": "/data/posters/show_124364.jpg",
+  "backdrop": "/data/backdrops/show_124364_bd.jpg",
+  "tmdbId": 124364,
+  "fetchedAt": "2026-02-15T14:36:51.495Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "FROM",
+    "originalShowTitle": "FROM",
+    "seasonNumber": 1,
+    "episodeNumber": 6,
+    "episodeTitle": "Book 74",
+    "episodeOverview": "Boyd’s plan to head off into the forest provokes an unexpected response from Kenny. Jade enlists Jim’s help with an experiment. Tabitha makes a chilling discovery that sends her down a unique path searching for answers.",
+    "showTmdbId": 124364,
+    "episodeRuntime": 49,
+    "totalSeasons": 4,
+    "totalEpisodes": 40
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

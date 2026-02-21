@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StreamFlix</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="stylesheet" href="/css/app.css">
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav id="navbar" class="navbar">
+    <div class="navbar-left">
+      <a href="#" class="logo" onclick="event.preventDefault(); navigate('home');">STREAMFLIX</a>
+      <button id="hamburger-btn" class="hamburger-btn" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-links">
+        <a href="#" data-route="home" class="nav-link active">Home</a>
+        <a href="#" data-route="movies" class="nav-link">Movies</a>
+        <a href="#" data-route="tvshows" class="nav-link">TV Shows</a>
+      </div>
+    </div>
+    <div class="navbar-right">
+      <div class="search-bar">
+        <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="2">
+          <circle cx="11" cy="11" r="8" />
+          <path d="m21 21-4.35-4.35" />
+        </svg>
+        <input type="text" class="search-input" placeholder="Titles, genres...">
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Nav Overlay -->
+  <div id="mobile-nav" class="mobile-nav-overlay hidden">
+    <div class="mobile-nav-header">
+      <a href="#" class="logo" onclick="event.preventDefault(); navigate('home');">STREAMFLIX</a>
+      <button id="mobile-nav-close" class="mobile-nav-close" aria-label="Close menu">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+    <nav class="mobile-nav-links">
+      <a href="#" data-route="home" class="mobile-nav-link">Home</a>
+      <a href="#" data-route="movies" class="mobile-nav-link">Movies</a>
+      <a href="#" data-route="tvshows" class="mobile-nav-link">TV Shows</a>
+    </nav>
+  </div>
+
+  <!-- Main Content Area -->
+  <main id="app">
+    <!-- Content injected by JavaScript -->
+  </main>
+
+  <!-- Detail Modal -->
+  <div id="detail-modal" class="modal-overlay hidden" onclick="if(event.target===this) closeModal()">
+    <div class="modal-container">
+      <button class="modal-close-btn" onclick="closeModal()">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- Video Player -->
+  <div id="player-screen" class="player-screen hidden">
+    <!-- Background Video Layer -->
+    <video id="video-player" class="player-video" autoplay playsinline></video>
+
+    <!-- Center Screen Overlays -->
+    <div id="buffering-spinner" class="spinner-container hidden">
+      <div class="spinner"></div>
+    </div>
+
+    <div id="center-overlay" class="center-overlay">
+      <!-- Injected play/pause animations will go here -->
+    </div>
+
+    <button id="next-episode-btn" class="next-episode-btn hidden">
+      <span>Next Episode</span>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M4 18l8.5-6L4 6v12zm9-12v12l8.5-6L13 6z" />
+      </svg>
+    </button>
+
+    <!-- Controls Layer -->
+    <div class="player-controls-layer" id="player-controls-layer">
+      <div class="player-header">
+        <button id="close-player" class="player-back-btn" title="Exit Player">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7" />
+          </svg>
+        </button>
+        <div class="player-title-container">
+          <div id="player-title-main" class="player-title-main">Title</div>
+          <div id="player-title-sub" class="player-title-sub"></div>
+        </div>
+      </div>
+
+      <div id="audio-info" class="audio-info-toast hidden"></div>
+
+      <!-- Track Selection Panel -->
+      <div id="track-panel" class="track-panel hidden">
+        <div class="track-panel-header">
+          <span>Audio & Subtitles</span>
+          <div id="close-tracks-btn" class="track-panel-close">✕</div>
+        </div>
+        <div class="track-section">
+          <div class="track-section-title">Audio</div>
+          <div id="audio-track-list" class="track-list"></div>
+        </div>
+        <div class="track-section">
+          <div class="track-section-title">Subtitles</div>
+          <div id="subtitle-track-list" class="track-list"></div>
+        </div>
+      </div>
+
+      <div class="controls-bottom" id="custom-controls">
+        <div class="progress-container" id="progress-container">
+          <div class="progress-buffer" id="progress-buffer"></div>
+          <div class="progress-bar" id="progress-bar"></div>
+          <div class="progress-scrubber" id="progress-scrubber"></div>
+          <div class="time-tooltip" id="time-tooltip">0:00</div>
+        </div>
+
+        <div class="control-buttons-row">
+          <!-- Left Group -->
+          <div class="control-group-left">
+            <button id="btn-play-pause" class="icon-btn icon-btn-large" aria-label="Play/Pause">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                <polygon points="5 3 19 12 5 21 5 3" />
+              </svg>
+            </button>
+
+            <button id="btn-rw-10" class="icon-btn" aria-label="Rewind 10s">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M11 17l-9-9 9-9" fill="none" stroke="none" /> <!-- spacer -->
+                <path d="M2.5 12A9.5 9.5 0 1 0 21.5 12" />
+                <path d="M2.5 12L7 16M2.5 12L7 8" />
+                <text x="12" y="15" font-size="8" fill="currentColor" stroke="none" text-anchor="middle"
+                  font-weight="bold">10</text>
+              </svg>
+            </button>
+
+            <button id="btn-ff-10" class="icon-btn" aria-label="Fast Forward 10s">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21.5 12A9.5 9.5 0 1 1 2.5 12" />
+                <path d="M21.5 12L17 16M21.5 12L17 8" />
+                <text x="12" y="15" font-size="8" fill="currentColor" stroke="none" text-anchor="middle"
+                  font-weight="bold">10</text>
+              </svg>
+            </button>
+
+            <div class="volume-container">
+              <button id="btn-volume" class="icon-btn" aria-label="Volume">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                  <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                </svg>
+              </button>
+              <div class="volume-slider-container">
+                <input type="range" min="0" max="1" step="0.05" value="1" class="volume-slider" id="volume-slider">
+              </div>
+            </div>
+
+            <span id="time-display" class="time-display">0:00 / 0:00</span>
+          </div>
+
+          <!-- Right Group -->
+          <div class="control-group-right">
+            <button id="btn-next-ep-control" class="icon-btn hidden" title="Next Episode" aria-label="Next Episode"
+              style="width: auto; padding: 0 10px; font-weight: 600; font-size: 13px;">
+              <span style="margin-right: 5px;">Next Episode</span>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M4 18l8.5-6L4 6v12zm9-12v12l8.5-6L13 6z" />
+              </svg>
+            </button>
+            <div class="speed-container">
+              <button id="btn-speed" class="icon-btn" style="font-size:0.9rem; font-weight:700; width:40px;">1x</button>
+              <div id="speed-menu" class="speed-menu hidden">
+                <div class="speed-option" data-speed="0.25">0.25x</div>
+                <div class="speed-option" data-speed="0.5">0.5x</div>
+                <div class="speed-option" data-speed="0.75">0.75x</div>
+                <div class="speed-option active" data-speed="1">1x (Normal)</div>
+                <div class="speed-option" data-speed="1.25">1.25x</div>
+                <div class="speed-option" data-speed="1.5">1.5x</div>
+                <div class="speed-option" data-speed="2">2x</div>
+              </div>
+            </div>
+
+            <button id="btn-cc" class="icon-btn" title="Audio & Subtitles" aria-label="Audio & Subtitles">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="4" width="20" height="16" rx="2" />
+                <path d="M7 15h2.5M7 12.5h2M7 10h2.5" stroke="none" fill="currentColor" />
+                <!-- Simple text representation often better than paths for small icon -->
+                <text x="7" y="15" font-size="10" fill="currentColor" stroke="none" font-weight="bold">CC</text>
+              </svg>
+            </button>
+
+
+
+            <button id="btn-fullscreen" class="icon-btn" title="Fullscreen" aria-label="Fullscreen">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3">
+                </path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Custom Subtitle Display — positioned above controls, moves down when controls hide -->
+    <div id="subtitle-display" class="subtitle-display"></div>
+  </div>
+
+  <script src="/js/app.js"></script>
+</body>
+
+</html>

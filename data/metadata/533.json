@@ -1,0 +1,36 @@
+{
+  "fileId": "533",
+  "fileName": "Aashram_S01_E07_2020_WebRip_Hindi_720p_x264_AAC_Vegamovies_NL.mkv",
+  "type": "tv",
+  "title": "Aashram",
+  "originalTitle": "आश्रम",
+  "overview": "A duplicitous, aashram based, Indian Godman's good deeds serve activities criminal and unholy, such as rapes, murders, drugs, vote bank politics and forced male emasculation. The law and a few crusaders investigate to bring him to account.",
+  "releaseDate": "2020-08-28",
+  "year": 2020,
+  "runtime": 42,
+  "genres": [
+    "Drama",
+    "Crime"
+  ],
+  "rating": 5.176,
+  "popularity": 4.3857,
+  "poster": "/data/posters/show_107588.jpg",
+  "backdrop": "/data/backdrops/show_107588_bd.jpg",
+  "tmdbId": 107588,
+  "fetchedAt": "2026-02-15T15:30:05.845Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Aashram",
+    "originalShowTitle": "आश्रम",
+    "seasonNumber": 1,
+    "episodeNumber": 7,
+    "episodeTitle": "Gati Rodh",
+    "episodeOverview": "Ujagar SIngh has dug too deep into the secrets of the ashram and he suspects that he might be near a big breakthrough. But then, he receives a call ordering him to stop the investigation on the case immediately and to not to pursue the case further. Bhopa, on the other hand receives shocking information about someone they had been following. Will Ujagar Singh give up the case? Watch the full MX Originals’ latest web series Ashram in HIndi On MX Player for free!",
+    "showTmdbId": 107588,
+    "episodeRuntime": 42,
+    "totalSeasons": 3,
+    "totalEpisodes": 33
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

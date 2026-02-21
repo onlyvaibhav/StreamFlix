@@ -1,0 +1,36 @@
+{
+  "fileId": "476",
+  "fileName": "Paatal Lok S01E04 Hindi 720p WEB-DL ESub Vegamovies.NL.mkv",
+  "type": "tv",
+  "title": "Paatal Lok",
+  "originalTitle": "पाताल लोक",
+  "overview": "A down and out cop lands the case of a lifetime when four suspects are nabbed in the assassination attempt of a prime time journalist. The case turns out to be a devious maze where nothing is what it looks like. The pursuit of it leads him to the dark netherworld - the 'Paatal Lok', and to shocking discoveries in the past of the four suspects.",
+  "releaseDate": "2020-05-15",
+  "year": 2020,
+  "runtime": 45,
+  "genres": [
+    "Crime",
+    "Drama"
+  ],
+  "rating": 7.395,
+  "popularity": 8.6272,
+  "poster": "/data/posters/show_103051.jpg",
+  "backdrop": "/data/backdrops/show_103051_bd.jpg",
+  "tmdbId": 103051,
+  "fetchedAt": "2026-02-15T15:36:01.599Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Paatal Lok",
+    "originalShowTitle": "पाताल लोक",
+    "seasonNumber": 1,
+    "episodeNumber": 4,
+    "episodeTitle": "Sleepless in Seelampur",
+    "episodeOverview": "Hathi Ram gets sucked further into the case, but the investigation hits a dead end with the mysterious death of a key suspect. Sanjeev Mehra starts forming a plan to cash in on his renewed popularity. A procedureal screw up gets blown up and lands Hathi Ram in serious trouble with the bosses.",
+    "showTmdbId": 103051,
+    "episodeRuntime": 45,
+    "totalSeasons": 2,
+    "totalEpisodes": 17
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

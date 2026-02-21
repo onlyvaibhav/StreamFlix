@@ -1,0 +1,87 @@
+{
+  "showTmdbId": 223952,
+  "showTitle": "Gutar Gu",
+  "originalShowTitle": "Gutar Gu",
+  "overview": "Ritu joins a coaching class in Bhopal and notices Anuj on the first day. She introduces herself to Anuj, which startles him. He seeks advice from friends on how to impress her. Ritu asks Anuj to help her explore the city but he cancels at the last minute. Anuj writes a love letter and must now confess his feelings to Ritu and pray she feels the same way.",
+  "genres": [
+    "Drama",
+    "Comedy"
+  ],
+  "rating": 8,
+  "popularity": 1.2929,
+  "poster": "/data/posters/show_223952.jpg",
+  "backdrop": "/data/backdrops/show_223952_bd.jpg",
+  "totalSeasons": 3,
+  "totalEpisodes": 18,
+  "year": 2023,
+  "releaseDate": "2023-04-05",
+  "seasons": {
+    "2": [
+      {
+        "fileId": "334",
+        "fileName": "Gutar_Gu_S02_E01_WebRip_720p_Hindi_AAC_2_0_x264_ESub_Vegamovies.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 1,
+        "episodeTitle": "Will You Be My Sukhi Puri?",
+        "episodeOverview": "Anuj and Ritu's relationship faces a challenge when Ritu gets admitted to a college in Ahmedabad. Desperate to follow her, Anuj and his friends try to convince his parents that studying in Ahmedabad is the best move. Unfortunately, Anuj's mother catches on to the plot and discovers that Ritu is also going to Ahmedabad. As Ritu and Anuj prepare for the final goodbye, tensions escalate.",
+        "runtime": 31,
+        "tracks": null
+      },
+      {
+        "fileId": "335",
+        "fileName": "Gutar_Gu_S02_E02_WebRip_720p_Hindi_AAC_2_0_x264_ESub_Vegamovies.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 2,
+        "episodeTitle": "Long Distance Wali Gutar Gu",
+        "episodeOverview": "Ritu and Anuj begin their long-distance relationship with caution and sincerity. They set alarms for breakfast, lunch, and dinner to text and call each other, ensuring their 'Gutar Gu' continues. As the pressure of fitting into their respective colleges and pursuing their passion takes a toll on their schedules, Anuj grows anxious about weakening his bond with Ritu.",
+        "runtime": 30,
+        "tracks": null
+      },
+      {
+        "fileId": "336",
+        "fileName": "Gutar_Gu_S02_E03_WebRip_720p_Hindi_AAC_2_0_x264_ESub_Vegamovies.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 3,
+        "episodeTitle": "Fresh Friendship Brewing",
+        "episodeOverview": "Shivangi enters the world of Gutar Gu as Anuj's playwright. Little does she know that this play is Anuj's ticket to meeting Ritu in Ahmedabad and she starts to make a move on Anuj and the real test of his fidelity for Ritu begins. Shivangi and Anuj end up in situations that make Ritu question Anuj's loyalty. Anuj comes clean to Ritu but will she forgive and forget this one mistake?",
+        "runtime": 29,
+        "tracks": null
+      },
+      {
+        "fileId": "337",
+        "fileName": "Gutar_Gu_S02_E04_WebRip_720p_Hindi_AAC_2_0_x264_ESub_Vegamovies.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 4,
+        "episodeTitle": "Am I Ready Yet?",
+        "episodeOverview": "Anuj and Ritu are going to see each other after months of long-distance separation in Ahmedabad. Both are getting unsolicited advice from their respective friends on the possibility of them getting intimate with each other. As Anuj arrives in Ahmedabad, the tension between them begins to build as both try to follow the advice given by their friends.",
+        "runtime": 29,
+        "tracks": null
+      },
+      {
+        "fileId": "338",
+        "fileName": "Gutar_Gu_S02_E05_WebRip_720p_Hindi_AAC_2_0_x264_ESub_Vegamovies.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 5,
+        "episodeTitle": "3,2,1… Happy New Year",
+        "episodeOverview": "Ritu and Anuj have glorious and hopeful New Year's Eve plans, which also include the possibility of Anuj booking a hotel room for them. Ritu takes up an internship where her experience is not what she anticipated. Anuj stands with Ritu like a rock and comforts her. On New Year's Eve, the duo dines together in a unique set-up and we know that long distance has only strengthened their bond.",
+        "runtime": 28,
+        "tracks": null
+      },
+      {
+        "fileId": "339",
+        "fileName": "Gutar_Gu_S02_E06_WebRip_720p_Hindi_AAC_2_0_x264_ESub_Vegamovies.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 6,
+        "episodeTitle": "Baat Se Hi Toh Baat Banti Hai",
+        "episodeOverview": "Anuj lands the final audition for a two-season web show and Ritu surprises him in Bhopal and tells him about an upcoming internship opportunity in Mumbai. If Anuj lands the part both can head to Mumbai together. Ritu declines a major internship in Singapore just to be with Anuj in Mumbai but the latter comes out of the audition without appearing for it fearing his parents will never send him.",
+        "runtime": 28,
+        "tracks": null
+      }
+    ]
+  },
+  "episodes": [],
+  "availableSeasons": [
+    2
+  ],
+  "availableEpisodeCount": 6
+}

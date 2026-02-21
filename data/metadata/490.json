@@ -1,0 +1,24 @@
+{
+  "fileId": "490",
+  "fileName": "Arrival_2016_720p_UHD_BluRay_x264_Hindi_HE_AAC_5_1_+_English_AAC.mkv",
+  "type": "movie",
+  "title": "Arrival",
+  "originalTitle": "Arrival",
+  "overview": "Taking place after alien crafts land around the world, an expert linguist is recruited by the military to determine whether they come in peace or are a threat.",
+  "releaseDate": "2016-11-10",
+  "year": 2016,
+  "runtime": 116,
+  "genres": [
+    "Drama",
+    "Science Fiction",
+    "Mystery"
+  ],
+  "rating": 7.623,
+  "popularity": 16.5172,
+  "poster": "/data/posters/490.jpg",
+  "backdrop": "/data/backdrops/490_bd.jpg",
+  "tmdbId": 329865,
+  "fetchedAt": "2026-02-15T13:44:41.371Z",
+  "needsRetry": false,
+  "tv": null
+}

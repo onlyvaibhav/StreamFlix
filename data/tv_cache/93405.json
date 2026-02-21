@@ -1,0 +1,88 @@
+{
+  "showTmdbId": 93405,
+  "showTitle": "Squid Game",
+  "originalShowTitle": "오징어 게임",
+  "overview": "Hundreds of cash-strapped players accept a strange invitation to compete in children's games. Inside, a tempting prize awaits — with deadly high stakes.",
+  "genres": [
+    "Action & Adventure",
+    "Mystery",
+    "Drama"
+  ],
+  "rating": 7.858,
+  "popularity": 62.0435,
+  "poster": "/data/posters/show_93405.jpg",
+  "backdrop": "/data/backdrops/show_93405_bd.jpg",
+  "totalSeasons": 3,
+  "totalEpisodes": 22,
+  "year": 2021,
+  "releaseDate": "2021-09-17",
+  "seasons": {
+    "3": [
+      {
+        "fileId": "625",
+        "fileName": "Squid.Game.S03E01.720p.HIN-ENG-KOR.x264.ESub-Vegamovies.is.mkv",
+        "seasonNumber": 3,
+        "episodeNumber": 1,
+        "episodeTitle": "Keys and Knives",
+        "episodeOverview": "No-eul infiltrates a dangerous operation with a risky plan. A new game is announced: hide-and-seek, where one group holds a key and the other a knife.",
+        "runtime": 58,
+        "tracks": null
+      },
+      {
+        "fileId": "626",
+        "fileName": "Squid.Game.S03E02.720p.HIN-ENG-KOR.x264.ESub-Vegamovies.is.mkv",
+        "seasonNumber": 3,
+        "episodeNumber": 2,
+        "episodeTitle": "The Starry Night",
+        "episodeOverview": "The games resume, and Gi-hun fixates on confronting Kang Dae-ho. Meanwhile, Kim Jun-hee faces a sudden crisis that pushes her willpower to its limits.",
+        "runtime": 60,
+        "tracks": null
+      },
+      {
+        "fileId": "627",
+        "fileName": "Squid.Game.S03E03.720p.HIN-ENG-KOR.x264.ESub-Vegamovies.is.mkv",
+        "seasonNumber": 3,
+        "episodeNumber": 3,
+        "episodeTitle": "It's Not Your Fault",
+        "episodeOverview": "Jun-ho's team gets close to finding the island. Jang Geum-ja makes a desperate plea to Gi-hun to help Jun-hee. The VIPs discuss a cruel proposal.",
+        "runtime": 66,
+        "tracks": null
+      },
+      {
+        "fileId": "628",
+        "fileName": "Squid.Game.S03E04.720p.HIN-ENG-KOR.x264.ESub-Vegamovies.is.mkv",
+        "seasonNumber": 3,
+        "episodeNumber": 4,
+        "episodeTitle": "222",
+        "episodeOverview": "Even as Gi-hun supports Jun-hee amid rising tensions, she must make a pivotal decision. Before the final game, the Front Man gives Gi-hun an ultimatum.",
+        "runtime": 66,
+        "tracks": null
+      },
+      {
+        "fileId": "629",
+        "fileName": "Squid.Game.S03E05.720p.HIN-ENG-KOR.x264.ESub-Vegamovies.is.mkv",
+        "seasonNumber": 3,
+        "episodeNumber": 5,
+        "episodeTitle": "○△□",
+        "episodeOverview": "No-eul tries to gain the upper hand in negotiations, but her plans backfire. Gi-hun faces a moral crossroads, testing his limits — how far will he go?",
+        "runtime": 63,
+        "tracks": null
+      },
+      {
+        "fileId": "630",
+        "fileName": "Squid.Game.S03E06.720p.HIN-ENG-KOR.x264.ESub-Vegamovies.is.mkv",
+        "seasonNumber": 3,
+        "episodeNumber": 6,
+        "episodeTitle": "Humans Are...",
+        "episodeOverview": "As Jun-ho races to reach the island, tensions peak in the final round. The last players face an impossible situation in the closing minutes of the game.",
+        "runtime": 56,
+        "tracks": null
+      }
+    ]
+  },
+  "episodes": [],
+  "availableSeasons": [
+    3
+  ],
+  "availableEpisodeCount": 6
+}

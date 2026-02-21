@@ -1,0 +1,36 @@
+{
+  "fileId": "704",
+  "fileName": "The_Bads_of_Bollywood_S01E05_720p_WEB_DL_HIN_x264_ESub_Vegamovies.mkv",
+  "type": "tv",
+  "title": "The Ba***ds of Bollywood",
+  "originalTitle": "The Ba***ds of Bollywood",
+  "overview": "In this high-stakes drama, an ambitious outsider and his friends navigate the chaotic, larger-than-life, yet uncertain world of Bollywood.",
+  "releaseDate": "2025-09-18",
+  "year": 2025,
+  "runtime": 47,
+  "genres": [
+    "Comedy",
+    "Action & Adventure"
+  ],
+  "rating": 6.833,
+  "popularity": 4.48,
+  "poster": "/data/posters/show_247043.jpg",
+  "backdrop": "/data/backdrops/show_247043_bd.jpg",
+  "tmdbId": 247043,
+  "fetchedAt": "2026-02-15T14:54:07.339Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "The Ba***ds of Bollywood",
+    "originalShowTitle": "The Ba***ds of Bollywood",
+    "seasonNumber": 1,
+    "episodeNumber": 5,
+    "episodeTitle": "My Hero",
+    "episodeOverview": "Jaraj shows Freddy an incriminating video of Aasmaan and pitches a plan. After falling out with Parvaiz, Aasmaan receives upsetting news.",
+    "showTmdbId": 247043,
+    "episodeRuntime": 47,
+    "totalSeasons": 1,
+    "totalEpisodes": 7
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

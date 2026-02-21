@@ -1,0 +1,24 @@
+{
+  "fileId": "715",
+  "fileName": "Enders_Game_2013_720p_BluRay_Dual_Audio_x264_ESubs_Vegamovies_to.mkv",
+  "type": "movie",
+  "title": "Ender's Game",
+  "originalTitle": "Ender's Game",
+  "overview": "Based on the classic novel by Orson Scott Card, Ender's Game is the story of the Earth's most gifted children training to defend their homeplanet in the space wars of the future.",
+  "releaseDate": "2013-10-24",
+  "year": 2013,
+  "runtime": 114,
+  "genres": [
+    "Science Fiction",
+    "Action",
+    "Adventure"
+  ],
+  "rating": 6.584,
+  "popularity": 5.033,
+  "poster": "/data/posters/715.jpg",
+  "backdrop": "/data/backdrops/715_bd.jpg",
+  "tmdbId": 80274,
+  "fetchedAt": "2026-02-15T13:42:14.452Z",
+  "needsRetry": false,
+  "tv": null
+}

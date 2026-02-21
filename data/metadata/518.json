@@ -1,0 +1,36 @@
+{
+  "fileId": "518",
+  "fileName": "Bada_Naam_Karenge_S01E09_720p_Hindi_WEB_DL_5_1_ESub_x264_Vegamovies.mkv",
+  "type": "tv",
+  "title": "Bada Naam Karenge",
+  "originalTitle": "Bada Naam Karenge",
+  "overview": "Rishabh and Surbhi, two young individuals, find themselves at the crossroads of an arranged marriage. The story unfolds in two timelines: one in Mumbai, in the past, and another in Madhya Pradesh, where their families meet. In Mumbai, they find themselves alone in his room due to the lockdown, creating a pivotal moment in their relationship. In the present, Rishabh is hesitant to reveal his past with Surbhi to their families, his being a much more traditional one, fearing disapproval.",
+  "releaseDate": "2025-02-07",
+  "year": 2025,
+  "runtime": 83,
+  "genres": [
+    "Drama",
+    "Family"
+  ],
+  "rating": 7.5,
+  "popularity": 1.3235,
+  "poster": "/data/posters/show_280889.jpg",
+  "backdrop": "/data/backdrops/show_280889_bd.jpg",
+  "tmdbId": 280889,
+  "fetchedAt": "2026-02-15T15:31:30.488Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Bada Naam Karenge",
+    "originalShowTitle": "Bada Naam Karenge",
+    "seasonNumber": 1,
+    "episodeNumber": 9,
+    "episodeTitle": "Ratlam Junction",
+    "episodeOverview": "Surbhi's family confronts her confession video but Lalit defends her. Tauji, humiliated by gossip, agrees to a facade marriage. On Janmashtami, Tauji announces an unapproved wedding date, leading to tension. Will Rishabh agree to marry for appearances? What is in fate for Rishabh and Surbhi?",
+    "showTmdbId": 280889,
+    "episodeRuntime": 83,
+    "totalSeasons": 1,
+    "totalEpisodes": 9
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

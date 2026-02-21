@@ -1,0 +1,22 @@
+{
+  "fileId": "234",
+  "fileName": "Crew.2024.NF.WEB-DL.DDP5.1.x264.1080p.Vegamovies.to-002.mkv",
+  "type": "movie",
+  "title": "Crew",
+  "originalTitle": "Crew",
+  "overview": "Three ordinary air hostesses from Mumbai embark on a journey to pursue their dreams but find themselves caught up in unexpected misfortunes.",
+  "releaseDate": "2024-03-29",
+  "year": 2024,
+  "runtime": 124,
+  "genres": [
+    "Comedy"
+  ],
+  "rating": 6.75,
+  "popularity": 3.7523,
+  "poster": "/data/posters/234.jpg",
+  "backdrop": "/data/backdrops/234_bd.jpg",
+  "tmdbId": 1045931,
+  "fetchedAt": "2026-02-15T13:48:28.107Z",
+  "needsRetry": false,
+  "tv": null
+}

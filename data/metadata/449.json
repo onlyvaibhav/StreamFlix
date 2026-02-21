@@ -1,0 +1,34 @@
+{
+  "fileId": "449",
+  "fileName": "Bandish Bandits (2024) S02 EP04.Vegamovies.is.mkv",
+  "type": "tv",
+  "title": "Bandish Bandits",
+  "originalTitle": "बंदिश बैंडिट्स",
+  "overview": "A classical singer Radhe falls in love with pop singer Tamanna and embarks on a path that forces him to compromise his classical roots. With time, both the singers try to get out of their comfort zone while  trying to protect their stardom. This series tests their resolve for their passion and love.",
+  "releaseDate": "2020-08-02",
+  "year": 2020,
+  "runtime": 40,
+  "genres": [
+    "Family",
+    "Drama"
+  ],
+  "rating": 7.591,
+  "popularity": 3.9145,
+  "poster": "/data/posters/show_106872.jpg",
+  "backdrop": "/data/backdrops/show_106872_bd.jpg",
+  "tmdbId": 106872,
+  "fetchedAt": "2026-02-20T17:49:43.820Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Bandish Bandits",
+    "originalShowTitle": "बंदिश बैंडिट्स",
+    "seasonNumber": 2,
+    "episodeNumber": 4,
+    "episodeTitle": "Bebaqiyaan",
+    "episodeOverview": "Tamanna invites her band to her Mom's wedding, where Ayan meets his idol, Imroz Dehelvi, and secures his help with their IBC song. Radhe convinces Devendra to join the family band. Arghya struggles to find an artist fitting the Rathod Gharana style. Mohini and Digvijay's collaboration leads to a national tour, and Radhe's audition ends in rejection for lack of originality, crushing his IBC dreams.",
+    "showTmdbId": 106872,
+    "episodeRuntime": 40,
+    "totalSeasons": 2,
+    "totalEpisodes": 18
+  }
+}

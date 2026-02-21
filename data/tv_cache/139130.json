@@ -1,0 +1,147 @@
+{
+  "showTmdbId": 139130,
+  "showTitle": "Skip and Loafer",
+  "originalShowTitle": "スキップとローファー",
+  "overview": "Iwakura Mitsumi, a tenacious country girl, prepares for high school in the big city. She meets the handsome Shima Sousuke, whose easygoing ways help her adapt in the real world.",
+  "genres": [
+    "Animation",
+    "Drama"
+  ],
+  "rating": 7.813,
+  "popularity": 10.6343,
+  "poster": "/data/posters/show_139130.jpg",
+  "backdrop": "/data/backdrops/show_139130_bd.jpg",
+  "totalSeasons": 2,
+  "totalEpisodes": 12,
+  "year": 2023,
+  "releaseDate": "2023-04-04",
+  "seasons": {
+    "1": [
+      {
+        "fileId": "743",
+        "fileName": "Skip and Loafer - S01E01.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 1,
+        "episodeTitle": "Sparkling-Fresh",
+        "episodeOverview": "Mitsumi heads out for her entrance ceremony, confident that her day will be perfect, only to get lost. When she's panicking at the station, a boy wearing her school's uniform talks to her.",
+        "runtime": 24,
+        "tracks": null
+      },
+      {
+        "fileId": "744",
+        "fileName": "Skip and Loafer - S01E02.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 2,
+        "episodeTitle": "Fidgeting and Wandering",
+        "episodeOverview": "Heading into self-intros, Mitsumi is a nervous wreck. Nao-chan tries to ease her fears, but she makes a choice that she will end up regretting.",
+        "runtime": 24,
+        "tracks": null
+      },
+      {
+        "fileId": "745",
+        "fileName": "Skip and Loafer - S01E03.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 3,
+        "episodeTitle": "Dreamy and Sparky",
+        "episodeOverview": "Mitsumi heads to the student council office after school, where she finds Makoto standing frozen by the door.",
+        "runtime": 24,
+        "tracks": null
+      },
+      {
+        "fileId": "746",
+        "fileName": "Skip and Loafer - S01E04.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 4,
+        "episodeTitle": "Tingling and Scraping",
+        "episodeOverview": "Kanechika enlists Mitsumi’s help in getting Shima to join the drama club. He shows her a recording of an old TV show…",
+        "runtime": 24,
+        "tracks": null
+      },
+      {
+        "fileId": "747",
+        "fileName": "Skip and Loafer - S01E05.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 5,
+        "episodeTitle": "Prickly and Giddy",
+        "episodeOverview": "Mitsumi finds herself in the volleyball event for the class matches. Unathletic as she is, she asks Mika, who used to be on her school’s volleyball team, to help her practice.",
+        "runtime": 24,
+        "tracks": null
+      },
+      {
+        "fileId": "748",
+        "fileName": "Skip and Loafer - S01E06.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 6,
+        "episodeTitle": "Drizzling and Flickering",
+        "episodeOverview": "Fumi’s in love, but Mitsumi doesn’t have time to internalize it as exams are right around the corner!",
+        "runtime": 24,
+        "tracks": null
+      },
+      {
+        "fileId": "749",
+        "fileName": "Skip and Loafer - S01E07.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 7,
+        "episodeTitle": "Hectic and Hot Stuff",
+        "episodeOverview": "There's good news and bad news as Mitsumi and Narumi wonder how to cheer up a friend and Narumi's past is revealed.",
+        "runtime": 24,
+        "tracks": null
+      },
+      {
+        "fileId": "750",
+        "fileName": "Skip and Loafer - S01E08.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 8,
+        "episodeTitle": "Heat and Complications",
+        "episodeOverview": "Mitsumi and Sousuke head to the zoo, where they are shadowed by a couple of worrywarts.",
+        "runtime": 24,
+        "tracks": null
+      },
+      {
+        "fileId": "751",
+        "fileName": "Skip and Loafer - S01E09.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 9,
+        "episodeTitle": "Drowsy and Peppy",
+        "episodeOverview": "Summer break enters its latter half, and Mitsumi heads home to Ikajima. How does returning to her old stomping grounds affect her?",
+        "runtime": 24,
+        "tracks": null
+      },
+      {
+        "fileId": "752",
+        "fileName": "Skip and Loafer - S01E10.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 10,
+        "episodeTitle": "Scrambling and Dripping",
+        "episodeOverview": "Class 1-3 is putting on a play for the upcoming school festival, but Mitsumi is torn between helping out and her student council duties.",
+        "runtime": 24,
+        "tracks": null
+      },
+      {
+        "fileId": "753",
+        "fileName": "Skip and Loafer - S01E11.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 11,
+        "episodeTitle": "Hype and Excitement",
+        "episodeOverview": "The Tsubame West School Festival gets underway, and Mitsumi—surrounded by classmates being visited by friends and family—remembers that she’s a long way from home.",
+        "runtime": 24,
+        "tracks": null
+      },
+      {
+        "fileId": "754",
+        "fileName": "Skip and Loafer - S01E12.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 12,
+        "episodeTitle": "Shining",
+        "episodeOverview": "It’s the second and final day of the school festival, and Mitsumi’s class gets some surprise visits from Sousuke’s family and friends.",
+        "runtime": 24,
+        "tracks": null
+      }
+    ]
+  },
+  "episodes": [],
+  "availableSeasons": [
+    1
+  ],
+  "availableEpisodeCount": 12
+}

@@ -1,0 +1,23 @@
+{
+  "fileId": "698",
+  "fileName": "Kathal_A_Jackfruit_Mystery_–_Netflix_Original_2023_WEB_DL_Hindi.mkv",
+  "type": "movie",
+  "title": "Kathal",
+  "originalTitle": "कटहल",
+  "overview": "When two prized jackfruits disappear from a politician's garden, a spirited cop's investigation takes an unexpected turn as she digs for the truth.",
+  "releaseDate": "2023-05-19",
+  "year": 2023,
+  "runtime": 115,
+  "genres": [
+    "Comedy",
+    "Drama"
+  ],
+  "rating": 5.949,
+  "popularity": 0.6143,
+  "poster": "/data/posters/698.jpg",
+  "backdrop": "/data/backdrops/698_bd.jpg",
+  "tmdbId": 946025,
+  "fetchedAt": "2026-02-16T10:00:42.557Z",
+  "needsRetry": false,
+  "tv": null
+}

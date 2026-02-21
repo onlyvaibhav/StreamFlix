@@ -1,0 +1,34 @@
+{
+  "fileId": "398",
+  "fileName": "Terror_Tuesday_Extreme_S01E06_Girl_Next_Door_720P_Thai_English_Msubs.mkv",
+  "type": "tv",
+  "title": "Terror Tuesday: Extreme",
+  "originalTitle": "อังคารคลุมโปง: เอ็กซ์ตรีม",
+  "overview": "Inspired by the Thai horror radio show \"Angkhan Khlumpong,\" this series presents eight stories based on real-life experiences shared by listeners.",
+  "releaseDate": "2024-08-20",
+  "year": 2024,
+  "runtime": 40,
+  "genres": [
+    "Drama",
+    "Mystery"
+  ],
+  "rating": 6.317,
+  "popularity": 2.4742,
+  "poster": "/data/posters/show_258306.jpg",
+  "backdrop": "/data/backdrops/show_258306_bd.jpg",
+  "tmdbId": 258306,
+  "fetchedAt": "2026-02-15T16:45:52.695Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Terror Tuesday: Extreme",
+    "originalShowTitle": "อังคารคลุมโปง: เอ็กซ์ตรีม",
+    "seasonNumber": 1,
+    "episodeNumber": 6,
+    "episodeTitle": "Girl Next Door",
+    "episodeOverview": "A man with a drug addiction finds himself drawn to a neighbor, who slips him a cryptic note with odd instructions. Soon, mysterious events plague him.",
+    "showTmdbId": 258306,
+    "episodeRuntime": 40,
+    "totalSeasons": 1,
+    "totalEpisodes": 8
+  }
+}

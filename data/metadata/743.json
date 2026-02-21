@@ -1,0 +1,36 @@
+{
+  "fileId": "743",
+  "fileName": "Skip and Loafer - S01E01.mkv",
+  "type": "tv",
+  "title": "Skip and Loafer",
+  "originalTitle": "スキップとローファー",
+  "overview": "Iwakura Mitsumi, a tenacious country girl, prepares for high school in the big city. She meets the handsome Shima Sousuke, whose easygoing ways help her adapt in the real world.",
+  "releaseDate": "2023-04-04",
+  "year": 2023,
+  "runtime": 24,
+  "genres": [
+    "Animation",
+    "Drama"
+  ],
+  "rating": 7.813,
+  "popularity": 10.6343,
+  "poster": "/data/posters/show_139130.jpg",
+  "backdrop": "/data/backdrops/show_139130_bd.jpg",
+  "tmdbId": 139130,
+  "fetchedAt": "2026-02-15T14:45:38.945Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Skip and Loafer",
+    "originalShowTitle": "スキップとローファー",
+    "seasonNumber": 1,
+    "episodeNumber": 1,
+    "episodeTitle": "Sparkling-Fresh",
+    "episodeOverview": "Mitsumi heads out for her entrance ceremony, confident that her day will be perfect, only to get lost. When she's panicking at the station, a boy wearing her school's uniform talks to her.",
+    "showTmdbId": 139130,
+    "episodeRuntime": 24,
+    "totalSeasons": 2,
+    "totalEpisodes": 12
+  },
+  "audioCodec": "unknown",
+  "browserPlayable": false
+}

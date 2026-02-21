@@ -1,0 +1,36 @@
+{
+  "fileId": "617",
+  "fileName": "Undekhi.S03E07.720p.Hindi.WEB-DL.5.1.ESub.x264.Vegamovies.to.mkv",
+  "type": "tv",
+  "title": "Undekhi",
+  "originalTitle": "अनदेखी",
+  "overview": "Show depicts the two aspects of the society - the power-drunk influential people who think they can get away with anything and the oppressed, subjected to years of torture, who finally decide to bring themselves to justice",
+  "releaseDate": "2020-07-10",
+  "year": 2020,
+  "runtime": 36,
+  "genres": [
+    "Crime",
+    "Drama"
+  ],
+  "rating": 8.2,
+  "popularity": 4.0398,
+  "poster": "/data/posters/show_105759.jpg",
+  "backdrop": "/data/backdrops/show_105759_bd.jpg",
+  "tmdbId": 105759,
+  "fetchedAt": "2026-02-15T15:25:55.773Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Undekhi",
+    "originalShowTitle": "अनदेखी",
+    "seasonNumber": 3,
+    "episodeNumber": 7,
+    "episodeTitle": "The Darkest Hour",
+    "episodeOverview": "Teji’s lying and scheming catches up to her as she desperately tries to keep her world from unravelling. Meanwhile, Rinku and Daman discover the betrayal of a trusted ally and are hell bent on revenge, while Papaji is plagued by the ghosts of his past.",
+    "showTmdbId": 105759,
+    "episodeRuntime": 36,
+    "totalSeasons": 3,
+    "totalEpisodes": 28
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

@@ -1,0 +1,27 @@
+{
+  "fileId": "201",
+  "fileName": "John Carter 2012 Dual Audio 1080p BluRay x264 ESubs-001.mkv",
+  "type": "movie",
+  "title": "John Carter",
+  "originalTitle": "John Carter",
+  "overview": "John Carter is a war-weary, former military captain who's inexplicably transported to the mysterious and exotic planet of Barsoom (Mars) and reluctantly becomes embroiled in an epic conflict. It's a world on the brink of collapse, and Carter rediscovers his humanity when he realizes the survival of Barsoom and its people rests in his hands.",
+  "releaseDate": "2012-03-07",
+  "year": 2012,
+  "runtime": 132,
+  "genres": [
+    "Action",
+    "Adventure",
+    "Science Fiction"
+  ],
+  "rating": 6.355,
+  "popularity": 8.4502,
+  "poster": "/data/posters/201.jpg",
+  "backdrop": "/data/backdrops/201_bd.jpg",
+  "tmdbId": 49529,
+  "fetchedAt": "2026-02-15T13:49:38.887Z",
+  "needsRetry": false,
+  "tv": null,
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "_tracksDetected": true
+}

@@ -1,0 +1,37 @@
+{
+  "fileId": "265",
+  "fileName": "Sherlock.S02E02.720p.English.Esubs.Vegamovies.NL.mkv",
+  "type": "tv",
+  "title": "Sherlock",
+  "originalTitle": "Sherlock",
+  "overview": "A modern update finds the famous sleuth and his doctor partner solving crime in 21st century London.",
+  "releaseDate": "2010-07-25",
+  "year": 2010,
+  "runtime": 89,
+  "genres": [
+    "Crime",
+    "Drama",
+    "Mystery"
+  ],
+  "rating": 8.513,
+  "popularity": 41.4983,
+  "poster": "/data/posters/show_19885.jpg",
+  "backdrop": "/data/backdrops/show_19885_bd.jpg",
+  "tmdbId": 19885,
+  "fetchedAt": "2026-02-15T16:42:32.364Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Sherlock",
+    "originalShowTitle": "Sherlock",
+    "seasonNumber": 2,
+    "episodeNumber": 2,
+    "episodeTitle": "The Hounds of Baskerville",
+    "episodeOverview": "A hound from hell. Sherlock's most famous case. But is a monster really stalking Dartmoor?",
+    "showTmdbId": 19885,
+    "episodeRuntime": 89,
+    "totalSeasons": 4,
+    "totalEpisodes": 12
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

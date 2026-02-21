@@ -1,0 +1,25 @@
+{
+  "fileId": "235",
+  "fileName": "Sherlock_Holmes_2009_1080p_BRRip_Hindi_English_Vegamovies_NL_001.mkv",
+  "type": "movie",
+  "title": "Sherlock Holmes",
+  "originalTitle": "Sherlock Holmes",
+  "overview": "Eccentric consulting detective Sherlock Holmes and Doctor John Watson battle to bring down a new nemesis and unravel a deadly plot that could destroy England.",
+  "releaseDate": "2009-12-23",
+  "year": 2009,
+  "runtime": 129,
+  "genres": [
+    "Action",
+    "Adventure",
+    "Crime",
+    "Mystery"
+  ],
+  "rating": 7.217,
+  "popularity": 7.7675,
+  "poster": "/data/posters/235.jpg",
+  "backdrop": "/data/backdrops/235_bd.jpg",
+  "tmdbId": 10528,
+  "fetchedAt": "2026-02-15T13:48:24.790Z",
+  "needsRetry": false,
+  "tv": null
+}

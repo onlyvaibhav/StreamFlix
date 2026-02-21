@@ -1,0 +1,36 @@
+{
+  "fileId": "529",
+  "fileName": "Aashram_S01_E02_2020_WebRip_Hindi_720p_x264_AAC_Vegamovies_NL.mkv",
+  "type": "tv",
+  "title": "Aashram",
+  "originalTitle": "आश्रम",
+  "overview": "A duplicitous, aashram based, Indian Godman's good deeds serve activities criminal and unholy, such as rapes, murders, drugs, vote bank politics and forced male emasculation. The law and a few crusaders investigate to bring him to account.",
+  "releaseDate": "2020-08-28",
+  "year": 2020,
+  "runtime": 44,
+  "genres": [
+    "Drama",
+    "Crime"
+  ],
+  "rating": 5.176,
+  "popularity": 4.3857,
+  "poster": "/data/posters/show_107588.jpg",
+  "backdrop": "/data/backdrops/show_107588_bd.jpg",
+  "tmdbId": 107588,
+  "fetchedAt": "2026-02-15T15:30:33.077Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Aashram",
+    "originalShowTitle": "आश्रम",
+    "seasonNumber": 1,
+    "episodeNumber": 2,
+    "episodeTitle": "Grih Pravesh",
+    "episodeOverview": "The whole town is in rage when the skeleton is discovered in the forest and Chief Minister Sunderlal’s name comes up in the case. Sub Inspector Ujagar SIngh is assigned to the case and he has to reach the root of the matter. Pammi, on the other hand, is drawn to the magic of Baba Nirala’s devotion! Watch the full MX Originals’ latest web series Ashram in HIndi On MX Player!",
+    "showTmdbId": 107588,
+    "episodeRuntime": 44,
+    "totalSeasons": 3,
+    "totalEpisodes": 33
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

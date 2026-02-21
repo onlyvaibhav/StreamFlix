@@ -1,0 +1,36 @@
+{
+  "fileId": "614",
+  "fileName": "Undekhi.S03E04.720p.Hindi.WEB-DL.5.1.ESub.x264.Vegamovies.to.mkv",
+  "type": "tv",
+  "title": "Undekhi",
+  "originalTitle": "अनदेखी",
+  "overview": "Show depicts the two aspects of the society - the power-drunk influential people who think they can get away with anything and the oppressed, subjected to years of torture, who finally decide to bring themselves to justice",
+  "releaseDate": "2020-07-10",
+  "year": 2020,
+  "runtime": 37,
+  "genres": [
+    "Crime",
+    "Drama"
+  ],
+  "rating": 8.2,
+  "popularity": 4.0398,
+  "poster": "/data/posters/show_105759.jpg",
+  "backdrop": "/data/backdrops/show_105759_bd.jpg",
+  "tmdbId": 105759,
+  "fetchedAt": "2026-02-15T15:26:20.866Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Undekhi",
+    "originalShowTitle": "अनदेखी",
+    "seasonNumber": 3,
+    "episodeNumber": 4,
+    "episodeTitle": "Game, Set, But Match?",
+    "episodeOverview": "As Papaji’s trial date gets closer, Ghosh scrambles to gather new evidence while Rinku goes on a rampage, determined to destroy his enemies. However, Ghosh discovers a chink in Rinku’s armour and makes a startling discovery that threatens to blow the case wide open.",
+    "showTmdbId": 105759,
+    "episodeRuntime": 37,
+    "totalSeasons": 3,
+    "totalEpisodes": 28
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

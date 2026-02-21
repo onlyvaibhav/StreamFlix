@@ -1,0 +1,24 @@
+{
+  "fileId": "221",
+  "fileName": "Godzilla_vs_Kong_2021_1080p_WEB_DL_Hindi_2_0_English_5_1_x264_Vegamovies.mkv",
+  "type": "movie",
+  "title": "Godzilla vs. Kong",
+  "originalTitle": "Godzilla vs. Kong",
+  "overview": "In a time when monsters walk the Earth, humanity’s fight for its future sets Godzilla and Kong on a collision course that will see the two most powerful forces of nature on the planet collide in a spectacular battle for the ages.",
+  "releaseDate": "2021-03-24",
+  "year": 2021,
+  "runtime": 114,
+  "genres": [
+    "Action",
+    "Science Fiction",
+    "Adventure"
+  ],
+  "rating": 7.545,
+  "popularity": 9.602,
+  "poster": "/data/posters/221.jpg",
+  "backdrop": "/data/backdrops/221_bd.jpg",
+  "tmdbId": 399566,
+  "fetchedAt": "2026-02-15T13:48:53.955Z",
+  "needsRetry": false,
+  "tv": null
+}

@@ -1,0 +1,27 @@
+{
+  "fileId": "584",
+  "fileName": "Article.370.2024.Hindi.720p.x264.DD5.1.WEB-DL.Vegamovies.to.mkv",
+  "type": "movie",
+  "title": "Article 370",
+  "originalTitle": "आर्टिकल 370",
+  "overview": "Ahead of a major constitutional decision which rendered the Article 370 of the Indian state ineffective, special agent Zooni Haksar is tasked with a secret mission to quell violence in the conflict-ridden region.",
+  "releaseDate": "2024-02-23",
+  "year": 2024,
+  "runtime": 160,
+  "genres": [
+    "Action",
+    "Thriller",
+    "Drama"
+  ],
+  "rating": 6.987,
+  "popularity": 0.6496,
+  "poster": "/data/posters/584.jpg",
+  "backdrop": "/data/backdrops/584_bd.jpg",
+  "tmdbId": 1233531,
+  "fetchedAt": "2026-02-16T09:55:42.529Z",
+  "needsRetry": false,
+  "tv": null,
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "_tracksDetected": true
+}

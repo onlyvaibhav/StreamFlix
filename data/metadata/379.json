@@ -1,0 +1,22 @@
+{
+  "fileId": "379",
+  "fileName": "The_Hangover_Part_III_2013_UNRATED_720p_Bluray_Hindi_English_Vegamovies.mkv",
+  "type": "movie",
+  "title": "The Hangover Part III",
+  "originalTitle": "The Hangover Part III",
+  "overview": "This time, there's no wedding. No bachelor party. What could go wrong, right? But when the Wolfpack hits the road, all bets are off.",
+  "releaseDate": "2013-05-23",
+  "year": 2013,
+  "runtime": 100,
+  "genres": [
+    "Comedy"
+  ],
+  "rating": 6.208,
+  "popularity": 5.9778,
+  "poster": "/data/posters/379.jpg",
+  "backdrop": "/data/backdrops/379_bd.jpg",
+  "tmdbId": 109439,
+  "fetchedAt": "2026-02-15T13:46:26.657Z",
+  "needsRetry": false,
+  "tv": null
+}

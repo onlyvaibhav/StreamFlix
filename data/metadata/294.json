@@ -1,0 +1,36 @@
+{
+  "fileId": "294",
+  "fileName": "The_Haunting_of_Hill_House_S01E03_720p_Hindi_English_Vegamovies.mkv",
+  "type": "tv",
+  "title": "The Haunting of Hill House",
+  "originalTitle": "The Haunting of Hill House",
+  "overview": "Flashing between past and present, a fractured family confronts haunting memories of their old home and the terrifying events that drove them from it.",
+  "releaseDate": "2018-10-12",
+  "year": 2018,
+  "runtime": 54,
+  "genres": [
+    "Mystery",
+    "Drama"
+  ],
+  "rating": 8.108,
+  "popularity": 16.408,
+  "poster": "/data/posters/show_72844.jpg",
+  "backdrop": "/data/backdrops/show_72844_bd.jpg",
+  "tmdbId": 72844,
+  "fetchedAt": "2026-02-15T16:18:12.795Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "The Haunting of Hill House",
+    "originalShowTitle": "The Haunting of Hill House",
+    "seasonNumber": 1,
+    "episodeNumber": 3,
+    "episodeTitle": "Touch",
+    "episodeOverview": "Keenly perceptive Theo sees shades of herself in a troubled young patient, a girl who's haunted by the menacing grin of \"Mr. Smiley.\"",
+    "showTmdbId": 72844,
+    "episodeRuntime": 54,
+    "totalSeasons": 1,
+    "totalEpisodes": 10
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

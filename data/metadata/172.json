@@ -1,0 +1,36 @@
+{
+  "fileId": "172",
+  "fileName": "A_Business_Proposal_S01E02_720p_x265_Hindi_Korean_English_Msubs.mkv",
+  "type": "tv",
+  "title": "Business Proposal",
+  "originalTitle": "사내맞선",
+  "overview": "In disguise as her friend, Ha-ri shows up to a blind date to scare him away. But plans go awry when he turns out to be her CEO — and makes a proposal.",
+  "releaseDate": "2022-02-28",
+  "year": 2022,
+  "runtime": 61,
+  "genres": [
+    "Comedy",
+    "Drama"
+  ],
+  "rating": 8.4,
+  "popularity": 10.4058,
+  "poster": "/data/posters/show_154825.jpg",
+  "backdrop": "/data/backdrops/show_154825_bd.jpg",
+  "tmdbId": 154825,
+  "fetchedAt": "2026-02-15T17:21:11.350Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Business Proposal",
+    "originalShowTitle": "사내맞선",
+    "seasonNumber": 1,
+    "episodeNumber": 2,
+    "episodeTitle": "Fall in love with me",
+    "episodeOverview": "Tae-moo lies about having a girlfriend to stop the endless barrage of blind dates, with the perfect person in mind to play the part.",
+    "showTmdbId": 154825,
+    "episodeRuntime": 61,
+    "totalSeasons": 1,
+    "totalEpisodes": 12
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

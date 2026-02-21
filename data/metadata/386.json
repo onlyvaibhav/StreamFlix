@@ -1,0 +1,23 @@
+{
+  "fileId": "386",
+  "fileName": "2_WallE.2008.720p.Dual.Audio.HindiEnglish.Vegamovies.NL.mkv",
+  "type": "movie",
+  "title": "WALL-E",
+  "originalTitle": "WALL-E",
+  "overview": "A robot who is responsible for cleaning a waste-covered Earth meets another robot and falls in love with her. Together, they set out on a journey that will alter the fate of mankind.",
+  "releaseDate": "2008-06-21",
+  "year": 2008,
+  "runtime": 98,
+  "genres": [],
+  "rating": 0,
+  "popularity": 1.84,
+  "poster": "/data/posters/386.jpg",
+  "backdrop": "/data/backdrops/386_bd.jpg",
+  "tmdbId": 1631542,
+  "fetchedAt": "2026-02-15T20:53:51.171Z",
+  "needsRetry": false,
+  "tv": null,
+  "audioCodec": "mp3",
+  "browserPlayable": true,
+  "_tracksDetected": true
+}

@@ -1,0 +1,37 @@
+{
+  "showTmdbId": 256538,
+  "showTitle": "Sisterhood",
+  "originalShowTitle": "Sisterhood",
+  "overview": "Four radically different 9th-grade girls forge a bond within the walls of an all-girls convent school, embarking on a journey of friendship, self-discovery, and shared adventures that define their transformative school years.",
+  "genres": [
+    "Drama",
+    "Comedy"
+  ],
+  "rating": 7,
+  "popularity": 0.7456,
+  "poster": "/data/posters/show_256538.jpg",
+  "backdrop": "/data/backdrops/show_256538_bd.jpg",
+  "totalSeasons": 1,
+  "totalEpisodes": 5,
+  "year": 2024,
+  "releaseDate": "2024-06-13",
+  "seasons": {
+    "1": [
+      {
+        "fileId": "267",
+        "fileName": "Sisterhood_S01_720p_HEVC_WEB_DL_AAC2_0_H_265_ESub_Vegamovies_to.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 1,
+        "episodeTitle": "The First Day",
+        "episodeOverview": "Nikita must pay a fine but doesn't have the money for it and plans to steal from the might box by crossing Gargi, the new entrant. Zoya must help Ann, the repeater to improve her grades this year.",
+        "runtime": 25,
+        "tracks": null
+      }
+    ]
+  },
+  "episodes": [],
+  "availableSeasons": [
+    1
+  ],
+  "availableEpisodeCount": 1
+}

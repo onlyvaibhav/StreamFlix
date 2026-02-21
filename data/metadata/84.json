@@ -1,0 +1,24 @@
+{
+  "fileId": "84",
+  "fileName": "Tenet_2020_BluRay_IMAX_720p_Hindi_English_AAC_5_1_x264_ESub_Vegamovies.mkv",
+  "type": "movie",
+  "title": "Tenet",
+  "originalTitle": "Tenet",
+  "overview": "Armed with only one word - Tenet - and fighting for the survival of the entire world, the Protagonist journeys through a twilight world of international espionage on a mission that will unfold in something beyond real time.",
+  "releaseDate": "2020-08-22",
+  "year": 2020,
+  "runtime": 150,
+  "genres": [
+    "Action",
+    "Thriller",
+    "Science Fiction"
+  ],
+  "rating": 7.176,
+  "popularity": 11.1158,
+  "poster": "/data/posters/84.jpg",
+  "backdrop": "/data/backdrops/84_bd.jpg",
+  "tmdbId": 577922,
+  "fetchedAt": "2026-02-15T13:50:30.866Z",
+  "needsRetry": false,
+  "tv": null
+}

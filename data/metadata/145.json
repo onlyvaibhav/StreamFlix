@@ -1,0 +1,37 @@
+{
+  "fileId": "145",
+  "fileName": "Mirzapur_S02_E09_Hindi_720p_HEVC_WEB_DL_x265_ESub_Vegamovies_NL.mkv",
+  "type": "tv",
+  "title": "Mirzapur",
+  "originalTitle": "Mirzapur",
+  "overview": "The iron-fisted Akhandanand Tripathi is a millionaire carpet exporter and the mafia don of Mirzapur. His son, Munna, is an unworthy, power-hungry heir who will stop at nothing to inherit his father's legacy. An incident at a wedding procession forces him to cross paths with Ramakant Pandit, an upstanding lawyer, and his sons, Guddu and Bablu. It snowballs into a game of ambition, power and greed that threatens the fabric of this lawless city.",
+  "releaseDate": "2018-11-15",
+  "year": 2018,
+  "runtime": 57,
+  "genres": [
+    "Crime",
+    "Action & Adventure",
+    "Drama"
+  ],
+  "rating": 8.023,
+  "popularity": 8.2673,
+  "poster": "/data/posters/show_84105.jpg",
+  "backdrop": "/data/backdrops/show_84105_bd.jpg",
+  "tmdbId": 84105,
+  "fetchedAt": "2026-02-15T17:15:32.181Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Mirzapur",
+    "originalShowTitle": "Mirzapur",
+    "seasonNumber": 2,
+    "episodeNumber": 9,
+    "episodeTitle": "BUTTERSCOTCH",
+    "episodeOverview": "Beena gives birth to a boy and is worried about the safety of the child. Lala is unhappy with Guddu’s closeness to Shabnam. Golu herself is in immense pain, questions what she has become. Maurya is frustrated with constant setbacks and decides to meet with the IG. Munna takes matters in his own hands when Maqbool’s lies are resurfaced. Loyalties are at stake as a repercussion of Munna’s actions.",
+    "showTmdbId": 84105,
+    "episodeRuntime": 57,
+    "totalSeasons": 3,
+    "totalEpisodes": 29
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

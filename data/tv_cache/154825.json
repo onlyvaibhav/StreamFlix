@@ -1,0 +1,147 @@
+{
+  "showTmdbId": 154825,
+  "showTitle": "Business Proposal",
+  "originalShowTitle": "사내맞선",
+  "overview": "In disguise as her friend, Ha-ri shows up to a blind date to scare him away. But plans go awry when he turns out to be her CEO — and makes a proposal.",
+  "genres": [
+    "Comedy",
+    "Drama"
+  ],
+  "rating": 8.4,
+  "popularity": 10.4058,
+  "poster": "/data/posters/show_154825.jpg",
+  "backdrop": "/data/backdrops/show_154825_bd.jpg",
+  "totalSeasons": 1,
+  "totalEpisodes": 12,
+  "year": 2022,
+  "releaseDate": "2022-02-28",
+  "seasons": {
+    "1": [
+      {
+        "fileId": "171",
+        "fileName": "A_Business_Proposal_S01E01_720p_x265_Hindi_Korean_English_Msubs.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 1,
+        "episodeTitle": "Let's do it together, get married",
+        "episodeOverview": "To appease his grandfather's wishes, Kang Tae-moo agrees to a blind date. Jin Young-seo enlists Shin Ha-ri's help to scare away her latest prospect.",
+        "runtime": 61,
+        "tracks": null
+      },
+      {
+        "fileId": "172",
+        "fileName": "A_Business_Proposal_S01E02_720p_x265_Hindi_Korean_English_Msubs.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 2,
+        "episodeTitle": "Fall in love with me",
+        "episodeOverview": "Tae-moo lies about having a girlfriend to stop the endless barrage of blind dates, with the perfect person in mind to play the part.",
+        "runtime": 61,
+        "tracks": null
+      },
+      {
+        "fileId": "173",
+        "fileName": "A_Business_Proposal_S01E03_720p_x265_Hindi_Korean_English_Msubs.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 3,
+        "episodeTitle": "Don't try this fake relationship, try a real relationship",
+        "episodeOverview": "Ha-ri has a long list of facts about Tae-moo to memorize — as well as someone important to meet. Young-seo declares her independence.",
+        "runtime": 61,
+        "tracks": null
+      },
+      {
+        "fileId": "174",
+        "fileName": "A_Business_Proposal_S01E04_720p_x265_Hindi_Korean_English_Msubs.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 4,
+        "episodeTitle": "It's pretty",
+        "episodeOverview": "In and outside of work, Ha-ri scrambles to hide her true identity from Tae-moo and his grandfather. A fake one-year anniversary comes up.",
+        "runtime": 61,
+        "tracks": null
+      },
+      {
+        "fileId": "175",
+        "fileName": "A_Business_Proposal_S01E05_720p_x265_Hindi_Korean_English_Msubs.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 5,
+        "episodeTitle": "I am Shin Ha-ri",
+        "episodeOverview": "As payback for being fooled, Tae-moo sets a trap for Ha-ri at a company event. But when she drunkenly apologizes, he has a change of heart.",
+        "runtime": 61,
+        "tracks": null
+      },
+      {
+        "fileId": "176",
+        "fileName": "A_Business_Proposal_S01E06_720p_x265_Hindi_Korean_English_Msubs.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 6,
+        "episodeTitle": "My name is Hari's boyfriend Kang Tae-moo",
+        "episodeOverview": "When plans for a confession go awry, Tae-moo takes Ha-ri on a date by the sea disguised as a work trip. Cha Sung-hoon confronts a red-faced Young-seo.",
+        "runtime": 61,
+        "tracks": null
+      },
+      {
+        "fileId": "177",
+        "fileName": "A_Business_Proposal_S01E07_720p_x265_Hindi_Korean_English_Msubs.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 7,
+        "episodeTitle": "I like Shin Ha-ri",
+        "episodeOverview": "Tae-moo plays the part of Ha-ri's smitten boyfriend in front of her friends, much to the chagrin of a wary Lee Min-woo and a jealous Go Yoo-ra.",
+        "runtime": 61,
+        "tracks": null
+      },
+      {
+        "fileId": "178",
+        "fileName": "A_Business_Proposal_S01E08_720p_x265_Hindi_Korean_English_Msubs.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 8,
+        "episodeTitle": "I want to think about just the two of us",
+        "episodeOverview": "Calling their kiss a mistake, Ha-ri continues to reject Tae-moo's advances. But an unreturned text and word of his blind date stir up her emotions.",
+        "runtime": 61,
+        "tracks": null
+      },
+      {
+        "fileId": "180",
+        "fileName": "A_Business_Proposal_S01E09_720p_x265_Hindi_Korean_English_Msubs.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 9,
+        "episodeTitle": "What are you doing there?",
+        "episodeOverview": "Jo Yoo-jung falls for Sung-hoon, landing him in hot water with Young-seo. Tae-moo and Ha-ri try to keep their relationship a secret at work.",
+        "runtime": 61,
+        "tracks": null
+      },
+      {
+        "fileId": "181",
+        "fileName": "A_Business_Proposal_S01E10_720p_x265_Hindi_Korean_English_Msubs.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 10,
+        "episodeTitle": "Thank you for taking me in like this",
+        "episodeOverview": "Kang Da-goo's suspicions about his grandson's love life are proven true. On a rainy night after work, Ha-ri takes Tae-moo out on a date.",
+        "runtime": 61,
+        "tracks": null
+      },
+      {
+        "fileId": "182",
+        "fileName": "A_Business_Proposal_S01E11_720p_x265_Hindi_Korean_English_Msubs.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 11,
+        "episodeTitle": "Don't disappear from my sight",
+        "episodeOverview": "When Ha-ri's personal life becomes the talk of the town, Tae-moo's grandfather gives her an ultimatum. Young-seo's dad suggests dinner with Sung-hoon.",
+        "runtime": 61,
+        "tracks": null
+      },
+      {
+        "fileId": "183",
+        "fileName": "A_Business_Proposal_S01E12_720p_x265_Hindi_Korean_English_Msubs.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 12,
+        "episodeTitle": "We're getting married",
+        "episodeOverview": "Ha-ri tries to win Da-goo over by keeping him company at his hospital bedside. A worried Tae-moo asks Ha-ri to go to the U.S. with him.",
+        "runtime": 61,
+        "tracks": null
+      }
+    ]
+  },
+  "episodes": [],
+  "availableSeasons": [
+    1
+  ],
+  "availableEpisodeCount": 12
+}

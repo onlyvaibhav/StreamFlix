@@ -1,0 +1,36 @@
+{
+  "fileId": "280",
+  "fileName": "Shekhar_Home_S01E03_1080p_Hindi_WEB_DL_5_1_ESub_x264_Vegamovies.mkv",
+  "type": "tv",
+  "title": "Shekhar Home",
+  "originalTitle": "Shekhar Home",
+  "overview": "Set in 1990s Lonpur, Bengal, “Shekhar Home” combines suspense & comedy as eccentric Shekhar and his new housemate Jayavrat solve a variety of cases while interacting with a vibrant cast of characters in a charming, pre-technology era.",
+  "releaseDate": "2024-08-14",
+  "year": 2024,
+  "runtime": 42,
+  "genres": [
+    "Drama",
+    "Crime"
+  ],
+  "rating": 6.65,
+  "popularity": 1.4031,
+  "poster": "/data/posters/show_260203.jpg",
+  "backdrop": "/data/backdrops/show_260203_bd.jpg",
+  "tmdbId": 260203,
+  "fetchedAt": "2026-02-15T16:41:49.596Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Shekhar Home",
+    "originalShowTitle": "Shekhar Home",
+    "seasonNumber": 1,
+    "episodeNumber": 3,
+    "episodeTitle": "Phir Milenge",
+    "episodeOverview": "Shekhar & Jayavrat are in Bihar for a blackmail scandal involving a famous politician. Shekhar is fascinated by the enigmatic Iraboty, while Mrinmoy discovers a classified file on \"M,\" adding a new layer of intrigue to their investigation.",
+    "showTmdbId": 260203,
+    "episodeRuntime": 42,
+    "totalSeasons": 1,
+    "totalEpisodes": 6
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

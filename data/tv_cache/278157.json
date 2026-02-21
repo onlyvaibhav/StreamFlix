@@ -1,0 +1,126 @@
+{
+  "showTmdbId": 278157,
+  "showTitle": "My Romance Scammer",
+  "originalShowTitle": "My Romance Scammer รักจริง หลังแต่ง",
+  "overview": "After marrying a con artist for love, a billionaire heir must navigate a messy prenuptial trap while his cousin falls for another scammer.",
+  "genres": [
+    "Drama"
+  ],
+  "rating": 0,
+  "popularity": 4.3915,
+  "poster": "/data/posters/show_278157.jpg",
+  "backdrop": "/data/backdrops/show_278157_bd.jpg",
+  "totalSeasons": 1,
+  "totalEpisodes": 12,
+  "year": 2026,
+  "releaseDate": "2026-02-01",
+  "seasons": {
+    "1": [
+      {
+        "fileId": "416",
+        "fileName": "Scam_2003_The_Telgi_Story_Hindi_S01E01_Paisa_Kamaya_Nahin_Banaya.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 1,
+        "episodeTitle": "Episode 1",
+        "episodeOverview": "Facing family pressure to marry, both Pai and North seem to luck out when they each happen to meet men they could see themselves betrothed to and enter into arrangements very quickly.",
+        "runtime": 58,
+        "tracks": null
+      },
+      {
+        "fileId": "417",
+        "fileName": "Scam_2003_The_Telgi_Story_Hindi_S01E02_Choomantar_720p_SONYLIV_WEB.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 2,
+        "episodeTitle": "Episode 2",
+        "episodeOverview": "When Pai finds out about North's secret marriage to Yu, he's furious and demands that North contact a divorce lawyer immediately. Tim immediately sees Yu's scheme for what it is.",
+        "runtime": 62,
+        "tracks": null
+      },
+      {
+        "fileId": "418",
+        "fileName": "Scam_2003_The_Telgi_Story_Hindi_S01E03_Khota_Sikka_720p_SONYLIV.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 3,
+        "episodeTitle": "Episode 3",
+        "episodeOverview": "",
+        "runtime": 60,
+        "tracks": null
+      },
+      {
+        "fileId": "419",
+        "fileName": "Scam_2003_The_Telgi_Story_Hindi_S01E04_Mubarak_Ho_Aapko_Stamp_Paper.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 4,
+        "episodeTitle": "Episode 4",
+        "episodeOverview": "",
+        "runtime": 60,
+        "tracks": null
+      },
+      {
+        "fileId": "420",
+        "fileName": "Scam_2003_The_Telgi_Story_Hindi_S01E05_I_Love_You_720p_SONYLIV_WEB.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 5,
+        "episodeTitle": "Episode 5",
+        "episodeOverview": "",
+        "runtime": 60,
+        "tracks": null
+      },
+      {
+        "fileId": "410",
+        "fileName": "Scam.1992.S01.E06.Hindi.720p.HEVC.WEB-DL.x265-HDHubu4u.Link.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 6,
+        "episodeTitle": "Episode 6",
+        "episodeOverview": "",
+        "runtime": 60,
+        "tracks": null
+      },
+      {
+        "fileId": "411",
+        "fileName": "Scam.1992.S01.E07.Hindi.720p.HEVC.WEB-DL.x265-HDHubu4u.Link.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 7,
+        "episodeTitle": "Episode 7",
+        "episodeOverview": "",
+        "runtime": 60,
+        "tracks": null
+      },
+      {
+        "fileId": "412",
+        "fileName": "Scam.1992.S01.E08.Hindi.720p.HEVC.WEB-DL.x265-HDHubu4u.Link.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 8,
+        "episodeTitle": "Episode 8",
+        "episodeOverview": "",
+        "runtime": 60,
+        "tracks": null
+      },
+      {
+        "fileId": "414",
+        "fileName": "Scam.1992.S01.E09.Hindi.720p.HEVC.WEB-DL.x265-HDHubu4u.Link.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 9,
+        "episodeTitle": "Episode 9",
+        "episodeOverview": "",
+        "runtime": 60,
+        "tracks": null
+      },
+      {
+        "fileId": "415",
+        "fileName": "Scam.1992.S01.E10.Hindi.720p.HEVC.WEB-DL.x265-HDHubu4u.Link.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 10,
+        "episodeTitle": "Episode 10",
+        "episodeOverview": "",
+        "runtime": 60,
+        "tracks": null
+      }
+    ]
+  },
+  "episodes": [],
+  "availableSeasons": [
+    1
+  ],
+  "availableEpisodeCount": 10
+}

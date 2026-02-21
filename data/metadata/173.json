@@ -1,0 +1,36 @@
+{
+  "fileId": "173",
+  "fileName": "A_Business_Proposal_S01E03_720p_x265_Hindi_Korean_English_Msubs.mkv",
+  "type": "tv",
+  "title": "Business Proposal",
+  "originalTitle": "사내맞선",
+  "overview": "In disguise as her friend, Ha-ri shows up to a blind date to scare him away. But plans go awry when he turns out to be her CEO — and makes a proposal.",
+  "releaseDate": "2022-02-28",
+  "year": 2022,
+  "runtime": 61,
+  "genres": [
+    "Comedy",
+    "Drama"
+  ],
+  "rating": 8.4,
+  "popularity": 10.4058,
+  "poster": "/data/posters/show_154825.jpg",
+  "backdrop": "/data/backdrops/show_154825_bd.jpg",
+  "tmdbId": 154825,
+  "fetchedAt": "2026-02-15T17:21:03.203Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Business Proposal",
+    "originalShowTitle": "사내맞선",
+    "seasonNumber": 1,
+    "episodeNumber": 3,
+    "episodeTitle": "Don't try this fake relationship, try a real relationship",
+    "episodeOverview": "Ha-ri has a long list of facts about Tae-moo to memorize — as well as someone important to meet. Young-seo declares her independence.",
+    "showTmdbId": 154825,
+    "episodeRuntime": 61,
+    "totalSeasons": 1,
+    "totalEpisodes": 12
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

@@ -1,0 +1,23 @@
+{
+  "fileId": "163",
+  "fileName": "Harry_Potter_and_the_Sorcerers_Stone_2001_720p_Hindi_Eng_Vegamovies.mkv",
+  "type": "movie",
+  "title": "Harry Potter and the Philosopher's Stone",
+  "originalTitle": "Harry Potter and the Philosopher's Stone",
+  "overview": "Harry Potter has lived under the stairs at his aunt and uncle's house his whole life. But on his 11th birthday, he learns he's a powerful wizard—with a place waiting for him at the Hogwarts School of Witchcraft and Wizardry. As he learns to harness his newfound powers with the help of the school's kindly headmaster, Harry uncovers the truth about his parents' deaths—and about the villain who's to blame.",
+  "releaseDate": "2001-11-16",
+  "year": 2001,
+  "runtime": 152,
+  "genres": [
+    "Adventure",
+    "Fantasy"
+  ],
+  "rating": 7.9,
+  "popularity": 23.9108,
+  "poster": "/data/posters/163.jpg",
+  "backdrop": "/data/backdrops/163_bd.jpg",
+  "tmdbId": 671,
+  "fetchedAt": "2026-02-15T13:49:53.522Z",
+  "needsRetry": false,
+  "tv": null
+}

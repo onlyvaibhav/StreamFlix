@@ -1,0 +1,34 @@
+{
+  "fileId": "399",
+  "fileName": "Terror_Tuesday_Extreme_S01E07_Dear_Granny_720P_Thai_English_Msubs.mkv",
+  "type": "tv",
+  "title": "Terror Tuesday: Extreme",
+  "originalTitle": "อังคารคลุมโปง: เอ็กซ์ตรีม",
+  "overview": "Inspired by the Thai horror radio show \"Angkhan Khlumpong,\" this series presents eight stories based on real-life experiences shared by listeners.",
+  "releaseDate": "2024-08-20",
+  "year": 2024,
+  "runtime": 42,
+  "genres": [
+    "Drama",
+    "Mystery"
+  ],
+  "rating": 6.317,
+  "popularity": 2.4742,
+  "poster": "/data/posters/show_258306.jpg",
+  "backdrop": "/data/backdrops/show_258306_bd.jpg",
+  "tmdbId": 258306,
+  "fetchedAt": "2026-02-15T16:45:53.374Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Terror Tuesday: Extreme",
+    "originalShowTitle": "อังคารคลุมโปง: เอ็กซ์ตรีม",
+    "seasonNumber": 1,
+    "episodeNumber": 7,
+    "episodeTitle": "Dear Granny",
+    "episodeOverview": "After vanishing under strange circumstances, a grandmother suddenly returns home. But her family realizes that she may no longer be who she was.",
+    "showTmdbId": 258306,
+    "episodeRuntime": 42,
+    "totalSeasons": 1,
+    "totalEpisodes": 8
+  }
+}

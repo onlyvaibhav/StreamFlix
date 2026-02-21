@@ -1,0 +1,36 @@
+{
+  "fileId": "321",
+  "fileName": "Taaza.Khabar.(2024).S02.EP04.Vegamovies.is.mkv",
+  "type": "tv",
+  "title": "Taaza Khabar",
+  "originalTitle": "ताज़ा ख़बर",
+  "overview": "A public toilet caretaker's poverty-stricken life takes a drastic U-turn when he helps an old woman. How long will fate smile upon him?",
+  "releaseDate": "2023-01-05",
+  "year": 2023,
+  "runtime": 27,
+  "genres": [
+    "Drama",
+    "Sci-Fi & Fantasy"
+  ],
+  "rating": 6.7,
+  "popularity": 2.9694,
+  "poster": "/data/posters/show_203832.jpg",
+  "backdrop": "/data/backdrops/show_203832_bd.jpg",
+  "tmdbId": 203832,
+  "fetchedAt": "2026-02-15T15:39:11.328Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Taaza Khabar",
+    "originalShowTitle": "ताज़ा ख़बर",
+    "seasonNumber": 1,
+    "episodeNumber": 4,
+    "episodeTitle": "Kismat",
+    "episodeOverview": "Betting on an upcoming cricket tournament, the team start earning big bucks. But, as Vasya eyes his mother's dream villa, the city has eyes on him, just like the police.",
+    "showTmdbId": 203832,
+    "episodeRuntime": 27,
+    "totalSeasons": 2,
+    "totalEpisodes": 12
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

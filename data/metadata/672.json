@@ -1,0 +1,25 @@
+{
+  "fileId": "672",
+  "fileName": "A_Whisker_Away_Movie_2020_1080pHEVC_10bit_x265AACDUAL_AUDIO.mkv",
+  "type": "movie",
+  "title": "A Whisker Away",
+  "originalTitle": "泣きたい私は猫をかぶる",
+  "overview": "A peculiar girl transforms into a cat to catch her crush's attention. But before she realizes it, the line between human and animal starts to blur.",
+  "releaseDate": "2020-06-18",
+  "year": 2020,
+  "runtime": 104,
+  "genres": [
+    "Animation",
+    "Drama",
+    "Romance",
+    "Fantasy"
+  ],
+  "rating": 7.877,
+  "popularity": 4.045,
+  "poster": "/data/posters/672.jpg",
+  "backdrop": "/data/backdrops/672_bd.jpg",
+  "tmdbId": 667520,
+  "fetchedAt": "2026-02-16T09:58:22.138Z",
+  "needsRetry": false,
+  "tv": null
+}

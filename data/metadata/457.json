@@ -1,0 +1,28 @@
+{
+  "fileId": "457",
+  "fileName": "Iru_Mugan_2016_720p_WEB_DL_Dual_Audio_x264_ESubs_Vegamovies_NL.mkv",
+  "type": "movie",
+  "title": "Iru Mugan",
+  "originalTitle": "இரு முகன்",
+  "overview": "A disgraced  RAW agent Akilan (Vikram) is recalled by the agency to track down a crazy scientist and a cross dresser Love (also Vikram), who has discovered a deadly new drug  ‘Speed inhaler’.",
+  "releaseDate": "2016-09-08",
+  "year": 2016,
+  "runtime": 150,
+  "genres": [
+    "Science Fiction",
+    "Action",
+    "Thriller",
+    "Mystery"
+  ],
+  "rating": 5.3,
+  "popularity": 0.5558,
+  "poster": "/data/posters/457.jpg",
+  "backdrop": "/data/backdrops/457_bd.jpg",
+  "tmdbId": 391274,
+  "fetchedAt": "2026-02-15T13:45:04.861Z",
+  "needsRetry": false,
+  "tv": null,
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "_tracksDetected": true
+}

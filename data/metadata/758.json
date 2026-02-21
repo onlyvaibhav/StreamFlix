@@ -1,0 +1,37 @@
+{
+  "fileId": "758",
+  "fileName": "[With you and the rain] Ame to Kimi to - S01E04 [1080p.AV1].mkv",
+  "type": "tv",
+  "title": "With You and the Rain",
+  "originalTitle": "雨と君と",
+  "overview": "On a rainy day, Fuji meets a cute critter posing as a dog and offering an umbrella and a cue card that says, “Please take me home,” and she can’t resist. With this dog-poster’s quirky charm and mysterious ways, life together becomes a heartwarming adventure of friendship and shared seasons.",
+  "releaseDate": "2025-07-06",
+  "year": 2025,
+  "runtime": 23,
+  "genres": [
+    "Animation",
+    "Comedy",
+    "Sci-Fi & Fantasy"
+  ],
+  "rating": 7.167,
+  "popularity": 8.3245,
+  "poster": "/data/posters/show_262254.jpg",
+  "backdrop": "/data/backdrops/show_262254_bd.jpg",
+  "tmdbId": 262254,
+  "fetchedAt": "2026-02-15T14:43:40.176Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "With You and the Rain",
+    "originalShowTitle": "雨と君と",
+    "seasonNumber": 1,
+    "episodeNumber": 4,
+    "episodeTitle": "Summer Festival",
+    "episodeOverview": "You, Fuji, Kii, and Fuji's parents go to the summer festival, and You disappears.",
+    "showTmdbId": 262254,
+    "episodeRuntime": 23,
+    "totalSeasons": 1,
+    "totalEpisodes": 12
+  },
+  "audioCodec": "unknown",
+  "browserPlayable": false
+}

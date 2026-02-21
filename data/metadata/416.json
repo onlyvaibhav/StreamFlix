@@ -1,0 +1,33 @@
+{
+  "fileId": "416",
+  "fileName": "Scam_2003_The_Telgi_Story_Hindi_S01E01_Paisa_Kamaya_Nahin_Banaya.mkv",
+  "type": "tv",
+  "title": "My Romance Scammer",
+  "originalTitle": "My Romance Scammer รักจริง หลังแต่ง",
+  "overview": "After marrying a con artist for love, a billionaire heir must navigate a messy prenuptial trap while his cousin falls for another scammer.",
+  "releaseDate": "2026-02-01",
+  "year": 2026,
+  "runtime": 58,
+  "genres": [
+    "Drama"
+  ],
+  "rating": 0,
+  "popularity": 4.3915,
+  "poster": "/data/posters/show_278157.jpg",
+  "backdrop": "/data/backdrops/show_278157_bd.jpg",
+  "tmdbId": 278157,
+  "fetchedAt": "2026-02-15T16:46:06.584Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "My Romance Scammer",
+    "originalShowTitle": "My Romance Scammer รักจริง หลังแต่ง",
+    "seasonNumber": 1,
+    "episodeNumber": 1,
+    "episodeTitle": "Episode 1",
+    "episodeOverview": "Facing family pressure to marry, both Pai and North seem to luck out when they each happen to meet men they could see themselves betrothed to and enter into arrangements very quickly.",
+    "showTmdbId": 278157,
+    "episodeRuntime": 58,
+    "totalSeasons": 1,
+    "totalEpisodes": 12
+  }
+}

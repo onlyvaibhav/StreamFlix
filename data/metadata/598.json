@@ -1,0 +1,36 @@
+{
+  "fileId": "598",
+  "fileName": "Undekhi_S01_E08_WebRip_720p_Hindi_AAC_x264_ESub_Vegamovies_NL.mkv",
+  "type": "tv",
+  "title": "Undekhi",
+  "originalTitle": "अनदेखी",
+  "overview": "Show depicts the two aspects of the society - the power-drunk influential people who think they can get away with anything and the oppressed, subjected to years of torture, who finally decide to bring themselves to justice",
+  "releaseDate": "2020-07-10",
+  "year": 2020,
+  "runtime": 35,
+  "genres": [
+    "Crime",
+    "Drama"
+  ],
+  "rating": 8.2,
+  "popularity": 4.0398,
+  "poster": "/data/posters/show_105759.jpg",
+  "backdrop": "/data/backdrops/show_105759_bd.jpg",
+  "tmdbId": 105759,
+  "fetchedAt": "2026-02-15T15:28:22.331Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Undekhi",
+    "originalShowTitle": "अनदेखी",
+    "seasonNumber": 1,
+    "episodeNumber": 8,
+    "episodeTitle": "We Have Got Ourselves A Deal",
+    "episodeOverview": "Rinku gets the better of DSP Ghosh. Shashwat and Alice arrive in Manali and are sucked into the desperate situation immediately. Rinku receives a package and realises that the power is shifting away from him. He makes a cunning move.",
+    "showTmdbId": 105759,
+    "episodeRuntime": 35,
+    "totalSeasons": 3,
+    "totalEpisodes": 28
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

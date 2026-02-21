@@ -1,0 +1,34 @@
+{
+  "fileId": "453",
+  "fileName": "Bandish Bandits (2024) S02 EP08.Vegamovies.is.mkv",
+  "type": "tv",
+  "title": "Bandish Bandits",
+  "originalTitle": "बंदिश बैंडिट्स",
+  "overview": "A classical singer Radhe falls in love with pop singer Tamanna and embarks on a path that forces him to compromise his classical roots. With time, both the singers try to get out of their comfort zone while  trying to protect their stardom. This series tests their resolve for their passion and love.",
+  "releaseDate": "2020-08-02",
+  "year": 2020,
+  "runtime": 70,
+  "genres": [
+    "Family",
+    "Drama"
+  ],
+  "rating": 7.591,
+  "popularity": 3.9145,
+  "poster": "/data/posters/show_106872.jpg",
+  "backdrop": "/data/backdrops/show_106872_bd.jpg",
+  "tmdbId": 106872,
+  "fetchedAt": "2026-02-20T19:05:27.022Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Bandish Bandits",
+    "originalShowTitle": "बंदिश बैंडिट्स",
+    "seasonNumber": 2,
+    "episodeNumber": 8,
+    "episodeTitle": "Qarar",
+    "episodeOverview": "Ayaan reads Tamanna's letter about leaving, deciding the band will perform without her. The Rathods seek help from Bhairav Singh, Panditji's friend for their finale. Tamanna, guided by Nandini, returns with a new composition, which the band uses. Radhe and Mohini reveal Panditji's truth to a moved Digvijay. Royalty Free wins the finale. Radhe and Tamanna share a final dance before parting.",
+    "showTmdbId": 106872,
+    "episodeRuntime": 70,
+    "totalSeasons": 2,
+    "totalEpisodes": 18
+  }
+}

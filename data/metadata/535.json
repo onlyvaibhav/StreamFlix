@@ -1,0 +1,36 @@
+{
+  "fileId": "535",
+  "fileName": "Aashram_S01_E09_2020_WebRip_Hindi_720p_x264_AAC_Vegamovies_NL.mkv",
+  "type": "tv",
+  "title": "Aashram",
+  "originalTitle": "आश्रम",
+  "overview": "A duplicitous, aashram based, Indian Godman's good deeds serve activities criminal and unholy, such as rapes, murders, drugs, vote bank politics and forced male emasculation. The law and a few crusaders investigate to bring him to account.",
+  "releaseDate": "2020-08-28",
+  "year": 2020,
+  "runtime": 47,
+  "genres": [
+    "Drama",
+    "Crime"
+  ],
+  "rating": 5.176,
+  "popularity": 4.3857,
+  "poster": "/data/posters/show_107588.jpg",
+  "backdrop": "/data/backdrops/show_107588_bd.jpg",
+  "tmdbId": 107588,
+  "fetchedAt": "2026-02-15T15:29:49.906Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Aashram",
+    "originalShowTitle": "आश्रम",
+    "seasonNumber": 1,
+    "episodeNumber": 9,
+    "episodeTitle": "Maha Prasad",
+    "episodeOverview": "All the efforts of Ujagar Singh to continue the investigation have failed. He approaches his friend S. P. Dhandha and the two together decide to pursue the case in secret without letting anyone know. Inside the ashram, Satti has decided to do Shuddhikaran and is being transferred to somewhere else. Babita is shattered on learning this, and then late at night, she is called by Baba to his private quarters. Do not go anywhere, watch the full Hindi web series Ashram for free online on MX Player!",
+    "showTmdbId": 107588,
+    "episodeRuntime": 47,
+    "totalSeasons": 3,
+    "totalEpisodes": 33
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

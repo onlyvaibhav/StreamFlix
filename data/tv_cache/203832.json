@@ -1,0 +1,87 @@
+{
+  "showTmdbId": 203832,
+  "showTitle": "Taaza Khabar",
+  "originalShowTitle": "ताज़ा ख़बर",
+  "overview": "A public toilet caretaker's poverty-stricken life takes a drastic U-turn when he helps an old woman. How long will fate smile upon him?",
+  "genres": [
+    "Drama",
+    "Sci-Fi & Fantasy"
+  ],
+  "rating": 6.7,
+  "popularity": 2.9694,
+  "poster": "/data/posters/show_203832.jpg",
+  "backdrop": "/data/backdrops/show_203832_bd.jpg",
+  "totalSeasons": 2,
+  "totalEpisodes": 12,
+  "year": 2023,
+  "releaseDate": "2023-01-05",
+  "seasons": {
+    "1": [
+      {
+        "fileId": "458",
+        "fileName": "Taaza_Khabar_S01E01_720p_WEB_DL_AAC_5_1_ESub_x264_Vegamovies_to.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 1,
+        "episodeTitle": "Khabardaar",
+        "episodeOverview": "Vasya's slum-dog life is an uphill struggle. His only respite, and lady love, is Madhu, a sex worker. One day, his kindness gets rewarded when he receives an old lady's blessings.",
+        "runtime": 32,
+        "tracks": null
+      },
+      {
+        "fileId": "459",
+        "fileName": "Taaza_Khabar_S01E02_720p_WEB_DL_AAC_5_1_ESub_x264_Vegamovies_to.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 2,
+        "episodeTitle": "Vardaan",
+        "episodeOverview": "Only Vasya's friend Peter believes in him, and they set out to exploit his newfound power and try to sell a vintage vase. Will their first mission make them the kings of the city?",
+        "runtime": 24,
+        "tracks": null
+      },
+      {
+        "fileId": "460",
+        "fileName": "Taaza_Khabar_S01E03_720p_WEB_DL_AAC_5_1_ESub_x264_Vegamovies_to.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 3,
+        "episodeTitle": "Azaadi",
+        "episodeOverview": "Helping a contestant win a live game show does not work the way Vasya and Peter wanted, but all's not lost. He frees Madhu from the brothel, but will the lovers live in peace?",
+        "runtime": 29,
+        "tracks": null
+      },
+      {
+        "fileId": "461",
+        "fileName": "Taaza_Khabar_S01E04_720p_WEB_DL_AAC_5_1_ESub_x264_Vegamovies_to.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 4,
+        "episodeTitle": "Kismat",
+        "episodeOverview": "Betting on an upcoming cricket tournament, the team start earning big bucks. But, as Vasya eyes his mother's dream villa, the city has eyes on him, just like the police.",
+        "runtime": 27,
+        "tracks": null
+      },
+      {
+        "fileId": "462",
+        "fileName": "Taaza_Khabar_S01E05_720p_WEB_DL_AAC_5_1_ESub_x264_Vegamovies_to.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 5,
+        "episodeTitle": "Baazi",
+        "episodeOverview": "Vasya begins to distrust his team and fears for his mother's life. During a surprise romantic dinner, he proposes to Madhu. But, before she can say yes, her past catches up.",
+        "runtime": 30,
+        "tracks": null
+      },
+      {
+        "fileId": "463",
+        "fileName": "Taaza_Khabar_S01E06_720p_WEB_DL_AAC_5_1_ESub_x264_Vegamovies_to.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 6,
+        "episodeTitle": "Shraap",
+        "episodeOverview": "Vasya's dream of owning the villa comes true, and his mother and team move in. However, his blessing turns into a curse as this kind-hearted man slowly becomes a megalomaniac.",
+        "runtime": 34,
+        "tracks": null
+      }
+    ]
+  },
+  "episodes": [],
+  "availableSeasons": [
+    1
+  ],
+  "availableEpisodeCount": 6
+}

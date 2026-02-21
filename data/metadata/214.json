@@ -1,0 +1,24 @@
+{
+  "fileId": "214",
+  "fileName": "Godzilla_2014_BluRay_720p_Hindi_English_AAC_5_1_x264_ESub_Vegamovies.mkv",
+  "type": "movie",
+  "title": "Godzilla",
+  "originalTitle": "Godzilla",
+  "overview": "Ford Brody, a Navy bomb expert, has just reunited with his family in San Francisco when he is forced to go to Japan to help his estranged father, Joe. Soon, both men are swept up in an escalating crisis when an ancient alpha predator arises from the sea to combat malevolent adversaries that threaten the survival of humanity. The creatures leave colossal destruction in their wake, as they make their way toward their final battleground: San Francisco.",
+  "releaseDate": "2014-05-14",
+  "year": 2014,
+  "runtime": 123,
+  "genres": [
+    "Action",
+    "Drama",
+    "Science Fiction"
+  ],
+  "rating": 6.352,
+  "popularity": 8.4328,
+  "poster": "/data/posters/214.jpg",
+  "backdrop": "/data/backdrops/214_bd.jpg",
+  "tmdbId": 124905,
+  "fetchedAt": "2026-02-15T13:49:05.118Z",
+  "needsRetry": false,
+  "tv": null
+}

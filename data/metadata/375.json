@@ -1,0 +1,24 @@
+{
+  "fileId": "375",
+  "fileName": "The.Prestige.2006.720p.Dual.Audio.Hin-Eng.Vegamovies.NL.mkv",
+  "type": "movie",
+  "title": "The Prestige",
+  "originalTitle": "The Prestige",
+  "overview": "A mysterious story of two magicians whose intense rivalry leads them on a life-long battle for supremacy -- full of obsession, deceit and jealousy with dangerous and deadly consequences.",
+  "releaseDate": "2006-10-17",
+  "year": 2006,
+  "runtime": 130,
+  "genres": [
+    "Drama",
+    "Mystery",
+    "Science Fiction"
+  ],
+  "rating": 8.2,
+  "popularity": 13.0668,
+  "poster": "/data/posters/375.jpg",
+  "backdrop": "/data/backdrops/375_bd.jpg",
+  "tmdbId": 1124,
+  "fetchedAt": "2026-02-15T13:46:36.988Z",
+  "needsRetry": false,
+  "tv": null
+}

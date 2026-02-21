@@ -1,0 +1,37 @@
+{
+  "fileId": "263",
+  "fileName": "Sherlock.S01E03.720p.English.Esubs.Vegamovies.NL.mkv",
+  "type": "tv",
+  "title": "Sherlock",
+  "originalTitle": "Sherlock",
+  "overview": "A modern update finds the famous sleuth and his doctor partner solving crime in 21st century London.",
+  "releaseDate": "2010-07-25",
+  "year": 2010,
+  "runtime": 90,
+  "genres": [
+    "Crime",
+    "Drama",
+    "Mystery"
+  ],
+  "rating": 8.513,
+  "popularity": 41.4983,
+  "poster": "/data/posters/show_19885.jpg",
+  "backdrop": "/data/backdrops/show_19885_bd.jpg",
+  "tmdbId": 19885,
+  "fetchedAt": "2026-02-15T16:42:56.425Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Sherlock",
+    "originalShowTitle": "Sherlock",
+    "seasonNumber": 1,
+    "episodeNumber": 3,
+    "episodeTitle": "The Great Game",
+    "episodeOverview": "A strange clue in an empty room, a blood-soaked car, a priceless Old Master, a deranged bomber. With the clock ticking, the curtain rises on a battle of wits between Sherlock, John and the shadowy stranger who seems to know all the answers...",
+    "showTmdbId": 19885,
+    "episodeRuntime": 90,
+    "totalSeasons": 4,
+    "totalEpisodes": 12
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

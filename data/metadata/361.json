@@ -1,0 +1,38 @@
+{
+  "fileId": "361",
+  "fileName": "Chainsaw_Man_S01E05_HD_720p_x264_Multi_Audio_ESub_Vegamovies_to.mkv",
+  "type": "tv",
+  "title": "Chainsaw Man",
+  "originalTitle": "チェンソーマン",
+  "overview": "Denji has a simple dream—to live a happy and peaceful life, spending time with a girl he likes. This is a far cry from reality, however, as Denji is forced by the yakuza into killing devils in order to pay off his crushing debts. Using his pet devil Pochita as a weapon, he is ready to do anything for a bit of cash.",
+  "releaseDate": "2022-10-12",
+  "year": 2022,
+  "runtime": 24,
+  "genres": [
+    "Animation",
+    "Action & Adventure",
+    "Sci-Fi & Fantasy",
+    "Comedy"
+  ],
+  "rating": 8.51,
+  "popularity": 23.6767,
+  "poster": "/data/posters/show_114410.jpg",
+  "backdrop": "/data/backdrops/show_114410_bd.jpg",
+  "tmdbId": 114410,
+  "fetchedAt": "2026-02-15T16:03:51.544Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Chainsaw Man",
+    "originalShowTitle": "チェンソーマン",
+    "seasonNumber": 1,
+    "episodeNumber": 5,
+    "episodeTitle": "GUN DEVIL",
+    "episodeOverview": "Aki Hayakawa, Denji, and Power start living together.\n\nDenji finally fulfills his dream of touching Power’s boobs, but is shocked when things do not turn out the way he expected.  As Denji realizes that chasing his dream was more fun than achieving it, Makima approaches him and says, \"If you can kill the Gun Devil, I’ll grant you one wish.”",
+    "showTmdbId": 114410,
+    "episodeRuntime": 24,
+    "totalSeasons": 1,
+    "totalEpisodes": 12
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

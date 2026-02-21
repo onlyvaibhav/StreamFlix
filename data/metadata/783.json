@@ -1,0 +1,37 @@
+{
+  "fileId": "783",
+  "fileName": "Gen.V.S02E05.720p.WEB-DL.HIN-ENG.x264.ESub-Vegamovies.Hot.mkv",
+  "type": "tv",
+  "title": "Gen V",
+  "originalTitle": "Gen V",
+  "overview": "At America's only college for superheroes, gifted students put their moral boundaries to the test, competing for the university's top ranking, and a chance to join The Seven, Vought International's elite superhero team. When the school's dark secrets come to light, they must decide what kind of heroes they want to become.",
+  "releaseDate": "2023-09-28",
+  "year": 2023,
+  "runtime": 49,
+  "genres": [
+    "Action & Adventure",
+    "Drama",
+    "Sci-Fi & Fantasy"
+  ],
+  "rating": 7.693,
+  "popularity": 25.5081,
+  "poster": "/data/posters/show_205715.jpg",
+  "backdrop": "/data/backdrops/show_205715_bd.jpg",
+  "tmdbId": 205715,
+  "fetchedAt": "2026-02-15T14:38:39.410Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Gen V",
+    "originalShowTitle": "Gen V",
+    "seasonNumber": 2,
+    "episodeNumber": 5,
+    "episodeTitle": "The Kids Are Not All Right",
+    "episodeOverview": "Facility Code 5827 - USE OF POWERS STRICTLY PROHIBITED. Facility Code 3567 - HANDS MUST BE VISIBLE AT ALL TIMES Facility Code 843 - ANY PERSONAL ITEM DEEMED AN ENHANCEMENT TO YOUR POWER SET WILL BE CONFISCATED. Facility Code 2536 - RESTRAINT TECHNOLOGIES ACTIVE IN ALL AREAS. Facility Code - 9832 - ALL DETAINEES SUBJECT TO BODY CAVITY SEARCH AT ANY TIME.",
+    "showTmdbId": 205715,
+    "episodeRuntime": 49,
+    "totalSeasons": 2,
+    "totalEpisodes": 16
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

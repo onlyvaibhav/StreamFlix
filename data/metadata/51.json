@@ -1,0 +1,24 @@
+{
+  "fileId": "51",
+  "fileName": "Hi_Nanna_(transl._Hi_Dad)_2023_720p.mkv",
+  "type": "movie",
+  "title": "Hi Nanna",
+  "originalTitle": "హాయ్ నాన్న",
+  "overview": "Six-year-old Mahi, a spirited child with cystic fibrosis, shares a deep yet complex bond with her father, Viraj, a dedicated single parent and successful fashion photographer. Her curiosity about her absent mother leads to a journey of discovery when she runs away with her loyal dog, Pluto. A chance encounter with a kind woman named Yashna sparks unexpected revelations, intertwining their lives in ways they never anticipated. Set against a backdrop of love, sacrifice, and redemption, Mahi’s story is a heartfelt exploration of family, resilience, and the enduring power of connection.",
+  "releaseDate": "2023-12-07",
+  "year": 2023,
+  "runtime": 155,
+  "genres": [
+    "Drama",
+    "Family",
+    "Romance"
+  ],
+  "rating": 7.9,
+  "popularity": 3.8838,
+  "poster": "/data/posters/51.jpg",
+  "backdrop": "/data/backdrops/51_bd.jpg",
+  "tmdbId": 1068452,
+  "fetchedAt": "2026-02-15T13:50:54.224Z",
+  "needsRetry": false,
+  "tv": null
+}

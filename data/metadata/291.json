@@ -1,0 +1,37 @@
+{
+  "fileId": "291",
+  "fileName": "GEN_V_2023_S01E08_720p_10bit_HEVC_x265_HIN_ENG_x265_ESub_Vegamovies.mkv",
+  "type": "tv",
+  "title": "Gen V",
+  "originalTitle": "Gen V",
+  "overview": "At America's only college for superheroes, gifted students put their moral boundaries to the test, competing for the university's top ranking, and a chance to join The Seven, Vought International's elite superhero team. When the school's dark secrets come to light, they must decide what kind of heroes they want to become.",
+  "releaseDate": "2023-09-28",
+  "year": 2023,
+  "runtime": 39,
+  "genres": [
+    "Action & Adventure",
+    "Drama",
+    "Sci-Fi & Fantasy"
+  ],
+  "rating": 7.693,
+  "popularity": 25.5081,
+  "poster": "/data/posters/show_205715.jpg",
+  "backdrop": "/data/backdrops/show_205715_bd.jpg",
+  "tmdbId": 205715,
+  "fetchedAt": "2026-02-15T14:39:36.571Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Gen V",
+    "originalShowTitle": "Gen V",
+    "seasonNumber": 1,
+    "episodeNumber": 8,
+    "episodeTitle": "Guardians of Godolkin",
+    "episodeOverview": "If you or a human loved one have been injured or killed while working at Godolkin University, you may be entitled to financial compensation. Hundreds of human employees have been victimized by Godolkin students, but the law offices of Bremmer & Bremmer have won them millions in personal injury and wrongful death lawsuits. Contact us for a free consultation at 1-888-177-2774. Know your rights!",
+    "showTmdbId": 205715,
+    "episodeRuntime": 39,
+    "totalSeasons": 2,
+    "totalEpisodes": 16
+  },
+  "audioCodec": "eac3",
+  "browserPlayable": false
+}

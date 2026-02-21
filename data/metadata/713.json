@@ -1,0 +1,37 @@
+{
+  "fileId": "713",
+  "fileName": "Alice.In.Borderland.S03E05.720P.NF.Web.Dl.x264.Vegamovies.is.mkv",
+  "type": "tv",
+  "title": "Alice in Borderland",
+  "originalTitle": "今際の国のアリス",
+  "overview": "With his two friends, a video-game-obsessed young man finds himself in a strange version of Tokyo where they must compete in dangerous games to win.",
+  "releaseDate": "2020-12-10",
+  "year": 2020,
+  "runtime": 78,
+  "genres": [
+    "Mystery",
+    "Drama",
+    "Action & Adventure"
+  ],
+  "rating": 8.1,
+  "popularity": 31.959,
+  "poster": "/data/posters/show_110316.jpg",
+  "backdrop": "/data/backdrops/show_110316_bd.jpg",
+  "tmdbId": 110316,
+  "fetchedAt": "2026-02-15T14:50:06.137Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Alice in Borderland",
+    "originalShowTitle": "今際の国のアリス",
+    "seasonNumber": 3,
+    "episodeNumber": 5,
+    "episodeTitle": "Episode 5",
+    "episodeOverview": "Arisu follows his digital double through a simulation of future Shibuya, stopping at a heartwarming scene — and the real Usagi before him.",
+    "showTmdbId": 110316,
+    "episodeRuntime": 78,
+    "totalSeasons": 3,
+    "totalEpisodes": 22
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

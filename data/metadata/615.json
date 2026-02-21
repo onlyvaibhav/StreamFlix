@@ -1,0 +1,36 @@
+{
+  "fileId": "615",
+  "fileName": "Undekhi.S03E05.720p.Hindi.WEB-DL.5.1.ESub.x264.Vegamovies.to.mkv",
+  "type": "tv",
+  "title": "Undekhi",
+  "originalTitle": "अनदेखी",
+  "overview": "Show depicts the two aspects of the society - the power-drunk influential people who think they can get away with anything and the oppressed, subjected to years of torture, who finally decide to bring themselves to justice",
+  "releaseDate": "2020-07-10",
+  "year": 2020,
+  "runtime": 44,
+  "genres": [
+    "Crime",
+    "Drama"
+  ],
+  "rating": 8.2,
+  "popularity": 4.0398,
+  "poster": "/data/posters/show_105759.jpg",
+  "backdrop": "/data/backdrops/show_105759_bd.jpg",
+  "tmdbId": 105759,
+  "fetchedAt": "2026-02-15T15:26:12.362Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Undekhi",
+    "originalShowTitle": "अनदेखी",
+    "seasonNumber": 3,
+    "episodeNumber": 5,
+    "episodeTitle": "Trial By Fire",
+    "episodeOverview": "The trial is underway and the Atwals are under fire from Ghosh and the prosecution. Papaji’s freedom is at stake, and just when everything seems hopeless, Rinku pulls a rabbit out of the hat and all hell breaks loose.",
+    "showTmdbId": 105759,
+    "episodeRuntime": 44,
+    "totalSeasons": 3,
+    "totalEpisodes": 28
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

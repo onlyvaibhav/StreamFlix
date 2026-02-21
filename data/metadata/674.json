@@ -1,0 +1,36 @@
+{
+  "fileId": "674",
+  "fileName": "Court_Kacheri_2025_S01E01_Summon_720p_SONY_WEB_DL_MULTi_DDP5_1_Atmos.mkv",
+  "type": "tv",
+  "title": "Court Kacheri",
+  "originalTitle": "Court Kacheri",
+  "overview": "In a chaotic district court of rural India, the son of a legendary lawyer wrestles with his unwanted inheritance while cases expose the messy truth behind local justice.",
+  "releaseDate": "2025-08-12",
+  "year": 2025,
+  "runtime": 28,
+  "genres": [
+    "Comedy",
+    "Drama"
+  ],
+  "rating": 0,
+  "popularity": 0.842,
+  "poster": "/data/posters/show_298052.jpg",
+  "backdrop": "/data/backdrops/show_298052_bd.jpg",
+  "tmdbId": 298052,
+  "fetchedAt": "2026-02-15T15:20:21.732Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Court Kacheri",
+    "originalShowTitle": "Court Kacheri",
+    "seasonNumber": 1,
+    "episodeNumber": 1,
+    "episodeTitle": "Summon",
+    "episodeOverview": "Param Mathur is destined to be a lawyer like his father, but the courtroom makes him sick. In a reckless bid for freedom, he forges a degree and ends up in jail. Rescued by Suraj, his father's loyal aide, Param is forced back into the legal world he despises. As Suraj lands his first case, Param finds himself trapped in a life he never chose, with no escape in sight.",
+    "showTmdbId": 298052,
+    "episodeRuntime": 28,
+    "totalSeasons": 1,
+    "totalEpisodes": 5
+  },
+  "audioCodec": "eac3",
+  "browserPlayable": false
+}

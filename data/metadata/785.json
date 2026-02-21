@@ -1,0 +1,37 @@
+{
+  "fileId": "785",
+  "fileName": "Gen_V_S02E07_720p_Dual_Audio_Hindi_English_WEB_DL_Vegamovies_Hot.mkv",
+  "type": "tv",
+  "title": "Gen V",
+  "originalTitle": "Gen V",
+  "overview": "At America's only college for superheroes, gifted students put their moral boundaries to the test, competing for the university's top ranking, and a chance to join The Seven, Vought International's elite superhero team. When the school's dark secrets come to light, they must decide what kind of heroes they want to become.",
+  "releaseDate": "2023-09-28",
+  "year": 2023,
+  "runtime": 42,
+  "genres": [
+    "Action & Adventure",
+    "Drama",
+    "Sci-Fi & Fantasy"
+  ],
+  "rating": 7.693,
+  "popularity": 25.5081,
+  "poster": "/data/posters/show_205715.jpg",
+  "backdrop": "/data/backdrops/show_205715_bd.jpg",
+  "tmdbId": 205715,
+  "fetchedAt": "2026-02-15T14:38:13.044Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Gen V",
+    "originalShowTitle": "Gen V",
+    "seasonNumber": 2,
+    "episodeNumber": 7,
+    "episodeTitle": "Hell Week",
+    "episodeOverview": "A Reminder from the Office of Student Conduct: God U strictly prohibits hazing. Students should never be called demeaning names, forced to wear humiliating clothes, or treated like any animal. If you see something, say something! No one will call you a narc.",
+    "showTmdbId": 205715,
+    "episodeRuntime": 42,
+    "totalSeasons": 2,
+    "totalEpisodes": 16
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

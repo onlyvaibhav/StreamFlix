@@ -1,0 +1,36 @@
+{
+  "fileId": "309",
+  "fileName": "Gyaarah_Gyaarah_S01_E08_WebRip_720p_Hindi_AAC_5_1_x264_ESub_Vegamovies.mkv",
+  "type": "tv",
+  "title": "Gyaarah Gyaarah",
+  "originalTitle": "Gyaarah Gyaarah",
+  "overview": "Three cops defy the rules of time to investigate and deliver justice in a series of cold cases. How far will they go as they work from within the corrupt system to bring the criminals to book?",
+  "releaseDate": "2024-08-09",
+  "year": 2024,
+  "runtime": 48,
+  "genres": [
+    "Drama",
+    "Sci-Fi & Fantasy"
+  ],
+  "rating": 7.3,
+  "popularity": 3.5501,
+  "poster": "/data/posters/show_259688.jpg",
+  "backdrop": "/data/backdrops/show_259688_bd.jpg",
+  "tmdbId": 259688,
+  "fetchedAt": "2026-02-15T16:08:27.115Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Gyaarah Gyaarah",
+    "originalShowTitle": "Gyaarah Gyaarah",
+    "seasonNumber": 1,
+    "episodeNumber": 8,
+    "episodeTitle": "Episode 8",
+    "episodeOverview": "In 2016, tensions escalate as Yug tries to solve old cases while Vamika deals with office politics and familial pressures. A high-profile kidnapping shakes the team, sparking a race against time.",
+    "showTmdbId": 259688,
+    "episodeRuntime": 48,
+    "totalSeasons": 1,
+    "totalEpisodes": 8
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

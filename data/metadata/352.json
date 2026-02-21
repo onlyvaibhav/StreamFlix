@@ -1,0 +1,36 @@
+{
+  "fileId": "352",
+  "fileName": "The_Freelancer_S01E04_Martyr_720p_WEB_DL_DDP5_1_Atmos_H_264_Vegamovies.mkv",
+  "type": "tv",
+  "title": "The Freelancer",
+  "originalTitle": "The Freelancer",
+  "overview": "Based on the book 'A Ticket To Syria', ex-Cop turned mercenary Avinash Kamath aka 'The Freelancer', takes up the daunting mission of rescuing Aliya, a newly married girl trapped in a war-torn Syria against the backdrop of growing ISIS terrorism",
+  "releaseDate": "2023-09-01",
+  "year": 2023,
+  "runtime": 37,
+  "genres": [
+    "Action & Adventure",
+    "Drama"
+  ],
+  "rating": 7.125,
+  "popularity": 2.4554,
+  "poster": "/data/posters/show_232282.jpg",
+  "backdrop": "/data/backdrops/show_232282_bd.jpg",
+  "tmdbId": 232282,
+  "fetchedAt": "2026-02-15T16:06:12.574Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "The Freelancer",
+    "originalShowTitle": "The Freelancer",
+    "seasonNumber": 1,
+    "episodeNumber": 4,
+    "episodeTitle": "Martyr?",
+    "episodeOverview": "Avinash lays the groundwork for Aliya's extraction from Syria. He establishes contact with her, and she helps him spy on the Fazals.",
+    "showTmdbId": 232282,
+    "episodeRuntime": 37,
+    "totalSeasons": 1,
+    "totalEpisodes": 7
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

@@ -1,0 +1,87 @@
+{
+  "showTmdbId": 260203,
+  "showTitle": "Shekhar Home",
+  "originalShowTitle": "Shekhar Home",
+  "overview": "Set in 1990s Lonpur, Bengal, “Shekhar Home” combines suspense & comedy as eccentric Shekhar and his new housemate Jayavrat solve a variety of cases while interacting with a vibrant cast of characters in a charming, pre-technology era.",
+  "genres": [
+    "Drama",
+    "Crime"
+  ],
+  "rating": 6.65,
+  "popularity": 1.4031,
+  "poster": "/data/posters/show_260203.jpg",
+  "backdrop": "/data/backdrops/show_260203_bd.jpg",
+  "totalSeasons": 1,
+  "totalEpisodes": 6,
+  "year": 2024,
+  "releaseDate": "2024-08-14",
+  "seasons": {
+    "1": [
+      {
+        "fileId": "278",
+        "fileName": "Shekhar_Home_S01E01_1080p_Hindi_WEB_DL_5_1_ESub_x264_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 1,
+        "episodeTitle": "It's Elementary",
+        "episodeOverview": "Shekhar & ex-army doctor Jayavrat Saini team up to solve a series of murders in Lonpur marked by a \"horse shoe\" symbol. As Jayavrat evolves from roommate to partner, a shadowy figure known as \"M\" ominously watches Shekhar from the shadows.",
+        "runtime": 42,
+        "tracks": null
+      },
+      {
+        "fileId": "279",
+        "fileName": "Shekhar_Home_S01E02_1080p_Hindi_WEB_DL_5_1_ESub_x264_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 2,
+        "episodeTitle": "Dasbabu Ki Dulhan",
+        "episodeOverview": "Shekhar dives into a village scam where a jungle adventure leads to a bank heist. With a bride-to-be's father missing, he uncovers a tangled plot revealing a cunning robber with a grudge, while the looming threat of \"M\" draws ever closer.",
+        "runtime": 39,
+        "tracks": null
+      },
+      {
+        "fileId": "280",
+        "fileName": "Shekhar_Home_S01E03_1080p_Hindi_WEB_DL_5_1_ESub_x264_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 3,
+        "episodeTitle": "Phir Milenge",
+        "episodeOverview": "Shekhar & Jayavrat are in Bihar for a blackmail scandal involving a famous politician. Shekhar is fascinated by the enigmatic Iraboty, while Mrinmoy discovers a classified file on \"M,\" adding a new layer of intrigue to their investigation.",
+        "runtime": 42,
+        "tracks": null
+      },
+      {
+        "fileId": "281",
+        "fileName": "Shekhar_Home_S01E04_1080p_Hindi_WEB_DL_5_1_ESub_x264_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 4,
+        "episodeTitle": "Bhaskarvilla",
+        "episodeOverview": "Iraboty's arrival in Lonpur sparks intrigue as she convinces Shekhar to investigate the 150-year-old Skhondokhata legend in Purulia, linked to recent deaths in the Bhaskar family. Shekhar suspects a deeper conspiracy.",
+        "runtime": 43,
+        "tracks": null
+      },
+      {
+        "fileId": "282",
+        "fileName": "Shekhar_Home_S01E05_1080p_Hindi_WEB_DL_5_1_ESub_x264_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 5,
+        "episodeTitle": "\"M\" For Mastermind",
+        "episodeOverview": "Mrs. H & Pintoo are held hostage at Khasha Blanca forcing Shekhar to confront his past where he had uncovered a deadly gas weapon linked to M, a criminal mastermind. Now they must find the vial or his friends lose their lives.",
+        "runtime": 43,
+        "tracks": null
+      },
+      {
+        "fileId": "283",
+        "fileName": "Shekhar_Home_S01E06_1080p_Hindi_WEB_DL_5_1_ESub_x264_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 6,
+        "episodeTitle": "Kahan Chippe Ho Tagore?",
+        "episodeOverview": "Racing against time, Shekhar and Jayavrat hunt for clues across Calcutta left by the scientist Gupta, aiming to find a vial with the secret gas formula. As they near the final code, Shekhar faces M in a deadly struggle.",
+        "runtime": 47,
+        "tracks": null
+      }
+    ]
+  },
+  "episodes": [],
+  "availableSeasons": [
+    1
+  ],
+  "availableEpisodeCount": 6
+}

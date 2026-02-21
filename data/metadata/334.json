@@ -1,0 +1,36 @@
+{
+  "fileId": "334",
+  "fileName": "Gutar_Gu_S02_E01_WebRip_720p_Hindi_AAC_2_0_x264_ESub_Vegamovies.mkv",
+  "type": "tv",
+  "title": "Gutar Gu",
+  "originalTitle": "Gutar Gu",
+  "overview": "Ritu joins a coaching class in Bhopal and notices Anuj on the first day. She introduces herself to Anuj, which startles him. He seeks advice from friends on how to impress her. Ritu asks Anuj to help her explore the city but he cancels at the last minute. Anuj writes a love letter and must now confess his feelings to Ritu and pray she feels the same way.",
+  "releaseDate": "2023-04-05",
+  "year": 2023,
+  "runtime": 31,
+  "genres": [
+    "Drama",
+    "Comedy"
+  ],
+  "rating": 8,
+  "popularity": 1.2929,
+  "poster": "/data/posters/show_223952.jpg",
+  "backdrop": "/data/backdrops/show_223952_bd.jpg",
+  "tmdbId": 223952,
+  "fetchedAt": "2026-02-15T16:08:12.554Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Gutar Gu",
+    "originalShowTitle": "Gutar Gu",
+    "seasonNumber": 2,
+    "episodeNumber": 1,
+    "episodeTitle": "Will You Be My Sukhi Puri?",
+    "episodeOverview": "Anuj and Ritu's relationship faces a challenge when Ritu gets admitted to a college in Ahmedabad. Desperate to follow her, Anuj and his friends try to convince his parents that studying in Ahmedabad is the best move. Unfortunately, Anuj's mother catches on to the plot and discovers that Ritu is also going to Ahmedabad. As Ritu and Anuj prepare for the final goodbye, tensions escalate.",
+    "showTmdbId": 223952,
+    "episodeRuntime": 31,
+    "totalSeasons": 3,
+    "totalEpisodes": 18
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

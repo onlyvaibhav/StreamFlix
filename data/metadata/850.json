@@ -1,0 +1,69 @@
+{
+  "fileId": "850",
+  "fileName": "The_Truman_Show_1998_720p_BRRip_Hindi_Dual_Audio_Vegamovies_is.mkv",
+  "type": "movie",
+  "title": "The Truman Show",
+  "originalTitle": "The Truman Show",
+  "overview": "An insurance salesman begins to suspect that his whole life is actually some sort of reality TV show.",
+  "releaseDate": "1998-06-04",
+  "year": 1998,
+  "runtime": 103,
+  "genres": [
+    "Comedy",
+    "Drama"
+  ],
+  "rating": 8.151,
+  "popularity": 14.1103,
+  "poster": "/data/posters/850.jpg",
+  "backdrop": "/data/backdrops/850_bd.jpg",
+  "tmdbId": 37165,
+  "fetchedAt": "2026-02-15T13:41:45.001Z",
+  "needsRetry": false,
+  "tv": null,
+  "audioCodec": "mp3",
+  "browserPlayable": true,
+  "_tracksDetected": true,
+  "container": "matroska,webm",
+  "duration": 6177.333,
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "mp3",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "Vegamovies.is",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": true
+    },
+    {
+      "index": 1,
+      "streamIndex": 2,
+      "codec": "aac",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Vegamovies.is",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": false
+    }
+  ],
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 3,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Vegamovies.is",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": true,
+      "isForced": false
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "fileId": "124",
+  "fileName": "Stuart_Little_3_Call_of_the_Wild_2005_1080p_WEB_DL_Hindi_Dual_Audio.mkv",
+  "type": "movie",
+  "title": "Stuart Little 3: Call of the Wild",
+  "originalTitle": "Stuart Little 3: Call of the Wild",
+  "overview": "With school out for the summer,  The Littles are vacationing in a cabin by the lake, and Stuart is so excited he could burst! But when Snowbell the cat is captured by a mean-spirited creature known simply as the Beast, it's up to Stuart and a skunk named Reeko to rescue him and a few other friends.",
+  "releaseDate": "2005-07-14",
+  "year": 2005,
+  "runtime": 72,
+  "genres": [
+    "Animation",
+    "Comedy",
+    "Family"
+  ],
+  "rating": 5.2,
+  "popularity": 2.8336,
+  "poster": "/data/posters/124.jpg",
+  "backdrop": "/data/backdrops/124_bd.jpg",
+  "tmdbId": 30178,
+  "fetchedAt": "2026-02-15T21:05:08.212Z",
+  "needsRetry": false,
+  "tv": null,
+  "audioCodec": "eac3",
+  "browserPlayable": false,
+  "_tracksDetected": true
+}

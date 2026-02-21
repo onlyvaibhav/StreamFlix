@@ -1,0 +1,36 @@
+{
+  "fileId": "822",
+  "fileName": "Bhay_The_Gaurav_Tiwari_Mystery_S01E01_720p_AMZN_WEB_DL_x264_Vegamovies.mkv",
+  "type": "tv",
+  "title": "Bhay: The Gaurav Tiwari Story",
+  "originalTitle": "भय: गौरव तिवारी की कहानी",
+  "overview": "Gaurav Tiwari, a paranormal investigator, faces his greatest challenge when his pursuit of the truth behind unexplained phenomena leads him into a deadly spiral. As his mysterious death leaves questions unanswered, a journalist delves into his eerie and celebrated legacy, unearthing secrets that blur the line between reality and the supernatural.",
+  "releaseDate": "2025-12-12",
+  "year": 2025,
+  "runtime": 53,
+  "genres": [
+    "Drama",
+    "Mystery"
+  ],
+  "rating": 8,
+  "popularity": 3.3793,
+  "poster": "/data/posters/show_308053.jpg",
+  "backdrop": "/data/backdrops/show_308053_bd.jpg",
+  "tmdbId": 308053,
+  "fetchedAt": "2026-02-15T13:52:01.307Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Bhay: The Gaurav Tiwari Story",
+    "originalShowTitle": "भय: गौरव तिवारी की कहानी",
+    "seasonNumber": 1,
+    "episodeNumber": 1,
+    "episodeTitle": "Ek Gehra Raaz",
+    "episodeOverview": "Gaurav is training to be a pilot but unexplained incidents change his life trajectory forever. He studies the science of paranormal in the UK and against resistance from all fronts, becomes the pioneer of paranormal investigations in India and establishes the IPS - Indian Paranormal Society.",
+    "showTmdbId": 308053,
+    "episodeRuntime": 53,
+    "totalSeasons": 1,
+    "totalEpisodes": 8
+  },
+  "audioCodec": "eac3",
+  "browserPlayable": false
+}

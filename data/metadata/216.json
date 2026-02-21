@@ -1,0 +1,24 @@
+{
+  "fileId": "216",
+  "fileName": "Kong.Skull.Island.(2018).1080p.(Hindi.English)-002.mkv",
+  "type": "movie",
+  "title": "Kong: Skull Island",
+  "originalTitle": "Kong: Skull Island",
+  "overview": "Explore the mysterious and dangerous home of the king of the apes as a team of explorers ventures deep inside the treacherous, primordial island.",
+  "releaseDate": "2017-03-08",
+  "year": 2017,
+  "runtime": 118,
+  "genres": [
+    "Action",
+    "Adventure",
+    "Fantasy"
+  ],
+  "rating": 6.551,
+  "popularity": 13.5914,
+  "poster": "/data/posters/216.jpg",
+  "backdrop": "/data/backdrops/216_bd.jpg",
+  "tmdbId": 293167,
+  "fetchedAt": "2026-02-15T21:14:34.679Z",
+  "needsRetry": false,
+  "tv": null
+}

@@ -1,0 +1,36 @@
+{
+  "fileId": "198",
+  "fileName": "Loki_S02E04_Heart_of_the_TVA_720p_x264_Hindi_English_Esubs_Vegamovies.mkv",
+  "type": "tv",
+  "title": "Loki",
+  "originalTitle": "Loki",
+  "overview": "After stealing the Tesseract during the events of “Avengers: Endgame,” an alternate version of Loki is brought to the mysterious Time Variance Authority, a bureaucratic organization that exists outside of time and space and monitors the timeline. They give Loki a choice: face being erased from existence due to being a “time variant” or help fix the timeline and stop a greater threat.",
+  "releaseDate": "2021-06-09",
+  "year": 2021,
+  "runtime": 51,
+  "genres": [
+    "Drama",
+    "Sci-Fi & Fantasy"
+  ],
+  "rating": 8.17,
+  "popularity": 49.0015,
+  "poster": "/data/posters/show_84958.jpg",
+  "backdrop": "/data/backdrops/show_84958_bd.jpg",
+  "tmdbId": 84958,
+  "fetchedAt": "2026-02-15T17:18:22.446Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Loki",
+    "originalShowTitle": "Loki",
+    "seasonNumber": 2,
+    "episodeNumber": 4,
+    "episodeTitle": "Heart of the TVA",
+    "episodeOverview": "The TVA's Loom nears catastrophic failure but Loki, Mobius and Sylvie have a He Who Remains variant.",
+    "showTmdbId": 84958,
+    "episodeRuntime": 51,
+    "totalSeasons": 2,
+    "totalEpisodes": 12
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

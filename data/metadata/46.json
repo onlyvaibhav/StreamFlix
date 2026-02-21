@@ -1,0 +1,37 @@
+{
+  "fileId": "46",
+  "fileName": "Alice_In_Borderland_S02E04_720p_10Bit_Hindi_English_Msubs_Vegamovies.mkv",
+  "type": "tv",
+  "title": "Alice in Borderland",
+  "originalTitle": "今際の国のアリス",
+  "overview": "With his two friends, a video-game-obsessed young man finds himself in a strange version of Tokyo where they must compete in dangerous games to win.",
+  "releaseDate": "2020-12-10",
+  "year": 2020,
+  "runtime": 53,
+  "genres": [
+    "Mystery",
+    "Drama",
+    "Action & Adventure"
+  ],
+  "rating": 8.1,
+  "popularity": 31.959,
+  "poster": "/data/posters/show_110316.jpg",
+  "backdrop": "/data/backdrops/show_110316_bd.jpg",
+  "tmdbId": 110316,
+  "fetchedAt": "2026-02-15T14:51:41.066Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Alice in Borderland",
+    "originalShowTitle": "今際の国のアリス",
+    "seasonNumber": 2,
+    "episodeNumber": 4,
+    "episodeTitle": "Episode 4",
+    "episodeOverview": "There are just a handful of players left, and Chishiya's the only one without a partner. The next round may very well be the last of the game.",
+    "showTmdbId": 110316,
+    "episodeRuntime": 53,
+    "totalSeasons": 3,
+    "totalEpisodes": 22
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

@@ -1,0 +1,36 @@
+{
+  "fileId": "484",
+  "fileName": "Paatal_Lok_S02E03_720p_Hindi_WEB_DL_5_1_ESub_x264_Vegamovies_is.mkv",
+  "type": "tv",
+  "title": "Paatal Lok",
+  "originalTitle": "पाताल लोक",
+  "overview": "A down and out cop lands the case of a lifetime when four suspects are nabbed in the assassination attempt of a prime time journalist. The case turns out to be a devious maze where nothing is what it looks like. The pursuit of it leads him to the dark netherworld - the 'Paatal Lok', and to shocking discoveries in the past of the four suspects.",
+  "releaseDate": "2020-05-15",
+  "year": 2020,
+  "runtime": 47,
+  "genres": [
+    "Crime",
+    "Drama"
+  ],
+  "rating": 7.395,
+  "popularity": 8.6272,
+  "poster": "/data/posters/show_103051.jpg",
+  "backdrop": "/data/backdrops/show_103051_bd.jpg",
+  "tmdbId": 103051,
+  "fetchedAt": "2026-02-15T15:34:46.732Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Paatal Lok",
+    "originalShowTitle": "पाताल लोक",
+    "seasonNumber": 2,
+    "episodeNumber": 3,
+    "episodeTitle": "Four Murders And A Funeral",
+    "episodeOverview": "Hathi Ram and Ansari meet SP Meghna Barua in Nagaland who is sceptical of their presence. Tensions rise at Thom's funeral at the arrival of Thom's estranged son Reuben. Hathi Ram and Ansari learn of Thom’s illicit businesses. A drug dealer, a potential lead in their case, ends up dead. And so do the three individuals who had claimed responsibility for Jonathan Thom’s murder.",
+    "showTmdbId": 103051,
+    "episodeRuntime": 47,
+    "totalSeasons": 2,
+    "totalEpisodes": 17
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

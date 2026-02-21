@@ -1,0 +1,27 @@
+{
+  "fileId": "126",
+  "fileName": "Stuart_Little_2_2002_720p_BRRip_Hindi_Dual_Audio_Vegamovies_to.mkv",
+  "type": "movie",
+  "title": "Stuart Little 2",
+  "originalTitle": "Stuart Little 2",
+  "overview": "Stuart, an adorable white mouse, still lives happily with his adoptive family, the Littles, on the east side of Manhattan's Central Park. More crazy mouse adventures are in store as Stuart, his human brother, George, and their mischievous cat, Snowbell, set out to rescue a friend.",
+  "releaseDate": "2002-07-19",
+  "year": 2002,
+  "runtime": 78,
+  "genres": [
+    "Family",
+    "Adventure",
+    "Comedy"
+  ],
+  "rating": 5.769,
+  "popularity": 2.7239,
+  "poster": "/data/posters/126.jpg",
+  "backdrop": "/data/backdrops/126_bd.jpg",
+  "tmdbId": 10996,
+  "fetchedAt": "2026-02-15T21:06:28.007Z",
+  "needsRetry": false,
+  "tv": null,
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "_tracksDetected": true
+}

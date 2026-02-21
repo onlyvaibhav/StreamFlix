@@ -1,0 +1,97 @@
+{
+  "showTmdbId": 308053,
+  "showTitle": "Bhay: The Gaurav Tiwari Story",
+  "originalShowTitle": "भय: गौरव तिवारी की कहानी",
+  "overview": "Gaurav Tiwari, a paranormal investigator, faces his greatest challenge when his pursuit of the truth behind unexplained phenomena leads him into a deadly spiral. As his mysterious death leaves questions unanswered, a journalist delves into his eerie and celebrated legacy, unearthing secrets that blur the line between reality and the supernatural.",
+  "genres": [
+    "Drama",
+    "Mystery"
+  ],
+  "rating": 8,
+  "popularity": 3.3793,
+  "poster": "/data/posters/show_308053.jpg",
+  "backdrop": "/data/backdrops/show_308053_bd.jpg",
+  "totalSeasons": 1,
+  "totalEpisodes": 8,
+  "year": 2025,
+  "releaseDate": "2025-12-12",
+  "seasons": {
+    "1": [
+      {
+        "fileId": "822",
+        "fileName": "Bhay_The_Gaurav_Tiwari_Mystery_S01E01_720p_AMZN_WEB_DL_x264_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 1,
+        "episodeTitle": "Ek Gehra Raaz",
+        "episodeOverview": "Gaurav is training to be a pilot but unexplained incidents change his life trajectory forever. He studies the science of paranormal in the UK and against resistance from all fronts, becomes the pioneer of paranormal investigations in India and establishes the IPS - Indian Paranormal Society.",
+        "runtime": 53,
+        "tracks": null
+      },
+      {
+        "fileId": "823",
+        "fileName": "Bhay_The_Gaurav_Tiwari_Mystery_S01E02_720p_AMZN_WEB_DL_x264_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 2,
+        "episodeTitle": "Jaanoge Nahi To Maanoge Kaise",
+        "episodeOverview": "Gaurav's unbelievable life and mysterious death has triggered Irene into a relentless quest to try and find out how Gaurav died but her biggest obstacle is going to be her own non-believer attitude.",
+        "runtime": 26,
+        "tracks": null
+      },
+      {
+        "fileId": "824",
+        "fileName": "Bhay_The_Gaurav_Tiwari_Mystery_S01E03_720p_AMZN_WEB_DL_x264_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 3,
+        "episodeTitle": "Khauff Ki Dastak",
+        "episodeOverview": "Gaurav's journey starts unfolding further with the story of Bachchua… as the IPS becoming more receptive to Irene but she has a past of her own that she isn't willing to divulge yet. ",
+        "runtime": 22,
+        "tracks": null
+      },
+      {
+        "fileId": "825",
+        "fileName": "Bhay_The_Gaurav_Tiwari_Mystery_S01E04_720p_AMZN_WEB_DL_x264_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 4,
+        "episodeTitle": "Ek Adhura Case",
+        "episodeOverview": "Their own mistake prompts Gaurav and the IPS into action... but a rift starts tearing Irene and IPS apart. ",
+        "runtime": 31,
+        "tracks": null
+      },
+      {
+        "fileId": "826",
+        "fileName": "Bhay_The_Gaurav_Tiwari_Mystery_S01E05_720p_AMZN_WEB_DL_x264_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 5,
+        "episodeTitle": "Darr Ya Dare",
+        "episodeOverview": "Gaurav and the IPS get their own TV show to showcase the realities of paranormal to the world. Irene opens up about her past to Sid.",
+        "runtime": 32,
+        "tracks": null
+      },
+      {
+        "fileId": "827",
+        "fileName": "Bhay_The_Gaurav_Tiwari_Mystery_S01E06_720p_AMZN_WEB_DL_x264_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 6,
+        "episodeTitle": "Wo Kaun Thee",
+        "episodeOverview": "Gaurav and IPS become a nation-wide sensation. Irene's past has a strong connection with Gaurav's last days, that even IPS was unaware about. ",
+        "runtime": 30,
+        "tracks": null
+      },
+      {
+        "fileId": "828",
+        "fileName": "Bhay_The_Gaurav_Tiwari_Mystery_S01E07_720p_AMZN_WEB_DL_x264_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 7,
+        "episodeTitle": "Sach Ki Talaash",
+        "episodeOverview": "Gaurav receives unbelievable communication from the other side. Irene joins the IPS in her first ever haunting. ",
+        "runtime": 36,
+        "tracks": null
+      }
+    ]
+  },
+  "episodes": [],
+  "availableSeasons": [
+    1
+  ],
+  "availableEpisodeCount": 7
+}

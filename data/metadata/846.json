@@ -1,0 +1,58 @@
+{
+  "fileId": "846",
+  "fileName": "Tere_Ishk_Mein_2025_720p_NF_WEB_DL_DUAL_DDP5_1_H_264_Vegamovies.mkv",
+  "type": "movie",
+  "title": "Tere Ishk Mein",
+  "originalTitle": "तेरे इश्क़ में",
+  "overview": "A psychology student attempts to rehabilitate a volatile young man, before evolving into a doomed romance.",
+  "releaseDate": "2025-11-28",
+  "year": 2025,
+  "runtime": 169,
+  "genres": [
+    "Romance",
+    "Drama",
+    "Action"
+  ],
+  "rating": 5.7,
+  "popularity": 2.445,
+  "poster": "/data/posters/846.jpg",
+  "backdrop": "/data/backdrops/846_bd.jpg",
+  "tmdbId": 1142921,
+  "fetchedAt": "2026-02-16T10:05:39.659Z",
+  "needsRetry": false,
+  "tv": null,
+  "audioCodec": "eac3",
+  "browserPlayable": false,
+  "_tracksDetected": true,
+  "container": "matroska,webm",
+  "duration": 9929.832,
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "opus",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "Vegamovies.is",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": true
+    }
+  ],
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 2,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Vegamovies.is",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "fileId": "654",
+  "fileName": "S.Line.2025.S01E06.720p.x264.WEB-DL.ESub-Vegamovies.is.mkv",
+  "type": "tv",
+  "title": "S Line",
+  "originalTitle": "S라인",
+  "overview": "A young woman with the ability to see mysterious red connections between lovers discovers her secret gift is no longer unique when special glasses granting similar powers appear on the black market.",
+  "releaseDate": "2025-07-11",
+  "year": 2025,
+  "runtime": 50,
+  "genres": [
+    "Sci-Fi & Fantasy",
+    "Drama",
+    "Mystery"
+  ],
+  "rating": 7.541,
+  "popularity": 4.7589,
+  "poster": "/data/posters/show_232402.jpg",
+  "backdrop": "/data/backdrops/show_232402_bd.jpg",
+  "tmdbId": 232402,
+  "fetchedAt": "2026-02-15T15:24:19.921Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "S Line",
+    "originalShowTitle": "S라인",
+    "seasonNumber": 1,
+    "episodeNumber": 6,
+    "episodeTitle": "S Line",
+    "episodeOverview": "Ji -wook finds out the truth about Sun -ah's S -line through glasses. Meanwhile, Hyun -suk, ahead of his 18 -year -old birthday, makes a big decision and meets the Jun -sun, which leads to an unknown confusion.",
+    "showTmdbId": 232402,
+    "episodeRuntime": 50,
+    "totalSeasons": 1,
+    "totalEpisodes": 6
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

@@ -1,0 +1,271 @@
+{
+  "showTmdbId": 63087,
+  "showTitle": "Snow White with the Red Hair",
+  "originalShowTitle": "赤髪の白雪姫",
+  "overview": "Shirayuki was a young girl born with unique apple-red hair. She meets a famous but foolish Prince Raji, who falls in love with her at first sight and orders her to become his concubine. With nowhere else to go, Shirayuki cuts her hair and escapes to a neighboring country. While traversing through the forests, she meets a young boy, Zen, who helps her after she boldly cures his wounds but then gets poisoned by an apple given to Shirayuki. Meanwhile, Prince Raji sends out henchmen to search for her. What will happen to Shirayuki? What is Zen's true character? A refreshing fantasy story between an optimistic heroine and a prince who constantly stays on her watch.",
+  "genres": [
+    "Animation",
+    "Drama",
+    "Sci-Fi & Fantasy"
+  ],
+  "rating": 7.662,
+  "popularity": 13.9623,
+  "poster": "/data/posters/show_63087.jpg",
+  "backdrop": "/data/backdrops/show_63087_bd.jpg",
+  "totalSeasons": 1,
+  "totalEpisodes": 24,
+  "year": 2015,
+  "releaseDate": "2015-07-07",
+  "seasons": {
+    "1": [
+      {
+        "fileId": "99",
+        "fileName": "Snow White with the Red Hair - S01E01.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 1,
+        "episodeTitle": "Encounter... Changing the Color of Fate",
+        "episodeOverview": "Shirayuki is a pharmacist living on the country of Tanburn who is chosen by the prince to become his concubune due to her rare beauty, but she decides to flee instead. On her escape, she meets and befriends Zen, who happens to be a prince from the kingdom of Clarines and offers her shelter. ",
+        "runtime": 24,
+        "tracks": null
+      },
+      {
+        "fileId": "100",
+        "fileName": "Snow White with the Red Hair - S01E02.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 2,
+        "episodeTitle": "Following the Sound of your Heart",
+        "episodeOverview": "Starting her new life on Clarines, Shirayuki sets on a quest to find some herbs, and worried about her safety, Zen decides to look after her, just when she finds herself in dire straits again. ",
+        "runtime": 24,
+        "tracks": null
+      },
+      {
+        "fileId": "101",
+        "fileName": "Snow White with the Red Hair - S01E03.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 3,
+        "episodeTitle": "Shining Time of Promise",
+        "episodeOverview": "Due to her closeness with Zen, Shirayuki is now a regular visitor to his castle with no restrictions. However, there are those who doubt her intentions and conspire to separate her from the prince. ",
+        "runtime": 24,
+        "tracks": null
+      },
+      {
+        "fileId": "102",
+        "fileName": "Snow White with the Red Hair - S01E04.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 4,
+        "episodeTitle": "From the Small Hand, a Burgeoning Concerto Resonates",
+        "episodeOverview": "Shirayuki takes the court pharmacist exam where her knowledge of plants are tested. Once passing the test, she is assigned to be an apprentice under Ryuu, another young prodigy like her, who soon becomes her friend. ",
+        "runtime": 24,
+        "tracks": null
+      },
+      {
+        "fileId": "103",
+        "fileName": "Snow White with the Red Hair - S01E05.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 5,
+        "episodeTitle": "This Path, the Crystallization of Premonition",
+        "episodeOverview": "When the soldiers from Fort Laxdo fall sick to a strange disease, it's up to Shirayuki to discover the mystery behind it and find a cure. ",
+        "runtime": 24,
+        "tracks": null
+      },
+      {
+        "fileId": "104",
+        "fileName": "Snow White with the Red Hair - S01E06.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 6,
+        "episodeTitle": "The Back Full of Meaning",
+        "episodeOverview": "Izana, the crown prince of Clarines and Zen's elder brother returns home and wary of Zen's relationship with Shirayuki, invites Raji for a visit to Clarines with unknown intentions. ",
+        "runtime": 24,
+        "tracks": null
+      },
+      {
+        "fileId": "105",
+        "fileName": "Snow White with the Red Hair - S01E07.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 7,
+        "episodeTitle": "Let Me Hear the Melody of Your Smile",
+        "episodeOverview": "As Raji continues his tour, Izana confronts Zen and Shirayuki about the true nature of their relationship, and in the occasion, the bond between the two grows stronger. ",
+        "runtime": 24,
+        "tracks": null
+      },
+      {
+        "fileId": "106",
+        "fileName": "Snow White with the Red Hair - S01E08.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 8,
+        "episodeTitle": "Memories Draw Spirals of the Past...",
+        "episodeOverview": "Alert with the unwanted attention Shirayuki receives due to her closeness with him, Zen sends his aide Obi to be her personal guard. Meanwhile, Mitsuhide, another of Zen's loyal subjects, reminisces the occasion when he first met his master. ",
+        "runtime": 24,
+        "tracks": null
+      },
+      {
+        "fileId": "107",
+        "fileName": "Snow White with the Red Hair - S01E09.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 9,
+        "episodeTitle": "Feelings That Connect and Reach",
+        "episodeOverview": "While standing as Shirayuki's protector, Obi learns more about her, while Zen finally recognizes his merit and makes him an official retainer of his. ",
+        "runtime": 24,
+        "tracks": null
+      },
+      {
+        "fileId": "108",
+        "fileName": "Snow White with the Red Hair - S01E10.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 10,
+        "episodeTitle": "Inexperienced Heart, Going Deeper",
+        "episodeOverview": "Shirayuki meets Kiharu, a young girl who comes to the castle with her pet bird Popo to ask Zen to help protect the birds of Popo's species of her home island who are threatened by local poaching. However, there is nothing Zen can do for Kiharu's cause unless the birds can prove themselves useful for Clarines' society, until Shirayuki comes with an idea. ",
+        "runtime": 24,
+        "tracks": null
+      },
+      {
+        "fileId": "109",
+        "fileName": "Snow White with the Red Hair - S01E11.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 11,
+        "episodeTitle": "Encountering... A Color for the First Time",
+        "episodeOverview": "After being kissed by Zen, Shirayuki becomes too flustered to face him directly, while Zen, despite eager for an answer from her, must leave for a short trip with Mitsuhide and Kiki. Once reunited, Zen and Shirayuki finally share their true feelings for each other. ",
+        "runtime": 24,
+        "tracks": null
+      },
+      {
+        "fileId": "110",
+        "fileName": "Snow White with the Red Hair - S01E12.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 12,
+        "episodeTitle": "Goodbye to the Beginning",
+        "episodeOverview": "The castle is open for a festival and Zen disguises himself as a guard to enjoy it with Shirayuki and the others. However, an actress is forced to quit a play due to an injury and Shirayuki is chosen to replace her, unaware of the troupe leader's second intentions. ",
+        "runtime": 24,
+        "tracks": null
+      }
+    ],
+    "2": [
+      {
+        "fileId": "111",
+        "fileName": "Snow White with the Red Hair - S02E13.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 13,
+        "episodeTitle": "Episode 13",
+        "episodeOverview": "",
+        "runtime": 24,
+        "tracks": null
+      },
+      {
+        "fileId": "112",
+        "fileName": "Snow White with the Red Hair - S02E14.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 14,
+        "episodeTitle": "Episode 14",
+        "episodeOverview": "",
+        "runtime": 24,
+        "tracks": null
+      },
+      {
+        "fileId": "113",
+        "fileName": "Snow White with the Red Hair - S02E15.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 15,
+        "episodeTitle": "Episode 15",
+        "episodeOverview": "",
+        "runtime": 24,
+        "tracks": null
+      },
+      {
+        "fileId": "114",
+        "fileName": "Snow White with the Red Hair - S02E16.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 16,
+        "episodeTitle": "Episode 16",
+        "episodeOverview": "",
+        "runtime": 24,
+        "tracks": null
+      },
+      {
+        "fileId": "115",
+        "fileName": "Snow White with the Red Hair - S02E17.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 17,
+        "episodeTitle": "Episode 17",
+        "episodeOverview": "",
+        "runtime": 24,
+        "tracks": null
+      },
+      {
+        "fileId": "116",
+        "fileName": "Snow White with the Red Hair - S02E18.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 18,
+        "episodeTitle": "Episode 18",
+        "episodeOverview": "",
+        "runtime": 24,
+        "tracks": null
+      },
+      {
+        "fileId": "117",
+        "fileName": "Snow White with the Red Hair - S02E19.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 19,
+        "episodeTitle": "Episode 19",
+        "episodeOverview": "",
+        "runtime": 24,
+        "tracks": null
+      },
+      {
+        "fileId": "118",
+        "fileName": "Snow White with the Red Hair - S02E20.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 20,
+        "episodeTitle": "Episode 20",
+        "episodeOverview": "",
+        "runtime": 24,
+        "tracks": null
+      },
+      {
+        "fileId": "119",
+        "fileName": "Snow White with the Red Hair - S02E21.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 21,
+        "episodeTitle": "Episode 21",
+        "episodeOverview": "",
+        "runtime": 24,
+        "tracks": null
+      },
+      {
+        "fileId": "120",
+        "fileName": "Snow White with the Red Hair - S02E22.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 22,
+        "episodeTitle": "Episode 22",
+        "episodeOverview": "",
+        "runtime": 24,
+        "tracks": null
+      },
+      {
+        "fileId": "121",
+        "fileName": "Snow White with the Red Hair - S02E23.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 23,
+        "episodeTitle": "Episode 23",
+        "episodeOverview": "",
+        "runtime": 24,
+        "tracks": null
+      },
+      {
+        "fileId": "122",
+        "fileName": "Snow White with the Red Hair - S02E24.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 24,
+        "episodeTitle": "Episode 24",
+        "episodeOverview": "",
+        "runtime": 24,
+        "tracks": null
+      }
+    ]
+  },
+  "episodes": [],
+  "availableSeasons": [
+    1,
+    2
+  ],
+  "availableEpisodeCount": 24
+}

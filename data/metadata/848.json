@@ -1,0 +1,57 @@
+{
+  "fileId": "848",
+  "fileName": "Kantara_A_Legend_Chapter_1_Hindi_2025_720p_AMZN_WEB_DL_Hindi_DDP5.mkv",
+  "type": "movie",
+  "title": "Kantara - A Legend: Chapter 1",
+  "originalTitle": "ಕಾಂತಾರ: ಅಧ್ಯಾಯ - ೧",
+  "overview": "During the Kadamba reign, King Vijayendra, the ruler of the fictional feudatory land of Bangra, meets his final fate while venturing into the mystical forest of Kantara. Witnessing this, his son Rajashekara seals the borders of their realm. Later, Prince Kulashekara reopens them through a brutal massacre. The protagonist, Berme, in search of prosperity, crosses the divide and ignites a conflict of faith, power, and destiny between the Kingdom and Nature.",
+  "releaseDate": "2025-10-01",
+  "year": 2025,
+  "runtime": 165,
+  "genres": [
+    "Action",
+    "Drama",
+    "Fantasy"
+  ],
+  "rating": 7.017,
+  "popularity": 26.1719,
+  "poster": "/data/posters/848.jpg",
+  "backdrop": "/data/backdrops/848_bd.jpg",
+  "tmdbId": 1083637,
+  "fetchedAt": "2026-02-17T21:57:23.551Z",
+  "needsRetry": false,
+  "tv": null,
+  "container": "matroska,webm",
+  "duration": 10008.04,
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "opus",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "Vegamovies.isExtraFlix.Pw | Hindi DD+5.1  @ 192 kbps",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": true
+    }
+  ],
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 2,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Vegamovies.is",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    }
+  ],
+  "audioCodec": "opus",
+  "browserPlayable": true
+}

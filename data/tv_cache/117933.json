@@ -1,0 +1,278 @@
+{
+  "showTmdbId": 117933,
+  "showTitle": "Summer Time Rendering",
+  "originalShowTitle": "サマータイムレンダ",
+  "overview": "Shinpei Ajiro travels home to attend the funeral of a childhood friend, and finds the remote island plagued by a sinister, supernatural force.",
+  "genres": [
+    "Animation",
+    "Drama",
+    "Mystery"
+  ],
+  "rating": 8.099,
+  "popularity": 14.8559,
+  "poster": "/data/posters/show_117933.jpg",
+  "backdrop": "/data/backdrops/show_117933_bd.jpg",
+  "totalSeasons": 1,
+  "totalEpisodes": 25,
+  "year": 2022,
+  "releaseDate": "2022-04-15",
+  "seasons": {
+    "1": [
+      {
+        "fileId": "718",
+        "fileName": "Summer_Time_Rendering_S01E01_720p_Hindi_Japanese_Esub_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 1,
+        "episodeTitle": "Goodbye, Summer Days",
+        "episodeOverview": "Shinpei returns home for his friend Ushio's funeral. She apparently drowned, but something is off.",
+        "runtime": 25,
+        "tracks": null
+      },
+      {
+        "fileId": "719",
+        "fileName": "Summer_Time_Rendering_S01E02_720p_Hindi_Japanese_Esub_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 2,
+        "episodeTitle": "Shadows",
+        "episodeOverview": "To find out the truth about Ushio's death, Shinpei and Mio head to Hiruko.",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "720",
+        "fileName": "Summer_Time_Rendering_S01E03_720p_Hindi_Japanese_Esub_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 3,
+        "episodeTitle": "Drifting Ashore",
+        "episodeOverview": "After being stabbed by Mio's shadow, Shinpei regains consciousness at the docks on July 22nd.",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "721",
+        "fileName": "Summer_Time_Rendering_S01E04_720p_Hindi_Japanese_Esub_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 4,
+        "episodeTitle": "Jamais-vu",
+        "episodeOverview": "Ushio's shadow appears before Shinpei at the summer festival.",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "722",
+        "fileName": "Summer_Time_Rendering_S01E05_720p_Hindi_Japanese_Esub_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 5,
+        "episodeTitle": "Maelstrom",
+        "episodeOverview": "A giant shadow massacres everyone at the Hitogashima Summer Festival and engulfs the whole island.",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "723",
+        "fileName": "Summer_Time_Rendering_S01E06_720p_Hindi_Japanese_Esub_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 6,
+        "episodeTitle": "Orbital Resonance",
+        "episodeOverview": "Hizuru Minakata, the woman on the ferry, returns to Hitogashima Island hoping to solve a mystery.",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "724",
+        "fileName": "Summer_Time_Rendering_S01E07_720p_Hindi_Japanese_Esub_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 7,
+        "episodeTitle": "Deadly Enemy",
+        "episodeOverview": "In order to defeat the Kobayakawa's shadows, Shinpei and Hizuru join forces with Nezu.",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "725",
+        "fileName": "Summer_Time_Rendering_S01E08_720p_Hindi_Japanese_Esub_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 8,
+        "episodeTitle": "Memento",
+        "episodeOverview": "Mio's shadow appears before Shinpei and threatens him with a knife.",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "726",
+        "fileName": "Summer_Time_Rendering_S01E09_720p_Hindi_Japanese_Esub_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 9,
+        "episodeTitle": "My Flowing Tears",
+        "episodeOverview": "In a video, Ushio and her shadow recount their encounter up to the moment the video is recorded.",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "727",
+        "fileName": "Summer_Time_Rendering_S01E10_720p_Hindi_Japanese_Esub_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 10,
+        "episodeTitle": "Into the Darkness",
+        "episodeOverview": "Shinpei gains clues on Mount Takanosu since Ushio and her shadow had gone there.",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "728",
+        "fileName": "Summer_Time_Rendering_S01E11_720p_Hindi_Japanese_Esub_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 11,
+        "episodeTitle": "Dinner Time",
+        "episodeOverview": "Ushio, Sou and Shinpei are surrounded by shadows.",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "729",
+        "fileName": "Summer_Time_Rendering_S01E12_720p_Hindi_Japanese_Esub_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 12,
+        "episodeTitle": "Bloody Night",
+        "episodeOverview": "Tokiko, Sou's younger sister, reveals she has been offering corpses as food to Hiruko.",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "730",
+        "fileName": "Summer_Time_Rendering_S01E13_720p_Hindi_Japanese_Esub_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 13,
+        "episodeTitle": "Friends",
+        "episodeOverview": "It is the fifth July 22nd for Shinpei. Hizuru takes time to process that Shinpei is a time traveler.",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "731",
+        "fileName": "Summer_Time_Rendering_S01E14_720p_Hindi_Japanese_Esub_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 14,
+        "episodeTitle": "To Be/Not to Be",
+        "episodeOverview": "Shinpei finds himself in Hizuru's memories from fourteen years ago.",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "732",
+        "fileName": "Summer_Time_Rendering_S01E15_720p_Hindi_Japanese_Esub_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 15,
+        "episodeTitle": "Lights Camera Action",
+        "episodeOverview": "Heine, who loops like Shinpei, realizes the pattern of behavior when a new loop begins.",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "733",
+        "fileName": "Summer_Time_Rendering_S01E16_720p_Hindi_Japanese_Esub_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 16,
+        "episodeTitle": "Original",
+        "episodeOverview": "Mio proposes to turn the shadows into allies.",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "734",
+        "fileName": "Summer_Time_Rendering_S01E17_720p_Hindi_Japanese_Esub_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 17,
+        "episodeTitle": "Determination",
+        "episodeOverview": "Shinpei hears about Shide's identity from Sou's father, Director of Hishigata Clinic.",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "735",
+        "fileName": "Summer_Time_Rendering_S01E18_720p_Hindi_Japanese_Esub_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 18,
+        "episodeTitle": "Face to Face",
+        "episodeOverview": "A seventy-year-old photograph reveals the truth.",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "736",
+        "fileName": "Summer_Time_Rendering_S01E19_720p_Hindi_Japanese_Esub_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 19,
+        "episodeTitle": "Made in Black",
+        "episodeOverview": "Karikiri and Heine strike. Mio and Hizuru learn of Ushio's death.",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "737",
+        "fileName": "Summer_Time_Rendering_S01E20_720p_Hindi_Japanese_Esub_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 20,
+        "episodeTitle": "All is (not) Lost.",
+        "episodeOverview": "Hizuru and Karikiri face off, while Gil and Rose enter the fray.",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "738",
+        "fileName": "Summer_Time_Rendering_S01E21_720p_Hindi_Japanese_Esub_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 21,
+        "episodeTitle": "Shinpei Ajiro's Longest Day",
+        "episodeOverview": "Shinpei despairs over Hizuru's death. However, hope is on the horizon.",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "739",
+        "fileName": "Summer_Time_Rendering_S01E22_720p_Hindi_Japanese_Esub_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 22,
+        "episodeTitle": "Return",
+        "episodeOverview": "Ushio fully comes back to life. Shinpei heads to Hiruko's grotto.",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "740",
+        "fileName": "Summer_Time_Rendering_S01E23_720p_Hindi_Japanese_Esub_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 23,
+        "episodeTitle": "Everlasting Night",
+        "episodeOverview": "After slicing down Heine, Shide brings Shinpei and Ushio to her home.",
+        "runtime": 24,
+        "tracks": null
+      },
+      {
+        "fileId": "741",
+        "fileName": "Summer_Time_Rendering_S01E24_720p_Hindi_Japanese_Esub_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 24,
+        "episodeTitle": "Summertime Re-Rendering",
+        "episodeOverview": "After a fierce battle, Shinpei takes the place of an exhausted Ushio and confronts Shide.",
+        "runtime": 24,
+        "tracks": null
+      },
+      {
+        "fileId": "742",
+        "fileName": "Summer_Time_Rendering_S01E25_720p_Hindi_Japanese_Esub_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 25,
+        "episodeTitle": "[I'm Home]",
+        "episodeOverview": "Shide is gone and Ushio's final iteration must vanish. Shinpei comes to on the morning of July 22nd.",
+        "runtime": 23,
+        "tracks": null
+      }
+    ]
+  },
+  "episodes": [],
+  "availableSeasons": [
+    1
+  ],
+  "availableEpisodeCount": 25
+}

@@ -1,0 +1,107 @@
+{
+  "showTmdbId": 259546,
+  "showTitle": "Brinda",
+  "originalShowTitle": "బృంద",
+  "overview": "Young, socially awkward yet morally grounded SI cadet Brinda stumbles upon a brutal murder with a chilling modus operandi. As the killer slips through her grasp, she faces personal and bureaucratic turmoil, but the hardest challenge is the moral reckoning that could define her career and conscience. Will Brinda uphold justice, or lose herself in the chaos closer to home?",
+  "genres": [
+    "Crime",
+    "Mystery"
+  ],
+  "rating": 7.3,
+  "popularity": 2.175,
+  "poster": "/data/posters/show_259546.jpg",
+  "backdrop": "/data/backdrops/show_259546_bd.jpg",
+  "totalSeasons": 1,
+  "totalEpisodes": 8,
+  "year": 2024,
+  "releaseDate": "2024-08-02",
+  "seasons": {
+    "1": [
+      {
+        "fileId": "422",
+        "fileName": "Brinda_S01_E01_WebRip_720p_Hindi_Telugu_AAC_5_1_x264_ESub_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 1,
+        "episodeTitle": "Episode 1",
+        "episodeOverview": "",
+        "runtime": 0,
+        "tracks": null
+      },
+      {
+        "fileId": "423",
+        "fileName": "Brinda_S01_E02_WebRip_720p_Hindi_Telugu_AAC_5_1_x264_ESub_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 2,
+        "episodeTitle": "Episode 2",
+        "episodeOverview": "",
+        "runtime": 0,
+        "tracks": null
+      },
+      {
+        "fileId": "424",
+        "fileName": "Brinda_S01_E03_WebRip_720p_Hindi_Telugu_AAC_5_1_x264_ESub_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 3,
+        "episodeTitle": "Hit and Miss",
+        "episodeOverview": "The killer strikes again. A guilt-ridden Sarathi pushes to get Brinda into the SIT team. Is something still missing?",
+        "runtime": 41,
+        "tracks": null
+      },
+      {
+        "fileId": "425",
+        "fileName": "Brinda_S01_E04_WebRip_720p_Hindi_Telugu_AAC_5_1_x264_ESub_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 4,
+        "episodeTitle": "The Bridge in Between",
+        "episodeOverview": "Brinda finds a crucial piece of paper and investigates Anand's past. Meanwhile, the killer is unexpectedly arrested at a police station.",
+        "runtime": 39,
+        "tracks": null
+      },
+      {
+        "fileId": "426",
+        "fileName": "Brinda_S01_E05_WebRip_720p_Hindi_Telugu_AAC_5_1_x264_ESub_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 5,
+        "episodeTitle": "Light at the End of the Tunnel",
+        "episodeOverview": "Brinda spirals into chaos over her failure to stop a murder. Will she find light at the end of the tunnel?",
+        "runtime": 43,
+        "tracks": null
+      },
+      {
+        "fileId": "427",
+        "fileName": "Brinda_S01_E06_WebRip_720p_Hindi_Telugu_AAC_5_1_x264_ESub_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 6,
+        "episodeTitle": "The Beginning of the End",
+        "episodeOverview": "Brinda discovers that the serial murders are part of a bigger plan. Will she catch the mastermind and end it all?",
+        "runtime": 48,
+        "tracks": null
+      },
+      {
+        "fileId": "428",
+        "fileName": "Brinda_S01_E07_WebRip_720p_Hindi_Telugu_AAC_5_1_x264_ESub_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 7,
+        "episodeTitle": "The Holy Past",
+        "episodeOverview": "Brinda and the team think the case is solved, but she discovers a revelation about the mastermind. Meanwhile, Satya's inner turmoil intensifies.",
+        "runtime": 41,
+        "tracks": null
+      },
+      {
+        "fileId": "429",
+        "fileName": "Brinda_S01_E08_WebRip_720p_Hindi_Telugu_AAC_5_1_x264_ESub_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 8,
+        "episodeTitle": "Home Coming",
+        "episodeOverview": "Brinda knows everything now. Can she chase down the mastermind and confront her past to finally end the killings?",
+        "runtime": 44,
+        "tracks": null
+      }
+    ]
+  },
+  "episodes": [],
+  "availableSeasons": [
+    1
+  ],
+  "availableEpisodeCount": 8
+}

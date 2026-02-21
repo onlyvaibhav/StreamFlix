@@ -1,0 +1,36 @@
+{
+  "fileId": "32",
+  "fileName": "Its_Okay_to_Not_Be_Okay_S01E16_720p_10bit_WEBRip_Hindi_Korean_x265.mkv",
+  "type": "tv",
+  "title": "It's Okay to Not Be Okay",
+  "originalTitle": "사이코지만 괜찮아",
+  "overview": "Desperate to escape from his emotional baggage and the heavy responsibility he’s had all his life, a psychiatric ward worker begins to heal with help from the unexpected – a woman who writes fairy tales but doesn’t believe in them.",
+  "releaseDate": "2020-06-20",
+  "year": 2020,
+  "runtime": 82,
+  "genres": [
+    "Drama",
+    "Comedy"
+  ],
+  "rating": 8.519,
+  "popularity": 8.9754,
+  "poster": "/data/posters/show_96462.jpg",
+  "backdrop": "/data/backdrops/show_96462_bd.jpg",
+  "tmdbId": 96462,
+  "fetchedAt": "2026-02-16T18:04:29.745Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "It's Okay to Not Be Okay",
+    "originalShowTitle": "사이코지만 괜찮아",
+    "seasonNumber": 1,
+    "episodeNumber": 16,
+    "episodeTitle": "Finding the Real Face",
+    "episodeOverview": "Mun-yeong decides she's going to publish the new fairy tale after all. Everyone comes together at the hospital for a reading of the book.",
+    "showTmdbId": 96462,
+    "episodeRuntime": 82,
+    "totalSeasons": 1,
+    "totalEpisodes": 16
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

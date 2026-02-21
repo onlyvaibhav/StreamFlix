@@ -1,0 +1,36 @@
+{
+  "fileId": "776",
+  "fileName": "[Food for the soul] Hibi wa Sugiredo - S01E10.mkv",
+  "type": "tv",
+  "title": "Food for the Soul",
+  "originalTitle": "日々は過ぎれど飯うまし",
+  "overview": "Follow the daily lives of five new undergrad college girls as the eat, laugh, and deepen their friendships. They love delicious, want to have lots of fun together, study hard, and enjoy their college life to the fullest!",
+  "releaseDate": "2025-04-13",
+  "year": 2025,
+  "runtime": 24,
+  "genres": [
+    "Animation",
+    "Comedy"
+  ],
+  "rating": 7.706,
+  "popularity": 7.0653,
+  "poster": "/data/posters/show_281042.jpg",
+  "backdrop": "/data/backdrops/show_281042_bd.jpg",
+  "tmdbId": 281042,
+  "fetchedAt": "2026-02-15T14:41:08.313Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Food for the Soul",
+    "originalShowTitle": "日々は過ぎれど飯うまし",
+    "seasonNumber": 1,
+    "episodeNumber": 10,
+    "episodeTitle": "I'm Home",
+    "episodeOverview": "The club takes a trip to Mako and Shinon's hometown. Mako is nervous about meeting her old friends again.",
+    "showTmdbId": 281042,
+    "episodeRuntime": 24,
+    "totalSeasons": 1,
+    "totalEpisodes": 12
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

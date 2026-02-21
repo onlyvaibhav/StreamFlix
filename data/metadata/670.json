@@ -1,0 +1,36 @@
+{
+  "fileId": "670",
+  "fileName": "Panchayat_S04E08_Dabdaba_720p_AMZN_WEB_DL_DDP5_1_x264_Vegamovies.mkv",
+  "type": "tv",
+  "title": "Panchayat",
+  "originalTitle": "पंचायत",
+  "overview": "Panchayat is a comedy-drama, which captures the journey of an engineering graduate Abhishek, who for lack of a better job option joins as secretary of a panchayat office in a remote village of Uttar Pradesh. Stuck between crazy villagers and a difficult village lifestyle Abhishek starts his job with the sole motivation of getting out of there as soon as possible, for which he even prepares for CAT.",
+  "releaseDate": "2020-03-05",
+  "year": 2020,
+  "runtime": 46,
+  "genres": [
+    "Comedy",
+    "Drama"
+  ],
+  "rating": 8.2,
+  "popularity": 6.009,
+  "poster": "/data/posters/show_101352.jpg",
+  "backdrop": "/data/backdrops/show_101352_bd.jpg",
+  "tmdbId": 101352,
+  "fetchedAt": "2026-02-15T15:20:31.467Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Panchayat",
+    "originalShowTitle": "पंचायत",
+    "seasonNumber": 4,
+    "episodeNumber": 8,
+    "episodeTitle": "Dabdaba",
+    "episodeOverview": "As Abhishek plans his next move after receiving his CAT results, Pradhan’s family anxiously awaits the election outcome. The advance order of sweets becomes both a topic of conversation and a subtle display of confidence. While both factions try to project strength before the villagers, the MLA keeps a sharp eye on Phulera’s political future.",
+    "showTmdbId": 101352,
+    "episodeRuntime": 46,
+    "totalSeasons": 5,
+    "totalEpisodes": 32
+  },
+  "audioCodec": "eac3",
+  "browserPlayable": false
+}

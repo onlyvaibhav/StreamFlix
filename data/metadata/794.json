@@ -1,0 +1,38 @@
+{
+  "fileId": "794",
+  "fileName": "From_S01E02_The_Way_Things_Are_Now_720p_x264_Hindi_English_Esubs.mkv",
+  "type": "tv",
+  "title": "FROM",
+  "originalTitle": "FROM",
+  "overview": "Unravel the mystery of a nightmarish town in middle America that traps all those who enter. As the unwilling residents fight to keep a sense of normalcy and search for a way out, they must also survive the threats of the surrounding forest – including the terrifying creatures that come out when the sun goes down.",
+  "releaseDate": "2022-02-20",
+  "year": 2022,
+  "runtime": 50,
+  "genres": [
+    "Mystery",
+    "Drama",
+    "Sci-Fi & Fantasy"
+  ],
+  "rating": 8.154,
+  "popularity": 95.6652,
+  "poster": "/data/posters/show_124364.jpg",
+  "backdrop": "/data/backdrops/show_124364_bd.jpg",
+  "tmdbId": 124364,
+  "fetchedAt": "2026-02-15T14:37:37.329Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "FROM",
+    "originalShowTitle": "FROM",
+    "seasonNumber": 1,
+    "episodeNumber": 2,
+    "episodeTitle": "The Way Things Are Now",
+    "episodeOverview": "At Colony House, Tabitha and Julie grapple with their new nightmarish reality. Out in the forest, Jim, Boyd and Kristi struggle to treat Ethan’s injuries. Tragedy strikes from an unexpected source as a new threat arises among the residents of the town.",
+    "showTmdbId": 124364,
+    "episodeRuntime": 50,
+    "totalSeasons": 4,
+    "totalEpisodes": 40
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "_tracksDetected": true
+}

@@ -1,0 +1,44 @@
+{
+  "fileId": "849",
+  "fileName": "Ra.One 2011 BluRay 720p Hindi AAC 5.1 x264 - Vegamovies.NL.mkv",
+  "type": "movie",
+  "title": "Ra.One",
+  "originalTitle": "Ra.One",
+  "overview": "When the titular antagonist of an action game takes on physical form, it's up to the game's less powerful protagonist to save the world.",
+  "releaseDate": "2011-10-24",
+  "year": 2011,
+  "runtime": 156,
+  "genres": [
+    "Adventure",
+    "Action",
+    "Science Fiction"
+  ],
+  "rating": 5.7,
+  "popularity": 1.5699,
+  "poster": "/data/posters/849.jpg",
+  "backdrop": "/data/backdrops/849_bd.jpg",
+  "tmdbId": 41517,
+  "fetchedAt": "2026-02-15T13:41:48.215Z",
+  "needsRetry": false,
+  "tv": null,
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "_tracksDetected": true,
+  "container": "matroska,webm",
+  "duration": 8868.084,
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "mkvCinemas",
+      "channels": 6,
+      "channelLayout": "5.1",
+      "browserPlayable": true,
+      "isDefault": true
+    }
+  ],
+  "subtitleTracks": []
+}

@@ -1,0 +1,36 @@
+{
+  "fileId": "592",
+  "fileName": "Undekhi_S01_E02_WebRip_720p_Hindi_AAC_x264_ESub_Vegamovies_NL.mkv",
+  "type": "tv",
+  "title": "Undekhi",
+  "originalTitle": "अनदेखी",
+  "overview": "Show depicts the two aspects of the society - the power-drunk influential people who think they can get away with anything and the oppressed, subjected to years of torture, who finally decide to bring themselves to justice",
+  "releaseDate": "2020-07-10",
+  "year": 2020,
+  "runtime": 33,
+  "genres": [
+    "Crime",
+    "Drama"
+  ],
+  "rating": 8.2,
+  "popularity": 4.0398,
+  "poster": "/data/posters/show_105759.jpg",
+  "backdrop": "/data/backdrops/show_105759_bd.jpg",
+  "tmdbId": 105759,
+  "fetchedAt": "2026-02-15T15:29:17.936Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Undekhi",
+    "originalShowTitle": "अनदेखी",
+    "seasonNumber": 1,
+    "episodeNumber": 2,
+    "episodeTitle": "Is This For Real?",
+    "episodeOverview": "Rishi makes a horrific discovery in the doghouse next to the resort. Saloni tries to get him to focus on the work but Rinku and his cousins are onto Rishi. He must come up with a Plan B. DSP Ghosh, senses a cover-up, heads to the resort.",
+    "showTmdbId": 105759,
+    "episodeRuntime": 33,
+    "totalSeasons": 3,
+    "totalEpisodes": 28
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

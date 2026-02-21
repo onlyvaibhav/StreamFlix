@@ -1,0 +1,26 @@
+{
+  "fileId": "208",
+  "fileName": "Kung_Fu_Panda_3_2016_1080p_BluRay_x264_Dual_Audio_Hindi_DD_5_1_English.mkv",
+  "type": "movie",
+  "title": "Kung Fu Panda 3",
+  "originalTitle": "Kung Fu Panda 3",
+  "overview": "While Po and his father are visiting a secret panda village, an evil spirit threatens all of China, forcing Po to form a ragtag army to fight back.",
+  "releaseDate": "2016-01-23",
+  "year": 2016,
+  "runtime": 95,
+  "genres": [
+    "Animation",
+    "Action",
+    "Adventure",
+    "Comedy",
+    "Family"
+  ],
+  "rating": 6.921,
+  "popularity": 11.1929,
+  "poster": "/data/posters/208.jpg",
+  "backdrop": "/data/backdrops/208_bd.jpg",
+  "tmdbId": 140300,
+  "fetchedAt": "2026-02-15T13:49:19.828Z",
+  "needsRetry": false,
+  "tv": null
+}

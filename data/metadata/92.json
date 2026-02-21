@@ -1,0 +1,36 @@
+{
+  "fileId": "92",
+  "fileName": "Khakee_The_Bihar_Chapter_S01_E06_720p_HEVC_Hindi_WEB_DL_ESub_x265.mkv",
+  "type": "tv",
+  "title": "Khakee: The Bihar Chapter",
+  "originalTitle": "पुलिस: द बिहार चैप्टर",
+  "overview": "As a righteous cop pursues a merciless criminal in Bihar, he finds himself navigating a deadly chase and a moral battle mired in corruption.",
+  "releaseDate": "2022-11-25",
+  "year": 2022,
+  "runtime": 41,
+  "genres": [
+    "Crime",
+    "Drama"
+  ],
+  "rating": 7.803,
+  "popularity": 1.869,
+  "poster": "/data/posters/show_213635.jpg",
+  "backdrop": "/data/backdrops/show_213635_bd.jpg",
+  "tmdbId": 213635,
+  "fetchedAt": "2026-02-15T17:25:32.265Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Khakee: The Bihar Chapter",
+    "originalShowTitle": "पुलिस: द बिहार चैप्टर",
+    "seasonNumber": 1,
+    "episodeNumber": 6,
+    "episodeTitle": "MEETA JI KI LOVE STORY PART 2",
+    "episodeOverview": "Amit makes a major announcement at a press meet. Chandan sets a trap with deadly consequences, while an explosive revelation stuns the team.",
+    "showTmdbId": 213635,
+    "episodeRuntime": 41,
+    "totalSeasons": 1,
+    "totalEpisodes": 7
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

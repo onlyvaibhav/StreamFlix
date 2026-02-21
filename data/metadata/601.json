@@ -1,0 +1,36 @@
+{
+  "fileId": "601",
+  "fileName": "Undekhi_S02E01_The_Wild_Goose_Chase_720p_SONYLIV_WEB_DL_x264_AAC.mkv",
+  "type": "tv",
+  "title": "Undekhi",
+  "originalTitle": "अनदेखी",
+  "overview": "Show depicts the two aspects of the society - the power-drunk influential people who think they can get away with anything and the oppressed, subjected to years of torture, who finally decide to bring themselves to justice",
+  "releaseDate": "2020-07-10",
+  "year": 2020,
+  "runtime": 34,
+  "genres": [
+    "Crime",
+    "Drama"
+  ],
+  "rating": 8.2,
+  "popularity": 4.0398,
+  "poster": "/data/posters/show_105759.jpg",
+  "backdrop": "/data/backdrops/show_105759_bd.jpg",
+  "tmdbId": 105759,
+  "fetchedAt": "2026-02-15T15:28:00.685Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Undekhi",
+    "originalShowTitle": "अनदेखी",
+    "seasonNumber": 2,
+    "episodeNumber": 1,
+    "episodeTitle": "The Wild Goose Chase",
+    "episodeOverview": "Rinku continues his search for Koyal as Ghosh and Teji conspire to take her to safety. While Saloni and the team are on their way out of Manali, Rinku has other plans for them.",
+    "showTmdbId": 105759,
+    "episodeRuntime": 34,
+    "totalSeasons": 3,
+    "totalEpisodes": 28
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

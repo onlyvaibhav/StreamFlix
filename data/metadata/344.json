@@ -1,0 +1,23 @@
+{
+  "fileId": "344",
+  "fileName": "Smile.2022.720p.WEB-DL.Hindi.English.Vegamovies.to.mkv",
+  "type": "movie",
+  "title": "Smile",
+  "originalTitle": "Smile",
+  "overview": "After witnessing a bizarre, traumatic incident involving a patient, Dr. Rose Cotter starts experiencing frightening occurrences that she can't explain.",
+  "releaseDate": "2022-09-23",
+  "year": 2022,
+  "runtime": 115,
+  "genres": [
+    "Horror",
+    "Mystery"
+  ],
+  "rating": 6.666,
+  "popularity": 9.0342,
+  "poster": "/data/posters/344.jpg",
+  "backdrop": "/data/backdrops/344_bd.jpg",
+  "tmdbId": 882598,
+  "fetchedAt": "2026-02-15T13:46:55.494Z",
+  "needsRetry": false,
+  "tv": null
+}

@@ -1,0 +1,37 @@
+{
+  "fileId": "811",
+  "fileName": "From_S02_E09_WebRip_720p_Hindi_English_AAC_5_1_x264_ESub_Vegamovies.mkv",
+  "type": "tv",
+  "title": "FROM",
+  "originalTitle": "FROM",
+  "overview": "Unravel the mystery of a nightmarish town in middle America that traps all those who enter. As the unwilling residents fight to keep a sense of normalcy and search for a way out, they must also survive the threats of the surrounding forest – including the terrifying creatures that come out when the sun goes down.",
+  "releaseDate": "2022-02-20",
+  "year": 2022,
+  "runtime": 47,
+  "genres": [
+    "Mystery",
+    "Drama",
+    "Sci-Fi & Fantasy"
+  ],
+  "rating": 8.154,
+  "popularity": 95.6652,
+  "poster": "/data/posters/show_124364.jpg",
+  "backdrop": "/data/backdrops/show_124364_bd.jpg",
+  "tmdbId": 124364,
+  "fetchedAt": "2026-02-15T14:34:51.505Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "FROM",
+    "originalShowTitle": "FROM",
+    "seasonNumber": 2,
+    "episodeNumber": 9,
+    "episodeTitle": "Ball of Magic Fire",
+    "episodeOverview": "Panic spreads through town as the residents face a chilling new threat to their survival. Jim realizes the magnitude of the mistake he made by enlisting Randall in his cause.",
+    "showTmdbId": 124364,
+    "episodeRuntime": 47,
+    "totalSeasons": 4,
+    "totalEpisodes": 40
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

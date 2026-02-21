@@ -1,0 +1,27 @@
+{
+  "fileId": "123",
+  "fileName": "Sita_Ramam_2022_480p_DSNP_WEB_DL_Hindi_AAC2_0_H_264_Vegamovies_to.mkv",
+  "type": "movie",
+  "title": "Sita Ramam",
+  "originalTitle": "సీతా రామం",
+  "overview": "Afreen, a rebellious Pakistani student sets ablaze the car of an Indian in London. Angered Afreen returns to Pakistan to ask for money from her grandfather that she has to pay in a month's time as damages. However, she gets to know that he is no more and the only thing he has left for her is a letter-delivering task, written by Ram to Sita. As Afreen sets out to find Ram, there begins her journey of discovering the secret behind the 20-year-old letter.",
+  "releaseDate": "2022-08-05",
+  "year": 2022,
+  "runtime": 158,
+  "genres": [
+    "History",
+    "Romance",
+    "Drama"
+  ],
+  "rating": 7.7,
+  "popularity": 2.0818,
+  "poster": "/data/posters/123.jpg",
+  "backdrop": "/data/backdrops/123_bd.jpg",
+  "tmdbId": 894803,
+  "fetchedAt": "2026-02-15T13:50:18.335Z",
+  "needsRetry": false,
+  "tv": null,
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "_tracksDetected": true
+}

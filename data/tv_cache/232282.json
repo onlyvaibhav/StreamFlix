@@ -1,0 +1,97 @@
+{
+  "showTmdbId": 232282,
+  "showTitle": "The Freelancer",
+  "originalShowTitle": "The Freelancer",
+  "overview": "Based on the book 'A Ticket To Syria', ex-Cop turned mercenary Avinash Kamath aka 'The Freelancer', takes up the daunting mission of rescuing Aliya, a newly married girl trapped in a war-torn Syria against the backdrop of growing ISIS terrorism",
+  "genres": [
+    "Action & Adventure",
+    "Drama"
+  ],
+  "rating": 7.125,
+  "popularity": 2.4554,
+  "poster": "/data/posters/show_232282.jpg",
+  "backdrop": "/data/backdrops/show_232282_bd.jpg",
+  "totalSeasons": 1,
+  "totalEpisodes": 7,
+  "year": 2023,
+  "releaseDate": "2023-09-01",
+  "seasons": {
+    "1": [
+      {
+        "fileId": "349",
+        "fileName": "The_Freelancer_S01E01_SOS_720p_WEB_DL_DDP5_1_Atmos_H_264_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 1,
+        "episodeTitle": "SOS",
+        "episodeOverview": "Inayat Khan's death creates an uproar in the country. His friend, ex-cop Avinash Kamath, learns that Khan's newly-wed daughter, Aliya, has gone missing. He goes into action.",
+        "runtime": 54,
+        "tracks": null
+      },
+      {
+        "fileId": "350",
+        "fileName": "The_Freelancer_S01E02_Hell_720p_WEB_DL_DDP5_1_Atmos_H_264_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 2,
+        "episodeTitle": "Hell",
+        "episodeOverview": "Aliya panics after Mohsin reveals his radical plans and tries to escape. Dr. Khan warns Avinash about rescuing his friend's daughter.",
+        "runtime": 51,
+        "tracks": null
+      },
+      {
+        "fileId": "351",
+        "fileName": "The_Freelancer_S01E03_Flashback_720p_WEB_DL_DDP5_1_Atmos_H_264_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 3,
+        "episodeTitle": "Flashback",
+        "episodeOverview": "Doctors advise Avinash about Mrunal's health. Dave and Patil learn who the Freelancer really is. In Syria, Osama Maqsood asks the Fazals about Avinash.",
+        "runtime": 55,
+        "tracks": null
+      },
+      {
+        "fileId": "352",
+        "fileName": "The_Freelancer_S01E04_Martyr_720p_WEB_DL_DDP5_1_Atmos_H_264_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 4,
+        "episodeTitle": "Martyr?",
+        "episodeOverview": "Avinash lays the groundwork for Aliya's extraction from Syria. He establishes contact with her, and she helps him spy on the Fazals.",
+        "runtime": 37,
+        "tracks": null
+      },
+      {
+        "fileId": "354",
+        "fileName": "The_Freelancer_S01E05_Doppelganger_720p_WEB_DL_DDP5_1_Atmos_x264.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 5,
+        "episodeTitle": "Doppelganger",
+        "episodeOverview": "Worried about her fate, Aliya continues to spy during which Nabeela spots her secret phone. Meanwhile, Maqsood sends his men after Avinash, and Wilson searches for Aliya's lookalike.",
+        "runtime": 50,
+        "tracks": null
+      },
+      {
+        "fileId": "355",
+        "fileName": "The_Freelancer_S01E06_Death_at_the_Doorstep_720p_WEB_DL_DDP5_1_Atmos.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 6,
+        "episodeTitle": "Death at the Doorstep",
+        "episodeOverview": "With no help from the CIA, Avinash gets IB to help him and readies his team to extract Aliya. While Aliya convinces Nabeela to back down, the CIA is on a mission of death.",
+        "runtime": 47,
+        "tracks": null
+      },
+      {
+        "fileId": "356",
+        "fileName": "The_Freelancer_S01E07_Touch_and_Go_720p_WEB_DL_DDP5_1_Atmos_x264.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 7,
+        "episodeTitle": "Touch and Go",
+        "episodeOverview": "Nabeela derails Aliya's escape and takes her place. When Avinash goes back for Aliya in the middle of heightened danger, the CIA executes their mission.",
+        "runtime": 55,
+        "tracks": null
+      }
+    ]
+  },
+  "episodes": [],
+  "availableSeasons": [
+    1
+  ],
+  "availableEpisodeCount": 7
+}

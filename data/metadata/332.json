@@ -1,0 +1,26 @@
+{
+  "fileId": "332",
+  "fileName": "Carter.2022.720p.Hindi.English.Vegamovies.NL.mkv",
+  "type": "movie",
+  "title": "Carter",
+  "originalTitle": "Carter",
+  "overview": "Carter (Benjamin Dunk Kostecki) returns to town to visit some old friends. After he can't find a ride from the bus station, his day begins to unravel.",
+  "releaseDate": "2022-12-27",
+  "year": 2022,
+  "runtime": 86,
+  "genres": [
+    "Horror",
+    "Comedy",
+    "Adventure",
+    "Action",
+    "Thriller"
+  ],
+  "rating": 7,
+  "popularity": 0.3438,
+  "poster": "/data/posters/332.jpg",
+  "backdrop": "/data/backdrops/332_bd.jpg",
+  "tmdbId": 1045275,
+  "fetchedAt": "2026-02-15T13:47:08.331Z",
+  "needsRetry": false,
+  "tv": null
+}

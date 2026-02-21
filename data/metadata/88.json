@@ -1,0 +1,27 @@
+{
+  "fileId": "88",
+  "fileName": "Batman.Begins.(2005).720p.Dual.Audio.(Hin-Eng).Vegamovies.NL.mkv",
+  "type": "movie",
+  "title": "Batman Begins",
+  "originalTitle": "Batman Begins",
+  "overview": "Driven by tragedy, billionaire Bruce Wayne dedicates his life to uncovering and defeating the corruption that plagues his home, Gotham City.  Unable to work within the system, he instead creates a new identity, a symbol of fear for the criminal underworld - The Batman.",
+  "releaseDate": "2005-06-10",
+  "year": 2005,
+  "runtime": 140,
+  "genres": [
+    "Drama",
+    "Crime",
+    "Action"
+  ],
+  "rating": 7.72,
+  "popularity": 18.5617,
+  "poster": "/data/posters/88.jpg",
+  "backdrop": "/data/backdrops/88_bd.jpg",
+  "tmdbId": 272,
+  "fetchedAt": "2026-02-15T13:50:28.672Z",
+  "needsRetry": false,
+  "tv": null,
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "_tracksDetected": true
+}

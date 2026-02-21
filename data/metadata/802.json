@@ -1,0 +1,37 @@
+{
+  "fileId": "802",
+  "fileName": "From_S01E10_Oh_The_Places_Well_Go_720p_x264_Hindi_English_Esubs.mkv",
+  "type": "tv",
+  "title": "FROM",
+  "originalTitle": "FROM",
+  "overview": "Unravel the mystery of a nightmarish town in middle America that traps all those who enter. As the unwilling residents fight to keep a sense of normalcy and search for a way out, they must also survive the threats of the surrounding forest – including the terrifying creatures that come out when the sun goes down.",
+  "releaseDate": "2022-02-20",
+  "year": 2022,
+  "runtime": 48,
+  "genres": [
+    "Mystery",
+    "Drama",
+    "Sci-Fi & Fantasy"
+  ],
+  "rating": 8.154,
+  "popularity": 95.6652,
+  "poster": "/data/posters/show_124364.jpg",
+  "backdrop": "/data/backdrops/show_124364_bd.jpg",
+  "tmdbId": 124364,
+  "fetchedAt": "2026-02-15T14:36:06.688Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "FROM",
+    "originalShowTitle": "FROM",
+    "seasonNumber": 1,
+    "episodeNumber": 10,
+    "episodeTitle": "Oh, the Places We'll Go",
+    "episodeOverview": "Boyd draws strength from an unlikely source. Jim’s radio tower yields consequences which rock him to his very core. The hole that Tabitha has been digging leads her somewhere, and to someone, she could never have expected.",
+    "showTmdbId": 124364,
+    "episodeRuntime": 48,
+    "totalSeasons": 4,
+    "totalEpisodes": 40
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

@@ -1,0 +1,36 @@
+{
+  "fileId": "677",
+  "fileName": "Court_Kacheri_2025_S01E04_Final_Argument_720p_SONY_WEB_DL_MULTi.mkv",
+  "type": "tv",
+  "title": "Court Kacheri",
+  "originalTitle": "Court Kacheri",
+  "overview": "In a chaotic district court of rural India, the son of a legendary lawyer wrestles with his unwanted inheritance while cases expose the messy truth behind local justice.",
+  "releaseDate": "2025-08-12",
+  "year": 2025,
+  "runtime": 39,
+  "genres": [
+    "Comedy",
+    "Drama"
+  ],
+  "rating": 0,
+  "popularity": 0.842,
+  "poster": "/data/posters/show_298052.jpg",
+  "backdrop": "/data/backdrops/show_298052_bd.jpg",
+  "tmdbId": 298052,
+  "fetchedAt": "2026-02-15T15:20:01.470Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Court Kacheri",
+    "originalShowTitle": "Court Kacheri",
+    "seasonNumber": 1,
+    "episodeNumber": 4,
+    "episodeTitle": "Final Argument",
+    "episodeOverview": "As Param awaits his visa, he uncovers key evidence in the divorce case. Torn between loyalty and justice, he defies his father to reveal the truth, igniting a courtroom war. For the first time, he feels he's made a difference. Meanwhile, Suraj, burdened by guilt over a shady deal, faces a crushing fallout with Japtap - shattering his dream of independence.",
+    "showTmdbId": 298052,
+    "episodeRuntime": 39,
+    "totalSeasons": 1,
+    "totalEpisodes": 5
+  },
+  "audioCodec": "eac3",
+  "browserPlayable": false
+}

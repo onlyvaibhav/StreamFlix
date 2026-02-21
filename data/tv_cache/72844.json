@@ -1,0 +1,127 @@
+{
+  "showTmdbId": 72844,
+  "showTitle": "The Haunting of Hill House",
+  "originalShowTitle": "The Haunting of Hill House",
+  "overview": "Flashing between past and present, a fractured family confronts haunting memories of their old home and the terrifying events that drove them from it.",
+  "genres": [
+    "Mystery",
+    "Drama"
+  ],
+  "rating": 8.108,
+  "popularity": 16.408,
+  "poster": "/data/posters/show_72844.jpg",
+  "backdrop": "/data/backdrops/show_72844_bd.jpg",
+  "totalSeasons": 1,
+  "totalEpisodes": 10,
+  "year": 2018,
+  "releaseDate": "2018-10-12",
+  "seasons": {
+    "1": [
+      {
+        "fileId": "292",
+        "fileName": "The_Haunting_of_Hill_House_S01E01_720p_Hindi_English_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 1,
+        "episodeTitle": "Steven Sees a Ghost",
+        "episodeOverview": "While investigating a ghost story for his latest novel, a skeptical Steven receives a call from his sister that triggers a chain of fateful events.",
+        "runtime": 61,
+        "tracks": null
+      },
+      {
+        "fileId": "293",
+        "fileName": "The_Haunting_of_Hill_House_S01E02_720p_Hindi_English_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 2,
+        "episodeTitle": "Open Casket",
+        "episodeOverview": "A devastating family tragedy stirs memories of traumatic losses, reminding Shirley of her first brush with death -- and awakening long-dormant fears.",
+        "runtime": 52,
+        "tracks": null
+      },
+      {
+        "fileId": "294",
+        "fileName": "The_Haunting_of_Hill_House_S01E03_720p_Hindi_English_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 3,
+        "episodeTitle": "Touch",
+        "episodeOverview": "Keenly perceptive Theo sees shades of herself in a troubled young patient, a girl who's haunted by the menacing grin of \"Mr. Smiley.\"",
+        "runtime": 54,
+        "tracks": null
+      },
+      {
+        "fileId": "295",
+        "fileName": "The_Haunting_of_Hill_House_S01E04_720p_Hindi_English_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 4,
+        "episodeTitle": "The Twin Thing",
+        "episodeOverview": "Still wrestling with addiction -- and an unshakable fright -- a frantic Luke tries to save a friend while sensing his twin sister is in danger.",
+        "runtime": 54,
+        "tracks": null
+      },
+      {
+        "fileId": "296",
+        "fileName": "The_Haunting_of_Hill_House_S01E05_720p_Hindi_English_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 5,
+        "episodeTitle": "The Bent-Neck Lady",
+        "episodeOverview": "A dark specter with an unsettling silhouette has haunted Nell since she was a girl. Now \"the Bent-Neck Lady\" is back -- and she's calling Nell home.",
+        "runtime": 71,
+        "tracks": null
+      },
+      {
+        "fileId": "297",
+        "fileName": "The_Haunting_of_Hill_House_S01E06_720p_Hindi_English_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 6,
+        "episodeTitle": "Two Storms",
+        "episodeOverview": "It's a reunion for all the wrong reasons when Hugh flies in for the funeral, coming face to face with his estranged children on a dark, stormy night.",
+        "runtime": 58,
+        "tracks": null
+      },
+      {
+        "fileId": "298",
+        "fileName": "The_Haunting_of_Hill_House_S01E07_720p_Hindi_English_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 7,
+        "episodeTitle": "Eulogy",
+        "episodeOverview": "As the Crains gather to say their final goodbyes, a flashback reveals Mr. Dudley's connection to the house -- and exposes a secret in the walls.",
+        "runtime": 61,
+        "tracks": null
+      },
+      {
+        "fileId": "299",
+        "fileName": "The_Haunting_of_Hill_House_S01E08_720p_Hindi_English_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 8,
+        "episodeTitle": "Witness Marks",
+        "episodeOverview": "A familiar terror revisits Shirley and Theo on Halloween night as Hugh and Steve go looking for Luke, who disappeared on a deadly errand.",
+        "runtime": 44,
+        "tracks": null
+      },
+      {
+        "fileId": "300",
+        "fileName": "The_Haunting_of_Hill_House_S01E09_720p_Hindi_English_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 9,
+        "episodeTitle": "Screaming Meemies",
+        "episodeOverview": "While struggling to discern dreams from reality, Olivia fears for her children's safety, a motherly instinct Mrs. Dudley urges her to embrace.",
+        "runtime": 58,
+        "tracks": null
+      },
+      {
+        "fileId": "301",
+        "fileName": "The_Haunting_of_Hill_House_S01E10_720p_Hindi_English_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 10,
+        "episodeTitle": "Silence Lay Steadily",
+        "episodeOverview": "The Red Room's contents are finally revealed as the Crains return to the house to confront old ghosts, unspeakable secrets and an insatiable evil.",
+        "runtime": 72,
+        "tracks": null
+      }
+    ]
+  },
+  "episodes": [],
+  "availableSeasons": [
+    1
+  ],
+  "availableEpisodeCount": 10
+}

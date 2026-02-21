@@ -1,0 +1,37 @@
+{
+  "fileId": "118",
+  "fileName": "Snow White with the Red Hair - S02E20.mkv",
+  "type": "tv",
+  "title": "Snow White with the Red Hair",
+  "originalTitle": "赤髪の白雪姫",
+  "overview": "Shirayuki was a young girl born with unique apple-red hair. She meets a famous but foolish Prince Raji, who falls in love with her at first sight and orders her to become his concubine. With nowhere else to go, Shirayuki cuts her hair and escapes to a neighboring country. While traversing through the forests, she meets a young boy, Zen, who helps her after she boldly cures his wounds but then gets poisoned by an apple given to Shirayuki. Meanwhile, Prince Raji sends out henchmen to search for her. What will happen to Shirayuki? What is Zen's true character? A refreshing fantasy story between an optimistic heroine and a prince who constantly stays on her watch.",
+  "releaseDate": "2015-07-07",
+  "year": 2015,
+  "runtime": 24,
+  "genres": [
+    "Animation",
+    "Drama",
+    "Sci-Fi & Fantasy"
+  ],
+  "rating": 7.662,
+  "popularity": 13.9623,
+  "poster": "/data/posters/show_63087.jpg",
+  "backdrop": "/data/backdrops/show_63087_bd.jpg",
+  "tmdbId": 63087,
+  "fetchedAt": "2026-02-15T17:22:06.749Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Snow White with the Red Hair",
+    "originalShowTitle": "赤髪の白雪姫",
+    "seasonNumber": 2,
+    "episodeNumber": 20,
+    "episodeTitle": "",
+    "episodeOverview": "",
+    "showTmdbId": 63087,
+    "episodeRuntime": 24,
+    "totalSeasons": 1,
+    "totalEpisodes": 24
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

@@ -1,0 +1,36 @@
+{
+  "fileId": "427",
+  "fileName": "Brinda_S01_E06_WebRip_720p_Hindi_Telugu_AAC_5_1_x264_ESub_Vegamovies.mkv",
+  "type": "tv",
+  "title": "Brinda",
+  "originalTitle": "బృంద",
+  "overview": "Young, socially awkward yet morally grounded SI cadet Brinda stumbles upon a brutal murder with a chilling modus operandi. As the killer slips through her grasp, she faces personal and bureaucratic turmoil, but the hardest challenge is the moral reckoning that could define her career and conscience. Will Brinda uphold justice, or lose herself in the chaos closer to home?",
+  "releaseDate": "2024-08-02",
+  "year": 2024,
+  "runtime": 48,
+  "genres": [
+    "Crime",
+    "Mystery"
+  ],
+  "rating": 7.3,
+  "popularity": 2.175,
+  "poster": "/data/posters/show_259546.jpg",
+  "backdrop": "/data/backdrops/show_259546_bd.jpg",
+  "tmdbId": 259546,
+  "fetchedAt": "2026-02-15T15:42:18.113Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Brinda",
+    "originalShowTitle": "బృంద",
+    "seasonNumber": 1,
+    "episodeNumber": 6,
+    "episodeTitle": "The Beginning of the End",
+    "episodeOverview": "Brinda discovers that the serial murders are part of a bigger plan. Will she catch the mastermind and end it all?",
+    "showTmdbId": 259546,
+    "episodeRuntime": 48,
+    "totalSeasons": 1,
+    "totalEpisodes": 8
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

@@ -1,0 +1,254 @@
+{
+  "showTmdbId": 110316,
+  "showTitle": "Alice in Borderland",
+  "originalShowTitle": "今際の国のアリス",
+  "overview": "With his two friends, a video-game-obsessed young man finds himself in a strange version of Tokyo where they must compete in dangerous games to win.",
+  "genres": [
+    "Mystery",
+    "Drama",
+    "Action & Adventure"
+  ],
+  "rating": 8.1,
+  "popularity": 31.959,
+  "poster": "/data/posters/show_110316.jpg",
+  "backdrop": "/data/backdrops/show_110316_bd.jpg",
+  "totalSeasons": 3,
+  "totalEpisodes": 22,
+  "year": 2020,
+  "releaseDate": "2020-12-10",
+  "seasons": {
+    "1": [
+      {
+        "fileId": "35",
+        "fileName": "Alice_in_Borderland_S01E01_720p_WEB_DL_HIN_ENG_x264_MSubs_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 1,
+        "episodeTitle": "Episode 1",
+        "episodeOverview": "Arisu and his friends run into a public bathroom to hide from the police — but when they reemerge, the streets of Tokyo are suddenly completely empty.",
+        "runtime": 49,
+        "tracks": null
+      },
+      {
+        "fileId": "36",
+        "fileName": "Alice_in_Borderland_S01E02_720p_WEB_DL_HIN_ENG_x264_MSubs_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 2,
+        "episodeTitle": "Episode 2",
+        "episodeOverview": "Leaving an injured Chota, Arisu and Karube head out to gain more experience. They come to a sprawling apartment, where a deadly game of tag awaits.",
+        "runtime": 51,
+        "tracks": null
+      },
+      {
+        "fileId": "37",
+        "fileName": "Alice_in_Borderland_S01E03_720p_WEB_DL_HIN_ENG_x264_MSubs_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 3,
+        "episodeTitle": "Episode 3",
+        "episodeOverview": "With Chota's and Shibuki's visas fast expiring, the four enter a vast botanical garden in Shinjuku, where they take part in a cruel game of betrayal.",
+        "runtime": 43,
+        "tracks": null
+      },
+      {
+        "fileId": "38",
+        "fileName": "Alice_in_Borderland_S01E04_720p_WEB_DL_HIN_ENG_x264_MSubs_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 4,
+        "episodeTitle": "Episode 4",
+        "episodeOverview": "Arisu is overwhelmed with guilt and ready to give up, but Usagi urges him to keep going. Next up is a game of endurance in an underground highway.",
+        "runtime": 48,
+        "tracks": null
+      },
+      {
+        "fileId": "39",
+        "fileName": "Alice_in_Borderland_S01E05_720p_WEB_DL_HIN_ENG_x264_MSubs_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 5,
+        "episodeTitle": "Episode 5",
+        "episodeOverview": "After Arisu and Usagi find their way to the Beach, the king of the so-called utopian haven forces them to help gather the remaining playing cards.",
+        "runtime": 52,
+        "tracks": null
+      },
+      {
+        "fileId": "40",
+        "fileName": "Alice_in_Borderland_S01E06_720p_WEB_DL_HIN_ENG_x264_MSubs_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 6,
+        "episodeTitle": "Episode 6",
+        "episodeOverview": "Chishiya recruits Arisu and Usagi to help him change the status quo. An unforeseen event rocks the fragile power dynamics of the Beach.",
+        "runtime": 42,
+        "tracks": null
+      },
+      {
+        "fileId": "41",
+        "fileName": "Alice_in_Borderland_S01E07_720p_WEB_DL_HIN_ENG_x264_MSubs_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 7,
+        "episodeTitle": "Episode 7",
+        "episodeOverview": "Once a safe haven, the Beach becomes the arena for the next stage, where an epic witch hunt turns everyone against each other in a hostile showdown.",
+        "runtime": 49,
+        "tracks": null
+      },
+      {
+        "fileId": "42",
+        "fileName": "Alice_in_Borderland_S01E08_720p_WEB_DL_HIN_ENG_x264_MSubs_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 8,
+        "episodeTitle": "Episode 8",
+        "episodeOverview": "Tensions inside the resort reach a boiling point. As the game clock nears zero, those who've survived the onslaught now face an uncertain future.",
+        "runtime": 53,
+        "tracks": null
+      }
+    ],
+    "2": [
+      {
+        "fileId": "43",
+        "fileName": "Alice_In_Borderland_S02E01_720p_10Bit_Hindi_English_Msubs_Vegamovies.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 1,
+        "episodeTitle": "Episode 1",
+        "episodeOverview": "Arisu, Usagi, Kuina and Chishiya have been waiting for over an hour in Shibuya crossing for the next stage to start, but nothing seems to be happening.",
+        "runtime": 49,
+        "tracks": null
+      },
+      {
+        "fileId": "44",
+        "fileName": "Alice_In_Borderland_S02E02_720p_10Bit_Hindi_English_Msubs_Vegamovies.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 2,
+        "episodeTitle": "Episode 2",
+        "episodeOverview": "Now that the King of Clubs has revealed himself in his full glory, the game finally begins. Much to Arisu's surprise, things are going pretty well.",
+        "runtime": 61,
+        "tracks": null
+      },
+      {
+        "fileId": "45",
+        "fileName": "Alice_In_Borderland_S02E03_720p_10Bit_Hindi_English_Msubs_Vegamovies.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 3,
+        "episodeTitle": "Episode 3",
+        "episodeOverview": "With only a few minutes left in the game, the results for each team seems fixed. Arisu approaches Kyuma, and asks to shake his hand.",
+        "runtime": 67,
+        "tracks": null
+      },
+      {
+        "fileId": "46",
+        "fileName": "Alice_In_Borderland_S02E04_720p_10Bit_Hindi_English_Msubs_Vegamovies.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 4,
+        "episodeTitle": "Episode 4",
+        "episodeOverview": "There are just a handful of players left, and Chishiya's the only one without a partner. The next round may very well be the last of the game.",
+        "runtime": 53,
+        "tracks": null
+      },
+      {
+        "fileId": "47",
+        "fileName": "Alice_In_Borderland_S02E05_720p_10Bit_Hindi_English_Msubs_Vegamovies.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 5,
+        "episodeTitle": "Episode 5",
+        "episodeOverview": "Aguni has one thing on his mind: to find and kill the King of Spades. He's joined by Arisu and a determined high schooler named Akane Heiya.",
+        "runtime": 68,
+        "tracks": null
+      },
+      {
+        "fileId": "48",
+        "fileName": "Alice_In_Borderland_S02E06_720p_10Bit_Hindi_English_Msubs_Vegamovies.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 6,
+        "episodeTitle": "Episode 6",
+        "episodeOverview": "Usagi will have to change the hearts and minds of the cynical players on the Queen's team. At the Supreme Court, Chishiya meets the King of Diamonds.",
+        "runtime": 76,
+        "tracks": null
+      },
+      {
+        "fileId": "49",
+        "fileName": "Alice_In_Borderland_S02E07_720p_10Bit_Hindi_English_Msubs_Vegamovies.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 7,
+        "episodeTitle": "Episode 7",
+        "episodeOverview": "In the middle of an overgrown Shibuya crossing, Niragi challenges Arisu and Chishiya to a game. But then the King of Spades arrives.",
+        "runtime": 60,
+        "tracks": null
+      },
+      {
+        "fileId": "50",
+        "fileName": "Alice_In_Borderland_S02E08_720p_10Bit_Hindi_English_Msubs_Vegamovies.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 8,
+        "episodeTitle": "Episode 8",
+        "episodeOverview": "For their final game, they'll need to survive three rounds of croquet — but before they can get very far, the Queen asks them to sit down for some tea.",
+        "runtime": 81,
+        "tracks": null
+      }
+    ],
+    "3": [
+      {
+        "fileId": "709",
+        "fileName": "Alice.In.Borderland.S03E01.720P.NF.Web.Dl.x264.Vegamovies.is.mkv",
+        "seasonNumber": 3,
+        "episodeNumber": 1,
+        "episodeTitle": "Episode 1",
+        "episodeOverview": "Back in the real world with no memories of Borderland, Arisu and Usagi encounter Ryuji, a professor with a fixation on near-death experiences.",
+        "runtime": 62,
+        "tracks": null
+      },
+      {
+        "fileId": "710",
+        "fileName": "Alice.In.Borderland.S03E02.720P.NF.Web.Dl.x264.Vegamovies.is.mkv",
+        "seasonNumber": 3,
+        "episodeNumber": 2,
+        "episodeTitle": "Episode 2",
+        "episodeOverview": "The first game begins at a shrine. Arisu and the other players must solve math problems on the fly before everything goes up in flames.",
+        "runtime": 56,
+        "tracks": null
+      },
+      {
+        "fileId": "711",
+        "fileName": "Alice.In.Borderland.S03E03.720P.NF.Web.Dl.x264.Vegamovies.is.mkv",
+        "seasonNumber": 3,
+        "episodeNumber": 3,
+        "episodeTitle": "Episode 3",
+        "episodeOverview": "As Rei's plan unravels, Arisu takes a risky move to keep his team alive. On a separate stage, Usagi and Ryuji face a relentless barrage of lasers.",
+        "runtime": 63,
+        "tracks": null
+      },
+      {
+        "fileId": "712",
+        "fileName": "Alice.In.Borderland.S03E04.720P.NF.Web.Dl.x264.Vegamovies.is.mkv",
+        "seasonNumber": 3,
+        "episodeNumber": 4,
+        "episodeTitle": "Episode 4",
+        "episodeOverview": "With time running out and a crash imminent, Usagi's group must jump trains to survive. An explosive game of Kick the Can awaits Arisu's team.",
+        "runtime": 62,
+        "tracks": null
+      },
+      {
+        "fileId": "713",
+        "fileName": "Alice.In.Borderland.S03E05.720P.NF.Web.Dl.x264.Vegamovies.is.mkv",
+        "seasonNumber": 3,
+        "episodeNumber": 5,
+        "episodeTitle": "Episode 5",
+        "episodeOverview": "Arisu follows his digital double through a simulation of future Shibuya, stopping at a heartwarming scene — and the real Usagi before him.",
+        "runtime": 78,
+        "tracks": null
+      },
+      {
+        "fileId": "714",
+        "fileName": "Alice.In.Borderland.S03E06.720P.NF.Web.Dl.x264.Vegamovies.is.mkv",
+        "seasonNumber": 3,
+        "episodeNumber": 6,
+        "episodeTitle": "Episode 6",
+        "episodeOverview": "Haunted by a devastating glimpse into the future, Arisu crumples under the pressure to save everyone. Will he, Usagi and the team make it to the exit?",
+        "runtime": 77,
+        "tracks": null
+      }
+    ]
+  },
+  "episodes": [],
+  "availableSeasons": [
+    1,
+    2,
+    3
+  ],
+  "availableEpisodeCount": 22
+}

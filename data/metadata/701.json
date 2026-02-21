@@ -1,0 +1,36 @@
+{
+  "fileId": "701",
+  "fileName": "The_Bads_of_Bollywood_S01E02_720p_WEB_DL_HIN_x264_ESub_Vegamovies.mkv",
+  "type": "tv",
+  "title": "The Ba***ds of Bollywood",
+  "originalTitle": "The Ba***ds of Bollywood",
+  "overview": "In this high-stakes drama, an ambitious outsider and his friends navigate the chaotic, larger-than-life, yet uncertain world of Bollywood.",
+  "releaseDate": "2025-09-18",
+  "year": 2025,
+  "runtime": 40,
+  "genres": [
+    "Comedy",
+    "Action & Adventure"
+  ],
+  "rating": 6.833,
+  "popularity": 4.48,
+  "poster": "/data/posters/show_247043.jpg",
+  "backdrop": "/data/backdrops/show_247043_bd.jpg",
+  "tmdbId": 247043,
+  "fetchedAt": "2026-02-15T14:54:35.990Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "The Ba***ds of Bollywood",
+    "originalShowTitle": "The Ba***ds of Bollywood",
+    "seasonNumber": 1,
+    "episodeNumber": 2,
+    "episodeTitle": "⁠⁠Movie Mafia",
+    "episodeOverview": "Aasmaan meets Freddy and later signs a commercial to fund his father's surgery. Ajay disapproves of the male lead cast opposite his daughter.",
+    "showTmdbId": 247043,
+    "episodeRuntime": 40,
+    "totalSeasons": 1,
+    "totalEpisodes": 7
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

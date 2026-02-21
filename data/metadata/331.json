@@ -1,0 +1,23 @@
+{
+  "fileId": "331",
+  "fileName": "Ted.2012.720p.Hindi.English.Vegamovies.NL.mkv",
+  "type": "movie",
+  "title": "Ted",
+  "originalTitle": "Ted",
+  "overview": "John Bennett, a man whose childhood wish of bringing his teddy bear to life came true, now must decide between keeping the relationship with the bear or his girlfriend, Lori.",
+  "releaseDate": "2012-06-29",
+  "year": 2012,
+  "runtime": 107,
+  "genres": [
+    "Comedy",
+    "Fantasy"
+  ],
+  "rating": 6.448,
+  "popularity": 10.2194,
+  "poster": "/data/posters/331.jpg",
+  "backdrop": "/data/backdrops/331_bd.jpg",
+  "tmdbId": 72105,
+  "fetchedAt": "2026-02-15T13:47:10.588Z",
+  "needsRetry": false,
+  "tv": null
+}

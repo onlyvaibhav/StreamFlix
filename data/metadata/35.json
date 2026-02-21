@@ -1,0 +1,38 @@
+{
+  "fileId": "35",
+  "fileName": "Alice_in_Borderland_S01E01_720p_WEB_DL_HIN_ENG_x264_MSubs_Vegamovies.mkv",
+  "type": "tv",
+  "title": "Alice in Borderland",
+  "originalTitle": "今際の国のアリス",
+  "overview": "With his two friends, a video-game-obsessed young man finds himself in a strange version of Tokyo where they must compete in dangerous games to win.",
+  "releaseDate": "2020-12-10",
+  "year": 2020,
+  "runtime": 49,
+  "genres": [
+    "Mystery",
+    "Drama",
+    "Action & Adventure"
+  ],
+  "rating": 8.1,
+  "popularity": 31.959,
+  "poster": "/data/posters/show_110316.jpg",
+  "backdrop": "/data/backdrops/show_110316_bd.jpg",
+  "tmdbId": 110316,
+  "fetchedAt": "2026-02-15T14:53:27.255Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Alice in Borderland",
+    "originalShowTitle": "今際の国のアリス",
+    "seasonNumber": 1,
+    "episodeNumber": 1,
+    "episodeTitle": "Episode 1",
+    "episodeOverview": "Arisu and his friends run into a public bathroom to hide from the police — but when they reemerge, the streets of Tokyo are suddenly completely empty.",
+    "showTmdbId": 110316,
+    "episodeRuntime": 49,
+    "totalSeasons": 3,
+    "totalEpisodes": 22
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "_tracksDetected": true
+}

@@ -1,0 +1,24 @@
+{
+  "fileId": "539",
+  "fileName": "Real.Steel.2011.720p.Hindi.English.Vegamovies.NL.mkv",
+  "type": "movie",
+  "title": "Real Steel",
+  "originalTitle": "Real Steel",
+  "overview": "Charlie Kenton is a washed-up fighter who retired from the ring when robots took over the sport. After his robot is trashed, he reluctantly teams up with his estranged son to rebuild and train an unlikely contender.",
+  "releaseDate": "2011-09-28",
+  "year": 2011,
+  "runtime": 127,
+  "genres": [
+    "Action",
+    "Science Fiction",
+    "Drama"
+  ],
+  "rating": 7.064,
+  "popularity": 13.3063,
+  "poster": "/data/posters/539.jpg",
+  "backdrop": "/data/backdrops/539_bd.jpg",
+  "tmdbId": 39254,
+  "fetchedAt": "2026-02-15T13:43:40.264Z",
+  "needsRetry": false,
+  "tv": null
+}

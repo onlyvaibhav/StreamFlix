@@ -1,0 +1,26 @@
+{
+  "fileId": "504",
+  "fileName": "Bang_Bang_2014_BluRay_720p_Hindi_AAC_5_1_x264_ESub_Vegamovies_NL.mkv",
+  "type": "movie",
+  "title": "Bang Bang!",
+  "originalTitle": "बैंग बैंग",
+  "overview": "A young bank receptionist gets mixed up with Rajveer Nanda, a man who has a mysterious background.",
+  "releaseDate": "2014-10-02",
+  "year": 2014,
+  "runtime": 153,
+  "genres": [
+    "Action",
+    "Adventure",
+    "Comedy",
+    "Romance",
+    "Thriller"
+  ],
+  "rating": 6.2,
+  "popularity": 0.8922,
+  "poster": "/data/posters/504.jpg",
+  "backdrop": "/data/backdrops/504_bd.jpg",
+  "tmdbId": 283589,
+  "fetchedAt": "2026-02-15T13:44:15.315Z",
+  "needsRetry": false,
+  "tv": null
+}

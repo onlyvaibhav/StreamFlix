@@ -1,0 +1,107 @@
+{
+  "showTmdbId": 258306,
+  "showTitle": "Terror Tuesday: Extreme",
+  "originalShowTitle": "อังคารคลุมโปง: เอ็กซ์ตรีม",
+  "overview": "Inspired by the Thai horror radio show \"Angkhan Khlumpong,\" this series presents eight stories based on real-life experiences shared by listeners.",
+  "genres": [
+    "Drama",
+    "Mystery"
+  ],
+  "rating": 6.317,
+  "popularity": 2.4742,
+  "poster": "/data/posters/show_258306.jpg",
+  "backdrop": "/data/backdrops/show_258306_bd.jpg",
+  "totalSeasons": 1,
+  "totalEpisodes": 8,
+  "year": 2024,
+  "releaseDate": "2024-08-20",
+  "seasons": {
+    "1": [
+      {
+        "fileId": "393",
+        "fileName": "Terror_Tuesday_Extreme_S01E01_Our_Little_Sister_720P_Thai_English.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 1,
+        "episodeTitle": "Our Little Sister",
+        "episodeOverview": "Following her sister's death, a young woman copes with grief, only to discover that her mother has adopted a doll that seems to have a life of its own.",
+        "runtime": 43,
+        "tracks": null
+      },
+      {
+        "fileId": "394",
+        "fileName": "Terror_Tuesday_Extreme_S01E02_Wedding_Dress_720P_Thai_English_Msubs.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 2,
+        "episodeTitle": "Wedding Dress",
+        "episodeOverview": "With her job at risk, a tailor scrambles to alter an old dress in time for her client's wedding. But the garment's dreadful history begins to haunt her.",
+        "runtime": 45,
+        "tracks": null
+      },
+      {
+        "fileId": "395",
+        "fileName": "Terror_Tuesday_Extreme_S01E03_Ode_To_My_Family_720P_Thai_English.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 3,
+        "episodeTitle": "Ode to My Family",
+        "episodeOverview": "When a young man finds a sealed room in his new home and discovers its terrifying story, the horrors of the past slowly creep into his family's lives.",
+        "runtime": 47,
+        "tracks": null
+      },
+      {
+        "fileId": "396",
+        "fileName": "Terror_Tuesday_Extreme_S01E04_The_Vow_720P_Thai_English_Msubs_MoviesMod.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 4,
+        "episodeTitle": "The Vow",
+        "episodeOverview": "An encounter with a vengeful goddess leaves two lovers with only one way to avoid certain death: reveal every secret they've been hiding from each other.",
+        "runtime": 44,
+        "tracks": null
+      },
+      {
+        "fileId": "397",
+        "fileName": "Terror_Tuesday_Extreme_S01E05_Spectral_Class_720P_Thai_English_Msubs.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 5,
+        "episodeTitle": "Spectral Class",
+        "episodeOverview": "A teacher visits her missing student's unusual family and quickly becomes entangled in a hazy world of hallucinations and occult rituals.",
+        "runtime": 40,
+        "tracks": null
+      },
+      {
+        "fileId": "398",
+        "fileName": "Terror_Tuesday_Extreme_S01E06_Girl_Next_Door_720P_Thai_English_Msubs.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 6,
+        "episodeTitle": "Girl Next Door",
+        "episodeOverview": "A man with a drug addiction finds himself drawn to a neighbor, who slips him a cryptic note with odd instructions. Soon, mysterious events plague him.",
+        "runtime": 40,
+        "tracks": null
+      },
+      {
+        "fileId": "399",
+        "fileName": "Terror_Tuesday_Extreme_S01E07_Dear_Granny_720P_Thai_English_Msubs.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 7,
+        "episodeTitle": "Dear Granny",
+        "episodeOverview": "After vanishing under strange circumstances, a grandmother suddenly returns home. But her family realizes that she may no longer be who she was.",
+        "runtime": 42,
+        "tracks": null
+      },
+      {
+        "fileId": "400",
+        "fileName": "Terror_Tuesday_Extreme_S01E08_Viral_Curse_720P_Thai_English_Msubs.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 8,
+        "episodeTitle": "Viral Curse",
+        "episodeOverview": "A mother must find a way to protect her young daughter when an eerie story from a radio program begins to mirror their reality.",
+        "runtime": 39,
+        "tracks": null
+      }
+    ]
+  },
+  "episodes": [],
+  "availableSeasons": [
+    1
+  ],
+  "availableEpisodeCount": 8
+}

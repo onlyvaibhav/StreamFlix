@@ -1,0 +1,150 @@
+{
+  "showTmdbId": 84958,
+  "showTitle": "Loki",
+  "originalShowTitle": "Loki",
+  "overview": "After stealing the Tesseract during the events of “Avengers: Endgame,” an alternate version of Loki is brought to the mysterious Time Variance Authority, a bureaucratic organization that exists outside of time and space and monitors the timeline. They give Loki a choice: face being erased from existence due to being a “time variant” or help fix the timeline and stop a greater threat.",
+  "genres": [
+    "Drama",
+    "Sci-Fi & Fantasy"
+  ],
+  "rating": 8.17,
+  "popularity": 49.0015,
+  "poster": "/data/posters/show_84958.jpg",
+  "backdrop": "/data/backdrops/show_84958_bd.jpg",
+  "totalSeasons": 2,
+  "totalEpisodes": 12,
+  "year": 2021,
+  "releaseDate": "2021-06-09",
+  "seasons": {
+    "1": [
+      {
+        "fileId": "186",
+        "fileName": "Loki_S01E01_720p_WEB_DL_Hindi_English_x264_ESub_Vegamovies_NL.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 1,
+        "episodeTitle": "Glorious Purpose",
+        "episodeOverview": "After stealing the Tesseract in \"Avengers: Endgame,\" Loki lands before the Time Variance Authority.",
+        "runtime": 53,
+        "tracks": null
+      },
+      {
+        "fileId": "187",
+        "fileName": "Loki_S01E02_720p_WEB_DL_Hindi_English_x264_ESub_Vegamovies_NL.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 2,
+        "episodeTitle": "The Variant",
+        "episodeOverview": "Mobius puts Loki to work, but not everyone at TVA is thrilled about the God of Mischief's presence.",
+        "runtime": 56,
+        "tracks": null
+      },
+      {
+        "fileId": "188",
+        "fileName": "Loki_S01E03_720p_WEB_DL_Hindi_English_x264_ESub_Vegamovies_NL.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 3,
+        "episodeTitle": "Lamentis",
+        "episodeOverview": "Loki finds out The Variant's plans, but he has his own that will forever alter both their destinies.",
+        "runtime": 44,
+        "tracks": null
+      },
+      {
+        "fileId": "189",
+        "fileName": "Loki_S01E04_720p_WEB_DL_Hindi_English_x264_ESub_Vegamovies_NL.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 4,
+        "episodeTitle": "The Nexus Event",
+        "episodeOverview": "Frayed nerves and paranoia infiltrate the TVA as Mobius and Hunter B-15 search for Loki and Sylvie.",
+        "runtime": 50,
+        "tracks": null
+      },
+      {
+        "fileId": "190",
+        "fileName": "Loki_S01E05_720p_WEB_DL_Hindi_English_x264_ESub_Vegamovies_NL.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 5,
+        "episodeTitle": "Journey into Mystery",
+        "episodeOverview": "Loki tries to escape The Void, a desolate purgatory where he meets variant versions of himself.",
+        "runtime": 51,
+        "tracks": null
+      },
+      {
+        "fileId": "191",
+        "fileName": "Loki_S01E06_720p_WEB_DL_Hindi_English_x264_ESub_Vegamovies_NL.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 6,
+        "episodeTitle": "For All Time. Always.",
+        "episodeOverview": "The clock is ticking in the season finale which finds Loki and Sylvie on a date with destiny.",
+        "runtime": 48,
+        "tracks": null
+      }
+    ],
+    "2": [
+      {
+        "fileId": "195",
+        "fileName": "Loki_S02E01_Ouroboros_720p_DSNP_Hindi_English_Msubs_Vegamovies_to.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 1,
+        "episodeTitle": "Ouroboros",
+        "episodeOverview": "Loki finds himself lost to time and torn, quite literally, between past, present and future.",
+        "runtime": 48,
+        "tracks": null
+      },
+      {
+        "fileId": "196",
+        "fileName": "Loki_S02E02_Breaking_Brad_720p_x264_Hindi_English_Msubs_Vegamovies.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 2,
+        "episodeTitle": "Breaking Brad",
+        "episodeOverview": "With the TVA on the verge of a temporal meltdown, Loki & Mobius will stop at nothing to find Sylvie.",
+        "runtime": 52,
+        "tracks": null
+      },
+      {
+        "fileId": "197",
+        "fileName": "Loki.S02E03.720p.WEB-DL.DDP5.1.x264.Vegamovies.to.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 3,
+        "episodeTitle": "1893",
+        "episodeOverview": "Loki & Mobius go on the hunt to find everyone’s favorite cartoon clock as they try to save the TVA.",
+        "runtime": 56,
+        "tracks": null
+      },
+      {
+        "fileId": "198",
+        "fileName": "Loki_S02E04_Heart_of_the_TVA_720p_x264_Hindi_English_Esubs_Vegamovies.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 4,
+        "episodeTitle": "Heart of the TVA",
+        "episodeOverview": "The TVA's Loom nears catastrophic failure but Loki, Mobius and Sylvie have a He Who Remains variant.",
+        "runtime": 51,
+        "tracks": null
+      },
+      {
+        "fileId": "199",
+        "fileName": "Loki_S02E05_ScienceFiction_720p_H264_Hindi_English_Msubs_Vegamovies.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 5,
+        "episodeTitle": "Science/Fiction",
+        "episodeOverview": "Loki traverses dying timelines in an attempt to find his friends, but Reality is not what it seems.",
+        "runtime": 47,
+        "tracks": null
+      },
+      {
+        "fileId": "200",
+        "fileName": "Loki_S02E06_Glorious_Purpose_720p_WEB_DL_x264_Hin_+_Eng_ESub_Vegamovies.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 6,
+        "episodeTitle": "Glorious Purpose",
+        "episodeOverview": "Loki learns the true nature of 'glorious purpose' as he rectifies the past.",
+        "runtime": 59,
+        "tracks": null
+      }
+    ]
+  },
+  "episodes": [],
+  "availableSeasons": [
+    1,
+    2
+  ],
+  "availableEpisodeCount": 12
+}

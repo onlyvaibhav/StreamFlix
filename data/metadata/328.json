@@ -1,0 +1,25 @@
+{
+  "fileId": "328",
+  "fileName": "Kingsman_The_Golden_Circle_2017_1080p_Dual_Audio_Hin_Eng_Vegamovies.mkv",
+  "type": "movie",
+  "title": "Kingsman: The Golden Circle",
+  "originalTitle": "Kingsman: The Golden Circle",
+  "overview": "When an attack on the Kingsman headquarters takes place and a new villain rises, Eggsy and Merlin are forced to work together with the American agency known as the Statesman to save the world.",
+  "releaseDate": "2017-09-20",
+  "year": 2017,
+  "runtime": 141,
+  "genres": [
+    "Action",
+    "Adventure",
+    "Comedy",
+    "Crime"
+  ],
+  "rating": 6.95,
+  "popularity": 10.1823,
+  "poster": "/data/posters/328.jpg",
+  "backdrop": "/data/backdrops/328_bd.jpg",
+  "tmdbId": 343668,
+  "fetchedAt": "2026-02-15T13:47:16.211Z",
+  "needsRetry": false,
+  "tv": null
+}

@@ -1,0 +1,38 @@
+{
+  "fileId": "285",
+  "fileName": "GEN.V.2023.S01E02.720p.10bit.HIN-ENG.x265.ESub.Vegamovies.to.mkv",
+  "type": "tv",
+  "title": "Gen V",
+  "originalTitle": "Gen V",
+  "overview": "At America's only college for superheroes, gifted students put their moral boundaries to the test, competing for the university's top ranking, and a chance to join The Seven, Vought International's elite superhero team. When the school's dark secrets come to light, they must decide what kind of heroes they want to become.",
+  "releaseDate": "2023-09-28",
+  "year": 2023,
+  "runtime": 49,
+  "genres": [
+    "Action & Adventure",
+    "Drama",
+    "Sci-Fi & Fantasy"
+  ],
+  "rating": 7.693,
+  "popularity": 25.5081,
+  "poster": "/data/posters/show_205715.jpg",
+  "backdrop": "/data/backdrops/show_205715_bd.jpg",
+  "tmdbId": 205715,
+  "fetchedAt": "2026-02-15T14:40:30.321Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Gen V",
+    "originalShowTitle": "Gen V",
+    "seasonNumber": 1,
+    "episodeNumber": 2,
+    "episodeTitle": "First Day",
+    "episodeOverview": "The Godolkin University Mental Health Hotline would like to remind students at this difficult time that you are not alone. You might be bulletproof on the outside, but you're not on the inside. Our caring staff is trained to deal with the specific emotional needs of superheroes and they're here to help you. If you need to talk to someone, help is just a phone call or vMessage away. #GodUCares",
+    "showTmdbId": 205715,
+    "episodeRuntime": 49,
+    "totalSeasons": 2,
+    "totalEpisodes": 16
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "_tracksDetected": true
+}

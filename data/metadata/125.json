@@ -1,0 +1,28 @@
+{
+  "fileId": "125",
+  "fileName": "Stuart.Little.1999.720p.BRRip.Hindi.Dual-Audio.Vegamovies.nl.mkv",
+  "type": "movie",
+  "title": "Stuart Little",
+  "originalTitle": "Stuart Little",
+  "overview": "When the Littles adopt Stuart, the mouse, George is initially unwelcoming to his new brother, and the family cat, Snowbell, is even less enthusiastic. Stuart resolves to face these difficulties with as much pluck and courage as he can muster.",
+  "releaseDate": "1999-12-17",
+  "year": 1999,
+  "runtime": 84,
+  "genres": [
+    "Family",
+    "Fantasy",
+    "Comedy",
+    "Adventure"
+  ],
+  "rating": 6.067,
+  "popularity": 4.9617,
+  "poster": "/data/posters/125.jpg",
+  "backdrop": "/data/backdrops/125_bd.jpg",
+  "tmdbId": 10137,
+  "fetchedAt": "2026-02-15T13:50:15.988Z",
+  "needsRetry": false,
+  "tv": null,
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "_tracksDetected": true
+}

@@ -1,0 +1,36 @@
+{
+  "fileId": "462",
+  "fileName": "Taaza_Khabar_S01E05_720p_WEB_DL_AAC_5_1_ESub_x264_Vegamovies_to.mkv",
+  "type": "tv",
+  "title": "Taaza Khabar",
+  "originalTitle": "ताज़ा ख़बर",
+  "overview": "A public toilet caretaker's poverty-stricken life takes a drastic U-turn when he helps an old woman. How long will fate smile upon him?",
+  "releaseDate": "2023-01-05",
+  "year": 2023,
+  "runtime": 30,
+  "genres": [
+    "Drama",
+    "Sci-Fi & Fantasy"
+  ],
+  "rating": 6.7,
+  "popularity": 2.9694,
+  "poster": "/data/posters/show_203832.jpg",
+  "backdrop": "/data/backdrops/show_203832_bd.jpg",
+  "tmdbId": 203832,
+  "fetchedAt": "2026-02-15T15:38:14.600Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Taaza Khabar",
+    "originalShowTitle": "ताज़ा ख़बर",
+    "seasonNumber": 1,
+    "episodeNumber": 5,
+    "episodeTitle": "Baazi",
+    "episodeOverview": "Vasya begins to distrust his team and fears for his mother's life. During a surprise romantic dinner, he proposes to Madhu. But, before she can say yes, her past catches up.",
+    "showTmdbId": 203832,
+    "episodeRuntime": 30,
+    "totalSeasons": 2,
+    "totalEpisodes": 12
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

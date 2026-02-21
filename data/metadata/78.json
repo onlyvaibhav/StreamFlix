@@ -1,0 +1,24 @@
+{
+  "fileId": "78",
+  "fileName": "Pathaan_2023_720p_AMZN_WebRip_Multi_DDP5_1_H_264_Vegamovies_to.mkv",
+  "type": "movie",
+  "title": "Pathaan",
+  "originalTitle": "पठान",
+  "overview": "A soldier caught by enemies and presumed dead comes back to complete his mission, accompanied by old companions and foes.",
+  "releaseDate": "2023-01-25",
+  "year": 2023,
+  "runtime": 146,
+  "genres": [
+    "Action",
+    "Adventure",
+    "Thriller"
+  ],
+  "rating": 6.444,
+  "popularity": 2.9866,
+  "poster": "/data/posters/78.jpg",
+  "backdrop": "/data/backdrops/78_bd.jpg",
+  "tmdbId": 864692,
+  "fetchedAt": "2026-02-15T13:50:44.215Z",
+  "needsRetry": false,
+  "tv": null
+}

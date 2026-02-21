@@ -1,0 +1,37 @@
+{
+  "fileId": "468",
+  "fileName": "Dahaad_S01E05_A_Leave_Of_Absence_720p_AMZN_WEB_DL_Hindi_H_264_Vegamovies.mkv",
+  "type": "tv",
+  "title": "Dahaad",
+  "originalTitle": "दहाड़",
+  "overview": "Women are disappearing without a trace in Rajasthan and nobody seems surprised. But police officer Anjali Bhaati notices a similarity in the cases: long nightly phone calls and a boyfriend that no one in the neighbourhood has ever seen.",
+  "releaseDate": "2023-05-12",
+  "year": 2023,
+  "runtime": 53,
+  "genres": [
+    "Crime",
+    "Mystery",
+    "Drama"
+  ],
+  "rating": 7.2,
+  "popularity": 3.0186,
+  "poster": "/data/posters/show_201050.jpg",
+  "backdrop": "/data/backdrops/show_201050_bd.jpg",
+  "tmdbId": 201050,
+  "fetchedAt": "2026-02-15T15:37:25.343Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Dahaad",
+    "originalShowTitle": "दहाड़",
+    "seasonNumber": 1,
+    "episodeNumber": 5,
+    "episodeTitle": "A Leave Of Absence",
+    "episodeOverview": "Anjali tries to track down Sindoora, while the perpetrator lays the groundwork for his next victim.",
+    "showTmdbId": 201050,
+    "episodeRuntime": 53,
+    "totalSeasons": 1,
+    "totalEpisodes": 8
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

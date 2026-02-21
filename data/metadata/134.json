@@ -1,0 +1,37 @@
+{
+  "fileId": "134",
+  "fileName": "Mirzapur_S01_E07_WebRip_Hindi_720p_x264_AAC_5_1_ESub_Vegamovies.mkv",
+  "type": "tv",
+  "title": "Mirzapur",
+  "originalTitle": "Mirzapur",
+  "overview": "The iron-fisted Akhandanand Tripathi is a millionaire carpet exporter and the mafia don of Mirzapur. His son, Munna, is an unworthy, power-hungry heir who will stop at nothing to inherit his father's legacy. An incident at a wedding procession forces him to cross paths with Ramakant Pandit, an upstanding lawyer, and his sons, Guddu and Bablu. It snowballs into a game of ambition, power and greed that threatens the fabric of this lawless city.",
+  "releaseDate": "2018-11-15",
+  "year": 2018,
+  "runtime": 53,
+  "genres": [
+    "Crime",
+    "Action & Adventure",
+    "Drama"
+  ],
+  "rating": 8.023,
+  "popularity": 8.2673,
+  "poster": "/data/posters/show_84105.jpg",
+  "backdrop": "/data/backdrops/show_84105_bd.jpg",
+  "tmdbId": 84105,
+  "fetchedAt": "2026-02-15T17:17:05.829Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Mirzapur",
+    "originalShowTitle": "Mirzapur",
+    "seasonNumber": 1,
+    "episodeNumber": 7,
+    "episodeTitle": "LIONS OF MIRZAPUR",
+    "episodeOverview": "Guddu and Bablu have come into their own in their private and professional lives as gangsters. But is it time for a rethink?",
+    "showTmdbId": 84105,
+    "episodeRuntime": 53,
+    "totalSeasons": 3,
+    "totalEpisodes": 29
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

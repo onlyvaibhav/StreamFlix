@@ -1,0 +1,25 @@
+{
+  "fileId": "519",
+  "fileName": "Moana.2016.720p.Dual.Audio.Hindi-Engish.Vegamovies.NL.mkv",
+  "type": "movie",
+  "title": "Moana",
+  "originalTitle": "Moana",
+  "overview": "In Ancient Polynesia, when a terrible curse incurred by Maui reaches an impetuous Chieftain's daughter's island, she answers the Ocean's call to seek out the demigod to set things right.",
+  "releaseDate": "2016-10-13",
+  "year": 2016,
+  "runtime": 107,
+  "genres": [
+    "Adventure",
+    "Comedy",
+    "Family",
+    "Animation"
+  ],
+  "rating": 7.564,
+  "popularity": 3.7168,
+  "poster": "/data/posters/519.jpg",
+  "backdrop": "/data/backdrops/519_bd.jpg",
+  "tmdbId": 277834,
+  "fetchedAt": "2026-02-15T13:43:58.649Z",
+  "needsRetry": false,
+  "tv": null
+}

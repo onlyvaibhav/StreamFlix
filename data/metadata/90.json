@@ -1,0 +1,25 @@
+{
+  "fileId": "90",
+  "fileName": "The_Dark_Knight_Rises_2012_720p_Dual_Audio_Hin_Eng_Vegamovies_NL.mkv",
+  "type": "movie",
+  "title": "The Dark Knight Rises",
+  "originalTitle": "The Dark Knight Rises",
+  "overview": "Following the death of District Attorney Harvey Dent, Batman assumes responsibility for Dent's crimes to protect the late attorney's reputation and is subsequently hunted by the Gotham City Police Department. Eight years later, Batman encounters the mysterious Selina Kyle and the villainous Bane, a new terrorist leader who overwhelms Gotham's finest. The Dark Knight resurfaces to protect a city that has branded him an enemy.",
+  "releaseDate": "2012-07-17",
+  "year": 2012,
+  "runtime": 165,
+  "genres": [
+    "Action",
+    "Crime",
+    "Drama",
+    "Thriller"
+  ],
+  "rating": 7.791,
+  "popularity": 20.5779,
+  "poster": "/data/posters/90.jpg",
+  "backdrop": "/data/backdrops/90_bd.jpg",
+  "tmdbId": 49026,
+  "fetchedAt": "2026-02-15T13:50:23.619Z",
+  "needsRetry": false,
+  "tv": null
+}

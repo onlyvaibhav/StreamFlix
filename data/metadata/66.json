@@ -1,0 +1,37 @@
+{
+  "fileId": "66",
+  "fileName": "Jujutsu_Kaisen_S01E16_BluRay_720p_x264_Multi_Audio_ESub_Vegamovies.mkv",
+  "type": "tv",
+  "title": "JUJUTSU KAISEN",
+  "originalTitle": "呪術廻戦",
+  "overview": "Yuji Itadori is a boy with tremendous physical strength, though he lives a completely ordinary high school life. One day, to save a classmate who has been attacked by curses, he eats the finger of Ryomen Sukuna, taking the curse into his own soul. From then on, he shares one body with Ryomen Sukuna. Guided by the most powerful of sorcerers, Satoru Gojo, Itadori is admitted to Tokyo Jujutsu High School, an organization that fights the curses... and thus begins the heroic tale of a boy who became a curse to exorcise a curse, a life from which he could never turn back.",
+  "releaseDate": "2020-10-03",
+  "year": 2020,
+  "runtime": 24,
+  "genres": [
+    "Animation",
+    "Action & Adventure",
+    "Sci-Fi & Fantasy"
+  ],
+  "rating": 8.561,
+  "popularity": 199.7131,
+  "poster": "/data/posters/show_95479.jpg",
+  "backdrop": "/data/backdrops/show_95479_bd.jpg",
+  "tmdbId": 95479,
+  "fetchedAt": "2026-02-15T17:26:56.763Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "JUJUTSU KAISEN",
+    "originalShowTitle": "呪術廻戦",
+    "seasonNumber": 1,
+    "episodeNumber": 16,
+    "episodeTitle": "Kyoto Sister School Exchange Event - Group Battle 2 -",
+    "episodeOverview": "Todo gives Yuji advice on how to better tap into his curse powers. After Kugisaki taunts Nishimiya, Panda fights the remote-controlled Mechamaru.",
+    "showTmdbId": 95479,
+    "episodeRuntime": 24,
+    "totalSeasons": 1,
+    "totalEpisodes": 59
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

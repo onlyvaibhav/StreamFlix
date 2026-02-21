@@ -1,0 +1,37 @@
+{
+  "fileId": "782",
+  "fileName": "Gen.V.S02E04.WEB-DL.HIN.ENG.720p.x264.ESub.Vegamovies.hot.mkv",
+  "type": "tv",
+  "title": "Gen V",
+  "originalTitle": "Gen V",
+  "overview": "At America's only college for superheroes, gifted students put their moral boundaries to the test, competing for the university's top ranking, and a chance to join The Seven, Vought International's elite superhero team. When the school's dark secrets come to light, they must decide what kind of heroes they want to become.",
+  "releaseDate": "2023-09-28",
+  "year": 2023,
+  "runtime": 49,
+  "genres": [
+    "Action & Adventure",
+    "Drama",
+    "Sci-Fi & Fantasy"
+  ],
+  "rating": 7.693,
+  "popularity": 25.5081,
+  "poster": "/data/posters/show_205715.jpg",
+  "backdrop": "/data/backdrops/show_205715_bd.jpg",
+  "tmdbId": 205715,
+  "fetchedAt": "2026-02-15T14:38:49.921Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Gen V",
+    "originalShowTitle": "Gen V",
+    "seasonNumber": 2,
+    "episodeNumber": 4,
+    "episodeTitle": "Bags",
+    "episodeOverview": "Congratulations! You secured a VIP ticket to the big fight! Attendees assume all liabilities. You may appear on camera or come in contact with bodily fluids. As a reminder, The Vought International Hotel and Spa forbids outside beverages and gender neutral bathrooms. Enjoy your VIP Experience!",
+    "showTmdbId": 205715,
+    "episodeRuntime": 49,
+    "totalSeasons": 2,
+    "totalEpisodes": 16
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

@@ -1,0 +1,67 @@
+{
+  "fileId": "436",
+  "fileName": "Bandish_Bandits_S01E01_Hindi_720p_HEVC_WEB_DL_x265_ESub_Vegamovies.mkv",
+  "type": "tv",
+  "title": "Bandish Bandits",
+  "originalTitle": "बंदिश बैंडिट्स",
+  "overview": "A classical singer Radhe falls in love with pop singer Tamanna and embarks on a path that forces him to compromise his classical roots. With time, both the singers try to get out of their comfort zone while  trying to protect their stardom. This series tests their resolve for their passion and love.",
+  "releaseDate": "2020-08-02",
+  "year": 2020,
+  "runtime": 48,
+  "genres": [
+    "Family",
+    "Drama"
+  ],
+  "rating": 7.591,
+  "popularity": 3.4603,
+  "poster": "/data/posters/show_106872.jpg",
+  "backdrop": "/data/backdrops/show_106872_bd.jpg",
+  "tmdbId": 106872,
+  "fetchedAt": "2026-02-15T15:41:51.175Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Bandish Bandits",
+    "originalShowTitle": "बंदिश बैंडिट्स",
+    "seasonNumber": 1,
+    "episodeNumber": 1,
+    "episodeTitle": "Blue Bandit",
+    "episodeOverview": "Radhe, a music prodigy in the classical tradition, meets Tamanna, a viral YouTube pop sensation, who comes from a world diametrically opposed to his.",
+    "showTmdbId": 106872,
+    "episodeRuntime": 48,
+    "totalSeasons": 2,
+    "totalEpisodes": 18
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "container": "matroska,webm",
+  "duration": 2825.472,
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "Hindi",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": true
+    }
+  ],
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 2,
+      "codec": "ass",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "English",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    }
+  ]
+}

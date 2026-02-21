@@ -1,0 +1,24 @@
+{
+  "fileId": "371",
+  "fileName": "Mission_Impossible_1_1996_1080p_Dual_Audio_Hin_Eng_Vegamovies_NL.mkv",
+  "type": "movie",
+  "title": "Mission: Impossible",
+  "originalTitle": "Mission: Impossible",
+  "overview": "When Ethan Hunt, the leader of a crack espionage team whose perilous operation has gone awry with no explanation, discovers that a mole has penetrated the CIA, he's surprised to learn that he's the prime suspect. To clear his name, Hunt now must ferret out the real double agent and, in the process, even the score.",
+  "releaseDate": "1996-05-22",
+  "year": 1996,
+  "runtime": 111,
+  "genres": [
+    "Adventure",
+    "Action",
+    "Thriller"
+  ],
+  "rating": 7.018,
+  "popularity": 10.6724,
+  "poster": "/data/posters/371.jpg",
+  "backdrop": "/data/backdrops/371_bd.jpg",
+  "tmdbId": 954,
+  "fetchedAt": "2026-02-15T21:21:19.998Z",
+  "needsRetry": false,
+  "tv": null
+}

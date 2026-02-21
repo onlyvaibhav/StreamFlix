@@ -1,0 +1,78 @@
+{
+  "showTmdbId": 236449,
+  "showTitle": "Bank Under Siege",
+  "originalShowTitle": "Asalto al Banco Central",
+  "overview": "Spain, 1981: When armed men hold up a bank and take hundreds hostage, a reporter races against the authorities to uncover the true motive for the heist.",
+  "genres": [
+    "Crime",
+    "Drama",
+    "Action & Adventure"
+  ],
+  "rating": 6.699,
+  "popularity": 3.544,
+  "poster": "/data/posters/show_236449.jpg",
+  "backdrop": "/data/backdrops/show_236449_bd.jpg",
+  "totalSeasons": 1,
+  "totalEpisodes": 5,
+  "year": 2024,
+  "releaseDate": "2024-11-08",
+  "seasons": {
+    "1": [
+      {
+        "fileId": "523",
+        "fileName": "Bank_Under_Siege_S01E01_720p_WEB_DL_HIN_ENG_x264_ESub_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 1,
+        "episodeTitle": "Everybody Down!",
+        "episodeOverview": "Three months after a failed coup d'état, armed men storm Barcelona's Central Bank, taking hundreds hostage. A young journalist is the first on the scene.",
+        "runtime": 41,
+        "tracks": null
+      },
+      {
+        "fileId": "524",
+        "fileName": "Bank_Under_Siege_S01E02_720p_WEB_DL_HIN_ENG_x264_ESub_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 2,
+        "episodeTitle": "Off-the-record",
+        "episodeOverview": "Maider defies Isabel's orders and butts heads with Berni. Number 1's plan hits a wall as conflicting theories about the attackers' identities emerge.",
+        "runtime": 37,
+        "tracks": null
+      },
+      {
+        "fileId": "525",
+        "fileName": "Bank_Under_Siege_S01E03_720p_WEB_DL_HIN_ENG_x264_ESub_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 3,
+        "episodeTitle": "Ticktock, Ticktock",
+        "episodeOverview": "Isabel takes a risk and publishes Maider's hypothesis. Following a new lead, the police make headway and the Civil Guard presses for armed intervention.",
+        "runtime": 41,
+        "tracks": null
+      },
+      {
+        "fileId": "526",
+        "fileName": "Bank_Under_Siege_S01E04_720p_WEB_DL_HIN_ENG_x264_ESub_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 4,
+        "episodeTitle": "Number 1",
+        "episodeOverview": "As tensions reach boiling point inside the bank, Number 1's past comes to the fore. After raiding a suspect's home, Paco gives Maider a valuable tip.",
+        "runtime": 43,
+        "tracks": null
+      },
+      {
+        "fileId": "527",
+        "fileName": "Bank_Under_Siege_S01E05_720p_WEB_DL_HIN_ENG_x264_ESub_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 5,
+        "episodeTitle": "Moment of Truth",
+        "episodeOverview": "The siege reaches a tense climax. As the government releases an official version of events, Maider fights to uncover the full truth, no matter the cost.",
+        "runtime": 54,
+        "tracks": null
+      }
+    ]
+  },
+  "episodes": [],
+  "availableSeasons": [
+    1
+  ],
+  "availableEpisodeCount": 5
+}

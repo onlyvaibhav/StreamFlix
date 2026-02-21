@@ -1,0 +1,36 @@
+{
+  "fileId": "702",
+  "fileName": "The_Bads_of_Bollywood_S01E03_720p_WEB_DL_HIN_x264_ESub_Vegamovies.mkv",
+  "type": "tv",
+  "title": "The Ba***ds of Bollywood",
+  "originalTitle": "The Ba***ds of Bollywood",
+  "overview": "In this high-stakes drama, an ambitious outsider and his friends navigate the chaotic, larger-than-life, yet uncertain world of Bollywood.",
+  "releaseDate": "2025-09-18",
+  "year": 2025,
+  "runtime": 43,
+  "genres": [
+    "Comedy",
+    "Action & Adventure"
+  ],
+  "rating": 6.833,
+  "popularity": 4.48,
+  "poster": "/data/posters/show_247043.jpg",
+  "backdrop": "/data/backdrops/show_247043_bd.jpg",
+  "tmdbId": 247043,
+  "fetchedAt": "2026-02-15T14:54:24.989Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "The Ba***ds of Bollywood",
+    "originalShowTitle": "The Ba***ds of Bollywood",
+    "seasonNumber": 1,
+    "episodeNumber": 3,
+    "episodeTitle": "Barbaad Mohabbat",
+    "episodeOverview": "Parvaiz fanboys over Aasmaan and Karishma's new intimacy coach. A video of the leads goes viral for the wrong reasons. Freddy seeks Ajay's help.",
+    "showTmdbId": 247043,
+    "episodeRuntime": 43,
+    "totalSeasons": 1,
+    "totalEpisodes": 7
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

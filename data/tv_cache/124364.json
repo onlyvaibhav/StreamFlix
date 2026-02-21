@@ -1,0 +1,324 @@
+{
+  "showTmdbId": 124364,
+  "showTitle": "FROM",
+  "originalShowTitle": "FROM",
+  "overview": "Unravel the mystery of a nightmarish town in middle America that traps all those who enter. As the unwilling residents fight to keep a sense of normalcy and search for a way out, they must also survive the threats of the surrounding forest – including the terrifying creatures that come out when the sun goes down.",
+  "genres": [
+    "Mystery",
+    "Drama",
+    "Sci-Fi & Fantasy"
+  ],
+  "rating": 8.154,
+  "popularity": 95.6652,
+  "poster": "/data/posters/show_124364.jpg",
+  "backdrop": "/data/backdrops/show_124364_bd.jpg",
+  "totalSeasons": 4,
+  "totalEpisodes": 40,
+  "year": 2022,
+  "releaseDate": "2022-02-20",
+  "seasons": {
+    "1": [
+      {
+        "fileId": "793",
+        "fileName": "From_S01E01_Long_Days_Journey_Into_Night_720p_x264_Hindi_English.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 1,
+        "episodeTitle": "Long Day's Journey Into Night",
+        "episodeOverview": "The Matthews’ family road trip takes a horrifying turn when they are detoured to a small pastoral town from which they cannot leave. When their family RV crashes, Sheriff Boyd Stevens and other residents rush to save them before the sun goes down.",
+        "runtime": 53,
+        "tracks": null
+      },
+      {
+        "fileId": "794",
+        "fileName": "From_S01E02_The_Way_Things_Are_Now_720p_x264_Hindi_English_Esubs.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 2,
+        "episodeTitle": "The Way Things Are Now",
+        "episodeOverview": "At Colony House, Tabitha and Julie grapple with their new nightmarish reality. Out in the forest, Jim, Boyd and Kristi struggle to treat Ethan’s injuries. Tragedy strikes from an unexpected source as a new threat arises among the residents of the town.",
+        "runtime": 50,
+        "tracks": null
+      },
+      {
+        "fileId": "795",
+        "fileName": "From_S01E03_Choosing_Day_720p_x264_Hindi_English_Esubs_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 3,
+        "episodeTitle": "Choosing Day",
+        "episodeOverview": "The Matthews family must choose which of the two settlements they will join. Meanwhile, Jade comes to terms with his situation and Boyd is faced with an impossible decision that strikes at the very heart of life in the town.",
+        "runtime": 55,
+        "tracks": null
+      },
+      {
+        "fileId": "796",
+        "fileName": "From_S01E04_A_Rock_And_A_Farway_720p_x264_Hindi_English_Esubs_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 4,
+        "episodeTitle": "A Rock and a Farway",
+        "episodeOverview": "Julie finds comfort in her new friends. Jim and Tabitha deal with their struggling marriage. Ethan ventures off into the forest with Victor. Father Khatri urges Boyd to embrace his role as leader. Sara receives another horrifying directive.",
+        "runtime": 49,
+        "tracks": null
+      },
+      {
+        "fileId": "797",
+        "fileName": "From_S01E05_Silhouettes_720p_x264_Hindi_English_Esubs_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 5,
+        "episodeTitle": "Silhouettes",
+        "episodeOverview": "Jim, Tabitha and Ethan begin asking questions about where they are in the hopes it may lead them home. Ellis and Fatima show Julie the lighter side of life in town. Jade struggles to make sense of their situation. Boyd seeks guidance.",
+        "runtime": 49,
+        "tracks": null
+      },
+      {
+        "fileId": "798",
+        "fileName": "From_S01E06_Book_74_720p_x264_Hindi_English_Esubs_Vegamovies_is.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 6,
+        "episodeTitle": "Book 74",
+        "episodeOverview": "Boyd’s plan to head off into the forest provokes an unexpected response from Kenny. Jade enlists Jim’s help with an experiment. Tabitha makes a chilling discovery that sends her down a unique path searching for answers.",
+        "runtime": 49,
+        "tracks": null
+      },
+      {
+        "fileId": "799",
+        "fileName": "From_S01E07_All_Good_Things_720p_x264_Hindi_English_Esubs_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 7,
+        "episodeTitle": "All Good Things",
+        "episodeOverview": "Father Khatri tells Boyd why he believes Sara may be useful. Jim and Tabitha find comfort in each other. Colony House celebrates the one-year anniversary of Fatima’s arrival with a party that goes terribly wrong.",
+        "runtime": 51,
+        "tracks": null
+      },
+      {
+        "fileId": "800",
+        "fileName": "From_S01E08_Broken_Windows_Open_Doors_720p_x264_Hindi_English_Esubs.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 8,
+        "episodeTitle": "Broken Windows, Open Doors",
+        "episodeOverview": "In the wake of another death, Boyd questions his decision to leave. Kenny steps up and embraces his new role. Jim rallies the town around his idea to build a radio tower. Fatima urges Ellis to make amends with his father before it’s too late.",
+        "runtime": 56,
+        "tracks": null
+      },
+      {
+        "fileId": "801",
+        "fileName": "From_S01E09_Into_The_Woods_720p_x264_Hindi_English_Esubs_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 9,
+        "episodeTitle": "Into the Woods",
+        "episodeOverview": "Boyd and Sara journey deeper into the forest than Boyd has ever gone, encountering new and terrifying mysteries. Jim’s confidence in the radio tower begins to wane. An unexpected tragedy causes Donna to unravel. Kenny and Kristi share a moment.",
+        "runtime": 46,
+        "tracks": null
+      },
+      {
+        "fileId": "802",
+        "fileName": "From_S01E10_Oh_The_Places_Well_Go_720p_x264_Hindi_English_Esubs.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 10,
+        "episodeTitle": "Oh, the Places We'll Go",
+        "episodeOverview": "Boyd draws strength from an unlikely source. Jim’s radio tower yields consequences which rock him to his very core. The hole that Tabitha has been digging leads her somewhere, and to someone, she could never have expected.",
+        "runtime": 48,
+        "tracks": null
+      }
+    ],
+    "2": [
+      {
+        "fileId": "803",
+        "fileName": "From_S02_E01_WebRip_720p_Hindi_English_AAC_5_1_x264_ESub_Vegamovies.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 1,
+        "episodeTitle": "Strangers in a Strange Land",
+        "episodeOverview": "In Sheriff Boyd’s absence, Donna and Kenny struggle to manage the chaos as a busload of unwitting newcomers arrives in town. Victor and Tabitha go on a chilling journey through the nightmarish labyrinth of tunnels beneath the town.",
+        "runtime": 48,
+        "tracks": null
+      },
+      {
+        "fileId": "804",
+        "fileName": "From_S02_E02_WebRip_720p_Hindi_English_AAC_5_1_x264_ESub_Vegamovies.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 2,
+        "episodeTitle": "The Kindness of Strangers",
+        "episodeOverview": "A tense night in the diner as the residents and newcomers wait for sunrise. Fear permeates the wreckage beneath the Matthews house, as Jim and Tom struggle to keep a panicked bus passenger quiet.",
+        "runtime": 46,
+        "tracks": null
+      },
+      {
+        "fileId": "805",
+        "fileName": "From_S02_E03_WebRip_720p_Hindi_English_AAC_5_1_x264_ESub_Vegamovies.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 3,
+        "episodeTitle": "Tether",
+        "episodeOverview": "Kenny and Ellis make a grisly discovery out in the forest. Boyd struggles with the reality of what’s happening to him.",
+        "runtime": 51,
+        "tracks": null
+      },
+      {
+        "fileId": "806",
+        "fileName": "From_S02_E04_WebRip_720p_Hindi_English_AAC_5_1_x264_ESub_Vegamovies.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 4,
+        "episodeTitle": "This Way Gone",
+        "episodeOverview": "As Boyd’s condition grows more alarming, Sara’s return to town puts him in a difficult position. Jim shares a troubling new theory about the town.",
+        "runtime": 48,
+        "tracks": null
+      },
+      {
+        "fileId": "807",
+        "fileName": "From_S02_E05_WebRip_720p_Hindi_English_AAC_5_1_x264_ESub_Vegamovies.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 5,
+        "episodeTitle": "Lullaby",
+        "episodeOverview": "Sara must face the music, as word of her return spreads through town. Victor and Jade strike an unlikely bargain.",
+        "runtime": 54,
+        "tracks": null
+      },
+      {
+        "fileId": "808",
+        "fileName": "From_S02_E06_WebRip_720p_Hindi_English_AAC_5_1_x264_ESub_Vegamovies.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 6,
+        "episodeTitle": "Pas de Deux",
+        "episodeOverview": "Tensions run high at Colony House when word of the coming food shortage leaks out. A night at the clinic takes a terrifying turn.",
+        "runtime": 49,
+        "tracks": null
+      },
+      {
+        "fileId": "809",
+        "fileName": "From_S02_E07_WebRip_720p_Hindi_English_AAC_5_1_x264_ESub_Vegamovies.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 7,
+        "episodeTitle": "Belly of the Beast",
+        "episodeOverview": "Boyd and Kristi seek to capitalize on the apparent death of the Nightmare Creature. Jim finds an unlikely ally in the volatile Randall.",
+        "runtime": 50,
+        "tracks": null
+      },
+      {
+        "fileId": "810",
+        "fileName": "From_S02_E08_WebRip_720p_Hindi_English_AAC_5_1_x264_ESub_Vegamovies.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 8,
+        "episodeTitle": "Forest for the Trees",
+        "episodeOverview": "In their pursuit of the truth about the town, Jim and Randall hatch a dangerous plan. Meanwhile, a new form of terror is brewing.",
+        "runtime": 46,
+        "tracks": null
+      },
+      {
+        "fileId": "811",
+        "fileName": "From_S02_E09_WebRip_720p_Hindi_English_AAC_5_1_x264_ESub_Vegamovies.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 9,
+        "episodeTitle": "Ball of Magic Fire",
+        "episodeOverview": "Panic spreads through town as the residents face a chilling new threat to their survival. Jim realizes the magnitude of the mistake he made by enlisting Randall in his cause.",
+        "runtime": 47,
+        "tracks": null
+      },
+      {
+        "fileId": "812",
+        "fileName": "From_S02_E10_WebRip_720p_Hindi_English_AAC_5_1_x264_ESub_Vegamovies.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 10,
+        "episodeTitle": "Once Upon a Time...",
+        "episodeOverview": "Boyd fears he may have finally run out of answers, as the residents of town prepare for the end. Tabitha clings to the belief that the children could be the key to their salvation.",
+        "runtime": 60,
+        "tracks": null
+      }
+    ],
+    "3": [
+      {
+        "fileId": "813",
+        "fileName": "From.S03E01.720p.WEB-DL.HIN-ENG.x264.ESub-Vegamovies.is.mkv",
+        "seasonNumber": 3,
+        "episodeNumber": 1,
+        "episodeTitle": "Shatter",
+        "episodeOverview": "Boyd feels the town slipping away from him as the weather grows colder and the residents more desperate.",
+        "runtime": 49,
+        "tracks": null
+      },
+      {
+        "fileId": "814",
+        "fileName": "From.S03E02.720p.WEB-DL.HIN-ENG.x264.ESub-Vegamovies.is.mkv",
+        "seasonNumber": 3,
+        "episodeNumber": 2,
+        "episodeTitle": "When We Go",
+        "episodeOverview": "Boyd struggles to find a path forward as the town bids farewell to one of their own; Fatima's health takes a turn for the worse; Tabitha finds help from an unlikely ally.",
+        "runtime": 57,
+        "tracks": null
+      },
+      {
+        "fileId": "815",
+        "fileName": "From.S03E03.720p.WEB-DL.HIN-ENG.x264.ESub-Vegamovies.is.mkv",
+        "seasonNumber": 3,
+        "episodeNumber": 3,
+        "episodeTitle": "Mouse Trap",
+        "episodeOverview": "Kenny leads a group into the forest in search of food; Donna and Ellis try to talk Boyd out of a dangerous plan; Tabitha makes a mind-bending discovery; Fatima questions the welfare of her unborn baby.",
+        "runtime": 46,
+        "tracks": null
+      },
+      {
+        "fileId": "816",
+        "fileName": "From.S03E04.720p.WEB-DL.HIN-ENG.x264.ESub-Vegamovies.is.mkv",
+        "seasonNumber": 3,
+        "episodeNumber": 4,
+        "episodeTitle": "There and Back Again",
+        "episodeOverview": "Boyd is forced to make a tough decision when newcomers arrive in town at nightfall; Victor unearths memories from the past in the hopes of finding answers.",
+        "runtime": 44,
+        "tracks": null
+      },
+      {
+        "fileId": "817",
+        "fileName": "From.S03E05.720p.WEB-DL.HIN-ENG.x264.ESub-Vegamovies.is.mkv",
+        "seasonNumber": 3,
+        "episodeNumber": 5,
+        "episodeTitle": "The Light of Day",
+        "episodeOverview": "Victor must face a painful reminder of his past; Julie looks for ways to cope with her trauma; Boyd struggles to keep the town safe as the residents begin to question his judgement; Tabitha tries to adjust to her new surroundings.",
+        "runtime": 51,
+        "tracks": null
+      },
+      {
+        "fileId": "818",
+        "fileName": "FROM_S03E06_720p_WEB_DL_Hindi_5_1_English_5_1_ESub_x264_Vegamovies.mkv",
+        "seasonNumber": 3,
+        "episodeNumber": 6,
+        "episodeTitle": "Scar Tissue",
+        "episodeOverview": "Fatima and Ellis make a big decision about her pregnancy; Boyd fears for the future of his family; Tensions rise in the Matthews house; Randall opens up to Marielle about his fears.",
+        "runtime": 53,
+        "tracks": null
+      },
+      {
+        "fileId": "819",
+        "fileName": "From.S03E07.720p.WEB-DL.HIN-ENG.x264.ESub-Vegamovies.is.mkv",
+        "seasonNumber": 3,
+        "episodeNumber": 7,
+        "episodeTitle": "These Fragile Lives",
+        "episodeOverview": "The edges begin to fray as concerns about Fatima's pregnancy deepen; Jade follows a clue trail into the forest; Julie and Randall seek a bit of normalcy.",
+        "runtime": 47,
+        "tracks": null
+      },
+      {
+        "fileId": "820",
+        "fileName": "From.S03E08.720p.WEB-DL.HIN-ENG.x264.ESub-Vegamovies.is.mkv",
+        "seasonNumber": 3,
+        "episodeNumber": 8,
+        "episodeTitle": "Thresholds",
+        "episodeOverview": "Accusations start flying and truths come to light in the aftermath of a tragedy; Victor struggles to recover long-buried memories about the town's past; Julie and Ethan search for answers about the mysterious ruins in the woods.",
+        "runtime": 48,
+        "tracks": null
+      },
+      {
+        "fileId": "821",
+        "fileName": "FROM_S03E09_720p_WEB_DL_Hindi_5_1_English_5_1_ESub_x264_Vegamovies.mkv",
+        "seasonNumber": 3,
+        "episodeNumber": 9,
+        "episodeTitle": "Revelations: Chapter One",
+        "episodeOverview": "Tensions are at an all time high as the residents of town learn that one of their own has gone missing.",
+        "runtime": 55,
+        "tracks": null
+      }
+    ]
+  },
+  "episodes": [],
+  "availableSeasons": [
+    1,
+    2,
+    3
+  ],
+  "availableEpisodeCount": 29
+}
