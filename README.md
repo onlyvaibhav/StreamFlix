@@ -2,9 +2,9 @@
 
 <br/>
 <div align="center">
-<a href="https://github.com/vaibhav-btc/Telegram_Streaming">
+<a href="https://github.com/onlyvaibhav/StreamFlix.git">
 <!-- You can add a logo image here in the future -->
-<img src="https://img.icons8.com/color/144/null/telegram-app--v1.png" alt="Logo" width="100" height="100">
+<img src="logo/Logo.png" alt="Logo" width="100" height="100">
 </a>
 
 <h3 align="center">StreamFlix</h3>
