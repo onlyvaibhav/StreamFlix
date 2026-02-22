@@ -1614,8 +1614,8 @@ let idleLoopRunning = false;
 let lastIdleCheck = null;
 
 let lastTelegramSync = 0;
-// FIXED: Increased interval to 2 hours
-const TELEGRAM_SYNC_INTERVAL = 2 * 60 * 60 * 1000;
+// FIXED: Increased interval to 7 mins Telegram Sync 
+const TELEGRAM_SYNC_INTERVAL = 7 * 60 * 1000;
 
 function setLastSyncTime(time) {
     lastTelegramSync = time;

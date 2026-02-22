@@ -33,10 +33,10 @@ function generateDeviceInfo() {
     ];
 
     const randomDevice = devices[Math.floor(Math.random() * devices.length)];
-
+    console.log(randomDevice);
     return {
-        deviceModel: `${randomDevice.model} [${uniqueId}]`,
-        systemVersion: randomDevice.system,
+        deviceModel: `${"Linux Desktop"} [${uniqueId}]`,
+        systemVersion: 'Ubuntu 22.04',
         appVersion: `${Math.floor(Math.random() * 5) + 8}.${Math.floor(Math.random() * 10)}.${Math.floor(Math.random() * 10)}`,
         langCode: 'en',
         systemLangCode: 'en-US',
