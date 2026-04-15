@@ -1,0 +1,23 @@
+{
+  "fileId": "893",
+  "fileName": "Fight.Club.1999.720p.Hindi-English.Vegamovies.is.mkv",
+  "type": "movie",
+  "title": "Fight Club",
+  "originalTitle": "Fight Club",
+  "overview": "A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy. Their concept catches on, with underground \"fight clubs\" forming in every town, until an eccentric gets in the way and ignites an out-of-control spiral toward oblivion.",
+  "releaseDate": "1999-10-15",
+  "year": 1999,
+  "runtime": 139,
+  "genres": [
+    "Drama",
+    "Thriller"
+  ],
+  "rating": 8.438,
+  "popularity": 25.1764,
+  "poster": "/data/posters/893.jpg",
+  "backdrop": "/data/backdrops/893_bd.jpg",
+  "tmdbId": 550,
+  "fetchedAt": "2026-04-15T14:54:52.976Z",
+  "needsRetry": false,
+  "tv": null
+}

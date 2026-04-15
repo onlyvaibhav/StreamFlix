@@ -1,0 +1,37 @@
+{
+  "showTmdbId": 292625,
+  "showTitle": "Single Papa",
+  "originalShowTitle": "सिंगल पापा",
+  "overview": "When Gaurav finds a baby in the back of his car, he must defy his eccentric family, the adoption agency and societal norms to become a single papa.",
+  "genres": [
+    "Comedy",
+    "Drama"
+  ],
+  "rating": 7.6,
+  "popularity": 1.6168,
+  "poster": "/data/posters/show_292625.jpg",
+  "backdrop": "/data/backdrops/show_292625_bd.jpg",
+  "totalSeasons": 2,
+  "totalEpisodes": 6,
+  "year": 2025,
+  "releaseDate": "2025-12-12",
+  "seasons": {
+    "1": [
+      {
+        "fileId": "873",
+        "fileName": "Single.Papa.2025-S01.Hindi.Netflix.720p.Vegamovies.Hot.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 1,
+        "episodeTitle": "Dekho, mujhe kya mila?",
+        "episodeOverview": "While newly divorced Gaurav Gehlot is out enjoying single life, he finds a baby in the back of his car — and decides to do whatever it takes to keep him.",
+        "runtime": 43,
+        "tracks": null
+      }
+    ]
+  },
+  "episodes": [],
+  "availableSeasons": [
+    1
+  ],
+  "availableEpisodeCount": 1
+}

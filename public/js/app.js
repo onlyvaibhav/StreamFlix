@@ -74,13 +74,13 @@ async function api(endpoint) {
 // IMAGE HANDLING — Local only, never external
 // ============================================================
 function posterSrc(posterPath) {
-  if (!posterPath) return null;
+  if (!posterPath || posterPath === 'N/A') return null;
   if (posterPath.startsWith('http')) return null;
   return posterPath;
 }
 
 function backdropSrc(backdropPath) {
-  if (!backdropPath) return null;
+  if (!backdropPath || backdropPath === 'N/A') return null;
   if (backdropPath.startsWith('http')) return null;
   return backdropPath;
 }

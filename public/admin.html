@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StreamFlix — Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+
+<body>
+
+  <!-- LOGIN SCREEN -->
+  <div id="login-screen" class="login-wrapper">
+    <div class="login-card">
+      <div class="login-logo">
+        <h1>STREAMFLIX</h1>
+      </div>
+      <p class="login-subtitle">Admin Dashboard</p>
+
+      <div id="login-error" class="login-error"></div>
+
+      <form id="login-form" autocomplete="off">
+        <div class="form-group">
+          <label for="login-username">Username</label>
+          <input type="text" id="login-username" class="form-input" placeholder="Enter username" required autofocus>
+        </div>
+        <div class="form-group">
+          <label for="login-password">Password</label>
+          <input type="password" id="login-password" class="form-input" placeholder="Enter password" required>
+        </div>
+        <button type="submit" id="login-btn" class="login-btn">Sign In</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div id="dashboard" class="dashboard">
+    <!-- Top Bar -->
+    <div class="admin-topbar">
+      <div class="topbar-left">
+        <span class="topbar-logo">STREAMFLIX</span>
+        <span class="topbar-badge">Admin</span>
+      </div>
+      <div class="topbar-right">
+        <a href="/" class="btn-back">← Back to App</a>
+        <button class="btn-logout" onclick="logout()">Logout</button>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="dashboard-content">
+      <div class="dashboard-header">
+        <h2>Dashboard</h2>
+        <p>Server overview and management</p>
+        <div id="last-refresh" class="last-refresh"></div>
+      </div>
+
+      <!-- Stats Grid -->
+      <div id="stats-grid" class="stats-grid">
+        <div class="stat-card"><div class="skeleton" style="width:60px;height:30px;margin-top:20px;">&nbsp;</div></div>
+        <div class="stat-card"><div class="skeleton" style="width:60px;height:30px;margin-top:20px;">&nbsp;</div></div>
+        <div class="stat-card"><div class="skeleton" style="width:60px;height:30px;margin-top:20px;">&nbsp;</div></div>
+        <div class="stat-card"><div class="skeleton" style="width:60px;height:30px;margin-top:20px;">&nbsp;</div></div>
+        <div class="stat-card"><div class="skeleton" style="width:60px;height:30px;margin-top:20px;">&nbsp;</div></div>
+        <div class="stat-card"><div class="skeleton" style="width:60px;height:30px;margin-top:20px;">&nbsp;</div></div>
+      </div>
+
+      <!-- Worker + Sync Status (side by side) -->
+      <div class="panels-row">
+        <div class="panel">
+          <div class="panel-header">
+            <span class="panel-title">
+              <span class="status-dot running"></span> Worker Status
+            </span>
+            <button id="btn-worker-toggle" class="action-btn" style="padding:6px 12px; font-size:12px;">
+              ⏸ Pause Worker
+            </button>
+          </div>
+          <div class="panel-body" id="worker-panel-body">
+            <div class="skeleton" style="height:80px;">&nbsp;</div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">
+            <span class="panel-title">🔄 Sync Status</span>
+          </div>
+          <div class="panel-body" id="sync-panel-body">
+            <div class="skeleton" style="height:80px;">&nbsp;</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-title">⚡ Quick Actions</span>
+        </div>
+        <div class="panel-body">
+          <div class="actions-grid">
+            <button class="action-btn" onclick="handleSyncTelegram()">
+              <span class="icon">📡</span> Sync Telegram
+            </button>
+            <button class="action-btn" onclick="handleInvalidateCache()">
+              <span class="icon">🗑️</span> Invalidate Cache
+            </button>
+            <button class="action-btn" onclick="handleRebuildTVCaches()">
+              <span class="icon">📺</span> Rebuild TV Caches
+            </button>
+            <button class="action-btn" onclick="handleFixBroken()">
+              <span class="icon">🔧</span> Fix Broken Metadata
+            </button>
+            <button class="action-btn" onclick="handleRetryFailed()">
+              <span class="icon">🔄</span> Retry Failed Lookups
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Metadata Health -->
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-title">🏥 Metadata Health</span>
+        </div>
+        <div class="panel-body" id="health-panel-body">
+          <div class="skeleton" style="height:100px;">&nbsp;</div>
+        </div>
+      </div>
+
+      <!-- Issues -->
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-title">⚠️ Metadata Issues</span>
+        </div>
+        <div class="panel-body" id="issues-panel-body">
+          <div class="skeleton" style="height:120px;">&nbsp;</div>
+        </div>
+      </div>
+
+      <!-- Metadata Manager -->
+      <div class="panel mt-4">
+        <div class="panel-header" style="flex-direction: column; align-items: stretch; gap: 12px;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span class="panel-title">📚 Metadata Manager</span>
+            <button class="action-btn" onclick="loadMetadataManager()" style="padding:4px 8px; font-size:11px;">
+              <span class="icon">🔄</span> Reload List
+            </button>
+          </div>
+          <div class="metadata-search-bar">
+            <input type="text" id="metadata-search" class="form-input" placeholder="Search by title or file ID..." oninput="filterMetadataTable()">
+            <select id="metadata-type-filter" class="form-input" style="width: 150px;" onchange="filterMetadataTable()">
+              <option value="all">All Types</option>
+              <option value="movie">Movies</option>
+              <option value="tv">TV Shows</option>
+            </select>
+          </div>
+        </div>
+        <div class="panel-body" style="padding: 0;">
+          <div id="metadata-manager-body">
+            <div class="skeleton" style="height:200px; margin: 20px;">&nbsp;</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- EDIT MODAL -->
+  <div id="edit-modal" class="modal-backdrop hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">Edit Metadata</h3>
+        <button class="modal-close" onclick="closeEditModal()">×</button>
+      </div>
+      <div class="modal-body">
+        <form id="edit-metadata-form">
+          <input type="hidden" id="edit-file-id">
+          
+          <div class="form-group">
+            <label for="edit-title">Title / Show Name</label>
+            <input type="text" id="edit-title" class="form-input" required>
+          </div>
+          
+          <div class="panels-row" style="gap: 12px;">
+            <div class="form-group">
+              <label for="edit-year">Year</label>
+              <input type="number" id="edit-year" class="form-input" placeholder="e.g. 2024">
+            </div>
+            <div class="form-group">
+              <label for="edit-type">Media Type</label>
+              <select id="edit-type" class="form-input" onchange="toggleTvFields()">
+                <option value="movie">Movie</option>
+                <option value="tv">TV Show</option>
+              </select>
+            </div>
+          </div>
+          
+          <div id="tv-fields" class="panels-row hidden" style="gap: 12px;">
+            <div class="form-group">
+              <label for="edit-season">Season</label>
+              <input type="number" id="edit-season" class="form-input" placeholder="e.g. 1">
+            </div>
+            <div class="form-group">
+              <label for="edit-episode">Episode</label>
+              <input type="number" id="edit-episode" class="form-input" placeholder="e.g. 1">
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="edit-tmdb-id">TMDB ID</label>
+            <input type="number" id="edit-tmdb-id" class="form-input" placeholder="Optional">
+          </div>
+          
+          <div class="form-group">
+            <label for="edit-overview">Overview</label>
+            <textarea id="edit-overview" class="form-input" rows="3" style="resize: vertical;"></textarea>
+          </div>
+          
+          <button type="submit" id="save-edit-btn" class="login-btn">Save Changes</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/admin.js"></script>
+</body>
+
+</html>

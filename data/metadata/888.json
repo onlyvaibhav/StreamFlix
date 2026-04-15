@@ -1,0 +1,26 @@
+{
+  "fileId": "888",
+  "fileName": "The_Road_to_El_Dorado_2000_720p_WEB_DL_Dual_Audio_Hindi_English.mkv",
+  "type": "movie",
+  "title": "The Road to El Dorado",
+  "originalTitle": "The Road to El Dorado",
+  "overview": "Stowing away after a failed con, a pair of swindlers end up on El Dorado, the fabled \"city of gold\", where they quickly get in over their heads when they are mistaken as gods by the inhabitants.",
+  "releaseDate": "2000-03-31",
+  "year": 2000,
+  "runtime": 89,
+  "genres": [
+    "Family",
+    "Adventure",
+    "Animation",
+    "Comedy",
+    "Fantasy"
+  ],
+  "rating": 7.257,
+  "popularity": 5.1842,
+  "poster": "/data/posters/888.jpg",
+  "backdrop": "/data/backdrops/888_bd.jpg",
+  "tmdbId": 10501,
+  "fetchedAt": "2026-04-15T14:54:33.707Z",
+  "needsRetry": false,
+  "tv": null
+}

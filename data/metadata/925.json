@@ -1,0 +1,34 @@
+{
+  "fileId": "925",
+  "fileName": "The.Boys.S04E08.720p.WEB-DL.HIN-ENG.x264.ESub.Vegamovies.To.mkv",
+  "type": "tv",
+  "title": "The Boys",
+  "originalTitle": "The Boys",
+  "overview": "A group of vigilantes known informally as “The Boys” set out to take down corrupt superheroes with no more than blue-collar grit and a willingness to fight dirty.",
+  "releaseDate": "2019-07-25",
+  "year": 2019,
+  "runtime": 69,
+  "genres": [
+    "Sci-Fi & Fantasy",
+    "Action & Adventure"
+  ],
+  "rating": 8.4,
+  "popularity": 742.908,
+  "poster": "/data/posters/show_76479.jpg",
+  "backdrop": "/data/backdrops/show_76479_bd.jpg",
+  "tmdbId": 76479,
+  "fetchedAt": "2026-04-15T14:56:52.454Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "The Boys",
+    "originalShowTitle": "The Boys",
+    "seasonNumber": 4,
+    "episodeNumber": 8,
+    "episodeTitle": "Season Four Finale",
+    "episodeOverview": "Calling all patriots! We will not allow this stolen election to be certified tomorrow! We must stop Bob Singer's woke anti-Supe agenda! PREPARE FOR WAR! #WhereWeGoOneWeGoVought",
+    "showTmdbId": 76479,
+    "episodeRuntime": 69,
+    "totalSeasons": 5,
+    "totalEpisodes": 40
+  }
+}

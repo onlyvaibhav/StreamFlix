@@ -1,0 +1,38 @@
+{
+  "showTmdbId": 228658,
+  "showTitle": "Kerala Crime Files",
+  "originalShowTitle": "കേരളാ  ക്രൈം ഫയല്സ്",
+  "overview": "A sex worker's mysterious and gruesome murder in a suburban lodge called \"Grand Tourist Home\" baffles the police as the only lead they have is a fake address.",
+  "genres": [
+    "Crime",
+    "Mystery",
+    "Drama"
+  ],
+  "rating": 6.2,
+  "popularity": 1.2627,
+  "poster": "/data/posters/show_228658.jpg",
+  "backdrop": "/data/backdrops/show_228658_bd.jpg",
+  "totalSeasons": 2,
+  "totalEpisodes": 12,
+  "year": 2023,
+  "releaseDate": "2023-06-23",
+  "seasons": {
+    "1": [
+      {
+        "fileId": "880",
+        "fileName": "Kerala_Crime_Files_2023_Hindi_Season_1_Complete_720p_x264_Esubs.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 1,
+        "episodeTitle": "Day 1 - Crime Scene",
+        "episodeOverview": "A sex worker, Swapna, is found dead in a run-down lodge in Kochi. Circle Inspector Kurian and Sub-Inspector Manoj from the North Police Station begin their investigation.",
+        "runtime": 28,
+        "tracks": null
+      }
+    ]
+  },
+  "episodes": [],
+  "availableSeasons": [
+    1
+  ],
+  "availableEpisodeCount": 1
+}

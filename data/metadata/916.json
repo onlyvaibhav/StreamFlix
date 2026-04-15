@@ -1,0 +1,34 @@
+{
+  "fileId": "916",
+  "fileName": "The_Boys_S03_E07_WebRip_720p_Hindi_English_AAC_5_1_x264_MSubs_Vegamovies.mkv",
+  "type": "tv",
+  "title": "The Boys",
+  "originalTitle": "The Boys",
+  "overview": "A group of vigilantes known informally as “The Boys” set out to take down corrupt superheroes with no more than blue-collar grit and a willingness to fight dirty.",
+  "releaseDate": "2019-07-25",
+  "year": 2019,
+  "runtime": 67,
+  "genres": [
+    "Sci-Fi & Fantasy",
+    "Action & Adventure"
+  ],
+  "rating": 8.4,
+  "popularity": 742.908,
+  "poster": "/data/posters/show_76479.jpg",
+  "backdrop": "/data/backdrops/show_76479_bd.jpg",
+  "tmdbId": 76479,
+  "fetchedAt": "2026-04-15T14:56:21.193Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "The Boys",
+    "originalShowTitle": "The Boys",
+    "seasonNumber": 3,
+    "episodeNumber": 7,
+    "episodeTitle": "Here Comes a Candle to Light You to Bed",
+    "episodeOverview": "Did someone say birthday? Come celebrate at Buster Beaver’s with our new Deluxe VIP Birthday Package, with seating for up to 30 guests, ten large two-topping pizzas, and ten pitchers of your choice of soda! And of course, a special birthday play starring Buster Beaver and his cast of furry forest friends! All for only $199.99 + tax! Buster Beaver’s Pizza! Where Kids Make the Rules®!",
+    "showTmdbId": 76479,
+    "episodeRuntime": 67,
+    "totalSeasons": 5,
+    "totalEpisodes": 40
+  }
+}

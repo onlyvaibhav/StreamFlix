@@ -18,6 +18,12 @@ function srtToVtt(srtContent) {
         .replace(/\r/g, '\n')
         .trim();
 
+    // Strip ASS/SSA tags like {\an8} that pollute some SRT files
+    content = content.replace(/\{(\\[^}]+)\}/g, '');
+    
+    // Strip unsupported HTML tags like <font color="..."> which WebVTT doesn't support natively
+    content = content.replace(/<\/?font[^>]*>/gi, '');
+
     // Convert SRT timestamps to VTT format (comma → dot)
     content = content.replace(
         /(\d{2}:\d{2}:\d{2}),(\d{3})/g,

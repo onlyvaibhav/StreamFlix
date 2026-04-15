@@ -1,0 +1,34 @@
+{
+  "fileId": "898",
+  "fileName": "The.Boys.S01E05.720p.Hindi.English.Vegamovies.nl.mkv",
+  "type": "tv",
+  "title": "The Boys",
+  "originalTitle": "The Boys",
+  "overview": "A group of vigilantes known informally as “The Boys” set out to take down corrupt superheroes with no more than blue-collar grit and a willingness to fight dirty.",
+  "releaseDate": "2019-07-25",
+  "year": 2019,
+  "runtime": 60,
+  "genres": [
+    "Sci-Fi & Fantasy",
+    "Action & Adventure"
+  ],
+  "rating": 8.4,
+  "popularity": 742.908,
+  "poster": "/data/posters/show_76479.jpg",
+  "backdrop": "/data/backdrops/show_76479_bd.jpg",
+  "tmdbId": 76479,
+  "fetchedAt": "2026-04-15T14:55:15.548Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "The Boys",
+    "originalShowTitle": "The Boys",
+    "seasonNumber": 1,
+    "episodeNumber": 5,
+    "episodeTitle": "Good for the Soul",
+    "episodeOverview": "The Boys head to the “Believe” Expo to follow a promising lead in their ongoing war against the Supes. There might — MIGHT — be a homicidal infant, but you’ll have to see for yourself.",
+    "showTmdbId": 76479,
+    "episodeRuntime": 60,
+    "totalSeasons": 5,
+    "totalEpisodes": 40
+  }
+}

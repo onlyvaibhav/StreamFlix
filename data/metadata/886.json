@@ -1,0 +1,31 @@
+{
+  "fileId": "886",
+  "fileName": "Kerala_Crime_Files_The_Search_for_CPO_Ambili_Raju_S02E06_Nobles.mkv",
+  "type": "tv",
+  "title": "Kerala Crime Files",
+  "originalTitle": "കേരള ക്രൈം ഫയല്‍സ്",
+  "overview": "",
+  "releaseDate": null,
+  "year": null,
+  "runtime": 0,
+  "genres": [],
+  "rating": 0,
+  "popularity": 0.156,
+  "poster": "/data/posters/show_297700.jpg",
+  "backdrop": "/data/backdrops/show_297700_bd.jpg",
+  "tmdbId": 297700,
+  "fetchedAt": "2026-04-15T14:54:25.069Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Kerala Crime Files",
+    "originalShowTitle": "കേരള ക്രൈം ഫയല്‍സ്",
+    "seasonNumber": 2,
+    "episodeNumber": 6,
+    "episodeTitle": "",
+    "episodeOverview": "",
+    "showTmdbId": 297700,
+    "episodeRuntime": 0,
+    "totalSeasons": 1,
+    "totalEpisodes": 1
+  }
+}

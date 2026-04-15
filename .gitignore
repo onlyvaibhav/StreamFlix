@@ -129,3 +129,4 @@ temp/
 
 # Windows
 Thumbs.db
+.env

@@ -1,0 +1,34 @@
+{
+  "fileId": "912",
+  "fileName": "The_Boys_S03_E03_WebRip_720p_Hindi_English_AAC_5_1_x264_MSubs_Vegamovies.mkv",
+  "type": "tv",
+  "title": "The Boys",
+  "originalTitle": "The Boys",
+  "overview": "A group of vigilantes known informally as “The Boys” set out to take down corrupt superheroes with no more than blue-collar grit and a willingness to fight dirty.",
+  "releaseDate": "2019-07-25",
+  "year": 2019,
+  "runtime": 63,
+  "genres": [
+    "Sci-Fi & Fantasy",
+    "Action & Adventure"
+  ],
+  "rating": 8.4,
+  "popularity": 742.908,
+  "poster": "/data/posters/show_76479.jpg",
+  "backdrop": "/data/backdrops/show_76479_bd.jpg",
+  "tmdbId": 76479,
+  "fetchedAt": "2026-04-15T14:56:07.074Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "The Boys",
+    "originalShowTitle": "The Boys",
+    "seasonNumber": 3,
+    "episodeNumber": 3,
+    "episodeTitle": "Barbary Coast",
+    "episodeOverview": "Tonight at 9/8C on Vought Plus, it’s the season finale of #AmericanHero! Three contestants remain, but only TWO will join #TheSeven! Will Starlight choose her old flame Supersonic? Or will someone else be moving into the Seven Tower? Tune in tonight for the SHOCKING final episode, brought to you by Lean Lady Frozen Dinners by Vought: Where slim tastes super!",
+    "showTmdbId": 76479,
+    "episodeRuntime": 63,
+    "totalSeasons": 5,
+    "totalEpisodes": 40
+  }
+}

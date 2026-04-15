@@ -1,0 +1,34 @@
+{
+  "fileId": "868",
+  "fileName": "Sex_Education_S02_E05_WebRip_Dual_Audio_Hindi_5_1_+_English_5_1.mkv",
+  "type": "tv",
+  "title": "Sex Education",
+  "originalTitle": "Sex Education",
+  "overview": "Inexperienced Otis channels his sex therapist mom when he teams up with rebellious Maeve to set up an underground sex therapy clinic at school.",
+  "releaseDate": "2019-01-11",
+  "year": 2019,
+  "runtime": 53,
+  "genres": [
+    "Comedy",
+    "Drama"
+  ],
+  "rating": 8.21,
+  "popularity": 25.9246,
+  "poster": "/data/posters/show_81356.jpg",
+  "backdrop": "/data/backdrops/show_81356_bd.jpg",
+  "tmdbId": 81356,
+  "fetchedAt": "2026-04-15T14:52:52.144Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Sex Education",
+    "originalShowTitle": "Sex Education",
+    "seasonNumber": 2,
+    "episodeNumber": 5,
+    "episodeTitle": "Episode 5",
+    "episodeOverview": "Otis and Eric get away from romance and retreat to the woods with Remi. But parents aren’t perfect, as Maeve knows. Later, Ola follows her heart.",
+    "showTmdbId": 81356,
+    "episodeRuntime": 53,
+    "totalSeasons": 4,
+    "totalEpisodes": 32
+  }
+}

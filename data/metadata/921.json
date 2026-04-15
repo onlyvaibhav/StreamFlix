@@ -1,0 +1,79 @@
+{
+  "fileId": "921",
+  "fileName": "The.Boys.S04E04.720p.WEB-DL.HIN-ENG.x264.ESub.Vegamovies.To.mkv",
+  "type": "tv",
+  "title": "The Boys",
+  "originalTitle": "The Boys",
+  "overview": "A group of vigilantes known informally as “The Boys” set out to take down corrupt superheroes with no more than blue-collar grit and a willingness to fight dirty.",
+  "releaseDate": "2019-07-25",
+  "year": 2019,
+  "runtime": 67,
+  "genres": [
+    "Sci-Fi & Fantasy",
+    "Action & Adventure"
+  ],
+  "rating": 8.4,
+  "popularity": 742.908,
+  "poster": "/data/posters/show_76479.jpg",
+  "backdrop": "/data/backdrops/show_76479_bd.jpg",
+  "tmdbId": 76479,
+  "fetchedAt": "2026-04-15T14:56:38.801Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "The Boys",
+    "originalShowTitle": "The Boys",
+    "seasonNumber": 4,
+    "episodeNumber": 4,
+    "episodeTitle": "Wisdom of the Ages",
+    "episodeOverview": "Vought News Network is proud to announce its new series #Truthbomb! Join host Firecracker and her celebrity guests for the live 6-hour premiere as they expose Starlight's Adrenochrome Parties!",
+    "showTmdbId": 76479,
+    "episodeRuntime": 67,
+    "totalSeasons": 5,
+    "totalEpisodes": 40
+  },
+  "container": "matroska,webm",
+  "duration": 3973.345,
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "Vegamovies.To",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": true
+    },
+    {
+      "index": 1,
+      "streamIndex": 2,
+      "codec": "aac",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Vegamovies.To",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": false
+    }
+  ],
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 3,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Vegamovies.To",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    }
+  ],
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

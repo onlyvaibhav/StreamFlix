@@ -28,8 +28,8 @@ function checkIfBroken(metadata) {
         return { broken: true, reason: 'missing tmdbId despite fetchedAt' };
     }
 
-    // Title exists but no genres/overview (partial TMDB fetch)
-    if (metadata.title && metadata.fetchedAt && (!metadata.genres || metadata.genres.length === 0) && !metadata.needsRetry) {
+    // Title exists but no genres (partial TMDB fetch) for movies
+    if (metadata.type === 'movie' && metadata.title && metadata.fetchedAt && (!metadata.genres || metadata.genres.length === 0) && !metadata.needsRetry) {
         return { broken: true, reason: 'missing genres' };
     }
 
@@ -228,6 +228,54 @@ router.post('/metadata/:fileId/refetch', async (req, res) => {
     }
 });
 
+// POST /api/admin/metadata/:fileId/manual-override — Manually edit metadata fields
+router.post('/metadata/:fileId/manual-override', async (req, res) => {
+    try {
+        const { fileId } = req.params;
+        const updates = req.body; // title, year, type, season, episode, tmdbId, overview
+
+        const existing = await loadMetadata(fileId);
+        if (!existing) {
+            return res.status(404).json({ error: `No metadata found for fileId: ${fileId}` });
+        }
+
+        console.log(`[Admin] Manual override: fileId=${fileId}`);
+
+        // Update fields
+        existing.title = updates.title || existing.title;
+        existing.overview = updates.overview || existing.overview;
+        existing.year = parseInt(updates.year) || existing.year;
+        existing.type = updates.type || existing.type;
+        existing.tmdbId = updates.tmdbId ? parseInt(updates.tmdbId) : existing.tmdbId;
+        
+        // Remove retry flags since it's manually fixed
+        existing.needsRetry = false;
+        existing.fetchedAt = new Date().toISOString(); 
+
+        if (existing.type === 'tv') {
+            if (!existing.tv) existing.tv = {};
+            existing.tv.showTitle = updates.title || existing.tv.showTitle || existing.title;
+            existing.tv.seasonNumber = updates.season !== undefined ? parseInt(updates.season) : existing.tv.seasonNumber;
+            existing.tv.episodeNumber = updates.episode !== undefined ? parseInt(updates.episode) : existing.tv.episodeNumber;
+            
+            // Re-sync basic fields just in case
+            if (!existing.title && existing.tv.showTitle) {
+                existing.title = existing.tv.showTitle;
+            }
+        } else {
+            // Convert to movie
+            if (existing.tv) delete existing.tv;
+        }
+
+        await saveMetadata(existing);
+        res.json({ success: true, metadata: existing });
+
+    } catch (error) {
+        console.error(`[Admin] Manual override failed for ${req.params.fileId}:`, error.message);
+        res.status(500).json({ error: error.message });
+    }
+});
+
 // GET /api/admin/metadata/issues — List all problematic metadata entries
 router.get('/metadata/issues', async (req, res) => {
     try {
@@ -283,6 +331,60 @@ router.get('/metadata/issues', async (req, res) => {
         res.json({
             total: issues.length,
             issues: issues.slice(0, 100)
+        });
+
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// GET /api/admin/metadata/search — Search metadata entries
+router.get('/metadata/search', async (req, res) => {
+    try {
+        const query = (req.query.q || '').toLowerCase();
+        const type = req.query.type || 'all';
+        
+        const all = await getAllMetadata();
+        let filtered = all;
+
+        if (type !== 'all') {
+            filtered = filtered.filter(m => {
+                if (type === 'movie') return m.type === 'movie' && (!m.tv || !m.tv.seasonNumber);
+                if (type === 'tv') return m.type === 'tv' || (m.tv && m.tv.seasonNumber);
+                return true;
+            });
+        }
+
+        if (query) {
+            filtered = filtered.filter(m => 
+                (m.title && m.title.toLowerCase().includes(query)) ||
+                (m.fileName && m.fileName.toLowerCase().includes(query)) ||
+                (m.fileId && m.fileId.toString() === query) ||
+                (m.tv && m.tv.showTitle && m.tv.showTitle.toLowerCase().includes(query))
+            );
+        }
+
+        // Sort by most recently added/fetched if possible, else fallback to fileId
+        filtered.sort((a, b) => {
+            if (a.fetchedAt && b.fetchedAt) return new Date(b.fetchedAt) - new Date(a.fetchedAt);
+            return parseInt(b.fileId) - parseInt(a.fileId);
+        });
+
+        const results = filtered.map(entry => ({
+            fileId: entry.fileId,
+            fileName: entry.fileName,
+            title: entry.title || (entry.tv ? entry.tv.showTitle : null) || 'Unknown',
+            tmdbId: entry.tmdbId || 0,
+            type: entry.type || (entry.tv && entry.tv.seasonNumber ? 'tv' : 'movie'),
+            year: entry.year || '',
+            poster: entry.poster,
+            season: entry.tv?.seasonNumber,
+            episode: entry.tv?.episodeNumber
+        }));
+
+        res.json({
+            total: results.length,
+            results: results.slice(0, 100) // limit for performance
         });
 
     } catch (error) {

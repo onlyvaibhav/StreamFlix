@@ -1,0 +1,34 @@
+{
+  "fileId": "871",
+  "fileName": "Sex_Education_S02_E08_WebRip_Dual_Audio_Hindi_5_1_+_English_5_1.mkv",
+  "type": "tv",
+  "title": "Sex Education",
+  "originalTitle": "Sex Education",
+  "overview": "Inexperienced Otis channels his sex therapist mom when he teams up with rebellious Maeve to set up an underground sex therapy clinic at school.",
+  "releaseDate": "2019-01-11",
+  "year": 2019,
+  "runtime": 59,
+  "genres": [
+    "Comedy",
+    "Drama"
+  ],
+  "rating": 8.21,
+  "popularity": 25.9246,
+  "poster": "/data/posters/show_81356.jpg",
+  "backdrop": "/data/backdrops/show_81356_bd.jpg",
+  "tmdbId": 81356,
+  "fetchedAt": "2026-04-15T14:53:04.711Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Sex Education",
+    "originalShowTitle": "Sex Education",
+    "seasonNumber": 2,
+    "episodeNumber": 8,
+    "episodeTitle": "Episode 8",
+    "episodeOverview": "The talking cure may be failing Otis and Jean as they sort out their issues. A wary Maeve makes the finals. Sexy Shakespeare never goes out of style.",
+    "showTmdbId": 81356,
+    "episodeRuntime": 59,
+    "totalSeasons": 4,
+    "totalEpisodes": 32
+  }
+}

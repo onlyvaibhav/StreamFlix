@@ -1,0 +1,105 @@
+{
+  "fileId": "897",
+  "fileName": "The.Boys.S01E04.720p.Hindi.English.Vegamovies.nl.mkv",
+  "type": "tv",
+  "title": "The Boys",
+  "originalTitle": "The Boys",
+  "overview": "A group of vigilantes known informally as “The Boys” set out to take down corrupt superheroes with no more than blue-collar grit and a willingness to fight dirty.",
+  "releaseDate": "2019-07-25",
+  "year": 2019,
+  "runtime": 56,
+  "genres": [
+    "Sci-Fi & Fantasy",
+    "Action & Adventure"
+  ],
+  "rating": 8.4,
+  "popularity": 742.908,
+  "poster": "/data/posters/show_76479.jpg",
+  "backdrop": "/data/backdrops/show_76479_bd.jpg",
+  "tmdbId": 76479,
+  "fetchedAt": "2026-04-15T14:55:11.714Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "The Boys",
+    "originalShowTitle": "The Boys",
+    "seasonNumber": 1,
+    "episodeNumber": 4,
+    "episodeTitle": "The Female of the Species",
+    "episodeOverview": "On a very special episode of The Boys… an hour of guts, gutterballs, airplane hijackings, madness, ghosts, and one very intriguing Female. Oh, and lots of heart — both in the sentimental sense, and in the gory literal sense.",
+    "showTmdbId": 76479,
+    "episodeRuntime": 56,
+    "totalSeasons": 5,
+    "totalEpisodes": 40
+  },
+  "container": "matroska,webm",
+  "duration": 3393.963,
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 0,
+      "codec": "aac",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "MoviesVerse.com",
+      "channels": 6,
+      "channelLayout": "5.1",
+      "browserPlayable": true,
+      "isDefault": true
+    },
+    {
+      "index": 1,
+      "streamIndex": 2,
+      "codec": "aac",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "MoviesVerse.com",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": false
+    }
+  ],
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 3,
+      "codec": "ass",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "KatmovieHD.io",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    },
+    {
+      "index": 1,
+      "streamIndex": 4,
+      "codec": "ass",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "KatmovieHD.io",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    },
+    {
+      "index": 2,
+      "streamIndex": 5,
+      "codec": "ass",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    }
+  ],
+  "audioCodec": "aac",
+  "browserPlayable": true
+}

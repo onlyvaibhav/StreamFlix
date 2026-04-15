@@ -1,0 +1,34 @@
+{
+  "fileId": "902",
+  "fileName": "The.Boys.S02E01.720p.Hindi.English.Vegamovies.nl.mkv",
+  "type": "tv",
+  "title": "The Boys",
+  "originalTitle": "The Boys",
+  "overview": "A group of vigilantes known informally as “The Boys” set out to take down corrupt superheroes with no more than blue-collar grit and a willingness to fight dirty.",
+  "releaseDate": "2019-07-25",
+  "year": 2019,
+  "runtime": 63,
+  "genres": [
+    "Sci-Fi & Fantasy",
+    "Action & Adventure"
+  ],
+  "rating": 8.4,
+  "popularity": 742.908,
+  "poster": "/data/posters/show_76479.jpg",
+  "backdrop": "/data/backdrops/show_76479_bd.jpg",
+  "tmdbId": 76479,
+  "fetchedAt": "2026-04-15T14:55:30.212Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "The Boys",
+    "originalShowTitle": "The Boys",
+    "seasonNumber": 2,
+    "episodeNumber": 1,
+    "episodeTitle": "The Big Ride",
+    "episodeOverview": "Season 2! New and improved! Now with 50% more explosive decapitations, terrorists, S&M hookers, cults, and a new pine fresh scent! But wait, there’s more! 2X MORE blood, guts and gore than the other leading brands! This exclusive offer is available only on Amazon Prime Video! Don’t delay! Order now!",
+    "showTmdbId": 76479,
+    "episodeRuntime": 63,
+    "totalSeasons": 5,
+    "totalEpisodes": 40
+  }
+}

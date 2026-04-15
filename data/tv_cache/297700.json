@@ -1,0 +1,74 @@
+{
+  "showTmdbId": 297700,
+  "showTitle": "Kerala Crime Files",
+  "overview": "",
+  "genres": [],
+  "rating": 0,
+  "poster": "/data/posters/show_297700.jpg",
+  "backdrop": "/data/backdrops/show_297700_bd.jpg",
+  "year": null,
+  "totalSeasons": 1,
+  "totalEpisodes": 1,
+  "seasons": {
+    "2": [
+      {
+        "fileId": "881",
+        "fileName": "Kerala_Crime_Files_The_Search_for_CPO_Ambili_Raju_S02E01_Shuffle.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 1,
+        "episodeTitle": "Shuffle in the Capital",
+        "episodeOverview": "A police department shake-up leads to the disappearance of Ambili Raju.",
+        "runtime": 0
+      },
+      {
+        "fileId": "882",
+        "fileName": "Kerala_Crime_Files_The_Search_for_CPO_Ambili_Raju_S02E02_Ambili.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 2,
+        "episodeTitle": "",
+        "episodeOverview": "",
+        "runtime": 0
+      },
+      {
+        "fileId": "883",
+        "fileName": "Kerala_Crime_Files_The_Search_for_CPO_Ambili_Raju_S02E03_Crossing.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 3,
+        "episodeTitle": "",
+        "episodeOverview": "",
+        "runtime": 0
+      },
+      {
+        "fileId": "884",
+        "fileName": "Kerala_Crime_Files_The_Search_for_CPO_Ambili_Raju_S02E04_Nobles.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 4,
+        "episodeTitle": "",
+        "episodeOverview": "",
+        "runtime": 0
+      },
+      {
+        "fileId": "885",
+        "fileName": "Kerala_Crime_Files_The_Search_for_CPO_Ambili_Raju_S02E05_Back_to.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 5,
+        "episodeTitle": "",
+        "episodeOverview": "",
+        "runtime": 0
+      },
+      {
+        "fileId": "886",
+        "fileName": "Kerala_Crime_Files_The_Search_for_CPO_Ambili_Raju_S02E06_Nobles.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 6,
+        "episodeTitle": "",
+        "episodeOverview": "",
+        "runtime": 0
+      }
+    ]
+  },
+  "availableSeasons": [
+    2
+  ],
+  "availableEpisodeCount": 6
+}

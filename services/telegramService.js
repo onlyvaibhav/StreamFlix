@@ -856,6 +856,8 @@ async function getFileInfo(messageId) {
 
 // ==================== MEDIA INFO (FFPROBE) ====================
 
+const activeProbes = new Map();
+
 async function probeMovieFile(messageId) {
   if (!ffmpegAvailable || !ffmpegService) {
     console.log('   ⚠️ ffprobe not available, skipping media probe');
@@ -866,38 +868,56 @@ async function probeMovieFile(messageId) {
   const cached = subtitleCache.get(cacheKey);
   if (cached) return cached;
 
-  const messages = await client.getMessages(channelEntity, {
-    ids: [parseInt(messageId)],
-  });
+  if (activeProbes.has(messageId)) {
+    console.log(`   ⏳ Waiting for existing ffprobe to finish for ${messageId}...`);
+    return activeProbes.get(messageId);
+  }
 
-  if (!messages?.[0]?.media?.document) throw new Error('No media');
+  const probePromise = (async () => {
+    const messages = await client.getMessages(channelEntity, {
+      ids: [parseInt(messageId)],
+    });
 
-  const doc = messages[0].media.document;
-  const fileSize = Number(doc.size);
+    if (!messages?.[0]?.media?.document) throw new Error('No media');
 
-  const PROBE_SIZE = Math.min(10 * 1024 * 1024, fileSize);
-  console.log(`   📡 Downloading ${formatFileSize(PROBE_SIZE)} for ffprobe...`);
+    const doc = messages[0].media.document;
+    const fileSize = Number(doc.size);
 
-  const headerBuffer = await downloadBytes(doc, 0, PROBE_SIZE);
+    const PROBE_SIZE = Math.min(5 * 1024 * 1024, fileSize);
+    console.log(`   📡 Downloading ${formatFileSize(PROBE_SIZE)} for ffprobe...`);
 
-  console.log(`   🔍 Running ffprobe...`);
-  const result = await ffmpegService.probeFromPipe(headerBuffer);
+    const headerBuffer = await downloadBytes(doc, 0, PROBE_SIZE);
 
-  console.log(`   📊 Found: ${result.video.length} video, ${result.audio.length} audio, ${result.subtitles.length} subtitle streams`);
+    console.log(`   🔍 Running ffprobe...`);
+    const result = await ffmpegService.probeFromPipe(headerBuffer);
 
-  if (result.audio.length > 0) {
-    for (const a of result.audio) {
-      const compat = ffmpegService.COMPATIBLE_AUDIO_CODECS.includes(a.codecName.toLowerCase());
-      console.log(`   🔊 Audio: ${a.codecName} ${a.channelLayout || a.channels + 'ch'} ${compat ? '✅' : '❌ incompatible'}`);
+    console.log(`   📊 Found: ${result.video.length} video, ${result.audio.length} audio, ${result.subtitles.length} subtitle streams`);
+
+    if (result.audio.length > 0) {
+      for (const a of result.audio) {
+        const compat = ffmpegService.COMPATIBLE_AUDIO_CODECS.includes(a.codecName.toLowerCase());
+        console.log(`   🔊 Audio: ${a.codecName} ${a.channelLayout || a.channels + 'ch'} ${compat ? '✅' : '❌ incompatible'}`);
+      }
     }
-  }
 
-  if (result.needsTranscoding) {
-    console.log('   ⚠️ Audio needs transcoding for browser playback');
-  }
+    if (result.needsTranscoding) {
+      console.log('   ⚠️ Audio needs transcoding for browser playback');
+    }
 
-  subtitleCache.set(cacheKey, result);
-  return result;
+    subtitleCache.set(cacheKey, result);
+    return result;
+  })();
+
+  activeProbes.set(messageId, probePromise);
+
+  try {
+    const result = await probePromise;
+    activeProbes.delete(messageId);
+    return result;
+  } catch (err) {
+    activeProbes.delete(messageId);
+    throw err;
+  }
 }
 
 async function getMediaInfo(messageId) {

@@ -1,0 +1,34 @@
+{
+  "fileId": "870",
+  "fileName": "Sex_Education_S02_E07_WebRip_Dual_Audio_Hindi_5_1_+_English_5_1.mkv",
+  "type": "tv",
+  "title": "Sex Education",
+  "originalTitle": "Sex Education",
+  "overview": "Inexperienced Otis channels his sex therapist mom when he teams up with rebellious Maeve to set up an underground sex therapy clinic at school.",
+  "releaseDate": "2019-01-11",
+  "year": 2019,
+  "runtime": 50,
+  "genres": [
+    "Comedy",
+    "Drama"
+  ],
+  "rating": 8.21,
+  "popularity": 25.9246,
+  "poster": "/data/posters/show_81356.jpg",
+  "backdrop": "/data/backdrops/show_81356_bd.jpg",
+  "tmdbId": 81356,
+  "fetchedAt": "2026-04-15T14:52:59.655Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Sex Education",
+    "originalShowTitle": "Sex Education",
+    "seasonNumber": 2,
+    "episodeNumber": 7,
+    "episodeTitle": "Episode 7",
+    "episodeOverview": "Welcome to the morning after. \"Sex kid\" has made a huge mess—and just can't stop barfing. Chaos comes to class, and in detention, the girls bond.",
+    "showTmdbId": 81356,
+    "episodeRuntime": 50,
+    "totalSeasons": 4,
+    "totalEpisodes": 32
+  }
+}

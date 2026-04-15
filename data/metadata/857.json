@@ -1,0 +1,34 @@
+{
+  "fileId": "857",
+  "fileName": "Sex_Education_S01_E02_WebRip_Hindi_5_1_+_English_5_1_720p_x264_AAC.mkv",
+  "type": "tv",
+  "title": "Sex Education",
+  "originalTitle": "Sex Education",
+  "overview": "Inexperienced Otis channels his sex therapist mom when he teams up with rebellious Maeve to set up an underground sex therapy clinic at school.",
+  "releaseDate": "2019-01-11",
+  "year": 2019,
+  "runtime": 50,
+  "genres": [
+    "Comedy",
+    "Drama"
+  ],
+  "rating": 8.21,
+  "popularity": 25.9246,
+  "poster": "/data/posters/show_81356.jpg",
+  "backdrop": "/data/backdrops/show_81356_bd.jpg",
+  "tmdbId": 81356,
+  "fetchedAt": "2026-04-15T14:57:26.505Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Sex Education",
+    "originalShowTitle": "Sex Education",
+    "seasonNumber": 1,
+    "episodeNumber": 2,
+    "episodeTitle": "Episode 2",
+    "episodeOverview": "Egged on by Maeve—and finding that dispensing sex tips is tougher than he thought—Otis tries offering free advice at a classmate's house party.",
+    "showTmdbId": 81356,
+    "episodeRuntime": 50,
+    "totalSeasons": 4,
+    "totalEpisodes": 32
+  }
+}

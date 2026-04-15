@@ -1,0 +1,34 @@
+{
+  "fileId": "863",
+  "fileName": "Sex_Education_S01_E08_WebRip_Hindi_5_1_+_English_5_1_720p_x264_AAC.mkv",
+  "type": "tv",
+  "title": "Sex Education",
+  "originalTitle": "Sex Education",
+  "overview": "Inexperienced Otis channels his sex therapist mom when he teams up with rebellious Maeve to set up an underground sex therapy clinic at school.",
+  "releaseDate": "2019-01-11",
+  "year": 2019,
+  "runtime": 53,
+  "genres": [
+    "Comedy",
+    "Drama"
+  ],
+  "rating": 8.21,
+  "popularity": 25.9246,
+  "poster": "/data/posters/show_81356.jpg",
+  "backdrop": "/data/backdrops/show_81356_bd.jpg",
+  "tmdbId": 81356,
+  "fetchedAt": "2026-04-15T14:52:34.277Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Sex Education",
+    "originalShowTitle": "Sex Education",
+    "seasonNumber": 1,
+    "episodeNumber": 8,
+    "episodeTitle": "Episode 8",
+    "episodeOverview": "Otis feels violated by Jean's new book, and Maeve takes the fall for her brother. Eric serves detention with an old foe, while Lily's body betrays her.",
+    "showTmdbId": 81356,
+    "episodeRuntime": 53,
+    "totalSeasons": 4,
+    "totalEpisodes": 32
+  }
+}

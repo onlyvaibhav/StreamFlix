@@ -1,0 +1,34 @@
+{
+  "fileId": "924",
+  "fileName": "The_Boys_S04E07_The_Insider_720P_Hindi_English_Esubs_Vegamovies.mkv",
+  "type": "tv",
+  "title": "The Boys",
+  "originalTitle": "The Boys",
+  "overview": "A group of vigilantes known informally as “The Boys” set out to take down corrupt superheroes with no more than blue-collar grit and a willingness to fight dirty.",
+  "releaseDate": "2019-07-25",
+  "year": 2019,
+  "runtime": 65,
+  "genres": [
+    "Sci-Fi & Fantasy",
+    "Action & Adventure"
+  ],
+  "rating": 8.4,
+  "popularity": 742.908,
+  "poster": "/data/posters/show_76479.jpg",
+  "backdrop": "/data/backdrops/show_76479_bd.jpg",
+  "tmdbId": 76479,
+  "fetchedAt": "2026-04-15T14:56:49.097Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "The Boys",
+    "originalShowTitle": "The Boys",
+    "seasonNumber": 4,
+    "episodeNumber": 7,
+    "episodeTitle": "The Insider",
+    "episodeOverview": "Hey kids! Did you know your neighbor, uncle, or even Mom and Dad might be trying to destroy America? Find out how to stop them on the Avenue V Christmas Special! If you see something, say something!",
+    "showTmdbId": 76479,
+    "episodeRuntime": 65,
+    "totalSeasons": 5,
+    "totalEpisodes": 40
+  }
+}

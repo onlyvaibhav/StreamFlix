@@ -578,8 +578,8 @@ class MetadataWorker {
                     const images = await downloadMovieImages(
                         metadata.fileId, metadata._posterPath, metadata._backdropPath
                     );
-                    metadata.poster = images.poster;
-                    metadata.backdrop = images.backdrop;
+                    metadata.poster = images.poster || (!metadata._posterPath ? 'N/A' : null);
+                    metadata.backdrop = images.backdrop || (!metadata._backdropPath ? 'N/A' : null);
 
                     // Save the fully resolved object
                     await saveMetadata(metadata);
@@ -668,7 +668,10 @@ class MetadataWorker {
                         );
 
                         // Store shared paths in registry
-                        this.tvRegistry.setShowImages(show.key, images.poster, images.backdrop);
+                        this.tvRegistry.setShowImages(show.key, 
+                            images.poster || (!meta.posterPath ? 'N/A' : null), 
+                            images.backdrop || (!meta.backdropPath ? 'N/A' : null)
+                        );
 
                         console.log(`  ✓ Show: ${meta.showTitle} (TMDB: ${meta.showTmdbId})`);
                         if (images.poster) console.log(`  ✓ Poster: ${images.poster} (shared)`);
@@ -993,8 +996,11 @@ class MetadataWorker {
                 const images = await downloadMovieImages(entry.fileId, d.poster_path, d.backdrop_path);
 
                 let updated = false;
-                if (images.poster && !entry.poster) { entry.poster = images.poster; updated = true; }
-                if (images.backdrop && !entry.backdrop) { entry.backdrop = images.backdrop; updated = true; }
+                const finalPoster = images.poster || (!d.poster_path ? 'N/A' : null);
+                const finalBackdrop = images.backdrop || (!d.backdrop_path ? 'N/A' : null);
+                
+                if (finalPoster && finalPoster !== entry.poster) { entry.poster = finalPoster; updated = true; }
+                if (finalBackdrop && finalBackdrop !== entry.backdrop) { entry.backdrop = finalBackdrop; updated = true; }
                 if (updated) await saveMetadata(entry);
             } catch { continue; }
 
@@ -1033,12 +1039,15 @@ class MetadataWorker {
                 // Apply to ALL episodes of this show
                 for (const entry of group.episodes) {
                     let updated = false;
-                    if (sharedImages.poster && !entry.poster) {
-                        entry.poster = sharedImages.poster;
+                    const finalPoster = sharedImages.poster || (!posterPath ? 'N/A' : null);
+                    const finalBackdrop = sharedImages.backdrop || (!backdropPath ? 'N/A' : null);
+                    
+                    if (finalPoster && finalPoster !== entry.poster) {
+                        entry.poster = finalPoster;
                         updated = true;
                     }
-                    if (sharedImages.backdrop && !entry.backdrop) {
-                        entry.backdrop = sharedImages.backdrop;
+                    if (finalBackdrop && finalBackdrop !== entry.backdrop) {
+                        entry.backdrop = finalBackdrop;
                         updated = true;
                     }
                     if (updated) await saveMetadata(entry);
@@ -1117,8 +1126,8 @@ class MetadataWorker {
             const images = await forceDownloadMovieImages(
                 fileId, d.poster_path, d.backdrop_path
             );
-            metadata.poster = images.poster;
-            metadata.backdrop = images.backdrop;
+            metadata.poster = images.poster || (!d.poster_path ? 'N/A' : null);
+            metadata.backdrop = images.backdrop || (!d.backdrop_path ? 'N/A' : null);
 
             await saveMetadata(metadata);
             console.log(`[Worker] ✅ Refetched movie: ${metadata.title} (${metadata.year})`);
@@ -1163,8 +1172,8 @@ class MetadataWorker {
             const images = await forceDownloadShowImages(
                 showMeta.showTmdbId, showMeta.posterPath, showMeta.backdropPath
             );
-            metadata.poster = images.poster;
-            metadata.backdrop = images.backdrop;
+            metadata.poster = images.poster || (!showMeta.posterPath ? 'N/A' : null);
+            metadata.backdrop = images.backdrop || (!showMeta.backdropPath ? 'N/A' : null);
 
             await saveMetadata(metadata);
             console.log(`[Worker] ✅ Refetched TV: ${metadata.title} S${season}E${episode}`);

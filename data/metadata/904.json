@@ -1,0 +1,34 @@
+{
+  "fileId": "904",
+  "fileName": "The.Boys.S02E03.720p.Hindi.English.Vegamovies.nl.mkv",
+  "type": "tv",
+  "title": "The Boys",
+  "originalTitle": "The Boys",
+  "overview": "A group of vigilantes known informally as “The Boys” set out to take down corrupt superheroes with no more than blue-collar grit and a willingness to fight dirty.",
+  "releaseDate": "2019-07-25",
+  "year": 2019,
+  "runtime": 61,
+  "genres": [
+    "Sci-Fi & Fantasy",
+    "Action & Adventure"
+  ],
+  "rating": 8.4,
+  "popularity": 742.908,
+  "poster": "/data/posters/show_76479.jpg",
+  "backdrop": "/data/backdrops/show_76479_bd.jpg",
+  "tmdbId": 76479,
+  "fetchedAt": "2026-04-15T14:55:37.143Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "The Boys",
+    "originalShowTitle": "The Boys",
+    "seasonNumber": 2,
+    "episodeNumber": 3,
+    "episodeTitle": "Over the Hill with the Swords of a Thousand Men",
+    "episodeOverview": "Attention: If you or a loved one were exposed to Compound V, you may be entitled to financial compensation. Vought has given the drug to multiple victims, without their knowledge or consent. If you believe that you or a loved one were administered Compound V, call the law firm of Bremmer & Bremmer at 1-888-177-2774 for a free legal consultation. Know your rights!",
+    "showTmdbId": 76479,
+    "episodeRuntime": 61,
+    "totalSeasons": 5,
+    "totalEpisodes": 40
+  }
+}

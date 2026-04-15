@@ -8,6 +8,10 @@ exports.login = async (req, res) => {
   try {
     const { username, password } = req.body;
 
+    if (!username || !password) {
+      return res.status(400).json({ success: false, error: 'Username and password are required' });
+    }
+
     if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
       const token = jwt.sign(
         { username, role: 'admin' },
@@ -22,18 +26,8 @@ exports.login = async (req, res) => {
       });
     }
 
-    // Guest access
-    const token = jwt.sign(
-      { username: 'guest', role: 'viewer' },
-      JWT_SECRET,
-      { expiresIn: '12h' }
-    );
-
-    return res.json({
-      success: true,
-      token,
-      user: { username: 'guest', role: 'viewer' }
-    });
+    // Wrong credentials — reject
+    return res.status(401).json({ success: false, error: 'Invalid username or password' });
   } catch (error) {
     res.status(500).json({ error: 'Login failed', message: error.message });
   }

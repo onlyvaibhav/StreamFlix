@@ -5,6 +5,7 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const path = require('path');
 const os = require('os');
+const { requireAdmin } = require('./middleware/auth');
 
 const streamRoutes = require('./routes/streamRoutes');
 const internalRoutes = require('./routes/internal');
@@ -140,7 +141,7 @@ app.use('/data/backdrops', express.static(path.join(__dirname, 'data/backdrops')
 // API ROUTES
 // ============================================================
 app.use('/api/auth', authRoutes);
-app.use('/api/admin', adminRoutes);
+app.use('/api/admin', requireAdmin, adminRoutes);
 app.use('/api/movies', movieRoutes);
 app.use('/api/stream', streamRoutes);
 app.use('/api/subtitles', subtitleRoutes);
@@ -153,18 +154,18 @@ app.use('/internal', internalRoutes);
 // ADMIN WORKER ROUTES
 // ============================================================
 
-app.get('/api/admin/worker-status', (req, res) => {
+app.get('/api/admin/worker-status', requireAdmin, (req, res) => {
   const status = activityTracker.getStatus();
   const loopStatus = getIdleLoopStatus();
   res.json({ ...status, ...loopStatus });
 });
 
-app.post('/api/admin/worker/pause', (req, res) => {
+app.post('/api/admin/worker/pause', requireAdmin, (req, res) => {
   const success = activityTracker.forcePause();
   res.json({ success, status: activityTracker.getStatus() });
 });
 
-app.post('/api/admin/worker/resume', (req, res) => {
+app.post('/api/admin/worker/resume', requireAdmin, (req, res) => {
   const success = activityTracker.forceResume();
   res.json({ success, status: activityTracker.getStatus() });
 });
@@ -884,7 +885,7 @@ app.get('/api/health', async (req, res) => {
 });
 
 // GET /api/admin/debug/tv-detection — Debug TV show detection
-app.get('/api/admin/debug/tv-detection', async (req, res) => {
+app.get('/api/admin/debug/tv-detection', requireAdmin, async (req, res) => {
   try {
     const allMetadata = await loadAllValidMetadata();
     const analysis = {
@@ -935,7 +936,7 @@ app.get('/api/admin/debug/tv-detection', async (req, res) => {
 });
 
 // POST /api/admin/sync-telegram — Manual Trigger
-app.post('/api/admin/sync-telegram', async (req, res) => {
+app.post('/api/admin/sync-telegram', requireAdmin, async (req, res) => {
   try {
     const { syncWithTelegram } = require('./services/metadataWorker'); // Lazy load
     console.log('[Admin] 🔄 Triggering Telegram sync...');
@@ -947,19 +948,19 @@ app.post('/api/admin/sync-telegram', async (req, res) => {
 });
 
 // POST /api/admin/invalidate-cache — Manual Trigger
-app.post('/api/admin/invalidate-cache', (req, res) => {
+app.post('/api/admin/invalidate-cache', requireAdmin, (req, res) => {
   invalidateCache();
   res.json({ success: true, message: 'Caches invalidated' });
 });
 
 // GET /api/admin/sync-status
-app.get('/api/admin/sync-status', (req, res) => {
+app.get('/api/admin/sync-status', requireAdmin, (req, res) => {
   const { getIdleLoopStatus } = require('./services/metadataWorker');
   res.json(getIdleLoopStatus());
 });
 
 // POST /api/admin/rebuild-tv-caches
-app.post('/api/admin/rebuild-tv-caches', async (req, res) => {
+app.post('/api/admin/rebuild-tv-caches', requireAdmin, async (req, res) => {
   try {
     const stats = await rebuildTVCaches();
     res.json({ success: true, stats });
@@ -969,7 +970,7 @@ app.post('/api/admin/rebuild-tv-caches', async (req, res) => {
 });
 
 // GET /api/admin/incomplete-metadata
-app.get('/api/admin/incomplete-metadata', async (req, res) => {
+app.get('/api/admin/incomplete-metadata', requireAdmin, async (req, res) => {
   try {
     const incomplete = await findIncompleteMetadata();
     res.json({ count: incomplete.length, items: incomplete });
@@ -1009,11 +1010,16 @@ app.get('/api/routes', (req, res) => {
 // ============================================================
 // SERVE FRONTEND — Static files from /public
 // ============================================================
+// Serve admin page at /admin
+app.get('/admin', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'admin.html'));
+});
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Catch-all for SPA — serve index.html for any unmatched non-API route
 app.get('*', (req, res, next) => {
-  if (req.path.startsWith('/api/') || req.path.startsWith('/data/')) {
+  if (req.path.startsWith('/api/') || req.path.startsWith('/data/') || req.path === '/admin') {
     return next();
   }
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
