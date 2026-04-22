@@ -20,5 +20,66 @@
   "tmdbId": 718930,
   "fetchedAt": "2026-02-15T13:44:34.419Z",
   "needsRetry": false,
-  "tv": null
+  "tv": null,
+  "logo": "/data/logos/494_logo.png",
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 2,
+      "codec": "aac",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "Vegamovies.to",
+      "channels": 6,
+      "channelLayout": "5.1",
+      "browserPlayable": true,
+      "isDefault": true
+    },
+    {
+      "index": 1,
+      "streamIndex": 3,
+      "codec": "aac",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Vegamovies.to",
+      "channels": 6,
+      "channelLayout": "5.1",
+      "browserPlayable": true,
+      "isDefault": false
+    }
+  ],
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Vegamovies.to",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": true,
+      "isForced": false
+    },
+    {
+      "index": 1,
+      "streamIndex": 4,
+      "codec": "ass",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Vegamovies.to",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    }
+  ],
+  "container": "matroska,webm",
+  "duration": 7607,
+  "_tracksDetected": true,
+  "certification": "R"
 }

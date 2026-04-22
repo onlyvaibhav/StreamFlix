@@ -21,5 +21,79 @@
   "tmdbId": 887109,
   "fetchedAt": "2026-02-15T13:47:34.600Z",
   "needsRetry": false,
-  "tv": null
+  "tv": null,
+  "logo": "/data/logos/313_logo.png",
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "eac3",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "Vegamovies.to - [DD+ 5.1 - 640Kbps]",
+      "channels": 6,
+      "channelLayout": "5.1(side)",
+      "browserPlayable": false,
+      "isDefault": false
+    },
+    {
+      "index": 1,
+      "streamIndex": 2,
+      "codec": "aac",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "Vegamovies.to - [AAC 2.0 - 64Kbps]",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": false
+    }
+  ],
+  "audioCodec": "eac3",
+  "browserPlayable": false,
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 3,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Vegamovies.to - English [Full]",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": true,
+      "isForced": false
+    },
+    {
+      "index": 1,
+      "streamIndex": 4,
+      "codec": "subrip",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "Vegamovies.to - Hindi [Full]",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    },
+    {
+      "index": 2,
+      "streamIndex": 5,
+      "codec": "subrip",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "Vegamovies.to - Hindi [Forced]",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": true
+    }
+  ],
+  "container": "matroska,webm",
+  "duration": 3030,
+  "_tracksDetected": true,
+  "certification": "UA"
 }

@@ -19,5 +19,77 @@
   "tmdbId": 945167,
   "fetchedAt": "2026-02-15T13:50:05.871Z",
   "needsRetry": false,
-  "tv": null
+  "tv": null,
+  "logo": "/data/logos/151_logo.png",
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "eac3",
+      "language": "Kannada",
+      "languageCode": "kan",
+      "title": "Vegamovies.to",
+      "channels": 6,
+      "channelLayout": "5.1(side)",
+      "browserPlayable": false,
+      "isDefault": false
+    },
+    {
+      "index": 1,
+      "streamIndex": 2,
+      "codec": "eac3",
+      "language": "Tamil",
+      "languageCode": "tam",
+      "title": "Vegamovies.to",
+      "channels": 6,
+      "channelLayout": "5.1(side)",
+      "browserPlayable": false,
+      "isDefault": false
+    },
+    {
+      "index": 2,
+      "streamIndex": 3,
+      "codec": "eac3",
+      "language": "Malayalam",
+      "languageCode": "mal",
+      "title": "Vegamovies.to",
+      "channels": 6,
+      "channelLayout": "5.1(side)",
+      "browserPlayable": false,
+      "isDefault": false
+    },
+    {
+      "index": 3,
+      "streamIndex": 4,
+      "codec": "eac3",
+      "language": "Telugu",
+      "languageCode": "tel",
+      "title": "Vegamovies.to",
+      "channels": 6,
+      "channelLayout": "5.1(side)",
+      "browserPlayable": false,
+      "isDefault": false
+    }
+  ],
+  "audioCodec": "eac3",
+  "browserPlayable": false,
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 5,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Vegamovies.to",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    }
+  ],
+  "container": "matroska,webm",
+  "duration": 6618,
+  "_tracksDetected": true,
+  "certification": "UA"
 }

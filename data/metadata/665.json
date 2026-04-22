@@ -32,5 +32,39 @@
     "totalEpisodes": 32
   },
   "audioCodec": "eac3",
-  "browserPlayable": false
+  "browserPlayable": false,
+  "logo": "/data/logos/show_101352_logo.png",
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "eac3",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "Vegamovies.is",
+      "channels": 6,
+      "channelLayout": "5.1(side)",
+      "browserPlayable": false,
+      "isDefault": true
+    }
+  ],
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 2,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Vegamovies.is",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    }
+  ],
+  "container": "matroska,webm",
+  "duration": 1887,
+  "_tracksDetected": true,
+  "certification": "TV-14"
 }

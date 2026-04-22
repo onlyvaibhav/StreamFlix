@@ -19,5 +19,41 @@
   "tmdbId": 807172,
   "fetchedAt": "2026-02-15T13:50:37.299Z",
   "needsRetry": false,
-  "tv": null
+  "tv": null,
+  "logo": "/data/logos/81_logo.png",
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 2,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": true,
+      "isForced": false
+    }
+  ],
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Vegamovies.to",
+      "channels": 6,
+      "channelLayout": "5.1",
+      "browserPlayable": true,
+      "isDefault": true
+    }
+  ],
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "container": "matroska,webm",
+  "duration": 6669,
+  "_tracksDetected": true,
+  "certification": "R"
 }

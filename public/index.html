@@ -26,6 +26,7 @@
       </button>
       <div class="nav-links">
         <a href="#" data-route="home" class="nav-link active">Home</a>
+        <a href="#" data-route="genres" class="nav-link">Genres</a>
         <a href="#" data-route="movies" class="nav-link">Movies</a>
         <a href="#" data-route="tvshows" class="nav-link">TV Shows</a>
       </div>
@@ -55,6 +56,7 @@
     </div>
     <nav class="mobile-nav-links">
       <a href="#" data-route="home" class="mobile-nav-link">Home</a>
+      <a href="#" data-route="genres" class="mobile-nav-link">Genres</a>
       <a href="#" data-route="movies" class="mobile-nav-link">Movies</a>
       <a href="#" data-route="tvshows" class="mobile-nav-link">TV Shows</a>
     </nav>
@@ -81,7 +83,7 @@
   <!-- Video Player -->
   <div id="player-screen" class="player-screen hidden">
     <!-- Background Video Layer -->
-    <video id="video-player" class="player-video" autoplay playsinline></video>
+    <video id="video-player" class="player-video" crossorigin="anonymous" autoplay playsinline></video>
 
     <!-- Center Screen Overlays -->
     <div id="buffering-spinner" class="spinner-container hidden">
@@ -131,6 +133,24 @@
         </div>
       </div>
 
+      <!-- Bottom Sheet Episodes Panel -->
+      <div id="episodes-sheet-overlay" class="episodes-sheet-overlay hidden"></div>
+      <div id="episodes-sheet" class="episodes-sheet hidden">
+        <div class="episodes-sheet-header">
+          <div class="episodes-sheet-title-group">
+            <h2 id="episodes-sheet-title">Episodes</h2>
+            <div id="episodes-sheet-subtitle"></div>
+          </div>
+          <button class="sheet-close-btn" id="episodes-sheet-close">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+          </button>
+        </div>
+        <div class="episodes-sheet-body">
+          <div class="episodes-sheet-sidebar" id="episodes-season-tabs"></div>
+          <div class="episodes-sheet-main" id="episodes-list"></div>
+        </div>
+      </div>
+
       <div class="controls-bottom" id="custom-controls">
         <div class="progress-container" id="progress-container">
           <div class="progress-buffer" id="progress-buffer"></div>
@@ -177,7 +197,7 @@
                 </svg>
               </button>
               <div class="volume-slider-container">
-                <input type="range" min="0" max="1" step="0.05" value="1" class="volume-slider" id="volume-slider">
+                <input type="range" min="0" max="3" step="0.05" value="1" class="volume-slider" id="volume-slider">
               </div>
             </div>
 
@@ -186,6 +206,15 @@
 
           <!-- Right Group -->
           <div class="control-group-right">
+            <button id="btn-episodes" class="icon-btn hidden" title="Episodes" aria-label="Episodes"
+              style="width: auto; padding: 0 10px; font-weight: 600; font-size: 13px;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 5px;">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                <line x1="3" y1="9" x2="21" y2="9"/>
+                <line x1="9" y1="21" x2="9" y2="9"/>
+              </svg>
+              <span>Episodes</span>
+            </button>
             <button id="btn-next-ep-control" class="icon-btn hidden" title="Next Episode" aria-label="Next Episode"
               style="width: auto; padding: 0 10px; font-weight: 600; font-size: 13px;">
               <span style="margin-right: 5px;">Next Episode</span>

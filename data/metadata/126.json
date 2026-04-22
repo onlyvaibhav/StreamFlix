@@ -23,5 +23,36 @@
   "tv": null,
   "audioCodec": "aac",
   "browserPlayable": true,
-  "_tracksDetected": true
+  "_tracksDetected": true,
+  "logo": "/data/logos/126_logo.png",
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "Vegamovies.to",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": true
+    },
+    {
+      "index": 1,
+      "streamIndex": 2,
+      "codec": "aac",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Vegamovies.to",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": false
+    }
+  ],
+  "subtitleTracks": [],
+  "container": "matroska,webm",
+  "duration": 4663.68,
+  "certification": "G"
 }

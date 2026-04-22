@@ -69,5 +69,7 @@
       "isDefault": false,
       "isForced": false
     }
-  ]
+  ],
+  "logo": "/data/logos/854_logo.png",
+  "certification": "PG"
 }

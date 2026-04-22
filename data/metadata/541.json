@@ -19,5 +19,104 @@
   "tmdbId": 1244492,
   "fetchedAt": "2026-02-15T13:43:35.778Z",
   "needsRetry": false,
-  "tv": null
+  "tv": null,
+  "logo": "/data/logos/541_logo.png",
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "Vegamovies.is",
+      "channels": 6,
+      "channelLayout": "5.1",
+      "browserPlayable": true,
+      "isDefault": true
+    },
+    {
+      "index": 1,
+      "streamIndex": 2,
+      "codec": "aac",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Vegamovies.is",
+      "channels": 6,
+      "channelLayout": "5.1",
+      "browserPlayable": true,
+      "isDefault": false
+    },
+    {
+      "index": 2,
+      "streamIndex": 3,
+      "codec": "aac",
+      "language": "Japanese",
+      "languageCode": "jpn",
+      "title": "Vegamovies.is",
+      "channels": 6,
+      "channelLayout": "5.1",
+      "browserPlayable": true,
+      "isDefault": false
+    }
+  ],
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 4,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Vegamovies.is",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": true
+    },
+    {
+      "index": 1,
+      "streamIndex": 5,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Vegamovies.is",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": true,
+      "isForced": false
+    },
+    {
+      "index": 2,
+      "streamIndex": 6,
+      "codec": "subrip",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "Vegamovies.is",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    },
+    {
+      "index": 3,
+      "streamIndex": 7,
+      "codec": "subrip",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "PIKAHD.COM",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": true
+    }
+  ],
+  "container": "matroska,webm",
+  "duration": 3500,
+  "_tracksDetected": true,
+  "certification": "NR"
 }

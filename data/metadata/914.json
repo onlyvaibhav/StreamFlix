@@ -30,5 +30,105 @@
     "episodeRuntime": 63,
     "totalSeasons": 5,
     "totalEpisodes": 40
-  }
+  },
+  "logo": "/data/logos/show_76479_logo.png",
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "Hindi",
+      "channels": 6,
+      "channelLayout": "5.1",
+      "browserPlayable": true,
+      "isDefault": true
+    },
+    {
+      "index": 1,
+      "streamIndex": 2,
+      "codec": "aac",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "English",
+      "channels": 6,
+      "channelLayout": "5.1",
+      "browserPlayable": true,
+      "isDefault": false
+    }
+  ],
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 3,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "English [SDH]",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": true,
+      "isForced": false
+    },
+    {
+      "index": 1,
+      "streamIndex": 4,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "English",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    },
+    {
+      "index": 2,
+      "streamIndex": 5,
+      "codec": "subrip",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "Hindi",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    },
+    {
+      "index": 3,
+      "streamIndex": 6,
+      "codec": "subrip",
+      "language": "Tamil",
+      "languageCode": "tam",
+      "title": "Tamil",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    },
+    {
+      "index": 4,
+      "streamIndex": 7,
+      "codec": "subrip",
+      "language": "Telugu",
+      "languageCode": "tel",
+      "title": "Telugu",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    }
+  ],
+  "container": "matroska,webm",
+  "duration": 3671,
+  "_tracksDetected": true,
+  "certification": "TV-MA"
 }

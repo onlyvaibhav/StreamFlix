@@ -20,5 +20,53 @@
   "tmdbId": 27022,
   "fetchedAt": "2026-02-15T13:45:23.230Z",
   "needsRetry": false,
-  "tv": null
+  "tv": null,
+  "logo": "/data/logos/432_logo.png",
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "eac3",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "Vegamovies.to",
+      "channels": 6,
+      "channelLayout": "5.1(side)",
+      "browserPlayable": false,
+      "isDefault": false
+    },
+    {
+      "index": 1,
+      "streamIndex": 2,
+      "codec": "eac3",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Vegamovies.to",
+      "channels": 6,
+      "channelLayout": "5.1(side)",
+      "browserPlayable": false,
+      "isDefault": false
+    }
+  ],
+  "audioCodec": "eac3",
+  "browserPlayable": false,
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 3,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Vegamovies.to",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": true,
+      "isForced": false
+    }
+  ],
+  "container": "matroska,webm",
+  "duration": 6543,
+  "_tracksDetected": true,
+  "certification": "PG"
 }

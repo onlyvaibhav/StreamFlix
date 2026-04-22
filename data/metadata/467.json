@@ -33,5 +33,52 @@
     "totalEpisodes": 8
   },
   "audioCodec": "aac",
-  "browserPlayable": true
+  "browserPlayable": true,
+  "logo": "/data/logos/show_201050_logo.png",
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "Vegamovies.to",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": true
+    }
+  ],
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 2,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Vegamovies.to",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": true,
+      "isForced": false
+    },
+    {
+      "index": 1,
+      "streamIndex": 3,
+      "codec": "subrip",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "Vegamovies.to",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": true,
+      "isForced": false
+    }
+  ],
+  "container": "matroska,webm",
+  "duration": 3387,
+  "_tracksDetected": true,
+  "certification": "TV-MA"
 }

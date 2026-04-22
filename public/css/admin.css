@@ -542,6 +542,224 @@ body {
   opacity: 1;
 }
 
+/* Audio Audit */
+.audio-panel-header {
+  gap: 16px;
+}
+
+.audio-sweep-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.compact-input {
+  width: 90px;
+  padding: 8px 10px;
+  font-size: 12px;
+}
+
+.compact-select {
+  width: 120px;
+  padding: 8px 10px;
+  font-size: 12px;
+}
+
+.compact-action {
+  padding: 8px 10px;
+  font-size: 12px;
+  width: auto;
+}
+
+.audio-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.audio-summary-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--admin-border);
+  border-radius: 10px;
+  padding: 14px;
+}
+
+.audio-summary-card.warning {
+  border-color: rgba(245, 158, 11, 0.35);
+}
+
+.audio-summary-card.danger {
+  border-color: rgba(239, 68, 68, 0.4);
+}
+
+.audio-summary-label {
+  display: block;
+  font-size: 11px;
+  color: var(--admin-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.audio-summary-card strong {
+  display: block;
+  font-size: 26px;
+  line-height: 1;
+}
+
+.audio-summary-card small {
+  display: block;
+  color: var(--admin-text-muted);
+  margin-top: 6px;
+  font-size: 12px;
+}
+
+.audio-sweep-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  color: var(--admin-text-muted);
+  font-size: 13px;
+  padding: 10px 12px;
+  border: 1px solid var(--admin-border);
+  border-radius: 8px;
+  margin-bottom: 16px;
+  background: rgba(0, 0, 0, 0.14);
+}
+
+.audio-audit-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: 16px;
+}
+
+.audio-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.audio-section-header h3 {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.audio-section-header span {
+  color: var(--admin-text-muted);
+  font-size: 12px;
+}
+
+.audio-card-list {
+  display: grid;
+  gap: 10px;
+  max-height: 520px;
+  overflow: auto;
+  padding-right: 4px;
+}
+
+.audio-card-list.compact {
+  max-height: 360px;
+}
+
+.audio-metadata-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--admin-border);
+  border-radius: 10px;
+}
+
+.audio-metadata-card.unsupported {
+  border-color: rgba(239, 68, 68, 0.28);
+  background: rgba(239, 68, 68, 0.05);
+}
+
+.audio-card-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.audio-card-title-row strong {
+  font-size: 14px;
+}
+
+.audio-card-meta,
+.audio-card-file {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 6px;
+  color: var(--admin-text-muted);
+  font-size: 12px;
+}
+
+.audio-card-file {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.audio-track-badges,
+.metadata-audio-mini {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.track-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 22px;
+  padding: 2px 7px;
+  border-radius: 5px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #bbf7d0;
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.22);
+}
+
+.track-badge.bad {
+  color: #fecaca;
+  background: rgba(239, 68, 68, 0.12);
+  border-color: rgba(239, 68, 68, 0.28);
+}
+
+.track-badge.default {
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.track-badge.muted {
+  color: var(--admin-text-muted);
+  background: rgba(255, 255, 255, 0.04);
+  border-color: var(--admin-border);
+}
+
+.empty-audio-state {
+  color: var(--admin-text-muted);
+  border: 1px dashed var(--admin-border);
+  border-radius: 10px;
+  padding: 18px;
+  text-align: center;
+  font-size: 13px;
+}
+
+.mt-4 {
+  margin-top: 16px;
+}
+
 /* Toast */
 .toast {
   position: fixed;
@@ -657,6 +875,9 @@ body {
   .stats-grid { grid-template-columns: repeat(2, 1fr); }
   .panels-row { grid-template-columns: 1fr; }
   .actions-grid { grid-template-columns: repeat(2, 1fr); }
+  .audio-audit-grid { grid-template-columns: 1fr; }
+  .audio-panel-header { align-items: stretch; flex-direction: column; }
+  .audio-sweep-controls { width: 100%; }
   .topbar-user { display: none; }
   .login-card { padding: 28px 24px; }
 

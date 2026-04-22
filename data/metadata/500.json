@@ -21,5 +21,53 @@
   "tmdbId": 607,
   "fetchedAt": "2026-02-15T13:44:22.335Z",
   "needsRetry": false,
-  "tv": null
+  "tv": null,
+  "logo": "/data/logos/500_logo.png",
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 0,
+      "codec": "aac",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "AbhiSona - Hindi",
+      "channels": 6,
+      "channelLayout": "5.1",
+      "browserPlayable": true,
+      "isDefault": true
+    },
+    {
+      "index": 1,
+      "streamIndex": 2,
+      "codec": "aac",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "AbhiSona - English",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": false
+    }
+  ],
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 3,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "AbhiSona",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": true,
+      "isForced": false
+    }
+  ],
+  "container": "matroska,webm",
+  "duration": 5879,
+  "_tracksDetected": true,
+  "certification": "PG-13"
 }

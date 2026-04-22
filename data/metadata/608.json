@@ -32,5 +32,87 @@
     "totalEpisodes": 28
   },
   "audioCodec": "aac",
-  "browserPlayable": true
+  "browserPlayable": true,
+  "logo": "/data/logos/show_105759_logo.png",
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "Telugu",
+      "languageCode": "tel",
+      "title": "TheDNK - [AAC 2.0 - 96Kbps]",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": true
+    },
+    {
+      "index": 1,
+      "streamIndex": 2,
+      "codec": "aac",
+      "language": "Tamil",
+      "languageCode": "tam",
+      "title": "TheDNK - [AAC 2.0 - 96Kbps]",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": false
+    },
+    {
+      "index": 2,
+      "streamIndex": 3,
+      "codec": "aac",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "TheDNK - [AAC 2.0 - 96Kbps]",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": false
+    },
+    {
+      "index": 3,
+      "streamIndex": 4,
+      "codec": "aac",
+      "language": "Malayalam",
+      "languageCode": "mal",
+      "title": "TheDNK - [AAC 2.0 - 96Kbps]",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": false
+    },
+    {
+      "index": 4,
+      "streamIndex": 5,
+      "codec": "aac",
+      "language": "Marathi",
+      "languageCode": "mar",
+      "title": "TheDNK - [AAC 2.0 - 96Kbps]",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": false
+    }
+  ],
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 6,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "TheDNK - English [Full]",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": true,
+      "isForced": false
+    }
+  ],
+  "container": "matroska,webm",
+  "duration": 2328,
+  "_tracksDetected": true,
+  "certification": "A"
 }

@@ -32,5 +32,39 @@
     "totalEpisodes": 18
   },
   "audioCodec": "aac",
-  "browserPlayable": true
+  "browserPlayable": true,
+  "logo": "/data/logos/show_106872_logo.png",
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "Hindi",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": true
+    }
+  ],
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 2,
+      "codec": "ass",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "English",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    }
+  ],
+  "container": "matroska,webm",
+  "duration": 2774,
+  "_tracksDetected": true,
+  "certification": "TV-14"
 }

@@ -21,5 +21,79 @@
   "tmdbId": 364111,
   "fetchedAt": "2026-02-15T13:41:57.351Z",
   "needsRetry": false,
-  "tv": null
+  "tv": null,
+  "logo": "/data/logos/843_logo.png",
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 3,
+      "codec": "ass",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Full [GJM]",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": true,
+      "isForced": false
+    },
+    {
+      "index": 1,
+      "streamIndex": 4,
+      "codec": "ass",
+      "language": "French",
+      "languageCode": "fre",
+      "title": "Full [matheousse]",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": true,
+      "isForced": false
+    },
+    {
+      "index": 2,
+      "streamIndex": 5,
+      "codec": "ass",
+      "language": "French",
+      "languageCode": "fre",
+      "title": "Forced (Kazé)",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": true
+    }
+  ],
+  "duration": 7158,
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "opus",
+      "language": "Japanese",
+      "languageCode": "jpn",
+      "title": "Japanese - Opus 2.0",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": true
+    },
+    {
+      "index": 1,
+      "streamIndex": 2,
+      "codec": "opus",
+      "language": "French",
+      "languageCode": "fre",
+      "title": "French - Opus 2.0",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": true
+    }
+  ],
+  "audioCodec": "opus",
+  "browserPlayable": true,
+  "container": "matroska,webm",
+  "_tracksDetected": true,
+  "certification": "PG"
 }

@@ -33,5 +33,64 @@
     "totalEpisodes": 24
   },
   "audioCodec": "aac",
-  "browserPlayable": true
+  "browserPlayable": true,
+  "logo": "/data/logos/show_63087_logo.png",
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": true
+    },
+    {
+      "index": 1,
+      "streamIndex": 2,
+      "codec": "aac",
+      "language": "Japanese",
+      "languageCode": "jpn",
+      "title": "",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": false
+    }
+  ],
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 3,
+      "codec": "ass",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Signs [GoodJob!Media]",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": true,
+      "isForced": false
+    },
+    {
+      "index": 1,
+      "streamIndex": 4,
+      "codec": "ass",
+      "language": "Japanese",
+      "languageCode": "jpn",
+      "title": "Subtitles [GoodJob!Media]",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    }
+  ],
+  "container": "matroska,webm",
+  "duration": 1454,
+  "_tracksDetected": true,
+  "certification": "TV-14"
 }

@@ -33,5 +33,24 @@
   },
   "audioCodec": "aac",
   "browserPlayable": true,
-  "_tracksDetected": true
+  "_tracksDetected": true,
+  "logo": "/data/logos/show_96421_logo.png",
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "Unknown",
+      "languageCode": "und",
+      "title": "HDwebmovies.xyz",
+      "channels": 6,
+      "channelLayout": "5.1",
+      "browserPlayable": true,
+      "isDefault": true
+    }
+  ],
+  "subtitleTracks": [],
+  "container": "matroska,webm",
+  "duration": 1964.117,
+  "certification": "TV-14"
 }

@@ -59,6 +59,11 @@ exports.getTVDetails = async (id) => {
     return await fetchTMDB(`/tv/${id}`);
 };
 
+exports.getImages = async (type = 'movie', id) => {
+    // TMDB defaults to returning images based on the language parameter, using 'en,null' ensures we get logos
+    return await fetchTMDB(`/${type}/${id}/images`, { include_image_language: 'en,null' });
+};
+
 exports.getSeasonDetails = async (tvId, seasonNumber) => {
     return await fetchTMDB(`/tv/${tvId}/season/${seasonNumber}`);
 };

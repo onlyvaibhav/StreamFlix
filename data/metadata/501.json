@@ -20,5 +20,27 @@
   "tmdbId": 608,
   "fetchedAt": "2026-02-15T13:44:20.270Z",
   "needsRetry": false,
-  "tv": null
+  "tv": null,
+  "logo": "/data/logos/501_logo.png",
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "Unknown",
+      "languageCode": "und",
+      "title": "",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": true
+    }
+  ],
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "subtitleTracks": [],
+  "container": "mov,mp4,m4a,3gp,3g2,mj2",
+  "duration": 5062,
+  "_tracksDetected": true,
+  "certification": "PG-13"
 }

@@ -66,5 +66,7 @@
       "isDefault": true,
       "isForced": false
     }
-  ]
+  ],
+  "logo": "/data/logos/847_logo.png",
+  "certification": "PG-13"
 }

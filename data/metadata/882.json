@@ -7,7 +7,7 @@
   "overview": "",
   "releaseDate": null,
   "year": null,
-  "runtime": 0,
+  "runtime": 27,
   "genres": [],
   "rating": 0,
   "popularity": 0.156,
@@ -24,8 +24,56 @@
     "episodeTitle": "",
     "episodeOverview": "",
     "showTmdbId": 297700,
-    "episodeRuntime": 0,
+    "episodeRuntime": 27,
     "totalSeasons": 1,
     "totalEpisodes": 1
-  }
+  },
+  "logo": "N/A",
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "eac3",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "हिन्दी [Dolby Digital Plus 5.1]",
+      "channels": 6,
+      "channelLayout": "5.1(side)",
+      "browserPlayable": false,
+      "isDefault": true
+    },
+    {
+      "index": 1,
+      "streamIndex": 2,
+      "codec": "eac3",
+      "language": "Malayalam",
+      "languageCode": "mal",
+      "title": "മലയാളം [Dolby Digital Plus with Dolby Atmos 5.1]",
+      "channels": 6,
+      "channelLayout": "5.1(side)",
+      "browserPlayable": false,
+      "isDefault": true
+    }
+  ],
+  "audioCodec": "eac3",
+  "browserPlayable": false,
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 3,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "English",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    }
+  ],
+  "container": "matroska,webm",
+  "duration": 1633,
+  "_tracksDetected": true,
+  "certification": "N/A"
 }

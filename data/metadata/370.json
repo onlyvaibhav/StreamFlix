@@ -19,5 +19,77 @@
   "tmdbId": 669735,
   "fetchedAt": "2026-02-15T19:01:25.003Z",
   "needsRetry": false,
-  "tv": null
+  "tv": null,
+  "logo": "N/A",
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "mp3",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "www.MovCr.com",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": true
+    },
+    {
+      "index": 1,
+      "streamIndex": 2,
+      "codec": "mp3",
+      "language": "Tamil",
+      "languageCode": "tam",
+      "title": "www.MovCr.com",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": false
+    },
+    {
+      "index": 2,
+      "streamIndex": 3,
+      "codec": "mp3",
+      "language": "Telugu",
+      "languageCode": "tel",
+      "title": "www.MovCr.com",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": false
+    },
+    {
+      "index": 3,
+      "streamIndex": 4,
+      "codec": "aac",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "www.MovCr.com",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": false
+    }
+  ],
+  "audioCodec": "mp3",
+  "browserPlayable": true,
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 5,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "www.MovCr.com",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": true,
+      "isForced": true
+    }
+  ],
+  "container": "matroska,webm",
+  "duration": 7323,
+  "_tracksDetected": true,
+  "certification": "18A"
 }

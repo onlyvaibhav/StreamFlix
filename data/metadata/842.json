@@ -20,5 +20,54 @@
   "tmdbId": 257475,
   "fetchedAt": "2026-02-15T13:41:59.647Z",
   "needsRetry": false,
-  "tv": null
+  "tv": null,
+  "logo": "/data/logos/842_logo.png",
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "opus",
+      "language": "Japanese",
+      "languageCode": "jpn",
+      "title": "",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": true
+    }
+  ],
+  "audioCodec": "opus",
+  "browserPlayable": true,
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 2,
+      "codec": "ass",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": true,
+      "isForced": false
+    },
+    {
+      "index": 1,
+      "streamIndex": 3,
+      "codec": "ass",
+      "language": "enm",
+      "languageCode": "enm",
+      "title": "Honorifics",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    }
+  ],
+  "container": "matroska,webm",
+  "duration": 5032,
+  "_tracksDetected": true,
+  "certification": "PG"
 }

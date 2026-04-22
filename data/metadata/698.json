@@ -19,5 +19,41 @@
   "tmdbId": 946025,
   "fetchedAt": "2026-02-16T10:00:42.557Z",
   "needsRetry": false,
-  "tv": null
+  "tv": null,
+  "logo": "/data/logos/698_logo.png",
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "Unknown",
+      "languageCode": "und",
+      "title": "",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": false
+    }
+  ],
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 2,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "English Subs",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    }
+  ],
+  "container": "matroska,webm",
+  "duration": 6946,
+  "_tracksDetected": true,
+  "certification": "N/A"
 }

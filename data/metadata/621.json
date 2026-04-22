@@ -18,5 +18,53 @@
   "tmdbId": 26466,
   "fetchedAt": "2026-02-15T13:42:58.928Z",
   "needsRetry": false,
-  "tv": null
+  "tv": null,
+  "logo": "/data/logos/621_logo.png",
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": true
+    },
+    {
+      "index": 1,
+      "streamIndex": 2,
+      "codec": "ac3",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "",
+      "channels": 6,
+      "channelLayout": "5.1(side)",
+      "browserPlayable": false,
+      "isDefault": false
+    }
+  ],
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 3,
+      "codec": "mov_text",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": true,
+      "isForced": false
+    }
+  ],
+  "container": "mov,mp4,m4a,3gp,3g2,mj2",
+  "duration": 5932,
+  "_tracksDetected": true,
+  "certification": "R"
 }

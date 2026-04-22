@@ -32,5 +32,145 @@
     "episodeRuntime": 23,
     "totalSeasons": 2,
     "totalEpisodes": 25
-  }
+  },
+  "logo": "/data/logos/show_229676_logo.png",
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 2,
+      "codec": "ass",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "English",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": true,
+      "isForced": false
+    },
+    {
+      "index": 1,
+      "streamIndex": 3,
+      "codec": "ass",
+      "language": "Spanish",
+      "languageCode": "spa",
+      "title": "Spanish(Latin_America)",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    },
+    {
+      "index": 2,
+      "streamIndex": 4,
+      "codec": "ass",
+      "language": "Spanish",
+      "languageCode": "spa",
+      "title": "Spanish",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    },
+    {
+      "index": 3,
+      "streamIndex": 5,
+      "codec": "ass",
+      "language": "Arabic",
+      "languageCode": "ara",
+      "title": "Arabic",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    },
+    {
+      "index": 4,
+      "streamIndex": 6,
+      "codec": "ass",
+      "language": "French",
+      "languageCode": "fre",
+      "title": "French",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    },
+    {
+      "index": 5,
+      "streamIndex": 7,
+      "codec": "ass",
+      "language": "German",
+      "languageCode": "ger",
+      "title": "German",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    },
+    {
+      "index": 6,
+      "streamIndex": 8,
+      "codec": "ass",
+      "language": "Italian",
+      "languageCode": "ita",
+      "title": "Italian",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    },
+    {
+      "index": 7,
+      "streamIndex": 9,
+      "codec": "ass",
+      "language": "Portuguese",
+      "languageCode": "por",
+      "title": "Portuguese(Brazil)",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    },
+    {
+      "index": 8,
+      "streamIndex": 10,
+      "codec": "ass",
+      "language": "Russian",
+      "languageCode": "rus",
+      "title": "Russian",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    }
+  ],
+  "duration": 1433,
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "Japanese",
+      "languageCode": "jpn",
+      "title": "",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": true
+    }
+  ],
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "container": "matroska,webm",
+  "_tracksDetected": true,
+  "certification": "NC16"
 }

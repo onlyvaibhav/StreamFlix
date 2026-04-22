@@ -30,5 +30,27 @@
     "episodeRuntime": 32,
     "totalSeasons": 4,
     "totalEpisodes": 21
-  }
+  },
+  "logo": "/data/logos/show_96421_logo.png",
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "Unknown",
+      "languageCode": "und",
+      "title": "HDwebmovies.xyz",
+      "channels": 6,
+      "channelLayout": "5.1",
+      "browserPlayable": true,
+      "isDefault": true
+    }
+  ],
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "subtitleTracks": [],
+  "container": "matroska,webm",
+  "duration": 1939,
+  "_tracksDetected": true,
+  "certification": "TV-14"
 }

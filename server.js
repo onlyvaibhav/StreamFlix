@@ -26,6 +26,8 @@ const {
   rebuildTVCaches,
   findIncompleteMetadata
 } = require('./services/metadataWorker');
+const logger = require('./services/logger');
+const contentCurator = require('./services/contentCurator');
 
 const telegramServiceModule = require('./services/telegramService');
 worker.setTelegramService(telegramServiceModule);
@@ -120,7 +122,7 @@ app.use(express.urlencoded({ extended: true, limit: '5mb' }));
 console.log('Static Data Path:', path.join(__dirname, 'data'));
 
 app.use('/data', (req, res, next) => {
-  console.log('Serving Static:', req.path);
+  // Silent logs for static files
   next();
 }, express.static(path.join(__dirname, 'data')));
 
@@ -202,7 +204,10 @@ let _cacheInvalidateCount = 0;
 function invalidateCache() {
   _metadataCache = null;
   _metadataCacheTime = 0;
+  _curatedCache = null;
+  _curatedCacheTime = 0;
   _cacheInvalidateCount++;
+
 
   if (_cacheInvalidateTimer) clearTimeout(_cacheInvalidateTimer);
 
@@ -473,6 +478,36 @@ app.get('/api/debug/split-movies', async (req, res) => {
   }
 });
 
+// ============================================================
+// CURATED CONTENT API
+// ============================================================
+let _curatedCache = null;
+let _curatedCacheTime = 0;
+const CURATED_CACHE_TTL = 1000 * 60 * 60; // 1 hour
+
+app.get('/api/curated', async (req, res) => {
+  try {
+    // Check cache
+    if (_curatedCache && (Date.now() - _curatedCacheTime < CURATED_CACHE_TTL)) {
+      res.set('X-Cache', 'HIT');
+      return res.json(_curatedCache);
+    }
+
+    const allMetadata = await loadAllValidMetadata();
+    const curated = contentCurator.curate(allMetadata);
+
+    _curatedCache = curated;
+    _curatedCacheTime = Date.now();
+
+    console.log(`[Curated] Generated curated content (${allMetadata.length} items → ${curated.genres_page.genres.length} genres)`);
+    res.set('X-Cache', 'MISS');
+    res.json(curated);
+  } catch (error) {
+    console.error('API /api/curated error:', error);
+    res.status(500).json({ error: 'Failed to generate curated content' });
+  }
+});
+
 // GET /api/metadata — Everything the frontend needs
 app.get('/api/metadata', async (req, res) => {
   try {
@@ -497,6 +532,7 @@ app.get('/api/metadata', async (req, res) => {
           popularity: item.popularity || 0,
           poster: item.poster,
           backdrop: item.backdrop,
+          logo: item.logo || null,
           totalSeasons: item.tv.totalSeasons || 0,
           totalEpisodes: item.tv.totalEpisodes || 0,
           year: item.year,
@@ -568,28 +604,59 @@ app.get('/api/metadata', async (req, res) => {
     // Hero items — prioritize items with backdrops and good ratings
     const heroPool = [];
     for (const movie of movies) {
-      if (movie.backdrop && movie.rating >= 5) {
+      if (movie.backdrop && movie.rating >= 4) { // Lowered to include more variety
         heroPool.push({
           id: movie.fileId, type: 'movie', title: movie.title, overview: movie.overview || '',
-          backdrop: movie.backdrop, poster: movie.poster, rating: movie.rating || 0,
+          backdrop: movie.backdrop, poster: movie.poster, logo: movie.logo || null, rating: movie.rating || 0,
           year: movie.year, runtime: movie.runtime, genres: movie.genres || [],
           isSplit: movie.isSplit || false,
-          totalParts: movie.totalParts || 1
+          totalParts: movie.totalParts || 1,
+          fetchedAt: movie.fetchedAt ? new Date(movie.fetchedAt).getTime() : 0
         });
       }
     }
     for (const show of tvShows) {
-      if (show.backdrop && show.rating >= 5) {
+      if (show.backdrop && show.rating >= 4) {
         heroPool.push({
           id: `show_${show.showTmdbId}`, type: 'tv', title: show.showTitle, overview: show.overview || '',
-          backdrop: show.backdrop, poster: show.poster, rating: show.rating || 0,
+          backdrop: show.backdrop, poster: show.poster, logo: show.logo || null, rating: show.rating || 0,
           year: show.year, genres: show.genres || [],
-          firstEpisodeFileId: show.episodes.length > 0 ? show.episodes[0].fileId : null
+          firstEpisodeFileId: show.episodes.length > 0 ? show.episodes[0].fileId : null,
+          fetchedAt: Date.now() // Treat TV shows baseline as somewhat recent if they have high ratings
         });
       }
     }
 
-    const heroItems = heroPool.sort((a, b) => b.rating - a.rating).slice(0, 8);
+    // Step 1: Sort by a combined score of recency and rating
+    const now = Date.now();
+    heroPool.sort((a, b) => {
+      const aAgeDays = (now - a.fetchedAt) / (1000 * 60 * 60 * 24);
+      const bAgeDays = (now - b.fetchedAt) / (1000 * 60 * 60 * 24);
+      
+      const aScore = a.rating + (aAgeDays < 30 ? 2 : 0) + (aAgeDays < 7 ? 2 : 0);
+      const bScore = b.rating + (bAgeDays < 30 ? 2 : 0) + (bAgeDays < 7 ? 2 : 0);
+      
+      return bScore - aScore; // Descending
+    });
+
+    // Step 2: Take top 30 candidates, shuffle them
+    const topCandidates = heroPool.slice(0, 30);
+    for (let i = topCandidates.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [topCandidates[i], topCandidates[j]] = [topCandidates[j], topCandidates[i]];
+    }
+    
+    // Step 3: Ensure a mix of Movies and TV (max 8)
+    let heroItems = [];
+    const chosenTv = topCandidates.filter(t => t.type === 'tv').slice(0, 3);
+    const chosenMovies = topCandidates.filter(t => t.type === 'movie').slice(0, 8 - chosenTv.length);
+    heroItems = [...chosenMovies, ...chosenTv];
+    
+    // Shuffle the final 8 so TVs don't consistently stick to the end
+    for (let i = heroItems.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [heroItems[i], heroItems[j]] = [heroItems[j], heroItems[i]];
+    }
 
     // Fallback if no hero items have backdrops
     if (heroItems.length === 0) {
@@ -740,6 +807,7 @@ app.get('/api/tv/:showTmdbId', async (req, res) => {
       popularity: first.popularity,
       poster: first.poster,
       backdrop: first.backdrop,
+      logo: first.logo || null,
       year: first.year,
       totalSeasons: first.tv.totalSeasons,
       totalEpisodes: first.tv.totalEpisodes,
@@ -856,6 +924,13 @@ app.get('/api/health', async (req, res) => {
     const allMetadata = await loadAllValidMetadata();
     const movies = allMetadata.filter(isMovieContent);
     const tvEpisodes = allMetadata.filter(isTVContent);
+    
+    const uniqueShows = new Set();
+    for (const ep of tvEpisodes) {
+      if (ep.tv && ep.tv.showTmdbId) uniqueShows.add(ep.tv.showTmdbId);
+    }
+    const tvShowsCount = uniqueShows.size;
+
     let failedCount = 0;
 
     try {
@@ -875,6 +950,7 @@ app.get('/api/health', async (req, res) => {
       library: {
         validEntries: allMetadata.length,
         movies: movies.length,
+        tvShows: tvShowsCount,
         tvEpisodes: tvEpisodes.length,
         failedEntries: failedCount
       }
@@ -1015,6 +1091,11 @@ app.get('/admin', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'admin.html'));
 });
 
+// Serve modern admin page at /admin/v2
+app.get('/admin/v2', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'admin-v2.html'));
+});
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Catch-all for SPA — serve index.html for any unmatched non-API route
@@ -1050,8 +1131,8 @@ async function startServer() {
     // Check ffmpeg availability
     const hasFFmpeg = await checkFFmpeg();
     const hasFFprobe = await checkFFprobe();
-    console.log(`🎬 ffmpeg: ${hasFFmpeg ? '✅ installed' : '❌ NOT FOUND'}`);
-    console.log(`🔍 ffprobe: ${hasFFprobe ? '✅ installed' : '❌ NOT FOUND'}`);
+    logger.info(`ffmpeg: ${hasFFmpeg ? '✅ installed' : '❌ NOT FOUND'}`, 'system');
+    logger.info(`ffprobe: ${hasFFprobe ? '✅ installed' : '❌ NOT FOUND'}`, 'system');
 
     if (!hasFFmpeg || !hasFFprobe) {
       console.log('⚠️  Install ffmpeg for subtitle extraction & audio transcoding');
@@ -1076,9 +1157,9 @@ async function startServer() {
     app.listen(PORT, '0.0.0.0', () => {
       const networkIP = getNetworkIP();
 
-      console.log('\n==========================================');
-      console.log('   🎬 StreamFlix is running!');
-      console.log('==========================================\n');
+      logger.success('==========================================', 'system');
+      logger.success('   🎬 StreamFlix is running!', 'system');
+      logger.success('==========================================', 'system');
       console.log(`   ➜  Local:    http://localhost:${PORT}`);
       if (networkIP) {
         console.log(`   ➜  Network:  http://${networkIP}:${PORT}`);

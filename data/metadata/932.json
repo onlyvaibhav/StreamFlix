@@ -1,0 +1,73 @@
+{
+  "fileId": "932",
+  "fileName": "Venom_2_2021_BluRay_720p_Hindi_English_AAC_5_1_x264_ESub_Vegamovies.mkv",
+  "type": "movie",
+  "title": "Venom: Let There Be Carnage",
+  "originalTitle": "Venom: Let There Be Carnage",
+  "overview": "After finding a host body in investigative reporter Eddie Brock, the alien symbiote must face a new enemy, Carnage, the alter ego of serial killer Cletus Kasady.",
+  "releaseDate": "2021-09-30",
+  "year": 2021,
+  "runtime": 97,
+  "genres": [
+    "Science Fiction",
+    "Action",
+    "Adventure"
+  ],
+  "rating": 6.746,
+  "popularity": 12.9848,
+  "poster": "/data/posters/932.jpg",
+  "backdrop": "/data/backdrops/932_bd.jpg",
+  "tmdbId": 580489,
+  "fetchedAt": "2026-04-21T11:06:55.497Z",
+  "needsRetry": false,
+  "tv": null,
+  "_logoPath": "/11eE224H5dzYS2CNxez7dVcDXhe.png",
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "",
+      "channels": 6,
+      "channelLayout": "5.1",
+      "browserPlayable": true,
+      "isDefault": true
+    },
+    {
+      "index": 1,
+      "streamIndex": 2,
+      "codec": "aac",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "",
+      "channels": 6,
+      "channelLayout": "5.1",
+      "browserPlayable": true,
+      "isDefault": false
+    }
+  ],
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 3,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "SRT",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": true,
+      "isForced": false
+    }
+  ],
+  "container": "matroska,webm",
+  "duration": 5838.131,
+  "_probeFailCount": 0,
+  "logo": "/data/logos/932_logo.png",
+  "_tracksDetected": true
+}

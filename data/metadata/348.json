@@ -19,5 +19,27 @@
   "tmdbId": 1174777,
   "fetchedAt": "2026-02-15T13:46:49.259Z",
   "needsRetry": false,
-  "tv": null
+  "tv": null,
+  "logo": "/data/logos/348_logo.png",
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "Stereo",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": true
+    }
+  ],
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "subtitleTracks": [],
+  "container": "matroska,webm",
+  "duration": 7679,
+  "_tracksDetected": true,
+  "certification": "UA"
 }

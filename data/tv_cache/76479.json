@@ -327,6 +327,15 @@
         "episodeTitle": "Teenage Kix",
         "episodeOverview": "Tonight at 9/8C a @VoughtNews special report: Is your loved one a secret Starlighter terrorist?",
         "runtime": 63
+      },
+      {
+        "fileId": "930",
+        "fileName": "The.Boys.S05E03.720p.AMZN.WEB-DL.x264-VegaMovies.is.mkv",
+        "seasonNumber": 5,
+        "episodeNumber": 3,
+        "episodeTitle": "Every One of You Sons of Bitches",
+        "episodeOverview": "Storm her senses with V-Bro Mango Thunder Body Spray by Vought! She'll never know what hit her!",
+        "runtime": 66
       }
     ]
   },
@@ -337,5 +346,5 @@
     4,
     5
   ],
-  "availableEpisodeCount": 34
+  "availableEpisodeCount": 35
 }

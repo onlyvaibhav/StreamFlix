@@ -29,5 +29,27 @@
     "episodeRuntime": 60,
     "totalSeasons": 1,
     "totalEpisodes": 12
-  }
+  },
+  "logo": "/data/logos/show_278157_logo.png",
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Stereo",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": true
+    }
+  ],
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "subtitleTracks": [],
+  "container": "matroska,webm",
+  "duration": 2566.185,
+  "_tracksDetected": true,
+  "certification": "N/A"
 }

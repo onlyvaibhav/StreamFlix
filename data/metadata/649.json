@@ -33,5 +33,52 @@
     "totalEpisodes": 6
   },
   "audioCodec": "aac",
-  "browserPlayable": true
+  "browserPlayable": true,
+  "logo": "/data/logos/show_232402_logo.png",
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "Unknown",
+      "languageCode": "und",
+      "title": "KatDrama.com",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": true
+    }
+  ],
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 2,
+      "codec": "ass",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "KatDrama.com",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    },
+    {
+      "index": 1,
+      "streamIndex": 3,
+      "codec": "ass",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "KatDrama.com",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    }
+  ],
+  "container": "matroska,webm",
+  "duration": 3015,
+  "_tracksDetected": true,
+  "certification": "TV-MA"
 }

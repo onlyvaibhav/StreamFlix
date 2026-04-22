@@ -1,0 +1,61 @@
+{
+  "fileId": "933",
+  "fileName": "The.Shadows.Edge.2025.720p.BluRay.x264.AAC-[YTS.BZ].mkv",
+  "type": "movie",
+  "title": "The Shadow's Edge",
+  "originalTitle": "捕风追影",
+  "overview": "Macau Police brings the tracking expert police officer out of retirement to help catch a dangerous group of professional thieves.",
+  "releaseDate": "2025-08-16",
+  "year": 2025,
+  "runtime": 142,
+  "genres": [
+    "Action",
+    "Crime",
+    "Drama",
+    "Thriller"
+  ],
+  "rating": 7.218,
+  "popularity": 89.8173,
+  "poster": "/data/posters/933.jpg",
+  "backdrop": "/data/backdrops/933_bd.jpg",
+  "tmdbId": 1419406,
+  "fetchedAt": "2026-04-21T11:06:00.664Z",
+  "needsRetry": false,
+  "tv": null,
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "Chinese",
+      "languageCode": "chi",
+      "title": "",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": true
+    }
+  ],
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 2,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "English",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": true,
+      "isForced": false
+    }
+  ],
+  "container": "matroska,webm",
+  "duration": 8531.925,
+  "_tracksDetected": true,
+  "_probeFailCount": 0,
+  "logo": "/data/logos/933_logo.png"
+}

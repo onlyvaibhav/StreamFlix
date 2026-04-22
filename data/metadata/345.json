@@ -21,5 +21,79 @@
   "tmdbId": 153518,
   "fetchedAt": "2026-02-15T13:46:53.267Z",
   "needsRetry": false,
-  "tv": null
+  "tv": null,
+  "logo": "/data/logos/345_logo.png",
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "GOPISAHI",
+      "channels": 6,
+      "channelLayout": "5.1",
+      "browserPlayable": true,
+      "isDefault": true
+    },
+    {
+      "index": 1,
+      "streamIndex": 2,
+      "codec": "aac",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "GOPISAHI",
+      "channels": 6,
+      "channelLayout": "5.1",
+      "browserPlayable": true,
+      "isDefault": false
+    }
+  ],
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 3,
+      "codec": "hdmv_pgs_subtitle",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "GOPISAHI",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": true,
+      "isForced": false
+    },
+    {
+      "index": 1,
+      "streamIndex": 4,
+      "codec": "hdmv_pgs_subtitle",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "GOPISAHI",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    },
+    {
+      "index": 2,
+      "streamIndex": 5,
+      "codec": "hdmv_pgs_subtitle",
+      "language": "Arabic",
+      "languageCode": "ara",
+      "title": "GOPISAHI",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    }
+  ],
+  "container": "matroska,webm",
+  "duration": 5834,
+  "_tracksDetected": true,
+  "certification": "PG"
 }

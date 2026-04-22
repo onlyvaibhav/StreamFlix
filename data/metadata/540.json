@@ -19,5 +19,15 @@
   "tmdbId": 1380920,
   "fetchedAt": "2026-02-15T13:43:37.927Z",
   "needsRetry": false,
-  "tv": null
+  "tv": null,
+  "logo": "/data/logos/540_logo.png",
+  "subtitleTracks": [],
+  "container": "matroska,webm",
+  "duration": 8165.825,
+  "_tracksDetected": true,
+  "audioTracks": [],
+  "browserPlayable": true,
+  "_probeFailCount": 3,
+  "manualProbeNeeded": true,
+  "certification": "NR"
 }

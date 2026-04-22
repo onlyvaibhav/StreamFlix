@@ -19,5 +19,27 @@
   "tmdbId": 465136,
   "fetchedAt": "2026-02-15T20:12:43.241Z",
   "needsRetry": false,
-  "tv": null
+  "tv": null,
+  "logo": "/data/logos/536_logo.png",
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "ac3",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "",
+      "channels": 6,
+      "channelLayout": "5.1(side)",
+      "browserPlayable": false,
+      "isDefault": true
+    }
+  ],
+  "audioCodec": "ac3",
+  "browserPlayable": false,
+  "subtitleTracks": [],
+  "container": "matroska,webm",
+  "duration": 3699,
+  "_tracksDetected": true,
+  "certification": "PG-13"
 }

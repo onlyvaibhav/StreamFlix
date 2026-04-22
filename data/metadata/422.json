@@ -7,7 +7,7 @@
   "overview": "Young, socially awkward yet morally grounded SI cadet Brinda stumbles upon a brutal murder with a chilling modus operandi. As the killer slips through her grasp, she faces personal and bureaucratic turmoil, but the hardest challenge is the moral reckoning that could define her career and conscience. Will Brinda uphold justice, or lose herself in the chaos closer to home?",
   "releaseDate": "2024-08-02",
   "year": 2024,
-  "runtime": 0,
+  "runtime": 41,
   "genres": [
     "Crime",
     "Mystery"
@@ -27,10 +27,56 @@
     "episodeTitle": "",
     "episodeOverview": "",
     "showTmdbId": 259546,
-    "episodeRuntime": 0,
+    "episodeRuntime": 41,
     "totalSeasons": 1,
     "totalEpisodes": 8
   },
   "audioCodec": "aac",
-  "browserPlayable": true
+  "browserPlayable": true,
+  "logo": "/data/logos/show_259546_logo.png",
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "Vegamovies.To",
+      "channels": 6,
+      "channelLayout": "5.1",
+      "browserPlayable": true,
+      "isDefault": true
+    },
+    {
+      "index": 1,
+      "streamIndex": 2,
+      "codec": "aac",
+      "language": "Telugu",
+      "languageCode": "tel",
+      "title": "Vegamovies.To",
+      "channels": 6,
+      "channelLayout": "5.1",
+      "browserPlayable": true,
+      "isDefault": false
+    }
+  ],
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 3,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Vegamovies.To",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": true,
+      "isForced": false
+    }
+  ],
+  "container": "matroska,webm",
+  "duration": 2485,
+  "_tracksDetected": true,
+  "certification": "A"
 }

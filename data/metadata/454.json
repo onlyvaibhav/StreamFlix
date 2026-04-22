@@ -20,5 +20,27 @@
   "tmdbId": 729700,
   "fetchedAt": "2026-02-15T13:45:13.524Z",
   "needsRetry": false,
-  "tv": null
+  "tv": null,
+  "logo": "/data/logos/454_logo.png",
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "eac3",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "Vegamovies.to",
+      "channels": 6,
+      "channelLayout": "5.1(side)",
+      "browserPlayable": false,
+      "isDefault": false
+    }
+  ],
+  "audioCodec": "eac3",
+  "browserPlayable": false,
+  "subtitleTracks": [],
+  "container": "matroska,webm",
+  "duration": 6335,
+  "_tracksDetected": true,
+  "certification": "U"
 }

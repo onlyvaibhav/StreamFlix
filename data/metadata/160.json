@@ -24,5 +24,38 @@
   "tv": null,
   "audioCodec": "eac3",
   "browserPlayable": false,
-  "_tracksDetected": true
+  "_tracksDetected": true,
+  "logo": "/data/logos/160_logo.png",
+  "container": "matroska,webm",
+  "duration": 4780,
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "eac3",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "",
+      "channels": 6,
+      "channelLayout": "5.1(side)",
+      "browserPlayable": false,
+      "isDefault": true
+    }
+  ],
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 2,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "English",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": true,
+      "isForced": false
+    }
+  ],
+  "certification": "UA"
 }

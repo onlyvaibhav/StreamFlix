@@ -21,5 +21,53 @@
   "tmdbId": 58574,
   "fetchedAt": "2026-02-15T13:48:18.981Z",
   "needsRetry": false,
-  "tv": null
+  "tv": null,
+  "logo": "/data/logos/238_logo.png",
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "ac3",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Vegamovies.to",
+      "channels": 6,
+      "channelLayout": "5.1(side)",
+      "browserPlayable": false,
+      "isDefault": false
+    },
+    {
+      "index": 1,
+      "streamIndex": 2,
+      "codec": "ac3",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "Vegamovies.to",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": false,
+      "isDefault": true
+    }
+  ],
+  "audioCodec": "ac3",
+  "browserPlayable": false,
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 3,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Sherlock.Holmes",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": true,
+      "isForced": false
+    }
+  ],
+  "container": "matroska,webm",
+  "duration": 2211,
+  "_tracksDetected": true,
+  "certification": "PG-13"
 }

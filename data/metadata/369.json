@@ -19,5 +19,27 @@
   "tmdbId": 980599,
   "fetchedAt": "2026-02-15T13:46:44.441Z",
   "needsRetry": false,
-  "tv": null
+  "tv": null,
+  "logo": "/data/logos/369_logo.png",
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "Unknown",
+      "languageCode": "und",
+      "title": "Vegamovies.is",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": true
+    }
+  ],
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "subtitleTracks": [],
+  "container": "matroska,webm",
+  "duration": 9514,
+  "_tracksDetected": true,
+  "certification": "N/A"
 }

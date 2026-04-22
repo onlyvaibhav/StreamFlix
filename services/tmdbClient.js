@@ -52,8 +52,28 @@ class TMDBClient {
 
         const tmdbId = search.results[0].id;
 
-        // STEP 2: Full details
-        const d = await this.request(`/movie/${tmdbId}`);
+        // STEP 2: Full details (include images for logos, external_ids for imdb_id)
+        const d = await this.request(`/movie/${tmdbId}`, {
+            append_to_response: 'images,external_ids',
+            include_image_language: 'en,null'
+        });
+
+        let awards = '';
+        if (d.external_ids && d.external_ids.imdb_id && process.env.OMDB_API_KEY) {
+            try {
+                const omdbRes = await axios.get(`http://www.omdbapi.com/?apikey=${process.env.OMDB_API_KEY}&i=${d.external_ids.imdb_id}`, { timeout: 5000 });
+                if (omdbRes.data && omdbRes.data.Awards && omdbRes.data.Awards !== 'N/A') {
+                    awards = omdbRes.data.Awards;
+                }
+            } catch (e) {
+                console.warn(`[OMDB] Failed to fetch awards for movie ${tmdbId}:`, e.message);
+            }
+        }
+
+        let logoPath = null;
+        if (d.images && d.images.logos && d.images.logos.length > 0) {
+            logoPath = d.images.logos[0].file_path;
+        }
 
         return {
             fileId,
@@ -68,6 +88,7 @@ class TMDBClient {
             genres: (d.genres || []).map(g => g.name),
             rating: d.vote_average || 0,
             popularity: d.popularity || 0,
+            awards: awards,
             poster: null,
             backdrop: null,
             tmdbId: d.id,
@@ -76,7 +97,8 @@ class TMDBClient {
             tv: null,
             // Internal — used by worker for image download, stripped before final save
             _posterPath: d.poster_path,
-            _backdropPath: d.backdrop_path
+            _backdropPath: d.backdrop_path,
+            _logoPath: logoPath
         };
     }
 
@@ -96,7 +118,27 @@ class TMDBClient {
         }
 
         const tmdbId = search.results[0].id;
-        const d = await this.request(`/tv/${tmdbId}`);
+        const d = await this.request(`/tv/${tmdbId}`, {
+            append_to_response: 'images,external_ids',
+            include_image_language: 'en,null'
+        });
+
+        let awards = '';
+        if (d.external_ids && d.external_ids.imdb_id && process.env.OMDB_API_KEY) {
+            try {
+                const omdbRes = await axios.get(`http://www.omdbapi.com/?apikey=${process.env.OMDB_API_KEY}&i=${d.external_ids.imdb_id}`, { timeout: 5000 });
+                if (omdbRes.data && omdbRes.data.Awards && omdbRes.data.Awards !== 'N/A') {
+                    awards = omdbRes.data.Awards;
+                }
+            } catch (e) {
+                console.warn(`[OMDB] Failed to fetch awards for TV show ${tmdbId}:`, e.message);
+            }
+        }
+
+        let logoPath = null;
+        if (d.images && d.images.logos && d.images.logos.length > 0) {
+            logoPath = d.images.logos[0].file_path;
+        }
 
         return {
             showTmdbId: d.id,
@@ -107,8 +149,10 @@ class TMDBClient {
             genres: (d.genres || []).map(g => g.name),
             rating: d.vote_average || 0,
             popularity: d.popularity || 0,
+            awards: awards || '',
             posterPath: d.poster_path,
             backdropPath: d.backdrop_path,
+            logoPath: logoPath,
             // episode_run_time is deprecated for newer shows — check both
             defaultEpisodeRuntime: (d.episode_run_time && d.episode_run_time.length > 0)
                 ? d.episode_run_time[0]
@@ -143,6 +187,43 @@ class TMDBClient {
     }
 
     // ==========================================================
+    // CERTIFICATION: Fetch age rating (US/IN/First)
+    // ==========================================================
+    async fetchCertification(type, tmdbId) {
+        try {
+            if (type === 'movie') {
+                const d = await this.request(`/movie/${tmdbId}/release_dates`);
+                const results = d.results || [];
+                
+                // Priority: US, IN, first available
+                const us = results.find(r => r.iso_3166_1 === 'US');
+                const in_ = results.find(r => r.iso_3166_1 === 'IN');
+                const target = us || in_ || results[0];
+
+                if (target && target.release_dates && target.release_dates.length > 0) {
+                    // Find the first non-empty certification
+                    const cert = target.release_dates.find(rd => rd.certification !== '');
+                    return cert ? cert.certification : null;
+                }
+            } else if (type === 'tv') {
+                const d = await this.request(`/tv/${tmdbId}/content_ratings`);
+                const results = d.results || [];
+
+                // Priority: US, IN, first available
+                const us = results.find(r => r.iso_3166_1 === 'US');
+                const in_ = results.find(r => r.iso_3166_1 === 'IN');
+                const target = us || in_ || results[0];
+
+                return target ? target.rating : null;
+            }
+            return null;
+        } catch (err) {
+            console.error(`[TMDB] Failed to fetch certification for ${type} ${tmdbId}:`, err.message);
+            return null;
+        }
+    }
+
+    // ==========================================================
     // BUILD MASTER SCHEMA FOR TV EPISODE
     // Combines show metadata + episode details into one object
     // ==========================================================
@@ -162,6 +243,7 @@ class TMDBClient {
             genres: showMeta.genres,
             rating: showMeta.rating,
             popularity: showMeta.popularity,
+            awards: showMeta.awards || '',
             poster: null,
             backdrop: null,
             tmdbId: showMeta.showTmdbId,
@@ -180,7 +262,8 @@ class TMDBClient {
                 totalEpisodes: showMeta.totalEpisodes
             },
             _posterPath: showMeta.posterPath,
-            _backdropPath: showMeta.backdropPath
+            _backdropPath: showMeta.backdropPath,
+            _logoPath: showMeta.logoPath
         };
     }
 }

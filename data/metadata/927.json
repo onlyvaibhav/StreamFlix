@@ -17,7 +17,7 @@
   "poster": "/data/posters/show_76479.jpg",
   "backdrop": "/data/backdrops/show_76479_bd.jpg",
   "tmdbId": 76479,
-  "fetchedAt": "2026-04-15T14:56:59.478Z",
+  "fetchedAt": "2026-04-15T18:26:42.591Z",
   "needsRetry": false,
   "tv": {
     "showTitle": "The Boys",
@@ -31,34 +31,35 @@
     "totalSeasons": 5,
     "totalEpisodes": 40
   },
-  "container": "matroska,webm",
-  "duration": 3752.544,
+  "logo": "/data/logos/show_76479_logo.png",
   "audioTracks": [
     {
       "index": 0,
       "streamIndex": 1,
-      "codec": "eac3",
+      "codec": "aac",
       "language": "Hindi",
       "languageCode": "hin",
       "title": "VegaMovies.is",
-      "channels": 6,
-      "channelLayout": "5.1(side)",
-      "browserPlayable": false,
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
       "isDefault": true
     },
     {
       "index": 1,
       "streamIndex": 2,
-      "codec": "eac3",
+      "codec": "aac",
       "language": "English",
       "languageCode": "eng",
       "title": "VegaMovies.is",
-      "channels": 6,
-      "channelLayout": "5.1(side)",
-      "browserPlayable": false,
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
       "isDefault": false
     }
   ],
+  "audioCodec": "aac",
+  "browserPlayable": true,
   "subtitleTracks": [
     {
       "index": 0,
@@ -87,6 +88,8 @@
       "isForced": false
     }
   ],
-  "audioCodec": "eac3",
-  "browserPlayable": false
+  "container": "matroska,webm",
+  "duration": 3753,
+  "_tracksDetected": true,
+  "certification": "TV-MA"
 }

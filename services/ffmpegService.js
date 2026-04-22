@@ -32,16 +32,19 @@ const COMPATIBLE_VIDEO_CODECS = [
 function probeFile(filePath) {
     return new Promise((resolve, reject) => {
         const args = [
-            '-v', 'quiet',
+            '-v', 'error',
             '-print_format', 'json',
             '-show_format',
             '-show_streams',
+            '-analyzeduration', '100M',
+            '-probesize', '100M',
             filePath,
         ];
 
         execFile('ffprobe', args, { timeout: 30000 }, (error, stdout, stderr) => {
             if (error) {
-                reject(new Error(`ffprobe failed: ${error.message}`));
+                const combinedError = stderr ? `${error.message} | ${stderr}` : error.message;
+                reject(new Error(`ffprobe failed: ${combinedError}`));
                 return;
             }
 
@@ -49,7 +52,8 @@ function probeFile(filePath) {
                 const info = JSON.parse(stdout);
                 resolve(parseProbeInfo(info));
             } catch (e) {
-                reject(new Error(`Failed to parse ffprobe output: ${e.message}`));
+                const combinedError = stderr ? `${e.message} | ${stderr}` : e.message;
+                reject(new Error(`Failed to parse ffprobe output: ${combinedError}`));
             }
         });
     });
@@ -76,10 +80,12 @@ async function probeBuffer(buffer) {
 function probeFromPipe(buffer) {
     return new Promise((resolve, reject) => {
         const args = [
-            '-v', 'quiet',
+            '-v', 'error',
             '-print_format', 'json',
             '-show_format',
             '-show_streams',
+            '-analyzeduration', '100M',
+            '-probesize', '100M',
             '-i', 'pipe:0',
         ];
 
@@ -93,10 +99,8 @@ function probeFromPipe(buffer) {
         proc.stdout.on('data', (data) => { stdout += data.toString(); });
         proc.stderr.on('data', (data) => { stderr += data.toString(); });
 
-        // Handle EPIPE/EOF - ffprobe may close stdin before we finish writing
         proc.stdin.on('error', (err) => {
             if (err.code === 'EPIPE' || err.code === 'EOF' || err.errno === -4095) {
-                // Expected: ffprobe got enough data and closed the pipe
                 return;
             }
             console.error('   ⚠️ ffprobe stdin error:', err.message);
@@ -107,8 +111,11 @@ function probeFromPipe(buffer) {
                 const info = JSON.parse(stdout);
                 resolve(parseProbeInfo(info));
             } catch (e) {
-                // If pipe probe fails, try temp file method
-                probeBuffer(buffer).then(resolve).catch(reject);
+                // If pipe probe fails, try temp file method (which has its own diagnostics)
+                probeBuffer(buffer).then(resolve).catch((err) => {
+                    const combinedError = stderr ? `${err.message} | ${stderr}` : err.message;
+                    reject(new Error(combinedError));
+                });
             }
         });
 
@@ -116,12 +123,10 @@ function probeFromPipe(buffer) {
             probeBuffer(buffer).then(resolve).catch(reject);
         });
 
-        // Write buffer to ffprobe, catching any pipe errors
         try {
             proc.stdin.write(buffer);
             proc.stdin.end();
         } catch (err) {
-            // EPIPE can also throw synchronously
             console.log('   ⚠️ ffprobe pipe write error (falling back to temp file)');
         }
     });

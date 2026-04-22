@@ -31,6 +31,40 @@
     "totalSeasons": 2,
     "totalEpisodes": 12
   },
-  "audioCodec": "unknown",
-  "browserPlayable": false
+  "audioCodec": "opus",
+  "browserPlayable": true,
+  "logo": "/data/logos/show_139130_logo.png",
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 2,
+      "codec": "ass",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Dialogue",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": true,
+      "isForced": false
+    }
+  ],
+  "duration": 1420,
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "opus",
+      "language": "Japanese",
+      "languageCode": "jpn",
+      "title": "Japanese",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": true
+    }
+  ],
+  "container": "matroska,webm",
+  "_tracksDetected": true,
+  "certification": "TV-14"
 }

@@ -42,6 +42,22 @@ try {
 let client = null;
 let channelEntity = null;
 
+/**
+ * Resolves the correct DC sender for a document.
+ * Helps prevent FILE_MIGRATE and DC_ID_INVALID errors.
+ */
+async function resolveSender(doc) {
+  if (!client) return null;
+  const dcId = doc?.dcId;
+  if (!dcId) return client;
+  try {
+    return await client.getSender(dcId);
+  } catch (e) {
+    console.warn(`⚠️ [Telegram] Failed to get sender for DC ${dcId}, falling back to main client:`, e.message);
+    return client;
+  }
+}
+
 // LRU Cache for file chunks
 const chunkCache = new LRUCache({
   maxSize: config.maxCacheSize,
@@ -184,15 +200,16 @@ async function initTelegram() {
     config.apiId,
     config.apiHash,
     {
-      connectionRetries: 5,
+      connectionRetries: 1000000, // Effectively Infinity
       useWSS: false,
       requestRetries: 3,
       floodSleepThreshold: 60,
+      autoReconnect: true,
       deviceModel: 'StreamFlix Server',
       systemVersion: 'Node.js',
       appVersion: '1.0.0',
       // Keep the connection alive to prevent frequent disconnects
-      pingInterval: 10,
+      pingInterval: 60,
     }
   );
 
@@ -541,28 +558,6 @@ async function getMovieById(messageId) {
   // Let's just enrich the final result.
   finalMovie = await enrichMovieData(finalMovie);
 
-  // If it's a split movie, we want to start playing from the requested part? 
-  // The frontend requested `messageId`.
-  // If we return the whole group, the frontend sees `id` of the *first* part usually (from grouping logic).
-  // But we want to return the object representing the *requested* movie, but WITH part info.
-  // If I requested Part 2, `finalMovie` might be Part 1 (leader).
-  // This is tricky. 
-  // If I return Part 1, the frontend might play Part 1.
-  // The frontend needs to know "I requested X, but here is the Group info".
-  // The `VideoPlayer` uses `movieId` param.
-
-  // User Prompt: "Movie modal: If movie.isSplit === true, show "Split into N parts"... 
-  // The main "Play" button should start from Part 1."
-
-  // OK, if I open Part 2 directly, it's nice if it plays Part 2.
-  // But usually users open the *Movie Card*.
-  // The Movie Card comes from `getMoviesList`, which returns the Group Leader.
-  // So users are usually clicking the Group Leader.
-
-  // If `getMovieById` is called, it returns the Group Leader with `parts`.
-  // If I explicitly want to play Part 2, `VideoPlayer` might need to handle "which part is this?"
-  // Or I just return the Group Leader and let Frontend handle it.
-
   // Let's return the Group Leader.
   movieCache.set(cacheKey, finalMovie);
   return finalMovie;
@@ -657,6 +652,9 @@ async function streamFile(messageId, start, end) {
     thumbSize: '',
   });
 
+  const fileInfo = { id: doc.id, location: inputLocation };
+  let currentSender = await resolveSender(doc);
+
   try {
     const chunks = [];
     let currentOffset = rangeStart;
@@ -666,23 +664,31 @@ async function streamFile(messageId, start, end) {
     while (downloaded < totalToDownload) {
       const remaining = totalToDownload - downloaded;
 
-      // FIXED: align offset down to a safe boundary, then pick a valid limit
       const alignedOffset = currentOffset - (currentOffset % 1048576);
       const skipBytes = currentOffset - alignedOffset;
       const limit = getAlignedLimit(alignedOffset);
 
-      const resultData = await getTelegramChunk(client, { id: doc.id, inputLocation }, alignedOffset, limit);
+      let resultData;
+      try {
+        resultData = await getTelegramChunk(client, fileInfo, alignedOffset, limit, currentSender);
+      } catch (error) {
+        if (error.isMigrationError && error.newDcId) {
+          console.log(`[Telegram] Mid-stream migration to DC ${error.newDcId} for ${messageId}`);
+          currentSender = await client.getSender(error.newDcId);
+          resultData = await getTelegramChunk(client, fileInfo, alignedOffset, limit, currentSender);
+        } else {
+          throw error;
+        }
+      }
 
       if (!resultData || resultData.length === 0) break;
 
       let buffer = Buffer.from(resultData);
 
-      // Skip alignment padding
       if (skipBytes > 0) {
         buffer = buffer.slice(skipBytes);
       }
 
-      // Trim to what we actually need
       if (buffer.length > remaining) {
         buffer = buffer.slice(0, remaining);
       }
@@ -767,29 +773,40 @@ async function downloadBytes(doc, startOffset, length) {
     thumbSize: '',
   });
 
+  const fileInfo = { id: doc.id, location: inputLocation };
+  let currentSender = await resolveSender(doc);
+
   const chunks = [];
   let downloaded = 0;
   let currentOffset = startOffset;
   let lastLog = 0;
 
   while (downloaded < length) {
-    // FIXED: use getAlignedLimit for safe offset/limit pairing
     const alignedOffset = currentOffset - (currentOffset % 1048576);
     const skipBytes = currentOffset - alignedOffset;
     const limit = getAlignedLimit(alignedOffset);
 
-    const resultData = await getTelegramChunk(client, { id: doc.id, inputLocation }, alignedOffset, limit);
+    let resultData;
+    try {
+      resultData = await getTelegramChunk(client, fileInfo, alignedOffset, limit, currentSender);
+    } catch (error) {
+      if (error.isMigrationError && error.newDcId) {
+        console.log(`[Telegram] Mid-download migration to DC ${error.newDcId}`);
+        currentSender = await client.getSender(error.newDcId);
+        resultData = await getTelegramChunk(client, fileInfo, alignedOffset, limit, currentSender);
+      } else {
+        throw error;
+      }
+    }
 
     if (!resultData || resultData.length === 0) break;
 
     let buf = Buffer.from(resultData);
 
-    // Skip alignment padding
     if (skipBytes > 0) {
       buf = buf.slice(skipBytes);
     }
 
-    // Trim to remaining need
     const remaining = length - downloaded;
     if (buf.length > remaining) {
       buf = buf.slice(0, remaining);
@@ -799,7 +816,6 @@ async function downloadBytes(doc, startOffset, length) {
     downloaded += buf.length;
     currentOffset += buf.length;
 
-    // Progress log every 10MB
     if (downloaded - lastLog >= 10 * 1024 * 1024) {
       console.log(`   📊 Download progress: ${formatFileSize(downloaded)}/${formatFileSize(length)} (${Math.round((downloaded / length) * 100)}%)`);
       lastLog = downloaded;
@@ -892,13 +908,6 @@ async function probeMovieFile(messageId) {
     const result = await ffmpegService.probeFromPipe(headerBuffer);
 
     console.log(`   📊 Found: ${result.video.length} video, ${result.audio.length} audio, ${result.subtitles.length} subtitle streams`);
-
-    if (result.audio.length > 0) {
-      for (const a of result.audio) {
-        const compat = ffmpegService.COMPATIBLE_AUDIO_CODECS.includes(a.codecName.toLowerCase());
-        console.log(`   🔊 Audio: ${a.codecName} ${a.channelLayout || a.channels + 'ch'} ${compat ? '✅' : '❌ incompatible'}`);
-      }
-    }
 
     if (result.needsTranscoding) {
       console.log('   ⚠️ Audio needs transcoding for browser playback');
@@ -1058,6 +1067,9 @@ async function getEmbeddedSubtitleViaFFmpeg(messageId, streamIndex) {
       thumbSize: '',
     });
 
+    const fileInfo = { id: doc.id, location: inputLocation };
+    let currentSender = await resolveSender(doc);
+
     let streamed = 0;
     let currentOffset = 0;
     let stdinClosed = false;
@@ -1066,18 +1078,27 @@ async function getEmbeddedSubtitleViaFFmpeg(messageId, streamIndex) {
 
     try {
       while (currentOffset < fileSize && !stdinClosed) {
-        // FIXED: use getAlignedLimit for safe download
         const alignedOffset = currentOffset - (currentOffset % 1048576);
         const skipBytes = currentOffset - alignedOffset;
         const limit = getAlignedLimit(alignedOffset);
 
-        const resultData = await getTelegramChunk(client, { id: doc.id, inputLocation }, alignedOffset, limit);
+        let resultData;
+        try {
+          resultData = await getTelegramChunk(client, fileInfo, alignedOffset, limit, currentSender);
+        } catch (error) {
+          if (error.isMigrationError && error.newDcId) {
+            console.log(`[Telegram] Subtitle pipe migration to DC ${error.newDcId}`);
+            currentSender = await client.getSender(error.newDcId);
+            resultData = await getTelegramChunk(client, fileInfo, alignedOffset, limit, currentSender);
+          } else {
+            throw error;
+          }
+        }
 
         if (!resultData || resultData.length === 0) break;
 
         let chunk = Buffer.from(resultData);
 
-        // Skip alignment padding
         if (skipBytes > 0) {
           chunk = chunk.slice(skipBytes);
         }
@@ -1129,8 +1150,6 @@ async function getEmbeddedSubtitleViaFFmpeg(messageId, streamIndex) {
     return result;
   } catch (pipeErr) {
     console.error('   ⚠️ ffmpeg pipe extraction failed:', pipeErr.message);
-    console.log('   🔁 Trying ffmpeg HTTP extraction via internal stream URL');
-
     try {
       const PORT = process.env.PORT || 5000;
       const streamUrl = `http://localhost:${PORT}/api/stream/${messageId}`;
@@ -1219,19 +1238,32 @@ function getFileReadStream(doc) {
     thumbSize: '',
   });
 
+  const fileInfo = { id: doc.id, location: inputLocation };
+
   const readable = new Readable({
     read() { }
   });
 
   (async () => {
-    let offset = 0; // FIXED: use plain number for alignment math
+    let offset = 0;
+    let currentSender = await resolveSender(doc);
 
     try {
       while (true) {
-        // FIXED: use getAlignedLimit for every chunk
         const limit = getAlignedLimit(offset);
 
-        const resultData = await getTelegramChunk(client, { id: doc.id, inputLocation }, offset, limit);
+        let resultData;
+        try {
+          resultData = await getTelegramChunk(client, fileInfo, offset, limit, currentSender);
+        } catch (error) {
+          if (error.isMigrationError && error.newDcId) {
+            console.log(`[Telegram] ReadStream migration to DC ${error.newDcId}`);
+            currentSender = await client.getSender(error.newDcId);
+            resultData = await getTelegramChunk(client, fileInfo, offset, limit, currentSender);
+          } else {
+            throw error;
+          }
+        }
 
         if (!resultData || resultData.length === 0) {
           readable.push(null);
@@ -1430,66 +1462,97 @@ function normalizeLanguage(code) {
 }
 
 async function detectAllTracks(doc, fileId) {
-  if (!ffmpegService) return { audioTracks: [], subtitleTracks: [] };
+  if (!ffmpegAvailable || !ffmpegService) {
+    return {
+      audioTracks: [],
+      subtitleTracks: [],
+      format: null,
+      error: 'ffprobe not available',
+    };
+  }
 
-  try {
-    const PROBE_SIZE = 5 * 1024 * 1024;
+  let probeSize = 15 * 1024 * 1024; // Tier 1: 15MB
+  let retryCount = 0;
+  const MAX_RETRY_COUNT = 2;
+
+  while (retryCount <= MAX_RETRY_COUNT) {
     const tempDir = require('os').tmpdir();
-    const tempFile = path.join(tempDir, `probe_${fileId}_${Date.now()}.mkv`);
+    // Unique name per tier to avoid conflicts
+    const tempFile = path.join(tempDir, `probe_${fileId}_t${retryCount}_${Date.now()}.mkv`);
 
-    // FIXED: use downloadProbeChunk which handles alignment safely
-    const buffer = await downloadProbeChunk(doc, PROBE_SIZE);
+    try {
+      const currentProbeSize = Math.min(probeSize, Number(doc.size));
+      const tierLabel = retryCount === 0 ? 'Tier 1' : retryCount === 1 ? 'Tier 2' : 'Tier 3';
+      console.log(`🔍 Probing "${fileId}" (${formatFileSize(currentProbeSize)}, ${tierLabel})...`);
 
-    await fs.promises.writeFile(tempFile, buffer);
+      const buffer = await downloadProbeChunk(doc, currentProbeSize);
+      if (!buffer || buffer.length === 0) throw new Error('Downloaded empty probe chunk');
 
-    const info = await ffmpegService.probeFile(tempFile);
+      await fs.promises.writeFile(tempFile, buffer);
 
-    try { await fs.promises.unlink(tempFile); } catch (e) { }
+      const info = await ffmpegService.probeFile(tempFile);
+      try { await fs.promises.unlink(tempFile); } catch (e) { }
 
-    if (!info) return { audioTracks: [], subtitleTracks: [] };
+      if (!info || (!info.audio?.length && !info.video?.length)) {
+        throw new Error('ffprobe returned no streams');
+      }
 
-    const audioTracks = [];
-    const subtitleTracks = [];
+      const audioTracks = [];
+      const subtitleTracks = [];
 
-    (info.audio || []).forEach((stream, idx) => {
-      const codec = (stream.codecName || 'unknown').toLowerCase();
-      const browserPlayable = ['aac', 'mp3', 'opus', 'vorbis', 'flac'].includes(codec);
+      (info.audio || []).forEach((stream, idx) => {
+        const codec = (stream.codecName || 'unknown').toLowerCase();
+        const browserPlayable = [
+          'aac', 'mp3', 'opus', 'vorbis', 'flac',
+          'mp4a', 'mp4a.40.2', 'mp4a.40.5',
+        ].includes(codec);
 
-      audioTracks.push({
-        index: idx,
-        streamIndex: stream.index,
-        codec: codec,
-        language: normalizeLanguage(stream.language),
-        languageCode: stream.language,
-        title: stream.title,
-        channels: stream.channels,
-        channelLayout: stream.channelLayout,
-        browserPlayable,
-        isDefault: stream.isDefault
+        audioTracks.push({
+          index: idx,
+          streamIndex: stream.index,
+          codec: codec,
+          language: normalizeLanguage(stream.language),
+          languageCode: stream.language,
+          title: stream.title,
+          channels: stream.channels,
+          channelLayout: stream.channelLayout,
+          browserPlayable,
+          isDefault: stream.isDefault
+        });
       });
-    });
 
-    (info.subtitles || []).forEach((stream, idx) => {
-      subtitleTracks.push({
-        index: idx,
-        streamIndex: stream.index,
-        codec: (stream.codecName || 'unknown').toLowerCase(),
-        language: normalizeLanguage(stream.language),
-        languageCode: stream.language,
-        title: stream.title,
-        isTextBased: stream.subtitleType === 'text',
-        isImageBased: stream.subtitleType === 'bitmap',
-        extractable: stream.subtitleType === 'text',
-        isDefault: stream.isDefault,
-        isForced: stream.isForced
+      (info.subtitles || []).forEach((stream, idx) => {
+        subtitleTracks.push({
+          index: idx,
+          streamIndex: stream.index,
+          codec: (stream.codecName || 'unknown').toLowerCase(),
+          language: normalizeLanguage(stream.language),
+          languageCode: stream.language,
+          title: stream.title,
+          isTextBased: stream.subtitleType === 'text',
+          isImageBased: stream.subtitleType === 'bitmap',
+          extractable: stream.subtitleType === 'text',
+          isDefault: stream.isDefault,
+          isForced: stream.isForced
+        });
       });
-    });
 
-    return { audioTracks, subtitleTracks };
+      return { audioTracks, subtitleTracks, format: info.format || null };
 
-  } catch (error) {
-    console.error(`Track detection failed for ${fileId}:`, error.message);
-    return { audioTracks: [], subtitleTracks: [] };
+    } catch (error) {
+      try { if (require('fs').existsSync(tempFile)) require('fs').unlinkSync(tempFile); } catch (e) { }
+      
+      retryCount++;
+      if (retryCount <= MAX_RETRY_COUNT) {
+        // Tier 2: 40MB, Tier 3: 80MB
+        probeSize = retryCount === 1 ? 40 * 1024 * 1024 : 80 * 1024 * 1024;
+        console.warn(`⚠️ Probe failed for "${fileId}" (Attempt ${retryCount}): ${error.message}. Retrying with ${formatFileSize(probeSize)}...`);
+        continue;
+      }
+
+      console.error(`[Telegram] ❌ Track detection permanently failed for "${fileId}":`, error.message);
+      return { audioTracks: [], subtitleTracks: [], format: null, error: error.message };
+    }
   }
 }
 
@@ -1512,6 +1575,9 @@ async function downloadPartial(doc, offset, totalNeeded) {
     thumbSize: '',
   });
 
+  const fileInfo = { id: doc.id, location: inputLocation };
+  let currentSender = await resolveSender(doc);
+
   const chunks = [];
   let currentOffset = offset;
   let downloaded = 0;
@@ -1521,7 +1587,18 @@ async function downloadPartial(doc, offset, totalNeeded) {
     const skipBytes = currentOffset - alignedOffset;
     const limit = getAlignedLimit(alignedOffset);
 
-    const resultData = await getTelegramChunk(client, { id: doc.id, inputLocation }, alignedOffset, limit);
+    let resultData;
+    try {
+      resultData = await getTelegramChunk(client, fileInfo, alignedOffset, limit, currentSender);
+    } catch (error) {
+      if (error.isMigrationError && error.newDcId) {
+        console.log(`[Telegram] Partial download migration to DC ${error.newDcId}`);
+        currentSender = await client.getSender(error.newDcId);
+        resultData = await getTelegramChunk(client, fileInfo, alignedOffset, limit, currentSender);
+      } else {
+        throw error;
+      }
+    }
 
     if (!resultData || resultData.length === 0) break;
 
@@ -1540,7 +1617,7 @@ async function downloadPartial(doc, offset, totalNeeded) {
     downloaded += buf.length;
     currentOffset += buf.length;
 
-    if (result.bytes.length < limit) break;
+    if (resultData.length < limit) break;
   }
 
   return Buffer.concat(chunks);
@@ -1549,8 +1626,6 @@ async function downloadPartial(doc, offset, totalNeeded) {
 // ==================== SAFE PROBE DOWNLOAD ====================
 
 async function downloadProbeChunk(doc, targetSize) {
-  const CHUNK_LIMIT = 524288; // 512KB — always aligned at multiples of itself
-
   const chunks = [];
   let offset = 0;
 
@@ -1561,27 +1636,48 @@ async function downloadProbeChunk(doc, targetSize) {
     thumbSize: '',
   });
 
+  const fileInfo = { id: doc.id, location: inputLocation };
+  let currentSender = await resolveSender(doc);
+
   while (offset < targetSize) {
-    try {
-      // FIXED: use getAlignedLimit to guarantee offset % limit === 0
-      const limit = getAlignedLimit(offset);
+    let chunkData = null;
+    let retries = 0;
+    const MAX_RETRIES = 3;
 
-      const resultData = await getTelegramChunk(client, { id: doc.id, inputLocation }, offset, limit);
+    while (retries <= MAX_RETRIES) {
+      try {
+        const limit = getAlignedLimit(offset);
+        chunkData = await getTelegramChunk(client, fileInfo, offset, limit, currentSender);
+        break; // Success!
+      } catch (error) {
+        if (error.isMigrationError && error.newDcId) {
+          console.log(`[Telegram] Probe migration to DC ${error.newDcId}`);
+          currentSender = await client.getSender(error.newDcId);
+          // Retry immediately without consuming a standard retry attempt
+          continue; 
+        }
 
-      if (!resultData || resultData.length === 0) {
-        break;
+        retries++;
+        const isTimeout = error.message.includes('timeout') || error.message.includes('TIMEOUT');
+        const isConnection = error.message.includes('connection') || error.message.includes('NOT_CONNECTED');
+        
+        if (retries <= MAX_RETRIES && (isTimeout || isConnection)) {
+          const delay = Math.pow(2, retries) * 1000;
+          console.warn(`⚠️ [Telegram] Probe chunk failed at offset ${offset} (Attempt ${retries}/${MAX_RETRIES}). Retrying in ${delay}ms...`);
+          await new Promise(r => setTimeout(r, delay));
+          continue;
+        }
+        
+        console.error(`❌ [Telegram] Probe chunk failed after ${retries} attempts at offset ${offset}:`, error.message);
+        if (chunks.length > 0) break; 
+        throw error;
       }
-
-      chunks.push(Buffer.from(resultData));
-      offset += resultData.length;
-
-      if (resultData.length < limit) break;
-
-    } catch (error) {
-      console.warn(`⚠️ Probe chunk failed at offset ${offset}:`, error.message);
-      if (chunks.length > 0) break;
-      throw error;
     }
+
+    if (!chunkData || chunkData.length === 0) break;
+
+    chunks.push(Buffer.from(chunkData));
+    offset += chunkData.length;
   }
 
   if (chunks.length === 0) return Buffer.alloc(0);
@@ -1601,35 +1697,50 @@ async function detectAudioCodec(messageId) {
   if (!messages?.[0]?.media?.document) throw new Error('No media found');
   const doc = messages[0].media.document;
 
-  const PROBE_SIZE = Math.min(5 * 1024 * 1024, Number(doc.size));
-  console.log(`🔍 Probing ${messageId} (First ${formatFileSize(PROBE_SIZE)})...`);
+  let probeSize = 15 * 1024 * 1024; // Tier 1: 15MB
+  let retryCount = 0;
+  const MAX_RETRY_COUNT = 2;
+  let result = null;
 
-  const chunk = await downloadProbeChunk(doc, PROBE_SIZE);
-  const result = await ffmpegService.probeFromPipe(chunk);
-  if (!result || !result.audio || result.audio.length === 0) {
-    return { codec: 'unknown', browserPlayable: false };
+  while (retryCount <= MAX_RETRY_COUNT) {
+    try {
+      const currentProbeSize = Math.min(probeSize, Number(doc.size));
+      const tierLabel = retryCount === 0 ? 'Tier 1' : retryCount === 1 ? 'Tier 2' : 'Tier 3';
+      console.log(`🔍 Probing "${messageId}" (${formatFileSize(currentProbeSize)}, ${tierLabel})...`);
+
+      const chunk = await downloadProbeChunk(doc, currentProbeSize);
+      if (!chunk || chunk.length === 0) throw new Error('Downloaded empty probe chunk');
+
+      result = await ffmpegService.probeFromPipe(chunk);
+      
+      if (!result || !result.audio || result.audio.length === 0) {
+        throw new Error('ffprobe returned no audio streams');
+      }
+      break; 
+    } catch (error) {
+       retryCount++;
+       if (retryCount <= MAX_RETRY_COUNT) {
+         // Tier 2: 40MB, Tier 3: 80MB
+         probeSize = retryCount === 1 ? 40 * 1024 * 1024 : 80 * 1024 * 1024;
+         console.warn(`⚠️ Audio detection failed for "${messageId}" (Attempt ${retryCount}): ${error.message}. Retrying with ${formatFileSize(probeSize)}...`);
+         continue;
+       }
+       return { codec: 'unknown', browserPlayable: false };
+    }
   }
 
   const defaultAudio = result.audio[0];
   const codec = defaultAudio.codecName.toLowerCase();
-  const DIRECT_PLAY_CODECS = ['aac', 'mp3', 'opus', 'vorbis', 'flac'];
+  const DIRECT_PLAY_CODECS = ['aac', 'mp3', 'opus', 'vorbis', 'flac', 'mp4a', 'mp4a.40.2', 'mp4a.40.5'];
   const isCompatible = DIRECT_PLAY_CODECS.includes(codec);
 
   console.log(`🎵 Detected Audio: ${codec} (${isCompatible ? 'Direct' : 'Transmux'})`);
 
-  return {
-    codec: codec,
-    browserPlayable: isCompatible
-  };
+  return { codec: codec, browserPlayable: isCompatible };
 }
 
 // ==================== CHANNEL SCAN (Lightweight) ====================
 
-/**
- * Scans the channel for ALL video files.
- * Optimized to fetch only headers (id, date, document attributes).
- * Used for syncing with local cache.
- */
 async function scanChannelFiles() {
   if (!client || !channelEntity) throw new Error('Telegram not initialized');
 
@@ -1697,13 +1808,8 @@ module.exports = {
     return msgs[0]?.media?.document || null;
   },
   detectAudioCodec,
-  saveMetadata: async (id, data) => {
+  saveMetadataDirectly: async (id, data) => {
     try {
-      // Assuming saveMetadata is imported or available. 
-      // Actually, looking at imports, `saveMetadata` is imported from `./metadataWorker`.
-      // But we are in `telegramService.js`.
-      // The original code had: `const { saveMetadata } = require('./metadataWorker');` at top.
-      // So this wrapper is fine.
       const { saveMetadata } = require('./metadataWorker');
       await saveMetadata({ ...data, fileId: id });
     } catch (e) {
@@ -1712,8 +1818,7 @@ module.exports = {
   },
   getClient: () => client,
   downloadProbeChunk: typeof downloadProbeChunk !== 'undefined' ? downloadProbeChunk : null,
-
-  // NEW EXPORTS
   invalidateCache,
-  scanChannelFiles
+  scanChannelFiles,
+  detectAllTracks
 };

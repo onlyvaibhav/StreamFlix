@@ -19,5 +19,66 @@
   "tmdbId": 337167,
   "fetchedAt": "2026-02-15T13:49:12.854Z",
   "needsRetry": false,
-  "tv": null
+  "tv": null,
+  "logo": "/data/logos/211_logo.png",
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 2,
+      "codec": "aac",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "Surround",
+      "channels": 6,
+      "channelLayout": "5.1",
+      "browserPlayable": true,
+      "isDefault": true
+    },
+    {
+      "index": 1,
+      "streamIndex": 3,
+      "codec": "aac",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "DesireMovies.Monster",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": false
+    }
+  ],
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "hdmv_pgs_subtitle",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": true,
+      "isForced": false
+    },
+    {
+      "index": 1,
+      "streamIndex": 4,
+      "codec": "ass",
+      "language": "Unknown",
+      "languageCode": "und",
+      "title": "",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    }
+  ],
+  "container": "matroska,webm",
+  "duration": 6619,
+  "_tracksDetected": true,
+  "certification": "R"
 }

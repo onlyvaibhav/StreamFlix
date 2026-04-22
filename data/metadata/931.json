@@ -1,0 +1,74 @@
+{
+  "fileId": "931",
+  "fileName": "Dude.2025.720p.NF.WEB-DL.DUAL.AAC5.1.H.264-Vegamovies.is.mkv",
+  "type": "movie",
+  "title": "Dude",
+  "originalTitle": "டியூட்",
+  "overview": "Childhood friends Agan and Kural are inseparable. When Kural encounters romantic troubles, Agan must balance his hidden feelings for her with his desire to ensure her happiness.",
+  "releaseDate": "2025-10-17",
+  "year": 2025,
+  "runtime": 140,
+  "genres": [
+    "Action",
+    "Comedy",
+    "Drama",
+    "Romance"
+  ],
+  "rating": 5.568,
+  "popularity": 3.0126,
+  "poster": "/data/posters/931.jpg",
+  "backdrop": "/data/backdrops/931_bd.jpg",
+  "tmdbId": 1321108,
+  "fetchedAt": "2026-04-21T11:06:50.349Z",
+  "needsRetry": false,
+  "tv": null,
+  "_logoPath": null,
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "Vegamovies.is",
+      "channels": 6,
+      "channelLayout": "5.1",
+      "browserPlayable": true,
+      "isDefault": true
+    },
+    {
+      "index": 1,
+      "streamIndex": 2,
+      "codec": "aac",
+      "language": "Tamil",
+      "languageCode": "tam",
+      "title": "Vegamovies.is",
+      "channels": 6,
+      "channelLayout": "5.1",
+      "browserPlayable": true,
+      "isDefault": false
+    }
+  ],
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 3,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Vegamovies.is",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    }
+  ],
+  "container": "matroska,webm",
+  "duration": 8218.795,
+  "_probeFailCount": 0,
+  "_tracksDetected": true,
+  "logo": "/data/logos/931_logo.png"
+}

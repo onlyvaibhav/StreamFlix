@@ -14,7 +14,8 @@
   },
   "scripts": {
     "start": "node server.js",
-    "dev": "nodemon server.js --ignore data/"
+    "dev": "nodemon server.js --ignore data/",
+    "repair:metadata": "node services/metadataRepairWorker.js"
   },
   "dependencies": {
     "adm-zip": "^0.5.16",

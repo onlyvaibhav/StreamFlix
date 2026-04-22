@@ -68,6 +68,7 @@
         <div class="stat-card"><div class="skeleton" style="width:60px;height:30px;margin-top:20px;">&nbsp;</div></div>
         <div class="stat-card"><div class="skeleton" style="width:60px;height:30px;margin-top:20px;">&nbsp;</div></div>
         <div class="stat-card"><div class="skeleton" style="width:60px;height:30px;margin-top:20px;">&nbsp;</div></div>
+        <div class="stat-card"><div class="skeleton" style="width:60px;height:30px;margin-top:20px;">&nbsp;</div></div>
       </div>
 
       <!-- Worker + Sync Status (side by side) -->
@@ -118,6 +119,12 @@
             <button class="action-btn" onclick="handleRetryFailed()">
               <span class="icon">🔄</span> Retry Failed Lookups
             </button>
+            <button class="action-btn" onclick="handleFetchMissingLogos()">
+              <span class="icon">🖼️</span> Fetch Missing Logos
+            </button>
+            <button class="action-btn" onclick="handleFetchMissingAudio()">
+              <span class="icon">🔊</span> Pre-Fetch Audio
+            </button>
           </div>
         </div>
       </div>
@@ -129,6 +136,25 @@
         </div>
         <div class="panel-body" id="health-panel-body">
           <div class="skeleton" style="height:100px;">&nbsp;</div>
+        </div>
+      </div>
+
+      <!-- Audio Audit -->
+      <div class="panel">
+        <div class="panel-header audio-panel-header">
+          <span class="panel-title">Audio Audit</span>
+          <div class="audio-sweep-controls">
+            <input type="number" id="audio-sweep-limit" class="form-input compact-input" min="0" value="0" title="0 scans all incomplete files">
+            <select id="audio-sweep-concurrency" class="form-input compact-select" title="Probe concurrency">
+              <option value="2">2 workers</option>
+              <option value="3" selected>3 workers</option>
+              <option value="4">4 workers</option>
+            </select>
+            <button class="action-btn compact-action" onclick="handleFetchMissingAudio()">Run Sweep</button>
+          </div>
+        </div>
+        <div class="panel-body" id="audio-audit-body">
+          <div class="skeleton" style="height:180px;">&nbsp;</div>
         </div>
       </div>
 
@@ -157,6 +183,7 @@
               <option value="all">All Types</option>
               <option value="movie">Movies</option>
               <option value="tv">TV Shows</option>
+              <option value="unsupported_audio">Unsupported Audio (+Transcode)</option>
             </select>
           </div>
         </div>
@@ -227,7 +254,7 @@
     </div>
   </div>
 
-  <script src="/js/admin.js"></script>
+  <script src="/js/admin.js?v=4"></script>
 </body>
 
 </html>

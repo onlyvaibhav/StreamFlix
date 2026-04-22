@@ -29,5 +29,27 @@
     "episodeRuntime": 36,
     "totalSeasons": 6,
     "totalEpisodes": 60
-  }
+  },
+  "logo": "/data/logos/show_236445_logo.png",
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "Unknown",
+      "languageCode": "und",
+      "title": "Vegamovies.to",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": true
+    }
+  ],
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "subtitleTracks": [],
+  "container": "matroska,webm",
+  "duration": 15842,
+  "_tracksDetected": true,
+  "certification": "U/A 16+"
 }

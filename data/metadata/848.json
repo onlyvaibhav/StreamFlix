@@ -22,7 +22,7 @@
   "needsRetry": false,
   "tv": null,
   "container": "matroska,webm",
-  "duration": 10008.04,
+  "duration": 10008,
   "audioTracks": [
     {
       "index": 0,
@@ -53,5 +53,8 @@
     }
   ],
   "audioCodec": "opus",
-  "browserPlayable": true
+  "browserPlayable": true,
+  "logo": "/data/logos/848_logo.png",
+  "_tracksDetected": true,
+  "certification": "U/A 16+"
 }

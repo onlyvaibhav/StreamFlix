@@ -22,5 +22,105 @@
   "tmdbId": 916192,
   "fetchedAt": "2026-02-16T10:07:07.966Z",
   "needsRetry": false,
-  "tv": null
+  "tv": null,
+  "logo": "/data/logos/844_logo.png",
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 3,
+      "codec": "hdmv_pgs_subtitle",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Signs and Songs(Official Subs)",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    },
+    {
+      "index": 1,
+      "streamIndex": 4,
+      "codec": "hdmv_pgs_subtitle",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Full Subs (Official Subs)",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    },
+    {
+      "index": 2,
+      "streamIndex": 5,
+      "codec": "hdmv_pgs_subtitle",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Dubtitles (Official Subs)",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    },
+    {
+      "index": 3,
+      "streamIndex": 6,
+      "codec": "ass",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Signs/Songs [GJM/LostYears]",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": true,
+      "isForced": false
+    },
+    {
+      "index": 4,
+      "streamIndex": 7,
+      "codec": "ass",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Full Subtitles [GJM/LostYears]",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    }
+  ],
+  "duration": 4960,
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Stereo",
+      "channels": 6,
+      "channelLayout": "5.1",
+      "browserPlayable": true,
+      "isDefault": true
+    },
+    {
+      "index": 1,
+      "streamIndex": 2,
+      "codec": "aac",
+      "language": "Japanese",
+      "languageCode": "jpn",
+      "title": "Stereo",
+      "channels": 6,
+      "channelLayout": "5.1",
+      "browserPlayable": true,
+      "isDefault": false
+    }
+  ],
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "container": "matroska,webm",
+  "_tracksDetected": true,
+  "certification": "PG-13"
 }

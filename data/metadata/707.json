@@ -20,5 +20,53 @@
   "tmdbId": 9486,
   "fetchedAt": "2026-02-15T13:42:17.242Z",
   "needsRetry": false,
-  "tv": null
+  "tv": null,
+  "logo": "/data/logos/707_logo.png",
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "ac3",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "[Getmovieslink.site]",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": false,
+      "isDefault": true
+    },
+    {
+      "index": 1,
+      "streamIndex": 2,
+      "codec": "aac",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "[Getmovieslink.site]",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": false
+    }
+  ],
+  "audioCodec": "ac3",
+  "browserPlayable": false,
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 3,
+      "codec": "subrip",
+      "language": "Unknown",
+      "languageCode": "und",
+      "title": "[Getmovieslink.site]",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": true,
+      "isForced": false
+    }
+  ],
+  "container": "matroska,webm",
+  "duration": 5246,
+  "_tracksDetected": true,
+  "certification": "PG"
 }

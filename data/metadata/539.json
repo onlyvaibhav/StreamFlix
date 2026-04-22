@@ -20,5 +20,65 @@
   "tmdbId": 39254,
   "fetchedAt": "2026-02-15T13:43:40.264Z",
   "needsRetry": false,
-  "tv": null
+  "tv": null,
+  "logo": "/data/logos/539_logo.png",
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "mp3",
+      "language": "Tamil",
+      "languageCode": "tam",
+      "title": "www.TamilRockers.bz",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": true
+    },
+    {
+      "index": 1,
+      "streamIndex": 2,
+      "codec": "mp3",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "www.TamilRockers.bz",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": false
+    },
+    {
+      "index": 2,
+      "streamIndex": 3,
+      "codec": "aac",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "www.TamilRockers.bz",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": false
+    }
+  ],
+  "audioCodec": "mp3",
+  "browserPlayable": true,
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 4,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "www.TamilRockers.bz",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": true,
+      "isForced": true
+    }
+  ],
+  "container": "matroska,webm",
+  "duration": 7611,
+  "_tracksDetected": true,
+  "certification": "PG-13"
 }

@@ -23,5 +23,38 @@
   "tv": null,
   "audioCodec": "aac",
   "browserPlayable": true,
-  "_tracksDetected": true
+  "_tracksDetected": true,
+  "logo": "/data/logos/123_logo.png",
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "Vegamovies.To - [AAC 2.0 - 48Kbps]",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": true
+    }
+  ],
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 2,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Vegamovies.To",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": true,
+      "isForced": true
+    }
+  ],
+  "container": "matroska,webm",
+  "duration": 9501.98,
+  "certification": "U"
 }

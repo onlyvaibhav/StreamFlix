@@ -10,11 +10,34 @@
   "runtime": 0,
   "genres": [],
   "rating": 8.7,
-  "popularity": 0.7569,
+  "popularity": 0.4956,
   "poster": "/data/posters/874.jpg",
   "backdrop": "N/A",
   "tmdbId": 33147,
-  "fetchedAt": "2026-04-15T15:59:30.939Z",
+  "fetchedAt": "2026-04-18T12:44:28.405Z",
   "needsRetry": false,
-  "tv": null
+  "tv": null,
+  "_logoPath": null,
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "opus",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": true
+    }
+  ],
+  "audioCodec": "opus",
+  "browserPlayable": true,
+  "subtitleTracks": [],
+  "container": "mov,mp4,m4a,3gp,3g2,mj2",
+  "duration": 5313.221,
+  "_tracksDetected": true,
+  "certification": "N/A",
+  "logo": "N/A"
 }

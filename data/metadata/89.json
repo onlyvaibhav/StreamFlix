@@ -52,5 +52,7 @@
       "isDefault": true
     }
   ],
-  "subtitleTracks": []
+  "subtitleTracks": [],
+  "logo": "/data/logos/89_logo.png",
+  "certification": "PG-13"
 }

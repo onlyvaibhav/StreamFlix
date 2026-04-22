@@ -24,7 +24,7 @@
   "needsRetry": false,
   "tv": null,
   "container": "matroska,webm",
-  "duration": 6186.945,
+  "duration": 6187,
   "audioTracks": [
     {
       "index": 0,
@@ -80,5 +80,8 @@
     }
   ],
   "audioCodec": "aac",
-  "browserPlayable": true
+  "browserPlayable": true,
+  "logo": "/data/logos/388_logo.png",
+  "_tracksDetected": true,
+  "certification": "PG"
 }

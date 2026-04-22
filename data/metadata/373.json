@@ -23,5 +23,74 @@
   "tv": null,
   "audioCodec": "mp3",
   "browserPlayable": true,
-  "_tracksDetected": true
+  "_tracksDetected": true,
+  "logo": "/data/logos/373_logo.png",
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "mp3",
+      "language": "Telugu",
+      "languageCode": "tel",
+      "title": "www.TamilMV.vip",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": true
+    },
+    {
+      "index": 1,
+      "streamIndex": 2,
+      "codec": "mp3",
+      "language": "Tamil",
+      "languageCode": "tam",
+      "title": "www.TamilMV.vip",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": false
+    },
+    {
+      "index": 2,
+      "streamIndex": 3,
+      "codec": "mp3",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "www.TamilMV.vip",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": false
+    },
+    {
+      "index": 3,
+      "streamIndex": 4,
+      "codec": "mp3",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "www.TamilMV.vip",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": false
+    }
+  ],
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 5,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "www.TamilMV.vip",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": true,
+      "isForced": false
+    }
+  ],
+  "container": "matroska,webm",
+  "duration": 7415.616,
+  "certification": "PG-13"
 }

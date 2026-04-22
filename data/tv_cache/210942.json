@@ -1,0 +1,108 @@
+{
+  "showTmdbId": 210942,
+  "showTitle": "Lookism",
+  "originalShowTitle": "외모지상주의",
+  "overview": "In a society that favors good looks, a high school outcast leads a double life switching between his two bodies that are polar opposites in appearance.",
+  "genres": [
+    "Comedy",
+    "Drama",
+    "Animation"
+  ],
+  "rating": 8.331,
+  "popularity": 3.8093,
+  "poster": "/data/posters/show_210942.jpg",
+  "backdrop": "/data/backdrops/show_210942_bd.jpg",
+  "totalSeasons": 1,
+  "totalEpisodes": 8,
+  "year": 2022,
+  "releaseDate": "2022-12-08",
+  "seasons": {
+    "1": [
+      {
+        "fileId": "934",
+        "fileName": "Lookism S01E01.mp4",
+        "seasonNumber": 1,
+        "episodeNumber": 1,
+        "episodeTitle": "Change",
+        "episodeOverview": "After enduring years of abuse from his peers, Park Hyeong-seok moves to a different neighborhood to start a new life. Big changes are coming for him.",
+        "runtime": 25,
+        "tracks": null
+      },
+      {
+        "fileId": "935",
+        "fileName": "Lookism S01E02.mp4",
+        "seasonNumber": 1,
+        "episodeNumber": 2,
+        "episodeTitle": "New Life",
+        "episodeOverview": "Hyeong-seok attends school in his new body by day and works a part-time job as his true self by night – only to learn that nothing has really changed.",
+        "runtime": 25,
+        "tracks": null
+      },
+      {
+        "fileId": "936",
+        "fileName": "Lookism S01E03.mp4",
+        "seasonNumber": 1,
+        "episodeNumber": 3,
+        "episodeTitle": "Friends",
+        "episodeOverview": "A student by the nickname Basco helps the old Hyeong-seok fight off bullies, while the new Hyeong-seok hangs out with his first-ever group of friends.",
+        "runtime": 26,
+        "tracks": null
+      },
+      {
+        "fileId": "937",
+        "fileName": "Lookism S01E04.mp4",
+        "seasonNumber": 1,
+        "episodeNumber": 4,
+        "episodeTitle": "Mom",
+        "episodeOverview": "Hyeong-seok takes his mother out to a cafe as his transformed self. Basco seethes with righteous indignation when he spots the two together.",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "938",
+        "fileName": "Lookism S01E05.mp4",
+        "seasonNumber": 1,
+        "episodeNumber": 5,
+        "episodeTitle": "Kindness",
+        "episodeOverview": "Hyeong-seok lends a hand to other struggling peers in school, while an enigmatic classmate offers him help and gifts when he needs it most.",
+        "runtime": 22,
+        "tracks": null
+      },
+      {
+        "fileId": "939",
+        "fileName": "Lookism S01E06.mp4",
+        "seasonNumber": 1,
+        "episodeNumber": 6,
+        "episodeTitle": "Recommendation",
+        "episodeOverview": "Pyeon Deok-hwa considers performing at the school festival, while others in his class relentlessly try to trample on his dream of becoming a rap artist.",
+        "runtime": 27,
+        "tracks": null
+      },
+      {
+        "fileId": "940",
+        "fileName": "Lookism S01E07.mp4",
+        "seasonNumber": 1,
+        "episodeNumber": 7,
+        "episodeTitle": "Special Training",
+        "episodeOverview": "Under Deok-hwa’s direction, Hyeong-seok unlocks his singing potential as their musical collaboration nurtures their blossoming friendship.",
+        "runtime": 25,
+        "tracks": null
+      },
+      {
+        "fileId": "941",
+        "fileName": "Lookism S01E04.mp4",
+        "seasonNumber": 1,
+        "episodeNumber": 8,
+        "episodeTitle": "Wall",
+        "episodeOverview": "Competition heats up backstage on the day of the festival. Hyeong-seok and Deok-hwa leave their past and fears behind to deliver a song from the heart.",
+        "runtime": 31,
+        "tracks": null
+      }
+    ]
+  },
+  "episodes": [],
+  "availableSeasons": [
+    1
+  ],
+  "availableEpisodeCount": 8
+}

@@ -296,5 +296,8 @@
     }
   ],
   "audioCodec": "aac",
-  "browserPlayable": true
+  "browserPlayable": true,
+  "logo": "/data/logos/show_76479_logo.png",
+  "_tracksDetected": true,
+  "certification": "TV-MA"
 }

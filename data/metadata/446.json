@@ -32,7 +32,7 @@
     "totalEpisodes": 18
   },
   "container": "matroska,webm",
-  "duration": 3263.403,
+  "duration": 3263,
   "audioTracks": [
     {
       "index": 0,
@@ -254,5 +254,8 @@
     }
   ],
   "audioCodec": "aac",
-  "browserPlayable": true
+  "browserPlayable": true,
+  "logo": "/data/logos/show_106872_logo.png",
+  "_tracksDetected": true,
+  "certification": "TV-14"
 }

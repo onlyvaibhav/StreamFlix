@@ -30,5 +30,41 @@
     "episodeRuntime": 31,
     "totalSeasons": 1,
     "totalEpisodes": 6
-  }
+  },
+  "logo": "/data/logos/show_280689_logo.png",
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "",
+      "channels": 1,
+      "channelLayout": "mono",
+      "browserPlayable": true,
+      "isDefault": true
+    }
+  ],
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 2,
+      "codec": "ass",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": true,
+      "isForced": true
+    }
+  ],
+  "container": "matroska,webm",
+  "duration": 13042,
+  "_tracksDetected": true,
+  "certification": "TV-14"
 }

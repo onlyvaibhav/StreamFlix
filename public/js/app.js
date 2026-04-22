@@ -30,8 +30,11 @@ const state = {
     _seekOffset: 0,
     parsedCues: null,
     subtitleVTTCache: {},
-    subtitleOffset: 0,      // ADD THIS
-    _syncSeenTime: null,    // ADD THIS
+    subtitleOffset: 0,
+    _syncSeenTime: null,
+    _syncStep: 0,           // 0=idle, 1=waiting-for-second, 2=done
+    _syncFirstLabel: null,  // 'subtitle' or 'audio'
+    _syncFirstTime: null,
   }
 };
 
@@ -136,6 +139,22 @@ function escArg(str) {
   return str.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
 }
 
+function isValidLogo(url) {
+  if (!url) return false;
+  if (typeof url !== 'string') return false;
+  const trimmed = url.trim();
+  return trimmed !== '' && trimmed !== 'N/A' && trimmed !== 'null' && trimmed !== 'undefined';
+}
+
+function getItemTitle(item) {
+  const title = item.title || item.showTitle || item.name || '';
+  if (title.trim()) return title;
+  if (item.fileName) {
+    return item.fileName.split('.').slice(0, -1).join('.').replace(/_/g, ' ');
+  }
+  return 'Untitled Content';
+}
+
 function fmtRuntime(min) {
   if (!min || min <= 0) return '';
   if (min < 60) return `${min}m`;
@@ -153,6 +172,86 @@ function fmtTime(sec) {
   return `${m}:${String(s).padStart(2, '0')}`;
 }
 
+function getLanguageName(code) {
+  if (!code || code.toLowerCase() === 'unk' || code.toLowerCase() === 'und') return 'Unknown';
+  try {
+    const displayNames = new Intl.DisplayNames(['en'], { type: 'language' });
+    let name = displayNames.of(code);
+    if (code.toLowerCase() === 'hin') return 'Hindi';
+    if (code.toLowerCase() === 'eng') return 'English';
+    if (code.toLowerCase() === 'tam') return 'Tamil';
+    if (code.toLowerCase() === 'tel') return 'Telugu';
+    if (code.toLowerCase() === 'mal') return 'Malayalam';
+    if (code.toLowerCase() === 'kan') return 'Kannada';
+    if (code.toLowerCase() === 'ben') return 'Bengali';
+    if (code.toLowerCase() === 'mar') return 'Marathi';
+    if (code.toLowerCase() === 'guj') return 'Gujarati';
+    if (code.toLowerCase() === 'pan') return 'Punjabi';
+    if (name.toLowerCase() === code.toLowerCase()) return code.toUpperCase();
+    return name;
+  } catch (e) {
+    return code.toUpperCase();
+  }
+}
+
+function parseResolution(filename) {
+  if (!filename) return null;
+  const match = filename.match(/(2160p|1080p|720p|480p|4K)-?/i);
+  if (!match) return null;
+  let res = match[1].toLowerCase();
+  if (res === '4k') return '4K';
+  return res;
+}
+
+function toggleOverview() {
+  const p = document.querySelector('.modal-overview');
+  const btn = document.querySelector('.read-more-btn');
+  if (p && btn) {
+    p.classList.toggle('collapsed');
+    btn.textContent = p.classList.contains('collapsed') ? 'Read more' : 'Show less';
+  }
+}
+
+function getBadges(item) {
+  const badges = [];
+  
+  // 1. Resolution
+  const res = parseResolution(item.fileName || (item.parts && item.parts[0]?.fileName));
+  if (res) badges.push(res.toUpperCase());
+  
+  // 2. Multi Audio
+  const audioTracks = item.audioTracks || [];
+  if (audioTracks.length > 1) badges.push('Multi Audio');
+  
+  // 3. Needs Transcoding
+  if (item.browserPlayable === false || item._needsTranscode === true) {
+    badges.push('Needs Transcoding');
+  }
+
+  return badges.filter(Boolean).map(text => `<span class="ott-badge">${text}</span>`).join('');
+}
+
+function getLanguageSummary(item) {
+  const audios = [...new Set((item.audioTracks || item.languages || []).map(l => typeof l === 'string' ? l : l.language).map(getLanguageName))].filter(Boolean);
+  const subs = [...new Set((item.subtitleTracks || item.subtitles || []).map(l => typeof l === 'string' ? l : l.language).map(getLanguageName))].filter(Boolean);
+  
+  let html = '';
+  if (audios.length > 0) {
+    html += `<div class="spec-line"><span class="icon">🎧</span><span class="value">${audios.join(', ')}</span></div>`;
+  }
+  if (subs.length > 0) {
+    html += `<div class="spec-line"><span class="icon">📝</span><span class="value">${subs.join(', ')}</span></div>`;
+  }
+  return html;
+}
+
+function handleLogoError(img) {
+  const h1 = document.createElement('h1');
+  h1.className = 'modal-title';
+  h1.textContent = img.alt || 'Untitled';
+  img.replaceWith(h1);
+}
+
 // ============================================================
 // ROUTER
 // ============================================================
@@ -164,6 +263,8 @@ function navigate(route, params = {}, pushState = true) {
     let url = '/';
     if (route === 'movies') url = '/movies';
     else if (route === 'tvshows') url = '/tvshows';
+    else if (route === 'genres') url = '/genres';
+    else if (route === 'genre-detail') url = `/genres/${params.slug || ''}`;
     else if (route === 'search') {
       url = params && params.query ? `/search?q=${params.query}` : '/search';
     }
@@ -172,11 +273,12 @@ function navigate(route, params = {}, pushState = true) {
   }
 
   // Update nav active state (both desktop and mobile)
+  const activeRoute = route === 'genre-detail' ? 'genres' : route;
   document.querySelectorAll('.nav-link').forEach(link => {
-    link.classList.toggle('active', link.dataset.route === route);
+    link.classList.toggle('active', link.dataset.route === activeRoute);
   });
   document.querySelectorAll('.mobile-nav-link').forEach(link => {
-    link.classList.toggle('active', link.dataset.route === route);
+    link.classList.toggle('active', link.dataset.route === activeRoute);
   });
 
   // Close mobile nav if open
@@ -192,12 +294,15 @@ function navigate(route, params = {}, pushState = true) {
     case 'home': renderHome(app); break;
     case 'movies': renderBrowse(app, 'movie'); break;
     case 'tvshows': renderBrowse(app, 'tv'); break;
+    case 'genres': renderGenres(app); break;
+    case 'genre-detail': renderGenreDetail(app, params.slug, params.name); break;
     case 'search': renderSearch(app, params.query); break;
     default: renderHome(app);
   }
 
   window.scrollTo(0, 0);
 }
+
 
 // ============================================================
 // HOME PAGE
@@ -238,7 +343,9 @@ function renderHome(container) {
           <div class="hero-gradient-left"></div>
           <div class="hero-gradient-bottom"></div>
           <div class="hero-content">
-            <h1 class="hero-title">${esc(title)}</h1>
+            ${item.logo && item.logo !== 'N/A' 
+              ? `<img src="${item.logo}" alt="${esc(title)}" class="hero-logo" crossorigin="anonymous" onerror="this.outerHTML='<h1 class=\\'hero-title\\'>${esc(title)}</h1>'">` 
+              : `<h1 class="hero-title">${esc(title)}</h1>`}
             <div class="hero-meta">
               ${item.rating ? `<span class="hero-rating">★ ${Number(item.rating).toFixed(1)}</span>` : ''}
               ${item.year ? `<span class="hero-year">${item.year}</span>` : ''}
@@ -274,7 +381,7 @@ function renderHome(container) {
     if (heroItems.length > 1) {
       html += '<div class="hero-indicators">';
       heroItems.forEach((_, i) => {
-        html += `<div class="hero-dot ${i === 0 ? 'active' : ''}" onclick="heroGoTo(${i})"></div>`;
+        html += `<div class="hero-progress ${i === 0 ? 'active' : ''}" onclick="heroGoTo(${i})"><div class="hero-progress-fill"></div></div>`;
       });
       html += '</div>';
     }
@@ -345,6 +452,9 @@ function renderHome(container) {
     }
   }
 
+  // Placeholder for curated rows (loaded async)
+  html += '<div id="curated-rows-container"></div>';
+
   html += '</section>';
   container.innerHTML = html;
 
@@ -352,6 +462,235 @@ function renderHome(container) {
     startHero(heroItems.length);
     setupHeroSwipe();
   }
+
+  // Load curated content async (non-blocking)
+  loadCuratedRows();
+}
+
+// ============================================================
+// CURATED ROWS — Loaded async and appended to home page
+// ============================================================
+async function loadCuratedRows() {
+  const container = document.getElementById('curated-rows-container');
+  if (!container) return;
+
+  const curated = await api('/api/curated');
+  if (!curated || !curated.homepage) return;
+
+  // Cache for genre page use
+  state.curatedData = curated;
+
+  let html = '';
+  const rows = curated.homepage.rows || {};
+
+  // Section display config: key => {title, minItems}
+  const sectionConfig = [
+    { key: 'multi_audio', title: '🎧 Multi Audio Picks', min: 3 },
+    { key: 'hindi', title: '🇮🇳 Hindi Collection', min: 3 },
+    { key: 'english', title: '🇺🇸 English Collection', min: 3 },
+    { key: 'kdrama', title: '🇰🇷 K-Drama', min: 2 },
+    { key: 'anime', title: '🇯🇵 Anime', min: 2 },
+    { key: 'quick_watch', title: '⚡ Quick Watch', min: 3 },
+  ];
+
+  for (const { key, title, min } of sectionConfig) {
+    const items = rows[key];
+    if (!items || items.length < min) continue;
+    html += buildRow(title, items.map(curatedToCard));
+  }
+
+  // Mood sections
+  if (curated.special_sections && curated.special_sections.mood) {
+    const moodConfig = [
+      { key: 'feel_good', title: '😊 Feel Good' },
+      { key: 'dark_thriller', title: '🔪 Dark & Thriller' },
+      { key: 'comedy_nights', title: '😂 Comedy Nights' },
+      { key: 'emotional', title: '💔 Emotional Drama' },
+    ];
+    for (const { key, title } of moodConfig) {
+      const items = curated.special_sections.mood[key];
+      if (!items || items.length < 3) continue;
+      html += buildRow(title, items.map(curatedToCard));
+    }
+  }
+
+  // Duration sections
+  if (curated.special_sections && curated.special_sections.duration) {
+    const durConfig = [
+      { key: 'long_movies', title: '🎬 Epic Movies (2.5h+)' },
+      { key: 'series', title: '📺 Series to Binge' },
+    ];
+    for (const { key, title } of durConfig) {
+      const items = curated.special_sections.duration[key];
+      if (!items || items.length < 3) continue;
+      html += buildRow(title, items.map(curatedToCard));
+    }
+  }
+
+  // Genre rows from curated (these may differ from /api/metadata genre rows — more variety)
+  const genreRowConfig = [
+    { key: 'action', title: 'Action' },
+    { key: 'comedy', title: 'Comedy' },
+    { key: 'drama', title: 'Drama' },
+    { key: 'romance', title: 'Romance' },
+    { key: 'crime', title: 'Crime' },
+    { key: 'thriller', title: 'Thriller' },
+    { key: 'animation', title: 'Animation' },
+    { key: 'family', title: 'Family' },
+    { key: 'horror', title: 'Horror' },
+    { key: 'mystery', title: 'Mystery' },
+    { key: 'documentary', title: 'Documentary' },
+  ];
+
+  for (const { key, title } of genreRowConfig) {
+    const items = rows[key];
+    if (!items || items.length < 4) continue;
+    // Skip if we already rendered this genre from /api/metadata
+    const existingRow = document.getElementById('row_' + title.replace(/[^a-zA-Z0-9]/g, '_'));
+    if (existingRow) continue;
+    html += buildRow(title, items.map(curatedToCard));
+  }
+
+  // Needs Attention row (only if items exist)
+  if (rows.needs_attention && rows.needs_attention.length > 0) {
+    html += buildRow('⚠️ Needs Attention', rows.needs_attention.map(curatedToCard));
+  }
+
+  if (html) {
+    container.innerHTML = html;
+  }
+}
+
+/** Convert curated item format to card() compatible format */
+function curatedToCard(item) {
+  return {
+    id: item.id,
+    type: item.type || 'movie',
+    title: item.title,
+    poster: item.thumbnail,
+    rating: item.rating,
+    year: item.year,
+    episodeCount: item.episodeCount || 0,
+    isSplit: item.isSplit || false,
+    totalParts: item.totalParts || 1,
+  };
+}
+
+// ============================================================
+// GENRES PAGE
+// ============================================================
+async function renderGenres(container) {
+  // Show skeleton immediately
+  container.innerHTML = buildGenresPageSkeleton();
+
+  // Try to use cached curated data first
+  let curated = state.curatedData;
+  if (!curated) {
+    curated = await api('/api/curated');
+    if (curated) state.curatedData = curated;
+  }
+
+  if (!curated || !curated.genres_page || !curated.genres_page.genres) {
+    container.innerHTML = `
+      <div class="browse-page">
+        <h1 class="browse-title">Genres</h1>
+        <div class="empty-state"><p>No genres available.</p></div>
+      </div>`;
+    return;
+  }
+
+  const genres = curated.genres_page.genres.filter(g => g.count >= 2);
+
+  container.innerHTML = `
+    <div class="genres-page">
+      <div class="genres-header">
+        <h1 class="genres-page-title">Explore Genres</h1>
+        <p class="genres-subtitle">Discover content by genre</p>
+      </div>
+      <div class="genre-grid" id="genre-grid">
+        ${genres.map(genre => `
+          <div class="genre-card" onclick="navigate('genre-detail', {slug:'${genre.slug}', name:'${escArg(genre.name)}'})"
+               style="--genre-bg: url('${genre.image || ''}')">
+            <div class="genre-card-overlay"></div>
+            <div class="genre-card-content">
+              <h3 class="genre-card-name">${esc(genre.name)}</h3>
+              <span class="genre-card-count">${genre.count} titles</span>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>`;
+}
+
+async function renderGenreDetail(container, slug, genreName) {
+  container.innerHTML = buildBrowsePageSkeleton(genreName || 'Genre');
+
+  let curated = state.curatedData;
+  if (!curated) {
+    curated = await api('/api/curated');
+    if (curated) state.curatedData = curated;
+  }
+
+  if (!curated || !curated.genres_page || !curated.genres_page.sections || !curated.genres_page.sections[slug]) {
+    container.innerHTML = `
+      <div class="browse-page">
+        <h1 class="browse-title">${esc(genreName || slug)}</h1>
+        <div class="empty-state"><p>No content found for this genre.</p></div>
+      </div>`;
+    return;
+  }
+
+  const sections = curated.genres_page.sections[slug];
+  const genre = curated.genres_page.genres.find(g => g.slug === slug);
+  const displayName = genreName || (genre ? genre.name : slug);
+
+  let html = `
+    <div class="genre-detail-page">
+      <div class="genre-detail-header" style="--genre-bg: url('${genre && genre.image ? genre.image : ''}')">
+        <div class="genre-detail-header-overlay"></div>
+        <div class="genre-detail-header-content">
+          <button class="btn-back" onclick="navigate('genres')">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            All Genres
+          </button>
+          <h1 class="genre-detail-title">${esc(displayName)}</h1>
+          ${genre ? `<p class="genre-detail-count">${genre.count} titles available</p>` : ''}
+        </div>
+      </div>
+      <section class="content-section">`;
+
+  const subSections = [
+    { key: 'popular', title: `Popular in ${displayName}` },
+    { key: 'top_rated', title: `Top Rated ${displayName}` },
+    { key: 'new', title: `New in ${displayName}` },
+    { key: 'hidden_gems', title: 'Hidden Gems' },
+    { key: 'multi_audio', title: `Multi Audio in ${displayName}` },
+    { key: 'recently_added', title: `Recently Added` },
+  ];
+
+  for (const { key, title } of subSections) {
+    const items = sections[key];
+    if (!items || items.length < 2) continue;
+    html += buildRow(title, items.map(curatedToCard));
+  }
+
+  html += '</section></div>';
+  container.innerHTML = html;
+}
+
+function buildGenresPageSkeleton() {
+  const skeletonCards = Array(12).fill('')
+    .map(() => '<div class="genre-card skeleton-genre-card"><div class="shimmer" style="width:100%;height:100%;border-radius:12px;"></div></div>')
+    .join('');
+
+  return `
+    <div class="genres-page">
+      <div class="genres-header">
+        <div class="skeleton-line shimmer" style="width:250px;height:36px;margin-bottom:8px;"></div>
+        <div class="skeleton-line shimmer" style="width:180px;height:18px;"></div>
+      </div>
+      <div class="genre-grid">${skeletonCards}</div>
+    </div>`;
 }
 
 function renderBrowse(container, type) {
@@ -586,12 +925,19 @@ async function openDetail(id, type, pushState = true) {
 function renderMovieModal(container, movie) {
   const isSplit = movie.isSplit && movie.parts && movie.parts.length > 1;
   const playLabel = isSplit ? 'Play Part 1' : 'Play';
+  const backdrop = backdropSrc(movie.backdrop) || posterSrc(movie.poster);
+
+  const metaItems = [
+    movie.year,
+    movie.runtime ? fmtRuntime(movie.runtime) : null,
+    isSplit ? `${movie.parts.length} Parts` : null
+  ].filter(Boolean);
 
   let partsHTML = '';
   if (isSplit) {
     partsHTML = `
-      <div class="movie-parts">
-        <h3 class="parts-title">Parts (${movie.parts.length})</h3>
+      <div class="movie-parts" style="margin-top:40px;">
+        <h3 class="parts-title" style="margin-bottom:20px; font-size:1.3rem;">Parts (${movie.parts.length})</h3>
         <div class="parts-list">
           ${movie.parts.map(part => `
             <div class="part-item" onclick="playVideo({fileId: '${part.fileId}', title: '${escArg(movie.title)} - Part ${part.partNumber}'})">
@@ -611,16 +957,24 @@ function renderMovieModal(container, movie) {
       </div>`;
   }
 
+  const movieTitle = getItemTitle(movie);
+  const logoUrl = movie.logo;
+  const logoHtml = isValidLogo(logoUrl)
+    ? `<img src="${logoUrl}" alt="${esc(movieTitle)}" class="modal-logo" crossorigin="anonymous" onerror="handleLogoError(this)">`
+    : `<h1 class="modal-title">${esc(movieTitle)}</h1>`;
+
   container.innerHTML = `
-    <div class="modal-hero">
-      ${movie.backdrop ? `<img src="${movie.backdrop}">` : (movie.poster ? `<img src="${movie.poster}" style="object-fit:contain; background:#111">` : '')}
+    <div class="modal-hero" style="background-image: url('${backdrop}');">
       <div class="modal-hero-gradient"></div>
       <div class="modal-hero-content">
-        <h1 class="modal-title">${esc(movie.title)}</h1>
+        ${logoHtml}
         <div class="modal-actions">
-           <button class="btn btn-play" onclick="playVideo({fileId: '${movie.fileId || (isSplit ? movie.parts[0].fileId : '')}', title: '${escArg(movie.title)}'})">
+           <button class="btn-premium-play" onclick="playVideo({fileId: '${movie.fileId || (isSplit ? movie.parts[0].fileId : '')}', title: '${escArg(movieTitle)}'})">
              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
              ${playLabel}
+           </button>
+           <button class="btn-circle" title="Add to List">
+             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
            </button>
         </div>
       </div>
@@ -628,12 +982,24 @@ function renderMovieModal(container, movie) {
     <div class="modal-body-inner">
       <div class="modal-meta-row">
         ${movie.rating ? `<span class="match-score">★ ${Number(movie.rating).toFixed(1)}</span>` : ''}
-        ${movie.year ? `<span>${movie.year}</span>` : ''}
-        ${movie.runtime ? `<span>${fmtRuntime(movie.runtime)}</span>` : ''}
-        ${isSplit ? `<span style="color:#e50914;font-weight:600">${movie.parts.length} Parts</span>` : ''}
+        ${metaItems.map(m => `<span>${m}</span>`).join('')}
       </div>
-      <p class="modal-overview">${esc(movie.overview || 'No description available.')}</p>
-      ${movie.genres ? `<div class="modal-genres">${movie.genres.map(g => `<span class="genre-tag">${esc(g)}</span>`).join('')}</div>` : ''}
+      <div class="badge-container">
+        ${getBadges(movie)}
+      </div>
+      <p class="modal-overview collapsed">
+        ${esc(movie.overview || 'No description available.')}
+      </p>
+      ${movie.overview && movie.overview.length > 200 ? `<button class="read-more-btn" onclick="toggleOverview()">Read more</button>` : ''}
+      
+      <div class="modal-genres">
+        ${(movie.genres || []).join(' | ')}
+      </div>
+
+      <div class="spec-info" style="margin-top:30px; border-top:1px solid #222; padding-top:30px;">
+        ${getLanguageSummary(movie)}
+      </div>
+
       ${partsHTML}
     </div>`;
 }
@@ -644,24 +1010,33 @@ function renderShowModal(container, show) {
   const firstS = seasonNums[0] || 1;
   const episodes = seasons[firstS] || [];
   const firstEp = episodes[0];
+  const backdrop = backdropSrc(show.backdrop) || posterSrc(show.poster);
 
   // Logic for season switching
   window._showSeasons = seasons;
   window._showTitle = show.showTitle;
   window._showTmdbId = show.showTmdbId;
 
+  const showTitle = getItemTitle(show);
+  const logoUrl = show.logo;
+  const logoHtml = isValidLogo(logoUrl)
+    ? `<img src="${logoUrl}" alt="${esc(showTitle)}" class="modal-logo" crossorigin="anonymous" onerror="handleLogoError(this)">`
+    : `<h1 class="modal-title">${esc(showTitle)}</h1>`;
+
   container.innerHTML = `
-    <div class="modal-hero">
-      ${show.backdrop ? `<img src="${show.backdrop}">` : (show.poster ? `<img src="${show.poster}" style="object-fit:contain; background:#111">` : '')}
+    <div class="modal-hero" style="background-image: url('${backdrop}');">
       <div class="modal-hero-gradient"></div>
       <div class="modal-hero-content">
-        <h1 class="modal-title">${esc(show.showTitle)}</h1>
+        ${logoHtml}
         <div class="modal-actions">
            ${firstEp ? `
-           <button class="btn btn-play" onclick="playVideo({fileId:'${firstEp.fileId}', title:'${escArg(show.showTitle)}', season:${firstS}, episode:${firstEp.tv.episodeNumber}, episodeTitle:'${escArg(firstEp.tv.episodeTitle || `Episode ${firstEp.tv.episodeNumber}`)}', tmdbId:${show.showTmdbId}})">
+           <button class="btn-premium-play" onclick="playVideo({fileId:'${firstEp.fileId}', title:'${escArg(showTitle)}', season:${firstS}, episode:${firstEp.tv.episodeNumber}, episodeTitle:'${escArg(firstEp.tv.episodeTitle || `Episode ${firstEp.tv.episodeNumber}`)}', tmdbId:${show.showTmdbId}})">
              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
              Play S${firstS}E${firstEp.tv.episodeNumber}
            </button>` : ''}
+           <button class="btn-circle" title="Add to List">
+             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+           </button>
         </div>
       </div>
     </div>
@@ -669,17 +1044,31 @@ function renderShowModal(container, show) {
        <div class="modal-meta-row">
           ${show.rating ? `<span class="match-score">★ ${Number(show.rating).toFixed(1)}</span>` : ''}
           ${show.year ? `<span>${show.year}</span>` : ''}
+          <span>${seasonNums.length} Seasons</span>
           <span>${show.availableEpisodeCount} Episodes</span>
        </div>
-       <p class="modal-overview">${esc(show.overview || '')}</p>
+       <div class="badge-container">
+          ${firstEp ? getBadges(firstEp) : ''}
+       </div>
+       <p class="modal-overview collapsed">${esc(show.overview || '')}</p>
+       ${show.overview && show.overview.length > 200 ? `<button class="read-more-btn" onclick="toggleOverview()">Read more</button>` : ''}
        
-       <div class="season-selector">
+       <div class="modal-genres">
+          ${(show.genres || []).join(' | ')}
+       </div>
+
+       <div class="spec-info" style="margin-top:30px; border-top:1px solid #222; padding-top:30px;">
+        ${firstEp ? getLanguageSummary(firstEp) : ''}
+       </div>
+       
+       <div class="season-selector" style="justify-content: flex-start; margin-top: 40px;">
+          <h3 style="margin-right:auto; font-size:1.4rem;">Episodes</h3>
           <select class="season-select" onchange="renderEpisodeList(this.value)">
              ${seasonNums.map(n => `<option value="${n}">Season ${n}</option>`).join('')}
           </select>
        </div>
        <div id="episode-list-container" class="episode-list">
-          ${renderEpisodeRows(episodes, show.showTitle, show.showTmdbId)}
+          ${renderEpisodeRows(episodes, showTitle, show.showTmdbId)}
        </div>
     </div>`;
 }
@@ -712,7 +1101,7 @@ window.renderEpisodeList = function (seasonNum) {
     const episodes = window._showSeasons[seasonNum];
     if (episodes && episodes.length > 0) {
       const firstEp = episodes[0];
-      const btn = document.querySelector('.modal-hero .btn-play');
+      const btn = document.querySelector('.modal-hero .btn-premium-play');
       if (btn) {
         // Update text
         btn.innerHTML = `
@@ -763,21 +1152,33 @@ function handlePlayClick(fileId, type, title) {
 // ============================================================
 // CAROUSEL & UTILS
 // ============================================================
-function startHero(count) {
-  stopHero();
-  if (count <= 1) return;
-  state.heroTimer = setInterval(() => {
-    let next = state.heroIndex + 1;
-    if (next >= count) next = 0;
-    heroGoTo(next);
-  }, 8000);
-}
-function stopHero() { if (state.heroTimer) clearInterval(state.heroTimer); }
 function heroGoTo(index) {
   state.heroIndex = index;
   document.querySelectorAll('.hero-slide').forEach((s, i) => s.classList.toggle('active', i === index));
-  document.querySelectorAll('.hero-dot').forEach((d, i) => d.classList.toggle('active', i === index));
+  document.querySelectorAll('.hero-progress').forEach((d, i) => {
+    d.classList.toggle('active', i === index);
+    const fill = d.querySelector('.hero-progress-fill');
+    if (fill) {
+      fill.style.animation = 'none';
+      fill.offsetHeight; /* trigger reflow */
+      if (i === index) fill.style.animation = 'fillProgress 8s linear forwards';
+    }
+  });
 }
+
+function startHero(length) {
+  stopHero();
+  // Ensure the internal state resets animation on current specific element
+  heroGoTo(state.heroIndex);
+  
+  state.heroTimer = setInterval(() => {
+    let next = state.heroIndex + 1;
+    if (next >= length) next = 0;
+    heroGoTo(next);
+  }, 8000); // 8-second rotation
+}
+
+function stopHero() { if (state.heroTimer) clearInterval(state.heroTimer); }
 
 function setupHeroSwipe() {
   const hero = document.querySelector('.hero');
@@ -916,6 +1317,14 @@ function resetPlayerState() {
   document.getElementById('speed-menu')?.classList.add('hidden');
   document.getElementById('next-episode-btn')?.classList.add('hidden');
   document.getElementById('btn-next-ep-control')?.classList.add('hidden');
+  
+  document.getElementById('btn-episodes')?.classList.add('hidden');
+  
+  const epSheet = document.getElementById('episodes-sheet');
+  if (epSheet) epSheet.classList.add('hidden');
+  
+  const epOverlay = document.getElementById('episodes-sheet-overlay');
+  if (epOverlay) epOverlay.classList.add('hidden');
 
   // Reset speed option highlights
   document.querySelectorAll('.speed-option').forEach(opt => {
@@ -1236,6 +1645,17 @@ async function playVideo(params, pushState = true) {
   // Control button is visible for episode playback. Floating button appears near ending only.
   setNextEpisodeControlVisible(hasEpisodeContext(params));
   setNextEpisodeFloatingVisible(false);
+
+  const btnEpisodes = document.getElementById('btn-episodes');
+  if (params.season) {
+    if (btnEpisodes) btnEpisodes.classList.remove('hidden');
+    // Prepare the panel data ahead of time but do NOT show the sheet until button clicked
+    renderEpisodesPanel(params);
+  } else {
+    if (btnEpisodes) btnEpisodes.classList.add('hidden');
+    document.getElementById('episodes-sheet')?.classList.add('hidden');
+    document.getElementById('episodes-sheet-overlay')?.classList.add('hidden');
+  }
 
   document.getElementById('player-title-main').textContent = params.title;
 
@@ -1650,8 +2070,7 @@ function setupPlayerListeners() {
   });
   on(document.getElementById('volume-slider'), 'input', (e) => {
     e.stopPropagation();
-    video.volume = e.target.value;
-    video.muted = (e.target.value === '0');
+    setVolume(parseFloat(e.target.value));
   });
   on(document.getElementById('volume-slider'), 'click', (e) => e.stopPropagation());
 
@@ -1763,11 +2182,11 @@ function setupPlayerListeners() {
         break;
       case 'ArrowUp':
         e.preventDefault();
-        video.volume = Math.min(1, video.volume + 0.1);
+        setVolume(getVolume() + 0.1);
         break;
       case 'ArrowDown':
         e.preventDefault();
-        video.volume = Math.max(0, video.volume - 0.1);
+        setVolume(getVolume() - 0.1);
         break;
       case 'f':
       case 'F':
@@ -2058,9 +2477,14 @@ function seekRelative(sec) {
 }
 
 function toggleMute() {
-  const video = document.getElementById('video-player');
-  video.muted = !video.muted;
-  if (!video.muted && video.volume === 0) video.volume = 0.5;
+  const currentVol = getVolume();
+  if (currentVol === 0) {
+    const targetVol = (state.player._lastVolume && state.player._lastVolume > 0) ? state.player._lastVolume : 1;
+    setVolume(targetVol);
+  } else {
+    state.player._lastVolume = currentVol;
+    setVolume(0);
+  }
 }
 
 async function toggleFullscreen() {
@@ -2130,6 +2554,137 @@ async function playNextEpisode() {
 
 
 // ============================================================
+// TV EPISODE PANEL LOGIC
+// ============================================================
+async function renderEpisodesPanel(params) {
+  const sheet = document.getElementById('episodes-sheet');
+  const overlay = document.getElementById('episodes-sheet-overlay');
+  if (!sheet || !overlay) return;
+
+  const btnEpisodes = document.getElementById('btn-episodes');
+  const btnClose = document.getElementById('episodes-sheet-close');
+  
+  // Attach event toggles securely
+  if (btnEpisodes) {
+    btnEpisodes.onclick = () => {
+      sheet.classList.remove('hidden');
+      overlay.classList.remove('hidden');
+      
+      // Auto-scroll to active episode when opening
+      setTimeout(() => {
+        const listContainer = document.getElementById('episodes-list');
+        const activeEp = listContainer.querySelector('.player-episode-item.active');
+        if (activeEp) activeEp.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 300); // Wait for transition
+    };
+  }
+  
+  const closeSheet = () => {
+    sheet.classList.add('hidden');
+    overlay.classList.add('hidden');
+  };
+  
+  if (btnClose) btnClose.onclick = closeSheet;
+  overlay.onclick = closeSheet;
+
+  // Set titles
+  const titleEl = document.getElementById('episodes-sheet-title');
+  const subtitleEl = document.getElementById('episodes-sheet-subtitle');
+  if (titleEl) titleEl.textContent = params.title;
+  if (subtitleEl) subtitleEl.textContent = `Season ${params.season} - playing Episode ${params.episode}`;
+
+  // Fetch or use existing season data
+  let seasons = window._showSeasons;
+  if (!seasons || window._showTmdbId !== params.tmdbId) {
+    const data = await api(`/api/tv/${params.tmdbId}`);
+    if (data) {
+      seasons = data.seasons;
+      window._showSeasons = seasons;
+      window._showTitle = data.showTitle;
+      window._showTmdbId = data.showTmdbId;
+    }
+  }
+
+  if (!seasons) return;
+
+  const tabsContainer = document.getElementById('episodes-season-tabs');
+  
+  // Render tabs
+  const seasonNums = Object.keys(seasons).map(Number).sort((a, b) => a - b);
+  tabsContainer.innerHTML = seasonNums.map(n => 
+    `<button class="season-tab ${n === Number(params.season) ? 'active' : ''}" data-season="${n}" onclick="switchEpisodesPanelSeason(${n}, ${params.tmdbId})">Season ${n}</button>`
+  ).join('');
+
+  // Render current season list
+  renderEpisodesPanelList(seasons[params.season] || [], Number(params.episode));
+}
+
+window.switchEpisodesPanelSeason = function(seasonNum, tmdbId) {
+  const seasons = window._showSeasons;
+  if (!seasons) return;
+
+  const tabsContainer = document.getElementById('episodes-season-tabs');
+  tabsContainer.querySelectorAll('.season-tab').forEach(t => {
+    t.classList.toggle('active', parseInt(t.dataset.season) === seasonNum);
+  });
+
+  const isCurrentPlayingSeason = Number(state.player.season) === seasonNum;
+  const highlightEpisode = isCurrentPlayingSeason ? Number(state.player.episode) : -1;
+  renderEpisodesPanelList(seasons[seasonNum] || [], highlightEpisode);
+};
+
+function renderEpisodesPanelList(episodes, highlightEpisode) {
+  const listContainer = document.getElementById('episodes-list');
+  const showTitle = window._showTitle || state.player.title;
+  const tmdbId = window._showTmdbId || state.player.tmdbId;
+
+  if (!episodes || episodes.length === 0) {
+    listContainer.innerHTML = '<div style="padding:15px; color:#888;">No episodes available.</div>';
+    return;
+  }
+
+  listContainer.innerHTML = episodes.map(ep => {
+    const s = ep.tv.seasonNumber;
+    const e = ep.tv.episodeNumber;
+    const title = ep.tv.episodeTitle || `Episode ${e}`;
+    const overview = ep.tv.episodeOverview || 'No description available.';
+    const isActive = e === highlightEpisode;
+    const runtimeStr = ep.runtime || ep.tv.episodeRuntime;
+    const runtimeHtml = runtimeStr ? `<span class="player-episode-item-runtime">${fmtRuntime(runtimeStr)}</span>` : '';
+    
+    // Custom handler to switch stream
+    return `
+      <div class="player-episode-item ${isActive ? 'active' : ''}" 
+           onclick="handleEpisodesPanelClick('${ep.fileId}', '${escArg(showTitle)}', ${s}, ${e}, '${escArg(title)}', ${tmdbId})">
+         <div class="player-episode-item-number">${e}</div>
+         <div class="player-episode-item-content">
+            <div class="player-episode-item-header">
+               <div class="player-episode-item-title">${esc(title)}</div>
+               ${runtimeHtml}
+            </div>
+            <div class="player-episode-item-overview">${esc(overview)}</div>
+         </div>
+      </div>`;
+  }).join('');
+}
+
+window.handleEpisodesPanelClick = function(fileId, title, season, episode, episodeTitle, tmdbId) {
+  const sheet = document.getElementById('episodes-sheet');
+  const overlay = document.getElementById('episodes-sheet-overlay');
+  if (sheet) sheet.classList.add('hidden');
+  if (overlay) overlay.classList.add('hidden');
+  
+  playVideo({
+    fileId,
+    title,
+    season,
+    episode,
+    episodeTitle,
+    tmdbId
+  });
+};
+
+// ============================================================
 // UI UPDATE HELPERS
 // ============================================================
 function updateProgress() {
@@ -2163,23 +2718,74 @@ function updatePlayPauseIcon() {
   }
 }
 
-function updateVolumeUI() {
+function getVolume() {
   const video = document.getElementById('video-player');
+  return video && video._logicalVolume !== undefined ? video._logicalVolume : (video ? video.volume : 1);
+}
+
+function setVolume(val) {
+   const video = document.getElementById('video-player');
+   if (!video) return;
+   val = Math.max(0, Math.min(3, val)); // Clamp between 0 and 3 (300%)
+   video._logicalVolume = val;
+   
+   if (!video._audioContext) {
+      try {
+         const AudioCtx = window.AudioContext || window.webkitAudioContext;
+         if (AudioCtx) {
+             video._audioContext = new AudioCtx();
+             video._gainNode = video._audioContext.createGain();
+             video._sourceNode = video._audioContext.createMediaElementSource(video);
+             video._sourceNode.connect(video._gainNode);
+             video._gainNode.connect(video._audioContext.destination);
+         }
+      } catch (e) { console.warn("AudioContext init failed", e); }
+   }
+
+   if (video._audioContext && video._audioContext.state === 'suspended') {
+      video._audioContext.resume().catch(()=>{});
+   }
+
+   if (val > 1) {
+      video.volume = 1;
+      if (video._gainNode) {
+          video._gainNode.gain.value = val;
+      }
+   } else {
+      video.volume = val;
+      if (video._gainNode) {
+          video._gainNode.gain.value = 1;
+      }
+   }
+   
+   video.muted = (val === 0);
+   updateVolumeUI();
+}
+
+function updateVolumeUI() {
   const slider = document.getElementById('volume-slider');
   const icon = document.getElementById('btn-volume');
 
-  slider.value = video.volume;
-  if (video.muted) slider.value = 0;
+  const currentVol = getVolume();
+  if (slider) slider.value = currentVol;
 
   let svg = '';
-  if (video.muted || video.volume === 0) {
+  if (currentVol === 0) {
     svg = `<path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>`;
-  } else if (video.volume < 0.5) {
+  } else if (currentVol < 0.5) {
     svg = `<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>`;
   } else {
     svg = `<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>`;
   }
-  icon.innerHTML = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">${svg}</svg>`;
+  
+  if (icon) {
+    if (currentVol > 1) {
+      // Show a green boost color when > 100%
+      icon.innerHTML = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#46d369" stroke-width="2">${svg}</svg>`;
+    } else {
+      icon.innerHTML = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">${svg}</svg>`;
+    }
+  }
 }
 
 function updateSpeedUI() {
@@ -2264,19 +2870,23 @@ function updateTrackInfoUI() {
   renderSubtitleSyncUI();
 }
 // ============================================================
-// SUBTITLE SYNC TOOL — VLC-style offset adjustment
+// SUBTITLE SYNC TOOL — Bidirectional Quick Sync + Manual Offset
 // ============================================================
 function renderSubtitleSyncUI() {
+  // Quick Sync is inserted as the FIRST child of the track-panel (sticky, always visible)
   let section = document.getElementById('subtitle-sync-section');
 
   if (!section) {
     section = document.createElement('div');
     section.id = 'subtitle-sync-section';
     const panel = document.getElementById('track-panel');
-    if (panel) {
-      panel.appendChild(section);
+    if (!panel) return;
+    // Insert AFTER audio list, BEFORE subtitle list (second .track-section)
+    const trackSections = panel.querySelectorAll('.track-section');
+    if (trackSections.length >= 2) {
+      panel.insertBefore(section, trackSections[1]);
     } else {
-      return;
+      panel.appendChild(section);
     }
   }
 
@@ -2288,37 +2898,151 @@ function renderSubtitleSyncUI() {
 
   const offset = state.player.subtitleOffset || 0;
   const sign = offset >= 0 ? '+' : '';
-  const isStep1Done = state.player._syncSeenTime !== null;
+  const step = state.player._syncStep || 0;
+  const firstLabel = state.player._syncFirstLabel;
+
+  // Build Quick Sync status
+  let qsContent = '';
+  if (step === 0) {
+    // Idle — show Start Sync
+    qsContent = `
+      <div class="qs-status qs-idle">
+        <span class="qs-status-dot"></span>
+        <span class="qs-status-text">Tap a button when the first event happens</span>
+      </div>
+      <div class="qs-buttons">
+        <button class="qs-action-btn qs-sub-btn" onclick="qsSyncMark('subtitle', event)">
+          <span class="qs-btn-icon">💬</span>
+          <span class="qs-btn-label">Subtitle Appeared</span>
+        </button>
+        <button class="qs-action-btn qs-audio-btn" onclick="qsSyncMark('audio', event)">
+          <span class="qs-btn-icon">🔊</span>
+          <span class="qs-btn-label">Voice Heard</span>
+        </button>
+      </div>`;
+  } else if (step === 1) {
+    // Waiting for the second event
+    const secondLabel = firstLabel === 'subtitle' ? 'Voice Heard' : 'Subtitle Appeared';
+    const secondIcon = firstLabel === 'subtitle' ? '🔊' : '💬';
+    const secondType = firstLabel === 'subtitle' ? 'audio' : 'subtitle';
+    qsContent = `
+      <div class="qs-status qs-waiting">
+        <span class="qs-status-dot qs-pulse"></span>
+        <span class="qs-status-text">✓ ${firstLabel === 'subtitle' ? 'Subtitle' : 'Audio'} marked — now tap when you ${firstLabel === 'subtitle' ? 'hear the voice' : 'see the subtitle'}</span>
+      </div>
+      <div class="qs-buttons">
+        <button class="qs-action-btn qs-second-btn qs-waiting-btn" onclick="qsSyncMark('${secondType}', event)">
+          <span class="qs-btn-icon">${secondIcon}</span>
+          <span class="qs-btn-label">${secondLabel}</span>
+        </button>
+        <button class="qs-cancel-btn" onclick="qsSyncReset(event)" title="Cancel">✕</button>
+      </div>`;
+  } else if (step === 2) {
+    // Done — show result
+    qsContent = `
+      <div class="qs-status qs-applied">
+        <span class="qs-status-dot qs-done-dot"></span>
+        <span class="qs-status-text">Offset applied: <strong>${sign}${offset.toFixed(1)}s</strong></span>
+      </div>`;
+  }
 
   section.innerHTML = `
     <div class="sub-sync-panel">
-      <div class="sub-sync-header-row">
-        <span class="sub-sync-label">Subtitle Timing</span>
-        <span class="sub-sync-offset-value">${sign}${offset.toFixed(1)}s</span>
+      <div class="sub-sync-qs-section">
+        <div class="sub-sync-qs-header">
+          <span class="sub-sync-qs-title">⚡ Quick Sync</span>
+          ${step === 2 || offset !== 0 ? `<button class="qs-reset-pill" onclick="qsSyncReset(event)">Reset</button>` : ''}
+        </div>
+        ${qsContent}
       </div>
 
-      <div class="sub-sync-manual">
-        <button class="sub-sync-adj" onclick="adjustSubOffset(-0.5,event)">−0.5</button>
-        <button class="sub-sync-adj" onclick="adjustSubOffset(-0.1,event)">−0.1</button>
-        <button class="sub-sync-adj sub-sync-reset-btn" onclick="resetSubOffset(event)" ${offset === 0 ? 'disabled' : ''}>↺</button>
-        <button class="sub-sync-adj" onclick="adjustSubOffset(0.1,event)">+0.1</button>
-        <button class="sub-sync-adj" onclick="adjustSubOffset(0.5,event)">+0.5</button>
-      </div>
+      <div class="sub-sync-divider"></div>
 
-      <div class="sub-sync-auto">
-        <div class="sub-sync-auto-label">Quick Sync</div>
-        <div class="sub-sync-marks">
-          <button class="sub-sync-mark ${isStep1Done ? 'done' : ''}" onclick="markSubtitleSeen(event)">
-            <span class="sub-sync-mark-icon">👁️</span>
-            <span>${isStep1Done ? 'Subtitle marked ✓' : 'Press when subtitle shows'}</span>
-          </button>
-          <button class="sub-sync-mark ${isStep1Done ? 'waiting' : ''}" onclick="markVoiceHeard(event)" ${!isStep1Done ? 'disabled' : ''}>
-            <span class="sub-sync-mark-icon">👂</span>
-            <span>Press when you hear voice</span>
-          </button>
+      <div class="sub-sync-manual-section">
+        <div class="sub-sync-header-row">
+          <span class="sub-sync-label">Manual Adjust</span>
+          <span class="sub-sync-offset-value">${sign}${offset.toFixed(1)}s</span>
+        </div>
+        <div class="sub-sync-manual">
+          <button class="sub-sync-adj" onclick="adjustSubOffset(-0.5,event)">−0.5</button>
+          <button class="sub-sync-adj" onclick="adjustSubOffset(-0.1,event)">−0.1</button>
+          <button class="sub-sync-adj sub-sync-reset-btn" onclick="resetSubOffset(event)" ${offset === 0 ? 'disabled' : ''}>↺</button>
+          <button class="sub-sync-adj" onclick="adjustSubOffset(0.1,event)">+0.1</button>
+          <button class="sub-sync-adj" onclick="adjustSubOffset(0.5,event)">+0.5</button>
         </div>
       </div>
     </div>`;
+}
+
+// Quick Sync bidirectional mark
+function qsSyncMark(type, event) {
+  if (event) event.stopPropagation();
+  const video = document.getElementById('video-player');
+  const elapsed = isFinite(video.currentTime) ? video.currentTime : 0;
+  const actualTime = state.player.isRemuxing
+    ? elapsed + (state.player._seekOffset || 0)
+    : elapsed;
+
+  const step = state.player._syncStep || 0;
+
+  if (step === 0) {
+    // First mark
+    state.player._syncFirstLabel = type;
+    state.player._syncFirstTime = actualTime;
+    state.player._syncSeenTime = actualTime; // backward compat
+    state.player._syncStep = 1;
+    renderSubtitleSyncUI();
+
+    const audioInfo = document.getElementById('audio-info');
+    audioInfo.textContent = `✓ ${type === 'subtitle' ? 'Subtitle' : 'Audio'} marked — now tap when you ${type === 'subtitle' ? 'hear the matching voice' : 'see the matching subtitle'}`;
+    audioInfo.classList.remove('hidden');
+    setTimeout(() => audioInfo.classList.add('hidden'), 4000);
+  } else if (step === 1) {
+    // Second mark — calculate offset
+    const firstTime = state.player._syncFirstTime;
+    const firstType = state.player._syncFirstLabel;
+    let offset;
+
+    if (firstType === 'subtitle') {
+      // Subtitle appeared first, audio heard now → subs are early → positive offset (delay subs)
+      offset = actualTime - firstTime;
+    } else {
+      // Audio heard first, subtitle appeared now → subs are late → negative offset (advance subs)
+      offset = -(actualTime - firstTime);
+    }
+
+    state.player.subtitleOffset = Math.round(offset * 10) / 10;
+    state.player._syncStep = 2;
+    state.player._syncSeenTime = null;
+    state.player._syncFirstTime = null;
+    state.player._syncFirstLabel = null;
+    renderSubtitleSyncUI();
+
+    const sign = state.player.subtitleOffset >= 0 ? '+' : '';
+    const audioInfo = document.getElementById('audio-info');
+    audioInfo.textContent = `✓ Subtitle offset set to ${sign}${state.player.subtitleOffset.toFixed(1)}s`;
+    audioInfo.classList.remove('hidden');
+    setTimeout(() => audioInfo.classList.add('hidden'), 3000);
+
+    // Auto-return to idle state after brief display
+    setTimeout(() => {
+      if (state.player._syncStep === 2) {
+        state.player._syncStep = 0;
+        renderSubtitleSyncUI();
+      }
+    }, 3000);
+  }
+}
+
+function qsSyncReset(event) {
+  if (event) event.stopPropagation();
+  state.player.subtitleOffset = 0;
+  state.player._syncStep = 0;
+  state.player._syncSeenTime = null;
+  state.player._syncFirstTime = null;
+  state.player._syncFirstLabel = null;
+  showSubOffsetNotification();
+  renderSubtitleSyncUI();
 }
 
 function adjustSubOffset(delta, event) {
@@ -2330,51 +3054,12 @@ function adjustSubOffset(delta, event) {
 
 function resetSubOffset(event) {
   if (event) event.stopPropagation();
-  state.player.subtitleOffset = 0;
-  state.player._syncSeenTime = null;
-  showSubOffsetNotification();
-  renderSubtitleSyncUI();
+  qsSyncReset(event);
 }
 
-function markSubtitleSeen(event) {
-  if (event) event.stopPropagation();
-  const video = document.getElementById('video-player');
-  const elapsed = isFinite(video.currentTime) ? video.currentTime : 0;
-  const actualTime = state.player.isRemuxing
-    ? elapsed + (state.player._seekOffset || 0)
-    : elapsed;
-
-  state.player._syncSeenTime = actualTime;
-  renderSubtitleSyncUI();
-
-  const audioInfo = document.getElementById('audio-info');
-  audioInfo.textContent = '👁️ Subtitle marked — now press 👂 when you hear the matching voice';
-  audioInfo.classList.remove('hidden');
-  setTimeout(() => audioInfo.classList.add('hidden'), 5000);
-}
-
-function markVoiceHeard(event) {
-  if (event) event.stopPropagation();
-  if (state.player._syncSeenTime === null) return;
-
-  const video = document.getElementById('video-player');
-  const elapsed = isFinite(video.currentTime) ? video.currentTime : 0;
-  const actualTime = state.player.isRemuxing
-    ? elapsed + (state.player._seekOffset || 0)
-    : elapsed;
-
-  const offset = actualTime - state.player._syncSeenTime;
-  state.player.subtitleOffset = Math.round(offset * 10) / 10;
-  state.player._syncSeenTime = null;
-
-  renderSubtitleSyncUI();
-
-  const sign = state.player.subtitleOffset >= 0 ? '+' : '';
-  const audioInfo = document.getElementById('audio-info');
-  audioInfo.textContent = `✓ Subtitle offset set to ${sign}${state.player.subtitleOffset.toFixed(1)}s`;
-  audioInfo.classList.remove('hidden');
-  setTimeout(() => audioInfo.classList.add('hidden'), 3000);
-}
+// Legacy compat — redirect old functions to new system
+function markSubtitleSeen(event) { qsSyncMark('subtitle', event); }
+function markVoiceHeard(event) { qsSyncMark('audio', event); }
 
 function showSubOffsetNotification() {
   const offset = state.player.subtitleOffset;
@@ -2715,7 +3400,11 @@ function parseUrlAndRoute(path, search) {
   // Base routing
   if (path === '/movies') navigate('movies', {}, false);
   else if (path === '/tvshows') navigate('tvshows', {}, false);
-  else if (path === '/search') {
+  else if (path === '/genres') navigate('genres', {}, false);
+  else if (path.startsWith('/genres/')) {
+    const slug = path.replace('/genres/', '');
+    navigate('genre-detail', { slug, name: slug }, false);
+  } else if (path === '/search') {
     const urlParams = new URLSearchParams(search);
     navigate('search', { query: urlParams.get('q') }, false);
   } else {

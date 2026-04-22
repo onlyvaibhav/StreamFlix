@@ -22,7 +22,7 @@
   "needsRetry": false,
   "tv": null,
   "container": "matroska,webm",
-  "duration": 6400.2,
+  "duration": 6400,
   "audioTracks": [
     {
       "index": 0,
@@ -53,5 +53,8 @@
     }
   ],
   "audioCodec": "mp3",
-  "browserPlayable": true
+  "browserPlayable": true,
+  "logo": "/data/logos/75_logo.png",
+  "_tracksDetected": true,
+  "certification": "PG"
 }

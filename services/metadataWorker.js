@@ -5,12 +5,14 @@ const axios = require('axios');
 const TMDBClient = require('./tmdbClient');
 const { cleanMediaFilename, detectTVEpisode, extractTVShowTitle } = require('../utils/filenameUtils');
 const activityTracker = require('./activityTracker');
+const logger = require('./logger');
 
 const DATA_DIR = path.join(__dirname, '../data/metadata');
 const TV_CACHE_DIR = path.join(__dirname, '../data/tv_cache');
 const MOVIES_DIR = path.join(__dirname, '../data/movies');
 const POSTERS_DIR = path.join(__dirname, '../data/posters');
 const BACKDROPS_DIR = path.join(__dirname, '../data/backdrops');
+const LOGOS_DIR = path.join(__dirname, '../data/logos');
 
 const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p';
 
@@ -20,7 +22,7 @@ function sleep(ms) {
 
 // Helper: Ensure directories exist
 async function ensureDirs() {
-    const dirs = [DATA_DIR, TV_CACHE_DIR, POSTERS_DIR, BACKDROPS_DIR];
+    const dirs = [DATA_DIR, TV_CACHE_DIR, POSTERS_DIR, BACKDROPS_DIR, LOGOS_DIR];
     for (const dir of dirs) {
         try {
             await fs.mkdir(dir, { recursive: true });
@@ -64,7 +66,7 @@ async function downloadImage(tmdbPath, localDir, localFilename, size = 'w500') {
 }
 
 // MOVIE images — unique per file, uses fileId
-async function downloadMovieImages(fileId, posterTmdbPath, backdropTmdbPath) {
+async function downloadMovieImages(fileId, posterTmdbPath, backdropTmdbPath, logoTmdbPath) {
     const poster = await downloadImage(
         posterTmdbPath,
         POSTERS_DIR,
@@ -79,9 +81,17 @@ async function downloadMovieImages(fileId, posterTmdbPath, backdropTmdbPath) {
         'w1280'
     );
 
+    const logo = await downloadImage(
+        logoTmdbPath,
+        LOGOS_DIR,
+        `${fileId}_logo.png`,
+        'w500' // w500 is good enough for logos, preserving PNG transparency
+    );
+
     return {
         poster: poster ? `/data/posters/${fileId}.jpg` : null,
-        backdrop: backdrop ? `/data/backdrops/${fileId}_bd.jpg` : null
+        backdrop: backdrop ? `/data/backdrops/${fileId}_bd.jpg` : null,
+        logo: logo ? `/data/logos/${fileId}_logo.png` : null
     };
 }
 
@@ -146,9 +156,10 @@ async function forceDownloadShowImages(showTmdbId, posterTmdbPath, backdropTmdbP
 
 // TV SHOW images — shared across all episodes, uses showTmdbId
 // Downloaded ONCE when show metadata is fetched
-async function downloadShowImages(showTmdbId, posterTmdbPath, backdropTmdbPath) {
+async function downloadShowImages(showTmdbId, posterTmdbPath, backdropTmdbPath, logoTmdbPath) {
     const posterFilename = `show_${showTmdbId}.jpg`;
     const backdropFilename = `show_${showTmdbId}_bd.jpg`;
+    const logoFilename = `show_${showTmdbId}_logo.png`;
 
     const poster = await downloadImage(
         posterTmdbPath,
@@ -164,9 +175,17 @@ async function downloadShowImages(showTmdbId, posterTmdbPath, backdropTmdbPath) 
         'w1280'
     );
 
+    const logo = await downloadImage(
+        logoTmdbPath,
+        LOGOS_DIR,
+        logoFilename,
+        'w500'
+    );
+
     return {
         poster: poster ? `/data/posters/${posterFilename}` : null,
-        backdrop: backdrop ? `/data/backdrops/${backdropFilename}` : null
+        backdrop: backdrop ? `/data/backdrops/${backdropFilename}` : null,
+        logo: logo ? `/data/logos/${logoFilename}` : null
     };
 }
 
@@ -198,6 +217,7 @@ class TVShowRegistry {
                 // Image paths — set ONCE when show is fetched
                 sharedPoster: null,
                 sharedBackdrop: null,
+                sharedLogo: null,
                 episodes: []
             });
         }
@@ -251,11 +271,12 @@ class TVShowRegistry {
     }
 
     // Set shared image paths — called ONCE after downloading show images
-    setShowImages(showKey, posterPath, backdropPath) {
+    setShowImages(showKey, posterPath, backdropPath, logoPath) {
         const show = this.shows.get(showKey);
         if (!show) return;
         show.sharedPoster = posterPath;
         show.sharedBackdrop = backdropPath;
+        show.sharedLogo = logoPath;
     }
 
     // Get shared image paths for any episode of this show
@@ -313,6 +334,7 @@ function buildFailedEntry(fileId, fileName, type, title, year, failureType, seas
         genres: [],
         rating: 0,
         popularity: 0,
+        awards: '',
         poster: null,
         backdrop: null,
         tmdbId: 0,
@@ -371,6 +393,7 @@ async function saveMetadata(metadata) {
     const toSave = { ...metadata };
     delete toSave._posterPath;
     delete toSave._backdropPath;
+    delete toSave._logoPath;
 
     await fs.writeFile(
         path.join(DATA_DIR, `${metadata.fileId}.json`),
@@ -431,15 +454,11 @@ class MetadataWorker {
 
     async processMediaLibrary(files) {
         if (this.isRunning) {
-            console.log('[Worker] Already running, queuing batch...');
-            // In a real queue system, we'd add to a queue. 
-            // For now, we just rely on the retry mechanism to pick these up later 
-            // or hope the current run picks them up if they are in the list.
-            // But actually, we should probably just process them sequentially.
-            // Let's just process them now, concurrency handled by loop.
+            logger.warn('Already running, queuing batch...', 'worker');
+            return;
         }
         this.isRunning = true;
-        console.log(`[Worker] Processing ${files.length} items...`);
+        logger.info(`Processing ${files.length} items...`, 'worker');
 
         try {
             const movies = [];
@@ -521,8 +540,10 @@ class MetadataWorker {
                         const doc = await telegramService.getDocument(movie.fileId);
                         if (doc) {
                             const tracks = await telegramService.detectAllTracks(doc, movie.fileId);
+                            if (tracks.error) throw new Error(tracks.error);
                             baseMetadata.audioTracks = tracks.audioTracks;
                             baseMetadata.subtitleTracks = tracks.subtitleTracks;
+                            baseMetadata._tracksDetected = true;
 
                             const defaultAudio = tracks.audioTracks.find(t => t.isDefault) || tracks.audioTracks[0];
                             baseMetadata.audioCodec = defaultAudio ? defaultAudio.codec : 'unknown';
@@ -571,19 +592,21 @@ class MetadataWorker {
                     // Transfer track info to the new metadata object
                     metadata.audioTracks = baseMetadata.audioTracks;
                     metadata.subtitleTracks = baseMetadata.subtitleTracks;
+                    metadata._tracksDetected = baseMetadata._tracksDetected;
                     metadata.audioCodec = baseMetadata.audioCodec;
                     metadata.browserPlayable = baseMetadata.browserPlayable;
 
                     // Optimized: Use downloadMovieImages
                     const images = await downloadMovieImages(
-                        metadata.fileId, metadata._posterPath, metadata._backdropPath
+                        metadata.fileId, metadata._posterPath, metadata._backdropPath, metadata._logoPath
                     );
                     metadata.poster = images.poster || (!metadata._posterPath ? 'N/A' : null);
                     metadata.backdrop = images.backdrop || (!metadata._backdropPath ? 'N/A' : null);
+                    metadata.logo = images.logo || (!metadata._logoPath ? 'N/A' : null);
 
                     // Save the fully resolved object
                     await saveMetadata(metadata);
-                    console.log(`✓ Movie: ${metadata.title} (${metadata.year})`);
+                    logger.success(`Movie: ${metadata.title} (${metadata.year})`, 'worker');
 
                 } catch (error) {
                     console.error(`✗ Fatal error processing movie ${movie.title}:`, error.message);
@@ -626,6 +649,7 @@ class MetadataWorker {
                                 const codecInfo = await this.telegramService.detectAudioCodec(ep.fileId);
                                 baseMetadata.audioCodec = codecInfo.codec;
                                 baseMetadata.browserPlayable = codecInfo.browserPlayable;
+                                baseMetadata._tracksDetected = true;
                             }
                         }
                     } catch (e) {
@@ -664,13 +688,16 @@ class MetadataWorker {
                         const images = await downloadShowImages(
                             meta.showTmdbId,
                             meta.posterPath,
-                            meta.backdropPath
+                            meta.backdropPath,
+                            meta.logoPath
                         );
 
                         // Store shared paths in registry
-                        this.tvRegistry.setShowImages(show.key, 
-                            images.poster || (!meta.posterPath ? 'N/A' : null), 
-                            images.backdrop || (!meta.backdropPath ? 'N/A' : null)
+                        this.tvRegistry.setShowImages(
+                            show.key,
+                            images.poster || (!meta.posterPath ? 'N/A' : null),
+                            images.backdrop || (!meta.backdropPath ? 'N/A' : null),
+                            images.logo || (!meta.logoPath ? 'N/A' : null)
                         );
 
                         console.log(`  ✓ Show: ${meta.showTitle} (TMDB: ${meta.showTmdbId})`);
@@ -716,11 +743,13 @@ class MetadataWorker {
                         // USE SHARED IMAGE PATHS
                         metadata.poster = sharedImages.poster;
                         metadata.backdrop = sharedImages.backdrop;
+                        metadata.logo = sharedImages.logo;
 
-                        // Transfer base metadata track info to the new metadata object
+                        // Transfer track info to the new metadata object
                         if (ep.baseMetadata) {
                             metadata.audioCodec = ep.baseMetadata.audioCodec;
                             metadata.browserPlayable = ep.baseMetadata.browserPlayable;
+                            metadata._tracksDetected = ep.baseMetadata._tracksDetected;
                         }
 
                         await saveMetadata(metadata);
@@ -737,6 +766,7 @@ class MetadataWorker {
                         // Still use shared images
                         fallbackMetadata.poster = sharedImages.poster;
                         fallbackMetadata.backdrop = sharedImages.backdrop;
+                        fallbackMetadata.logo = sharedImages.logo;
 
                         // Transfer track info
                         if (ep.baseMetadata) {
@@ -764,6 +794,7 @@ class MetadataWorker {
 
         } finally {
             this.isRunning = false;
+            logger.info('Metadata scan complete', 'worker');
         }
     }
 
@@ -849,10 +880,11 @@ class MetadataWorker {
                 );
                 if (metadata) {
                     const images = await downloadMovieImages(
-                        metadata.fileId, metadata._posterPath, metadata._backdropPath
+                        metadata.fileId, metadata._posterPath, metadata._backdropPath, metadata._logoPath
                     );
                     metadata.poster = images.poster;
                     metadata.backdrop = images.backdrop;
+                    metadata.logo = images.logo;
                     await saveMetadata(metadata);
                 } else {
                     incrementRetry(entry, 'not_found');
@@ -905,7 +937,8 @@ class MetadataWorker {
                 const sharedImages = await downloadShowImages(
                     showMeta.showTmdbId,
                     showMeta.posterPath,
-                    showMeta.backdropPath
+                    showMeta.backdropPath,
+                    showMeta.logoPath
                 );
 
                 // Build metadata for each episode using shared images
@@ -929,6 +962,7 @@ class MetadataWorker {
                     // Shared images
                     metadata.poster = sharedImages.poster;
                     metadata.backdrop = sharedImages.backdrop;
+                    metadata.logo = sharedImages.logo;
 
                     await saveMetadata(metadata);
 
@@ -1331,6 +1365,7 @@ async function syncWithTelegram() {
                                 const codecInfo = await worker.telegramService.detectAudioCodec(fileId);
                                 metadata.audioCodec = codecInfo.codec;
                                 metadata.browserPlayable = codecInfo.browserPlayable;
+                                metadata._tracksDetected = true;
                             }
                         }
                     } catch (e) { }
@@ -1761,6 +1796,35 @@ async function startIdleLoop() {
                 }
             }
 
+            // 5. Pre-fetch missing audio/subtitle track info
+            if (!activityTracker.isPaused()) {
+                const all = await getAllMetadata();
+                const needsAudioInfo = all.filter(metadataNeedsAudioInfo);
+                if (needsAudioInfo.length > 0) {
+                    console.log(`[Worker] 🔊 Idle loop: ${needsAudioInfo.length} files missing audio track info`);
+                    await fetchMissingAudioInfo();
+                    didWork = true;
+                }
+            }
+
+            // 6. Fetch missing logos from TMDB
+            if (!activityTracker.isPaused()) {
+                try {
+                    const allForLogos = await getAllMetadata();
+                    const needsLogos = allForLogos.filter(e =>
+                        e.fetchedAt && !e.needsRetry && e.tmdbId > 0 &&
+                        (!e.logo)
+                    );
+                    if (needsLogos.length > 0) {
+                        console.log(`[Worker] 🖼️ Idle loop: ${needsLogos.length} missing logos to fetch`);
+                        await fetchMissingLogos();
+                        didWork = true;
+                    }
+                } catch (logoErr) {
+                    console.warn('[Worker] Logo fetch error in idle loop:', logoErr.message);
+                }
+            }
+
         } catch (err) {
             console.error('[Worker] Idle loop error:', err.message);
         }
@@ -2107,6 +2171,593 @@ async function findIncompleteMetadata() {
     return incomplete;
 }
 
+// Background task to fetch any missing logos for existing metadata
+async function fetchMissingLogos() {
+    console.log('[Worker] 🖼️ Fetching missing logos — optimized batch task started...');
+    let files = [];
+    try {
+        files = await fs.readdir(DATA_DIR);
+    } catch { return; }
+
+    let updated = 0;
+    let skipped = 0;
+    const client = new TMDBClient(process.env.TMDB_API_KEY);
+
+    // ── Phase 1: Collect all metadata that needs logos ──
+    const needsLogo = [];     // Movies needing logos
+    const tvByShow = new Map(); // showTmdbId → [{ meta, filePath }]
+
+    for (const file of files) {
+        if (!file.endsWith('.json')) continue;
+        try {
+            const filePath = path.join(DATA_DIR, file);
+            const raw = await fs.readFile(filePath, 'utf-8');
+            const meta = JSON.parse(raw);
+
+            if (!meta.tmdbId || meta.tmdbId === 0) continue;
+            if (meta.needsRetry || !meta.fetchedAt) continue;
+
+            // Check if logo is genuinely missing
+            let logoMissing = false;
+            if (!meta.logo) {
+                logoMissing = true;
+            } else if (meta.logo !== 'N/A') {
+                // Verify the logo file actually exists on disk
+                const diskPath = path.join(__dirname, '..', meta.logo.startsWith('/') ? meta.logo.slice(1) : meta.logo);
+                try {
+                    const stat = await fs.stat(diskPath);
+                    if (stat.size < 500) logoMissing = true; // Corrupted/empty file
+                } catch {
+                    logoMissing = true; // File doesn't exist
+                }
+            }
+
+            if (!logoMissing) continue;
+
+            if (meta.type === 'tv' && meta.tv && meta.tv.showTmdbId) {
+                const showId = meta.tv.showTmdbId;
+                if (!tvByShow.has(showId)) tvByShow.set(showId, []);
+                tvByShow.get(showId).push({ meta, filePath });
+            } else {
+                needsLogo.push({ meta, filePath });
+            }
+        } catch { continue; }
+    }
+
+    const totalNeeded = needsLogo.length + Array.from(tvByShow.values()).reduce((s, eps) => s + eps.length, 0);
+    console.log(`[Worker] 🖼️ Found ${totalNeeded} items needing logos (${needsLogo.length} movies, ${tvByShow.size} TV shows)`);
+    if (totalNeeded === 0) return;
+
+    // ── Helper: Pick best logo (prefer English, then widest) ──
+    function pickBestLogo(logos) {
+        if (!logos || logos.length === 0) return null;
+        // Prefer English or null
+        const preferred = logos.filter(l => l.iso_639_1 === 'en' || l.iso_639_1 === null);
+        const candidates = preferred.length > 0 ? preferred : logos;
+        // Pick widest (highest resolution)
+        candidates.sort((a, b) => (b.width || 0) - (a.width || 0));
+        return candidates[0].file_path;
+    }
+
+    // ── Phase 2: Process movies (1 API call per movie) ──
+    for (const { meta, filePath } of needsLogo) {
+        if (activityTracker.isPaused()) {
+            await activityTracker.waitIfBusy();
+        }
+
+        try {
+            await activityTracker.waitIfBusy();
+            const d = await client.request(`/movie/${meta.tmdbId}/images`);
+            const logoTmdbPath = pickBestLogo(d.logos);
+
+            if (logoTmdbPath) {
+                const logoFilename = `${meta.fileId}_logo.png`;
+                const localLogoPath = await downloadImage(logoTmdbPath, LOGOS_DIR, logoFilename, 'w500');
+                if (localLogoPath) {
+                    meta.logo = `/data/logos/${logoFilename}`;
+                    await fs.writeFile(filePath, JSON.stringify(meta, null, 2));
+                    updated++;
+                    console.log(`[Worker] ✅ Logo fetched: ${meta.title}`);
+                } else {
+                    skipped++;
+                }
+            } else {
+                skipped++;
+                meta.logo = 'N/A';
+                await fs.writeFile(filePath, JSON.stringify(meta, null, 2));
+            }
+        } catch (e) {
+            console.warn(`[Worker] Logo fetch failed for movie ${meta.fileId}:`, e.message);
+        }
+        await sleep(400);
+    }
+
+    // ── Phase 3: Process TV shows (1 API call per SHOW, apply to all episodes) ──
+    for (const [showTmdbId, episodes] of tvByShow) {
+        if (activityTracker.isPaused()) {
+            await activityTracker.waitIfBusy();
+        }
+
+        try {
+            await activityTracker.waitIfBusy();
+            const d = await client.request(`/tv/${showTmdbId}/images`);
+            const logoTmdbPath = pickBestLogo(d.logos);
+
+            if (logoTmdbPath) {
+                const logoFilename = `show_${showTmdbId}_logo.png`;
+                const localLogoPath = await downloadImage(logoTmdbPath, LOGOS_DIR, logoFilename, 'w500');
+
+                if (localLogoPath) {
+                    const logoWebPath = `/data/logos/${logoFilename}`;
+                    // Apply to ALL episodes of this show in one pass
+                    for (const { meta: epMeta, filePath: epPath } of episodes) {
+                        epMeta.logo = logoWebPath;
+                        await fs.writeFile(epPath, JSON.stringify(epMeta, null, 2));
+                        updated++;
+                    }
+                    console.log(`[Worker] ✅ Logo fetched for show ${showTmdbId}: applied to ${episodes.length} episodes`);
+                } else {
+                    skipped += episodes.length;
+                }
+            } else {
+                skipped += episodes.length;
+                for (const { meta: epMeta, filePath: epPath } of episodes) {
+                    epMeta.logo = 'N/A';
+                    await fs.writeFile(epPath, JSON.stringify(epMeta, null, 2));
+                }
+            }
+        } catch (e) {
+            console.warn(`[Worker] Logo fetch failed for show ${showTmdbId}:`, e.message);
+        }
+        await sleep(400);
+    }
+
+    if (updated > 0) {
+        try { require('../server').invalidateCache?.(); } catch {}
+    }
+    console.log(`[Worker] 🖼️ Logo fetch complete: ${updated} updated, ${skipped} unavailable on TMDB.`);
+}
+
+const audioSweepState = {
+    running: false,
+    startedAt: null,
+    finishedAt: null,
+    limit: 0,
+    concurrency: 0,
+    minDelayMs: 0,
+    candidates: 0,
+    processed: 0,
+    updated: 0,
+    failed: 0,
+    skipped: 0,
+    active: 0,
+    rateLimited: 0,
+    lastFileId: null,
+    lastTitle: null,
+    lastError: null,
+    backoffUntil: null,
+    nextSlotAt: 0
+};
+
+function getAudioSweepStatus() {
+    return {
+        ...audioSweepState,
+        queueRemaining: Math.max(0, audioSweepState.candidates - audioSweepState.processed),
+        backoffRemainingMs: audioSweepState.backoffUntil
+            ? Math.max(0, audioSweepState.backoffUntil - Date.now())
+            : 0
+    };
+}
+
+function metadataNeedsAudioInfo(meta) {
+    if (!meta || !meta.fileId || !meta.fetchedAt || meta.needsRetry || meta.manualProbeNeeded) return false;
+
+    const hasValidAudioTracks = Array.isArray(meta.audioTracks) &&
+        meta.audioTracks.length > 0 &&
+        meta.audioTracks.every(t => t && String(t.codec || t.codecName || '').trim());
+    const hasValidSubtitleTracks = Array.isArray(meta.subtitleTracks);
+    const hasContainer = !!meta.container;
+    const hasDuration = Number.isFinite(Number(meta.duration)) && Number(meta.duration) > 0;
+    const hasDetectionFlag = meta._tracksDetected === true;
+
+    return !(hasValidAudioTracks && hasValidSubtitleTracks && hasContainer && hasDuration && hasDetectionFlag);
+}
+
+function getAudioInfoPriority(meta) {
+    let score = 0;
+    if (!Array.isArray(meta.audioTracks) || meta.audioTracks.length === 0) score += 100;
+    if (Array.isArray(meta.audioTracks) && meta.audioTracks.some(t => !t || !String(t.codec || t.codecName || '').trim())) score += 80;
+    if (!meta._tracksDetected) score += 50;
+    if (!Array.isArray(meta.subtitleTracks)) score += 20;
+    if (!meta.container) score += 10;
+    if (!Number.isFinite(Number(meta.duration)) || Number(meta.duration) <= 0) score += 10;
+    return score;
+}
+
+function getFloodWaitMs(error) {
+    const message = String(error?.message || error || '');
+    const match = message.match(/FLOOD_WAIT_?(\d+)/i) ||
+        message.match(/wait(?:\s+of)?\s+(\d+)/i) ||
+        message.match(/(\d+)\s*seconds?/i);
+    if (!match) return 0;
+    return (parseInt(match[1], 10) + 2) * 1000;
+}
+
+function isRateLimitError(error) {
+    const message = String(error?.message || error || '').toLowerCase();
+    return message.includes('flood') || message.includes('rate') || message.includes('too many') || message.includes('wait');
+}
+
+async function waitForAudioProbeSlot(minDelayMs) {
+    while (audioSweepState.backoffUntil && Date.now() < audioSweepState.backoffUntil) {
+        await sleep(Math.min(5000, audioSweepState.backoffUntil - Date.now()));
+    }
+
+    const now = Date.now();
+    const scheduledAt = Math.max(now, audioSweepState.nextSlotAt || 0);
+    audioSweepState.nextSlotAt = scheduledAt + minDelayMs;
+
+    if (scheduledAt > now) {
+        await sleep(scheduledAt - now);
+    }
+}
+
+// Background task to pre-fetch missing audio/subtitle track info via ffprobe.
+async function fetchMissingAudioInfoLegacy(limit = 0, concurrency = 3, options = {}) {
+    console.log(`[Worker] 🔊 Batch audio info fetch started (limit=${limit}, concurrency=${concurrency})`);
+    let files = [];
+    try {
+        files = await fs.readdir(DATA_DIR);
+    } catch { return; }
+
+    let updated = 0;
+    let failed = 0;
+    let telegramService;
+
+    try {
+        telegramService = require('./telegramService');
+    } catch (e) {
+        console.error('[Worker] 🔊 Cannot load telegramService:', e.message);
+        return;
+    }
+
+    // Shuffle files array so we don't always get stuck on the same ones
+    files.sort(() => Math.random() - 0.5);
+
+    // Filter candidates first
+    const candidates = [];
+    for (const file of files) {
+        if (!file.endsWith('.json')) continue;
+        if (candidates.length >= limit) break;
+
+        try {
+            const raw = await fs.readFile(path.join(DATA_DIR, file), 'utf-8');
+            const meta = JSON.parse(raw);
+
+            if (!meta.fileId || !meta.fetchedAt || meta.needsRetry) continue;
+
+            const hasValidAudioTracks = Array.isArray(meta.audioTracks) &&
+                meta.audioTracks.length > 0 &&
+                meta.audioTracks.every(t => t && String(t.codec || '').trim());
+
+            const hasValidSubtitleTracks = Array.isArray(meta.subtitleTracks);
+            const hasContainer = !!meta.container;
+            const hasDuration = Number.isFinite(Number(meta.duration)) && Number(meta.duration) > 0;
+            const hasFlag = meta._tracksDetected === true; // NEW check for flag
+
+            if (hasValidAudioTracks && hasValidSubtitleTracks && hasContainer && hasDuration && hasFlag) continue;
+
+            candidates.push({ file, filePath: path.join(DATA_DIR, file), meta });
+        } catch { continue; }
+    }
+
+    if (candidates.length === 0) {
+        console.log('[Worker] 🔊 No files need audio info.');
+        return;
+    }
+
+    console.log(`[Worker] 🔊 Processing ${candidates.length} files with concurrency ${concurrency}...`);
+
+    let processedCount = 0;
+    const queue = [...candidates];
+
+    const processItem = async () => {
+        while (queue.length > 0) {
+            const item = queue.shift();
+            if (!item) break;
+
+            processedCount++;
+            const localIdx = processedCount;
+            const { file, filePath, meta } = item;
+
+            // Respect activity tracker
+            if (activityTracker.isPaused()) {
+                await activityTracker.waitIfBusy();
+            }
+
+            try {
+                console.log(`[Worker] 🔊 Probing (${localIdx}/${candidates.length}): ${meta.title || meta.fileName || meta.fileId}`);
+
+                const doc = await telegramService.getDocument(meta.fileId);
+                if (!doc) {
+                    console.warn(`[Worker] 🔊 Document not found for ${meta.fileId}`);
+                    failed++;
+                    continue;
+                }
+
+                const tracks = await telegramService.detectAllTracks(doc, meta.fileId);
+                if (tracks.error) throw new Error(tracks.error);
+                let changed = false;
+
+                if (tracks.audioTracks && tracks.audioTracks.length > 0) {
+                    meta.audioTracks = tracks.audioTracks;
+                    const defaultAudio = tracks.audioTracks.find(t => t.isDefault) || tracks.audioTracks[0];
+                    meta.audioCodec = defaultAudio.codec;
+                    meta.browserPlayable = defaultAudio.browserPlayable;
+                    changed = true;
+                }
+
+                if (tracks.subtitleTracks) {
+                    meta.subtitleTracks = tracks.subtitleTracks;
+                    changed = true;
+                }
+
+                if (!meta.container || !meta.duration) {
+                    try {
+                        const mediaInfo = await telegramService.getMediaInfo(meta.fileId);
+                        if (mediaInfo) {
+                            if (mediaInfo.format?.name && !meta.container) {
+                                meta.container = mediaInfo.format.name;
+                                changed = true;
+                            }
+                            if (Number.isFinite(Number(mediaInfo.format?.duration)) && !meta.duration) {
+                                meta.duration = Number(mediaInfo.format.duration);
+                                changed = true;
+                            }
+                        }
+                    } catch (e) {}
+                }
+
+                // Always set the flag if we reach here (either fresh probe or fixing missing flag)
+                if (!meta._tracksDetected) {
+                    meta._tracksDetected = true;
+                    changed = true;
+                }
+
+                if (changed) {
+                    await fs.writeFile(filePath, JSON.stringify(meta, null, 2));
+                    updated++;
+                    console.log(`[Worker] ✅ Saved info for: ${meta.title || meta.fileId}`);
+                }
+
+                // Rate limiting sleep between files within a worker
+                const delay = activityTracker.isStreaming() ? 10000 : 5000;
+                await sleep(delay);
+            } catch (e) {
+                failed++;
+                const isRateLimit = e.message.toLowerCase().includes('flood') || e.message.toLowerCase().includes('wait');
+                console.error(`[Worker] ❌ ${isRateLimit ? 'RATE LIMIT' : 'Probe failed'} for ${file}:`, e.message);
+                await sleep(10000); // Sleep significantly more on failure/rate limit
+            }
+        }
+    };
+
+    // Run workers in parallel
+    const workers = Array.from({ length: Math.min(concurrency, candidates.length) }, () => processItem());
+    await Promise.all(workers);
+
+    if (updated > 0) {
+        try { require('../server').invalidateCache?.(); } catch {}
+    }
+    console.log(`[Worker] 🔊 Audio info processing complete: ${updated} updated, ${failed} failed.`);
+}
+
+async function fetchMissingAudioInfo(limit = 0, concurrency = 3, options = {}) {
+    if (audioSweepState.running) {
+        console.log('[Worker] Audio sweep already running; reusing existing sweep');
+        return getAudioSweepStatus();
+    }
+
+    const normalizedLimit = Number.isFinite(Number(limit)) ? Math.max(0, parseInt(limit, 10)) : 0;
+    const normalizedConcurrency = Math.max(1, Math.min(5, parseInt(concurrency, 10) || 3));
+    const minDelayMs = Math.max(500, parseInt(options.minDelayMs, 10) || 900);
+
+    Object.assign(audioSweepState, {
+        running: true,
+        startedAt: new Date().toISOString(),
+        finishedAt: null,
+        limit: normalizedLimit,
+        concurrency: normalizedConcurrency,
+        minDelayMs,
+        candidates: 0,
+        processed: 0,
+        updated: 0,
+        failed: 0,
+        skipped: 0,
+        active: 0,
+        rateLimited: 0,
+        lastFileId: null,
+        lastTitle: null,
+        lastError: null,
+        backoffUntil: null,
+        nextSlotAt: 0
+    });
+
+    console.log(`[Worker] Audio info sweep started (limit=${normalizedLimit || 'all'}, concurrency=${normalizedConcurrency}, delay=${minDelayMs}ms)`);
+
+    let files = [];
+    try {
+        files = await fs.readdir(DATA_DIR);
+    } catch {
+        audioSweepState.running = false;
+        audioSweepState.finishedAt = new Date().toISOString();
+        return getAudioSweepStatus();
+    }
+
+    let telegramService;
+    try {
+        telegramService = require('./telegramService');
+    } catch (e) {
+        console.error('[Worker] Cannot load telegramService:', e.message);
+        audioSweepState.running = false;
+        audioSweepState.finishedAt = new Date().toISOString();
+        audioSweepState.lastError = e.message;
+        return getAudioSweepStatus();
+    }
+
+    const candidates = [];
+    for (const file of files) {
+        if (!file.endsWith('.json')) continue;
+
+        try {
+            const raw = await fs.readFile(path.join(DATA_DIR, file), 'utf-8');
+            const meta = JSON.parse(raw);
+
+            if (!metadataNeedsAudioInfo(meta)) continue;
+            candidates.push({ file, filePath: path.join(DATA_DIR, file), meta });
+        } catch { continue; }
+    }
+
+    candidates.sort((a, b) => {
+        const priorityDiff = getAudioInfoPriority(b.meta) - getAudioInfoPriority(a.meta);
+        if (priorityDiff !== 0) return priorityDiff;
+        return parseInt(a.meta.fileId, 10) - parseInt(b.meta.fileId, 10);
+    });
+
+    if (normalizedLimit > 0) {
+        candidates.splice(normalizedLimit);
+    }
+
+    audioSweepState.candidates = candidates.length;
+
+    if (candidates.length === 0) {
+        console.log('[Worker] No files need audio info.');
+        audioSweepState.running = false;
+        audioSweepState.finishedAt = new Date().toISOString();
+        return getAudioSweepStatus();
+    }
+
+    console.log(`[Worker] Processing ${candidates.length} files with audio probe concurrency ${normalizedConcurrency}...`);
+
+    const queue = [...candidates];
+
+    const processItem = async () => {
+        while (queue.length > 0) {
+            const item = queue.shift();
+            if (!item) break;
+
+            const { file, filePath, meta } = item;
+
+            if (activityTracker.isPaused()) {
+                await activityTracker.waitIfBusy();
+            }
+
+            audioSweepState.processed++;
+            audioSweepState.active++;
+            audioSweepState.lastFileId = meta.fileId;
+            audioSweepState.lastTitle = meta.title || meta.fileName || meta.fileId;
+            const localIdx = audioSweepState.processed;
+
+            try {
+                await waitForAudioProbeSlot(minDelayMs);
+
+                console.log(`[Worker] Probing audio (${localIdx}/${candidates.length}): ${meta.title || meta.fileName || meta.fileId}`);
+
+                const doc = await telegramService.getDocument(meta.fileId);
+                if (!doc) {
+                    console.warn(`[Worker] Document not found for ${meta.fileId}`);
+                    audioSweepState.failed++;
+                    continue;
+                }
+
+                const tracks = await telegramService.detectAllTracks(doc, meta.fileId);
+                if (tracks.error) throw new Error(tracks.error);
+                let changed = false;
+
+                if (tracks.audioTracks && tracks.audioTracks.length > 0) {
+                    meta.audioTracks = tracks.audioTracks;
+                    const defaultAudio = tracks.audioTracks.find(t => t.isDefault) || tracks.audioTracks[0];
+                    meta.audioCodec = defaultAudio.codec;
+                    meta.browserPlayable = defaultAudio.browserPlayable;
+                    changed = true;
+                }
+
+                if (tracks.subtitleTracks) {
+                    meta.subtitleTracks = tracks.subtitleTracks;
+                    changed = true;
+                }
+
+                if (tracks.format?.name && !meta.container) {
+                    meta.container = tracks.format.name;
+                    changed = true;
+                }
+
+                if (Number.isFinite(Number(tracks.format?.duration)) && Number(tracks.format.duration) > 0 && !meta.duration) {
+                    meta.duration = Number(tracks.format.duration);
+                    changed = true;
+                }
+                
+                // Always set the flag to prevent infinite loops
+                if (!meta._tracksDetected) {
+                    meta._tracksDetected = true;
+                    changed = true;
+                }
+
+                if (changed) {
+                    meta._probeFailCount = 0; // Reset on success
+                    await fs.writeFile(filePath, JSON.stringify(meta, null, 2));
+                    audioSweepState.updated++;
+                    console.log(`[Worker] Saved audio info for: ${meta.title || meta.fileId}`);
+                } else {
+                    audioSweepState.skipped++;
+                }
+            } catch (e) {
+                audioSweepState.failed++;
+                audioSweepState.lastError = e.message;
+
+                if (isRateLimitError(e)) {
+                    audioSweepState.rateLimited++;
+                    const backoffMs = getFloodWaitMs(e) || 30000;
+                    audioSweepState.backoffUntil = Date.now() + backoffMs;
+                    console.error(`[Worker] Telegram rate limit while probing ${file}; backing off for ${Math.round(backoffMs / 1000)}s:`, e.message);
+                    await sleep(backoffMs);
+                } else {
+                    console.error(`[Worker] Audio probe failed for ${file}:`, e.message);
+                    
+                    // Anti-loop: Increment fail count and mark for manual fix if needed
+                    meta._probeFailCount = (meta._probeFailCount || 0) + 1;
+                    if (meta._probeFailCount >= 3) {
+                        meta.manualProbeNeeded = true;
+                        console.warn(`[Worker] ⚠️ File ${meta.fileId} failed probing 3 times. Marking for MANUAL PROBE.`);
+                    }
+                    try {
+                        await fs.writeFile(filePath, JSON.stringify(meta, null, 2));
+                    } catch (err) {}
+                    
+                    await sleep(1500);
+                }
+            } finally {
+                audioSweepState.active = Math.max(0, audioSweepState.active - 1);
+            }
+        }
+    };
+
+    try {
+        const workers = Array.from({ length: Math.min(normalizedConcurrency, candidates.length) }, () => processItem());
+        await Promise.all(workers);
+    } finally {
+        audioSweepState.running = false;
+        audioSweepState.finishedAt = new Date().toISOString();
+    }
+
+    if (audioSweepState.updated > 0) {
+        try { require('../server').invalidateCache?.(); } catch {}
+    }
+
+    console.log(`[Worker] Audio info sweep complete: ${audioSweepState.updated} updated, ${audioSweepState.failed} failed, ${audioSweepState.skipped} unchanged.`);
+    return getAudioSweepStatus();
+}
+
 module.exports = {
     worker,
     saveMetadata,
@@ -2122,5 +2773,8 @@ module.exports = {
     setLastSyncTime,
     rebuildTVCaches,
     updateTVCacheForShow,
-    findIncompleteMetadata
+    findIncompleteMetadata,
+    fetchMissingLogos,
+    fetchMissingAudioInfo,
+    getAudioSweepStatus
 };

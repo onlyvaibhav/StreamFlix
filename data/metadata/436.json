@@ -34,7 +34,7 @@
   "audioCodec": "aac",
   "browserPlayable": true,
   "container": "matroska,webm",
-  "duration": 2825.472,
+  "duration": 2825,
   "audioTracks": [
     {
       "index": 0,
@@ -63,5 +63,8 @@
       "isDefault": false,
       "isForced": false
     }
-  ]
+  ],
+  "logo": "/data/logos/show_106872_logo.png",
+  "_tracksDetected": true,
+  "certification": "TV-14"
 }

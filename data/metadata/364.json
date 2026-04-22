@@ -34,5 +34,89 @@
     "totalEpisodes": 12
   },
   "audioCodec": "aac",
-  "browserPlayable": true
+  "browserPlayable": true,
+  "logo": "/data/logos/show_114410_logo.png",
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "Toonworld4all.me",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": true
+    },
+    {
+      "index": 1,
+      "streamIndex": 2,
+      "codec": "opus",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Toonworld4all.me",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": false
+    },
+    {
+      "index": 2,
+      "streamIndex": 3,
+      "codec": "opus",
+      "language": "Japanese",
+      "languageCode": "jpn",
+      "title": "Toonworld4all.me",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": false
+    }
+  ],
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 4,
+      "codec": "ass",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Signs/Songs [GJM]",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": true,
+      "isForced": true
+    },
+    {
+      "index": 1,
+      "streamIndex": 5,
+      "codec": "ass",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Full Subtitles [GJM]",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    },
+    {
+      "index": 2,
+      "streamIndex": 6,
+      "codec": "ass",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Full Subtitles [CR w/ GJM TS]",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    }
+  ],
+  "container": "matroska,webm",
+  "duration": 1435,
+  "_tracksDetected": true,
+  "certification": "TV-14"
 }

@@ -31,6 +31,155 @@
     "totalSeasons": 1,
     "totalEpisodes": 12
   },
-  "audioCodec": "aac",
-  "browserPlayable": true
+  "audioCodec": "eac3",
+  "browserPlayable": false,
+  "logo": "/data/logos/show_154825_logo.png",
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "Korean",
+      "languageCode": "kor",
+      "title": "Vegamovies.NL",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": false
+    },
+    {
+      "index": 1,
+      "streamIndex": 2,
+      "codec": "eac3",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Vegamovies.NL",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": false,
+      "isDefault": false
+    },
+    {
+      "index": 2,
+      "streamIndex": 3,
+      "codec": "eac3",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "Vegamovies.NL - Hindi",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": false,
+      "isDefault": true
+    }
+  ],
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 4,
+      "codec": "ass",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "MoviesVerse.mobi",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    },
+    {
+      "index": 1,
+      "streamIndex": 5,
+      "codec": "ass",
+      "language": "Arabic",
+      "languageCode": "ara",
+      "title": "MoviesVerse.app",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    },
+    {
+      "index": 2,
+      "streamIndex": 6,
+      "codec": "ass",
+      "language": "Chinese",
+      "languageCode": "chi",
+      "title": "MoviesVerse.app",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    },
+    {
+      "index": 3,
+      "streamIndex": 7,
+      "codec": "ass",
+      "language": "Chinese",
+      "languageCode": "chi",
+      "title": "Chinese (Traditional)",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    },
+    {
+      "index": 4,
+      "streamIndex": 8,
+      "codec": "ass",
+      "language": "Indonesian",
+      "languageCode": "ind",
+      "title": "Indonesian",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    },
+    {
+      "index": 5,
+      "streamIndex": 9,
+      "codec": "ass",
+      "language": "Japanese",
+      "languageCode": "jpn",
+      "title": "Japanese",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    },
+    {
+      "index": 6,
+      "streamIndex": 10,
+      "codec": "ass",
+      "language": "Korean",
+      "languageCode": "kor",
+      "title": "Korean (Forced)",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    },
+    {
+      "index": 7,
+      "streamIndex": 11,
+      "codec": "ass",
+      "language": "Korean",
+      "languageCode": "kor",
+      "title": "Korean (SDH)",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    }
+  ],
+  "container": "matroska,webm",
+  "duration": 3676,
+  "_tracksDetected": true,
+  "certification": "TV-14"
 }

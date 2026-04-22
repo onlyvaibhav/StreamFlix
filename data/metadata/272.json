@@ -20,5 +20,27 @@
   "tmdbId": 382736,
   "fetchedAt": "2026-02-15T21:18:37.914Z",
   "needsRetry": false,
-  "tv": null
+  "tv": null,
+  "logo": "N/A",
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "Vegamovies.NL",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": true
+    }
+  ],
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "subtitleTracks": [],
+  "container": "matroska,webm",
+  "duration": 7269,
+  "_tracksDetected": true,
+  "certification": "U"
 }

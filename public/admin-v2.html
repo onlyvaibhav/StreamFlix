@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StreamFlix Admin | Dashboard</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Styles -->
+    <link rel="stylesheet" href="/css/admin-v2.css">
+    <style>
+        .hidden { display: none !important; }
+        .login-screen {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
+        }
+        .login-card {
+            background: var(--bg-card);
+            padding: 3rem;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- LOGIN SCREEN -->
+    <div id="login-screen" class="login-screen">
+        <div class="login-card animate-fade">
+            <div class="logo-text" style="font-size: 2rem; margin-bottom: 2rem;">STREAMFLIX</div>
+            <form id="login-form">
+                <div style="text-align: left; margin-bottom: 1.5rem;">
+                    <label style="display: block; font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.5rem;">Username</label>
+                    <input type="text" id="login-username" class="search-input" style="padding-left: 1rem;" placeholder="admin" required>
+                </div>
+                <div style="text-align: left; margin-bottom: 2rem;">
+                    <label style="display: block; font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.5rem;">Password</label>
+                    <input type="password" id="login-password" class="search-input" style="padding-left: 1rem;" placeholder="••••••••" required>
+                </div>
+                <button type="submit" id="login-btn" style="width: 100%; background: var(--accent); border: none; padding: 1rem; border-radius: 8px; color: white; font-weight: 600; cursor: pointer; transition: background 0.2s;">
+                    Sign In
+                </button>
+                <div id="login-error" style="color: var(--danger); font-size: 0.875rem; margin-top: 1rem;" class="hidden"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MAIN DASHBOARD -->
+    <div id="dashboard" class="dashboard-container hidden">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-icon"><i data-lucide="play" fill="white" size="18"></i></div>
+                <span class="logo-text">STREAMFLIX</span>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-section="overview">
+                    <i data-lucide="layout-dashboard" size="20"></i>
+                    <span>Overview</span>
+                </a>
+                <a href="#" class="nav-item" data-section="media">
+                    <i data-lucide="film" size="20"></i>
+                    <span>Media Library</span>
+                </a>
+                <a href="#" class="nav-item" data-section="health">
+                    <i data-lucide="activity" size="20"></i>
+                    <span>System Health</span>
+                </a>
+                <a href="#" class="nav-item" data-section="workers">
+                    <i data-lucide="cpu" size="20"></i>
+                    <span>Workers</span>
+                </a>
+            </nav>
+
+            <div style="padding: 1.5rem; border-top: 1px solid var(--border);">
+                <a href="#" id="logout-btn" class="nav-item" style="color: var(--danger);">
+                    <i data-lucide="log-out" size="20"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header section -->
+            <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2.5rem;">
+                <div>
+                    <h1 id="section-title" style="font-size: 1.875rem; font-weight: 700; letter-spacing: -0.025em;">Overview</h1>
+                    <p id="last-refresh" style="color: var(--text-muted); font-size: 0.875rem; margin-top: 0.25rem;">Last updated: Just now</p>
+                </div>
+                <div style="display: flex; gap: 1rem;">
+                    <button class="nav-item" style="background: var(--glass); border: 1px solid var(--border); cursor: pointer;" onclick="loadDashboard()">
+                        <i data-lucide="refresh-cw" size="18"></i>
+                        <span>Refresh</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- SECTIONS -->
+
+            <!-- 1. Overview Section -->
+            <div id="section-overview" class="section animate-fade">
+                <div class="stats-grid" id="stats-grid">
+                    <!-- Stat cards will be injected here -->
+                </div>
+
+                <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem;">
+                    <div class="data-card">
+                        <div class="table-header">
+                            <h3 style="font-weight: 600;">System Performance</h3>
+                        </div>
+                        <div style="padding: 1.5rem; height: 350px;">
+                            <canvas id="main-chart"></canvas>
+                        </div>
+                    </div>
+                    <div class="data-card">
+                        <div class="table-header">
+                            <h3 style="font-weight: 600;">Disk Usage</h3>
+                        </div>
+                        <div style="padding: 1.5rem; text-align: center;">
+                            <div style="height: 200px; position: relative;">
+                                <canvas id="storage-chart"></canvas>
+                            </div>
+                            <div id="storage-details" style="margin-top: 1.5rem;">
+                                <!-- Storage info injected here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Media Table Section -->
+            <div id="section-media" class="section hidden animate-fade">
+                <div class="data-card">
+                    <div class="table-header">
+                        <div class="input-group">
+                            <i data-lucide="search" size="18" style="position: absolute; left: 0.875rem; top: 50%; transform: translateY(-50%); color: var(--text-muted);"></i>
+                            <input type="text" id="media-search" class="search-input" placeholder="Search by title or ID..." oninput="filterMetadataTable()">
+                        </div>
+                        <div style="display: flex; gap: 1rem;">
+                            <select id="media-type-filter" class="search-input" style="padding-left: 1rem; width: auto;" onchange="loadMetadataManager()">
+                                <option value="all">All content</option>
+                                <option value="movie">Movies</option>
+                                <option value="tv">TV Shows</option>
+                                <option value="unsupported_audio">Needs Transcoding</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="table-container" id="metadata-manager-body">
+                        <!-- Table will be injected here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. Health & Issues Section -->
+            <div id="section-health" class="section hidden animate-fade">
+                <div class="data-card" style="margin-bottom: 1.5rem;">
+                    <div class="table-header">
+                        <h3 style="font-weight: 600;">Metadata Health Issues</h3>
+                        <button class="nav-item" style="background: var(--accent); border: none; color: white; cursor: pointer;" onclick="handleFixBroken()">
+                            <i data-lucide="wrench" size="18"></i>
+                            <span>Run Repair Worker</span>
+                        </button>
+                    </div>
+                    <div class="table-container" id="issues-panel-body">
+                        <!-- Issues table injected here -->
+                    </div>
+                </div>
+
+                <div id="manual-probe-card" class="data-card hidden">
+                    <div class="table-header" style="border-bottom: 1px solid var(--border);">
+                        <div style="display: flex; align-items: center; gap: 0.75rem;">
+                            <div class="logo-icon" style="background: var(--warning);"><i data-lucide="search" size="18" color="white"></i></div>
+                            <h3 style="font-weight: 600;">Files Requiring Manual Probing</h3>
+                        </div>
+                    </div>
+                    <div style="padding: 1.5rem;" id="manual-probe-list">
+                        <!-- Manual probe list injected here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. Workers Section -->
+            <div id="section-workers" class="section hidden animate-fade">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 1.5rem;">
+                    <div class="data-card">
+                        <div class="table-header">
+                            <h3 style="font-weight: 600;">Metadata Worker</h3>
+                        </div>
+                        <div style="padding: 1.5rem;">
+                            <div id="worker-panel-body">
+                                <!-- Status info -->
+                            </div>
+                            <div style="margin-top: 1.5rem; display: flex; gap: 0.75rem;">
+                                <button id="btn-worker-toggle" class="nav-item" style="flex: 1; border: 1px solid var(--border); cursor: pointer;">
+                                    Pause Worker
+                                </button>
+                                <button class="nav-item" style="flex: 1; border: 1px solid var(--border); cursor: pointer;" onclick="handleRetryFailed()">
+                                    Retry Failed
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="data-card">
+                        <div class="table-header">
+                            <h3 style="font-weight: 600;">Audio Probe</h3>
+                        </div>
+                        <div style="padding: 1.5rem;">
+                            <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem;">Detected audio info for media files via Telegram.</p>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-bottom: 1.5rem;">
+                                <div class="stat-card" style="padding: 0.75rem;">
+                                    <div style="font-size: 0.75rem; color: var(--text-muted);">Limit</div>
+                                    <input type="number" id="audio-sweep-limit" class="search-input" value="0" style="padding-left: 0.5rem; background: transparent; border: none; font-size: 1rem; padding: 0;">
+                                </div>
+                                <div class="stat-card" style="padding: 0.75rem;">
+                                    <div style="font-size: 0.75rem; color: var(--text-muted);">Concurrency</div>
+                                    <input type="number" id="audio-sweep-concurrency" class="search-input" value="3" style="padding-left: 0.5rem; background: transparent; border: none; font-size: 1rem; padding: 0;">
+                                </div>
+                            </div>
+                            <button class="nav-item" style="width: 100%; justify-content: center; background: var(--info); border: none; color: white; cursor: pointer;" onclick="handleFetchMissingAudio()">
+                                <i data-lucide="fast-forward" size="18"></i>
+                                <span>Start Audio Sweep</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="data-card">
+                    <div class="table-header">
+                        <h3 style="font-weight: 600;">Live Logs</h3>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <button class="nav-item" style="padding: 0.25rem 0.75rem; font-size: 0.75rem; cursor: pointer;" onclick="clearLogs()">Clear</button>
+                        </div>
+                    </div>
+                    <div style="padding: 1rem;">
+                        <div id="log-terminal" class="log-terminal">
+                            <!-- Logs will be injected here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- DETAIL DRAWER -->
+    <div id="drawer-overlay" class="drawer-overlay" onclick="closeDrawer()"></div>
+    <div id="drawer" class="drawer">
+        <div class="drawer-header">
+            <h2 id="drawer-title" style="font-weight: 700;">File Details</h2>
+            <button class="nav-item" onclick="closeDrawer()" style="background: transparent; border: none; cursor: pointer;">
+                <i data-lucide="x" size="24"></i>
+            </button>
+        </div>
+        <div id="drawer-content" class="drawer-body">
+            <!-- Detailed info injected here -->
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/js/admin-v2.js"></script>
+    <script>
+        // Init icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>

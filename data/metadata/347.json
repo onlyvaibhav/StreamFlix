@@ -20,5 +20,27 @@
   "tmdbId": 15080,
   "fetchedAt": "2026-02-15T20:36:23.671Z",
   "needsRetry": false,
-  "tv": null
+  "tv": null,
+  "logo": "/data/logos/347_logo.png",
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "Japanese",
+      "languageCode": "jpn",
+      "title": "",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": true
+    }
+  ],
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "subtitleTracks": [],
+  "container": "mov,mp4,m4a,3gp,3g2,mj2",
+  "duration": 7128,
+  "_tracksDetected": true,
+  "certification": "PG"
 }

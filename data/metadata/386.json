@@ -18,7 +18,55 @@
   "poster": "/data/posters/386.jpg",
   "backdrop": "/data/backdrops/386_bd.jpg",
   "tmdbId": 10681,
-  "fetchedAt": "2026-04-15T15:07:02.788Z",
+  "fetchedAt": "2026-04-15T18:25:32.014Z",
   "needsRetry": false,
-  "tv": null
+  "tv": null,
+  "logo": "/data/logos/386_logo.png",
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "mp3",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "AbhinavRocks {{-HKRG-}}",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": true
+    },
+    {
+      "index": 1,
+      "streamIndex": 2,
+      "codec": "aac",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "AbhinavRocks {{-HKRG-}}",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": false
+    }
+  ],
+  "audioCodec": "mp3",
+  "browserPlayable": true,
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 3,
+      "codec": "subrip",
+      "language": "Unknown",
+      "languageCode": "und",
+      "title": "AbhinavRocks {{-HKRG-}}",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": true,
+      "isForced": false
+    }
+  ],
+  "container": "matroska,webm",
+  "duration": 5893,
+  "_tracksDetected": true,
+  "certification": "G"
 }

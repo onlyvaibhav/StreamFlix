@@ -1,0 +1,100 @@
+{
+  "fileId": "929",
+  "fileName": "Gone.Girl.2014.720p.BluRay.x264.MSub-Vegamovies.nl.mkv",
+  "type": "movie",
+  "title": "Gone Girl",
+  "originalTitle": "Gone Girl",
+  "overview": "With his wife's disappearance having become the focus of an intense media circus, a man sees the spotlight turned on him when it's suspected that he may not be innocent.",
+  "releaseDate": "2014-10-01",
+  "year": 2014,
+  "runtime": 149,
+  "genres": [
+    "Mystery",
+    "Thriller",
+    "Drama"
+  ],
+  "rating": 7.889,
+  "popularity": 19.0788,
+  "poster": "/data/posters/929.jpg",
+  "backdrop": "/data/backdrops/929_bd.jpg",
+  "tmdbId": 210577,
+  "fetchedAt": "2026-04-18T12:44:38.145Z",
+  "needsRetry": false,
+  "tv": null,
+  "_logoPath": "/9XppjJk4i9tk8q4NWIPcs4pVm0w.png",
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "KatmovieHD",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": false
+    }
+  ],
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 2,
+      "codec": "subrip",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "KatmovieHD",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": true,
+      "isForced": false
+    },
+    {
+      "index": 1,
+      "streamIndex": 3,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "KatmovieHD",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    },
+    {
+      "index": 2,
+      "streamIndex": 4,
+      "codec": "subrip",
+      "language": "Indonesian",
+      "languageCode": "ind",
+      "title": "KatmovieHD",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    },
+    {
+      "index": 3,
+      "streamIndex": 5,
+      "codec": "subrip",
+      "language": "Malay",
+      "languageCode": "may",
+      "title": "KatmovieHD",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    }
+  ],
+  "container": "matroska,webm",
+  "duration": 8942.003,
+  "_tracksDetected": true,
+  "certification": "R",
+  "logo": "/data/logos/929_logo.png"
+}

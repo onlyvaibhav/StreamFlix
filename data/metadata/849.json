@@ -40,5 +40,7 @@
       "isDefault": true
     }
   ],
-  "subtitleTracks": []
+  "subtitleTracks": [],
+  "logo": "/data/logos/849_logo.png",
+  "certification": "NR"
 }

@@ -20,5 +20,116 @@
   "tmdbId": 293167,
   "fetchedAt": "2026-02-15T21:14:34.679Z",
   "needsRetry": false,
-  "tv": null
+  "tv": null,
+  "logo": "/data/logos/216_logo.png",
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "ac3",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "Vegamovies.NL",
+      "channels": 6,
+      "channelLayout": "5.1(side)",
+      "browserPlayable": false,
+      "isDefault": true
+    },
+    {
+      "index": 1,
+      "streamIndex": 2,
+      "codec": "ac3",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Vegamovies.NL",
+      "channels": 6,
+      "channelLayout": "5.1(side)",
+      "browserPlayable": false,
+      "isDefault": false
+    },
+    {
+      "index": 2,
+      "streamIndex": 3,
+      "codec": "ac3",
+      "language": "Tamil",
+      "languageCode": "tam",
+      "title": "Vegamovies.NL",
+      "channels": 6,
+      "channelLayout": "5.1(side)",
+      "browserPlayable": false,
+      "isDefault": false
+    },
+    {
+      "index": 3,
+      "streamIndex": 4,
+      "codec": "ac3",
+      "language": "Telugu",
+      "languageCode": "tel",
+      "title": "Vegamovies.NL",
+      "channels": 6,
+      "channelLayout": "5.1(side)",
+      "browserPlayable": false,
+      "isDefault": false
+    }
+  ],
+  "audioCodec": "ac3",
+  "browserPlayable": false,
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 5,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Vegamovies.NL",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": true,
+      "isForced": true
+    },
+    {
+      "index": 1,
+      "streamIndex": 6,
+      "codec": "hdmv_pgs_subtitle",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "Vegamovies.NL",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    },
+    {
+      "index": 2,
+      "streamIndex": 7,
+      "codec": "hdmv_pgs_subtitle",
+      "language": "Tamil",
+      "languageCode": "tam",
+      "title": "Vegamovies.NL",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    },
+    {
+      "index": 3,
+      "streamIndex": 8,
+      "codec": "hdmv_pgs_subtitle",
+      "language": "Telugu",
+      "languageCode": "tel",
+      "title": "Vegamovies.NL",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    }
+  ],
+  "container": "matroska,webm",
+  "duration": 3016,
+  "_tracksDetected": true,
+  "certification": "PG-13"
 }

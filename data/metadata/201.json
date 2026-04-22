@@ -21,7 +21,38 @@
   "fetchedAt": "2026-02-15T13:49:38.887Z",
   "needsRetry": false,
   "tv": null,
-  "audioCodec": "aac",
-  "browserPlayable": true,
-  "_tracksDetected": true
+  "audioCodec": "ac3",
+  "browserPlayable": false,
+  "_tracksDetected": true,
+  "logo": "/data/logos/201_logo.png",
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "www.MoviesEvil.cc",
+      "channels": 6,
+      "channelLayout": "5.1",
+      "browserPlayable": true,
+      "isDefault": false
+    },
+    {
+      "index": 1,
+      "streamIndex": 2,
+      "codec": "ac3",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "www.MoviesEvil.cc",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": false,
+      "isDefault": true
+    }
+  ],
+  "subtitleTracks": [],
+  "container": "matroska,webm",
+  "duration": 4155.848,
+  "certification": "PG-13"
 }
