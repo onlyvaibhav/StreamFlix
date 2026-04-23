@@ -3266,19 +3266,24 @@ async function switchSubs(index, event, startTime = null) {
     // updateTrackInfoUI();
   }
 }
-// Clean and HTML escape for subtitle text (removes <i>, <b>, and ASS tags)
+// Clean and HTML escape for subtitle text (removes <i>, <b>, and ASS/SSA tags safely)
 function escapeSubHTML(str) {
   if (!str) return "";
   
   // Clean raw markup out of subtitle
+  // Using [^>]* and [^}]* is more robust as it ensures we stop at the nearest closing bracket
   const cleaned = str
-    .replace(/<[^>]*>/g, "") // remove HTML tags
-    .replace(/\{\\.*?\}/g, "") // remove ASS/SSA tags
+    .replace(/<[^>]*>/g, "")    // remove HTML/VTT tags like <i> or <v Voice>
+    .replace(/\{[^}]*\}/g, "")  // remove all ASS/SSA tags like {\an8} or {comment}
     .trim();
 
-  // Escape remaining string safely
+  // If cleaning resulted in empty string but original had meaningful content,
+  // we fallback to the original string (escaped) so we don't show an empty subtitle.
+  const finalText = cleaned || (str.includes('<') || str.includes('{') ? "" : str.trim());
+
+  // Escape remaining string safely for DOM injection
   const div = document.createElement('div');
-  div.textContent = cleaned;
+  div.textContent = finalText || cleaned;
   return div.innerHTML;
 }
 

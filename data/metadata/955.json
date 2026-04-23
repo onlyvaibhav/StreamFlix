@@ -1,0 +1,21 @@
+{
+  "fileId": "955",
+  "fileName": "Seihantai - S01E12.mkv",
+  "type": "tv",
+  "title": "Seihantai",
+  "year": null,
+  "tmdbId": 0,
+  "needsRetry": true,
+  "createdAt": "2026-04-23T09:14:37.242Z",
+  "_retry": {
+    "attemptCount": 0,
+    "lastAttempt": 0,
+    "searchedTitle": "Seihantai",
+    "searchedYear": null
+  },
+  "tv": {
+    "seasonNumber": 1,
+    "episodeNumber": 12,
+    "showTitle": "Seihantai"
+  }
+}
