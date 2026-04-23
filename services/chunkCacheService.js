@@ -15,9 +15,10 @@ const chunkCache = new LRUCache({
 const pendingRequests = new Map();
 
 // --- RATE LIMITER (LEAKY BUCKET) ---
-// Prevent Telegram FloodWaits by spacing out API calls to a max of 5 requests / second (~5 MB/s).
+// Prevent Telegram FloodWaits and TCP connection drops by spacing out API calls.
+// 400ms delay = max 2.5 requests / second (~2.5 MB/s).
 let lastRequestTime = 0;
-const MIN_DELAY_MS = 200;
+const MIN_DELAY_MS = 400;
 
 async function throttleRequest() {
     const now = Date.now();
@@ -48,7 +49,7 @@ async function getTelegramChunk(client, fileInfo, alignedOffset, limit, sender =
 
     const fetchPromise = (async () => {
         let attempts = 0;
-        const maxAttempts = 3;
+        const maxAttempts = 5;
 
         while (attempts < maxAttempts) {
             try {
@@ -91,21 +92,29 @@ async function getTelegramChunk(client, fileInfo, alignedOffset, limit, sender =
                         errorMsg.includes('Not connected') || 
                         errorMsg.includes('connection closed') || 
                         errorMsg.includes('hanging states') ||
-                        errorMsg.includes('Disconnect')
+                        errorMsg.includes('Disconnect') ||
+                        errorMsg.includes('EHOSTUNREACH')
                     ) {
                         if (attempts < maxAttempts) {
-                            const delay = 2000;
+                            const delay = 3500;
                             console.warn(`⚠️ [Telegram] Connection issue during chunk download (Attempt ${attempts}/${maxAttempts}). Retrying in ${delay}ms: ${errorMsg}`);
                             await new Promise(r => setTimeout(r, delay));
                             continue; // Retry
+                        } else if (sender && sender !== client) {
+                            console.error(`❌ [Telegram] Sender repeatedly failed. Marking as broken.`);
+                            error.isSenderBroken = true; 
                         }
                     }
 
                     // If it's a migration error, we bubble it up so the caller can switch senders
-                    if (errorMsg.includes('FILE_MIGRATE') || errorMsg.includes('DC_ID_INVALID')) {
+                    if (
+                        errorMsg.includes('FILE_MIGRATE') ||
+                        errorMsg.includes('DC_ID_INVALID') ||
+                        errorMsg.includes('currently stored in DC')
+                    ) {
                         error.isMigrationError = true;
-                        const match = errorMsg.match(/\d+/);
-                        if (match) error.newDcId = parseInt(match[0]);
+                        const match = errorMsg.match(/(?:DC\s*|_)(\d+)/i);
+                        if (match) error.newDcId = parseInt(match[1]);
                     }
                     throw error;
                 }

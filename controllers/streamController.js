@@ -568,10 +568,19 @@ exports.stream = async (req, res) => {
 exports.transmuxStream = exports.stream;
 exports.seek = exports.stream;
 
-// ==================== DIRECT STREAM â€” full seek support ====================
+// ==================== DIRECT STREAM — full seek support ====================
 async function streamDirect(fileInfo, fileSize, start, end, range, res) {
   const telegramClient = telegramService.getClient();
   if (!telegramClient) throw new Error('Telegram client not ready');
+
+  // Resolve correct DC sender upfront to avoid "currently stored in DC X" errors
+  let currentSender = null;
+  if (fileInfo.dcId) {
+    currentSender = await telegramService.getDcSender(fileInfo.dcId);
+    if (currentSender) {
+      console.log(`[Stream] Using DC ${fileInfo.dcId} sender for file ${fileInfo.id}`);
+    }
+  }
 
   const contentLength = end - start + 1;
   const contentType = getContentType(fileInfo.fileName || '');
@@ -605,7 +614,33 @@ async function streamDirect(fileInfo, fileSize, start, end, range, res) {
       const skipBytes = currentPosition - aligned;
       const limit = getAlignedLimit(aligned);
 
-      let data = await getTelegramChunk(telegramClient, fileInfo, aligned, limit);
+      let data;
+      try {
+        data = await getTelegramChunk(telegramClient, fileInfo, aligned, limit, currentSender);
+      } catch (chunkError) {
+        // Handle DC migration error — automatically switch to correct DC
+        if (chunkError.isMigrationError && chunkError.newDcId) {
+          console.log(`🔄 [Stream] DC migration: switching to DC ${chunkError.newDcId} for file ${fileInfo.id}`);
+          currentSender = await telegramService.getDcSender(chunkError.newDcId);
+          if (!currentSender) {
+            console.error(`❌ [Stream] Failed to get sender for DC ${chunkError.newDcId}`);
+            break;
+          }
+          // Retry with new sender
+          data = await getTelegramChunk(telegramClient, fileInfo, aligned, limit, currentSender);
+        } else if (chunkError.isSenderBroken) {
+          console.log(`🔄 [Stream] Sender loop broken for file ${fileInfo.id}, forcefully rebuilding TCP Connection...`);
+          currentSender = await telegramService.getDcSender(fileInfo.dcId, true);
+          if (!currentSender) {
+            console.error(`❌ [Stream] Failed to forcefully rebuild sender for DC ${fileInfo.dcId}`);
+            break;
+          }
+          // Try one more time with reconstructed sender
+          data = await getTelegramChunk(telegramClient, fileInfo, aligned, limit, currentSender);
+        } else {
+          throw chunkError;
+        }
+      }
 
       if (clientDisconnected) break;
       if (!data) break;
@@ -638,7 +673,7 @@ async function streamDirect(fileInfo, fileSize, start, end, range, res) {
         const retrySkip = currentPosition - retryAligned;
         const retryLimit = getAlignedLimit(retryAligned);
 
-        let data = await getTelegramChunk(telegramClient, fileInfo, retryAligned, retryLimit);
+        let data = await getTelegramChunk(telegramClient, fileInfo, retryAligned, retryLimit, currentSender);
 
         if (data && data.length > 0) {
           if (retrySkip > 0) {

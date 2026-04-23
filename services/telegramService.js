@@ -195,13 +195,13 @@ async function initTelegram() {
     throw new Error('TELEGRAM_SESSION_STRING is required! Run: node generateSession.js');
   }
 
-  client = new TelegramClient(
+    client = new TelegramClient(
     new StringSession(sessionString),
     config.apiId,
     config.apiHash,
     {
       connectionRetries: 1000000, // Effectively Infinity
-      useWSS: false,
+      useWSS: true,
       requestRetries: 3,
       floodSleepThreshold: 60,
       autoReconnect: true,
@@ -861,6 +861,7 @@ async function getFileInfo(messageId) {
     fileSize: Number(doc.size),
     mimeType: doc.mimeType,
     fileName: getFileName(messages[0]),
+    dcId: doc.dcId || null,
     inputLocation: new Api.InputDocumentFileLocation({
       id: doc.id,
       accessHash: doc.accessHash,
@@ -1817,6 +1818,24 @@ module.exports = {
     }
   },
   getClient: () => client,
+  getDcSender: async (dcId, forceReconnect = false) => {
+    if (!client || !dcId) return null;
+    try {
+      if (forceReconnect) {
+        if (client._exportedSenderPromises && client._exportedSenderPromises[dcId]) {
+          delete client._exportedSenderPromises[dcId];
+        }
+        if (client._exportedSenders && client._exportedSenders[dcId]) {
+          try { await client._exportedSenders[dcId].disconnect(); } catch(e){}
+          delete client._exportedSenders[dcId];
+        }
+      }
+      return await client.getSender(dcId);
+    } catch (e) {
+      console.warn(`⚠️ [Telegram] getDcSender(${dcId}) failed:`, e.message);
+      return null;
+    }
+  },
   downloadProbeChunk: typeof downloadProbeChunk !== 'undefined' ? downloadProbeChunk : null,
   invalidateCache,
   scanChannelFiles,

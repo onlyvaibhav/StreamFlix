@@ -3618,4 +3618,107 @@ video::cue {
         font-size: 0.7rem;
     }
 }
+
+/* ==================== NO INTERNET OVERLAY ==================== */
+.offline-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(10, 10, 10, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 99999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.offline-overlay.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.offline-content {
+    background: #141414;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    border-radius: 12px;
+    padding: 40px 30px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    transform: translateY(0);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.offline-overlay.hidden .offline-content {
+    transform: translateY(20px);
+}
+
+.offline-icon {
+    color: #e50914;
+    margin-bottom: 20px;
+    animation: floating 3s ease-in-out infinite;
+}
+
+@keyframes floating {
+    0% { transform: translateY(0px) }
+    50% { transform: translateY(-10px) }
+    100% { transform: translateY(0px) }
+}
+
+.offline-content h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.offline-content p {
+    font-size: 0.95rem;
+    color: #aaa;
+    margin-bottom: 24px;
+    line-height: 1.5;
+}
+
+.btn-retry {
+    background-color: #e50914;
+    color: #fff;
+    border: none;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 10px 24px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-retry:hover {
+    background-color: #f40612;
+}
+
+/* ==================== VOLUME TOAST ==================== */
+.volume-toast {
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.8);
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 14px;
+  z-index: 999;
+  transition: opacity 0.2s ease;
+}
+
+.volume-toast.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
 

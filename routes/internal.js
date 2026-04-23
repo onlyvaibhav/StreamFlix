@@ -50,6 +50,7 @@ function createTelegramRangeStream(fileInfo, start, end) {
   let currentPosition = start;
   let bytesRemaining = end - start + 1;
   let destroyed = false;
+  let currentSender = fileInfo._dcSender || null;
 
   return new Readable({
     async read() {
@@ -64,7 +65,33 @@ function createTelegramRangeStream(fileInfo, start, end) {
         const skipBytes = currentPosition - alignedOffset;
         const limit = getAlignedLimit(alignedOffset);
 
-        let data = await getTelegramChunk(telegramClient, fileInfo, alignedOffset, limit);
+        let data;
+        try {
+          data = await getTelegramChunk(telegramClient, fileInfo, alignedOffset, limit, currentSender);
+        } catch (chunkError) {
+          // Handle DC migration error — automatically switch to correct DC
+          if (chunkError.isMigrationError && chunkError.newDcId) {
+            console.log(`🔄 [InternalRaw] DC migration: switching to DC ${chunkError.newDcId}`);
+            const newSender = await telegramService.getDcSender(chunkError.newDcId);
+            if (newSender) {
+              currentSender = newSender;
+              data = await getTelegramChunk(telegramClient, fileInfo, alignedOffset, limit, currentSender);
+            } else {
+              throw chunkError;
+            }
+          } else if (chunkError.isSenderBroken) {
+            console.log(`🔄 [InternalRaw] Sender loop broken, forcefully rebuilding TCP Connection...`);
+            const newSender = await telegramService.getDcSender(fileInfo.dcId, true);
+            if (newSender) {
+              currentSender = newSender;
+              data = await getTelegramChunk(telegramClient, fileInfo, alignedOffset, limit, currentSender);
+            } else {
+              throw chunkError;
+            }
+          } else {
+            throw chunkError;
+          }
+        }
 
         if (destroyed) return;
         if (!data || data.length === 0) {
@@ -98,6 +125,7 @@ function createTelegramRangeStream(fileInfo, start, end) {
   });
 }
 
+
 router.get('/raw/:fileId', async (req, res) => {
   let telegramStream;
 
@@ -108,6 +136,14 @@ router.get('/raw/:fileId', async (req, res) => {
 
     const { fileId } = req.params;
     const fileInfo = await telegramService.getFileInfo(fileId);
+
+    // Pre-resolve the DC sender to avoid "currently stored in DC X" errors
+    if (fileInfo && fileInfo.dcId) {
+      const dcSender = await telegramService.getDcSender(fileInfo.dcId);
+      if (dcSender) {
+        fileInfo._dcSender = dcSender;
+      }
+    }
 
     if (!fileInfo) {
       return res.status(404).json({ error: 'File not found' });

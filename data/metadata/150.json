@@ -21,6 +21,35 @@
   "needsRetry": false,
   "tv": null,
   "logo": "/data/logos/150_logo.png",
+  "certification": "R",
+  "container": "matroska,webm",
+  "duration": 10822.176,
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "eac3",
+      "language": "Unknown",
+      "languageCode": "und",
+      "title": "Asur / Hindi / AMZN DDP 5.1",
+      "channels": 6,
+      "channelLayout": "5.1(side)",
+      "browserPlayable": false,
+      "isDefault": true
+    },
+    {
+      "index": 1,
+      "streamIndex": 2,
+      "codec": "aac",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Asur / ENG / AAC 5.1",
+      "channels": 6,
+      "channelLayout": "5.1",
+      "browserPlayable": true,
+      "isDefault": true
+    }
+  ],
   "subtitleTracks": [
     {
       "index": 0,
@@ -49,36 +78,8 @@
       "isForced": false
     }
   ],
-  "audioTracks": [
-    {
-      "index": 0,
-      "streamIndex": 1,
-      "codec": "eac3",
-      "language": "Unknown",
-      "languageCode": "und",
-      "title": "Asur / Hindi / AMZN DDP 5.1",
-      "channels": 6,
-      "channelLayout": "5.1(side)",
-      "browserPlayable": false,
-      "isDefault": true
-    },
-    {
-      "index": 1,
-      "streamIndex": 2,
-      "codec": "aac",
-      "language": "English",
-      "languageCode": "eng",
-      "title": "Asur / ENG / AAC 5.1",
-      "channels": 6,
-      "channelLayout": "5.1",
-      "browserPlayable": true,
-      "isDefault": true
-    }
-  ],
   "audioCodec": "eac3",
   "browserPlayable": false,
-  "container": "matroska,webm",
-  "duration": 10822,
   "_tracksDetected": true,
-  "certification": "R"
+  "_probeFailCount": 0
 }

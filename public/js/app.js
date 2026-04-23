@@ -1752,13 +1752,17 @@ async function playVideo(params, pushState = true) {
   setupPlayerListeners();
   updateTrackInfoUI();
 
-  const defaultEmbeddedSubtitleIndex = state.player.subtitleTracks.findIndex(
-    (t) => t.source === 'embedded' && t.isDefault
+  // Default subtitle selection priority: External first, disable embedded default
+  const firstExternalSubIndex = state.player.subtitleTracks.findIndex(
+    (t) => t.source !== 'embedded'
   );
-  if (defaultEmbeddedSubtitleIndex >= 0) {
-    switchSubs(defaultEmbeddedSubtitleIndex).catch((err) => {
-      console.warn('Default subtitle load failed:', err);
+  if (firstExternalSubIndex >= 0) {
+    console.log("Using first external subtitle:", state.player.subtitleTracks[firstExternalSubIndex].language);
+    switchSubs(firstExternalSubIndex).catch((err) => {
+      console.warn('Default external subtitle load failed:', err);
     });
+  } else {
+    console.log("No external subtitles → OFF");
   }
 
   try {
@@ -2786,6 +2790,21 @@ function updateVolumeUI() {
       icon.innerHTML = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">${svg}</svg>`;
     }
   }
+
+  // Show Volume Toast
+  const toast = document.getElementById("volume-toast");
+  if (toast) {
+    const percent = Math.round(currentVol * 100);
+    toast.textContent = `Volume: ${percent}%`;
+    toast.classList.remove("hidden");
+    
+    if (window._volumeToastTimeout) {
+      clearTimeout(window._volumeToastTimeout);
+    }
+    window._volumeToastTimeout = setTimeout(() => {
+      toast.classList.add("hidden");
+    }, 1000);
+  }
 }
 
 function updateSpeedUI() {
@@ -3247,10 +3266,19 @@ async function switchSubs(index, event, startTime = null) {
     // updateTrackInfoUI();
   }
 }
-// HTML escape for subtitle text
+// Clean and HTML escape for subtitle text (removes <i>, <b>, and ASS tags)
 function escapeSubHTML(str) {
+  if (!str) return "";
+  
+  // Clean raw markup out of subtitle
+  const cleaned = str
+    .replace(/<[^>]*>/g, "") // remove HTML tags
+    .replace(/\{\\.*?\}/g, "") // remove ASS/SSA tags
+    .trim();
+
+  // Escape remaining string safely
   const div = document.createElement('div');
-  div.textContent = str;
+  div.textContent = cleaned;
   return div.innerHTML;
 }
 
@@ -3529,3 +3557,42 @@ function buildBrowsePageSkeleton(title) {
     </div>`;
 }
 
+
+// ============================================================
+// OFFLINE CONNECTION HANDLING
+// ============================================================
+function handleConnectionChange() {
+  const offlineOverlay = document.getElementById('offline-overlay');
+  if (!offlineOverlay) return;
+
+  if (navigator.onLine) {
+    offlineOverlay.classList.add('hidden');
+  } else {
+    offlineOverlay.classList.remove('hidden');
+  }
+}
+
+window.addEventListener('online', handleConnectionChange);
+window.addEventListener('offline', handleConnectionChange);
+
+// Initial connection check and event binding
+document.addEventListener('DOMContentLoaded', () => {
+  handleConnectionChange();
+  
+  const retryBtn = document.getElementById('btn-retry-connection');
+  if (retryBtn) {
+    retryBtn.addEventListener('click', () => {
+      if (navigator.onLine) {
+        handleConnectionChange();
+      } else {
+        const originalText = retryBtn.textContent;
+        retryBtn.textContent = 'Still Offline...';
+        retryBtn.style.opacity = '0.7';
+        setTimeout(() => {
+          retryBtn.textContent = originalText;
+          retryBtn.style.opacity = '1';
+        }, 1500);
+      }
+    });
+  }
+});
