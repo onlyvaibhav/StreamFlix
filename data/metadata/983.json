@@ -1,0 +1,71 @@
+{
+  "fileId": "983",
+  "fileName": "Matka_King_S01E06_Lights_Camera_Jodi_720p_AMZN_WEB_DL_Hindi_DDP5.mkv",
+  "type": "tv",
+  "title": "Matka King",
+  "originalTitle": "मटका किंग",
+  "overview": "In this fictional tale set in 1960s Mumbai, an enterprising cotton trader who craves legitimacy and respect, starts a new gambling game dubbed ‘Matka’, that takes the city by storm and democratizes a terrain previously reserved for the rich and elite.",
+  "releaseDate": "2026-04-17",
+  "year": 2026,
+  "runtime": 47,
+  "genres": [
+    "Drama",
+    "Crime"
+  ],
+  "rating": 7.625,
+  "popularity": 7.3024,
+  "awards": "",
+  "poster": "/data/posters/show_249765.jpg",
+  "backdrop": "/data/backdrops/show_249765_bd.jpg",
+  "tmdbId": 249765,
+  "fetchedAt": "2026-05-17T09:54:45.963Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Matka King",
+    "originalShowTitle": "मटका किंग",
+    "seasonNumber": 1,
+    "episodeNumber": 6,
+    "episodeTitle": "Lights, Camera, Jodi",
+    "episodeOverview": "As media attention reaches a fever pitch, Barkha feels the heavy weight of her husband's notoriety. Amidst grand celebrations, Dagdu suffers a profound personal loss, and Gulrukh seeks independence for her own business. Inspector Eknath begins to question his faith in the system as Matka spills into the homes, careers, and consciences of every citizen in Bombay.",
+    "showTmdbId": 249765,
+    "episodeRuntime": 47,
+    "totalSeasons": 2,
+    "totalEpisodes": 8
+  },
+  "audioCodec": "eac3",
+  "browserPlayable": false,
+  "_tracksDetected": true,
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "eac3",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "Vegamovies.is",
+      "channels": 6,
+      "channelLayout": "5.1(side)",
+      "browserPlayable": false,
+      "isDefault": true
+    }
+  ],
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 2,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Vegamovies.is",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    }
+  ],
+  "container": "matroska,webm",
+  "duration": 2812.864,
+  "_probeFailCount": 0,
+  "logo": "/data/logos/show_249765_logo.png"
+}

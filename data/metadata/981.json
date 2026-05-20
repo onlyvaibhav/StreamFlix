@@ -1,0 +1,71 @@
+{
+  "fileId": "981",
+  "fileName": "Matka_King_S01E04_Tera_Pyaar_Triple_Paana_Mera_Pyaar_Kabootar_Daana.mkv",
+  "type": "tv",
+  "title": "Matka King",
+  "originalTitle": "मटका किंग",
+  "overview": "In this fictional tale set in 1960s Mumbai, an enterprising cotton trader who craves legitimacy and respect, starts a new gambling game dubbed ‘Matka’, that takes the city by storm and democratizes a terrain previously reserved for the rich and elite.",
+  "releaseDate": "2026-04-17",
+  "year": 2026,
+  "runtime": 47,
+  "genres": [
+    "Drama",
+    "Crime"
+  ],
+  "rating": 7.625,
+  "popularity": 7.3024,
+  "awards": "",
+  "poster": "/data/posters/show_249765.jpg",
+  "backdrop": "/data/backdrops/show_249765_bd.jpg",
+  "tmdbId": 249765,
+  "fetchedAt": "2026-05-17T09:55:26.502Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Matka King",
+    "originalShowTitle": "मटका किंग",
+    "seasonNumber": 1,
+    "episodeNumber": 4,
+    "episodeTitle": "Tera Pyaar Triple Paana, Mera Pyaar Kabootar Daana",
+    "episodeOverview": "Survival requires innovation as the government launches a rival scheme to dismantle Brij's influence. Forced to think outside the box, Brij expands his reach across India, but success demands a heavy sacrifice. Trust fractures within the inner circle, and an enemy strikes where it hurts most when unbridled greed determines to ruin everything.",
+    "showTmdbId": 249765,
+    "episodeRuntime": 47,
+    "totalSeasons": 2,
+    "totalEpisodes": 8
+  },
+  "audioCodec": "eac3",
+  "browserPlayable": false,
+  "_tracksDetected": true,
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "eac3",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "Vegamovies.is",
+      "channels": 6,
+      "channelLayout": "5.1(side)",
+      "browserPlayable": false,
+      "isDefault": true
+    }
+  ],
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 2,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Vegamovies.is",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    }
+  ],
+  "container": "matroska,webm",
+  "duration": 2799.456,
+  "_probeFailCount": 0,
+  "logo": "/data/logos/show_249765_logo.png"
+}

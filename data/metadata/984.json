@@ -1,0 +1,71 @@
+{
+  "fileId": "984",
+  "fileName": "Matka_King_S01E07_Do_Ikke_Ek_Gulaam_720p_AMZN_WEB_DL_Hindi_DDP5.mkv",
+  "type": "tv",
+  "title": "Matka King",
+  "originalTitle": "मटका किंग",
+  "overview": "In this fictional tale set in 1960s Mumbai, an enterprising cotton trader who craves legitimacy and respect, starts a new gambling game dubbed ‘Matka’, that takes the city by storm and democratizes a terrain previously reserved for the rich and elite.",
+  "releaseDate": "2026-04-17",
+  "year": 2026,
+  "runtime": 50,
+  "genres": [
+    "Drama",
+    "Crime"
+  ],
+  "rating": 7.625,
+  "popularity": 7.3024,
+  "awards": "",
+  "poster": "/data/posters/show_249765.jpg",
+  "backdrop": "/data/backdrops/show_249765_bd.jpg",
+  "tmdbId": 249765,
+  "fetchedAt": "2026-05-17T09:54:24.508Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "Matka King",
+    "originalShowTitle": "मटका किंग",
+    "seasonNumber": 1,
+    "episodeNumber": 7,
+    "episodeTitle": "Do Ikke, Ek Gulaam",
+    "episodeOverview": "A wedding celebration leaves Brij's world more fractured than ever. Lacchu pursues dangerous new alliances with outside forces, attempting to pull Brij into a darker game. As the pillars of the Matka world begin to crumble and the inner circle splinters, Brij stands his ground even as the true cost of ambition surfaces in unexpected, violent ways.",
+    "showTmdbId": 249765,
+    "episodeRuntime": 50,
+    "totalSeasons": 2,
+    "totalEpisodes": 8
+  },
+  "audioCodec": "eac3",
+  "browserPlayable": false,
+  "_tracksDetected": true,
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "eac3",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "Vegamovies.is",
+      "channels": 6,
+      "channelLayout": "5.1(side)",
+      "browserPlayable": false,
+      "isDefault": true
+    }
+  ],
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 2,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Vegamovies.is",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    }
+  ],
+  "container": "matroska,webm",
+  "duration": 3007.68,
+  "_probeFailCount": 0,
+  "logo": "/data/logos/show_249765_logo.png"
+}

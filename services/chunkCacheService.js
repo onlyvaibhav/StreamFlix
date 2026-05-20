@@ -31,12 +31,39 @@ async function throttleRequest() {
     }
 }
 
+function createAbortError() {
+    const error = new Error('Aborted');
+    error.name = 'AbortError';
+    return error;
+}
+
+function throwIfAborted(signal) {
+    if (signal && signal.aborted) {
+        throw createAbortError();
+    }
+}
+
+function raceWithAbort(promise, signal) {
+    if (!signal) return promise;
+    if (signal.aborted) return Promise.reject(createAbortError());
+
+    return Promise.race([
+        promise,
+        new Promise((_, reject) => {
+            signal.addEventListener('abort', () => reject(createAbortError()), { once: true });
+        }),
+    ]);
+}
+
 /**
  * Fetches a chunk of a file from Telegram and caches it in memory.
  * Promotes deduplication of concurrent requests and LRU caching for subsequent requests.
  * sender can be a specific DC sender obtained via client.getSender(dcId).
  */
-async function getTelegramChunk(client, fileInfo, alignedOffset, limit, sender = null) {
+async function getTelegramChunk(client, fileInfo, alignedOffset, limit, sender = null, options = {}) {
+    const signal = options.signal;
+    throwIfAborted(signal);
+
     const cacheKey = `${fileInfo.id}_${alignedOffset}_${limit}`;
     const cached = chunkCache.get(cacheKey);
     if (cached) {
@@ -44,7 +71,8 @@ async function getTelegramChunk(client, fileInfo, alignedOffset, limit, sender =
     }
 
     if (pendingRequests.has(cacheKey)) {
-        return pendingRequests.get(cacheKey);
+        const pending = pendingRequests.get(cacheKey);
+        return raceWithAbort(pending, signal);
     }
 
     const fetchPromise = (async () => {
@@ -53,9 +81,11 @@ async function getTelegramChunk(client, fileInfo, alignedOffset, limit, sender =
 
         while (attempts < maxAttempts) {
             try {
+                throwIfAborted(signal);
                 attempts++;
                 // Apply global rate limit spacing before calling Telegram API
                 await throttleRequest();
+                throwIfAborted(signal);
 
                 const getFileRequest = new Api.upload.GetFile({
                     location: fileInfo.location || fileInfo.inputLocation,
@@ -127,6 +157,7 @@ async function getTelegramChunk(client, fileInfo, alignedOffset, limit, sender =
                 return null;
 
             } catch (err) {
+                if (err?.name === 'AbortError') throw err;
                 if (attempts >= maxAttempts) throw err;
                 // If it wasn't a connection error but we still have attempts, wait slightly and retry
                 await new Promise(r => setTimeout(r, 1000));
@@ -137,7 +168,7 @@ async function getTelegramChunk(client, fileInfo, alignedOffset, limit, sender =
     });
 
     pendingRequests.set(cacheKey, fetchPromise);
-    return fetchPromise;
+    return raceWithAbort(fetchPromise, signal);
 }
 
 module.exports = {

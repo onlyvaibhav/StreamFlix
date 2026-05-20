@@ -20,6 +20,7 @@ const BROWSER_AUDIO_CODECS = ['aac', 'mp3', 'opus', 'vorbis', 'flac'];
 const activeTranscodes = new Map();
 const subtitleCache = new Map(); // key: "fileId_streamIndex" -> vtt text
 const SUBTITLE_CACHE_MAX_ENTRIES = 50;
+let streamRequestCounter = 0;
 
 function getAlignedLimit(offset) {
   return 1048576; // 1MB chunks globally
@@ -554,7 +555,7 @@ exports.stream = async (req, res) => {
       return;
     }
 
-    await streamDirect(fileInfo, fileSize, start, end, range, res);
+    await streamDirect(fileInfo, fileSize, start, end, range, res, req);
   } catch (error) {
     console.error(`❌ Stream error for ${id}:`, error.message);
     if (!res.headersSent) {
@@ -569,9 +570,19 @@ exports.transmuxStream = exports.stream;
 exports.seek = exports.stream;
 
 // ==================== DIRECT STREAM — full seek support ====================
-async function streamDirect(fileInfo, fileSize, start, end, range, res) {
+async function streamDirect(fileInfo, fileSize, start, end, range, res, req = null) {
   const telegramClient = telegramService.getClient();
   if (!telegramClient) throw new Error('Telegram client not ready');
+
+  const requestId = ++streamRequestCounter;
+  const clientIp = req?.ip || req?.connection?.remoteAddress || 'unknown';
+  const requestAbortController = new AbortController();
+  const chunkOptions = { signal: requestAbortController.signal };
+  console.log(`[Stream] open req=${requestId} file=${fileInfo.id} ip=${clientIp} range=${range || 'full'}`);
+  if (requestId % 20 === 1 && typeof telegramService.getConnectionStats === 'function') {
+    const stats = telegramService.getConnectionStats();
+    console.log(`[TelegramStats] connects=${stats.connectCount} senderReq=${stats.senderRequests} senderReconnects=${stats.senderForceReconnects} senderReconnectSkipped=${stats.senderForceReconnectSkipped}`);
+  }
 
   // Resolve correct DC sender upfront to avoid "currently stored in DC X" errors
   let currentSender = null;
@@ -603,12 +614,16 @@ async function streamDirect(fileInfo, fileSize, start, end, range, res) {
   }
 
   let clientDisconnected = false;
-  res.on('close', () => { clientDisconnected = true; });
-
   let currentPosition = start;
   let bytesRemaining = contentLength;
 
-  while (bytesRemaining > 0 && !clientDisconnected) {
+  res.on('close', () => {
+    clientDisconnected = true;
+    requestAbortController.abort();
+    console.log(`[Stream] close req=${requestId} file=${fileInfo.id} remaining=${bytesRemaining}`);
+  });
+
+  while (bytesRemaining > 0 && !clientDisconnected && !requestAbortController.signal.aborted) {
     try {
       const aligned = alignOffset(currentPosition);
       const skipBytes = currentPosition - aligned;
@@ -616,41 +631,35 @@ async function streamDirect(fileInfo, fileSize, start, end, range, res) {
 
       let data;
       try {
-        data = await getTelegramChunk(telegramClient, fileInfo, aligned, limit, currentSender);
+        data = await getTelegramChunk(telegramClient, fileInfo, aligned, limit, currentSender, chunkOptions);
       } catch (chunkError) {
-        // Handle DC migration error — automatically switch to correct DC
+        if (chunkError?.name === 'AbortError') break;
         if (chunkError.isMigrationError && chunkError.newDcId) {
-          console.log(`🔄 [Stream] DC migration: switching to DC ${chunkError.newDcId} for file ${fileInfo.id}`);
+          console.log(`[Stream] DC migration: switching to DC ${chunkError.newDcId} for file ${fileInfo.id}`);
           currentSender = await telegramService.getDcSender(chunkError.newDcId);
           if (!currentSender) {
-            console.error(`❌ [Stream] Failed to get sender for DC ${chunkError.newDcId}`);
+            console.error(`[Stream] Failed to get sender for DC ${chunkError.newDcId}`);
             break;
           }
-          // Retry with new sender
-          data = await getTelegramChunk(telegramClient, fileInfo, aligned, limit, currentSender);
+          data = await getTelegramChunk(telegramClient, fileInfo, aligned, limit, currentSender, chunkOptions);
         } else if (chunkError.isSenderBroken) {
-          console.log(`🔄 [Stream] Sender loop broken for file ${fileInfo.id}, forcefully rebuilding TCP Connection...`);
+          console.log(`[Stream] Sender loop broken for file ${fileInfo.id}, rebuilding sender...`);
           currentSender = await telegramService.getDcSender(fileInfo.dcId, true);
           if (!currentSender) {
-            console.error(`❌ [Stream] Failed to forcefully rebuild sender for DC ${fileInfo.dcId}`);
+            console.error(`[Stream] Failed to rebuild sender for DC ${fileInfo.dcId}`);
             break;
           }
-          // Try one more time with reconstructed sender
-          data = await getTelegramChunk(telegramClient, fileInfo, aligned, limit, currentSender);
+          data = await getTelegramChunk(telegramClient, fileInfo, aligned, limit, currentSender, chunkOptions);
         } else {
           throw chunkError;
         }
       }
 
-      if (clientDisconnected) break;
+      if (clientDisconnected || requestAbortController.signal.aborted) break;
       if (!data) break;
 
-      if (skipBytes > 0) {
-        data = data.slice(skipBytes);
-      }
-      if (data.length > bytesRemaining) {
-        data = data.slice(0, bytesRemaining);
-      }
+      if (skipBytes > 0) data = data.slice(skipBytes);
+      if (data.length > bytesRemaining) data = data.slice(0, bytesRemaining);
       if (data.length === 0) break;
 
       const ok = res.write(data);
@@ -661,27 +670,22 @@ async function streamDirect(fileInfo, fileSize, start, end, range, res) {
         await new Promise((resolve) => res.once('drain', resolve));
       }
     } catch (error) {
-      if (clientDisconnected) break;
-
-      console.error(`❌ Stream error at position ${currentPosition}:`, error.message);
+      if (clientDisconnected || requestAbortController.signal.aborted || error?.name === 'AbortError') break;
+      console.error(`[Stream] error at position ${currentPosition}:`, error.message);
 
       await new Promise((r) => setTimeout(r, 1500));
-      if (clientDisconnected) break;
+      if (clientDisconnected || requestAbortController.signal.aborted) break;
 
       try {
         const retryAligned = alignOffset(currentPosition);
         const retrySkip = currentPosition - retryAligned;
         const retryLimit = getAlignedLimit(retryAligned);
 
-        let data = await getTelegramChunk(telegramClient, fileInfo, retryAligned, retryLimit, currentSender);
+        let data = await getTelegramChunk(telegramClient, fileInfo, retryAligned, retryLimit, currentSender, chunkOptions);
 
         if (data && data.length > 0) {
-          if (retrySkip > 0) {
-            data = data.slice(retrySkip);
-          }
-          if (data.length > bytesRemaining) {
-            data = data.slice(0, bytesRemaining);
-          }
+          if (retrySkip > 0) data = data.slice(retrySkip);
+          if (data.length > bytesRemaining) data = data.slice(0, bytesRemaining);
           if (data.length > 0) {
             res.write(data);
             currentPosition += data.length;
@@ -691,15 +695,17 @@ async function streamDirect(fileInfo, fileSize, start, end, range, res) {
           break;
         }
       } catch (retryError) {
-        console.error(`❌ Retry failed at ${currentPosition}:`, retryError.message);
+        if (retryError?.name === 'AbortError') break;
+        console.error(`[Stream] retry failed at ${currentPosition}:`, retryError.message);
         break;
       }
     }
   }
 
-  if (!clientDisconnected) {
+  if (!clientDisconnected && !res.writableEnded) {
     res.end();
   }
+  console.log(`[Stream] complete req=${requestId} file=${fileInfo.id} sent=${contentLength - bytesRemaining}/${contentLength}`);
 }
 
 // ==================== FFMPEG REMUX STREAM ====================

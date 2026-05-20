@@ -1,0 +1,60 @@
+{
+  "fileId": "960",
+  "fileName": "The_Kerala_Story_2_2026_720p_ZEE5_WEB_DL_Hindi_x264_Vegamovies_is.mkv",
+  "type": "movie",
+  "title": "The Kerala Story 2",
+  "originalTitle": "The Kerala Story 2",
+  "overview": "Three young Indian women across different states choose love over tradition, only to become trapped. Their parallel lives show how romance and rebellion transform into control and silence, turning love into a weapon that destroys freedom.",
+  "releaseDate": "2026-02-27",
+  "year": 2026,
+  "runtime": 131,
+  "genres": [
+    "Crime",
+    "Drama"
+  ],
+  "rating": 0,
+  "popularity": 1.9549,
+  "awards": "",
+  "poster": "/data/posters/960.jpg",
+  "backdrop": "/data/backdrops/960_bd.jpg",
+  "tmdbId": 1625582,
+  "fetchedAt": "2026-05-17T09:59:57.745Z",
+  "needsRetry": false,
+  "tv": null,
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "_tracksDetected": true,
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "Vegamovies.is",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": true
+    }
+  ],
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 2,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Vegamovies.is",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    }
+  ],
+  "container": "matroska,webm",
+  "duration": 7884.01,
+  "_probeFailCount": 0,
+  "logo": "/data/logos/960_logo.png"
+}

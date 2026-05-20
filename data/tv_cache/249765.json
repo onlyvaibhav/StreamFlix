@@ -1,0 +1,95 @@
+{
+  "showTmdbId": 249765,
+  "showTitle": "Matka King",
+  "overview": "In this fictional tale set in 1960s Mumbai, an enterprising cotton trader who craves legitimacy and respect, starts a new gambling game dubbed ‘Matka’, that takes the city by storm and democratizes a terrain previously reserved for the rich and elite.",
+  "genres": [
+    "Drama",
+    "Crime"
+  ],
+  "rating": 7.625,
+  "poster": "/data/posters/show_249765.jpg",
+  "backdrop": "/data/backdrops/show_249765_bd.jpg",
+  "year": 2026,
+  "totalSeasons": 2,
+  "totalEpisodes": 8,
+  "seasons": {
+    "1": [
+      {
+        "fileId": "978",
+        "fileName": "Matka_King_S01E01_Taqdeer_Tadbeer_Tarkeeb_720p_AMZN_WEB_DL_Hindi.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 1,
+        "episodeTitle": "Taqdeer, Tadbeer, Tarkeeb!",
+        "episodeOverview": "Brij Bhatti is a cotton exchange worker drowning in debt with a pregnant wife and a directionless brother. With ruthless loan sharks at his door and hope as the only currency, Brij faces a life-changing choice: accept his crushing fate or revolutionise the gambling system, a move with ripple effects unknown to Brij himself.",
+        "runtime": 53
+      },
+      {
+        "fileId": "979",
+        "fileName": "Matka_King_S01E02_Umeed_Ka_Karkhana_720p_AMZN_WEB_DL_Hindi_DDP5.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 2,
+        "episodeTitle": "Umeed Ka Karkhana",
+        "episodeOverview": "Integrity is tested when Matka brings Brij both fortune and a target on his back. With a newborn as his lucky charm, Brij reinvents the game, spreading Matka through Bombay's bustling textile mills. While a journalist begins to investigate the rise of Matka, the enigmatic Gulrukh is drawn to the game's allure. Laljibhai orchestrates a plan to dismantle the rising empire, nearly succeeding.",
+        "runtime": 49
+      },
+      {
+        "fileId": "980",
+        "fileName": "Matka_King_S01E03_Izzat_Half_Sangam_Full_720p_AMZN_WEB_DL_Hindi.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 3,
+        "episodeTitle": "Izzat Half, Sangam Full",
+        "episodeOverview": "Brij enters Mumbai's elite world through Gulrukh's circles but struggles to find his place among the city's old money. As Matka explodes nationwide, reporter T.P. rallies officials against the \"Matka King,\" while Inspector Eknath begins clandestine surveillance. With Minister Bapat plotting a state-level intervention, greed and ambition begin to corrupt Brij's empire from within.",
+        "runtime": 44
+      },
+      {
+        "fileId": "981",
+        "fileName": "Matka_King_S01E04_Tera_Pyaar_Triple_Paana_Mera_Pyaar_Kabootar_Daana.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 4,
+        "episodeTitle": "Tera Pyaar Triple Paana, Mera Pyaar Kabootar Daana",
+        "episodeOverview": "Survival requires innovation as the government launches a rival scheme to dismantle Brij's influence. Forced to think outside the box, Brij expands his reach across India, but success demands a heavy sacrifice. Trust fractures within the inner circle, and an enemy strikes where it hurts most when unbridled greed determines to ruin everything.",
+        "runtime": 47
+      },
+      {
+        "fileId": "982",
+        "fileName": "Matka_King_S01E05_Safed_Kapde_Kaale_Dil_720p_AMZN_WEB_DL_Hindi_DDP5.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 5,
+        "episodeTitle": "Safed Kapde, Kaale Dil",
+        "episodeOverview": "Brij adopts a stark new public persona, turning appearance into strategy. While new alliances form, old foundations reveal deep cracks. The game's toll on his home life forces Brij into taking a heartbreaking decision. As Minister Bapat attempts to corner him, Brij proves he is at his most dangerous when his back is against the wall.",
+        "runtime": 49
+      },
+      {
+        "fileId": "983",
+        "fileName": "Matka_King_S01E06_Lights_Camera_Jodi_720p_AMZN_WEB_DL_Hindi_DDP5.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 6,
+        "episodeTitle": "Lights, Camera, Jodi",
+        "episodeOverview": "As media attention reaches a fever pitch, Barkha feels the heavy weight of her husband's notoriety. Amidst grand celebrations, Dagdu suffers a profound personal loss, and Gulrukh seeks independence for her own business. Inspector Eknath begins to question his faith in the system as Matka spills into the homes, careers, and consciences of every citizen in Bombay.",
+        "runtime": 47
+      },
+      {
+        "fileId": "984",
+        "fileName": "Matka_King_S01E07_Do_Ikke_Ek_Gulaam_720p_AMZN_WEB_DL_Hindi_DDP5.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 7,
+        "episodeTitle": "Do Ikke, Ek Gulaam",
+        "episodeOverview": "A wedding celebration leaves Brij's world more fractured than ever. Lacchu pursues dangerous new alliances with outside forces, attempting to pull Brij into a darker game. As the pillars of the Matka world begin to crumble and the inner circle splinters, Brij stands his ground even as the true cost of ambition surfaces in unexpected, violent ways.",
+        "runtime": 50
+      },
+      {
+        "fileId": "985",
+        "fileName": "Matka_King_S01E08_Open_aur_Close_720p_AMZN_WEB_DL_Hindi_DDP5_1_H.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 8,
+        "episodeTitle": "Open aur Close",
+        "episodeOverview": "As mill workers go on an indefinite strike, Brij is faced with a decision that will affect the city and the country. Lacchu joins Darab's war for power, while Dagdu's fight for Sulabha fractures the circle. Barkha reclaims her identity, and TP weighs the effect of Matka's involvement in the whole system. As everything that was built stands unprotected, the Matka King must play one last hand.",
+        "runtime": 63
+      }
+    ]
+  },
+  "availableSeasons": [
+    1
+  ],
+  "availableEpisodeCount": 8
+}

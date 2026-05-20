@@ -35,6 +35,21 @@ const state = {
     _syncStep: 0,           // 0=idle, 1=waiting-for-second, 2=done
     _syncFirstLabel: null,  // 'subtitle' or 'audio'
     _syncFirstTime: null,
+    // ---- Multipart seamless playback state ----
+    multipart: {
+      enabled: false,
+      parts: [],             // [{fileId, partNumber, duration, estimated}, ...]
+      durationMap: [],       // [{part, fileId, start, end}, ...] cumulative
+      currentPartIndex: 0,
+      totalDuration: 0,
+      completedDuration: 0,  // Sum of durations of finished parts
+      _switchLog: [],        // Analytics: [{from, to, delay, success, timestamp}]
+      timeline: {
+        displayCurrentTime: 0,
+        displayTotalDuration: 0,
+        displayProgressPercent: 0,
+      },
+    },
   }
 };
 
@@ -812,7 +827,6 @@ function card(item) {
         </div>
       </div>
       ${isTV ? '<div class="card-type-badge">Series</div>' : ''}
-      ${item.isSplit ? `<div class="card-type-badge card-parts-badge">${item.totalParts || 2} Parts</div>` : ''}
     </div>`;
 }
 
@@ -924,38 +938,25 @@ async function openDetail(id, type, pushState = true) {
 
 function renderMovieModal(container, movie) {
   const isSplit = movie.isSplit && movie.parts && movie.parts.length > 1;
-  const playLabel = isSplit ? 'Play Part 1' : 'Play';
+  const playLabel = 'Play';
   const backdrop = backdropSrc(movie.backdrop) || posterSrc(movie.poster);
 
   const metaItems = [
     movie.year,
     movie.runtime ? fmtRuntime(movie.runtime) : null,
-    isSplit ? `${movie.parts.length} Parts` : null
   ].filter(Boolean);
 
-  let partsHTML = '';
+  // Store parts data in window for multipart movies
+  // (Cannot inline JSON in onclick attributes — double quotes break HTML)
   if (isSplit) {
-    partsHTML = `
-      <div class="movie-parts" style="margin-top:40px;">
-        <h3 class="parts-title" style="margin-bottom:20px; font-size:1.3rem;">Parts (${movie.parts.length})</h3>
-        <div class="parts-list">
-          ${movie.parts.map(part => `
-            <div class="part-item" onclick="playVideo({fileId: '${part.fileId}', title: '${escArg(movie.title)} - Part ${part.partNumber}'})">
-              <div class="part-number">${part.partNumber}</div>
-              <div class="part-info">
-                <div class="part-label">Part ${part.partNumber}</div>
-                <div class="part-filename">${esc(part.fileName || '')}</div>
-              </div>
-              <div class="part-play-icon">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                  <polygon points="5 3 19 12 5 21 5 3"/>
-                </svg>
-              </div>
-            </div>
-          `).join('')}
-        </div>
-      </div>`;
+    window._pendingMovieParts = movie.parts;
+    console.log('[Multipart] Modal: stored parts for playback:', movie.parts.length, 'parts');
+  } else {
+    window._pendingMovieParts = null;
   }
+
+  const playFileId = movie.fileId || (isSplit ? movie.parts[0].fileId : '');
+  console.log('[Multipart] Modal: isSplit=' + isSplit + ', playFileId=' + playFileId);
 
   const movieTitle = getItemTitle(movie);
   const logoUrl = movie.logo;
@@ -969,7 +970,7 @@ function renderMovieModal(container, movie) {
       <div class="modal-hero-content">
         ${logoHtml}
         <div class="modal-actions">
-           <button class="btn-premium-play" onclick="playVideo({fileId: '${movie.fileId || (isSplit ? movie.parts[0].fileId : '')}', title: '${escArg(movieTitle)}'})">
+           <button class="btn-premium-play" onclick="playVideo({fileId: '${playFileId}', title: '${escArg(movieTitle)}', _useStoredParts: ${isSplit}})">
              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
              ${playLabel}
            </button>
@@ -999,10 +1000,9 @@ function renderMovieModal(container, movie) {
       <div class="spec-info" style="margin-top:30px; border-top:1px solid #222; padding-top:30px;">
         ${getLanguageSummary(movie)}
       </div>
-
-      ${partsHTML}
     </div>`;
 }
+
 
 function renderShowModal(container, show) {
   const seasons = show.seasons || {};
@@ -1330,6 +1330,22 @@ function resetPlayerState() {
   document.querySelectorAll('.speed-option').forEach(opt => {
     opt.classList.toggle('active', parseFloat(opt.dataset.speed) === 1);
   });
+
+  // Reset multipart state
+  state.player.multipart = {
+    enabled: false,
+    parts: [],
+    durationMap: [],
+    currentPartIndex: 0,
+    totalDuration: 0,
+    completedDuration: 0,
+    _switchLog: [],
+    timeline: {
+      displayCurrentTime: 0,
+      displayTotalDuration: 0,
+      displayProgressPercent: 0,
+    },
+  };
 }
 
 function hasEpisodeContext(ctx) {
@@ -1351,20 +1367,426 @@ function setNextEpisodeControlVisible(isVisible) {
 }
 
 function getEffectiveDuration(video) {
-  if (state.player.isRemuxing) {
-    const d = Number(state.player.duration || video.duration || 0);
-    return d > 0 ? d : 0;
-  }
-  const d = Number(video.duration || 0);
-  return d > 0 ? d : 0;
+  return getDisplayTimelineState(video).displayTotalDuration;
 }
 
 function getEffectiveCurrentTime(video) {
-  const elapsed = isFinite(video.currentTime) ? video.currentTime : 0;
-  if (state.player.isRemuxing) {
-    return elapsed + Number(state.player._seekOffset || 0);
+  return getDisplayTimelineState(video).displayCurrentTime;
+}
+
+function recalculateMultipartTimelineState(video, options = {}) {
+  const mp = state.player.multipart;
+  const totalDuration = Number(mp.totalDuration || 0);
+
+  if (!mp.enabled || totalDuration <= 0) {
+    return {
+      displayCurrentTime: 0,
+      displayTotalDuration: 0,
+      displayProgressPercent: 0,
+      activePartIndex: 0,
+      accumulatedBeforePart: 0,
+      offsetInPart: 0,
+    };
   }
-  return elapsed;
+
+  const elapsed = (video && isFinite(video.currentTime)) ? Math.max(0, video.currentTime) : 0;
+  const hasVirtualOverride = Number.isFinite(options.virtualTimeOverride);
+  const clampedIndex = Math.max(0, Math.min(Number(mp.currentPartIndex || 0), Math.max(0, mp.parts.length - 1)));
+  const mapEntry = mp.durationMap[clampedIndex];
+
+  let activePartIndex = clampedIndex;
+  let accumulatedBeforePart = Number(mapEntry?.start ?? mp.completedDuration ?? 0);
+  let offsetInPart = elapsed;
+
+  if (hasVirtualOverride) {
+    const requestedVirtual = Number(options.virtualTimeOverride);
+    const clampedVirtual = Math.max(0, Math.min(requestedVirtual, totalDuration));
+    const resolved = multipartFindPart(clampedVirtual);
+    if (resolved) {
+      activePartIndex = resolved.index;
+      accumulatedBeforePart = Number(resolved.part.start || 0);
+      offsetInPart = Math.max(0, clampedVirtual - accumulatedBeforePart);
+    }
+    mp.currentPartIndex = activePartIndex;
+    mp.completedDuration = accumulatedBeforePart;
+  } else {
+    const partDuration = mapEntry ? Math.max(0, Number(mapEntry.end - mapEntry.start)) : 0;
+    if (partDuration > 0) {
+      offsetInPart = Math.max(0, Math.min(elapsed, partDuration));
+    }
+  }
+
+  const displayCurrentTime = Math.max(0, Math.min(accumulatedBeforePart + offsetInPart, totalDuration));
+  const displayTotalDuration = totalDuration;
+  const displayProgressPercent = displayTotalDuration > 0
+    ? (displayCurrentTime / displayTotalDuration) * 100
+    : 0;
+
+  mp.timeline = {
+    displayCurrentTime,
+    displayTotalDuration,
+    displayProgressPercent,
+  };
+
+  return {
+    displayCurrentTime,
+    displayTotalDuration,
+    displayProgressPercent,
+    activePartIndex,
+    accumulatedBeforePart,
+    offsetInPart,
+  };
+}
+
+function getDisplayTimelineState(video, options = {}) {
+  if (state.player.multipart.enabled) {
+    return recalculateMultipartTimelineState(video, options);
+  }
+
+  const elapsed = (video && isFinite(video.currentTime)) ? Math.max(0, video.currentTime) : 0;
+  const totalDuration = state.player.isRemuxing
+    ? Number(state.player.duration || video?.duration || 0)
+    : Number(video?.duration || 0);
+  const safeTotal = totalDuration > 0 ? totalDuration : 0;
+  const remuxOffset = state.player.isRemuxing ? Number(state.player._seekOffset || 0) : 0;
+  const requestedCurrent = Number.isFinite(options.virtualTimeOverride)
+    ? Number(options.virtualTimeOverride)
+    : (elapsed + remuxOffset);
+  const displayCurrentTime = safeTotal > 0
+    ? Math.max(0, Math.min(requestedCurrent, safeTotal))
+    : Math.max(0, requestedCurrent);
+  const displayProgressPercent = safeTotal > 0
+    ? (displayCurrentTime / safeTotal) * 100
+    : 0;
+
+  return {
+    displayCurrentTime,
+    displayTotalDuration: safeTotal,
+    displayProgressPercent,
+    activePartIndex: 0,
+    accumulatedBeforePart: 0,
+    offsetInPart: elapsed,
+  };
+}
+
+function renderTimelineState(video, options = {}) {
+  const timeline = getDisplayTimelineState(video, options);
+  setVisualProgress(timeline.displayCurrentTime, timeline.displayTotalDuration);
+  return timeline;
+}
+
+// ============================================================
+// MULTIPART SEAMLESS PLAYBACK ENGINE
+// ============================================================
+
+/**
+ * Find which part contains the given virtual time position.
+ * Uses the precomputed durationMap for O(1)/binary-search efficiency.
+ * @param {number} virtualTime - Time in seconds within the combined movie
+ * @returns {{ index, part, offsetInPart }} or null
+ */
+function multipartFindPart(virtualTime) {
+  const map = state.player.multipart.durationMap;
+  if (!map || map.length === 0) return null;
+
+  const t = Math.max(0, virtualTime);
+  for (let i = 0; i < map.length; i++) {
+    if (t >= map[i].start && t < map[i].end) {
+      return { index: i, part: map[i], offsetInPart: t - map[i].start };
+    }
+  }
+  // If beyond all parts, return last part at end
+  const last = map[map.length - 1];
+  return { index: map.length - 1, part: last, offsetInPart: last.end - last.start };
+}
+
+/**
+ * Get the current part's duration (actual from video element if available, else from map).
+ */
+function multipartCurrentPartDuration(video) {
+  const mp = state.player.multipart;
+  if (!mp.enabled) return 0;
+  const mapEntry = mp.durationMap[mp.currentPartIndex];
+  // Prefer actual video duration if loaded
+  if (video && isFinite(video.duration) && video.duration > 0) {
+    return video.duration;
+  }
+  return mapEntry ? (mapEntry.end - mapEntry.start) : 0;
+}
+
+/**
+ * Correct the duration map when a part's actual duration is discovered via loadedmetadata.
+ * This fixes estimated durations with real values.
+ */
+function multipartCorrectDuration(partIndex, actualDuration) {
+  const mp = state.player.multipart;
+  if (!mp.enabled || partIndex >= mp.durationMap.length) return;
+
+  const entry = mp.durationMap[partIndex];
+  const oldDuration = entry.end - entry.start;
+  if (Math.abs(oldDuration - actualDuration) < 0.5) return; // Close enough
+
+  console.log(`[Multipart] Correcting part ${partIndex + 1} duration: ${oldDuration.toFixed(1)}s → ${actualDuration.toFixed(1)}s`);
+
+  // Update this entry and shift all subsequent entries
+  entry.end = entry.start + actualDuration;
+  mp.parts[partIndex].duration = actualDuration;
+
+  for (let i = partIndex + 1; i < mp.durationMap.length; i++) {
+    const prev = mp.durationMap[i - 1];
+    const partDur = mp.parts[i].duration;
+    mp.durationMap[i].start = prev.end;
+    mp.durationMap[i].end = prev.end + partDur;
+  }
+
+  mp.totalDuration = mp.durationMap[mp.durationMap.length - 1].end;
+
+  // Recalculate completedDuration
+  mp.completedDuration = 0;
+  for (let i = 0; i < mp.currentPartIndex; i++) {
+    mp.completedDuration += mp.parts[i].duration;
+  }
+
+  renderTimelineState(document.getElementById('video-player'));
+}
+
+/**
+ * Switch to the next part automatically when current part ends.
+ * Preserves playback state: speed, volume, fullscreen, subtitles.
+ */
+async function multipartAdvanceToNext() {
+  const mp = state.player.multipart;
+  if (!mp.enabled) return false;
+
+  const nextIndex = mp.currentPartIndex + 1;
+  if (nextIndex >= mp.parts.length) {
+    console.log('[Multipart] All parts finished');
+    return false; // No more parts
+  }
+
+  const video = document.getElementById('video-player');
+  const buffering = document.getElementById('buffering-spinner');
+  const switchStart = performance.now();
+
+  // Save current playback state
+  const preservedState = {
+    playbackRate: video.playbackRate,
+    volume: video._logicalVolume !== undefined ? video._logicalVolume : video.volume,
+    muted: video.muted,
+    subtitleTrackIndex: state.player.currentSubtitleTrack,
+    audioTrackIndex: state.player.currentAudioTrack,
+    isFullscreen: !!document.fullscreenElement,
+  };
+
+  // Update completed duration using actual video duration if available
+  const actualPartDuration = isFinite(video.duration) && video.duration > 0
+    ? video.duration : multipartCurrentPartDuration(video);
+  mp.completedDuration += actualPartDuration;
+
+  // Correct duration map with actual duration
+  multipartCorrectDuration(mp.currentPartIndex, actualPartDuration);
+
+  mp.currentPartIndex = nextIndex;
+  const nextPart = mp.parts[nextIndex];
+  renderTimelineState(video, { virtualTimeOverride: mp.completedDuration });
+
+  console.log(`[Multipart] Switching to part ${nextPart.partNumber}/${mp.parts.length} (fileId: ${nextPart.fileId})`);
+  buffering?.classList.remove('hidden');
+
+  try {
+    video.src = `/api/stream/${nextPart.fileId}`;
+    state.player.fileId = nextPart.fileId;
+    state.player.isRemuxing = false;
+    state.player._seekOffset = 0;
+
+    video.load();
+
+    // Restore playback state
+    video.playbackRate = preservedState.playbackRate;
+    if (preservedState.volume !== undefined) {
+      setVolume(preservedState.volume);
+    }
+
+    await new Promise((resolve, reject) => {
+      const timeout = setTimeout(() => reject(new Error('Part load timeout')), 15000);
+      video.addEventListener('loadedmetadata', () => {
+        clearTimeout(timeout);
+        // Correct duration with actual value
+        if (isFinite(video.duration) && video.duration > 0) {
+          multipartCorrectDuration(nextIndex, video.duration);
+        }
+        resolve();
+      }, { once: true });
+      video.addEventListener('error', () => {
+        clearTimeout(timeout);
+        reject(new Error(`Failed to load part ${nextPart.partNumber}`));
+      }, { once: true });
+    });
+
+    await video.play();
+    buffering?.classList.add('hidden');
+    renderTimelineState(video);
+
+    // Update heartbeat to new fileId
+    startHeartbeat(nextPart.fileId);
+
+    // Restore subtitle track
+    if (preservedState.subtitleTrackIndex >= 0) {
+      const sub = state.player.subtitleTracks[preservedState.subtitleTrackIndex];
+      if (sub && sub.source !== 'embedded') {
+        // External subs are per-movie, keep them
+      } else if (sub && sub.source === 'embedded') {
+        state.player.subtitleTracks[preservedState.subtitleTrackIndex].endpoint =
+          `/api/stream/${nextPart.fileId}/subtitle/${sub.streamIndex}`;
+        switchSubs(preservedState.subtitleTrackIndex, null, 0).catch(() => {});
+      }
+    }
+
+    const switchDelay = performance.now() - switchStart;
+    console.log(`[Multipart] Part switch completed in ${switchDelay.toFixed(0)}ms`);
+
+    mp._switchLog.push({
+      from: nextIndex - 1,
+      to: nextIndex,
+      delay: Math.round(switchDelay),
+      success: true,
+      timestamp: Date.now(),
+    });
+
+    return true;
+  } catch (error) {
+    console.error(`[Multipart] Part switch failed:`, error.message);
+    buffering?.classList.add('hidden');
+
+    mp._switchLog.push({
+      from: nextIndex - 1,
+      to: nextIndex,
+      delay: Math.round(performance.now() - switchStart),
+      success: false,
+      error: error.message,
+      timestamp: Date.now(),
+    });
+
+    return false;
+  }
+}
+
+/**
+ * Seek to a virtual time position across parts.
+ * Handles cross-part seeking with boundary snapping.
+ */
+function multipartSeek(virtualTime) {
+  const mp = state.player.multipart;
+  if (!mp.enabled) return;
+
+  const video = document.getElementById('video-player');
+  const buffering = document.getElementById('buffering-spinner');
+  const totalDuration = mp.totalDuration;
+
+  // Clamp to valid range
+  const clamped = Math.max(0, Math.min(virtualTime, totalDuration));
+
+  // Smart boundary snapping: if within 2s of a part boundary, snap to next part start
+  const target = multipartFindPart(clamped);
+  if (!target) return;
+
+  let finalIndex = target.index;
+  let finalOffset = target.offsetInPart;
+
+  const partDuration = target.part.end - target.part.start;
+  if (partDuration > 0 && (partDuration - finalOffset) < 2 && finalIndex < mp.parts.length - 1) {
+    // Snap to next part start
+    finalIndex = target.index + 1;
+    finalOffset = 0;
+    console.log(`[Multipart] Boundary snap: jumping to part ${finalIndex + 1}`);
+  }
+
+  const targetVirtualTime = Number(target.part.start || 0) + finalOffset;
+  renderTimelineState(video, { virtualTimeOverride: targetVirtualTime });
+
+  if (finalIndex === mp.currentPartIndex) {
+    // Same part - just seek within it
+    if (state.player.isRemuxing) {
+      remuxSeek(finalOffset);
+    } else {
+      video.currentTime = finalOffset;
+    }
+    renderTimelineState(video, { virtualTimeOverride: targetVirtualTime });
+    return;
+  }
+
+  // Different part - switch source
+  mp.currentPartIndex = finalIndex;
+  mp.completedDuration = Number(target.part.start || 0);
+  const targetPart = mp.parts[finalIndex];
+  state.player.fileId = targetPart.fileId;
+
+  console.log(`[Multipart] Cross-part seek to part ${targetPart.partNumber} at ${finalOffset.toFixed(1)}s`);
+  buffering?.classList.remove('hidden');
+
+  state.player.isRemuxing = false;
+  state.player._seekOffset = 0;
+
+  // Pause gracefully to avoid 'play request interrupted' error
+  const wasPlaying = !video.paused;
+  if (wasPlaying) video.pause();
+
+  video.src = `/api/stream/${targetPart.fileId}`;
+  video.load();
+  renderTimelineState(video, { virtualTimeOverride: targetVirtualTime });
+
+  video.addEventListener('loadedmetadata', function onMeta() {
+    if (isFinite(video.duration) && video.duration > 0) {
+      multipartCorrectDuration(finalIndex, video.duration);
+    }
+    if (finalOffset > 0 && finalOffset < video.duration) {
+      video.currentTime = finalOffset;
+    }
+    renderTimelineState(video, { virtualTimeOverride: targetVirtualTime });
+    if (wasPlaying) video.play().catch(() => {});
+    buffering?.classList.add('hidden');
+  }, { once: true });
+
+  startHeartbeat(targetPart.fileId);
+}
+
+/**
+ * Initialize multipart playback from part-info API response.
+ */
+async function multipartInit(fileId, parts) {
+  const mp = state.player.multipart;
+
+  try {
+    const partInfo = await api(`/api/stream/${fileId}/part-info`);
+    if (!partInfo || !partInfo.isSplit || !partInfo.parts || partInfo.parts.length <= 1) {
+      mp.enabled = false;
+      return false;
+    }
+
+    mp.enabled = true;
+    mp.parts = partInfo.parts;
+    mp.durationMap = partInfo.durationMap;
+    mp.totalDuration = partInfo.totalDuration;
+    mp.currentPartIndex = 0;
+    mp.completedDuration = 0;
+    mp._switchLog = [];
+    mp.timeline = {
+      displayCurrentTime: 0,
+      displayTotalDuration: Number(partInfo.totalDuration || 0),
+      displayProgressPercent: 0,
+    };
+
+    console.log(`[Multipart] Initialized: ${mp.parts.length} parts, total ${mp.totalDuration.toFixed(0)}s`);
+    console.log('[Multipart] Duration map:', mp.durationMap.map(d =>
+      `Part ${d.part}: ${d.start.toFixed(0)}s-${d.end.toFixed(0)}s${d.estimated ? ' (est)' : ''}`
+    ).join(', '));
+
+    return true;
+  } catch (error) {
+    console.warn('[Multipart] Init failed:', error.message);
+    mp.enabled = false;
+    return false;
+  }
 }
 
 function setVisualProgress(currentTime, totalDuration) {
@@ -1479,59 +1901,38 @@ function startProgressRAF(video, signal) {
   const tick = () => {
     if (signal.aborted) return;
 
-    const duration = state.player.isRemuxing
-      ? (state.player.duration || video.duration)
-      : video.duration;
+    const timeline = getDisplayTimelineState(video);
+    const duration = timeline.displayTotalDuration;
 
     if (duration && isFinite(duration) && !seekState.dragging && !seekState.keyboardSeeking) {
-      const elapsed = isFinite(video.currentTime) ? video.currentTime : 0;
-      const actualTime = state.player.isRemuxing
-        ? elapsed + (state.player._seekOffset || 0)
-        : elapsed;
-      const pct = Math.min(1, actualTime / duration);
-      if (progressRefs.container) {
-        progressRefs.container.style.setProperty('--progress', pct);
-      }
-      if (progressRefs.timeDisplay) {
-        progressRefs.timeDisplay.textContent = `${fmtTime(actualTime)} / ${fmtTime(duration)}`;
-      }
-      setVisualProgress(actualTime, duration);
+      setVisualProgress(timeline.displayCurrentTime, timeline.displayTotalDuration);
     }
 
-    if (video.duration && isFinite(video.duration) && video.buffered.length > 0) {
-      const totalDuration = state.player.isRemuxing
-        ? (state.player.duration || video.duration)
-        : video.duration;
-      const seekOffset = state.player.isRemuxing
-        ? (state.player._seekOffset || 0)
-        : 0;
+    if (duration && isFinite(duration) && video.buffered.length > 0) {
+      // Calculate buffer offset relative to current part + remux offset
+      const timeOffset = state.player.multipart.enabled ? timeline.accumulatedBeforePart : 0;
+      const remuxOffset = state.player.isRemuxing ? (state.player._seekOffset || 0) : 0;
+      const seekOffset = timeOffset + remuxOffset;
 
       let bufPct = 0;
       for (let i = 0; i < video.buffered.length; i++) {
         if (video.buffered.start(i) <= video.currentTime &&
           video.currentTime <= video.buffered.end(i)) {
-          bufPct = (video.buffered.end(i) + seekOffset) / totalDuration;
+          bufPct = (video.buffered.end(i) + seekOffset) / duration;
           break;
         }
       }
       if (bufPct === 0 && video.buffered.length > 0) {
-        bufPct = (video.buffered.end(video.buffered.length - 1) + seekOffset) / totalDuration;
+        bufPct = (video.buffered.end(video.buffered.length - 1) + seekOffset) / duration;
       }
       if (progressRefs.container) {
         progressRefs.container.style.setProperty('--buffer', Math.min(1, bufPct));
       }
-      setVisualBuffer((bufPct || 0) * totalDuration, totalDuration);
+      setVisualBuffer((bufPct || 0) * duration, duration);
     }
 
-    const subDuration = state.player.isRemuxing
-      ? (state.player.duration || video.duration)
-      : video.duration;
-    if (subDuration && isFinite(subDuration)) {
-      const subElapsed = isFinite(video.currentTime) ? video.currentTime : 0;
-      const subActualTime = state.player.isRemuxing
-        ? subElapsed + (state.player._seekOffset || 0)
-        : subElapsed;
-      renderSubtitles(subActualTime);
+    if (duration && isFinite(duration)) {
+      renderSubtitles(timeline.displayCurrentTime);
     }
 
     rafId = requestAnimationFrame(tick);
@@ -1565,15 +1966,7 @@ function remuxSeek(targetTime) {
   state.player.isRemuxing = true;
   state.player._seekOffset = clampedTarget;
   buffering.classList.remove('hidden');
-
-  const duration = state.player.duration || video.duration;
-  if (progressRefs.container && duration > 0) {
-    const pct = clampedTarget / duration;
-    progressRefs.container.style.setProperty('--progress', pct);
-    if (progressRefs.timeDisplay) {
-      progressRefs.timeDisplay.textContent = `${fmtTime(clampedTarget)} / ${fmtTime(duration)}`;
-    }
-  }
+  renderTimelineState(video, { virtualTimeOverride: clampedTarget });
 
   video.src = newSrc;
   video.load();
@@ -1583,6 +1976,7 @@ function remuxSeek(targetTime) {
     if (video.currentTime > 1) {
       state.player._seekOffset = clampedTarget - video.currentTime;
     }
+    renderTimelineState(video);
     video.play().catch(() => { });
     buffering.classList.add('hidden');
   }, { once: true });
@@ -1608,7 +2002,21 @@ async function playVideo(params, pushState = true) {
   if (params.episodeTitle === 'null' || params.episodeTitle === 'undefined') params.episodeTitle = null;
   if (params.tmdbId === 'null' || params.tmdbId === 'undefined') params.tmdbId = null;
 
-  console.log('playVideo sanitized params:', params);
+  // Retrieve parts from window variable if flagged by modal
+  if (params._useStoredParts && window._pendingMovieParts) {
+    params.parts = window._pendingMovieParts;
+    window._pendingMovieParts = null;
+    console.log('[Multipart] playVideo: retrieved stored parts:', params.parts.length);
+  }
+  delete params._useStoredParts;
+
+  console.log('[DEBUG] playVideo called:', JSON.stringify({
+    fileId: params.fileId,
+    title: params.title,
+    hasParts: !!(params.parts && params.parts.length > 1),
+    partsCount: params.parts ? params.parts.length : 0,
+    season: params.season,
+  }));
 
   // We don't pushState in closeModal since we will immediately pushState for playVideo
   closeModal(false);
@@ -1671,22 +2079,30 @@ async function playVideo(params, pushState = true) {
   // Show buffering spinner immediately
   document.getElementById('buffering-spinner').classList.remove('hidden');
 
-  // Fetch tracks and external subtitles concurrently
+  // Fetch tracks, external subtitles, AND multipart info concurrently
   let tracks = null;
   let externalSubs = [];
 
   try {
-    const [tracksResponse, subData] = await Promise.allSettled([
+    const fetchJobs = [
       api(`/api/stream/${params.fileId}/tracks`),
       api(`/api/subtitles/movie/${params.fileId}`)
-    ]);
+    ];
 
-    if (tracksResponse.status === 'fulfilled') {
-      tracks = tracksResponse.value;
+    // If parts were passed from the modal, also fetch part-info for durations
+    const hasPartsHint = params.parts && Array.isArray(params.parts) && params.parts.length > 1;
+    if (hasPartsHint) {
+      fetchJobs.push(multipartInit(params.fileId, params.parts));
     }
 
-    if (subData.status === 'fulfilled' && subData.value?.subtitles) {
-      externalSubs = subData.value.subtitles.map(s => ({
+    const results = await Promise.allSettled(fetchJobs);
+
+    if (results[0].status === 'fulfilled') {
+      tracks = results[0].value;
+    }
+
+    if (results[1].status === 'fulfilled' && results[1].value?.subtitles) {
+      externalSubs = results[1].value.subtitles.map(s => ({
         ...s,
         source: s.source || 'SubDL',
         endpoint: `/api/subtitles/file/${s.id}`,
@@ -1747,6 +2163,15 @@ async function playVideo(params, pushState = true) {
 
   video.currentTime = 0;
   video.load();
+
+  // Correct multipart duration map when first part's actual duration is discovered
+  if (state.player.multipart.enabled) {
+    video.addEventListener('loadedmetadata', function onFirstPartMeta() {
+      if (isFinite(video.duration) && video.duration > 0) {
+        multipartCorrectDuration(0, video.duration);
+      }
+    }, { once: true });
+  }
 
   // Wire up controls BEFORE play() so 'playing' event listener catches the first play
   setupPlayerListeners();
@@ -1911,13 +2336,8 @@ function setupPlayerListeners() {
 
   // ---- PROGRESS / TIME ----
   on(video, 'timeupdate', () => {
-    const duration = state.player.isRemuxing
-      ? (state.player.duration || video.duration)
-      : video.duration;
-    const elapsed = isFinite(video.currentTime) ? video.currentTime : 0;
-    const currentTime = state.player.isRemuxing
-      ? elapsed + (state.player._seekOffset || 0)
-      : elapsed;
+    const duration = getEffectiveDuration(video);
+    const currentTime = getEffectiveCurrentTime(video);
 
     if (hasEpisodeContext(state.player) &&
       duration > 0 && (duration - currentTime < 30)) {
@@ -1925,8 +2345,23 @@ function setupPlayerListeners() {
     } else {
       setNextEpisodeFloatingVisible(false);
     }
+
   });
   on(video, 'progress', updateBuffer);
+
+  // ---- MULTIPART: Auto-advance to next part on ended ----
+  on(video, 'ended', async () => {
+    if (state.player.multipart.enabled) {
+      const mp = state.player.multipart;
+      if (mp.currentPartIndex < mp.parts.length - 1) {
+        console.log(`[Multipart] Part ${mp.currentPartIndex + 1} ended, advancing...`);
+        const success = await multipartAdvanceToNext();
+        if (success) return; // Playback continues
+      }
+      // All parts finished or advance failed — fall through to normal ended behavior
+      console.log('[Multipart] Playback complete');
+    }
+  });
 
   // ---- PLAY/PAUSE STATE (driven by video events, not clicks) ----
   on(video, 'play', () => {
@@ -2288,9 +2723,7 @@ function setupSeekbar(video, signal) {
   };
 
   const updateVisualFromPct = (pct) => {
-    const totalDuration = state.player.isRemuxing
-      ? Number(state.player.duration || video.duration || 0)
-      : Number(video.duration || 0);
+    const totalDuration = getDisplayTimelineState(video).displayTotalDuration;
     const targetTime = totalDuration > 0 ? pct * totalDuration : 0;
     setVisualProgress(targetTime, totalDuration);
     return { totalDuration, targetTime };
@@ -2303,7 +2736,7 @@ function setupSeekbar(video, signal) {
   };
 
   function throttledSeek(pct) {
-    if (state.player.isRemuxing) return;
+    if (state.player.isRemuxing || state.player.multipart.enabled) return;
 
     const duration = video.duration;
     if (!isFinite(duration) || duration <= 0) return;
@@ -2367,10 +2800,21 @@ function setupSeekbar(video, signal) {
     clearTimeout(seekState.pendingSeekTimer);
     seekState.pendingSeekTimer = null;
 
+    // ---- MULTIPART: Seek to virtual position across parts ----
+    if (state.player.multipart.enabled) {
+      const totalDuration = state.player.multipart.totalDuration;
+      if (totalDuration > 0) {
+        multipartSeek(seekState.dragPct * totalDuration);
+        seekState.lastActualSeek = performance.now();
+      }
+      return;
+    }
+
     if (state.player.isRemuxing) {
       const duration = state.player.duration || video.duration;
       if (duration > 0) {
         remuxSeek(seekState.dragPct * duration);
+        seekState.lastActualSeek = performance.now();
       }
       return;
     }
@@ -2435,15 +2879,10 @@ function seekRelative(sec) {
   const video = progressRefs.video || document.getElementById('video-player');
   if (!video) return;
 
-  const duration = state.player.isRemuxing
-    ? (state.player.duration || video.duration)
-    : video.duration;
+  const duration = getEffectiveDuration(video);
   if (!duration || !isFinite(duration)) return;
 
-  const elapsed = isFinite(video.currentTime) ? video.currentTime : 0;
-  const actualPosition = state.player.isRemuxing
-    ? elapsed + (state.player._seekOffset || 0)
-    : elapsed;
+  const actualPosition = getEffectiveCurrentTime(video);
 
   seekState.keyboardSeeking = true;
   seekState.keyboardAccum += sec;
@@ -2461,13 +2900,13 @@ function seekRelative(sec) {
 
   clearTimeout(seekState.keyboardTimer);
   seekState.keyboardTimer = setTimeout(() => {
-    const latestElapsed = isFinite(video.currentTime) ? video.currentTime : 0;
-    const latestPosition = state.player.isRemuxing
-      ? latestElapsed + (state.player._seekOffset || 0)
-      : latestElapsed;
+    const latestPosition = getEffectiveCurrentTime(video);
     const finalTarget = Math.max(0, Math.min(latestPosition + seekState.keyboardAccum, duration));
 
-    if (state.player.isRemuxing) {
+    // Multipart: use virtual seeking
+    if (state.player.multipart.enabled) {
+      multipartSeek(finalTarget);
+    } else if (state.player.isRemuxing) {
       remuxSeek(finalTarget);
     } else {
       video.currentTime = finalTarget;
@@ -2693,20 +3132,20 @@ window.handleEpisodesPanelClick = function(fileId, title, season, episode, episo
 // ============================================================
 function updateProgress() {
   const video = document.getElementById('video-player');
-  const totalDuration = getEffectiveDuration(video);
-  if (!totalDuration) return;
-  const currentTime = getEffectiveCurrentTime(video);
-  setVisualProgress(currentTime, totalDuration);
+  const timeline = getDisplayTimelineState(video);
+  if (!timeline.displayTotalDuration) return;
+  setVisualProgress(timeline.displayCurrentTime, timeline.displayTotalDuration);
 }
 
 function updateBuffer() {
   const video = document.getElementById('video-player');
-  const totalDuration = getEffectiveDuration(video);
+  const timeline = getDisplayTimelineState(video);
+  const totalDuration = timeline.displayTotalDuration;
   if (!totalDuration || video.buffered.length === 0) return;
 
-  const offset = state.player.isRemuxing
-    ? Number(state.player._seekOffset || 0)
-    : 0;
+  const multipartOffset = state.player.multipart.enabled ? timeline.accumulatedBeforePart : 0;
+  const remuxOffset = state.player.isRemuxing ? Number(state.player._seekOffset || 0) : 0;
+  const offset = multipartOffset + remuxOffset;
 
   const bufEnd = video.buffered.end(video.buffered.length - 1) + offset;
   setVisualBuffer(bufEnd, totalDuration);
@@ -3506,7 +3945,6 @@ function normalizeItem(item) {
     id: item.fileId || item.id, type: item.type || 'movie',
     title: item.title, poster: item.poster,
     rating: item.rating, year: item.year,
-    isSplit: item.isSplit, totalParts: item.totalParts
   };
 }
 

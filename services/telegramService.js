@@ -41,6 +41,20 @@ try {
 
 let client = null;
 let channelEntity = null;
+let initPromise = null;
+const senderReconnectState = new Map();
+const SENDER_FORCE_RECONNECT_COOLDOWN_MS = 15000;
+const telegramConnectionStats = {
+  initCalls: 0,
+  reusedClientCount: 0,
+  clientConstructCount: 0,
+  connectCount: 0,
+  senderRequests: 0,
+  senderForceReconnects: 0,
+  senderForceReconnectSkipped: 0,
+  senderErrors: 0,
+  lastConnectAt: null,
+};
 
 /**
  * Resolves the correct DC sender for a document.
@@ -189,66 +203,92 @@ function getSearchTerms(title, fileName) {
 // ==================== INITIALIZATION ====================
 
 async function initTelegram() {
+  telegramConnectionStats.initCalls += 1;
   const sessionString = config.sessionString;
 
   if (!sessionString) {
     throw new Error('TELEGRAM_SESSION_STRING is required! Run: node generateSession.js');
   }
 
-    client = new TelegramClient(
-    new StringSession(sessionString),
-    config.apiId,
-    config.apiHash,
-    {
-      connectionRetries: 1000000, // Effectively Infinity
-      useWSS: true,
-      requestRetries: 3,
-      floodSleepThreshold: 60,
-      autoReconnect: true,
-      deviceModel: 'StreamFlix Server',
-      systemVersion: 'Node.js',
-      appVersion: '1.0.0',
-      // Keep the connection alive to prevent frequent disconnects
-      pingInterval: 60,
-    }
-  );
-
-  await client.connect();
-
-  if (!(await client.checkAuthorization())) {
-    throw new Error('Session expired! Run: node generateSession.js');
+  if (client && channelEntity) {
+    telegramConnectionStats.reusedClientCount += 1;
+    return client;
   }
 
-  const me = await client.getMe();
-  console.log(`✅ Logged in as: ${me.firstName} ${me.lastName || ''} (@${me.username || 'N/A'})`);
-
-  try {
-    channelEntity = await client.getEntity(config.channelId);
-    console.log(`📺 Channel: ${channelEntity.title || channelEntity.id}`);
-  } catch (error) {
-    console.error('❌ Cannot access channel:', error.message);
-    throw error;
+  if (initPromise) {
+    telegramConnectionStats.reusedClientCount += 1;
+    return initPromise;
   }
 
-  // Check ffmpeg availability
-  if (ffmpegService) {
+  initPromise = (async () => {
     try {
-      const hasFF = await ffmpegService.checkFFmpeg();
-      const hasProbe = await ffmpegService.checkFFprobe();
-      ffmpegAvailable = hasFF && hasProbe;
-      console.log(`🎬 ffmpeg: ${hasFF ? '✅' : '❌'} | ffprobe: ${hasProbe ? '✅' : '❌'}`);
-    } catch (e) {
-      ffmpegAvailable = false;
-      console.log('⚠️ ffmpeg check failed:', e.message);
+      telegramConnectionStats.clientConstructCount += 1;
+      client = new TelegramClient(
+        new StringSession(sessionString),
+        config.apiId,
+        config.apiHash,
+        {
+          connectionRetries: 1000000, // Effectively Infinity
+          useWSS: true,
+          requestRetries: 3,
+          floodSleepThreshold: 60,
+          autoReconnect: true,
+          deviceModel: 'StreamFlix Server',
+          systemVersion: 'Node.js',
+          appVersion: '1.0.0',
+          // Keep the connection alive to prevent frequent disconnects
+          pingInterval: 60,
+        }
+      );
+
+      await client.connect();
+      telegramConnectionStats.connectCount += 1;
+      telegramConnectionStats.lastConnectAt = new Date().toISOString();
+      console.log(`[Telegram] Connected (count=${telegramConnectionStats.connectCount})`);
+
+      if (!(await client.checkAuthorization())) {
+        throw new Error('Session expired! Run: node generateSession.js');
+      }
+
+      const me = await client.getMe();
+      console.log(`Logged in as: ${me.firstName} ${me.lastName || ''} (@${me.username || 'N/A'})`);
+
+      try {
+        channelEntity = await client.getEntity(config.channelId);
+        console.log(`Channel: ${channelEntity.title || channelEntity.id}`);
+      } catch (error) {
+        console.error('Cannot access channel:', error.message);
+        throw error;
+      }
+
+      if (ffmpegService) {
+        try {
+          const hasFF = await ffmpegService.checkFFmpeg();
+          const hasProbe = await ffmpegService.checkFFprobe();
+          ffmpegAvailable = hasFF && hasProbe;
+          console.log(`ffmpeg: ${hasFF ? 'yes' : 'no'} | ffprobe: ${hasProbe ? 'yes' : 'no'}`);
+        } catch (e) {
+          ffmpegAvailable = false;
+          console.log('ffmpeg check failed:', e.message);
+        }
+      }
+
+      if (!ffmpegAvailable) {
+        console.log('ffmpeg not available. Embedded subtitle extraction is disabled to avoid full-file downloads.');
+        console.log('Install ffmpeg and ffprobe: choco install ffmpeg (Windows) or sudo apt install ffmpeg (Linux)');
+      }
+
+      return client;
+    } catch (error) {
+      client = null;
+      channelEntity = null;
+      throw error;
+    } finally {
+      initPromise = null;
     }
-  }
+  })();
 
-  if (!ffmpegAvailable) {
-    console.log('⚠️ ffmpeg not available. Embedded subtitle extraction is disabled to avoid full-file downloads.');
-    console.log('   Install ffmpeg and ffprobe: choco install ffmpeg (Windows) or sudo apt install ffmpeg (Linux)');
-  }
-
-  return client;
+  return initPromise;
 }
 
 // ==================== LIST MOVIES ====================
@@ -1818,21 +1858,44 @@ module.exports = {
     }
   },
   getClient: () => client,
+  getConnectionStats: () => ({
+    ...telegramConnectionStats,
+  }),
   getDcSender: async (dcId, forceReconnect = false) => {
     if (!client || !dcId) return null;
+    telegramConnectionStats.senderRequests += 1;
+    const dc = Number.parseInt(dcId, 10);
+    if (!Number.isInteger(dc) || dc <= 0) return null;
+
     try {
       if (forceReconnect) {
-        if (client._exportedSenderPromises && client._exportedSenderPromises[dcId]) {
-          delete client._exportedSenderPromises[dcId];
-        }
-        if (client._exportedSenders && client._exportedSenders[dcId]) {
-          try { await client._exportedSenders[dcId].disconnect(); } catch(e){}
-          delete client._exportedSenders[dcId];
+        const now = Date.now();
+        const state = senderReconnectState.get(dc) || { lastForceReconnectAt: 0 };
+        if ((now - state.lastForceReconnectAt) < SENDER_FORCE_RECONNECT_COOLDOWN_MS) {
+          telegramConnectionStats.senderForceReconnectSkipped += 1;
+          forceReconnect = false;
+        } else {
+          telegramConnectionStats.senderForceReconnects += 1;
+          state.lastForceReconnectAt = now;
+          senderReconnectState.set(dc, state);
+          console.warn(`[Telegram] Force rebuilding sender for DC ${dc}`);
         }
       }
-      return await client.getSender(dcId);
+
+      if (forceReconnect) {
+        if (client._exportedSenderPromises && client._exportedSenderPromises[dc]) {
+          delete client._exportedSenderPromises[dc];
+        }
+        if (client._exportedSenders && client._exportedSenders[dc]) {
+          try { await client._exportedSenders[dc].disconnect(); } catch (e) {}
+          delete client._exportedSenders[dc];
+        }
+      }
+
+      return await client.getSender(dc);
     } catch (e) {
-      console.warn(`⚠️ [Telegram] getDcSender(${dcId}) failed:`, e.message);
+      telegramConnectionStats.senderErrors += 1;
+      console.warn(`[Telegram] getDcSender(${dc}) failed:`, e.message);
       return null;
     }
   },

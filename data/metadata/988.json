@@ -1,0 +1,86 @@
+{
+  "fileId": "988",
+  "fileName": "Mortal.Kombat.2021.720p.Hindi.English.Esubs.Vegamovies.to.mkv",
+  "type": "movie",
+  "title": "Mortal Kombat",
+  "originalTitle": "Mortal Kombat",
+  "overview": "Washed-up MMA fighter Cole Young, unaware of his heritage, and hunted by Emperor Shang Tsung's best warrior, Sub-Zero, seeks out and trains with Earth's greatest champions as he prepares to stand against the enemies of Outworld in a high stakes battle for the universe.",
+  "releaseDate": "2021-04-07",
+  "year": 2021,
+  "runtime": 110,
+  "genres": [
+    "Action",
+    "Fantasy",
+    "Adventure"
+  ],
+  "rating": 7.02,
+  "popularity": 145.9264,
+  "awards": "4 wins & 10 nominations total",
+  "poster": "/data/posters/988.jpg",
+  "backdrop": "/data/backdrops/988_bd.jpg",
+  "tmdbId": 460465,
+  "fetchedAt": "2026-05-17T10:04:10.467Z",
+  "needsRetry": false,
+  "tv": null,
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "Vegamovies.to",
+      "channels": 6,
+      "channelLayout": "5.1",
+      "browserPlayable": true,
+      "isDefault": true
+    },
+    {
+      "index": 1,
+      "streamIndex": 2,
+      "codec": "aac",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Vegamovies.to",
+      "channels": 8,
+      "channelLayout": "7.1",
+      "browserPlayable": true,
+      "isDefault": false
+    }
+  ],
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 3,
+      "codec": "ass",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Vegamovies.to",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    },
+    {
+      "index": 1,
+      "streamIndex": 4,
+      "codec": "ass",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Vegamovies.to",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    }
+  ],
+  "container": "matroska,webm",
+  "duration": 6604.075,
+  "_tracksDetected": true,
+  "_probeFailCount": 0,
+  "logo": "/data/logos/988_logo.png"
+}

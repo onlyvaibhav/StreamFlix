@@ -336,6 +336,33 @@
         "episodeTitle": "Every One of You Sons of Bitches",
         "episodeOverview": "Storm her senses with V-Bro Mango Thunder Body Spray by Vought! She'll never know what hit her!",
         "runtime": 66
+      },
+      {
+        "fileId": "943",
+        "fileName": "The_Boys_S05E04_720p_AMZN_WEB_DL_DUAL_DDP5_1_x264_VegaMovies_is.mkv",
+        "seasonNumber": 5,
+        "episodeNumber": 4,
+        "episodeTitle": "King of Hell",
+        "episodeOverview": "IN THIS HOUSE, WE BELIEVE IN HOMELANDER!",
+        "runtime": 66
+      },
+      {
+        "fileId": "958",
+        "fileName": "The.Boys.S05E05.720p.AMZN.WEB-DL.DD5.1.x264-VegaMovies.is.mkv",
+        "seasonNumber": 5,
+        "episodeNumber": 5,
+        "episodeTitle": "One-Shots",
+        "episodeOverview": "Tonight at 9/8C a @VoughtNews special report: Treason in Tinseltown! Find out which of your favorite Hollywood stars are rumored to be Starlighters!",
+        "runtime": 69
+      },
+      {
+        "fileId": "987",
+        "fileName": "The_Boys_S05E06_720p_AMZN_WEB_DL_DUAL_DDP5_1_x264_VegaMovies_is.mkv",
+        "seasonNumber": 5,
+        "episodeNumber": 6,
+        "episodeTitle": "Though the Heavens Fall",
+        "episodeOverview": "Available now, EXCLUSIVELY at @VMCtheaters, get the new #DeepPopcornBucket for only $32.99!",
+        "runtime": 65
       }
     ]
   },
@@ -346,5 +373,5 @@
     4,
     5
   ],
-  "availableEpisodeCount": 35
+  "availableEpisodeCount": 38
 }

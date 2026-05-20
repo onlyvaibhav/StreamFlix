@@ -5,6 +5,7 @@ const telegramService = require('../services/telegramService');
 const { getTelegramChunk } = require('../services/chunkCacheService');
 
 const router = express.Router();
+let internalRawRequestCounter = 0;
 
 function getAlignedLimit(offset) {
   return 1048576; // 1MB chunks globally
@@ -40,7 +41,7 @@ function isLoopbackAddress(address) {
   );
 }
 
-function createTelegramRangeStream(fileInfo, start, end) {
+function createTelegramRangeStream(fileInfo, start, end, options = {}) {
   const { Readable } = require('stream');
   const telegramClient = telegramService.getClient();
   if (!telegramClient) {
@@ -51,6 +52,7 @@ function createTelegramRangeStream(fileInfo, start, end) {
   let bytesRemaining = end - start + 1;
   let destroyed = false;
   let currentSender = fileInfo._dcSender || null;
+  const chunkOptions = { signal: options.signal };
 
   return new Readable({
     async read() {
@@ -67,15 +69,19 @@ function createTelegramRangeStream(fileInfo, start, end) {
 
         let data;
         try {
-          data = await getTelegramChunk(telegramClient, fileInfo, alignedOffset, limit, currentSender);
+          data = await getTelegramChunk(telegramClient, fileInfo, alignedOffset, limit, currentSender, chunkOptions);
         } catch (chunkError) {
-          // Handle DC migration error — automatically switch to correct DC
+          if (chunkError?.name === 'AbortError') {
+            this.push(null);
+            return;
+          }
+          // Handle DC migration error - automatically switch to correct DC
           if (chunkError.isMigrationError && chunkError.newDcId) {
             console.log(`🔄 [InternalRaw] DC migration: switching to DC ${chunkError.newDcId}`);
             const newSender = await telegramService.getDcSender(chunkError.newDcId);
             if (newSender) {
               currentSender = newSender;
-              data = await getTelegramChunk(telegramClient, fileInfo, alignedOffset, limit, currentSender);
+              data = await getTelegramChunk(telegramClient, fileInfo, alignedOffset, limit, currentSender, chunkOptions);
             } else {
               throw chunkError;
             }
@@ -84,7 +90,7 @@ function createTelegramRangeStream(fileInfo, start, end) {
             const newSender = await telegramService.getDcSender(fileInfo.dcId, true);
             if (newSender) {
               currentSender = newSender;
-              data = await getTelegramChunk(telegramClient, fileInfo, alignedOffset, limit, currentSender);
+              data = await getTelegramChunk(telegramClient, fileInfo, alignedOffset, limit, currentSender, chunkOptions);
             } else {
               throw chunkError;
             }
@@ -128,6 +134,8 @@ function createTelegramRangeStream(fileInfo, start, end) {
 
 router.get('/raw/:fileId', async (req, res) => {
   let telegramStream;
+  const requestId = ++internalRawRequestCounter;
+  const requestAbortController = new AbortController();
 
   try {
     if (!isLoopbackAddress(req.socket?.remoteAddress)) {
@@ -135,6 +143,7 @@ router.get('/raw/:fileId', async (req, res) => {
     }
 
     const { fileId } = req.params;
+    console.log(`[InternalRaw] open req=${requestId} file=${fileId} range=${req.headers.range || 'full'}`);
     const fileInfo = await telegramService.getFileInfo(fileId);
 
     // Pre-resolve the DC sender to avoid "currently stored in DC X" errors
@@ -186,12 +195,17 @@ router.get('/raw/:fileId', async (req, res) => {
 
     res.writeHead(statusCode, headers);
 
-    telegramStream = createTelegramRangeStream(fileInfo, start, end);
+    telegramStream = createTelegramRangeStream(fileInfo, start, end, { signal: requestAbortController.signal });
 
     req.on('close', () => {
+      requestAbortController.abort();
       if (telegramStream && !telegramStream.destroyed) {
         telegramStream.destroy();
       }
+      console.log(`[InternalRaw] close req=${requestId} file=${fileId}`);
+    });
+    res.on('finish', () => {
+      console.log(`[InternalRaw] finish req=${requestId} file=${fileId} status=${res.statusCode}`);
     });
 
     telegramStream.on('error', (error) => {
@@ -206,6 +220,7 @@ router.get('/raw/:fileId', async (req, res) => {
     telegramStream.pipe(res);
   } catch (error) {
     console.error('[InternalRaw] Route error:', error.message);
+    requestAbortController.abort();
     if (telegramStream && !telegramStream.destroyed) {
       telegramStream.destroy();
     }

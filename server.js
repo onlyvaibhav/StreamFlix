@@ -773,6 +773,109 @@ app.get('/api/metadata/:fileId', async (req, res) => {
   }
 });
 
+// GET /api/stream/:fileId/part-info — Multipart movie part durations for seamless playback
+app.get('/api/stream/:fileId/part-info', async (req, res) => {
+  try {
+    const { fileId } = req.params;
+    const filePath = path.join(DATA_DIR, `${fileId}.json`);
+
+    let parsed;
+    try {
+      const raw = await fs.readFile(filePath, 'utf-8');
+      parsed = JSON.parse(raw);
+    } catch {
+      return res.status(404).json({ error: 'Metadata not found' });
+    }
+
+    // Find all parts of this movie
+    let parts = [];
+    if (parsed.type === 'movie' && parsed.tmdbId && parsed.tmdbId !== 0) {
+      const allMetadata = await loadAllValidMetadata();
+      const sameMovie = allMetadata.filter(m =>
+        m.tmdbId === parsed.tmdbId && isMovieContent(m)
+      );
+
+      if (sameMovie.length > 1) {
+        const sorted = sameMovie.sort((a, b) => {
+          const partA = detectSplitFile(a.fileName);
+          const partB = detectSplitFile(b.fileName);
+          if (partA && partB) return partA.partNumber - partB.partNumber;
+          return (a.fileName || '').localeCompare(b.fileName || '');
+        });
+
+        parts = sorted.map((m, i) => ({
+          fileId: m.fileId,
+          fileName: m.fileName,
+          partNumber: i + 1,
+          duration: Number.isFinite(Number(m.duration)) && Number(m.duration) > 0
+            ? Number(m.duration)
+            : 0,
+        }));
+      }
+    }
+
+    // If not multipart, return single-part info
+    if (parts.length <= 1) {
+      const duration = Number.isFinite(Number(parsed.duration)) && Number(parsed.duration) > 0
+        ? Number(parsed.duration)
+        : (parsed.runtime ? parsed.runtime * 60 : 0);
+      return res.json({
+        fileId,
+        isSplit: false,
+        parts: [{ fileId, fileName: parsed.fileName, partNumber: 1, duration }],
+        totalDuration: duration,
+        durationMap: [{ part: 1, fileId, start: 0, end: duration }],
+      });
+    }
+
+    // Estimate missing durations from total runtime if available
+    const totalRuntime = parsed.runtime ? parsed.runtime * 60 : 0;
+    const partsWithDuration = parts.filter(p => p.duration > 0);
+    const partsMissingDuration = parts.filter(p => p.duration <= 0);
+
+    if (partsMissingDuration.length > 0 && totalRuntime > 0) {
+      const knownDuration = partsWithDuration.reduce((s, p) => s + p.duration, 0);
+      const remainingDuration = Math.max(0, totalRuntime - knownDuration);
+      const estimatePerPart = partsMissingDuration.length > 0
+        ? remainingDuration / partsMissingDuration.length
+        : 0;
+
+      for (const p of partsMissingDuration) {
+        p.duration = estimatePerPart;
+        p.estimated = true;
+      }
+    }
+
+    // Build cumulative duration map for O(1) seek mapping
+    let cumulative = 0;
+    const durationMap = parts.map(p => {
+      const entry = {
+        part: p.partNumber,
+        fileId: p.fileId,
+        start: cumulative,
+        end: cumulative + p.duration,
+        estimated: p.estimated || false,
+      };
+      cumulative += p.duration;
+      return entry;
+    });
+
+    const totalDuration = cumulative;
+
+    res.json({
+      fileId,
+      isSplit: true,
+      totalParts: parts.length,
+      parts,
+      totalDuration,
+      durationMap,
+    });
+  } catch (error) {
+    console.error(`[PartInfo] Error for ${req.params.fileId}:`, error.message);
+    res.status(500).json({ error: 'Failed to get part info' });
+  }
+});
+
 // GET /api/tv/:showTmdbId — Full show with all seasons/episodes
 app.get('/api/tv/:showTmdbId', async (req, res) => {
   try {

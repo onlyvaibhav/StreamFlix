@@ -1,6 +1,6 @@
 {
-  "fileId": "954",
-  "fileName": "Seihantai - S01E11.mkv",
+  "fileId": "944",
+  "fileName": "Seihantai - S01E01.mkv",
   "type": "tv",
   "title": "You and I Are Polar Opposites",
   "originalTitle": "正反対な君と僕",
@@ -18,15 +18,15 @@
   "poster": "/data/posters/show_278043.jpg",
   "backdrop": "/data/backdrops/show_278043_bd.jpg",
   "tmdbId": 278043,
-  "fetchedAt": "2026-05-17T10:01:06.894Z",
+  "fetchedAt": "2026-05-17T10:03:21.885Z",
   "needsRetry": false,
   "tv": {
     "showTitle": "You and I Are Polar Opposites",
     "originalShowTitle": "正反対な君と僕",
     "seasonNumber": 1,
-    "episodeNumber": 11,
-    "episodeTitle": "Class Trip (Part 2)",
-    "episodeOverview": "On the second day of the class trip, Nishi gets a message from Yamada saying \"I want to see you.\" She heads out and finally realizes her true feelings. On the last day of the trip, Tani and Suzuki enjoy their time at a theme park, but Tani stops her from leaving and says, \"I want to spend a little more time with you.\"",
+    "episodeNumber": 1,
+    "episodeTitle": "You, My Polar Opposite",
+    "episodeOverview": "Suzuki is always cheerful and energetic, but she often worries about what the people around her think of her. That's why she secretly admires Tani, the quiet boy who sits next to her in class, for always clearly speaking his mind. One day after school, the two of them end up walking home together, and then...",
     "showTmdbId": 278043,
     "episodeRuntime": 24,
     "totalSeasons": 2,
@@ -207,7 +207,7 @@
     }
   ],
   "container": "matroska,webm",
-  "duration": 1432.062,
+  "duration": 1447.081,
   "_probeFailCount": 0,
   "logo": "/data/logos/show_278043_logo.png"
 }

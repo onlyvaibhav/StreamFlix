@@ -1,0 +1,74 @@
+{
+  "fileId": "989",
+  "fileName": "Dhurandhar.The.Revenge.1080p.10Bit.Uncensored-001.mkv",
+  "type": "movie",
+  "title": "Dhurandhar: The Revenge",
+  "originalTitle": "धुरंधर: द रिवेंज",
+  "overview": "As rival gangs, corrupt officials and a ruthless Major Iqbal close in, Hamza's mission for his country spirals into a bloody personal war where the line between patriot and monster disappears in the streets of Lyari.",
+  "releaseDate": "2026-03-18",
+  "year": 2026,
+  "runtime": 229,
+  "genres": [
+    "Action",
+    "Crime",
+    "Thriller"
+  ],
+  "rating": 7.359,
+  "popularity": 45.5363,
+  "awards": "",
+  "poster": "/data/posters/989.jpg",
+  "backdrop": "/data/backdrops/989_bd.jpg",
+  "tmdbId": 1582770,
+  "fetchedAt": "2026-05-17T10:04:16.622Z",
+  "needsRetry": false,
+  "tv": null,
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "VegaMovies.is",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": true
+    }
+  ],
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 2,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "VegaMovies.is",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": true,
+      "isForced": false
+    },
+    {
+      "index": 1,
+      "streamIndex": 3,
+      "codec": "ass",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    }
+  ],
+  "container": "matroska,webm",
+  "duration": 9385.578,
+  "_tracksDetected": true,
+  "_probeFailCount": 0,
+  "logo": "/data/logos/989_logo.png"
+}
