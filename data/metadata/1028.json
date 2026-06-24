@@ -1,0 +1,73 @@
+{
+  "fileId": "1028",
+  "fileName": "Bhooth_Bangla_2026_720p_NF_WEB_DL_Hindi_DDP5_1_H_264_Vegamovies.mkv",
+  "type": "movie",
+  "title": "Bhooth Bangla",
+  "originalTitle": "भूत बंगला",
+  "overview": "A man inherits a palace in rural Mangalpur and plans his sister's wedding there, but strange supernatural events and panicked locals force him to investigate the property's mysterious past.",
+  "releaseDate": "2026-04-16",
+  "year": 2026,
+  "runtime": 163,
+  "genres": [
+    "Horror",
+    "Comedy"
+  ],
+  "rating": 5.5,
+  "popularity": 343.6481,
+  "awards": "",
+  "poster": "/data/posters/1028.jpg",
+  "backdrop": "/data/backdrops/1028_bd.jpg",
+  "tmdbId": 1239134,
+  "fetchedAt": "2026-06-23T17:15:10.610Z",
+  "needsRetry": false,
+  "tv": null,
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "Vegamovies.is",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": true
+    }
+  ],
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 2,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Vegamovies.is",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": true,
+      "isForced": true
+    },
+    {
+      "index": 1,
+      "streamIndex": 3,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Vegamovies.is",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    }
+  ],
+  "container": "matroska,webm",
+  "duration": 9780.053,
+  "_tracksDetected": true,
+  "_probeFailCount": 0,
+  "logo": "/data/logos/1028_logo.png"
+}

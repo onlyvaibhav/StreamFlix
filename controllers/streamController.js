@@ -5,6 +5,8 @@ const { spawn } = require('child_process');
 const { loadMetadata, saveMetadata } = require('../services/metadataWorker');
 const bigInt = require('big-integer');
 const { getTelegramChunk } = require('../services/chunkCacheService');
+const { getDisplayTitle } = require('../utils/metadataUtils');
+const activityTracker = require('../services/activityTracker');
 
 // ==================== CHECK DEPENDENCIES ====================
 let HAS_FFMPEG = false;
@@ -570,18 +572,34 @@ exports.transmuxStream = exports.stream;
 exports.seek = exports.stream;
 
 // ==================== DIRECT STREAM — full seek support ====================
+// ==================== DIRECT STREAM — full seek support ====================
 async function streamDirect(fileInfo, fileSize, start, end, range, res, req = null) {
   const telegramClient = telegramService.getClient();
   if (!telegramClient) throw new Error('Telegram client not ready');
 
   const requestId = ++streamRequestCounter;
   const clientIp = req?.ip || req?.connection?.remoteAddress || 'unknown';
+  const userAgent = req?.headers['user-agent'] || 'unknown';
+  const fileId = fileInfo.id;
+
+  const sessionKey = activityTracker.getSessionKey(clientIp, userAgent, fileId);
+  const reqId = `direct_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+
+  activityTracker.registerRangeRequest(sessionKey, {
+      fileId,
+      ip: clientIp,
+      userAgent,
+      rangeHeader: range || 'full',
+      startOffset: start,
+      reqId
+  });
+
   const requestAbortController = new AbortController();
   const chunkOptions = { signal: requestAbortController.signal };
-  console.log(`[Stream] open req=${requestId} file=${fileInfo.id} ip=${clientIp} range=${range || 'full'}`);
+  
   if (requestId % 20 === 1 && typeof telegramService.getConnectionStats === 'function') {
     const stats = telegramService.getConnectionStats();
-    console.log(`[TelegramStats] connects=${stats.connectCount} senderReq=${stats.senderRequests} senderReconnects=${stats.senderForceReconnects} senderReconnectSkipped=${stats.senderForceReconnectSkipped}`);
+    console.log(`[TelegramStats] connects=${stats.connectCount} senderReq=${stats.senderRequests} senderReconnects=${stats.senderForceReconnects}`);
   }
 
   // Resolve correct DC sender upfront to avoid "currently stored in DC X" errors
@@ -617,10 +635,31 @@ async function streamDirect(fileInfo, fileSize, start, end, range, res, req = nu
   let currentPosition = start;
   let bytesRemaining = contentLength;
 
+  let ended = false;
+  const endRequest = () => {
+    if (ended) return;
+    ended = true;
+    const finalBytesSent = currentPosition - start;
+    activityTracker.updateRangeRequestProgress(sessionKey, reqId, finalBytesSent);
+    activityTracker.deregisterRangeRequest(sessionKey, reqId, finalBytesSent);
+  };
+
   res.on('close', () => {
     clientDisconnected = true;
     requestAbortController.abort();
-    console.log(`[Stream] close req=${requestId} file=${fileInfo.id} remaining=${bytesRemaining}`);
+    endRequest();
+  });
+
+  res.on('finish', () => {
+    endRequest();
+  });
+
+  res.on('error', () => {
+    endRequest();
+  });
+
+  req.on('close', () => {
+    endRequest();
   });
 
   while (bytesRemaining > 0 && !clientDisconnected && !requestAbortController.signal.aborted) {
@@ -666,6 +705,8 @@ async function streamDirect(fileInfo, fileSize, start, end, range, res, req = nu
       currentPosition += data.length;
       bytesRemaining -= data.length;
 
+      activityTracker.updateRangeRequestProgress(sessionKey, reqId, currentPosition - start);
+
       if (!ok && !clientDisconnected) {
         await new Promise((resolve) => res.once('drain', resolve));
       }
@@ -690,6 +731,7 @@ async function streamDirect(fileInfo, fileSize, start, end, range, res, req = nu
             res.write(data);
             currentPosition += data.length;
             bytesRemaining -= data.length;
+            activityTracker.updateRangeRequestProgress(sessionKey, reqId, currentPosition - start);
           }
         } else {
           break;
@@ -705,7 +747,8 @@ async function streamDirect(fileInfo, fileSize, start, end, range, res, req = nu
   if (!clientDisconnected && !res.writableEnded) {
     res.end();
   }
-  console.log(`[Stream] complete req=${requestId} file=${fileInfo.id} sent=${contentLength - bytesRemaining}/${contentLength}`);
+
+  endRequest();
 }
 
 // ==================== FFMPEG REMUX STREAM ====================
@@ -720,6 +763,20 @@ async function streamWithRemux(req, res, fileId, options = {}) {
   const internalPort = req.app.get('internalPort') || process.env.PORT || 5000;
   const inputUrl = `http://127.0.0.1:${internalPort}/internal/raw/${fileId}`;
   const key = String(fileId);
+
+  const clientIp = req.ip || req.connection?.remoteAddress || 'unknown';
+  const userAgent = req.headers['user-agent'] || 'unknown';
+  const sessionKey = activityTracker.getSessionKey(clientIp, userAgent, fileId);
+  const reqId = `remux_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+
+  activityTracker.registerRangeRequest(sessionKey, {
+      fileId,
+      ip: clientIp,
+      userAgent,
+      rangeHeader: `seek=${startTime}s`,
+      startOffset: 0,
+      reqId
+  });
 
   killTranscode(key);
 
@@ -754,6 +811,7 @@ async function streamWithRemux(req, res, fileId, options = {}) {
     } else if (!res.writableEnded) {
       res.end();
     }
+    activityTracker.deregisterRangeRequest(sessionKey, reqId, 0);
     return;
   }
 
@@ -766,6 +824,15 @@ async function streamWithRemux(req, res, fileId, options = {}) {
 
   return new Promise((resolve) => {
     let settled = false;
+    let bytesSent = 0;
+    let ended = false;
+
+    const endRequest = () => {
+      if (ended) return;
+      ended = true;
+      activityTracker.updateRangeRequestProgress(sessionKey, reqId, bytesSent);
+      activityTracker.deregisterRangeRequest(sessionKey, reqId, bytesSent);
+    };
 
     const cleanup = () => {
       if (settled) return;
@@ -780,10 +847,16 @@ async function streamWithRemux(req, res, fileId, options = {}) {
         try { res.end(); } catch { }
       }
 
+      endRequest();
       resolve();
     };
 
     ffmpeg.stdout.pipe(res);
+
+    ffmpeg.stdout.on('data', (chunk) => {
+      bytesSent += chunk.length;
+      activityTracker.updateRangeRequestProgress(sessionKey, reqId, bytesSent);
+    });
 
     ffmpeg.stderr.on('data', (data) => {
       const msg = data.toString().trim();

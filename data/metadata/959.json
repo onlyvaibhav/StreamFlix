@@ -2,15 +2,71 @@
   "fileId": "959",
   "fileName": "Sambavam_Adhyayam_Onnu_2026_720p_WEB_Dl_Hindi_DD5_1_Malayalam_DD5.mkv",
   "type": "movie",
-  "title": "Sambavam Adhyayam Onnu",
+  "title": "Sambhavam Adhyayam Onnu",
+  "originalTitle": "സംഭവം അദ്ധ്യായം ഒന്ന്",
+  "overview": "Three Kerala Police officers venture into a mysterious forest on the Kerala-Tamil Nadu border to find a missing officer. They encounter strange time-related phenomena, uncovering the hidden secrets of Velloorkkatt forest.",
+  "releaseDate": "2026-03-06",
   "year": 2026,
-  "tmdbId": 0,
-  "needsRetry": true,
-  "createdAt": "2026-05-17T15:06:05.192Z",
-  "_retry": {
-    "attemptCount": 0,
-    "lastAttempt": 0,
-    "searchedTitle": "Sambavam Adhyayam Onnu",
-    "searchedYear": 2026
-  }
+  "runtime": 127,
+  "genres": [
+    "Fantasy",
+    "Thriller",
+    "Drama"
+  ],
+  "rating": 6.4,
+  "popularity": 11.8233,
+  "poster": "/data/posters/959.jpg",
+  "backdrop": "/data/backdrops/959_bd.jpg",
+  "tmdbId": 1469458,
+  "fetchedAt": "2026-06-24T06:41:35.097Z",
+  "needsRetry": false,
+  "tv": null,
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "Vegamovies.is",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": true
+    },
+    {
+      "index": 1,
+      "streamIndex": 2,
+      "codec": "aac",
+      "language": "Malayalam",
+      "languageCode": "mal",
+      "title": "Vegamovies.is",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": false
+    }
+  ],
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 3,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Vegamovies.is",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    }
+  ],
+  "container": "matroska,webm",
+  "duration": 7651.861,
+  "_tracksDetected": true,
+  "_probeFailCount": 0,
+  "logo": "/data/logos/959_logo.png"
 }

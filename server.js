@@ -112,7 +112,19 @@ app.use(cors({
   credentials: true
 }));
 
-app.use(morgan('dev'));
+// Setup Morgan logger to suppress noisy static/heartbeat requests
+app.use(morgan('dev', {
+  skip: (req, res) => {
+    if (process.env.DEBUG_LOGS === 'true') return false;
+    
+    const url = req.originalUrl || req.url;
+    const isStatic = url.match(/\.(css|js|ico|jpg|png|vtt|webp)$/i);
+    const isData = url.startsWith('/data/') || url.startsWith('/api/proxy/');
+    const isHeartbeat = url.includes('/heartbeat');
+    
+    return isStatic || isData || isHeartbeat;
+  }
+}));
 app.use(express.json({ limit: '5mb' }));
 app.use(express.urlencoded({ extended: true, limit: '5mb' }));
 
@@ -200,19 +212,27 @@ const METADATA_CACHE_TTL = 1000 * 60 * 60; // 1 hour
 // Debounce invalidation logs
 let _cacheInvalidateTimer = null;
 let _cacheInvalidateCount = 0;
+let _cacheInvalidateReasons = new Set();
 
-function invalidateCache() {
+function invalidateCache(reason) {
   _metadataCache = null;
   _metadataCacheTime = 0;
   _curatedCache = null;
   _curatedCacheTime = 0;
   _cacheInvalidateCount++;
-
+  
+  if (reason) {
+      _cacheInvalidateReasons.add(reason);
+  }
 
   if (_cacheInvalidateTimer) clearTimeout(_cacheInvalidateTimer);
 
   _cacheInvalidateTimer = setTimeout(() => {
-    console.log(`🗑️ [Server] Metadata cache invalidated (${_cacheInvalidateCount} changes)`);
+    const reasonText = _cacheInvalidateReasons.size > 0 
+        ? ` Reasons: ${Array.from(_cacheInvalidateReasons).join(', ')}` 
+        : '';
+        
+    console.log(`\n🗑️ [Cache] Invalidated metadata cache (${_cacheInvalidateCount} changes).${reasonText}\n`);
 
     // Invalidate Telegram service cache too (Debounced)
     if (worker.worker && worker.worker.telegramService && worker.worker.telegramService.invalidateCache) {
@@ -220,8 +240,9 @@ function invalidateCache() {
     }
 
     _cacheInvalidateCount = 0;
+    _cacheInvalidateReasons.clear();
     _cacheInvalidateTimer = null;
-  }, 1000);
+  }, 5000);
 }
 
 async function loadAllValidMetadata() {

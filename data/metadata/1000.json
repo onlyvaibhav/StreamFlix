@@ -1,0 +1,72 @@
+{
+  "fileId": "1000",
+  "fileName": "I_Robot_2004_720p_BluRay_Dual_Audio_x264_ESub_Vegamovies_NL.mkv",
+  "type": "movie",
+  "title": "I, Robot",
+  "originalTitle": "I, Robot",
+  "overview": "In 2035, where robots are commonplace and abide by the three laws of robotics, a technophobic cop investigates an apparent suicide. Suspecting that a robot may be responsible for the death, his investigation leads him to believe that humanity may be in danger.",
+  "releaseDate": "2004-07-15",
+  "year": 2004,
+  "runtime": 115,
+  "genres": [
+    "Action",
+    "Science Fiction"
+  ],
+  "rating": 6.965,
+  "popularity": 9.2619,
+  "awards": "Nominated for 1 Oscar. 1 win & 15 nominations total",
+  "poster": "/data/posters/1000.jpg",
+  "backdrop": "/data/backdrops/1000_bd.jpg",
+  "tmdbId": 2048,
+  "fetchedAt": "2026-06-22T11:31:07.536Z",
+  "needsRetry": false,
+  "tv": null,
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "_tracksDetected": true,
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "...:::www.SkymoviesHD.ltd:::...",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": true
+    },
+    {
+      "index": 1,
+      "streamIndex": 2,
+      "codec": "aac",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "...:::www.SkymoviesHD.ltd:::...",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": false
+    }
+  ],
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 3,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "...:::www.SkymoviesHD.ltd:::...",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": true,
+      "isForced": false
+    }
+  ],
+  "container": "matroska,webm",
+  "duration": 6884.252,
+  "_probeFailCount": 0,
+  "logo": "/data/logos/1000_logo.png"
+}

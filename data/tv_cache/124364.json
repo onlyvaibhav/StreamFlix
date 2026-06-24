@@ -7,7 +7,7 @@
     "Drama",
     "Sci-Fi & Fantasy"
   ],
-  "rating": 8.154,
+  "rating": 8.487,
   "poster": "/data/posters/show_124364.jpg",
   "backdrop": "/data/backdrops/show_124364_bd.jpg",
   "year": 2022,
@@ -317,6 +317,33 @@
         "episodeTitle": "Of Myths and Monsters",
         "episodeOverview": "An ominous discovery puts Boyd and his trusted circle on high alert; Julie searches for a way to harness her newfound abilities and Sara is once again tortured by the voices in her head.",
         "runtime": 52
+      },
+      {
+        "fileId": "994",
+        "fileName": "From_S04E05_720p_WEB_DL_Hindi_English_x264_Vegamovies_is_converted.mkv",
+        "seasonNumber": 4,
+        "episodeNumber": 5,
+        "episodeTitle": "What a Long Strange Trip It's Been",
+        "episodeOverview": "Boyd and Jade set off on a desperate, mind-bending search for answers, while a food run to the settlement takes a chilling turn.",
+        "runtime": 53
+      },
+      {
+        "fileId": "1003",
+        "fileName": "From.S04E06.1080p.AMZN.WEB-DL.DDP5.1.x264-VegaMovies.is.mkv",
+        "seasonNumber": 4,
+        "episodeNumber": 6,
+        "episodeTitle": "The Heart Is a Lonely Hunter",
+        "episodeOverview": "Boyd and Jade find themselves at odds over whether or not they can trust the knowledge in Jade's head; deeply troubling news from the settlement makes its way back to town.",
+        "runtime": 52
+      },
+      {
+        "fileId": "1004",
+        "fileName": "From.S04E07.1080p.AMZN.WEB-DL.DD5.1.x264-VegaMovies.is.mkv",
+        "seasonNumber": 4,
+        "episodeNumber": 7,
+        "episodeTitle": "Best Laid Plans",
+        "episodeOverview": "As Tabitha and Jade’s troubling history is brought to light, things begin to unravel for another resident in town. Boyd wants to test a dangerous theory.",
+        "runtime": 51
       }
     ]
   },
@@ -326,5 +353,5 @@
     3,
     4
   ],
-  "availableEpisodeCount": 33
+  "availableEpisodeCount": 36
 }

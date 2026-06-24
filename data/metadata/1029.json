@@ -1,0 +1,84 @@
+{
+  "fileId": "1029",
+  "fileName": "Eagle.2024.720p.WEB-DL.HIN-TEL.x264.ESubs-Vegamovies.is.mkv",
+  "type": "movie",
+  "title": "Eagle",
+  "originalTitle": "ఈగల్",
+  "overview": "A journalist pieces together the story of Eagle, a former professional sniper who falls in love with Rachana, and on a mission to redeem himself by working towards eradicating illegal arms from this world.",
+  "releaseDate": "2024-02-08",
+  "year": 2024,
+  "runtime": 156,
+  "genres": [
+    "Action",
+    "Thriller"
+  ],
+  "rating": 5,
+  "popularity": 0.9468,
+  "poster": "/data/posters/1029.jpg",
+  "backdrop": "/data/backdrops/1029_bd.jpg",
+  "tmdbId": 1150478,
+  "fetchedAt": "2026-06-23T17:34:50.550Z",
+  "needsRetry": false,
+  "tv": null,
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "Vegamovies.is",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": true
+    },
+    {
+      "index": 1,
+      "streamIndex": 2,
+      "codec": "aac",
+      "language": "Telugu",
+      "languageCode": "tel",
+      "title": "Vegamovies.is",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": false
+    }
+  ],
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 3,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Vegamovies.is",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": true,
+      "isForced": true
+    },
+    {
+      "index": 1,
+      "streamIndex": 4,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Vegamovies.is",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    }
+  ],
+  "container": "matroska,webm",
+  "duration": 9383.688,
+  "_tracksDetected": true,
+  "_probeFailCount": 0,
+  "logo": "/data/logos/1029_logo.png"
+}

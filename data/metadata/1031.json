@@ -1,0 +1,29 @@
+{
+  "fileId": "1031",
+  "fileName": "Mortal_Kombat_II_2026_1080p_10bit_WEB_DL_HIN_ENG_5_1x265_ESub_VegaMovies.mkv",
+  "type": "movie",
+  "title": "Mortal Kombat II",
+  "originalTitle": "Mortal Kombat II",
+  "overview": "The fan favorite champions—now joined by Johnny Cage himself—are pitted against one another in the ultimate, no-holds barred, gory battle to defeat the dark rule of Shao Kahn that threatens the very existence of the Earthrealm and its defenders.",
+  "releaseDate": "2026-05-06",
+  "year": 2026,
+  "runtime": 116,
+  "genres": [
+    "Action",
+    "Fantasy",
+    "Adventure"
+  ],
+  "rating": 7.992,
+  "popularity": 402.3089,
+  "awards": "",
+  "poster": "/data/posters/1031.jpg",
+  "backdrop": "/data/backdrops/1031_bd.jpg",
+  "tmdbId": 931285,
+  "fetchedAt": "2026-06-24T06:38:01.083Z",
+  "needsRetry": false,
+  "tv": null,
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "_tracksDetected": true,
+  "logo": "/data/logos/1031_logo.png"
+}

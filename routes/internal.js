@@ -3,6 +3,7 @@ const { Api } = require('telegram');
 const bigInt = require('big-integer');
 const telegramService = require('../services/telegramService');
 const { getTelegramChunk } = require('../services/chunkCacheService');
+const { getDisplayTitle } = require('../utils/metadataUtils');
 
 const router = express.Router();
 let internalRawRequestCounter = 0;
@@ -143,7 +144,12 @@ router.get('/raw/:fileId', async (req, res) => {
     }
 
     const { fileId } = req.params;
-    console.log(`[InternalRaw] open req=${requestId} file=${fileId} range=${req.headers.range || 'full'}`);
+    const displayTitle = await getDisplayTitle(fileId);
+    
+    console.log(`\n[InternalRaw] ▶ OPEN
+Title: ${displayTitle}
+File ID: ${fileId}
+Range: ${req.headers.range || 'full'}\n`);
     const fileInfo = await telegramService.getFileInfo(fileId);
 
     // Pre-resolve the DC sender to avoid "currently stored in DC X" errors
@@ -202,10 +208,15 @@ router.get('/raw/:fileId', async (req, res) => {
       if (telegramStream && !telegramStream.destroyed) {
         telegramStream.destroy();
       }
-      console.log(`[InternalRaw] close req=${requestId} file=${fileId}`);
+      console.log(`\n[InternalRaw] ■ CLOSE
+Title: ${displayTitle}
+File ID: ${fileId}\n`);
     });
     res.on('finish', () => {
-      console.log(`[InternalRaw] finish req=${requestId} file=${fileId} status=${res.statusCode}`);
+      console.log(`\n[InternalRaw] ✓ COMPLETE
+Title: ${displayTitle}
+File ID: ${fileId}
+Status: ${res.statusCode}\n`);
     });
 
     telegramStream.on('error', (error) => {

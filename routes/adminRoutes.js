@@ -13,6 +13,7 @@ const {
     getAudioSweepStatus
 } = require('../services/metadataWorker');
 const logger = require('../services/logger');
+const activityTracker = require('../services/activityTracker');
 
 const DATA_DIR = path.join(__dirname, '../data/metadata');
 const POSTERS_DIR = path.join(__dirname, '../data/posters');
@@ -721,6 +722,15 @@ router.post('/metadata/refetch-all-failed', async (req, res) => {
             message: `${queued} items queued for re-fetch`
         });
 
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// GET /api/admin/streams
+router.get('/streams', (req, res) => {
+    try {
+        res.json(activityTracker.getStatus());
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

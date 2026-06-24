@@ -1,0 +1,85 @@
+{
+  "fileId": "1008",
+  "fileName": "Love_Me_Love_Me_2026_720p_AMZN_WEB_DL_x264_VegaMovies_Hot_converted.mkv",
+  "type": "movie",
+  "title": "Love Me Love Me",
+  "originalTitle": "Love Me Love Me",
+  "overview": "After her brother's death, June moves to Milan for a fresh start, finding comfort in Will, the perfect honor student at her new international school. But when his troubled best friend James—hiding a dangerous life in clandestine MMA fights—sparks a rivalry that quickly turns into irresistible attraction, June must choose between safety and a love that upends everything she thought she wanted.",
+  "releaseDate": "2026-02-12",
+  "year": 2026,
+  "runtime": 99,
+  "genres": [
+    "Romance",
+    "Drama"
+  ],
+  "rating": 5.978,
+  "popularity": 17.3695,
+  "awards": "",
+  "poster": "/data/posters/1008.jpg",
+  "backdrop": "/data/backdrops/1008_bd.jpg",
+  "tmdbId": 1317672,
+  "fetchedAt": "2026-06-22T11:28:16.298Z",
+  "needsRetry": false,
+  "tv": null,
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "_tracksDetected": true,
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "VegaMovies.is",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": true
+    },
+    {
+      "index": 1,
+      "streamIndex": 2,
+      "codec": "aac",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "VegaMovies.is",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": false
+    }
+  ],
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 3,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "VegaMovies.is",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    },
+    {
+      "index": 1,
+      "streamIndex": 4,
+      "codec": "ass",
+      "language": "Unknown",
+      "languageCode": "und",
+      "title": "",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": true,
+      "isForced": false
+    }
+  ],
+  "container": "matroska,webm",
+  "duration": 5990.965,
+  "_probeFailCount": 0,
+  "logo": "/data/logos/1008_logo.png"
+}

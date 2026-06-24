@@ -1,0 +1,96 @@
+{
+  "fileId": "1018",
+  "fileName": "We_Were_Liars_S01_E01_720p_WEB_DL_x264_HiN_ENG_ESub_Vegamovies_is.mkv",
+  "type": "tv",
+  "title": "We Were Liars",
+  "originalTitle": "We Were Liars",
+  "overview": "One year after a mysterious accident left her with amnesia, 17-year-old Cadence returns to Beechwood, an island off Martha's Vineyard, seeking answers. As three generations of the distinguished Sinclair family gather at their private summer utopia, no one will talk about the accident – neither her childhood friends \"The Liars\" nor her first love Gat, forcing her to uncover the truth herself.",
+  "releaseDate": "2025-06-18",
+  "year": 2025,
+  "runtime": 51,
+  "genres": [
+    "Drama",
+    "Mystery"
+  ],
+  "rating": 7.22,
+  "popularity": 4.8995,
+  "awards": "",
+  "poster": "/data/posters/show_215522.jpg",
+  "backdrop": "/data/backdrops/show_215522_bd.jpg",
+  "tmdbId": 215522,
+  "fetchedAt": "2026-06-22T11:27:55.366Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "We Were Liars",
+    "originalShowTitle": "We Were Liars",
+    "seasonNumber": 1,
+    "episodeNumber": 1,
+    "episodeTitle": "Tell Me Sweet Little Lies",
+    "episodeOverview": "Every summer, Cadence Sinclair cherishes her time with her cousins Mirren and Johnny and her best friend Gat on Beechwood Island. At sixteen, what begins as their usual summer of mischief transforms when Cadence and Gat fall in love, while adult tensions rise in her family. She doesn't know this fairy tale will end with her alone on the beach, injured and with no memory of how she got there.",
+    "showTmdbId": 215522,
+    "episodeRuntime": 51,
+    "totalSeasons": 1,
+    "totalEpisodes": 8
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "_tracksDetected": true,
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "Vegamovies.is",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": true
+    },
+    {
+      "index": 1,
+      "streamIndex": 2,
+      "codec": "aac",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Vegamovies.is",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": false
+    }
+  ],
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 3,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Vegamovies.is",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    },
+    {
+      "index": 1,
+      "streamIndex": 4,
+      "codec": "ass",
+      "language": "ice",
+      "languageCode": "ice",
+      "title": "",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": true,
+      "isForced": false
+    }
+  ],
+  "container": "matroska,webm",
+  "duration": 3069.781,
+  "_probeFailCount": 0,
+  "logo": "/data/logos/show_215522_logo.png"
+}

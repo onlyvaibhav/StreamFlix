@@ -1,0 +1,28 @@
+{
+  "fileId": "1030",
+  "fileName": "Karuppu_2026_720p_AMZN_WEB_DL_Hindi_DD5_1_Tamil_DD5_1_x264_Vegamovies.mkv",
+  "type": "movie",
+  "title": "Karuppu",
+  "originalTitle": "கருப்பு",
+  "overview": "In a world where justice falters, guardian deity Vettai Karuppu takes the guise of a lawyer to battle a corrupt legal system preying on the powerless.",
+  "releaseDate": "2026-05-14",
+  "year": 2026,
+  "runtime": 152,
+  "genres": [
+    "Action",
+    "Fantasy"
+  ],
+  "rating": 6.7,
+  "popularity": 226.4803,
+  "awards": "",
+  "poster": "/data/posters/1030.jpg",
+  "backdrop": "/data/backdrops/1030_bd.jpg",
+  "tmdbId": 1367220,
+  "fetchedAt": "2026-06-23T17:23:22.454Z",
+  "needsRetry": false,
+  "tv": null,
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "_tracksDetected": true,
+  "logo": "/data/logos/1030_logo.png"
+}

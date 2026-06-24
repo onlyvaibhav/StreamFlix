@@ -1,0 +1,60 @@
+{
+  "fileId": "996",
+  "fileName": "Ittefaq_2017_BluRay_720p_Hindi_AAC_5_1_x264_ESub_Vegamovies_to.mkv",
+  "type": "movie",
+  "title": "Ittefaq",
+  "originalTitle": "इत्तेफ़ाक़",
+  "overview": "Police officer Dev investigates a double murder case that has only two witnesses - an acclaimed writer Vikram and a young homemaker Maya, who also happen to be the prime suspects in the case. He finds himself being torn between their own version's of what happened on the fateful night, and takes it upon himself to figure out the real story and capture the real murderer.",
+  "releaseDate": "2017-11-03",
+  "year": 2017,
+  "runtime": 107,
+  "genres": [
+    "Crime",
+    "Thriller"
+  ],
+  "rating": 6.828,
+  "popularity": 1.5615,
+  "awards": "6 nominations total",
+  "poster": "/data/posters/996.jpg",
+  "backdrop": "/data/backdrops/996_bd.jpg",
+  "tmdbId": 464458,
+  "fetchedAt": "2026-06-22T11:32:41.150Z",
+  "needsRetry": false,
+  "tv": null,
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "_tracksDetected": true,
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "Vegamovies.toVegamovies.to",
+      "channels": 6,
+      "channelLayout": "5.1",
+      "browserPlayable": true,
+      "isDefault": true
+    }
+  ],
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 2,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Vegamovies.to",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": true,
+      "isForced": false
+    }
+  ],
+  "container": "matroska,webm",
+  "duration": 6331.721,
+  "_probeFailCount": 0,
+  "logo": "/data/logos/996_logo.png"
+}

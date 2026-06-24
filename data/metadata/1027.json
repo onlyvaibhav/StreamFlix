@@ -1,0 +1,61 @@
+{
+  "fileId": "1027",
+  "fileName": "404_Error_Not_Found_2011_WebRip_720p_Hindi_AAC_x264_ESub_Vegamovies.mkv",
+  "type": "movie",
+  "title": "404: Error Not Found",
+  "originalTitle": "404: Error Not Found",
+  "overview": "A brilliant student starts hallucinating after moving into a room that was occupied by another who committed suicide.",
+  "releaseDate": "2011-05-20",
+  "year": 2011,
+  "runtime": 121,
+  "genres": [
+    "Drama",
+    "Mystery",
+    "Thriller"
+  ],
+  "rating": 6.313,
+  "popularity": 0.2608,
+  "awards": "",
+  "poster": "/data/posters/1027.jpg",
+  "backdrop": "/data/backdrops/1027_bd.jpg",
+  "tmdbId": 71481,
+  "fetchedAt": "2026-06-22T11:21:41.667Z",
+  "needsRetry": false,
+  "tv": null,
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "_tracksDetected": true,
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "mkvCinemas",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": true
+    }
+  ],
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 2,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "mkvCinemas",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": true,
+      "isForced": false
+    }
+  ],
+  "container": "matroska,webm",
+  "duration": 7103.668,
+  "_probeFailCount": 0,
+  "logo": "N/A"
+}

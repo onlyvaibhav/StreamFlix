@@ -1,0 +1,61 @@
+{
+  "fileId": "1006",
+  "fileName": "The.Proposal.2009.720p.MoviesVerse.org.mkv",
+  "type": "movie",
+  "title": "The Proposal",
+  "originalTitle": "The Proposal",
+  "overview": "When she learns she's in danger of losing her visa status and being deported, overbearing book editor Margaret Tate forces her put-upon assistant, Andrew Paxton, to marry her.",
+  "releaseDate": "2009-06-02",
+  "year": 2009,
+  "runtime": 108,
+  "genres": [
+    "Comedy",
+    "Romance",
+    "Drama"
+  ],
+  "rating": 7.168,
+  "popularity": 14.8916,
+  "awards": "7 wins & 20 nominations total",
+  "poster": "/data/posters/1006.jpg",
+  "backdrop": "/data/backdrops/1006_bd.jpg",
+  "tmdbId": 18240,
+  "fetchedAt": "2026-06-22T11:29:02.097Z",
+  "needsRetry": false,
+  "tv": null,
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "_tracksDetected": true,
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "MoviesVerse.org",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": false
+    }
+  ],
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 2,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "MoviesVerse.org",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": true,
+      "isForced": false
+    }
+  ],
+  "container": "matroska,webm",
+  "duration": 6467.55,
+  "_probeFailCount": 0,
+  "logo": "/data/logos/1006_logo.png"
+}

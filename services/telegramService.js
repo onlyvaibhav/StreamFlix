@@ -43,6 +43,7 @@ let client = null;
 let channelEntity = null;
 let initPromise = null;
 const senderReconnectState = new Map();
+const failedSenders = new Set();
 const SENDER_FORCE_RECONNECT_COOLDOWN_MS = 15000;
 const telegramConnectionStats = {
   initCalls: 0,
@@ -67,7 +68,6 @@ async function resolveSender(doc) {
   try {
     return await client.getSender(dcId);
   } catch (e) {
-    console.warn(`⚠️ [Telegram] Failed to get sender for DC ${dcId}, falling back to main client:`, e.message);
     return client;
   }
 }
@@ -244,7 +244,25 @@ async function initTelegram() {
       await client.connect();
       telegramConnectionStats.connectCount += 1;
       telegramConnectionStats.lastConnectAt = new Date().toISOString();
-      console.log(`[Telegram] Connected (count=${telegramConnectionStats.connectCount})`);
+      
+      // Suppress GramJS internal MTProto logging
+      client.logger.setLevel('error');
+      
+      console.log(`[Telegram] Connected DC${client.session.dcId}`);
+
+      // Connection monitoring loop
+      let wasConnected = true;
+      setInterval(async () => {
+        try {
+          if (client) {
+            const isConnected = client.connected;
+            if (isConnected && !wasConnected) {
+              console.log(`[Telegram] Reconnected DC${client.session.dcId}`);
+            }
+            wasConnected = isConnected;
+          }
+        } catch (e) {}
+      }, 5000);
 
       if (!(await client.checkAuthorization())) {
         throw new Error('Session expired! Run: node generateSession.js');
@@ -713,7 +731,6 @@ async function streamFile(messageId, start, end) {
         resultData = await getTelegramChunk(client, fileInfo, alignedOffset, limit, currentSender);
       } catch (error) {
         if (error.isMigrationError && error.newDcId) {
-          console.log(`[Telegram] Mid-stream migration to DC ${error.newDcId} for ${messageId}`);
           currentSender = await client.getSender(error.newDcId);
           resultData = await getTelegramChunk(client, fileInfo, alignedOffset, limit, currentSender);
         } else {
@@ -831,7 +848,6 @@ async function downloadBytes(doc, startOffset, length) {
       resultData = await getTelegramChunk(client, fileInfo, alignedOffset, limit, currentSender);
     } catch (error) {
       if (error.isMigrationError && error.newDcId) {
-        console.log(`[Telegram] Mid-download migration to DC ${error.newDcId}`);
         currentSender = await client.getSender(error.newDcId);
         resultData = await getTelegramChunk(client, fileInfo, alignedOffset, limit, currentSender);
       } else {
@@ -876,21 +892,19 @@ async function getFileInfo(messageId) {
   try {
     messages = await client.getMessages(channelEntity, { ids: [parseInt(messageId)] });
   } catch (e) {
-    console.warn(`[Telegram] ⚠️ getFileInfo initial fetch failed: ${e.message}`);
+    // Suppressed initial fetch failure log
   }
 
   if (!messages?.[0]?.media?.document) {
-    console.log(`[Telegram] ⚠️ getFileInfo failed for ID ${messageId}. Refreshing entity and retrying...`);
     try {
       channelEntity = await client.getEntity(config.channelId);
       messages = await client.getMessages(channelEntity, { ids: [parseInt(messageId)] });
     } catch (retryErr) {
-      console.error(`[Telegram] ❌ getFileInfo retry failed: ${retryErr.message}`);
+      // Suppressed retry failure log
     }
   }
 
   if (!messages?.[0]?.media?.document) {
-    console.warn(`[Telegram] ❌ getFileInfo permanently failed for ID ${messageId}`);
     return null;
   }
 
@@ -1128,7 +1142,6 @@ async function getEmbeddedSubtitleViaFFmpeg(messageId, streamIndex) {
           resultData = await getTelegramChunk(client, fileInfo, alignedOffset, limit, currentSender);
         } catch (error) {
           if (error.isMigrationError && error.newDcId) {
-            console.log(`[Telegram] Subtitle pipe migration to DC ${error.newDcId}`);
             currentSender = await client.getSender(error.newDcId);
             resultData = await getTelegramChunk(client, fileInfo, alignedOffset, limit, currentSender);
           } else {
@@ -1298,7 +1311,6 @@ function getFileReadStream(doc) {
           resultData = await getTelegramChunk(client, fileInfo, offset, limit, currentSender);
         } catch (error) {
           if (error.isMigrationError && error.newDcId) {
-            console.log(`[Telegram] ReadStream migration to DC ${error.newDcId}`);
             currentSender = await client.getSender(error.newDcId);
             resultData = await getTelegramChunk(client, fileInfo, offset, limit, currentSender);
           } else {
@@ -1633,7 +1645,6 @@ async function downloadPartial(doc, offset, totalNeeded) {
       resultData = await getTelegramChunk(client, fileInfo, alignedOffset, limit, currentSender);
     } catch (error) {
       if (error.isMigrationError && error.newDcId) {
-        console.log(`[Telegram] Partial download migration to DC ${error.newDcId}`);
         currentSender = await client.getSender(error.newDcId);
         resultData = await getTelegramChunk(client, fileInfo, alignedOffset, limit, currentSender);
       } else {
@@ -1692,7 +1703,6 @@ async function downloadProbeChunk(doc, targetSize) {
         break; // Success!
       } catch (error) {
         if (error.isMigrationError && error.newDcId) {
-          console.log(`[Telegram] Probe migration to DC ${error.newDcId}`);
           currentSender = await client.getSender(error.newDcId);
           // Retry immediately without consuming a standard retry attempt
           continue; 
@@ -1878,7 +1888,6 @@ module.exports = {
           telegramConnectionStats.senderForceReconnects += 1;
           state.lastForceReconnectAt = now;
           senderReconnectState.set(dc, state);
-          console.warn(`[Telegram] Force rebuilding sender for DC ${dc}`);
         }
       }
 
@@ -1892,10 +1901,18 @@ module.exports = {
         }
       }
 
-      return await client.getSender(dc);
+      const sender = await client.getSender(dc);
+      if (failedSenders.has(dc)) {
+        failedSenders.delete(dc);
+        console.log(`[Telegram] Sender recovered: DC ${dc}`);
+      }
+      return sender;
     } catch (e) {
       telegramConnectionStats.senderErrors += 1;
-      console.warn(`[Telegram] getDcSender(${dc}) failed:`, e.message);
+      if (!failedSenders.has(dc)) {
+        failedSenders.add(dc);
+        console.error(`[Telegram] Sender error: DC ${dc}`);
+      }
       return null;
     }
   },

@@ -1,0 +1,95 @@
+{
+  "showTmdbId": 215522,
+  "showTitle": "We Were Liars",
+  "overview": "One year after a mysterious accident left her with amnesia, 17-year-old Cadence returns to Beechwood, an island off Martha's Vineyard, seeking answers. As three generations of the distinguished Sinclair family gather at their private summer utopia, no one will talk about the accident – neither her childhood friends \"The Liars\" nor her first love Gat, forcing her to uncover the truth herself.",
+  "genres": [
+    "Drama",
+    "Mystery"
+  ],
+  "rating": 7.22,
+  "poster": "/data/posters/show_215522.jpg",
+  "backdrop": "/data/backdrops/show_215522_bd.jpg",
+  "year": 2025,
+  "totalSeasons": 1,
+  "totalEpisodes": 8,
+  "seasons": {
+    "1": [
+      {
+        "fileId": "1018",
+        "fileName": "We_Were_Liars_S01_E01_720p_WEB_DL_x264_HiN_ENG_ESub_Vegamovies_is.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 1,
+        "episodeTitle": "Tell Me Sweet Little Lies",
+        "episodeOverview": "Every summer, Cadence Sinclair cherishes her time with her cousins Mirren and Johnny and her best friend Gat on Beechwood Island. At sixteen, what begins as their usual summer of mischief transforms when Cadence and Gat fall in love, while adult tensions rise in her family. She doesn't know this fairy tale will end with her alone on the beach, injured and with no memory of how she got there.",
+        "runtime": 51
+      },
+      {
+        "fileId": "1019",
+        "fileName": "We_Were_Liars_S01_E02_720p_WEB_DL_x264_HiN_ENG_ESub_Vegamovies_is.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 2,
+        "episodeTitle": "Wrap Her Up in a Package of Lies",
+        "episodeOverview": "Following her mysterious accident, Cadence has suffered a year of illness, amnesia, and loneliness, having had no contact with The Liars. Returning to Beechwood for answers, she finds even her closest friends won't discuss the summer she can't remember. But the island begins triggering memories of Summer 16, starting with a Father's Day celebration marred by rivalry, betrayal, and heartbreak.",
+        "runtime": 57
+      },
+      {
+        "fileId": "1020",
+        "fileName": "We_Were_Liars_S01_E03_720p_WEB_DL_x264_HiN_ENG_ESub_Vegamovies_is.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 3,
+        "episodeTitle": "The Ties Were Black, the Lies Were White",
+        "episodeOverview": "Having remembered a family tragedy, Cadence presses The Liars for answers. Mirren reveals a crush gone awry, Johnny recalls an unwanted visitor, and Gat recounts their relationship's painful turn. Tension between the aunts continues to rise, and Cadence suspects at least one Liar is hiding something, questioning whether what happened last summer was an accident at all.",
+        "runtime": 57
+      },
+      {
+        "fileId": "1021",
+        "fileName": "We_Were_Liars_S01_E04_720p_WEB_DL_x264_HiN_ENG_ESub_Vegamovies_is.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 4,
+        "episodeTitle": "The Fourth of You Lie",
+        "episodeOverview": "As the Sinclairs prepare for a quiet Fourth of July, Cadence investigates one of The Liars, uncovering memories of last year's crowded celebration. While the Sinclair sisters vied for their father's approval, The Liars navigated their romantic lives and Ed surprised Carrie. In present day, Cadence discovers a shocking truth about one Liar, leading to a confrontation as explosive as the fireworks.",
+        "runtime": 56
+      },
+      {
+        "fileId": "1022",
+        "fileName": "We_Were_Liars_S01_E05_720p_WEB_DL_x264_HiN_ENG_ESub_Vegamovies_is.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 5,
+        "episodeTitle": "Lying Together in a Silver Lining",
+        "episodeOverview": "Unsettled by a series of painful memories, Cadence tries to enjoy what's left of her summer – even if it means distracting herself with a potentially dangerous stunt. Despite her best efforts, she remembers a stormy day from Summer 16 when rising seas and frustrations threatened every Sinclair, exposing the family's darker side and forcing Gat and Cadence to confront their unspoken feelings.",
+        "runtime": 56
+      },
+      {
+        "fileId": "1023",
+        "fileName": "We_Were_Liars_S01_E06_720p_WEB_DL_x264_HiN_ENG_ESub_Vegamovies_is.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 6,
+        "episodeTitle": "When Lies Gives You Lemons",
+        "episodeOverview": "Unable to continue keeping secrets from her, Gat finally opens up to Cadence about his perspective on the island – one that doesn't always reflect the fairy-tale nostalgia of her own experience. While they head into town in search of answers, Gat recounts his memories of an honored Sinclair tradition – Tipper's Lemon Hunt – and the unplanned visit from his mother that made him question everything.",
+        "runtime": 54
+      },
+      {
+        "fileId": "1024",
+        "fileName": "We_Were_Liars_S01_E07_720p_WEB_DL_x264_HiN_ENG_ESub_Vegamovies_is.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 7,
+        "episodeTitle": "Everybody Knows That the Captain Lied",
+        "episodeOverview": "More uncertain than ever, Cadence reluctantly joins Harris on an excursion, triggering memories of their final confrontation in Summer 16. During a tense family dinner, The Liars confront their mothers about family secrets. In the aftermath of shocking revelations, The Liars mourn their once-beloved childhood playground and unite in an attempt to save their fracturing family.",
+        "runtime": 56
+      },
+      {
+        "fileId": "1025",
+        "fileName": "We_Were_Liars_S01_E08_720p_WEB_DL_x264_HiN_ENG_ESub_Vegamovies_is.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 8,
+        "episodeTitle": "My Friends Are Lying in the Sun",
+        "episodeOverview": "Cadence devises a plan to trigger her latent memories of the final hours before her traumatic accident, but she can't do it alone – she must convince the reluctant Johnny, Mirren, and Gat to help her, even if it means risking everything. But as the truth begins to come back to her in fits and starts, Cadence realizes that she, herself, has been the biggest Liar of all.",
+        "runtime": 61
+      }
+    ]
+  },
+  "availableSeasons": [
+    1
+  ],
+  "availableEpisodeCount": 8
+}

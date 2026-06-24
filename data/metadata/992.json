@@ -1,0 +1,47 @@
+{
+  "fileId": "992",
+  "fileName": "Demon_Slayer_Kimetsu_No_Yaiba_Infinity_Castle_2025_720p_WEB_DL_Japanese.mkv",
+  "type": "movie",
+  "title": "Demon Slayer: Kimetsu no Yaiba Infinity Castle",
+  "originalTitle": "劇場版「鬼滅の刃」無限城編 第一章 猗窩座再来",
+  "overview": "The Demon Slayer Corps are drawn into the Infinity Castle, where Tanjiro, Nezuko, and the Hashira face terrifying Upper Rank demons in a desperate fight as the final battle against Muzan Kibutsuji begins.",
+  "releaseDate": "2025-07-18",
+  "year": 2025,
+  "runtime": 156,
+  "genres": [
+    "Animation",
+    "Action",
+    "Fantasy"
+  ],
+  "rating": 7.7,
+  "popularity": 112.2156,
+  "awards": "2 wins & 7 nominations total",
+  "poster": "/data/posters/992.jpg",
+  "backdrop": "/data/backdrops/992_bd.jpg",
+  "tmdbId": 1311031,
+  "fetchedAt": "2026-06-22T11:34:10.021Z",
+  "needsRetry": false,
+  "tv": null,
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "_tracksDetected": true,
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Vegamovies.is",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": true
+    }
+  ],
+  "subtitleTracks": [],
+  "container": "matroska,webm",
+  "duration": 9301.844,
+  "_probeFailCount": 0,
+  "logo": "/data/logos/992_logo.png"
+}

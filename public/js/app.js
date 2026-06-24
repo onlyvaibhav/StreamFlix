@@ -1374,6 +1374,34 @@ function getEffectiveCurrentTime(video) {
   return getDisplayTimelineState(video).displayCurrentTime;
 }
 
+/**
+ * SINGLE SOURCE OF TRUTH for multipart global time.
+ * Always derives from durationMap + video.currentTime — never from cached completedDuration.
+ * @param {HTMLVideoElement} video
+ * @returns {number} global time in seconds
+ */
+function multipartCalculateGlobalTime(video) {
+  const mp = state.player.multipart;
+  if (!mp.enabled || !mp.durationMap || mp.durationMap.length === 0) return 0;
+
+  const idx = Math.max(0, Math.min(Number(mp.currentPartIndex || 0), mp.durationMap.length - 1));
+  const mapEntry = mp.durationMap[idx];
+  const partStart = mapEntry ? mapEntry.start : 0;
+  const elapsed = (video && isFinite(video.currentTime)) ? Math.max(0, video.currentTime) : 0;
+  return partStart + elapsed;
+}
+
+/**
+ * Sync completedDuration from durationMap. Always use this instead of manual accumulation.
+ * completedDuration = durationMap[currentPartIndex].start
+ */
+function multipartSyncCompletedDuration() {
+  const mp = state.player.multipart;
+  if (!mp.enabled || !mp.durationMap || mp.durationMap.length === 0) return;
+  const idx = Math.max(0, Math.min(Number(mp.currentPartIndex || 0), mp.durationMap.length - 1));
+  mp.completedDuration = mp.durationMap[idx].start;
+}
+
 function recalculateMultipartTimelineState(video, options = {}) {
   const mp = state.player.multipart;
   const totalDuration = Number(mp.totalDuration || 0);
@@ -1391,26 +1419,30 @@ function recalculateMultipartTimelineState(video, options = {}) {
 
   const elapsed = (video && isFinite(video.currentTime)) ? Math.max(0, video.currentTime) : 0;
   const hasVirtualOverride = Number.isFinite(options.virtualTimeOverride);
-  const clampedIndex = Math.max(0, Math.min(Number(mp.currentPartIndex || 0), Math.max(0, mp.parts.length - 1)));
+  const clampedIndex = Math.max(0, Math.min(Number(mp.currentPartIndex || 0), mp.durationMap.length - 1));
   const mapEntry = mp.durationMap[clampedIndex];
 
   let activePartIndex = clampedIndex;
-  let accumulatedBeforePart = Number(mapEntry?.start ?? mp.completedDuration ?? 0);
+  // ALWAYS derive from durationMap — never fall back to completedDuration cache
+  let accumulatedBeforePart = mapEntry ? mapEntry.start : 0;
   let offsetInPart = elapsed;
 
   if (hasVirtualOverride) {
+    // Virtual override: resolve the requested time to a part via durationMap
     const requestedVirtual = Number(options.virtualTimeOverride);
     const clampedVirtual = Math.max(0, Math.min(requestedVirtual, totalDuration));
     const resolved = multipartFindPart(clampedVirtual);
     if (resolved) {
       activePartIndex = resolved.index;
-      accumulatedBeforePart = Number(resolved.part.start || 0);
+      accumulatedBeforePart = resolved.part.start;
       offsetInPart = Math.max(0, clampedVirtual - accumulatedBeforePart);
     }
-    mp.currentPartIndex = activePartIndex;
-    mp.completedDuration = accumulatedBeforePart;
+    // NOTE: We do NOT mutate mp.currentPartIndex or mp.completedDuration here.
+    // State mutations belong in the calling code (multipartSeek, multipartAdvanceToNext),
+    // not in a display/calculation function. This prevents drift from side effects.
   } else {
-    const partDuration = mapEntry ? Math.max(0, Number(mapEntry.end - mapEntry.start)) : 0;
+    // Normal playback: clamp offset to part duration from durationMap
+    const partDuration = mapEntry ? Math.max(0, mapEntry.end - mapEntry.start) : 0;
     if (partDuration > 0) {
       offsetInPart = Math.max(0, Math.min(elapsed, partDuration));
     }
@@ -1541,11 +1573,8 @@ function multipartCorrectDuration(partIndex, actualDuration) {
 
   mp.totalDuration = mp.durationMap[mp.durationMap.length - 1].end;
 
-  // Recalculate completedDuration
-  mp.completedDuration = 0;
-  for (let i = 0; i < mp.currentPartIndex; i++) {
-    mp.completedDuration += mp.parts[i].duration;
-  }
+  // Derive completedDuration from durationMap — single source of truth, no accumulation
+  multipartSyncCompletedDuration();
 
   renderTimelineState(document.getElementById('video-player'));
 }
@@ -1578,17 +1607,18 @@ async function multipartAdvanceToNext() {
     isFullscreen: !!document.fullscreenElement,
   };
 
-  // Update completed duration using actual video duration if available
+  // Correct duration map with actual duration (may adjust durationMap entries)
   const actualPartDuration = isFinite(video.duration) && video.duration > 0
     ? video.duration : multipartCurrentPartDuration(video);
-  mp.completedDuration += actualPartDuration;
-
-  // Correct duration map with actual duration
   multipartCorrectDuration(mp.currentPartIndex, actualPartDuration);
 
+  // Advance to next part — derive completedDuration from durationMap (single source of truth)
   mp.currentPartIndex = nextIndex;
+  multipartSyncCompletedDuration();
+
   const nextPart = mp.parts[nextIndex];
   renderTimelineState(video, { virtualTimeOverride: mp.completedDuration });
+
 
   console.log(`[Multipart] Switching to part ${nextPart.partNumber}/${mp.parts.length} (fileId: ${nextPart.fileId})`);
   buffering?.classList.remove('hidden');
@@ -1675,6 +1705,8 @@ async function multipartAdvanceToNext() {
  * Seek to a virtual time position across parts.
  * Handles cross-part seeking with boundary snapping.
  */
+let multipartSeekSequence = 0;
+
 function multipartSeek(virtualTime) {
   const mp = state.player.multipart;
   if (!mp.enabled) return;
@@ -1701,7 +1733,11 @@ function multipartSeek(virtualTime) {
     console.log(`[Multipart] Boundary snap: jumping to part ${finalIndex + 1}`);
   }
 
-  const targetVirtualTime = Number(target.part.start || 0) + finalOffset;
+  // Use the correct part's start time (accounts for boundary snap)
+  const finalPartStart = finalIndex < mp.durationMap.length
+    ? Number(mp.durationMap[finalIndex].start || 0)
+    : Number(target.part.start || 0);
+  const targetVirtualTime = finalPartStart + finalOffset;
   renderTimelineState(video, { virtualTimeOverride: targetVirtualTime });
 
   if (finalIndex === mp.currentPartIndex) {
@@ -1717,12 +1753,19 @@ function multipartSeek(virtualTime) {
 
   // Different part - switch source
   mp.currentPartIndex = finalIndex;
-  mp.completedDuration = Number(target.part.start || 0);
+  multipartSyncCompletedDuration();
   const targetPart = mp.parts[finalIndex];
   state.player.fileId = targetPart.fileId;
 
   console.log(`[Multipart] Cross-part seek to part ${targetPart.partNumber} at ${finalOffset.toFixed(1)}s`);
   buffering?.classList.remove('hidden');
+
+  // Increment seek sequence to invalidate stale loadedmetadata handlers
+  const thisSeekSeq = ++multipartSeekSequence;
+
+  // Preserve playback state
+  const preservedRate = video.playbackRate;
+  const preservedSubIndex = state.player.currentSubtitleTrack;
 
   state.player.isRemuxing = false;
   state.player._seekOffset = 0;
@@ -1735,15 +1778,48 @@ function multipartSeek(virtualTime) {
   video.load();
   renderTimelineState(video, { virtualTimeOverride: targetVirtualTime });
 
+  const seekTimeout = setTimeout(() => {
+    if (thisSeekSeq !== multipartSeekSequence) return;
+    console.warn(`[Multipart] Cross-part seek timed out for part ${targetPart.partNumber}`);
+    buffering?.classList.add('hidden');
+    if (wasPlaying) video.play().catch(() => {});
+  }, 15000);
+
   video.addEventListener('loadedmetadata', function onMeta() {
+    if (thisSeekSeq !== multipartSeekSequence) return; // Stale seek, ignore
+    clearTimeout(seekTimeout);
+
     if (isFinite(video.duration) && video.duration > 0) {
       multipartCorrectDuration(finalIndex, video.duration);
     }
-    if (finalOffset > 0 && finalOffset < video.duration) {
+
+    // Seek to the target offset within this part
+    if (finalOffset >= 0 && finalOffset < video.duration) {
       video.currentTime = finalOffset;
     }
+
+    // Restore playback rate
+    video.playbackRate = preservedRate;
+
     renderTimelineState(video, { virtualTimeOverride: targetVirtualTime });
     if (wasPlaying) video.play().catch(() => {});
+    buffering?.classList.add('hidden');
+
+    // Restore subtitle track for the new part
+    if (preservedSubIndex >= 0 && preservedSubIndex < state.player.subtitleTracks.length) {
+      const sub = state.player.subtitleTracks[preservedSubIndex];
+      if (sub && sub.source === 'embedded') {
+        sub.endpoint = `/api/stream/${targetPart.fileId}/subtitle/${sub.streamIndex}`;
+        switchSubs(preservedSubIndex, null, 0).catch(() => {});
+      }
+      // External subs are per-movie, no endpoint change needed
+    }
+  }, { once: true });
+
+  video.addEventListener('error', function onErr() {
+    if (thisSeekSeq !== multipartSeekSequence) return;
+    clearTimeout(seekTimeout);
+    console.error(`[Multipart] Failed to load part ${targetPart.partNumber} during seek`);
     buffering?.classList.add('hidden');
   }, { once: true });
 
@@ -1835,19 +1911,26 @@ function parseVTT(vttText) {
     if (timestampLineIdx === -1) continue;
 
     const tsLine = lines[timestampLineIdx];
-    const match = tsLine.match(
-      /(?:(\d{2,}):)?(\d{2}):(\d{2})\.(\d{3})\s*-->\s*(?:(\d{2,}):)?(\d{2}):(\d{2})\.(\d{3})/
+    // Support optional hours (1+ digits), 1-2 digit minutes/seconds, dots/commas, and 1-3 digit milliseconds
+    const match = tsLine.trim().match(
+      /^(?:(\d+):)?(\d{1,2}):(\d{1,2})[.,](\d{1,3})\s*-->\s*(?:(\d+):)?(\d{1,2}):(\d{1,2})[.,](\d{1,3})/
     );
     if (!match) continue;
 
     const startH = parseInt(match[1] || '0', 10);
     const startM = parseInt(match[2], 10);
     const startS = parseInt(match[3], 10);
-    const startMs = parseInt(match[4], 10);
+    
+    // Pad milliseconds to 3 digits (e.g. .5 -> 500ms, .50 -> 500ms)
+    const startMsStr = match[4].padEnd(3, '0');
+    const startMs = parseInt(startMsStr, 10);
+
     const endH = parseInt(match[5] || '0', 10);
     const endM = parseInt(match[6], 10);
     const endS = parseInt(match[7], 10);
-    const endMs = parseInt(match[8], 10);
+    
+    const endMsStr = match[8].padEnd(3, '0');
+    const endMs = parseInt(endMsStr, 10);
 
     const start = startH * 3600 + startM * 60 + startS + startMs / 1000;
     const end = endH * 3600 + endM * 60 + endS + endMs / 1000;
@@ -1897,12 +1980,47 @@ function renderSubtitles(actualTimeSeconds) {
 
 function startProgressRAF(video, signal) {
   let rafId = 0;
+  let lastDriftCheck = 0;
 
   const tick = () => {
     if (signal.aborted) return;
 
     const timeline = getDisplayTimelineState(video);
     const duration = timeline.displayTotalDuration;
+
+    // --- Multipart drift detection (every 30s) ---
+    if (state.player.multipart.enabled && duration > 0) {
+      const now = performance.now();
+      if (now - lastDriftCheck > 30000) {
+        lastDriftCheck = now;
+        const mp = state.player.multipart;
+        const authoritativeGlobal = multipartCalculateGlobalTime(video);
+        const displayedGlobal = timeline.displayCurrentTime;
+        const drift = Math.abs(authoritativeGlobal - displayedGlobal);
+        const mapStart = mp.durationMap[mp.currentPartIndex]?.start ?? -1;
+        const cachedCompleted = mp.completedDuration;
+        const cacheDrift = Math.abs(mapStart - cachedCompleted);
+
+        if (drift > 0.5 || cacheDrift > 0.1) {
+          console.warn('[Multipart Drift]', {
+            currentPartIndex: mp.currentPartIndex,
+            videoCurrentTime: video.currentTime,
+            durationMapStart: mapStart,
+            completedDuration: cachedCompleted,
+            cacheDrift: cacheDrift.toFixed(3),
+            authoritativeGlobal: authoritativeGlobal.toFixed(3),
+            displayedGlobal: displayedGlobal.toFixed(3),
+            drift: drift.toFixed(3),
+          });
+          // Auto-correct: sync completedDuration from durationMap
+          if (cacheDrift > 0.1) {
+            multipartSyncCompletedDuration();
+          }
+        } else {
+          console.log(`[Multipart Sync] OK — drift=${drift.toFixed(3)}s, part=${mp.currentPartIndex + 1}/${mp.parts.length}, global=${authoritativeGlobal.toFixed(1)}s/${mp.totalDuration.toFixed(1)}s`);
+        }
+      }
+    }
 
     if (duration && isFinite(duration) && !seekState.dragging && !seekState.keyboardSeeking) {
       setVisualProgress(timeline.displayCurrentTime, timeline.displayTotalDuration);
@@ -3710,10 +3828,15 @@ function escapeSubHTML(str) {
   if (!str) return "";
   
   // Clean raw markup out of subtitle
-  // Using [^>]* and [^}]* is more robust as it ensures we stop at the nearest closing bracket
+  // Match standard tags (like <i>, <b>, <v Voice>, <font color="...">) and self-closing tags (like <br/>)
+  // This protects non-tag usages of < and > (e.g. <3 or < 10)
+  const tagRegex = /<(?:\/?(?:[a-zA-Z][a-zA-Z0-9.:-]*))(?:\s+[^>]*)?\/?\s*>/g;
+  const braceRegex = /\{[^}]*\}/g;
   const cleaned = str
-    .replace(/<[^>]*>/g, "")    // remove HTML/VTT tags like <i> or <v Voice>
-    .replace(/\{[^}]*\}/g, "")  // remove all ASS/SSA tags like {\an8} or {comment}
+    .replace(tagRegex, "")
+    .replace(braceRegex, "")
+    .replace(/\\N/gi, "\n") // Replace ASS newline markers with actual newlines
+    .replace(/\\h/gi, " ")   // Replace ASS non-breaking spaces with spaces
     .trim();
 
   // If cleaning resulted in empty string but original had meaningful content,

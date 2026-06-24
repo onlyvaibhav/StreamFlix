@@ -24,10 +24,22 @@ function srtToVtt(srtContent) {
     // Strip unsupported HTML tags like <font color="..."> which WebVTT doesn't support natively
     content = content.replace(/<\/?font[^>]*>/gi, '');
 
-    // Convert SRT timestamps to VTT format (comma → dot)
+    // Convert SRT timestamps to VTT format (comma → dot, normalize hours/milliseconds)
     content = content.replace(
-        /(\d{2}:\d{2}:\d{2}),(\d{3})/g,
-        '$1.$2'
+        /^(?:(\d+):)?(\d{1,2}):(\d{1,2}),(\d{1,3})\s*-->\s*(?:(\d+):)?(\d{1,2}):(\d{1,2}),(\d{1,3})/gm,
+        (match, sh, sm, ss, sms, eh, em, es, ems) => {
+            const padSH = (sh || '00').padStart(2, '0');
+            const padSM = sm.padStart(2, '0');
+            const padSS = ss.padStart(2, '0');
+            const padSMS = sms.padEnd(3, '0');
+            
+            const padEH = (eh || '00').padStart(2, '0');
+            const padEM = em.padStart(2, '0');
+            const padES = es.padStart(2, '0');
+            const padEMS = ems.padEnd(3, '0');
+            
+            return `${padSH}:${padSM}:${padSS}.${padSMS} --> ${padEH}:${padEM}:${padES}.${padEMS}`;
+        }
     );
 
     return 'WEBVTT\n\n' + content;

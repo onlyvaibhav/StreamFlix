@@ -868,8 +868,9 @@ function formatVTTTime(ms) {
 }
 
 function cleanSubtitleText(text) {
+    const tagRegex = /<(?:\/?(?:[a-zA-Z][a-zA-Z0-9.:-]*))(?:\s+[^>]*)?\/?\s*>/g;
     return text
-        .replace(/<[^>]+>/g, '')
+        .replace(tagRegex, '')
         .replace(/\{\\[^}]*\}/g, '')
         .replace(/\\N/g, '\n')
         .replace(/\\n/g, '\n')

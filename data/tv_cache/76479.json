@@ -363,6 +363,15 @@
         "episodeTitle": "Though the Heavens Fall",
         "episodeOverview": "Available now, EXCLUSIVELY at @VMCtheaters, get the new #DeepPopcornBucket for only $32.99!",
         "runtime": 65
+      },
+      {
+        "fileId": "995",
+        "fileName": "The_Boys_S05E08_720p_WEB_DL_HIN_ENG_x264_ESub_VegaMovies_is_converted.mkv",
+        "seasonNumber": 5,
+        "episodeNumber": 8,
+        "episodeTitle": "Blood and Bone",
+        "episodeOverview": "Easter Sunday. 2PM. Live on @VoughtNews. Bear witness as Homelander reboots the universe.",
+        "runtime": 67
       }
     ]
   },
@@ -373,5 +382,5 @@
     4,
     5
   ],
-  "availableEpisodeCount": 38
+  "availableEpisodeCount": 39
 }

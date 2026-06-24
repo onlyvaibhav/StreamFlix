@@ -1448,7 +1448,7 @@ async function syncWithTelegram() {
     }
 
     if (requiresInvalidation) {
-        try { require('../server').invalidateCache?.(); } catch { }
+        try { require('../server').invalidateCache?.('sync'); } catch { }
     }
 
     return {
@@ -1612,7 +1612,7 @@ async function handleFileChange(filename) {
         }
 
         // Just a normal update — validate cache
-        try { require('../server').invalidateCache?.(); } catch { }
+        try { require('../server').invalidateCache?.('metadata_update'); } catch { }
 
     } catch (err) {
         // File might be mid-write, ignore parse errors
@@ -2313,7 +2313,7 @@ async function fetchMissingLogos() {
     }
 
     if (updated > 0) {
-        try { require('../server').invalidateCache?.(); } catch {}
+        try { require('../server').invalidateCache?.('logo_fetch'); } catch {}
     }
     console.log(`[Worker] 🖼️ Logo fetch complete: ${updated} updated, ${skipped} unavailable on TMDB.`);
 }
@@ -2352,15 +2352,17 @@ function getAudioSweepStatus() {
 function metadataNeedsAudioInfo(meta) {
     if (!meta || !meta.fileId || !meta.fetchedAt || meta.needsRetry || meta.manualProbeNeeded) return false;
 
+    // If we have already run the probe successfully (even if it found no audio), do not probe again.
+    if (meta._tracksDetected) return false;
+
     const hasValidAudioTracks = Array.isArray(meta.audioTracks) &&
         meta.audioTracks.length > 0 &&
         meta.audioTracks.every(t => t && String(t.codec || t.codecName || '').trim());
     const hasValidSubtitleTracks = Array.isArray(meta.subtitleTracks);
     const hasContainer = !!meta.container;
     const hasDuration = Number.isFinite(Number(meta.duration)) && Number(meta.duration) > 0;
-    const hasDetectionFlag = meta._tracksDetected === true;
 
-    return !(hasValidAudioTracks && hasValidSubtitleTracks && hasContainer && hasDuration && hasDetectionFlag);
+    return !(hasValidAudioTracks && hasValidSubtitleTracks && hasContainer && hasDuration);
 }
 
 function getAudioInfoPriority(meta) {
@@ -2547,7 +2549,7 @@ async function fetchMissingAudioInfoLegacy(limit = 0, concurrency = 3, options =
     await Promise.all(workers);
 
     if (updated > 0) {
-        try { require('../server').invalidateCache?.(); } catch {}
+        try { require('../server').invalidateCache?.('audio_probe_legacy'); } catch {}
     }
     console.log(`[Worker] 🔊 Audio info processing complete: ${updated} updated, ${failed} failed.`);
 }
@@ -2751,7 +2753,7 @@ async function fetchMissingAudioInfo(limit = 0, concurrency = 3, options = {}) {
     }
 
     if (audioSweepState.updated > 0) {
-        try { require('../server').invalidateCache?.(); } catch {}
+        try { require('../server').invalidateCache?.('audio_probe'); } catch {}
     }
 
     console.log(`[Worker] Audio info sweep complete: ${audioSweepState.updated} updated, ${audioSweepState.failed} failed, ${audioSweepState.skipped} unchanged.`);

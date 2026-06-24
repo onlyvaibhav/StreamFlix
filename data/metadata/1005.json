@@ -1,0 +1,61 @@
+{
+  "fileId": "1005",
+  "fileName": "Dacoit_Ek_Prem_Katha_2026_720p_AMZN_WEB_DL_DDP5_1_H_264_Vegamovies.mkv",
+  "type": "movie",
+  "title": "Dacoit",
+  "originalTitle": "డెకాయిట్",
+  "overview": "Betrayed by his better half, a man is convicted for a crime he didn't commit. Once free, he hunts her down in pursuit of vengeance, as their stories intertwine with a series of robberies.",
+  "releaseDate": "2026-04-10",
+  "year": 2026,
+  "runtime": 150,
+  "genres": [
+    "Action",
+    "Romance",
+    "Thriller"
+  ],
+  "rating": 6.6,
+  "popularity": 39.3319,
+  "awards": "",
+  "poster": "/data/posters/1005.jpg",
+  "backdrop": "/data/backdrops/1005_bd.jpg",
+  "tmdbId": 1220522,
+  "fetchedAt": "2026-06-22T11:29:26.312Z",
+  "needsRetry": false,
+  "tv": null,
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "_tracksDetected": true,
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "Vegamovies.is",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": true
+    }
+  ],
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 2,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Vegamovies.is",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    }
+  ],
+  "container": "matroska,webm",
+  "duration": 8986.41,
+  "_probeFailCount": 0,
+  "logo": "/data/logos/1005_logo.png"
+}

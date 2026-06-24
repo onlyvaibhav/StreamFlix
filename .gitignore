@@ -10,6 +10,7 @@ debug_log.txt
 debug_search_log.txt
 verify_output.txt
 Debug Trash/
+scratch/
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json

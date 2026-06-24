@@ -1,0 +1,61 @@
+{
+  "fileId": "997",
+  "fileName": "Detective_Byomkesh_Bakshy_2015_BluRay_720p_Hindi_AAC_5_1_x264_ESub.mkv",
+  "type": "movie",
+  "title": "Detective Byomkesh Bakshy!",
+  "originalTitle": "डिटेक्टिव ब्योमकेश बक्शी!",
+  "overview": "Byomkesh, fresh out of college, agrees to investigate the disappearance of Bhuvan, a chemist. Assisted by Bhuvan's son Ajit, Byomkesh links the case to a larger conspiracy that will unsettle Calcutta.",
+  "releaseDate": "2015-04-02",
+  "year": 2015,
+  "runtime": 139,
+  "genres": [
+    "Crime",
+    "Mystery",
+    "Thriller"
+  ],
+  "rating": 6.752,
+  "popularity": 1.0704,
+  "awards": "1 win & 8 nominations",
+  "poster": "/data/posters/997.jpg",
+  "backdrop": "/data/backdrops/997_bd.jpg",
+  "tmdbId": 320295,
+  "fetchedAt": "2026-06-22T11:32:18.064Z",
+  "needsRetry": false,
+  "tv": null,
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "_tracksDetected": true,
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "mkvCinemas",
+      "channels": 6,
+      "channelLayout": "5.1",
+      "browserPlayable": true,
+      "isDefault": true
+    }
+  ],
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 2,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "mkvCinemas",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": true,
+      "isForced": false
+    }
+  ],
+  "container": "matroska,webm",
+  "duration": 8343.027,
+  "_probeFailCount": 0,
+  "logo": "/data/logos/997_logo.png"
+}

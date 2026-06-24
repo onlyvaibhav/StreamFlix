@@ -1,0 +1,58 @@
+{
+  "fileId": "1007",
+  "fileName": "Yes.Man.2008.720p.BRRip.Hindi.Dual-Audio.Vegamovies.Nl.mkv",
+  "type": "movie",
+  "title": "Yes Man",
+  "originalTitle": "Yes Man",
+  "overview": "Carl Allen, a guy whose life is going nowhere, signs up for a self-help program based on one simple covenant: say yes to everything…and anything.",
+  "releaseDate": "2008-12-09",
+  "year": 2008,
+  "runtime": 104,
+  "genres": [
+    "Comedy",
+    "Romance"
+  ],
+  "rating": 6.693,
+  "popularity": 6.3256,
+  "awards": "3 wins & 9 nominations total",
+  "poster": "/data/posters/1007.jpg",
+  "backdrop": "/data/backdrops/1007_bd.jpg",
+  "tmdbId": 10201,
+  "fetchedAt": "2026-06-22T11:28:38.944Z",
+  "needsRetry": false,
+  "tv": null,
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "_tracksDetected": true,
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "Hdmoviespoint.nl",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": true
+    },
+    {
+      "index": 1,
+      "streamIndex": 2,
+      "codec": "aac",
+      "language": "Unknown",
+      "languageCode": "und",
+      "title": "Hdmoviespoint.nl",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": false
+    }
+  ],
+  "subtitleTracks": [],
+  "container": "matroska,webm",
+  "duration": 6263.274,
+  "_probeFailCount": 0,
+  "logo": "/data/logos/1007_logo.png"
+}

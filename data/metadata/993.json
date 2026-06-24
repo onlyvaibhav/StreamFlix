@@ -1,0 +1,75 @@
+{
+  "fileId": "993",
+  "fileName": "Big.Hero.6.mkv",
+  "type": "movie",
+  "title": "Big Hero 6",
+  "originalTitle": "Big Hero 6",
+  "overview": "A special bond develops between plus-sized inflatable robot Baymax, and prodigy Hiro Hamada, who team up with a group of friends to form a band of high-tech heroes.",
+  "releaseDate": "2014-10-24",
+  "year": 2014,
+  "runtime": 102,
+  "genres": [
+    "Adventure",
+    "Family",
+    "Animation",
+    "Action",
+    "Comedy"
+  ],
+  "rating": 7.725,
+  "popularity": 20.9555,
+  "awards": "Won 1 Oscar. 17 wins & 58 nominations total",
+  "poster": "/data/posters/993.jpg",
+  "backdrop": "/data/backdrops/993_bd.jpg",
+  "tmdbId": 177572,
+  "fetchedAt": "2026-06-22T11:33:46.927Z",
+  "needsRetry": false,
+  "tv": null,
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "_tracksDetected": true,
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": true
+    },
+    {
+      "index": 1,
+      "streamIndex": 2,
+      "codec": "aac",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": false
+    }
+  ],
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 3,
+      "codec": "subrip",
+      "language": "Unknown",
+      "languageCode": "und",
+      "title": "",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": true,
+      "isForced": false
+    }
+  ],
+  "container": "matroska,webm",
+  "duration": 6113.023,
+  "_probeFailCount": 0,
+  "logo": "/data/logos/993_logo.png"
+}

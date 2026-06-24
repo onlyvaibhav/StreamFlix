@@ -1,0 +1,60 @@
+{
+  "fileId": "1001",
+  "fileName": "Te3n.720p.2016.BluRay.Hin.Vegamovies.mkv",
+  "type": "movie",
+  "title": "Te3n",
+  "originalTitle": "Te3n",
+  "overview": "A grandfather, police officer and a priest join hands to investigate and find a missing child.",
+  "releaseDate": "2016-06-10",
+  "year": 2016,
+  "runtime": 136,
+  "genres": [
+    "Mystery",
+    "Thriller",
+    "Crime"
+  ],
+  "rating": 6.912,
+  "popularity": 0.6772,
+  "poster": "/data/posters/1001.jpg",
+  "backdrop": "/data/backdrops/1001_bd.jpg",
+  "tmdbId": 377213,
+  "fetchedAt": "2026-06-24T06:47:16.045Z",
+  "needsRetry": false,
+  "tv": null,
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "ton",
+      "languageCode": "ton",
+      "title": "Vegamovies.to",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": true
+    }
+  ],
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 2,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "English",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": true,
+      "isForced": false
+    }
+  ],
+  "container": "matroska,webm",
+  "duration": 8154.261,
+  "_tracksDetected": true,
+  "_probeFailCount": 0,
+  "logo": "N/A"
+}

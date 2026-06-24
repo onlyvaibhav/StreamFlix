@@ -8,8 +8,6 @@ const activityTracker = require('../services/activityTracker');
 router.get('/:id', streamLimiter, trackStream, streamController.stream);
 router.get('/:id/transmux', streamLimiter, streamController.transmuxStream); // New endpoint for MKV/AVI
 router.get('/:id/seek', streamLimiter, streamController.seek); // Time-based seeking for transmuxed streams
-// router.get('/:id/transcode', streamController.transcode);
-// router.get('/:id/transcode-status', streamController.transcodeStatus);
 router.get('/:id/tracks', streamController.getTracks); // NEW: On-demand track detection
 router.get('/:id/subtitle/:streamIndex', streamController.getSubtitle);
 
@@ -17,7 +15,8 @@ router.get('/:id/subtitle/:streamIndex', streamController.getSubtitle);
 router.get('/:id/heartbeat', (req, res) => {
     const fileId = req.params.id;
     const ip = req.ip || req.connection.remoteAddress || 'unknown';
-    activityTracker.registerActivity(fileId, { ip });
+    const userAgent = req.headers['user-agent'] || 'unknown';
+    activityTracker.registerActivity(fileId, { ip, userAgent });
     res.status(204).end();
 });
 

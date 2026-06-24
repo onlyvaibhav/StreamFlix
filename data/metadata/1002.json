@@ -1,0 +1,74 @@
+{
+  "fileId": "1002",
+  "fileName": "Maa_Behen_2026_720p_NF_WEB_DL_DD5_1_192kbps_x264_VegaMovies_is_converted.mkv",
+  "type": "movie",
+  "title": "Maa Behen",
+  "originalTitle": "माँ बहन",
+  "overview": "In this dark comedy, a woman calls her estranged daughters in the middle of the night with chilling news — there's a dead body in her kitchen.",
+  "releaseDate": "2026-06-04",
+  "year": 2026,
+  "runtime": 127,
+  "genres": [
+    "Comedy",
+    "Thriller",
+    "Drama"
+  ],
+  "rating": 6.7,
+  "popularity": 56.4652,
+  "awards": "",
+  "poster": "/data/posters/1002.jpg",
+  "backdrop": "/data/backdrops/1002_bd.jpg",
+  "tmdbId": 1628448,
+  "fetchedAt": "2026-06-22T11:30:31.609Z",
+  "needsRetry": false,
+  "tv": null,
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "_tracksDetected": true,
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "VegaMovies.is",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": true
+    }
+  ],
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 2,
+      "codec": "subrip",
+      "language": "Unknown",
+      "languageCode": "und",
+      "title": "VegaMovies.is",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    },
+    {
+      "index": 1,
+      "streamIndex": 3,
+      "codec": "ass",
+      "language": "Unknown",
+      "languageCode": "und",
+      "title": "",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": true,
+      "isForced": false
+    }
+  ],
+  "container": "matroska,webm",
+  "duration": 7654.999,
+  "_probeFailCount": 0,
+  "logo": "/data/logos/1002_logo.png"
+}
