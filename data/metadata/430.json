@@ -56,5 +56,6 @@
   ],
   "container": "matroska,webm",
   "duration": 6327.24,
-  "certification": "UA"
+  "certification": "UA",
+  "metadataStatus": "COMPLETE"
 }

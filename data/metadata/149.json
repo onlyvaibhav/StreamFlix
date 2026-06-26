@@ -54,5 +54,6 @@
   "container": "matroska,webm",
   "duration": 8317,
   "_tracksDetected": true,
-  "certification": "A"
+  "certification": "A",
+  "metadataStatus": "COMPLETE"
 }

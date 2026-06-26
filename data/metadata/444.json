@@ -66,5 +66,6 @@
   "container": "matroska,webm",
   "duration": 1970,
   "_tracksDetected": true,
-  "certification": "TV-14"
+  "certification": "TV-14",
+  "metadataStatus": "COMPLETE"
 }

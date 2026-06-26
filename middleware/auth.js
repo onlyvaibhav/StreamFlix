@@ -39,7 +39,8 @@ function optionalAuth(req, res, next) {
 
 function requireAdmin(req, res, next) {
   const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
+  // Prefer Authorization header; fall back to query param for SSE (EventSource cannot set headers)
+  const token = (authHeader && authHeader.split(' ')[1]) || req.query?.token;
 
   if (!token) {
     return res.status(401).json({ error: 'Admin access token required' });

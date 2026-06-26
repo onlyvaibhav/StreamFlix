@@ -31,7 +31,6 @@
     "totalSeasons": 5,
     "totalEpisodes": 40
   },
-  "_logoPath": "/xawDgfkBQaocXR9CljBMjkYpXNK.png",
   "audioTracks": [
     {
       "index": 0,
@@ -92,5 +91,6 @@
   "duration": 3946.549,
   "_tracksDetected": true,
   "certification": "TV-MA",
-  "logo": "/data/logos/show_76479_logo.png"
+  "logo": "/data/logos/show_76479_logo.png",
+  "metadataStatus": "COMPLETE"
 }

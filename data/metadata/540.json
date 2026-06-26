@@ -29,5 +29,6 @@
   "browserPlayable": true,
   "_probeFailCount": 3,
   "manualProbeNeeded": true,
-  "certification": "NR"
+  "certification": "NR",
+  "metadataStatus": "COMPLETE"
 }

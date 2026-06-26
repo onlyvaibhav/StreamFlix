@@ -22,7 +22,6 @@
   "fetchedAt": "2026-04-21T11:06:50.349Z",
   "needsRetry": false,
   "tv": null,
-  "_logoPath": null,
   "audioTracks": [
     {
       "index": 0,
@@ -70,5 +69,6 @@
   "duration": 8218.795,
   "_probeFailCount": 0,
   "_tracksDetected": true,
-  "logo": "/data/logos/931_logo.png"
+  "logo": "/data/logos/931_logo.png",
+  "metadataStatus": "COMPLETE"
 }

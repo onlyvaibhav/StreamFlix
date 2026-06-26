@@ -274,5 +274,6 @@
   ],
   "container": "matroska,webm",
   "_tracksDetected": true,
-  "certification": "12"
+  "certification": "12",
+  "metadataStatus": "COMPLETE"
 }

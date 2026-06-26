@@ -52,5 +52,6 @@
   "subtitleTracks": [],
   "container": "matroska,webm",
   "duration": 1964.117,
-  "certification": "TV-14"
+  "certification": "TV-14",
+  "metadataStatus": "COMPLETE"
 }

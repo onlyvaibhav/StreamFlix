@@ -83,5 +83,6 @@
   "browserPlayable": true,
   "logo": "/data/logos/388_logo.png",
   "_tracksDetected": true,
-  "certification": "PG"
+  "certification": "PG",
+  "metadataStatus": "COMPLETE"
 }

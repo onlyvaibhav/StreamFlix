@@ -17,7 +17,6 @@
   "fetchedAt": "2026-04-18T12:44:28.405Z",
   "needsRetry": false,
   "tv": null,
-  "_logoPath": null,
   "audioTracks": [
     {
       "index": 0,
@@ -39,5 +38,6 @@
   "duration": 5313.221,
   "_tracksDetected": true,
   "certification": "N/A",
-  "logo": "N/A"
+  "logo": "N/A",
+  "metadataStatus": "COMPLETE"
 }

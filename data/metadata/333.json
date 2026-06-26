@@ -3,23 +3,29 @@
   "fileName": "Trapped_2016_WebRip_Hindi_720p_x264_AAC_5_1_ESub_Vegamovies_NL.mkv",
   "type": "movie",
   "title": "Trapped",
-  "originalTitle": "Trapped",
-  "overview": "TRAP (Targeted Regulations of Abortion Providers) laws have been passed by conservative state legislatures in the US and clinics have taken their fight to the courts. Follow the struggles of the clinic workers and lawyers who are on the front lines of a battle to keep abortion safe and legal for millions of American women.",
-  "releaseDate": "2016-01-24",
-  "year": 2016,
-  "runtime": 83,
+  "originalTitle": "ट्रैप्ड",
+  "overview": "A man gets stuck in an empty high rise without food, water or electricity.",
+  "releaseDate": "2017-03-17",
+  "year": 2017,
+  "runtime": 105,
   "genres": [
-    "Documentary"
+    "Thriller",
+    "Drama"
   ],
-  "rating": 7,
-  "popularity": 0.1366,
+  "rating": 6.923,
+  "popularity": 0.5845,
   "poster": "/data/posters/333.jpg",
   "backdrop": "/data/backdrops/333_bd.jpg",
-  "tmdbId": 376257,
-  "fetchedAt": "2026-02-15T20:50:57.575Z",
+  "tmdbId": 431892,
+  "fetchedAt": "2026-06-25T15:28:26.085Z",
   "needsRetry": false,
   "tv": null,
-  "logo": "N/A",
+  "refetchAttempts": 0,
+  "needs_manual_fix": false,
+  "last_refetch_error": null,
+  "metadataStatus": "COMPLETE",
+  "confidence": 1,
+  "matchedBy": "auto",
   "audioTracks": [
     {
       "index": 0,
@@ -54,5 +60,5 @@
   "container": "matroska,webm",
   "duration": 6114,
   "_tracksDetected": true,
-  "certification": "N/A"
+  "logo": "N/A"
 }

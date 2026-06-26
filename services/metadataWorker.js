@@ -31,6 +31,156 @@ async function ensureDirs() {
 }
 ensureDirs();
 
+// ==================== WORKER CONCURRENCY LOCK & SIMILARITY HELPER ====================
+const activeMetadataJobs = new Map(); // fileId -> jobType
+
+const SEARCH_CACHE_PATH = path.join(__dirname, '../data/tmdb_search_cache.json');
+
+class TMDBSearchCache {
+    constructor() {
+        this.cache = [];
+        this.loaded = false;
+    }
+
+    async load() {
+        if (this.loaded) return;
+        try {
+            const raw = await fs.readFile(SEARCH_CACHE_PATH, 'utf-8');
+            this.cache = JSON.parse(raw);
+            if (!Array.isArray(this.cache)) this.cache = [];
+        } catch {
+            this.cache = [];
+        }
+        this.loaded = true;
+    }
+
+    async save() {
+        try {
+            await fs.writeFile(SEARCH_CACHE_PATH, JSON.stringify(this.cache, null, 2), 'utf-8');
+        } catch (err) {
+            console.error('Failed to save TMDB search cache:', err.message);
+        }
+    }
+
+    async get(title, year, type) {
+        await this.load();
+        const cleanTitle = normalizeTitle(title);
+        const oneDay = 24 * 60 * 60 * 1000;
+        const now = Date.now();
+        return this.cache.find(entry => 
+            normalizeTitle(entry.title) === cleanTitle &&
+            entry.year === year &&
+            entry.type === type &&
+            (now - entry.timestamp) < oneDay
+        );
+    }
+
+    async set(title, year, type, tmdbId, confidence) {
+        await this.load();
+        const cleanTitle = normalizeTitle(title);
+        this.cache = this.cache.filter(entry => 
+            !(normalizeTitle(entry.title) === cleanTitle && entry.year === year && entry.type === type)
+        );
+        this.cache.push({
+            title,
+            year,
+            type,
+            tmdbId,
+            confidence,
+            timestamp: Date.now()
+        });
+        await this.save();
+    }
+}
+const tmdbSearchCache = new TMDBSearchCache();
+
+async function promoteEligibleRecordsToNew() {
+    const all = await getAllMetadata();
+    for (const entry of all) {
+        let changed = false;
+        if (!entry.metadataStatus) {
+            if (entry.tmdbId && entry.title && !entry.needsRetry) {
+                entry.metadataStatus = 'COMPLETE';
+            } else {
+                entry.metadataStatus = 'NEW';
+            }
+            changed = true;
+        } else if (entry.metadataStatus === 'STUB') {
+            entry.metadataStatus = 'NEW';
+            changed = true;
+        } else if (entry.metadataStatus === 'FAILED') {
+            const now = Date.now();
+            const lastAttempt = entry.lastRefetchAttempt ? new Date(entry.lastRefetchAttempt).getTime() : 0;
+            const oneDay = 24 * 60 * 60 * 1000;
+            const attempts = entry.refetchAttempts || 0;
+            if (attempts < 3 || (now - lastAttempt >= oneDay)) {
+                entry.metadataStatus = 'NEW';
+                changed = true;
+            } else {
+                entry.metadataStatus = 'MANUAL_REVIEW';
+                entry.needs_manual_fix = true;
+                entry.last_refetch_error = "Too many refetch attempts";
+                changed = true;
+            }
+        }
+        if (changed) {
+            await saveMetadata(entry);
+        }
+    }
+}
+
+function normalizeTitle(title) {
+    if (!title) return '';
+    return title.toLowerCase()
+        .replace(/[^a-z0-9\s]/g, ' ') // replace special chars with space
+        .replace(/\s+/g, ' ')         // normalize spaces
+        .trim();
+}
+
+function levenshteinDistance(s1, s2) {
+    const a = normalizeTitle(s1);
+    const b = normalizeTitle(s2);
+    
+    if (a.length === 0) return b.length;
+    if (b.length === 0) return a.length;
+    
+    const matrix = [];
+    for (let i = 0; i <= b.length; i++) {
+        matrix[i] = [i];
+    }
+    for (let j = 0; j <= a.length; j++) {
+        matrix[0][j] = j;
+    }
+    
+    for (let i = 1; i <= b.length; i++) {
+        for (let j = 1; j <= a.length; j++) {
+            if (b.charAt(i - 1) === a.charAt(j - 1)) {
+                matrix[i][j] = matrix[i - 1][j - 1];
+            } else {
+                matrix[i][j] = Math.min(
+                    matrix[i - 1][j - 1] + 1, // substitution
+                    Math.min(
+                        matrix[i][j - 1] + 1, // insertion
+                        matrix[i - 1][j] + 1  // deletion
+                    )
+                );
+            }
+        }
+    }
+    return matrix[b.length][a.length];
+}
+
+function computeSimilarity(s1, s2) {
+    const a = normalizeTitle(s1);
+    const b = normalizeTitle(s2);
+    if (a === b) return 1.0;
+    
+    const dist = levenshteinDistance(a, b);
+    const maxLen = Math.max(a.length, b.length);
+    if (maxLen === 0) return 1.0;
+    return 1.0 - (dist / maxLen);
+}
+
 // ==================== PHASE 5: Image Downloads (Optimized) ====================
 
 async function downloadImage(tmdbPath, localDir, localFilename, size = 'w500') {
@@ -494,6 +644,13 @@ class MetadataWorker {
                     await activityTracker.waitIfBusy();
                 }
 
+                const fileIdStr = String(movie.fileId);
+                if (activeMetadataJobs.has(fileIdStr)) {
+                    console.log(`[Worker] Skipping duplicate job:\nFile ID: ${fileIdStr}\nReason: already processing`);
+                    continue;
+                }
+                activeMetadataJobs.set(fileIdStr, 'fetch');
+
                 try {
                     // CHECK FOR SPLIT PARTS
                     // if partNumber > 1, try to find Part 1 metadata first
@@ -610,6 +767,8 @@ class MetadataWorker {
 
                 } catch (error) {
                     console.error(`✗ Fatal error processing movie ${movie.title}:`, error.message);
+                } finally {
+                    activeMetadataJobs.delete(fileIdStr);
                 }
 
                 if (activityTracker.isStreaming()) {
@@ -621,174 +780,192 @@ class MetadataWorker {
 
             // 3. Process TV Shows (Optimized Shared Images)
             const showsToFetch = this.tvRegistry.getShowsNeedingFetch();
-
+ 
             for (const show of showsToFetch) {
                 if (activityTracker.isPaused()) {
                     await activityTracker.waitIfBusy();
                 }
-
+ 
                 console.log(`Processing TV show: "${show.title}" (${show.episodeCount} episodes)`);
-
-                // =========================================================
-                // 1. GENERATE & SAVE BASE ENTRY FOR ALL EPISODES IMMEDIATELY
-                // =========================================================
+ 
                 const episodes = this.tvRegistry.getEpisodesForShow(show.key);
+                const filteredEpisodes = [];
+                
                 for (const ep of episodes) {
-                    let baseMetadata = buildFailedEntry(
-                        ep.fileId, ep.filename, 'tv',
-                        show.title, show.year, 'pending_tmdb',
-                        ep.season, ep.episode
-                    );
-
-                    // Pre-fetch track information right away for the base object
-                    try {
-                        if (this.telegramService) {
-                            const doc = await this.telegramService.getDocument(ep.fileId);
-                            if (doc) {
-                                // Use detectAudioCodec which is the new standard for TV tracks
-                                const codecInfo = await this.telegramService.detectAudioCodec(ep.fileId);
-                                baseMetadata.audioCodec = codecInfo.codec;
-                                baseMetadata.browserPlayable = codecInfo.browserPlayable;
-                                baseMetadata._tracksDetected = true;
-                            }
-                        }
-                    } catch (e) {
-                        console.warn(`[Worker] Track detection failed for ${ep.fileId}:`, e.message);
+                    const fileIdStr = String(ep.fileId);
+                    if (activeMetadataJobs.has(fileIdStr)) {
+                        console.log(`[Worker] Skipping duplicate job:\nFile ID: ${fileIdStr}\nReason: already processing`);
+                        continue;
                     }
-
-                    await saveMetadata(baseMetadata);
-                    // Attach base metadata to episode reference for later
-                    ep.baseMetadata = baseMetadata;
+                    activeMetadataJobs.set(fileIdStr, 'fetch');
+                    filteredEpisodes.push(ep);
                 }
 
-                console.log(`[Worker] Initialized base metadata for ${episodes.length} episodes of: ${show.title}. Fetching TMDB...`);
+                if (filteredEpisodes.length === 0) continue;
 
-                // =========================================================
-                // 2. FETCH TMDB DATA AND UPDATE
-                // =========================================================
-                const showMetadata = await this.tvRegistry.fetchShowOnce(show.key, async () => {
-                    try {
-                        await activityTracker.waitIfBusy();
-                        const meta = await this.tmdb.fetchTVShowDetails(show.title, show.year);
-
-                        if (!meta) {
+                try {
+                    // 1. GENERATE & SAVE BASE ENTRY FOR ALL FILTERED EPISODES IMMEDIATELY
+                    for (const ep of filteredEpisodes) {
+                        let baseMetadata = buildFailedEntry(
+                            ep.fileId, ep.filename, 'tv',
+                            show.title, show.year, 'pending_tmdb',
+                            ep.season, ep.episode
+                        );
+ 
+                        // Pre-fetch track information right away for the base object
+                        try {
+                            if (this.telegramService) {
+                                const doc = await this.telegramService.getDocument(ep.fileId);
+                                if (doc) {
+                                    // Use detectAudioCodec which is the new standard for TV tracks
+                                    const codecInfo = await this.telegramService.detectAudioCodec(ep.fileId);
+                                    baseMetadata.audioCodec = codecInfo.codec;
+                                    baseMetadata.browserPlayable = codecInfo.browserPlayable;
+                                    baseMetadata._tracksDetected = true;
+                                }
+                            }
+                        } catch (e) {
+                            console.warn(`[Worker] Track detection failed for ${ep.fileId}:`, e.message);
+                        }
+ 
+                        await saveMetadata(baseMetadata);
+                        // Attach base metadata to episode reference for later
+                        ep.baseMetadata = baseMetadata;
+                    }
+ 
+                    console.log(`[Worker] Initialized base metadata for ${filteredEpisodes.length} episodes of: ${show.title}. Fetching TMDB...`);
+ 
+                    // =========================================================
+                    // 2. FETCH TMDB DATA AND UPDATE
+                    // =========================================================
+                    const showMetadata = await this.tvRegistry.fetchShowOnce(show.key, async () => {
+                        try {
+                            await activityTracker.waitIfBusy();
+                            const meta = await this.tmdb.fetchTVShowDetails(show.title, show.year);
+ 
+                            if (!meta) {
+                                this.tvRegistry.setShowFailed(show.key);
+                                for (const ep of filteredEpisodes) {
+                                    ep.baseMetadata._failureType = 'not_found';
+                                    await saveMetadata(ep.baseMetadata);
+                                }
+                                return null;
+                            }
+ 
+                            // Store show metadata
+                            this.tvRegistry.setShowMetadata(show.key, meta.showTmdbId, meta);
+                            await saveTVShowCache(meta.showTmdbId, meta);
+ 
+                            // DOWNLOAD IMAGES ONCE
+                            const images = await downloadShowImages(
+                                meta.showTmdbId,
+                                meta.posterPath,
+                                meta.backdropPath,
+                                meta.logoPath
+                            );
+ 
+                            // Store shared paths in registry
+                            this.tvRegistry.setShowImages(
+                                show.key,
+                                images.poster || (!meta.posterPath ? 'N/A' : null),
+                                images.backdrop || (!meta.backdropPath ? 'N/A' : null),
+                                images.logo || (!meta.logoPath ? 'N/A' : null)
+                            );
+ 
+                            console.log(`  ✓ Show: ${meta.showTitle} (TMDB: ${meta.showTmdbId})`);
+                            if (images.poster) console.log(`  ✓ Poster: ${images.poster} (shared)`);
+ 
+                            return meta;
+ 
+                        } catch (error) {
                             this.tvRegistry.setShowFailed(show.key);
-                            for (const ep of episodes) {
-                                ep.baseMetadata._failureType = 'not_found';
+                            const failureType = error.response?.status === 429 ? 'rate_limited' : 'network_error';
+                            for (const ep of filteredEpisodes) {
+                                ep.baseMetadata._failureType = failureType;
                                 await saveMetadata(ep.baseMetadata);
                             }
+                            console.error(`  ✗ Show failed: ${show.title}`, error.message);
                             return null;
                         }
-
-                        // Store show metadata
-                        this.tvRegistry.setShowMetadata(show.key, meta.showTmdbId, meta);
-                        await saveTVShowCache(meta.showTmdbId, meta);
-
-                        // DOWNLOAD IMAGES ONCE
-                        const images = await downloadShowImages(
-                            meta.showTmdbId,
-                            meta.posterPath,
-                            meta.backdropPath,
-                            meta.logoPath
-                        );
-
-                        // Store shared paths in registry
-                        this.tvRegistry.setShowImages(
-                            show.key,
-                            images.poster || (!meta.posterPath ? 'N/A' : null),
-                            images.backdrop || (!meta.backdropPath ? 'N/A' : null),
-                            images.logo || (!meta.logoPath ? 'N/A' : null)
-                        );
-
-                        console.log(`  ✓ Show: ${meta.showTitle} (TMDB: ${meta.showTmdbId})`);
-                        if (images.poster) console.log(`  ✓ Poster: ${images.poster} (shared)`);
-
-                        return meta;
-
-                    } catch (error) {
-                        this.tvRegistry.setShowFailed(show.key);
-                        const failureType = error.response?.status === 429 ? 'rate_limited' : 'network_error';
-                        for (const ep of episodes) {
-                            ep.baseMetadata._failureType = failureType;
-                            await saveMetadata(ep.baseMetadata);
+                    });
+ 
+                    if (!showMetadata) continue;
+ 
+                    // Get the shared image paths
+                    const sharedImages = this.tvRegistry.getShowImages(show.key);
+ 
+                    for (const ep of filteredEpisodes) {
+                        if (activityTracker.isPaused()) {
+                            await activityTracker.waitIfBusy();
                         }
-                        console.error(`  ✗ Show failed: ${show.title}`, error.message);
-                        return null;
-                    }
-                });
-
-                if (!showMetadata) continue;
-
-                // Get the shared image paths
-                const sharedImages = this.tvRegistry.getShowImages(show.key);
-
-                for (const ep of episodes) {
-                    if (activityTracker.isPaused()) {
-                        await activityTracker.waitIfBusy();
-                    }
-
-                    try {
-                        await activityTracker.waitIfBusy();
-                        const episodeDetails = await this.tmdb.fetchEpisodeDetails(
-                            showMetadata.showTmdbId, ep.season, ep.episode
-                        );
-
-                        const metadata = this.tmdb.buildEpisodeSchema(
-                            ep.fileId, ep.filename,
-                            showMetadata,
-                            episodeDetails,
-                            ep.season, ep.episode
-                        );
-
-                        // USE SHARED IMAGE PATHS
-                        metadata.poster = sharedImages.poster;
-                        metadata.backdrop = sharedImages.backdrop;
-                        metadata.logo = sharedImages.logo;
-
-                        // Transfer track info to the new metadata object
-                        if (ep.baseMetadata) {
-                            metadata.audioCodec = ep.baseMetadata.audioCodec;
-                            metadata.browserPlayable = ep.baseMetadata.browserPlayable;
-                            metadata._tracksDetected = ep.baseMetadata._tracksDetected;
+ 
+                        try {
+                            await activityTracker.waitIfBusy();
+                            const episodeDetails = await this.tmdb.fetchEpisodeDetails(
+                                showMetadata.showTmdbId, ep.season, ep.episode
+                            );
+ 
+                            const metadata = this.tmdb.buildEpisodeSchema(
+                                ep.fileId, ep.filename,
+                                showMetadata,
+                                episodeDetails,
+                                ep.season, ep.episode
+                            );
+ 
+                            // USE SHARED IMAGE PATHS
+                            metadata.poster = sharedImages.poster;
+                            metadata.backdrop = sharedImages.backdrop;
+                            metadata.logo = sharedImages.logo;
+ 
+                            // Transfer track info to the new metadata object
+                            if (ep.baseMetadata) {
+                                metadata.audioCodec = ep.baseMetadata.audioCodec;
+                                metadata.browserPlayable = ep.baseMetadata.browserPlayable;
+                                metadata._tracksDetected = ep.baseMetadata._tracksDetected;
+                            }
+ 
+                            await saveMetadata(metadata);
+                            console.log(`    ✓ S${String(ep.season).padStart(2, '0')}E${String(ep.episode).padStart(2, '0')}: ${episodeDetails.episodeTitle || '(untitled)'}`);
+ 
+                        } catch (error) {
+                            const fallbackMetadata = this.tmdb.buildEpisodeSchema(
+                                ep.fileId, ep.filename,
+                                showMetadata,
+                                { episodeTitle: '', episodeOverview: '', episodeRuntime: 0 },
+                                ep.season, ep.episode
+                            );
+ 
+                            // Still use shared images
+                            fallbackMetadata.poster = sharedImages.poster;
+                            fallbackMetadata.backdrop = sharedImages.backdrop;
+                            fallbackMetadata.logo = sharedImages.logo;
+ 
+                            // Transfer track info
+                            if (ep.baseMetadata) {
+                                fallbackMetadata.audioCodec = ep.baseMetadata.audioCodec;
+                                fallbackMetadata.browserPlayable = ep.baseMetadata.browserPlayable;
+                            }
+ 
+                            await saveMetadata(fallbackMetadata);
+                            console.warn(`    ~ S${String(ep.season).padStart(2, '0')}E${String(ep.episode).padStart(2, '0')}: show-level data only`);
                         }
-
-                        await saveMetadata(metadata);
-                        console.log(`    ✓ S${String(ep.season).padStart(2, '0')}E${String(ep.episode).padStart(2, '0')}: ${episodeDetails.episodeTitle || '(untitled)'}`);
-
-                    } catch (error) {
-                        const fallbackMetadata = this.tmdb.buildEpisodeSchema(
-                            ep.fileId, ep.filename,
-                            showMetadata,
-                            { episodeTitle: '', episodeOverview: '', episodeRuntime: 0 },
-                            ep.season, ep.episode
-                        );
-
-                        // Still use shared images
-                        fallbackMetadata.poster = sharedImages.poster;
-                        fallbackMetadata.backdrop = sharedImages.backdrop;
-                        fallbackMetadata.logo = sharedImages.logo;
-
-                        // Transfer track info
-                        if (ep.baseMetadata) {
-                            fallbackMetadata.audioCodec = ep.baseMetadata.audioCodec;
-                            fallbackMetadata.browserPlayable = ep.baseMetadata.browserPlayable;
+ 
+                        if (activityTracker.isStreaming()) {
+                            await sleep(2000);
+                        } else {
+                            await sleep(150);
                         }
-
-                        await saveMetadata(fallbackMetadata);
-                        console.warn(`    ~ S${String(ep.season).padStart(2, '0')}E${String(ep.episode).padStart(2, '0')}: show-level data only`);
                     }
-
+ 
                     if (activityTracker.isStreaming()) {
                         await sleep(2000);
                     } else {
-                        await sleep(150);
+                        await sleep(300);
                     }
-                }
-
-                if (activityTracker.isStreaming()) {
-                    await sleep(2000);
-                } else {
-                    await sleep(300);
+                } finally {
+                    for (const ep of filteredEpisodes) {
+                        activeMetadataJobs.delete(String(ep.fileId));
+                    }
                 }
             }
 
@@ -1115,106 +1292,290 @@ class MetadataWorker {
             throw new Error(`No metadata file found for fileId: ${fileId}`);
         }
 
-        const tmdbId = overrideTmdbId || existing.tmdbId;
-        if (!tmdbId || tmdbId === 0) {
-            throw new Error(`No TMDB ID available for fileId: ${fileId}`);
+        // Lock check
+        const fileIdStr = String(fileId);
+        if (activeMetadataJobs.has(fileIdStr)) {
+            console.log(`[Worker] Duplicate refetch ignored:\nFile ID: ${fileIdStr}`);
+            return;
         }
+        activeMetadataJobs.set(fileIdStr, 'manual_refetch');
 
-        const type = overrideType || existing.type || 'movie';
-        console.log(`[Worker] 🔄 Refetching ${type} metadata: fileId=${fileId}, tmdbId=${tmdbId}`);
+        try {
+            // Update retry attempts
+            const now = Date.now();
+            const lastAttempt = existing.lastRefetchAttempt ? new Date(existing.lastRefetchAttempt).getTime() : 0;
+            const oneDay = 24 * 60 * 60 * 1000;
+            
+            if (options.isManual) {
+                existing.refetchAttempts = 0;
+            } else {
+                if (now - lastAttempt < oneDay) {
+                    existing.refetchAttempts = (existing.refetchAttempts || 0) + 1;
+                } else {
+                    existing.refetchAttempts = 1;
+                }
+            }
+            existing.lastRefetchAttempt = new Date().toISOString();
+            existing.last_refetch_attempt = existing.lastRefetchAttempt;
 
-        await activityTracker.waitIfBusy();
-
-        if (type === 'movie') {
-            // Fetch full movie details by TMDB ID
-            const d = await this.tmdb.request(`/movie/${tmdbId}`);
-
-            const metadata = {
-                fileId: existing.fileId,
-                fileName: existing.fileName,
-                type: 'movie',
-                title: d.title || existing.title,
-                originalTitle: d.original_title || '',
-                overview: d.overview || '',
-                releaseDate: d.release_date || null,
-                year: d.release_date ? parseInt(d.release_date.split('-')[0]) : existing.year,
-                runtime: d.runtime || 0,
-                genres: (d.genres || []).map(g => g.name),
-                rating: d.vote_average || 0,
-                popularity: d.popularity || 0,
-                poster: null,
-                backdrop: null,
-                tmdbId: d.id,
-                fetchedAt: new Date().toISOString(),
-                needsRetry: false,
-                tv: null
-            };
-
-            // Preserve split info
-            if (existing.isSplit) {
-                metadata.isSplit = existing.isSplit;
-                metadata.partNumber = existing.partNumber;
+            // Check if too many attempts (only enforce for background/automatic, or manual limit if not forced)
+            if (!options.isManual && existing.refetchAttempts > 3) {
+                existing.metadataStatus = 'MANUAL_REVIEW';
+                existing.needs_manual_fix = true;
+                existing.last_refetch_error = "Too many refetch attempts";
+                await saveMetadata(existing);
+                throw new Error("Too many refetch attempts");
             }
 
-            // Force re-download images (delete old, download new)
-            const images = await forceDownloadMovieImages(
-                fileId, d.poster_path, d.backdrop_path
-            );
-            metadata.poster = images.poster || (!d.poster_path ? 'N/A' : null);
-            metadata.backdrop = images.backdrop || (!d.backdrop_path ? 'N/A' : null);
+            let tmdbId = overrideTmdbId || existing.tmdbId;
+            let type = overrideType || existing.type || 'movie';
+            let confidence = existing.confidence || 1.0;
+            let matchedBy = existing.matchedBy || (overrideTmdbId ? 'manual' : 'auto');
 
-            await saveMetadata(metadata);
-            console.log(`[Worker] ✅ Refetched movie: ${metadata.title} (${metadata.year})`);
-            return metadata;
+            // Step 3: If TMDB ID is missing, attempt discovery
+            if (!tmdbId || tmdbId === 0) {
+                existing.metadataStatus = 'MATCHING';
+                await saveMetadata(existing);
 
-        } else if (type === 'tv') {
-            // Fetch show details
-            const d = await this.tmdb.request(`/tv/${tmdbId}`);
+                let title = existing.title || '';
+                let year = existing.year || null;
+                const fileName = existing.fileName || '';
 
-            const showMeta = {
-                showTmdbId: d.id,
-                showTitle: d.name || existing.title,
-                originalShowTitle: d.original_name || '',
-                overview: d.overview || '',
-                firstAirDate: d.first_air_date || null,
-                genres: (d.genres || []).map(g => g.name),
-                rating: d.vote_average || 0,
-                popularity: d.popularity || 0,
-                posterPath: d.poster_path,
-                backdropPath: d.backdrop_path,
-                defaultEpisodeRuntime: (d.episode_run_time && d.episode_run_time.length > 0)
-                    ? d.episode_run_time[0] : 0,
-                totalSeasons: d.number_of_seasons || 0,
-                totalEpisodes: d.number_of_episodes || 0
+                if (!title || title === fileName) {
+                    const cleanFn = fileName.replace(/\.[^/.]+$/, '').replace(/[._]/g, ' ');
+                    const tvMatch = cleanFn.match(/S(\d{1,2})[\s._-]*E(\d{1,2})/i);
+                    const isTv = !!tvMatch;
+                    if (isTv) {
+                        title = cleanFn.split(/S\d/i)[0].trim().replace(/[\s._-]+$/, '');
+                    } else {
+                        const yearMatch = cleanFn.match(/(\d{4})/);
+                        if (yearMatch) {
+                            year = parseInt(yearMatch[1]);
+                            title = cleanFn.split(yearMatch[0])[0].trim().replace(/[\s._-]+$/, '');
+                        } else {
+                            title = cleanFn;
+                        }
+                    }
+                }
+
+                console.log(`[Worker] Missing TMDB ID for fileId: ${fileIdStr}. Attempting auto-match for "${title}" (${year}) [${type}]`);
+                
+                let cached = await tmdbSearchCache.get(title, year, type);
+                if (cached) {
+                    tmdbId = cached.tmdbId;
+                    confidence = cached.confidence;
+                    matchedBy = 'auto';
+                    console.log(`[Worker] TMDB Cache Hit for "${title}": tmdbId=${tmdbId}`);
+                } else {
+                    const searchType = type === 'movie' ? 'movie' : 'tv';
+                    const searchResults = await this.tmdb.request(`/search/${searchType}`, { query: title });
+                    
+                    const strongMatches = [];
+                    if (searchResults && searchResults.results) {
+                        for (const res of searchResults.results) {
+                            const resTitle = res.title || res.name || '';
+                            const resDate = res.release_date || res.first_air_date || '';
+                            const resYear = resDate ? parseInt(resDate.split('-')[0]) : null;
+                            
+                            const similarity = computeSimilarity(title, resTitle);
+                            let yearDiff = 0;
+                            if (year && resYear) {
+                                yearDiff = Math.abs(year - resYear);
+                            }
+                            
+                            if (similarity >= 0.8 && yearDiff <= 1) {
+                                strongMatches.push({
+                                    id: res.id,
+                                    title: resTitle,
+                                    year: resYear,
+                                    similarity
+                                });
+                            }
+                        }
+                    }
+
+                    if (strongMatches.length === 1) {
+                        const match = strongMatches[0];
+                        console.log(`[Worker] Auto-matched TMDB ID: ${match.id} for "${title}" (similarity: ${match.similarity.toFixed(2)})`);
+                        tmdbId = match.id;
+                        confidence = match.similarity;
+                        matchedBy = 'auto';
+                        await tmdbSearchCache.set(title, year, type, tmdbId, confidence);
+                    } else if (strongMatches.length > 1) {
+                        const err = new Error("Multiple TMDB matches found");
+                        existing.last_refetch_error = err.message;
+                        existing.metadataStatus = 'MANUAL_REVIEW';
+                        existing.needs_manual_fix = true;
+                        await saveMetadata(existing);
+                        throw err;
+                    } else {
+                        const err = new Error("No TMDB match found");
+                        existing.last_refetch_error = err.message;
+                        existing.metadataStatus = 'MANUAL_REVIEW';
+                        existing.needs_manual_fix = true;
+                        await saveMetadata(existing);
+                        throw err;
+                    }
+                }
+            }
+
+            // Transition to MATCHED
+            existing.tmdbId = tmdbId;
+            existing.confidence = confidence;
+            existing.matchedBy = matchedBy;
+            existing.metadataStatus = 'MATCHED';
+            await saveMetadata(existing);
+
+            // Transition to FETCHING
+            existing.metadataStatus = 'FETCHING';
+            await saveMetadata(existing);
+
+            // Normal refetch flow
+            console.log(`[Worker] 🔄 Refetching ${type} metadata: fileId=${fileIdStr}, tmdbId=${tmdbId}`);
+            await activityTracker.waitIfBusy();
+
+            let metadata;
+            if (type === 'movie') {
+                const d = await this.tmdb.request(`/movie/${tmdbId}`);
+                metadata = {
+                    fileId: existing.fileId,
+                    fileName: existing.fileName,
+                    type: 'movie',
+                    title: d.title || existing.title,
+                    originalTitle: d.original_title || '',
+                    overview: d.overview || '',
+                    releaseDate: d.release_date || null,
+                    year: d.release_date ? parseInt(d.release_date.split('-')[0]) : existing.year,
+                    runtime: d.runtime || 0,
+                    genres: (d.genres || []).map(g => g.name),
+                    rating: d.vote_average || 0,
+                    popularity: d.popularity || 0,
+                    poster: null,
+                    backdrop: null,
+                    tmdbId: d.id,
+                    fetchedAt: new Date().toISOString(),
+                    needsRetry: false,
+                    tv: null,
+                    refetchAttempts: 0,
+                    needs_manual_fix: false,
+                    last_refetch_error: null,
+                    metadataStatus: 'COMPLETE',
+                    confidence,
+                    matchedBy
+                };
+
+                if (existing.isSplit) {
+                    metadata.isSplit = existing.isSplit;
+                    metadata.partNumber = existing.partNumber;
+                }
+
+                // Preserve audio/subtitle tracks and other probed fields
+                if (existing.audioTracks) metadata.audioTracks = existing.audioTracks;
+                if (existing.audioCodec) metadata.audioCodec = existing.audioCodec;
+                if (existing.browserPlayable !== undefined) metadata.browserPlayable = existing.browserPlayable;
+                if (existing.subtitleTracks) metadata.subtitleTracks = existing.subtitleTracks;
+                if (existing.container) metadata.container = existing.container;
+                if (existing.duration) metadata.duration = existing.duration;
+                if (existing._tracksDetected) metadata._tracksDetected = existing._tracksDetected;
+                if (existing.logo) metadata.logo = existing.logo;
+
+                const images = await forceDownloadMovieImages(fileIdStr, d.poster_path, d.backdrop_path);
+                metadata.poster = images.poster || (!d.poster_path ? 'N/A' : null);
+                metadata.backdrop = images.backdrop || (!d.backdrop_path ? 'N/A' : null);
+
+                await saveMetadata(metadata);
+                console.log(`[Worker] ✅ Refetched movie: ${metadata.title} (${metadata.year})`);
+                return metadata;
+            } else if (type === 'tv') {
+                const d = await this.tmdb.request(`/tv/${tmdbId}`);
+                const showMeta = {
+                    showTmdbId: d.id,
+                    showTitle: d.name || existing.title,
+                    originalShowTitle: d.original_name || '',
+                    overview: d.overview || '',
+                    firstAirDate: d.first_air_date || null,
+                    genres: (d.genres || []).map(g => g.name),
+                    rating: d.vote_average || 0,
+                    popularity: d.popularity || 0,
+                    posterPath: d.poster_path,
+                    backdropPath: d.backdrop_path,
+                    defaultEpisodeRuntime: (d.episode_run_time && d.episode_run_time.length > 0) ? d.episode_run_time[0] : 0,
+                    totalSeasons: d.number_of_seasons || 0,
+                    totalEpisodes: d.number_of_episodes || 0
+                };
+
+                const season = existing.tv?.seasonNumber || 1;
+                const episode = existing.tv?.episodeNumber || 1;
+
+                const episodeDetails = await this.tmdb.fetchEpisodeDetails(showMeta.showTmdbId, season, episode);
+                const epSchema = this.tmdb.buildEpisodeSchema(existing.fileId, existing.fileName, showMeta, episodeDetails, season, episode);
+                
+                metadata = {
+                    ...existing,
+                    ...epSchema,
+                    refetchAttempts: 0,
+                    needs_manual_fix: false,
+                    last_refetch_error: null,
+                    metadataStatus: 'COMPLETE',
+                    confidence,
+                    matchedBy
+                };
+
+                const images = await forceDownloadShowImages(showMeta.showTmdbId, showMeta.posterPath, showMeta.backdropPath);
+                metadata.poster = images.poster || (!showMeta.posterPath ? 'N/A' : null);
+                metadata.backdrop = images.backdrop || (!showMeta.backdropPath ? 'N/A' : null);
+
+                await saveMetadata(metadata);
+                console.log(`[Worker] ✅ Refetched TV: ${metadata.title} S${season}E${episode}`);
+                return metadata;
+            }
+            throw new Error(`Unknown type: ${type}`);
+        } catch (err) {
+            existing.last_refetch_error = err.message;
+            if (existing.refetchAttempts >= 3 && !options.isManual) {
+                existing.metadataStatus = 'MANUAL_REVIEW';
+                existing.needs_manual_fix = true;
+            } else {
+                existing.metadataStatus = 'FAILED';
+            }
+            await saveMetadata(existing);
+            throw err;
+        } finally {
+            activeMetadataJobs.delete(fileIdStr);
+        }
+    }
+
+    async autoMatchAll() {
+        const all = await getAllMetadata();
+        const candidates = all.filter(entry => 
+            !entry.tmdbId || entry.tmdbId === 0 || entry.metadataStatus === 'MANUAL_REVIEW' || entry.metadataStatus === 'FAILED'
+        );
+        console.log(`[Worker] Bulk Auto Match started for ${candidates.length} candidates.`);
+
+        const bulkMatchTask = async () => {
+            const concurrency = 2;
+            let index = 0;
+
+            const workerPromise = async () => {
+                while (index < candidates.length) {
+                    const item = candidates[index++];
+                    try {
+                        console.log(`[Worker] Bulk Auto Match: Processing ${item.fileId} (${item.title || item.fileName})`);
+                        await this.refetchMetadata(item.fileId, { isManual: true });
+                    } catch (err) {
+                        console.error(`[Worker] Bulk Auto Match failed for ${item.fileId}:`, err.message);
+                    }
+                    await sleep(1500);
+                }
             };
 
-            // Preserve season/episode from existing
-            const season = existing.tv?.seasonNumber || 1;
-            const episode = existing.tv?.episodeNumber || 1;
+            const workers = Array.from({ length: concurrency }, () => workerPromise());
+            await Promise.all(workers);
+            console.log(`[Worker] Bulk Auto Match task finished.`);
+        };
 
-            // Fetch episode details
-            const episodeDetails = await this.tmdb.fetchEpisodeDetails(
-                showMeta.showTmdbId, season, episode
-            );
-
-            const metadata = this.tmdb.buildEpisodeSchema(
-                existing.fileId, existing.fileName,
-                showMeta, episodeDetails, season, episode
-            );
-
-            // Force re-download show images
-            const images = await forceDownloadShowImages(
-                showMeta.showTmdbId, showMeta.posterPath, showMeta.backdropPath
-            );
-            metadata.poster = images.poster || (!showMeta.posterPath ? 'N/A' : null);
-            metadata.backdrop = images.backdrop || (!showMeta.backdropPath ? 'N/A' : null);
-
-            await saveMetadata(metadata);
-            console.log(`[Worker] ✅ Refetched TV: ${metadata.title} S${season}E${episode}`);
-            return metadata;
-        }
-
-        throw new Error(`Unknown type: ${type}`);
+        bulkMatchTask().catch(err => console.error('[Worker] Bulk match task error:', err));
+        return candidates.length;
     }
 }
 
@@ -1448,7 +1809,7 @@ async function syncWithTelegram() {
     }
 
     if (requiresInvalidation) {
-        try { require('../server').invalidateCache?.('sync'); } catch { }
+        try { require('../server').invalidateCache?.('sync', false, { added: newFiles.length, removed: removedFiles.length, changed: changedFiles.length }); } catch { }
     }
 
     return {
@@ -1475,13 +1836,14 @@ async function queueMetadataFetch(file) {
     try {
         const existingRaw = await fs.readFile(metaPath, 'utf-8');
         const existing = JSON.parse(existingRaw);
-        // Only skip if it's a complete valid entry
         if (existing.fetchedAt && !existing.needsRetry) {
             console.log(`[Worker] ⏭️ Metadata already exists for ${fileId}`);
             return true;
+        } else {
+            console.log('Metadata stub already exists');
+            return true;
         }
     } catch { }
-
     // Parse filename to determine type and basic info
     // This ensures the retry worker knows how to categorize it
     const cleanFn = fileName.replace(/\.[^/.]+$/, '').replace(/[._]/g, ' ');
@@ -1503,7 +1865,7 @@ async function queueMetadataFetch(file) {
         }
     }
 
-    // Create metadata stub with TYPE info
+    // Create metadata stub with TYPE info and STUB status
     const stub = {
         fileId: fileId,
         fileName: fileName,
@@ -1511,6 +1873,7 @@ async function queueMetadataFetch(file) {
         title: title, // improved stub title
         year: year,
         tmdbId: 0,
+        metadataStatus: 'STUB',
         needsRetry: true,
         createdAt: new Date().toISOString(),
         // Initialize _retry state so shouldRetry() accepts it immediately
@@ -1694,62 +2057,21 @@ async function startIdleLoop() {
                 }
             }
 
-            // 0.5 Check for incomplete metadata (tmdbId: 0)
+            // 0.5 Check for incomplete metadata (metadataStatus: 'NEW')
             if (!activityTracker.isPaused()) {
+                await promoteEligibleRecordsToNew();
                 const incomplete = await findIncompleteMetadata();
                 if (incomplete.length > 0) {
-                    console.log(`[Worker] 🔍 Found ${incomplete.length} files with incomplete metadata`);
+                    console.log(`[Worker] 🔍 Found ${incomplete.length} files with NEW/incomplete metadata`);
                     let repaired = 0;
 
                     for (const item of incomplete) {
                         if (activityTracker.isPaused()) break;
-
+ 
+                        console.log(`[Worker] 🔄 Attempting repair for: ${item.fileName}`);
                         try {
-                            console.log(`[Worker] 🔄 Attempting repair for: ${item.fileName}`);
-                            await queueMetadataFetch({ id: item.fileId, fileName: item.fileName });
-
-                            // We can reuse the active fetch logic or just trigger refetchMetadata if we had more info
-                            // But queueMetadataFetch creates a stub that retryFailedLookups will pick up
-                            // Actually, let's try to fix it right now similar to active fetch
-
-                            const cleanFn = item.fileName.replace(/\.[^/.]+$/, '').replace(/[._]/g, ' ');
-                            const tvMatch = cleanFn.match(/S(\d{1,2})[\s._-]*E(\d{1,2})/i);
-                            const isTv = !!tvMatch;
-                            let metadata = null;
-
-                            if (isTv) {
-                                let title = cleanFn.split(/S\d/i)[0].trim().replace(/[\s._-]+$/, '');
-                                const showMeta = await worker.tmdb.fetchTVShowDetails(title);
-                                if (showMeta) {
-                                    const season = parseInt(tvMatch[1]);
-                                    const episode = parseInt(tvMatch[2]);
-                                    const epDetails = await worker.tmdb.fetchEpisodeDetails(showMeta.showTmdbId, season, episode);
-                                    metadata = worker.tmdb.buildEpisodeSchema(item.fileId, item.fileName, showMeta, epDetails, season, episode);
-
-                                    const images = await downloadShowImages(showMeta.showTmdbId, showMeta.posterPath, showMeta.backdropPath);
-                                    metadata.poster = images.poster;
-                                    metadata.backdrop = images.backdrop;
-                                }
-                            } else {
-                                const yearMatch = cleanFn.match(/(\d{4})/);
-                                const year = yearMatch ? parseInt(yearMatch[1]) : null;
-                                const title = yearMatch ? cleanFn.split(yearMatch[0])[0].trim() : cleanFn;
-                                metadata = await worker.tmdb.fetchMovieComplete(item.fileId, item.fileName, title, year);
-                                if (metadata) {
-                                    const images = await downloadMovieImages(item.fileId, metadata._posterPath, metadata._backdropPath);
-                                    metadata.poster = images.poster;
-                                    metadata.backdrop = images.backdrop;
-                                }
-                            }
-
-                            if (metadata) {
-                                await saveMetadata(metadata);
-                                console.log(`[Worker] ✅ Repaired: ${item.fileName}`);
-                                repaired++;
-                                if (metadata.type === 'tv' && metadata.tv?.showTmdbId) {
-                                    await updateTVCacheForShow(metadata.tv.showTmdbId);
-                                }
-                            }
+                            await worker.refetchMetadata(item.fileId, { isManual: false });
+                            repaired++;
                         } catch (e) {
                             console.warn(`[Worker] Repair failed for ${item.fileName}: ${e.message}`);
                         }
@@ -2129,46 +2451,18 @@ async function updateTVCacheForShow(showTmdbId) {
     // console.log(`[TVCache] ✅ Updated: ${showInfo.showTitle} (${episodes.length} eps)`);
 }
 
-// Check for files with tmdbId: 0 or missing tmdbId
+// Check for files with metadataStatus: 'NEW'
 async function findIncompleteMetadata() {
-    let files = [];
-    try {
-        files = await fs.readdir(DATA_DIR);
-    } catch { return []; }
-
-    const incomplete = [];
-
-    for (const file of files) {
-        if (!file.endsWith('.json')) continue;
-        try {
-            const raw = await fs.readFile(path.join(DATA_DIR, file), 'utf-8');
-            const data = JSON.parse(raw);
-
-            if (!data.fileId) continue;
-
-            // Check for incomplete metadata
-            const isIncomplete =
-                (!data.tmdbId || data.tmdbId === 0) ||
-                (!data.fetchedAt) ||
-                (!data.title || data.title === '') ||
-                (data.needsRetry === true);
-
-            // Skip if too many retries (unless we want to force check)
-            if ((data._retryCount || 0) >= 10 && !data.needsRefetch) continue;
-
-            if (isIncomplete) {
-                incomplete.push({
-                    fileId: data.fileId,
-                    fileName: data.fileName || file.replace('.json', ''),
-                    tmdbId: data.tmdbId || 0,
-                    retryCount: data._retryCount || 0,
-                    lastError: data._lastError || null
-                });
-            }
-        } catch { continue; }
-    }
-
-    return incomplete;
+    const all = await getAllMetadata();
+    return all
+        .filter(entry => entry && entry.metadataStatus === 'NEW')
+        .map(entry => ({
+            fileId: entry.fileId,
+            fileName: entry.fileName || '',
+            tmdbId: entry.tmdbId || 0,
+            retryCount: entry.refetchAttempts || 0,
+            lastError: entry.last_refetch_error || null
+        }));
 }
 
 // Background task to fetch any missing logos for existing metadata

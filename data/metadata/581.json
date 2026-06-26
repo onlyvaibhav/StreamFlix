@@ -172,5 +172,6 @@
   "browserPlayable": true,
   "container": "matroska,webm",
   "_tracksDetected": true,
-  "certification": "NC16"
+  "certification": "NC16",
+  "metadataStatus": "COMPLETE"
 }

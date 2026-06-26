@@ -144,5 +144,6 @@
   ],
   "container": "matroska,webm",
   "duration": 3083.905,
-  "certification": "TV-MA"
+  "certification": "TV-MA",
+  "metadataStatus": "COMPLETE"
 }

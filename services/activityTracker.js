@@ -176,6 +176,7 @@ class ActivityTracker extends EventEmitter {
             this.emit('pause');
         }
 
+        this.emit('stream.started', sessionKey);
         return sessionKey;
     }
 
@@ -230,6 +231,8 @@ class ActivityTracker extends EventEmitter {
                 this.resumeWorker();
             }, this.IDLE_DELAY_MS);
         }
+        
+        this.emit('stream.ended', sessionKey);
     }
 
     /**
@@ -358,6 +361,7 @@ class ActivityTracker extends EventEmitter {
         console.log('[Tracker] ▶ Worker resumed');
         console.log('[Tracker] ✓ Worker idle');
         this.emit('resume');
+        this.emit('stream.updated');
     }
 
     isPaused() {
@@ -404,6 +408,7 @@ class ActivityTracker extends EventEmitter {
 
         console.log('[Tracker] ⏸ Worker paused');
         this.emit('pause');
+        this.emit('stream.updated');
         return true;
     }
 

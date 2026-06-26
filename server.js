@@ -40,6 +40,8 @@ process.on('unhandledRejection', (reason, promise) => {
 
   const telegramErrors = [
     'TIMEOUT',
+    'Timeout',
+    'UpdateLoop',
     'Not connected',
     'Connection closed',
     'connection closed',
@@ -53,7 +55,11 @@ process.on('unhandledRejection', (reason, promise) => {
   const isTelegramError = telegramErrors.some(e => message.includes(e));
 
   if (isTelegramError) {
-    console.warn(`[Telegram] Recoverable error: ${message}`);
+    if (message.includes('Timeout') || message.includes('UpdateLoop')) {
+      console.warn(`[Telegram] Update loop timeout, reconnecting...`);
+    } else {
+      console.warn(`[Telegram] Recoverable error: ${message}`);
+    }
     return;
   }
 
@@ -61,17 +67,21 @@ process.on('unhandledRejection', (reason, promise) => {
 });
 
 process.on('uncaughtException', (error) => {
-  console.error('[UncaughtException]', error.message);
-
+  const message = error?.message || String(error);
+  
   if (
-    error.message.includes('TIMEOUT') ||
-    error.message.includes('Not connected') ||
-    error.message.includes('Connection closed')
+    message.includes('TIMEOUT') ||
+    message.includes('Timeout') ||
+    message.includes('UpdateLoop') ||
+    message.includes('Not connected') ||
+    message.includes('Connection closed') ||
+    message.includes('connection closed')
   ) {
-    console.warn('[Telegram] Auto-recovering from crash...');
+    console.warn(`[Telegram] Auto-recovering from crash (${message})...`);
     return;
   }
 
+  console.error('[UncaughtException]', error.message);
   console.error('[UncaughtException] Stack:', error.stack);
 });
 
@@ -214,20 +224,50 @@ let _cacheInvalidateTimer = null;
 let _cacheInvalidateCount = 0;
 let _cacheInvalidateReasons = new Set();
 
-function invalidateCache(reason) {
-  _metadataCache = null;
-  _metadataCacheTime = 0;
-  _curatedCache = null;
-  _curatedCacheTime = 0;
+function invalidateCache(reason, forceImmediate = false, stats = null) {
+  if (reason === 'sync' && stats) {
+      const totalChanges = (stats.added || 0) + (stats.removed || 0) + (stats.changed || 0);
+      if (totalChanges === 0) {
+          console.log('[Cache] Skipping invalidation — no changes detected in sync');
+          return;
+      }
+  }
+
   _cacheInvalidateCount++;
   
   if (reason) {
       _cacheInvalidateReasons.add(reason);
   }
 
+  if (forceImmediate) {
+      _metadataCache = null;
+      _metadataCacheTime = 0;
+      _curatedCache = null;
+      _curatedCacheTime = 0;
+      if (_cacheInvalidateTimer) {
+          clearTimeout(_cacheInvalidateTimer);
+          _cacheInvalidateTimer = null;
+      }
+      const reasonText = _cacheInvalidateReasons.size > 0 
+          ? ` Reasons: ${Array.from(_cacheInvalidateReasons).join(', ')}` 
+          : '';
+      console.log(`\n🗑️ [Cache] Invalidated metadata cache immediately.${reasonText}\n`);
+      if (worker.worker && worker.worker.telegramService && worker.worker.telegramService.invalidateCache) {
+          worker.worker.telegramService.invalidateCache();
+      }
+      _cacheInvalidateCount = 0;
+      _cacheInvalidateReasons.clear();
+      return;
+  }
+
   if (_cacheInvalidateTimer) clearTimeout(_cacheInvalidateTimer);
 
   _cacheInvalidateTimer = setTimeout(() => {
+    _metadataCache = null;
+    _metadataCacheTime = 0;
+    _curatedCache = null;
+    _curatedCacheTime = 0;
+
     const reasonText = _cacheInvalidateReasons.size > 0 
         ? ` Reasons: ${Array.from(_cacheInvalidateReasons).join(', ')}` 
         : '';
@@ -1149,7 +1189,7 @@ app.post('/api/admin/sync-telegram', requireAdmin, async (req, res) => {
 
 // POST /api/admin/invalidate-cache — Manual Trigger
 app.post('/api/admin/invalidate-cache', requireAdmin, (req, res) => {
-  invalidateCache();
+  invalidateCache('manual', true);
   res.json({ success: true, message: 'Caches invalidated' });
 });
 
@@ -1210,21 +1250,21 @@ app.get('/api/routes', (req, res) => {
 // ============================================================
 // SERVE FRONTEND — Static files from /public
 // ============================================================
-// Serve admin page at /admin
+// Serve unified admin console at /admin
 app.get('/admin', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'admin.html'));
+  res.sendFile(path.join(__dirname, 'public', 'console', 'index.html'));
 });
 
-// Serve modern admin page at /admin/v2
+// Redirect old v2 URL to new admin
 app.get('/admin/v2', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'admin-v2.html'));
+  res.redirect('/admin');
 });
 
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Catch-all for SPA — serve index.html for any unmatched non-API route
 app.get('*', (req, res, next) => {
-  if (req.path.startsWith('/api/') || req.path.startsWith('/data/') || req.path === '/admin') {
+  if (req.path.startsWith('/api/') || req.path.startsWith('/data/')) {
     return next();
   }
   res.sendFile(path.join(__dirname, 'public', 'index.html'));

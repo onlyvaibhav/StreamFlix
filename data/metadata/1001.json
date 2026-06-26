@@ -14,13 +14,19 @@
     "Crime"
   ],
   "rating": 6.912,
-  "popularity": 0.6772,
+  "popularity": 0.769,
   "poster": "/data/posters/1001.jpg",
   "backdrop": "/data/backdrops/1001_bd.jpg",
   "tmdbId": 377213,
-  "fetchedAt": "2026-06-24T06:47:16.045Z",
+  "fetchedAt": "2026-06-25T15:28:20.799Z",
   "needsRetry": false,
   "tv": null,
+  "refetchAttempts": 0,
+  "needs_manual_fix": false,
+  "last_refetch_error": null,
+  "metadataStatus": "COMPLETE",
+  "confidence": 1,
+  "matchedBy": "auto",
   "audioTracks": [
     {
       "index": 0,
@@ -55,6 +61,5 @@
   "container": "matroska,webm",
   "duration": 8154.261,
   "_tracksDetected": true,
-  "_probeFailCount": 0,
   "logo": "N/A"
 }

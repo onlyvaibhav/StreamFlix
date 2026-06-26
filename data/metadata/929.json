@@ -21,7 +21,6 @@
   "fetchedAt": "2026-04-18T12:44:38.145Z",
   "needsRetry": false,
   "tv": null,
-  "_logoPath": "/9XppjJk4i9tk8q4NWIPcs4pVm0w.png",
   "audioTracks": [
     {
       "index": 0,
@@ -96,5 +95,6 @@
   "duration": 8942.003,
   "_tracksDetected": true,
   "certification": "R",
-  "logo": "/data/logos/929_logo.png"
+  "logo": "/data/logos/929_logo.png",
+  "metadataStatus": "COMPLETE"
 }

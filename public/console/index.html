@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StreamFlix Admin Console</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Design System & Base -->
+    <link rel="stylesheet" href="/console/css/themes.css">
+    <link rel="stylesheet" href="/console/css/components.css">
+    <link rel="stylesheet" href="/console/css/console.css">
+    
+    <!-- Third Party Scripts -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <!-- ========================================== -->
+    <!-- LOGIN SCREEN                               -->
+    <!-- ========================================== -->
+    <div id="login-screen" class="login-screen hidden">
+        <div class="login-card animate-scale">
+            <div class="logo">
+                <div style="width:48px;height:48px;background:var(--accent);border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto var(--space-md)">
+                    <i data-lucide="play" color="white" style="width:24px;height:24px"></i>
+                </div>
+                <h1>STREAMFLIX</h1>
+                <p>Admin Console</p>
+            </div>
+            
+            <form id="login-form">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" id="login-username" class="form-input" required autocomplete="username">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="login-password" class="form-input" required autocomplete="current-password">
+                </div>
+                
+                <div id="login-error" class="login-error"></div>
+                <button type="submit" id="login-btn" class="login-btn">Sign In</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- MAIN APP LAYOUT                            -->
+    <!-- ========================================== -->
+    <div id="app-layout" class="app-layout hidden animate-fade">
+        
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo-icon">
+                    <i data-lucide="play" color="white" style="width:16px;height:16px"></i>
+                </div>
+                <div class="sidebar-logo-text">STREAMFLIX</div>
+            </div>
+            
+            <div class="sidebar-nav" id="sidebar-nav">
+                <!-- Navigation items dynamically populated by app.js -->
+            </div>
+            
+            <div class="sidebar-footer">
+                <button class="nav-item" id="logout-btn">
+                    <i data-lucide="log-out" style="width:18px;height:18px"></i>
+                    <span>Sign Out</span>
+                </button>
+            </div>
+        </aside>
+        
+        <!-- MAIN CONTENT AREA -->
+        <main class="main-content">
+            <header class="main-header">
+                <div class="main-header-left">
+                    <h1 id="section-title">Dashboard</h1>
+                </div>
+                <div class="main-header-right">
+                    <button class="header-kbd" onclick="AppCommands.open()">
+                        <i data-lucide="search" style="width:14px;height:14px"></i> Search
+                        <span style="opacity:0.5">Ctrl+K</span>
+                    </button>
+                </div>
+            </header>
+            
+            <!-- Dynamic Section Body -->
+            <div class="main-body" id="main-body">
+                <!-- Content populated by router.js -->
+            </div>
+        </main>
+        
+    </div>
+
+    <!-- ========================================== -->
+    <!-- CORE SCRIPTS                               -->
+    <!-- ========================================== -->
+    <script src="/console/js/state.js"></script>
+    <script src="/console/js/api.js"></script>
+    <script src="/console/js/router.js"></script>
+    <script src="/console/js/events.js"></script>
+    <script src="/console/js/commands.js"></script>
+
+    <!-- COMPONENTS -->
+    <script src="/console/js/components/Toast.js"></script>
+    <script src="/console/js/components/Modal.js"></script>
+    <script src="/console/js/components/Drawer.js"></script>
+    <script src="/console/js/components/DataTable.js"></script>
+    <script src="/console/js/components/StatCard.js"></script>
+    <script src="/console/js/components/Badge.js"></script>
+    <script src="/console/js/components/SearchBar.js"></script>
+    <script src="/console/js/components/FilterBar.js"></script>
+    <script src="/console/js/components/ProgressBar.js"></script>
+    <script src="/console/js/components/EmptyState.js"></script>
+    <script src="/console/js/components/SkeletonLoader.js"></script>
+    <script src="/console/js/components/ConfirmDialog.js"></script>
+    <script src="/console/js/components/WorkerCard.js"></script>
+    <script src="/console/js/components/ViewerCard.js"></script>
+    <script src="/console/js/components/LogConsole.js"></script>
+
+    <!-- APP BOOTSTRAP -->
+    <script src="/console/js/app.js"></script>
+
+    <!-- SECTION MODULES -->
+    <script src="/console/js/dashboard/dashboard.js"></script>
+    <script src="/console/js/media/media.js"></script>
+    <script src="/console/js/metadata/metadata.js"></script>
+    <script src="/console/js/streaming/streaming.js"></script>
+    <script src="/console/js/workers/workers.js"></script>
+    <script src="/console/js/telegram/telegram.js"></script>
+    <script src="/console/js/logs/logs.js"></script>
+    <script src="/console/js/analytics/analytics.js"></script>
+    <script src="/console/js/settings/settings.js"></script>
+    <script src="/console/js/system/system.js"></script>
+</body>
+</html>

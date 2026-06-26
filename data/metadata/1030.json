@@ -24,5 +24,49 @@
   "audioCodec": "aac",
   "browserPlayable": true,
   "_tracksDetected": true,
-  "logo": "/data/logos/1030_logo.png"
+  "logo": "/data/logos/1030_logo.png",
+  "metadataStatus": "COMPLETE",
+  "container": "matroska,webm",
+  "duration": 9141.173,
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "Vegamovies.is",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": true
+    },
+    {
+      "index": 1,
+      "streamIndex": 2,
+      "codec": "aac",
+      "language": "Tamil",
+      "languageCode": "tam",
+      "title": "Vegamovies.is",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": false
+    }
+  ],
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 3,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Vegamovies.is",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    }
+  ]
 }

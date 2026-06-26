@@ -81,5 +81,6 @@
   "audioCodec": "eac3",
   "browserPlayable": false,
   "_tracksDetected": true,
-  "_probeFailCount": 0
+  "_probeFailCount": 0,
+  "metadataStatus": "COMPLETE"
 }

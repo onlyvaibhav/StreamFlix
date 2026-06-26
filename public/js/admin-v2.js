@@ -378,7 +378,49 @@ function filterMetadataTable() {
     filterTimeout = setTimeout(loadMetadataManager, 500);
 }
 
-// ==================== RENDER: ISSUES ====================
+function formatIssueText(issue) {
+    if (issue === 'tmdb_missing' || issue === 'no_tmdb_id' || issue === 'TMDB Missing') {
+        return 'TMDB Missing';
+    }
+    return issue.replace(/_/g, ' ');
+}
+
+window.autoMatchMetadata = async function(fileId) {
+    if (confirm(`Attempt automatic TMDB matching and refetch for file ${fileId}?`)) {
+        try {
+            showToast('Attempting auto match...', 'success');
+            const result = await adminApi(`/api/admin/metadata/${fileId}/refetch`, { method: 'POST' });
+            showToast(`Success! Matched and refetched: ${result.metadata.title}`, 'success');
+            loadDashboard();
+        } catch (err) {
+            showToast(err.message, 'error');
+        }
+    }
+};
+
+window.autoMatchAllMetadata = async function(btn) {
+    if (confirm('Attempt automatic TMDB matching for all files currently missing TMDB IDs?')) {
+        const originalContent = btn.innerHTML;
+        btn.disabled = true;
+        btn.innerHTML = '<i data-lucide="loader-2" class="animate-spin" size="16"></i> Processing...';
+        lucide.createIcons();
+        try {
+            const result = await adminApi('/api/admin/metadata/auto-match-all', { method: 'POST' });
+            showToast(result.message || 'Bulk auto match started in background', 'success');
+            setTimeout(loadDashboard, 1500);
+        } catch (err) {
+            showToast(err.message, 'error');
+        } finally {
+            btn.disabled = false;
+            btn.innerHTML = originalContent;
+            lucide.createIcons();
+        }
+    }
+};
+
+window.openLegacyEdit = function(fileId) {
+    window.open(`/admin.html?edit=${fileId}`, '_blank');
+};
 
 function renderIssues(data) {
     const el = document.getElementById('issues-panel-body');
@@ -388,34 +430,57 @@ function renderIssues(data) {
         return;
     }
 
+    const items = data.issues.slice(0, 30);
+
     el.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+            <div style="color: var(--text-secondary); font-size: 0.875rem;">${data.total} issues detected (showing ${items.length})</div>
+            <button class="nav-item" style="background: var(--glass); border: 1px solid var(--border); color: #60a5fa;" onclick="autoMatchAllMetadata(this)">
+                <i data-lucide="zap" size="16"></i>
+                <span>Auto Match All</span>
+            </button>
+        </div>
         <table>
             <thead>
                 <tr>
-                    <th>File</th>
-                    <th>Issues</th>
-                    <th style="width: 100px;">Actions</th>
+                    <th style="width: 80px;">ID</th>
+                    <th>Title</th>
+                    <th>Year</th>
+                    <th>Issues / State</th>
+                    <th>Last Error</th>
+                    <th style="width: 180px;">Actions</th>
                 </tr>
             </thead>
             <tbody>
-                ${data.issues.map(item => `
-                    <tr>
-                        <td>
-                            <div style="font-weight: 600;">${esc(item.title || item.fileName || 'Unknown')}</div>
-                            <div style="font-family: 'JetBrains Mono'; font-size: 0.75rem; color: var(--text-muted);">${item.fileId}</div>
-                        </td>
-                        <td>
-                            <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
-                                ${item.issues.map(i => `<span class="chip ${i === 'manual_probe_needed' ? 'chip-warning' : 'chip-error'}">${i.replace(/_/g, ' ')}</span>`).join('')}
-                            </div>
-                        </td>
-                        <td>
-                            <button class="nav-item" style="padding: 0.5rem; background: var(--glass); border: none; cursor: pointer;" onclick="openFileDrawer('${item.fileId}')">
-                                <i data-lucide="edit-3" size="16"></i>
-                            </button>
-                        </td>
-                    </tr>
-                `).join('')}
+                ${items.map(item => {
+                    const problems = item.issues || [];
+                    return `
+                        <tr>
+                            <td style="font-family: 'JetBrains Mono'; font-size: 0.75rem; color: var(--info);">${item.fileId}</td>
+                            <td title="${esc(item.fileName || '')}">
+                                <div style="font-weight: 600;">${esc(item.title || item.fileName || 'Unknown')}</div>
+                            </td>
+                            <td>${item.year || '—'}</td>
+                            <td>
+                                <div style="display: flex; flex-wrap: wrap; gap: 0.25rem;">
+                                    <span class="chip" style="background: rgba(255,255,255,0.05); color: var(--text-secondary);">${item.metadataStatus || 'NEW'}</span>
+                                    ${problems.map(i => `<span class="chip ${i.includes('missing') || i.includes('no_') ? 'chip-error' : 'chip-warning'}">${formatIssueText(i)}</span>`).join('')}
+                                </div>
+                            </td>
+                            <td style="font-size: 0.75rem; max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${esc(item.lastError || '')}">${esc(item.lastError || '—')}</td>
+                            <td>
+                                <div style="display: flex; gap: 0.5rem;">
+                                    <button class="nav-item" style="padding: 0.35rem 0.6rem; font-size: 0.75rem; background: var(--glass); border: 1px solid var(--border); color: #60a5fa;" onclick="autoMatchMetadata('${item.fileId}')">
+                                        Auto Match
+                                    </button>
+                                    <button class="nav-item" style="padding: 0.35rem 0.6rem; font-size: 0.75rem;" onclick="openFileDrawer('${item.fileId}')">
+                                        Manual Fix
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                }).join('')}
             </tbody>
         </table>
     `;

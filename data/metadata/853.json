@@ -199,5 +199,6 @@
   ],
   "logo": "/data/logos/853_logo.png",
   "_tracksDetected": true,
-  "certification": "UA"
+  "certification": "UA",
+  "metadataStatus": "COMPLETE"
 }

@@ -41,5 +41,6 @@
   "subtitleTracks": [],
   "container": "matroska,webm",
   "duration": 9147.305,
-  "certification": "UA"
+  "certification": "UA",
+  "metadataStatus": "COMPLETE"
 }

@@ -25,6 +25,66 @@ const workerService = require('./workerService');
 const { hasMetadata } = require('./metadataService');
 const { saveMetadata } = require('./metadataWorker');
 
+// ==================== TELEGRAM SERVICE ENHANCEMENTS ====================
+const activeSenders = new Map(); // dcId -> sender
+
+// Queue for background/concurrency-heavy Telegram operations
+const telegramTaskQueue = [];
+let activeTaskCount = 0;
+const CONCURRENCY_LIMIT = 2;
+
+function enqueueTelegramTask(taskFn) {
+  return new Promise((resolve, reject) => {
+    telegramTaskQueue.push({ taskFn, resolve, reject });
+    processTelegramQueue();
+  });
+}
+
+function processTelegramQueue() {
+  if (activeTaskCount >= CONCURRENCY_LIMIT || telegramTaskQueue.length === 0) return;
+  const { taskFn, resolve, reject } = telegramTaskQueue.shift();
+  activeTaskCount++;
+  taskFn()
+    .then(resolve)
+    .catch(reject)
+    .finally(() => {
+      activeTaskCount--;
+      processTelegramQueue();
+    });
+}
+
+// Global console.log interceptor to suppress GramJS hanging states reconnect spam
+const originalConsoleLog = console.log;
+let lastHangingWarnTime = 0;
+const HANGING_WARN_THROTTLE = 10000;
+
+console.log = function (...args) {
+  const msg = args.join(' ');
+  if (msg.includes('sender already has some hanging states. reconnecting')) {
+    const now = Date.now();
+    if (now - lastHangingWarnTime > HANGING_WARN_THROTTLE) {
+      lastHangingWarnTime = now;
+      let dcId = 'unknown';
+      let activeRequests = 0;
+      
+      // Look for a busy sender in activeSenders
+      for (const [id, sender] of activeSenders.entries()) {
+        const count = sender._pendingState 
+          ? (typeof sender._pendingState.size === 'number' ? sender._pendingState.size : (sender._pendingState.values ? Array.from(sender._pendingState.values()).length : 0)) 
+          : 0;
+        if (count > 0) {
+          dcId = id;
+          activeRequests = count;
+          break;
+        }
+      }
+      originalConsoleLog(`[Telegram][WARN] Sender busy | DC: ${dcId} | Active Requests: ${activeRequests}`);
+    }
+    return; // Suppress GramJS logging
+  }
+  originalConsoleLog.apply(console, args);
+};
+
 // Try to load ffmpeg service (optional dependency)
 let ffmpegService = null;
 let ffmpegAvailable = false;
@@ -1839,26 +1899,38 @@ async function scanChannelFiles() {
 
 module.exports = {
   initTelegram,
-  getMoviesList,
-  getMovieById,
+  getMoviesList: async (limit, offset, search, enrich) => {
+    return enqueueTelegramTask(() => getMoviesList(limit, offset, search, enrich));
+  },
+  getMovieById: async (messageId) => {
+    return enqueueTelegramTask(() => getMovieById(messageId));
+  },
   groupSplitFiles,
   getMovieMetadata,
   getThumbnail,
   streamFile,
   getDownloadStream,
   getCacheStats: () => ({ size: chunkCache.size }),
-  getSubtitlesForMovie,
-  getMediaInfo,
+  getSubtitlesForMovie: async (messageId, fileId) => {
+    return enqueueTelegramTask(() => getSubtitlesForMovie(messageId, fileId));
+  },
+  getMediaInfo: async (fileId) => {
+    return enqueueTelegramTask(() => getMediaInfo(fileId));
+  },
   transcodeMovie,
   probeMovieFile,
   getFileInfo,
   downloadBytes,
   getDocument: async (messageId) => {
-    if (!client || !channelEntity) return null;
-    const msgs = await client.getMessages(channelEntity, { ids: [parseInt(messageId)] });
-    return msgs[0]?.media?.document || null;
+    return enqueueTelegramTask(async () => {
+      if (!client || !channelEntity) return null;
+      const msgs = await client.getMessages(channelEntity, { ids: [parseInt(messageId)] });
+      return msgs[0]?.media?.document || null;
+    });
   },
-  detectAudioCodec,
+  detectAudioCodec: async (fileId) => {
+    return enqueueTelegramTask(() => detectAudioCodec(fileId));
+  },
   saveMetadataDirectly: async (id, data) => {
     try {
       const { saveMetadata } = require('./metadataWorker');
@@ -1871,6 +1943,20 @@ module.exports = {
   getConnectionStats: () => ({
     ...telegramConnectionStats,
   }),
+  getSenderStats: () => {
+    const stats = [];
+    for (const [dcId, sender] of activeSenders.entries()) {
+      const activeRequests = sender._pendingState 
+        ? (typeof sender._pendingState.size === 'number' ? sender._pendingState.size : (sender._pendingState.values ? Array.from(sender._pendingState.values()).length : 0)) 
+        : 0;
+      stats.push({
+        dcId,
+        activeRequests,
+        connected: typeof sender.isConnected === 'function' ? sender.isConnected() : true
+      });
+    }
+    return stats;
+  },
   getDcSender: async (dcId, forceReconnect = false) => {
     if (!client || !dcId) return null;
     telegramConnectionStats.senderRequests += 1;
@@ -1892,16 +1978,53 @@ module.exports = {
       }
 
       if (forceReconnect) {
-        if (client._exportedSenderPromises && client._exportedSenderPromises[dc]) {
-          delete client._exportedSenderPromises[dc];
+        // Find existing sender to check if it's busy
+        const existingSender = activeSenders.get(dc);
+        if (existingSender) {
+          let attempts = 0;
+          while (attempts < 20) { // Max 10 seconds (20 * 500ms)
+            const count = existingSender._pendingState 
+              ? (typeof existingSender._pendingState.size === 'number' ? existingSender._pendingState.size : (existingSender._pendingState.values ? Array.from(existingSender._pendingState.values()).length : 0)) 
+              : 0;
+            if (count === 0) break;
+            attempts++;
+            await new Promise(r => setTimeout(r, 500));
+          }
+          const count = existingSender._pendingState 
+            ? (typeof existingSender._pendingState.size === 'number' ? existingSender._pendingState.size : (existingSender._pendingState.values ? Array.from(existingSender._pendingState.values()).length : 0)) 
+            : 0;
+          if (count > 0) {
+            console.log(`[Telegram][WARN] Skip force reconnect: DC ${dc} is busy with ${count} active requests`);
+            forceReconnect = false;
+          }
         }
-        if (client._exportedSenders && client._exportedSenders[dc]) {
-          try { await client._exportedSenders[dc].disconnect(); } catch (e) {}
-          delete client._exportedSenders[dc];
+      }
+
+      if (forceReconnect) {
+        if (client._exportedSenderPromises) {
+          if (typeof client._exportedSenderPromises.delete === 'function') {
+            client._exportedSenderPromises.delete(dc);
+          } else if (client._exportedSenderPromises[dc]) {
+            delete client._exportedSenderPromises[dc];
+          }
+        }
+        if (client._exportedSenders) {
+          const senderObj = typeof client._exportedSenders.get === 'function' ? client._exportedSenders.get(dc) : client._exportedSenders[dc];
+          if (senderObj) {
+            try { await senderObj.disconnect(); } catch (e) {}
+          }
+          if (typeof client._exportedSenders.delete === 'function') {
+            client._exportedSenders.delete(dc);
+          } else {
+            delete client._exportedSenders[dc];
+          }
         }
       }
 
       const sender = await client.getSender(dc);
+      if (sender) {
+        activeSenders.set(dc, sender);
+      }
       if (failedSenders.has(dc)) {
         failedSenders.delete(dc);
         console.log(`[Telegram] Sender recovered: DC ${dc}`);
@@ -1919,5 +2042,7 @@ module.exports = {
   downloadProbeChunk: typeof downloadProbeChunk !== 'undefined' ? downloadProbeChunk : null,
   invalidateCache,
   scanChannelFiles,
-  detectAllTracks
+  detectAllTracks: async (doc, fileId) => {
+    return enqueueTelegramTask(() => detectAllTracks(doc, fileId));
+  }
 };

@@ -54,5 +54,6 @@
   "subtitleTracks": [],
   "container": "matroska,webm",
   "duration": 8058.847,
-  "certification": "PG-13"
+  "certification": "PG-13",
+  "metadataStatus": "COMPLETE"
 }

@@ -25,5 +25,6 @@
   "audioCodec": "aac",
   "browserPlayable": true,
   "_tracksDetected": true,
-  "logo": "/data/logos/1031_logo.png"
+  "logo": "/data/logos/1031_logo.png",
+  "metadataStatus": "COMPLETE"
 }

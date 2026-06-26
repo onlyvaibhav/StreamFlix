@@ -454,6 +454,13 @@ function renderAudioTrackBadge(track) {
 
 // ==================== RENDER: ISSUES ====================
 
+function formatIssueText(issue) {
+  if (issue === 'tmdb_missing' || issue === 'no_tmdb_id' || issue === 'TMDB Missing') {
+    return 'TMDB Missing';
+  }
+  return issue.replace(/_/g, ' ');
+}
+
 function renderIssues(data) {
   const el = document.getElementById('issues-panel-body');
   if (!data || !data.issues || data.issues.length === 0) {
@@ -464,26 +471,48 @@ function renderIssues(data) {
   const items = data.issues.slice(0, 30);
 
   el.innerHTML = `
-    <div style="margin-bottom:12px; font-size:13px; color:var(--admin-text-muted);">${data.total} issues found (showing ${items.length})</div>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom:12px;">
+      <div style="font-size:13px; color:var(--admin-text-muted);">${data.total} issues found (showing ${items.length})</div>
+      <button class="action-btn" style="padding: 6px 12px; font-size:12px; font-weight:600; border-color: rgba(59, 130, 246, 0.4); color: #60a5fa;" onclick="autoMatchAllMetadata(this)">
+        ⚡ Auto Match All
+      </button>
+    </div>
     <div class="issues-table-wrapper">
       <table class="issues-table">
         <thead>
           <tr>
             <th>File ID</th>
             <th>Title</th>
-            <th>Type</th>
-            <th>Issues</th>
+            <th>Year</th>
+            <th>Issues / State</th>
+            <th>Last Error</th>
+            <th style="width: 180px;">Actions</th>
           </tr>
         </thead>
         <tbody>
-          ${items.map(item => `
-            <tr>
-              <td style="font-family:monospace; font-size:12px;">${item.fileId}</td>
-              <td>${esc(item.title || item.fileName || '—')}</td>
-              <td>${item.type || '—'}</td>
-              <td>${(item.issues || []).map(i => `<span class="issue-tag${i.includes('missing') || i.includes('no_') ? ' error' : ''}">${i}</span>`).join(' ')}</td>
-            </tr>
-          `).join('')}
+          ${items.map(item => {
+            const problems = item.issues || [];
+            return `
+              <tr>
+                <td style="font-family:monospace; font-size:12px;">${item.fileId}</td>
+                <td title="${esc(item.fileName || '')}">${esc(item.title || item.fileName || '—')}</td>
+                <td>${item.year || '—'}</td>
+                <td>
+                  <div style="display: flex; flex-wrap: wrap; gap: 4px;">
+                    <span class="issue-tag" style="background: rgba(255,255,255,0.05); color: #ccc;">${item.metadataStatus || 'NEW'}</span>
+                    ${problems.map(i => `<span class="issue-tag${i.includes('missing') || i.includes('no_') ? ' error' : ''}">${formatIssueText(i)}</span>`).join(' ')}
+                  </div>
+                </td>
+                <td style="font-size:11px; max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${esc(item.lastError || '')}">${esc(item.lastError || '—')}</td>
+                <td>
+                  <div style="display: flex; gap: 6px;">
+                    <button class="action-btn" style="padding: 2px 6px; font-size: 11px; border-color: rgba(59, 130, 246, 0.4); color: #60a5fa;" onclick="autoMatchMetadata('${item.fileId}')">Auto Match</button>
+                    <button class="action-btn" style="padding: 2px 6px; font-size: 11px;" onclick="openEditModal('${item.fileId}')">Manual Fix</button>
+                  </div>
+                </td>
+              </tr>
+            `;
+          }).join('')}
         </tbody>
       </table>
     </div>
@@ -703,13 +732,51 @@ function renderMetadataManager() {
   `;
 }
 
+window.autoMatchMetadata = async function(fileId) {
+  if (confirm(`Attempt automatic TMDB matching and refetch for file ${fileId}?`)) {
+    try {
+      showToast('Attempting auto match...', 'info');
+      const result = await adminApi(`/api/admin/metadata/${fileId}/refetch`, { method: 'POST' });
+      showToast(`Success! Matched and refetched: ${result.metadata.title}`, 'success');
+      loadDashboard();
+    } catch (err) {
+      showToast(err.message, 'error');
+    }
+  }
+};
+
+window.autoMatchAllMetadata = async function(btn) {
+  if (confirm('Attempt automatic TMDB matching for all files currently missing TMDB IDs?')) {
+    const origText = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = '⏳ Running...';
+    try {
+      const result = await adminApi('/api/admin/metadata/auto-match-all', { method: 'POST' });
+      showToast(result.message || 'Bulk auto match started in background', 'success');
+      setTimeout(loadDashboard, 1500);
+    } catch (err) {
+      showToast(err.message, 'error');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = origText;
+    }
+  }
+};
+
 // ----------------------------------------------------
 // EDIT MODAL LOGIC
 // ----------------------------------------------------
 let currentEditEntry = null;
 
-window.openEditModal = function(fileId) {
-  const entry = metadataList.find(m => String(m.fileId) === String(fileId));
+window.openEditModal = async function(fileId) {
+  let entry = metadataList.find(m => String(m.fileId) === String(fileId));
+  if (!entry) {
+    try {
+      entry = await adminApi(`/api/metadata/${fileId}`);
+    } catch (err) {
+      console.error('Failed to fetch entry for editing:', err);
+    }
+  }
   if (!entry) return;
   
   currentEditEntry = entry;
@@ -720,12 +787,8 @@ window.openEditModal = function(fileId) {
   document.getElementById('edit-year').value = entry.year || '';
   document.getElementById('edit-type').value = entry.type || 'movie';
   document.getElementById('edit-tmdb-id').value = entry.tmdbId || '';
-  document.getElementById('edit-season').value = entry.season ?? '';
-  document.getElementById('edit-episode').value = entry.episode ?? '';
-  // Note: Overview might not be in the search results list directly (we stripped it for size),
-  // but if it is, we show it. Otherwise we fetch full metadata for this entry if needed, but 
-  // since the user wants to *force* fixes, they can provide it or leave it blank.
-  // Actually, we can just leave it blank and backend uses EXISTING if empty.
+  document.getElementById('edit-season').value = (entry.tv?.seasonNumber !== undefined) ? entry.tv.seasonNumber : (entry.season ?? '');
+  document.getElementById('edit-episode').value = (entry.tv?.episodeNumber !== undefined) ? entry.tv.episodeNumber : (entry.episode ?? '');
   document.getElementById('edit-overview').value = entry.overview || '';
   
   toggleTvFields();
@@ -841,6 +904,14 @@ document.addEventListener('DOMContentLoaded', () => {
       .then(data => {
         if (data) {
           showDashboard();
+          // Check if edit param is present
+          const urlParams = new URLSearchParams(window.location.search);
+          const editId = urlParams.get('edit');
+          if (editId) {
+              setTimeout(() => {
+                  openEditModal(editId);
+              }, 1000);
+          }
         } else {
           showLogin();
         }

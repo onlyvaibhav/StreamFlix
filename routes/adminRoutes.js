@@ -41,13 +41,17 @@ function checkIfBroken(metadata) {
         return { broken: true, reason: 'overwritten by track detection' };
     }
 
+    if (!metadata.tmdbId || metadata.tmdbId === 0) {
+        return { broken: true, reason: 'TMDB Missing' };
+    }
+
     // Has fileId but missing all TMDB data
     if (!metadata.title && !metadata.needsRetry) {
         return { broken: true, reason: 'missing title' };
     }
 
     if (metadata.fetchedAt && !metadata.tmdbId && !metadata.needsRetry) {
-        return { broken: true, reason: 'missing tmdbId despite fetchedAt' };
+        return { broken: true, reason: 'TMDB Missing' };
     }
 
     // Title exists but no genres (partial TMDB fetch) for movies
@@ -411,7 +415,7 @@ router.post('/metadata/:fileId/fix', async (req, res) => {
 
         console.log(`[Admin] Manual fix: fileId=${fileId}, tmdbId=${tmdbId}, type=${type || existing.type}`);
 
-        const updated = await worker.refetchMetadata(fileId, { tmdbId, type });
+        const updated = await worker.refetchMetadata(fileId, { tmdbId, type, isManual: true });
         res.json({ success: true, metadata: updated });
 
     } catch (error) {
@@ -420,7 +424,7 @@ router.post('/metadata/:fileId/fix', async (req, res) => {
     }
 });
 
-// POST /api/admin/metadata/:fileId/refetch — Re-fetch using existing TMDB ID
+// POST /api/admin/metadata/:fileId/refetch — Re-fetch using existing TMDB ID (or attempt auto-discovery if missing)
 router.post('/metadata/:fileId/refetch', async (req, res) => {
     try {
         const { fileId } = req.params;
@@ -430,17 +434,25 @@ router.post('/metadata/:fileId/refetch', async (req, res) => {
             return res.status(404).json({ error: `No metadata found for fileId: ${fileId}` });
         }
 
-        if (!existing.tmdbId || existing.tmdbId === 0) {
-            return res.status(400).json({ error: 'No TMDB ID in existing metadata — use /fix to set one' });
-        }
+        console.log(`[Admin] Refetch: fileId=${fileId}, tmdbId=${existing.tmdbId || 'None'}`);
 
-        console.log(`[Admin] Refetch: fileId=${fileId}, tmdbId=${existing.tmdbId}`);
-
-        const updated = await worker.refetchMetadata(fileId);
+        const updated = await worker.refetchMetadata(fileId, { isManual: true });
         res.json({ success: true, metadata: updated });
 
     } catch (error) {
         console.error(`[Admin] Refetch failed for ${req.params.fileId}:`, error.message);
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// POST /api/admin/metadata/auto-match-all — Trigger bulk auto matching in background
+router.post('/metadata/auto-match-all', async (req, res) => {
+    try {
+        console.log('[Admin] Bulk Auto Match requested');
+        const count = await worker.autoMatchAll();
+        res.json({ success: true, message: `Bulk auto match started in background for ${count} files.` });
+    } catch (error) {
+        console.error('[Admin] Bulk Auto Match failed:', error.message);
         res.status(500).json({ error: error.message });
     }
 });
@@ -581,7 +593,7 @@ router.get('/metadata/issues', async (req, res) => {
             if (entry.needsRetry) problems.push('needs_retry');
             if (entry.needsRefetch) problems.push('needs_refetch');
             if (entry.manualProbeNeeded) problems.push('manual_probe_needed');
-            if (!entry.tmdbId || entry.tmdbId === 0) problems.push('no_tmdb_id');
+            if (!entry.tmdbId || entry.tmdbId === 0) problems.push('tmdb_missing');
             if (!entry.title) problems.push('no_title');
             if (!entry.fetchedAt) problems.push('never_fetched');
             if (entry.rating !== undefined && entry.rating > 0 && entry.rating < 2) problems.push('very_low_rating');
@@ -618,6 +630,9 @@ router.get('/metadata/issues', async (req, res) => {
                     title: entry.title || null,
                     tmdbId: entry.tmdbId || 0,
                     type: entry.type || 'unknown',
+                    year: entry.year || null,
+                    lastError: entry.last_refetch_error || entry._lastError || null,
+                    metadataStatus: entry.metadataStatus || 'NEW',
                     issues: problems,
                     detail: problems.join(', ')
                 });
@@ -741,6 +756,7 @@ router.get('/streams', (req, res) => {
 // GET /api/admin/system/storage
 router.get('/system/storage', async (req, res) => {
     try {
+        const os = require('os');
         const root = path.parse(process.cwd()).root;
         const { exec } = require('child_process');
         const util = require('util');
@@ -751,38 +767,66 @@ router.get('/system/storage', async (req, res) => {
             free: 0,
             used: 0,
             percent: 0,
-            drive: root
+            drive: root,
+            error: false
         };
 
-        if (process.platform === 'win32') {
-            const driveLetter = root.slice(0, 1);
-            const { stdout } = await execPromise(`powershell -Command "Get-CimInstance Win32_LogicalDisk -Filter 'DeviceID=\'${driveLetter}:\'\" | Select-Object Size, FreeSpace"`);
-            const lines = stdout.trim().split('\n').map(l => l.trim()).filter(Boolean);
-            if (lines.length >= 2) {
-                const values = lines[1].split(/\s+/);
-                const size = parseInt(values[0]);
-                const free = parseInt(values[1]);
-                storageInfo.total = size;
-                storageInfo.free = free;
-                storageInfo.used = size - free;
-                storageInfo.percent = Math.round((storageInfo.used / size) * 100);
+        try {
+            if (process.platform === 'win32') {
+                const driveLetter = root.slice(0, 1);
+                const cmd = `powershell -Command "Get-CimInstance Win32_LogicalDisk -Filter 'DeviceID=''${driveLetter}:''' | Select-Object Size, FreeSpace"`;
+                const { stdout } = await execPromise(cmd);
+                const lines = stdout.trim().split('\n').map(l => l.trim()).filter(Boolean);
+                if (lines.length >= 2) {
+                    const values = lines[1].split(/\s+/);
+                    const size = parseInt(values[0]);
+                    const free = parseInt(values[1]);
+                    storageInfo.total = size;
+                    storageInfo.free = free;
+                    storageInfo.used = size - free;
+                    storageInfo.percent = Math.round((storageInfo.used / size) * 100);
+                }
+            } else {
+                const { stdout } = await execPromise('df -B1 / --output=size,avail');
+                const lines = stdout.trim().split('\n');
+                if (lines.length >= 2) {
+                    const [size, free] = lines[1].trim().split(/\s+/).map(Number);
+                    storageInfo.total = size;
+                    storageInfo.free = free;
+                    storageInfo.used = size - free;
+                    storageInfo.percent = Math.round((storageInfo.used / size) * 100);
+                }
             }
-        } else {
-            const { stdout } = await execPromise('df -B1 / --output=size,avail');
-            const lines = stdout.trim().split('\n');
-            if (lines.length >= 2) {
-                const [size, free] = lines[1].trim().split(/\s+/).map(Number);
-                storageInfo.total = size;
-                storageInfo.free = free;
-                storageInfo.used = size - free;
-                storageInfo.percent = Math.round((storageInfo.used / size) * 100);
-            }
+        } catch (execErr) {
+            console.warn('[System] Failed to fetch disk storage, falling back to memory stats:', execErr.message);
+            // Fallback to RAM if disk fails
+            const totalMem = os.totalmem();
+            const freeMem = os.freemem();
+            storageInfo.total = totalMem;
+            storageInfo.free = freeMem;
+            storageInfo.used = totalMem - freeMem;
+            storageInfo.percent = Math.round((storageInfo.used / totalMem) * 100);
+            storageInfo.drive = 'RAM (Fallback)';
+            storageInfo.error = true;
         }
 
         res.json(storageInfo);
     } catch (error) {
-        res.status(500).json({ error: 'Failed to fetch storage info' });
+        res.json({ error: true, message: 'Failed to fetch storage info', used: 0, free: 1, total: 1, percent: 0 });
     }
+});
+
+// GET /api/admin/system/info
+router.get('/system/info', (req, res) => {
+    res.json({
+        platform: process.platform,
+        arch: process.arch,
+        nodeVersion: process.version,
+        pid: process.pid,
+        uptime: process.uptime(),
+        env: process.env.NODE_ENV || 'development',
+        memory: process.memoryUsage()
+    });
 });
 
 // GET /api/admin/worker/logs
@@ -790,4 +834,119 @@ router.get('/worker/logs', (req, res) => {
     res.json(logger.getLogs());
 });
 
+// ==================== SSE CONNECTION MANAGEMENT ====================
+const _sseClients = new Set();
+
+function _sseSend(res, event, data) {
+    try {
+        if (!res.writableEnded && !res.destroyed) {
+            res.write(`event: ${event}\ndata: ${JSON.stringify(data)}\n\n`);
+        }
+    } catch (err) {
+        // Broken pipe — will be cleaned up on 'close'
+    }
+}
+
+function _sseBroadcast(event, data) {
+    for (const client of _sseClients) {
+        _sseSend(client.res, event, data);
+    }
+}
+
+// GET /api/admin/events — SSE Stream (auth handled by requireAdmin middleware via query token)
+router.get('/events', (req, res) => {
+    res.setHeader('Content-Type', 'text/event-stream');
+    res.setHeader('Cache-Control', 'no-cache');
+    res.setHeader('Connection', 'keep-alive');
+    res.setHeader('X-Accel-Buffering', 'no'); // Disable nginx buffering
+    res.flushHeaders();
+
+    const client = {
+        id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+        res,
+        ip: req.ip,
+        connectTime: Date.now(),
+        lastEventTime: Date.now()
+    };
+    _sseClients.add(client);
+
+    // ── Initial payload: hydrate the frontend with current state ──
+    _sseSend(res, 'connected', {
+        clientId: client.id,
+        serverTime: new Date().toISOString(),
+        activeClients: _sseClients.size
+    });
+    _sseSend(res, 'log.initial', logger.getLogs());
+    _sseSend(res, 'stream.updated', activityTracker.getStatus());
+    _sseSend(res, 'worker.updated', getIdleLoopStatus());
+
+    // ── Event listeners ──
+    const onLog = (entry) => {
+        client.lastEventTime = Date.now();
+        _sseSend(res, 'log.entry', entry);
+    };
+    const onStreamEvent = () => {
+        client.lastEventTime = Date.now();
+        _sseSend(res, 'stream.updated', activityTracker.getStatus());
+    };
+    const onWorkerEvent = () => {
+        client.lastEventTime = Date.now();
+        const status = getIdleLoopStatus();
+        status.activeViewers = activityTracker.getStatus().activeViewers;
+        _sseSend(res, 'worker.updated', status);
+    };
+
+    logger.on('log', onLog);
+    activityTracker.on('stream.started', onStreamEvent);
+    activityTracker.on('stream.ended', onStreamEvent);
+    activityTracker.on('stream.updated', onStreamEvent);
+    activityTracker.on('pause', onWorkerEvent);
+    activityTracker.on('resume', onWorkerEvent);
+
+    // ── Heartbeat (30s) — also pushes worker status for silent queue changes ──
+    const heartbeat = setInterval(() => {
+        try {
+            if (res.writableEnded || res.destroyed) {
+                cleanup();
+                return;
+            }
+            res.write(': heartbeat\n\n');
+            // Push worker status on heartbeat for queue size changes that don't emit events
+            const status = getIdleLoopStatus();
+            status.activeViewers = activityTracker.getStatus().activeViewers;
+            _sseSend(res, 'worker.updated', status);
+        } catch (err) {
+            cleanup();
+        }
+    }, 30000);
+
+    // ── Cleanup on disconnect ──
+    function cleanup() {
+        clearInterval(heartbeat);
+        logger.off('log', onLog);
+        activityTracker.off('stream.started', onStreamEvent);
+        activityTracker.off('stream.ended', onStreamEvent);
+        activityTracker.off('stream.updated', onStreamEvent);
+        activityTracker.off('pause', onWorkerEvent);
+        activityTracker.off('resume', onWorkerEvent);
+        _sseClients.delete(client);
+    }
+
+    req.on('close', cleanup);
+    req.on('error', cleanup);
+    res.on('error', cleanup);
+});
+
+// GET /api/admin/events/stats — SSE connection statistics
+router.get('/events/stats', (req, res) => {
+    const clients = Array.from(_sseClients).map(c => ({
+        id: c.id,
+        ip: c.ip,
+        connectedFor: Math.round((Date.now() - c.connectTime) / 1000),
+        lastEvent: Math.round((Date.now() - c.lastEventTime) / 1000)
+    }));
+    res.json({ activeConnections: _sseClients.size, clients });
+});
+
 module.exports = router;
+

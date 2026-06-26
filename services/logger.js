@@ -3,8 +3,11 @@
  * Keeps a circular buffer of recent logs to show in the UI.
  */
 
-class Logger {
+const EventEmitter = require('events');
+
+class Logger extends EventEmitter {
     constructor(limit = 200) {
+        super();
         this.limit = limit;
         this.logs = [];
     }
@@ -34,6 +37,9 @@ class Logger {
         if (type === 'error') console.error(prefix, message);
         else if (type === 'warn') console.warn(prefix, message);
         else console.log(prefix, message);
+
+        // Emit for SSE
+        this.emit('log', entry);
     }
 
     info(message, source) { this.log(message, 'info', source); }

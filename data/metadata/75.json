@@ -56,5 +56,6 @@
   "browserPlayable": true,
   "logo": "/data/logos/75_logo.png",
   "_tracksDetected": true,
-  "certification": "PG"
+  "certification": "PG",
+  "metadataStatus": "COMPLETE"
 }

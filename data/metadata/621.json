@@ -66,5 +66,6 @@
   "container": "mov,mp4,m4a,3gp,3g2,mj2",
   "duration": 5932,
   "_tracksDetected": true,
-  "certification": "R"
+  "certification": "R",
+  "metadataStatus": "COMPLETE"
 }

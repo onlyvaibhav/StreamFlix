@@ -56,5 +56,6 @@
   "browserPlayable": true,
   "logo": "/data/logos/848_logo.png",
   "_tracksDetected": true,
-  "certification": "U/A 16+"
+  "certification": "U/A 16+",
+  "metadataStatus": "COMPLETE"
 }

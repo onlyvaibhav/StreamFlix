@@ -457,5 +457,6 @@
   "container": "matroska,webm",
   "duration": 4120.32,
   "_probeFailCount": 0,
-  "logo": "/data/logos/show_222233_logo.png"
+  "logo": "/data/logos/show_222233_logo.png",
+  "metadataStatus": "COMPLETE"
 }

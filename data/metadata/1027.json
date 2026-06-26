@@ -57,5 +57,6 @@
   "container": "matroska,webm",
   "duration": 7103.668,
   "_probeFailCount": 0,
-  "logo": "N/A"
+  "logo": "N/A",
+  "metadataStatus": "COMPLETE"
 }
