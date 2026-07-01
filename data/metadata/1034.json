@@ -1,0 +1,26 @@
+{
+  "fileId": "1034",
+  "fileName": "Made_In_India_A_Titan_Story_S01E03_720p_AMZN_WEB_DL_Hindi_DDP5_1.mkv",
+  "type": "tv",
+  "title": "Made In India A Titan Story",
+  "year": null,
+  "tmdbId": 0,
+  "metadataStatus": "MATCHING",
+  "needsRetry": true,
+  "createdAt": "2026-06-30T13:05:04.034Z",
+  "_retry": {
+    "attemptCount": 0,
+    "lastAttempt": 0,
+    "searchedTitle": "Made In India A Titan Story",
+    "searchedYear": null
+  },
+  "tv": {
+    "seasonNumber": 1,
+    "episodeNumber": 3,
+    "showTitle": "Made In India A Titan Story"
+  },
+  "refetchAttempts": 3,
+  "lastRefetchAttempt": "2026-06-30T13:15:09.025Z",
+  "last_refetch_attempt": "2026-06-30T13:15:09.025Z",
+  "last_refetch_error": "timeout of 10000ms exceeded"
+}

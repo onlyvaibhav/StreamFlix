@@ -13,6 +13,7 @@ Debug Trash/
 scratch/
 streamflix_v2
 streamflix_v2/
+old_streamflixv2_files
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
