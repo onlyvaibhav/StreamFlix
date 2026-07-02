@@ -83,10 +83,15 @@ class MovieDetailScreen extends ConsumerWidget {
                   background: Stack(
                     fit: StackFit.expand,
                     children: [
-                      // Backdrop image
-                      if (movie.fullBackdropUrl != null)
+                      // Backdrop image with poster fallback
+                      if (movie.fullBackdropUrl != null && movie.fullBackdropUrl!.isNotEmpty)
                         AppImage(
                           imageUrl: movie.fullBackdropUrl!,
+                          fit: BoxFit.cover,
+                        )
+                      else if (movie.fullPosterUrl != null && movie.fullPosterUrl!.isNotEmpty)
+                        AppImage(
+                          imageUrl: movie.fullPosterUrl!,
                           fit: BoxFit.cover,
                         )
                       else
@@ -105,6 +110,12 @@ class MovieDetailScreen extends ConsumerWidget {
                             imageUrl: movie.fullLogoUrl!,
                             height: 120,
                             fit: BoxFit.contain,
+                            errorWidget: Text(
+                              movie.title,
+                              style: AppTextStyles.heroTitle,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
                           ),
                         )
                       else

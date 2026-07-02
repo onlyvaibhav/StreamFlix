@@ -5,8 +5,10 @@ class AppConfig {
   /// V1 Backend base URL
   /// Web: http://localhost:3000 or production domain
   /// Android: http://192.168.x.x:3000 (same LAN IP)
-  static String get v1BaseUrl =>
-      dotenv.env['V1_BASE_URL'] ?? 'http://localhost:3000';
+  static String get v1BaseUrl {
+    final url = dotenv.env['V1_BASE_URL'] ?? 'http://localhost:3000';
+    return url.endsWith('/') ? url.substring(0, url.length - 1) : url;
+  }
 
   /// Request timeout in seconds
   static const int timeoutSeconds = 30;

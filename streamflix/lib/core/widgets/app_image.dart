@@ -26,9 +26,11 @@ class AppImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Construct full URL if relative path provided
+    final baseUrl = AppConfig.v1BaseUrl;
+    final path = imageUrl.startsWith('/') ? imageUrl : '/$imageUrl';
     final fullUrl = imageUrl.startsWith('http')
         ? imageUrl
-        : '${AppConfig.v1BaseUrl}$imageUrl';
+        : '$baseUrl$path';
 
     Widget image = CachedNetworkImage(
       imageUrl: fullUrl,

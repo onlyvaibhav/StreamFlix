@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -7,6 +8,7 @@ import 'package:media_kit/media_kit.dart' as mk;
 import 'package:media_kit_video/media_kit_video.dart';
 import 'package:streamflix/core/constants/app_colors.dart';
 import 'package:streamflix/core/widgets/error_widget.dart';
+import 'package:streamflix/core/utils/native_controls.dart';
 import 'package:streamflix/features/movies/data/models/movie.dart';
 import 'package:streamflix/features/movies/presentation/providers/movies_provider.dart';
 import 'package:streamflix/features/player/presentation/providers/player_provider.dart';
@@ -30,7 +32,9 @@ class _WatchScreenState extends ConsumerState<WatchScreen> {
   bool _isFullscreen = false;
   
   // Gesture controls levels
-  double _simulatedBrightness = 0.8; // default simulated brightness level (0.1 to 1.0)
+  double _simulatedBrightness = 0.8;
+  double _nativeVolume = 0.5;
+  double _nativeBrightness = 1.0;
   bool _showVolumeIndicator = false;
   bool _showBrightnessIndicator = false;
   Timer? _hudTimer;
@@ -42,13 +46,27 @@ class _WatchScreenState extends ConsumerState<WatchScreen> {
   int _accumulatedSeekSeconds = 0;
   Timer? _seekAccumulationTimer;
   DateTime? _lastTapTime;
-  bool _isRightSideTap = false;
 
   @override
   void initState() {
     super.initState();
     _initializePlayer();
     _setLandscapeOrientation();
+
+    // Fetch initial native volume & brightness on Android
+    if (defaultTargetPlatform == TargetPlatform.android) {
+      NativeControls.getVolume().then((val) {
+        if (mounted) setState(() => _nativeVolume = val);
+      });
+      NativeControls.getBrightness().then((val) {
+        if (mounted) {
+          setState(() {
+            _nativeBrightness = val;
+            _simulatedBrightness = val;
+          });
+        }
+      });
+    }
   }
 
   @override
@@ -105,26 +123,36 @@ class _WatchScreenState extends ConsumerState<WatchScreen> {
   // Handle tap on left/right screen halves (Youtube/Netflix style tap accumulation)
   void _handleTap(bool isRightSide, mk.Player player, PlayerState playerState) {
     final now = DateTime.now();
-    _isRightSideTap = isRightSide;
     
     if (_lastTapTime != null && 
         now.difference(_lastTapTime!).inMilliseconds < 350) {
-      // Rapid tap -> Accumulate seek duration
+      // Rapid double-tap -> seek instantly, cancel show-controls timer
       _seekAccumulationTimer?.cancel();
+      
       _accumulatedSeekSeconds += 10;
       
       setState(() {
         _showSeekFlash = true;
         _isSeekForwardFlash = isRightSide;
-        _controlsVisible = true; // briefly display seek bar HUD
+        // Keep controls visible during rapid taps, but don't toggle them
+        _controlsVisible = true;
       });
       
-      _seekAccumulationTimer = Timer(const Duration(milliseconds: 550), () {
-        _executeAccumulatedSeek(player, playerState);
+      _executeImmediateSeek(10, isRightSide, player, playerState);
+      
+      // Auto-hide the flash indicator after 650ms of inactivity
+      _seekFlashTimer?.cancel();
+      _seekFlashTimer = Timer(const Duration(milliseconds: 650), () {
+        if (mounted) {
+          setState(() {
+            _showSeekFlash = false;
+            _accumulatedSeekSeconds = 0;
+          });
+        }
       });
     } else {
-      // Single tap or first tap in session -> Wait to check if a second tap comes
-      _seekAccumulationTimer = Timer(const Duration(milliseconds: 250), () {
+      // Single tap -> Start timer. If another tap doesn't arrive in 300ms, toggle controls overlay
+      _seekAccumulationTimer = Timer(const Duration(milliseconds: 300), () {
         if (_accumulatedSeekSeconds == 0) {
           _toggleControls();
         }
@@ -133,12 +161,9 @@ class _WatchScreenState extends ConsumerState<WatchScreen> {
     _lastTapTime = now;
   }
 
-  // Execute seek of cumulative duration
-  void _executeAccumulatedSeek(mk.Player player, PlayerState playerState) {
-    if (_accumulatedSeekSeconds == 0) return;
-    
+  // Execute instant seek
+  void _executeImmediateSeek(int seconds, bool isForward, mk.Player player, PlayerState playerState) {
     final notifier = ref.read(moviePlayerProvider(widget.movieId).notifier);
-    final isForward = _isRightSideTap;
     
     final currentPos = playerState.isRemuxing
         ? player.state.position + Duration(milliseconds: (playerState.seekOffset * 1000).round())
@@ -149,57 +174,89 @@ class _WatchScreenState extends ConsumerState<WatchScreen> {
 
     Duration targetPos;
     if (isForward) {
-      targetPos = currentPos + Duration(seconds: _accumulatedSeekSeconds);
+      targetPos = currentPos + Duration(seconds: seconds);
       if (targetPos > totalDur) targetPos = totalDur;
-      debugPrint('⏩ Seeking forward $_accumulatedSeekSeconds to $targetPos');
     } else {
-      targetPos = currentPos - Duration(seconds: _accumulatedSeekSeconds);
+      targetPos = currentPos - Duration(seconds: seconds);
       if (targetPos.isNegative) targetPos = Duration.zero;
-      debugPrint('⏪ Seeking backward $_accumulatedSeekSeconds to $targetPos');
     }
     
     notifier.seekTo(targetPos);
-    
-    _seekFlashTimer?.cancel();
-    _seekFlashTimer = Timer(const Duration(milliseconds: 750), () {
-      if (mounted) {
-        setState(() {
-          _showSeekFlash = false;
-          _accumulatedSeekSeconds = 0;
-        });
-      }
-    });
   }
 
-  // Handle vertical drag for simulated brightness
-  void _handleBrightnessDrag(DragUpdateDetails details) {
+  // Handle vertical drag for simulated or native brightness
+  void _handleBrightnessDragStart(DragStartDetails details) async {
+    _hudTimer?.cancel();
+    if (defaultTargetPlatform == TargetPlatform.android) {
+      final currentBrightness = await NativeControls.getBrightness();
+      setState(() {
+        _nativeBrightness = currentBrightness;
+        _simulatedBrightness = currentBrightness;
+        _showBrightnessIndicator = true;
+        _showVolumeIndicator = false;
+      });
+    } else {
+      setState(() {
+        _showBrightnessIndicator = true;
+        _showVolumeIndicator = false;
+      });
+    }
+  }
+
+  void _handleBrightnessDragUpdate(DragUpdateDetails details) {
     final height = MediaQuery.of(context).size.height;
-    final delta = -details.primaryDelta! / height;
+    // A vertical drag of 50% of the screen height covers the full brightness range
+    final delta = -details.primaryDelta! / (height * 0.5);
     
-    setState(() {
+    if (defaultTargetPlatform == TargetPlatform.android) {
+      final newBrightness = (_nativeBrightness + delta).clamp(0.01, 1.0);
+      _nativeBrightness = newBrightness;
+      _simulatedBrightness = newBrightness;
+      NativeControls.setBrightness(newBrightness);
+    } else {
       _simulatedBrightness = (_simulatedBrightness + delta).clamp(0.1, 1.0);
-      _showBrightnessIndicator = true;
-      _showVolumeIndicator = false;
-    });
+    }
     
+    setState(() {});
     _startHudTimer();
   }
 
-  // Handle vertical drag for player volume
-  void _handleVolumeDrag(DragUpdateDetails details, mk.Player player) {
-    final notifier = ref.read(moviePlayerProvider(widget.movieId).notifier);
-    final currentVol = player.state.volume;
+  // Handle vertical drag for player volume (native or local)
+  void _handleVolumeDragStart(DragStartDetails details, mk.Player player) async {
+    _hudTimer?.cancel();
+    if (defaultTargetPlatform == TargetPlatform.android) {
+      final currentVol = await NativeControls.getVolume();
+      setState(() {
+        _nativeVolume = currentVol;
+        _showVolumeIndicator = true;
+        _showBrightnessIndicator = false;
+      });
+    } else {
+      setState(() {
+        _nativeVolume = player.state.volume / 100.0;
+        _showVolumeIndicator = true;
+        _showBrightnessIndicator = false;
+      });
+    }
+  }
+
+  void _handleVolumeDragUpdate(DragUpdateDetails details, mk.Player player) {
+    final height = MediaQuery.of(context).size.height;
+    // A vertical drag of 50% of the screen height covers the full volume range
+    final delta = -details.primaryDelta! / (height * 0.5);
+    final newVol = (_nativeVolume + delta).clamp(0.0, 1.0);
     
-    final delta = -details.primaryDelta! / 4.0;
-    final newVol = (currentVol + delta).clamp(0.0, 100.0);
+    _nativeVolume = newVol;
     
-    notifier.setVolume(newVol);
+    if (defaultTargetPlatform == TargetPlatform.android) {
+      NativeControls.setVolume(newVol);
+      // Sync media-kit player volume
+      ref.read(moviePlayerProvider(widget.movieId).notifier).setVolume(newVol * 100.0);
+    } else {
+      ref.read(moviePlayerProvider(widget.movieId).notifier).setVolume(newVol * 100.0);
+    }
     
-    setState(() {
-      _showVolumeIndicator = true;
-      _showBrightnessIndicator = false;
-    });
-    
+    setState(() {});
     _startHudTimer();
   }
 
@@ -233,56 +290,67 @@ class _WatchScreenState extends ConsumerState<WatchScreen> {
             _initializePlayer();
           },
         ),
-        data: (movie) {
+        data: (playingMovie) {
           if (playerState.movie == null && playerState.error == null) {
             WidgetsBinding.instance.addPostFrameCallback((_) {
-              ref.read(moviePlayerProvider(widget.movieId).notifier).play(movie);
+              ref.read(moviePlayerProvider(widget.movieId).notifier).play(playingMovie);
             });
           }
 
           if (playerState.error != null) {
-            return AppErrorWidget(
-              error: playerState.error!,
-              onRetry: () async {
-                final notifier = ref.read(moviePlayerProvider(widget.movieId).notifier);
-                await notifier.play(movie);
-              },
+            return Center(
+              child: AppErrorWidget(
+                error: playerState.error!,
+                onRetry: () {
+                  ref.invalidate(moviePlayerProvider(widget.movieId));
+                  ref.read(moviePlayerProvider(widget.movieId).notifier).play(playingMovie);
+                },
+              ),
             );
           }
 
-          final playingMovie = playerState.movie ?? movie;
-
           return Stack(
-            fit: StackFit.expand,
             children: [
-              // 1. Native Video Player Layer
-              Center(
+              // 1. Video view with custom Subtitle style
+              Positioned.fill(
                 child: Video(
                   controller: playerState.videoController,
-                  controls: NoVideoControls,
+                  subtitleViewConfiguration: SubtitleViewConfiguration(
+                    style: TextStyle(
+                      fontSize: playerState.subtitleFontSize, // dynamically bound and increased by 2
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      backgroundColor: Colors.black.withValues(alpha: 0.85), // black background box for high legibility
+                    ),
+                  ),
                 ),
               ),
 
-              // 2. Gesture Detector Touch Halves Overlay
+              // 2. Gesture Detector halves (Swapped: Left for Volume, Right for Brightness)
               Row(
                 children: [
-                  // Left half: Brightness swipe & Double-tap Rewind
+                  // Left half: Volume drag
                   Expanded(
                     child: GestureDetector(
                       onTap: () => _handleTap(false, playerState.player, playerState),
-                      onVerticalDragUpdate: _handleBrightnessDrag,
+                      onVerticalDragStart: (details) => _handleVolumeDragStart(
+                        details,
+                        playerState.player,
+                      ),
+                      onVerticalDragUpdate: (details) => _handleVolumeDragUpdate(
+                        details,
+                        playerState.player,
+                      ),
                       behavior: HitTestBehavior.translucent,
                       child: Container(color: Colors.transparent),
                     ),
                   ),
-                  // Right half: Volume swipe & Double-tap Fast-Forward
+                  // Right half: Brightness drag
                   Expanded(
                     child: GestureDetector(
                       onTap: () => _handleTap(true, playerState.player, playerState),
-                      onVerticalDragUpdate: (details) => _handleVolumeDrag(
-                        details,
-                        playerState.player,
-                      ),
+                      onVerticalDragStart: _handleBrightnessDragStart,
+                      onVerticalDragUpdate: _handleBrightnessDragUpdate,
                       behavior: HitTestBehavior.translucent,
                       child: Container(color: Colors.transparent),
                     ),
@@ -314,17 +382,6 @@ class _WatchScreenState extends ConsumerState<WatchScreen> {
                               size: 44,
                               color: Colors.white,
                             ),
-                            const SizedBox(height: 8),
-                            Text(
-                              _isSeekForwardFlash
-                                  ? '+${_accumulatedSeekSeconds}s ⏩'
-                                  : '⏪ -${_accumulatedSeekSeconds}s',
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                              ),
-                            ),
                           ],
                         ),
                       ),
@@ -332,11 +389,13 @@ class _WatchScreenState extends ConsumerState<WatchScreen> {
                   ),
                 ),
 
-              // 4. Simulated Dark-Overlay Brightness Filter
+              // 4. Simulated Dark-Overlay Brightness Filter (Only active on non-Android)
               IgnorePointer(
                 child: Container(
                   color: Colors.black.withValues(
-                    alpha: (1.0 - _simulatedBrightness).clamp(0.0, 0.85),
+                    alpha: defaultTargetPlatform == TargetPlatform.android
+                        ? 0.0
+                        : (1.0 - _simulatedBrightness).clamp(0.0, 0.85),
                   ),
                 ),
               ),
@@ -349,7 +408,7 @@ class _WatchScreenState extends ConsumerState<WatchScreen> {
                   bottom: MediaQuery.of(context).size.height * 0.25,
                   child: _buildHudIndicator(
                     icon: Icons.volume_up_rounded,
-                    value: playerState.player.state.volume / 100.0,
+                    value: _nativeVolume,
                   ),
                 ),
 
@@ -418,37 +477,51 @@ class _WatchScreenState extends ConsumerState<WatchScreen> {
 
   Widget _buildHudIndicator({required IconData icon, required double value}) {
     return Container(
-      width: 44,
+      width: 50,
+      height: 240,
       decoration: BoxDecoration(
-        color: Colors.black87,
-        borderRadius: BorderRadius.circular(22),
-        border: Border.all(color: Colors.white12),
+        color: Colors.black.withValues(alpha: 0.6),
+        borderRadius: BorderRadius.circular(25),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.15), width: 1.5),
       ),
       padding: const EdgeInsets.symmetric(vertical: 16),
       child: Column(
         children: [
-          Icon(icon, color: Colors.white, size: 20),
-          const SizedBox(height: 12),
+          Icon(icon, color: Colors.white, size: 24),
+          const SizedBox(height: 16),
           Expanded(
-            child: Align(
+            child: Container(
+              width: 6,
+              decoration: BoxDecoration(
+                color: Colors.white24,
+                borderRadius: BorderRadius.circular(3),
+              ),
               alignment: Alignment.bottomCenter,
-              child: Container(
-                width: 4,
-                decoration: BoxDecoration(
-                  color: Colors.white24,
-                  borderRadius: BorderRadius.circular(2),
-                ),
-                alignment: Alignment.bottomCenter,
-                child: FractionallySizedBox(
-                  heightFactor: value.clamp(0.0, 1.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: AppColors.netflixRed,
-                      borderRadius: BorderRadius.circular(2),
-                    ),
+              child: FractionallySizedBox(
+                heightFactor: value.clamp(0.0, 1.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: AppColors.netflixRed,
+                    borderRadius: BorderRadius.circular(3),
+                    boxShadow: [
+                      BoxShadow(
+                        color: AppColors.netflixRed.withValues(alpha: 0.5),
+                        blurRadius: 6,
+                        spreadRadius: 1,
+                      ),
+                    ],
                   ),
                 ),
               ),
+            ),
+          ),
+          const SizedBox(height: 12),
+          Text(
+            '${(value * 100).round()}%',
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 10,
+              fontWeight: FontWeight.bold,
             ),
           ),
         ],

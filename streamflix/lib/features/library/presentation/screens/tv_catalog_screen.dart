@@ -17,16 +17,14 @@ class TvCatalogScreen extends ConsumerStatefulWidget {
 
 class _TvCatalogScreenState extends ConsumerState<TvCatalogScreen> {
   final ScrollController _scrollController = ScrollController();
-  double _scrollOffset = 0.0;
+  final ValueNotifier<double> _scrollOffset = ValueNotifier<double>(0.0);
 
   @override
   void initState() {
     super.initState();
     _scrollController.addListener(() {
       if (_scrollController.hasClients) {
-        setState(() {
-          _scrollOffset = _scrollController.offset;
-        });
+        _scrollOffset.value = _scrollController.offset;
       }
     });
   }
@@ -34,6 +32,7 @@ class _TvCatalogScreenState extends ConsumerState<TvCatalogScreen> {
   @override
   void dispose() {
     _scrollController.dispose();
+    _scrollOffset.dispose();
     super.dispose();
   }
 
@@ -174,7 +173,12 @@ class _TvCatalogScreenState extends ConsumerState<TvCatalogScreen> {
             top: 0,
             left: 0,
             right: 0,
-            child: PremiumAppBar(scrollOffset: _scrollOffset),
+            child: ValueListenableBuilder<double>(
+              valueListenable: _scrollOffset,
+              builder: (context, offset, child) {
+                return PremiumAppBar(scrollOffset: offset);
+              },
+            ),
           ),
         ],
       ),

@@ -56,9 +56,9 @@ class NavigationShell extends StatelessWidget {
                   label: 'Home',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.movie_outlined, size: 24),
-                  activeIcon: Icon(Icons.movie_rounded, size: 24, color: AppColors.netflixRed),
-                  label: 'Movies',
+                  icon: Icon(Icons.search_rounded, size: 24),
+                  activeIcon: Icon(Icons.search_rounded, size: 24, color: AppColors.netflixRed),
+                  label: 'Search',
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(Icons.tv_outlined, size: 24),
@@ -66,9 +66,9 @@ class NavigationShell extends StatelessWidget {
                   label: 'TV Shows',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.search_rounded, size: 24),
-                  activeIcon: Icon(Icons.search_rounded, size: 24, color: AppColors.netflixRed),
-                  label: 'Search',
+                  icon: Icon(Icons.movie_outlined, size: 24),
+                  activeIcon: Icon(Icons.movie_rounded, size: 24, color: AppColors.netflixRed),
+                  label: 'Movies',
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(Icons.person_outline, size: 24),

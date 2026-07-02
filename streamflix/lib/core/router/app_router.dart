@@ -39,11 +39,11 @@ GoRouter appRouter(Ref ref) {
           StatefulShellBranch(
             routes: [
               GoRoute(
-                path: RouteNames.movies,
-                name: 'movies',
+                path: RouteNames.search,
+                name: 'search',
                 pageBuilder: (context, state) => NoTransitionPage(
                   key: state.pageKey,
-                  child: const MoviesCatalogScreen(),
+                  child: const SearchScreen(),
                 ),
               ),
             ],
@@ -63,11 +63,11 @@ GoRouter appRouter(Ref ref) {
           StatefulShellBranch(
             routes: [
               GoRoute(
-                path: RouteNames.search,
-                name: 'search',
+                path: RouteNames.movies,
+                name: 'movies',
                 pageBuilder: (context, state) => NoTransitionPage(
                   key: state.pageKey,
-                  child: const SearchScreen(),
+                  child: const MoviesCatalogScreen(),
                 ),
               ),
             ],

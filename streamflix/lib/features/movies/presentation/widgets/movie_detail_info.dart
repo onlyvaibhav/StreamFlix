@@ -143,7 +143,8 @@ class _MovieDetailInfoState extends State<MovieDetailInfo> {
                 if (widget.movie.type == 'tv' &&
                     widget.movie.seasons != null &&
                     widget.movie.seasons!.isNotEmpty) {
-                  final firstEp = widget.movie.seasons!.first.episodes.firstOrNull;
+                  final selectedSeason = widget.movie.seasons![_selectedSeasonIndex];
+                  final firstEp = selectedSeason.episodes.firstOrNull;
                   if (firstEp != null) {
                     context.push(RouteNames.watchPath(firstEp.id));
                   }
@@ -152,9 +153,11 @@ class _MovieDetailInfoState extends State<MovieDetailInfo> {
                 }
               },
               icon: const Icon(Icons.play_arrow_rounded, size: 28, color: Colors.black),
-              label: const Text(
-                'Play',
-                style: TextStyle(
+              label: Text(
+                (widget.movie.type == 'tv' && widget.movie.seasons != null && widget.movie.seasons!.isNotEmpty)
+                    ? 'Play S${widget.movie.seasons![_selectedSeasonIndex].seasonNumber}E1'
+                    : 'Play',
+                style: const TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
@@ -233,22 +236,23 @@ class _MovieDetailInfoState extends State<MovieDetailInfo> {
                 const Spacer(),
                 // Padded custom Season selector button
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 4),
                   decoration: BoxDecoration(
-                    color: AppColors.backgroundLight,
+                    color: Colors.white.withValues(alpha: 0.08),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: Colors.white12),
+                    border: Border.all(color: Colors.white.withValues(alpha: 0.12)),
                   ),
                   child: DropdownButtonHideUnderline(
                     child: DropdownButton<int>(
                       value: _selectedSeasonIndex,
-                      dropdownColor: AppColors.backgroundCard,
+                      dropdownColor: Colors.black.withValues(alpha: 0.95),
+                      borderRadius: BorderRadius.circular(12),
                       style: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                         fontSize: 14,
                       ),
-                      icon: const Icon(Icons.arrow_drop_down, color: Colors.white),
+                      icon: const Icon(Icons.keyboard_arrow_down_rounded, color: Colors.white70, size: 20),
                       items: List.generate(widget.movie.seasons!.length, (index) {
                         final season = widget.movie.seasons![index];
                         return DropdownMenuItem<int>(

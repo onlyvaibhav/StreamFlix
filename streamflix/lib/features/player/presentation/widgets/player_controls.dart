@@ -9,7 +9,6 @@ import 'package:streamflix/core/constants/app_text_styles.dart';
 import 'package:streamflix/features/player/presentation/providers/player_provider.dart';
 import 'package:streamflix/features/player/presentation/widgets/seek_bar.dart';
 import 'package:streamflix/features/subtitles/presentation/widgets/subtitle_selector.dart';
-import 'package:streamflix/features/player/presentation/widgets/sync_selector.dart';
 import 'package:streamflix/features/player/presentation/widgets/episode_list_sheet.dart';
 
 /// Custom video player controls with auto-hide
@@ -124,7 +123,13 @@ class _PlayerControlsState extends ConsumerState<PlayerControls> {
         child: AnimatedOpacity(
           opacity: widget.visible ? 1.0 : 0.0,
           duration: const Duration(milliseconds: 300),
-          child: _buildControls(context, player, playerState),
+          child: GestureDetector(
+            onTap: () {
+              widget.onVisibilityChanged(false);
+            },
+            behavior: HitTestBehavior.translucent,
+            child: _buildControls(context, player, playerState),
+          ),
         ),
       ),
     );
@@ -161,13 +166,10 @@ class _PlayerControlsState extends ConsumerState<PlayerControls> {
                   ),
                   const SizedBox(width: 8),
                   Expanded(
-                    child: Text(
-                      _getPlayerTitle(playerState),
-                      style: AppTextStyles.heading3.copyWith(
-                        color: Colors.white,
-                      ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: _buildTitleSection(playerState),
                     ),
                   ),
                 ],
@@ -184,26 +186,10 @@ class _PlayerControlsState extends ConsumerState<PlayerControls> {
               builder: (context, snapshot) {
                 final isPlaying = snapshot.data ?? false;
                 final notifier = ref.read(moviePlayerProvider(widget.movieId).notifier);
-                
-                final prevEp = playerState.previousEpisode;
-                final nextEp = playerState.nextEpisode;
 
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // TV Show Previous Episode Button
-                    IconButton(
-                      icon: const Icon(Icons.skip_previous_rounded, size: 36),
-                      color: Colors.white,
-                      disabledColor: Colors.white24,
-                      onPressed: prevEp == null ? null : () {
-                        _onUserInteraction();
-                        notifier.playPreviousEpisode();
-                      },
-                      tooltip: 'Previous Episode',
-                    ),
-                    const SizedBox(width: 24),
-
                     // Rewind 10s
                     GestureDetector(
                       onTap: () {
@@ -228,7 +214,7 @@ class _PlayerControlsState extends ConsumerState<PlayerControls> {
                         ),
                       ),
                     ),
-                    const SizedBox(width: 24),
+                    const SizedBox(width: 32),
                     
                     // Play / Pause
                     GestureDetector(
@@ -250,7 +236,7 @@ class _PlayerControlsState extends ConsumerState<PlayerControls> {
                         ),
                       ),
                     ),
-                    const SizedBox(width: 24),
+                    const SizedBox(width: 32),
                     
                     // Fast Forward 10s
                     GestureDetector(
@@ -278,19 +264,6 @@ class _PlayerControlsState extends ConsumerState<PlayerControls> {
                           color: Colors.white,
                         ),
                       ),
-                    ),
-                    const SizedBox(width: 24),
-
-                    // TV Show Next Episode Button
-                    IconButton(
-                      icon: const Icon(Icons.skip_next_rounded, size: 36),
-                      color: Colors.white,
-                      disabledColor: Colors.white24,
-                      onPressed: nextEp == null ? null : () {
-                        _onUserInteraction();
-                        notifier.playNextEpisode();
-                      },
-                      tooltip: 'Next Episode',
                     ),
                   ],
                 );
@@ -379,7 +352,37 @@ class _PlayerControlsState extends ConsumerState<PlayerControls> {
                         },
                       ),
 
+                      const SizedBox(width: 16),
+
+                      // Redesigned Volume Control (Inline Slider) - shifted to the right of timer!
+                      _buildVolumeControl(player),
+
                       const Spacer(),
+
+                      // Next Episode button (TV Shows only)
+                      if (playerState.tvSeasons.isNotEmpty && playerState.nextEpisode != null) ...[
+                        TextButton.icon(
+                          onPressed: () {
+                            _onUserInteraction();
+                            ref.read(moviePlayerProvider(widget.movieId).notifier).playNextEpisode();
+                          },
+                          icon: const Icon(Icons.skip_next_rounded, color: Colors.white, size: 20),
+                          label: const Text(
+                            'Next Episode',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 13,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          style: TextButton.styleFrom(
+                            backgroundColor: Colors.white.withValues(alpha: 0.20), // 20% transparent white background
+                            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                      ],
 
                       // Subtitle selector
                       SubtitleSelector(movieId: widget.movieId),
@@ -392,34 +395,18 @@ class _PlayerControlsState extends ConsumerState<PlayerControls> {
                           icon: const Icon(Icons.format_list_bulleted_rounded, color: Colors.white, size: 24),
                           onPressed: () {
                             _onUserInteraction();
-                            showModalBottomSheet(
+                            showGeneralDialog(
                               context: context,
-                              backgroundColor: Colors.transparent,
-                              builder: (context) => EpisodeListSheet(movieId: widget.movieId),
+                              barrierDismissible: true,
+                              barrierLabel: 'Dismiss',
+                              barrierColor: Colors.black.withValues(alpha: 0.4),
+                              pageBuilder: (context, anim1, anim2) => EpisodeListSheet(movieId: widget.movieId),
                             );
                           },
                           tooltip: 'Episodes',
                         ),
                         const SizedBox(width: 8),
                       ],
-
-                      // Sync settings selector
-                      IconButton(
-                        icon: const Icon(Icons.sync_alt_rounded, color: Colors.white, size: 24),
-                        onPressed: () {
-                          _onUserInteraction();
-                          showDialog(
-                            context: context,
-                            builder: (context) => PlaybackSyncDialog(movieId: widget.movieId),
-                          );
-                        },
-                        tooltip: 'Playback Sync',
-                      ),
-
-                      const SizedBox(width: 8),
-
-                      // Volume Control
-                      _buildVolumeControl(player),
 
                       const SizedBox(width: 8),
 
@@ -468,25 +455,6 @@ class _PlayerControlsState extends ConsumerState<PlayerControls> {
                           );
                         },
                       ),
-
-                      const SizedBox(width: 8),
-
-                      // Fullscreen toggle
-                      IconButton(
-                        icon: Icon(
-                          widget.isFullscreen
-                              ? Icons.fullscreen_exit
-                              : Icons.fullscreen,
-                          color: Colors.white,
-                        ),
-                        onPressed: () {
-                          _onUserInteraction();
-                          widget.onFullscreenToggle();
-                        },
-                        tooltip: widget.isFullscreen
-                            ? 'Exit fullscreen'
-                            : 'Fullscreen',
-                      ),
                     ],
                   ),
                 ],
@@ -499,51 +467,56 @@ class _PlayerControlsState extends ConsumerState<PlayerControls> {
   }
 
   Widget _buildVolumeControl(mk.Player player) {
-    return PopupMenuButton<void>(
-      icon: const Icon(Icons.volume_up, color: Colors.white),
-      tooltip: 'Volume',
-      color: AppColors.backgroundCard,
-      offset: const Offset(0, -200),
-      itemBuilder: (context) => [
-        PopupMenuItem(
-          enabled: false,
-          child: SizedBox(
-            height: 150,
-            child: StreamBuilder<double>(
-              stream: player.stream.volume,
-              builder: (context, snapshot) {
-                final volume = snapshot.data ?? 100.0;
-                
-                return RotatedBox(
-                  quarterTurns: -1,
-                  child: SliderTheme(
-                    data: const SliderThemeData(
-                      trackHeight: 3,
-                      thumbShape: RoundSliderThumbShape(
-                        enabledThumbRadius: 6,
-                      ),
-                      overlayShape: RoundSliderOverlayShape(
-                        overlayRadius: 12,
-                      ),
-                    ),
-                    child: Slider(
-                      value: volume,
-                      min: 0.0,
-                      max: 100.0,
-                      activeColor: AppColors.netflixRed,
-                      inactiveColor: Colors.white24,
-                      onChanged: (val) {
-                        _onUserInteraction();
-                        player.setVolume(val);
-                      },
-                    ),
-                  ),
-                );
+    return StreamBuilder<double>(
+      stream: player.stream.volume,
+      builder: (context, snapshot) {
+        final volume = snapshot.data ?? 100.0;
+        final isMuted = volume == 0.0;
+        
+        return Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            IconButton(
+              icon: Icon(
+                isMuted
+                    ? Icons.volume_off_rounded
+                    : volume < 50
+                        ? Icons.volume_down_rounded
+                        : Icons.volume_up_rounded,
+                color: Colors.white,
+                size: 22,
+              ),
+              onPressed: () {
+                _onUserInteraction();
+                player.setVolume(isMuted ? 80.0 : 0.0);
               },
+              tooltip: isMuted ? 'Unmute' : 'Mute',
             ),
-          ),
-        ),
-      ],
+            SizedBox(
+              width: 80,
+              child: SliderTheme(
+                data: SliderThemeData(
+                  trackHeight: 3,
+                  activeTrackColor: AppColors.netflixRed,
+                  inactiveTrackColor: Colors.white24,
+                  thumbColor: AppColors.netflixRed,
+                  thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 5),
+                  overlayShape: const RoundSliderOverlayShape(overlayRadius: 10),
+                ),
+                child: Slider(
+                  value: volume.clamp(0.0, 150.0),
+                  min: 0.0,
+                  max: 150.0,
+                  onChanged: (val) {
+                    _onUserInteraction();
+                    player.setVolume(val);
+                  },
+                ),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -558,23 +531,60 @@ class _PlayerControlsState extends ConsumerState<PlayerControls> {
     return '$minutes:$seconds';
   }
 
-  String _getPlayerTitle(PlayerState playerState) {
+  List<Widget> _buildTitleSection(PlayerState playerState) {
     final movie = playerState.movie;
-    if (movie == null) return widget.movieTitle;
-    
-    if (movie.tv != null) {
-      final showName = movie.tv!.showTitle;
-      final seasonStr = 'S${movie.tv!.seasonNumber.toString().padLeft(2, '0')}';
-      final episodeStr = 'E${movie.tv!.episodeNumber.toString().padLeft(2, '0')}';
-      final epTitle = movie.title;
-      return '$showName ($seasonStr$episodeStr • $epTitle)';
-    } else if (movie.seasonNumber != null && movie.episodeNumber != null) {
-      final showName = movie.title;
-      final seasonStr = 'S${movie.seasonNumber!.toString().padLeft(2, '0')}';
-      final episodeStr = 'E${movie.episodeNumber!.toString().padLeft(2, '0')}';
-      return '$showName ($seasonStr$episodeStr)';
-    } else {
-      return movie.title;
+    if (movie == null) {
+      return [
+        Text(
+          widget.movieTitle,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        ),
+      ];
     }
+
+    String? mainTitle;
+    String? subTitle;
+
+    if (movie.tv != null) {
+      mainTitle = movie.tv!.showTitle;
+      subTitle = 'S${movie.tv!.seasonNumber}:E${movie.tv!.episodeNumber} (${movie.title})';
+    } else if (movie.seasonNumber != null && movie.episodeNumber != null) {
+      mainTitle = movie.title;
+      subTitle = 'S${movie.seasonNumber}:E${movie.episodeNumber}';
+    } else {
+      mainTitle = movie.title;
+    }
+
+    return [
+      Text(
+        mainTitle,
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+        ),
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+      ),
+      if (subTitle != null) ...[
+        const SizedBox(height: 4),
+        Text(
+          subTitle,
+          style: const TextStyle(
+            color: Colors.white70,
+            fontSize: 13,
+            fontWeight: FontWeight.w500,
+          ),
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        ),
+      ],
+    ];
   }
 }

@@ -2,188 +2,219 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:go_router/go_router.dart';
 import 'package:streamflix/core/constants/app_colors.dart';
-import 'package:streamflix/core/constants/app_text_styles.dart';
 import 'package:streamflix/core/router/route_names.dart';
 import 'package:streamflix/core/widgets/app_image.dart';
-import 'package:streamflix/core/widgets/gradient_overlay.dart';
 import 'package:streamflix/features/movies/data/models/movie.dart';
 
-/// Individual slide component of the Hero Banner
+/// Individual slide component of the Hero Banner.
+/// Uses the complete poster image as the full-slide background,
+/// overlayed with the bottom gradient, centered buttons, and aligned dots.
 class HeroBannerSlide extends StatelessWidget {
   final Movie movie;
   final double height;
+  final Widget pageIndicator;
 
   const HeroBannerSlide({
     super.key,
     required this.movie,
     required this.height,
+    required this.pageIndicator,
   });
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    final isMobile = size.width < 600;
+    final isLandscape = MediaQuery.of(context).orientation == Orientation.landscape;
 
     return Stack(
       fit: StackFit.expand,
       children: [
-        if (movie.fullBackdropUrl != null)
-          AppImage(
-            imageUrl: movie.fullBackdropUrl!,
-            fit: BoxFit.cover,
-          )
-        else
-          Container(color: AppColors.backgroundCard),
-        const GradientOverlay.bottomDark(),
-        Positioned(
-          left: isMobile ? 16 : 48,
-          right: isMobile ? 16 : size.width * 0.4,
-          bottom: isMobile ? 80 : 120,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              if (movie.fullLogoUrl != null) ...[
-                AppImage(
-                  imageUrl: movie.fullLogoUrl!,
-                  height: isMobile ? 80 : 120,
-                  fit: BoxFit.contain,
-                ),
-                const SizedBox(height: 12),
-              ] else ...[
-                Text(
-                  movie.title.toUpperCase(),
-                  style: GoogleFonts.bebasNeue(
-                    color: Colors.white,
-                    fontSize: isMobile ? 42 : 62,
-                    letterSpacing: 1.5,
-                    height: 0.95,
-                  ),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(height: 10),
-              ],
-              Row(
-                children: [
-                  if (movie.rating != null && movie.rating! > 0) ...[
-                    Text(
-                      '${(movie.rating! * 10).round()}% Match',
-                      style: const TextStyle(
-                        color: Color(0xFF46D369), // Netflix green match percentage
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                  ],
-                  if (movie.year != null && movie.year! > 0) ...[
-                    Text(
-                      movie.year.toString(),
-                      style: const TextStyle(
-                        color: Colors.white70,
-                        fontSize: 14,
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                  ],
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 1),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.white54, width: 1),
-                      borderRadius: BorderRadius.circular(2),
-                    ),
-                    child: Text(
-                      movie.type == 'tv' ? 'TV' : 'HD',
-                      style: const TextStyle(
-                        color: Colors.white70,
-                        fontSize: 11,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 0.8,
-                      ),
-                    ),
-                  ),
+        // 1. Complete Poster as Full-Slide Background
+        AppImage(
+          imageUrl: movie.fullPosterUrl ?? movie.fullBackdropUrl ?? '',
+          fit: BoxFit.cover,
+        ),
+        
+        // 2. Dark overlay gradient
+        Positioned.fill(
+          child: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Colors.black.withValues(alpha: 0.35),
+                  Colors.black.withValues(alpha: 0.1),
+                  Colors.black.withValues(alpha: 0.8),
+                  AppColors.background,
                 ],
+                stops: const [0.0, 0.4, 0.75, 1.0],
               ),
-              const SizedBox(height: 14),
-              if (movie.genres != null && movie.genres!.isNotEmpty)
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: Text(
+            ),
+          ),
+        ),
+
+        // 3. Main centered content column
+        Positioned.fill(
+          child: SafeArea(
+            bottom: false,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                // Series / Movie tag
+                if (movie.type == 'tv')
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(2),
+                        decoration: BoxDecoration(
+                          color: AppColors.netflixRed,
+                          borderRadius: BorderRadius.circular(1.5),
+                        ),
+                        child: const Text(
+                          'N',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 6),
+                      const Text(
+                        'S E R I E S',
+                        style: TextStyle(
+                          color: Colors.white70,
+                          fontSize: 9.5,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 3.5,
+                        ),
+                      ),
+                    ],
+                  ),
+
+                const SizedBox(height: 8),
+
+                // Movie/Show Logo or Title
+                if (movie.fullLogoUrl != null)
+                  AppImage(
+                    imageUrl: movie.fullLogoUrl!,
+                    height: isLandscape ? 40 : 54,
+                    fit: BoxFit.contain,
+                    errorWidget: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                      child: Text(
+                        movie.title.toUpperCase(),
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.bebasNeue(
+                          color: Colors.white,
+                          fontSize: isLandscape ? 28 : 34,
+                          letterSpacing: 1.5,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  )
+                else
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                    child: Text(
+                      movie.title.toUpperCase(),
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.bebasNeue(
+                        color: Colors.white,
+                        fontSize: isLandscape ? 28 : 34,
+                        letterSpacing: 1.5,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+
+                const SizedBox(height: 10),
+
+                // Genres list
+                if (movie.genres != null && movie.genres!.isNotEmpty)
+                  Text(
                     movie.genres!.take(3).join('  •  '),
-                    style: const TextStyle(
-                      color: AppColors.textSecondary,
-                      fontSize: 13,
+                    style: TextStyle(
+                      color: Colors.white70,
+                      fontSize: isLandscape ? 10.5 : 12,
                       fontWeight: FontWeight.w600,
                       letterSpacing: 0.5,
                     ),
                   ),
+
+                const SizedBox(height: 16),
+
+                // Action Buttons (Play & Info)
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // Play Button
+                    SizedBox(
+                      width: isLandscape ? 115 : 135,
+                      height: isLandscape ? 34 : 38,
+                      child: ElevatedButton.icon(
+                        onPressed: () {
+                          context.push(RouteNames.watchPath(movie.id));
+                        },
+                        icon: Icon(Icons.play_arrow_rounded, size: isLandscape ? 20 : 24, color: Colors.black),
+                        label: const Text(
+                          'Play',
+                          style: TextStyle(
+                            fontSize: 13.5,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          elevation: 2,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                        ),
+                      ),
+                    ),
+                    
+                    const SizedBox(width: 12),
+
+                    // Info Button
+                    SizedBox(
+                      width: isLandscape ? 115 : 135,
+                      height: isLandscape ? 34 : 38,
+                      child: TextButton.icon(
+                        onPressed: () {
+                          context.push(RouteNames.movieDetailPath(movie.id));
+                        },
+                        icon: Icon(Icons.info_outline_rounded, size: isLandscape ? 16 : 18, color: Colors.white),
+                        label: const Text(
+                          'Info',
+                          style: TextStyle(
+                            fontSize: 13.5,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                        style: TextButton.styleFrom(
+                          backgroundColor: Colors.white.withValues(alpha: 0.2),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              const SizedBox(height: 16),
-              if (!isMobile && movie.overview != null)
-                Text(
-                  movie.overview!,
-                  style: AppTextStyles.bodyMedium,
-                  maxLines: 3,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              const SizedBox(height: 24),
-              Row(
-                children: [
-                  ElevatedButton.icon(
-                    onPressed: () {
-                      context.push(RouteNames.watchPath(movie.id));
-                    },
-                    icon: const Icon(Icons.play_arrow_rounded, size: 28, color: Colors.black),
-                    label: const Text(
-                      'Play',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white,
-                      foregroundColor: Colors.black,
-                      padding: EdgeInsets.symmetric(
-                        horizontal: isMobile ? 24 : 36,
-                        vertical: isMobile ? 12 : 16,
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 12),
-                  ElevatedButton.icon(
-                    onPressed: () {
-                      context.push(RouteNames.movieDetailPath(movie.id));
-                    },
-                    icon: const Icon(Icons.info_outline_rounded, size: 24, color: Colors.white),
-                    label: const Text(
-                      'More Info',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white.withValues(alpha: 0.2),
-                      foregroundColor: Colors.white,
-                      padding: EdgeInsets.symmetric(
-                        horizontal: isMobile ? 20 : 28,
-                        vertical: isMobile ? 12 : 16,
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
+                
+                const SizedBox(height: 18),
+                pageIndicator,
+                SizedBox(height: isLandscape ? 16 : 22),
+              ],
+            ),
           ),
         ),
       ],

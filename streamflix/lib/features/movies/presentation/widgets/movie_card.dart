@@ -88,39 +88,67 @@ class _MovieCardState extends State<MovieCard>
             ),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(6),
-            child: widget.movie.fullPosterUrl != null
-                ? AppImage(
-                    imageUrl: widget.movie.fullPosterUrl!,
-                    width: width,
-                    height: height,
-                    fit: BoxFit.cover,
-                  )
-                : Container(
-                    color: AppColors.backgroundCard,
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(
-                          Icons.movie_outlined,
-                          size: 32,
-                          color: Colors.white30,
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          widget.movie.title,
-                          style: const TextStyle(
-                            color: Colors.white54,
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
+            child: Stack(
+              children: [
+                Positioned.fill(
+                  child: widget.movie.fullPosterUrl != null
+                      ? AppImage(
+                          imageUrl: widget.movie.fullPosterUrl!,
+                          width: width,
+                          height: height,
+                          fit: BoxFit.cover,
+                        )
+                      : Container(
+                          color: AppColors.backgroundCard,
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Icon(
+                                Icons.movie_outlined,
+                                size: 32,
+                                color: Colors.white30,
+                              ),
+                              const SizedBox(height: 8),
+                              Text(
+                                widget.movie.title,
+                                style: const TextStyle(
+                                  color: Colors.white54,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                textAlign: TextAlign.center,
+                                maxLines: 3,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ],
                           ),
-                          textAlign: TextAlign.center,
-                          maxLines: 3,
-                          overflow: TextOverflow.ellipsis,
                         ),
-                      ],
+                ),
+                if (widget.movie.type == 'tv')
+                  Positioned(
+                    top: 6,
+                    right: 6,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                      decoration: BoxDecoration(
+                        color: Colors.black.withValues(alpha: 0.75),
+                        borderRadius: BorderRadius.circular(3),
+                        border: Border.all(color: Colors.white.withValues(alpha: 0.1), width: 0.5),
+                      ),
+                      child: const Text(
+                        'SERIES',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 8.5,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 0.5,
+                        ),
+                      ),
                     ),
                   ),
+              ],
+            ),
           ),
         ),
       ),

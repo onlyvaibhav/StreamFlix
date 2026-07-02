@@ -5,6 +5,7 @@ import 'package:media_kit/media_kit.dart' as mk;
 import 'package:media_kit_video/media_kit_video.dart';
 import 'package:streamflix/core/config/app_config.dart';
 import 'package:streamflix/features/movies/data/models/movie.dart';
+import 'package:streamflix/features/movies/data/models/split_part.dart';
 import 'package:streamflix/features/player/data/models/stream_track.dart';
 import 'package:streamflix/features/player/data/models/external_subtitle.dart';
 import 'package:streamflix/features/movies/data/models/season_info.dart';
@@ -39,6 +40,13 @@ class PlayerState {
   final double subtitleDelay; // in seconds
   final double audioDelay;    // in seconds
   
+  // Subtitle font size
+  final double subtitleFontSize;
+  
+  // Multipart movie details
+  final List<SplitPart> splitParts;
+  final int currentPartIndex;
+  
   // Streaming mode
   final bool isRemuxing;
   final double seekOffset; // Virtual offset for remux seek
@@ -58,6 +66,9 @@ class PlayerState {
     this.currentSubtitleTrack = -1,
     this.subtitleDelay = 0.0,
     this.audioDelay = 0.0,
+    this.subtitleFontSize = 44.0,
+    this.splitParts = const [],
+    this.currentPartIndex = 0,
     this.isRemuxing = false,
     this.seekOffset = 0,
     this.duration = 0,
@@ -77,6 +88,9 @@ class PlayerState {
     int? currentSubtitleTrack,
     double? subtitleDelay,
     double? audioDelay,
+    double? subtitleFontSize,
+    List<SplitPart>? splitParts,
+    int? currentPartIndex,
     bool? isRemuxing,
     double? seekOffset,
     double? duration,
@@ -95,6 +109,9 @@ class PlayerState {
       currentSubtitleTrack: currentSubtitleTrack ?? this.currentSubtitleTrack,
       subtitleDelay: subtitleDelay ?? this.subtitleDelay,
       audioDelay: audioDelay ?? this.audioDelay,
+      subtitleFontSize: subtitleFontSize ?? this.subtitleFontSize,
+      splitParts: splitParts ?? this.splitParts,
+      currentPartIndex: currentPartIndex ?? this.currentPartIndex,
       isRemuxing: isRemuxing ?? this.isRemuxing,
       seekOffset: seekOffset ?? this.seekOffset,
       duration: duration ?? this.duration,
@@ -145,6 +162,22 @@ class MoviePlayer extends _$MoviePlayer {
   PlayerState build(String movieId) {
     // Initialize MediaKit Player
     final player = mk.Player();
+    
+    // Explicitly set start volume to 100% (full scale)
+    player.setVolume(100.0);
+    
+    // Set safe native properties for stability (auto-safe hardware acceleration with fallback)
+    try {
+      final platform = player.platform;
+      if (platform != null) {
+        final dynamic dynPlatform = platform;
+        dynPlatform.setProperty('hwdec', 'auto-safe');
+        dynPlatform.setProperty('volume-max', '150');
+      }
+    } catch (e) {
+      debugPrint('⚠️ Failed to apply native hardware properties: $e');
+    }
+
     final videoController = VideoController(player);
 
     // Listen to player error stream
@@ -171,6 +204,13 @@ class MoviePlayer extends _$MoviePlayer {
       player.dispose();
     });
 
+    // Register completion listener for sequential playback of split parts
+    player.stream.completed.listen((completed) {
+      if (completed) {
+        _handlePlaybackCompleted();
+      }
+    });
+
     return PlayerState(
       player: player,
       videoController: videoController,
@@ -190,13 +230,13 @@ class MoviePlayer extends _$MoviePlayer {
     String? prevSubLang;
     bool wasSubExternal = false;
 
-    if (keepSettings) {
-      if (state.trackInfo != null && prevAudioIndex >= 0 && prevAudioIndex < state.trackInfo!.audioTracks.length) {
+    if (keepSettings && state.trackInfo != null) {
+      wasSubExternal = prevSubtitleIndex >= 100;
+      if (prevAudioIndex >= 0 && prevAudioIndex < state.trackInfo!.audioTracks.length) {
         prevAudioLang = state.trackInfo!.audioTracks[prevAudioIndex].language;
       }
       if (prevSubtitleIndex >= 0) {
-        if (prevSubtitleIndex >= 100) {
-          wasSubExternal = true;
+        if (wasSubExternal) {
           final extIdx = prevSubtitleIndex - 100;
           if (extIdx < state.externalSubtitles.length) {
             prevSubLang = state.externalSubtitles[extIdx].language;
@@ -208,19 +248,104 @@ class MoviePlayer extends _$MoviePlayer {
     }
 
     try {
-      _currentFileId = movie.id;
       state = state.copyWith(isLoading: true, error: null);
-      debugPrint('🎬 Starting playback for: ${movie.title} (id: ${movie.id})');
+
+      Movie mediaToPlay = movie;
+      List<SeasonInfo> tvSeasons = keepSettings ? state.tvSeasons : [];
+      List<SplitPart> splitParts = movie.parts ?? [];
+      int currentPartIndex = 0;
+
+      // If playing a TV show series container (NOT an individual episode), auto-resolve to S1E1
+      if (movie.type == 'tv' && movie.tv == null && (movie.seasons == null || movie.seasons!.isEmpty)) {
+        debugPrint('📺 Play request for TV Show series ${movie.id} - Fetching show details...');
+        final showTmdbId = movie.tv?.showTmdbId ?? movie.tmdbId;
+        if (showTmdbId != null) {
+          try {
+            final tvShow = await ref.read(movieRepositoryProvider).getTvShowById(showTmdbId.toString());
+            tvSeasons = tvShow.seasons;
+            if (tvSeasons.isNotEmpty) {
+              final firstEp = tvSeasons.first.episodes.firstOrNull;
+              if (firstEp != null) {
+                mediaToPlay = firstEp;
+                debugPrint('📺 Resolved TV Show ${movie.title} to S1E1: ${firstEp.title}');
+              }
+            }
+          } catch (e) {
+            debugPrint('⚠️ Failed to pre-fetch TV show details: $e');
+          }
+        }
+      } else if (movie.type == 'tv' && movie.tv == null && movie.seasons != null && movie.seasons!.isNotEmpty) {
+        tvSeasons = movie.seasons!;
+        final firstEp = tvSeasons.first.episodes.firstOrNull;
+        if (firstEp != null) {
+          mediaToPlay = firstEp;
+          debugPrint('📺 Resolved TV Show ${movie.title} (offline) to S1E1: ${firstEp.title}');
+        }
+      }
+
+      // Fetch seasons for TV show episode if seasons list is empty
+      final showTmdbId = mediaToPlay.tv?.showTmdbId ?? mediaToPlay.tmdbId;
+      if (tvSeasons.isEmpty && showTmdbId != null && (mediaToPlay.type == 'tv' || mediaToPlay.tv != null)) {
+        try {
+          debugPrint('📺 Pre-fetching seasons mapping for TV TMDB: $showTmdbId');
+          final tvShow = await ref.read(movieRepositoryProvider).getTvShowById(showTmdbId.toString());
+          tvSeasons = tvShow.seasons;
+        } catch (e) {
+          debugPrint('⚠️ Failed to pre-fetch TV show details: $e');
+        }
+      }
+
+      // Determine resume position if present
+      final String savedMovieId = (mediaToPlay.tv?.showTmdbId != null)
+          ? 'show_${mediaToPlay.tv!.showTmdbId}'
+          : mediaToPlay.id;
+      final savedProgress = WatchHistoryManager.getProgress(savedMovieId);
+      Duration? resumePosition;
+      if (savedProgress != null && (savedProgress.episodeId == mediaToPlay.id || mediaToPlay.type == 'movie')) {
+        if (savedProgress.position > 2 && savedProgress.position < savedProgress.duration - 5) {
+          resumePosition = Duration(seconds: savedProgress.position);
+          debugPrint('🎯 Found saved resume position: $resumePosition');
+        }
+      }
+
+      // If playing a split multipart movie, resolve correct starting part and time offset from virtual position
+      if (movie.isSplit == true && splitParts.isNotEmpty) {
+        double accumulated = 0.0;
+        final double savedSeconds = resumePosition?.inSeconds.toDouble() ?? 0.0;
+        
+        for (int i = 0; i < splitParts.length; i++) {
+          final partDur = splitParts[i].duration?.toDouble() ?? 0.0;
+          if (savedSeconds >= accumulated && savedSeconds < accumulated + partDur) {
+            currentPartIndex = i;
+            resumePosition = Duration(seconds: (savedSeconds - accumulated).round());
+            break;
+          }
+          accumulated += partDur;
+        }
+
+        if (savedSeconds >= accumulated) {
+          currentPartIndex = splitParts.length - 1;
+          resumePosition = Duration(seconds: (splitParts.last.duration ?? 0.0).round());
+        }
+
+        final targetPartFileId = splitParts[currentPartIndex].fileId ?? '';
+        _currentFileId = targetPartFileId;
+        debugPrint('🎬 Resolved multipart start: Part ${currentPartIndex + 1}/${splitParts.length} (fileId: $_currentFileId, offset: ${resumePosition?.inSeconds}s)');
+      } else {
+        _currentFileId = mediaToPlay.id;
+      }
+
+      debugPrint('🎬 Starting playback for: ${mediaToPlay.title} (id: $_currentFileId)');
 
       final streamDataSource = ref.read(streamRemoteDataSourceProvider);
 
       // Parallel fetch: track probe + external subtitles
       final List<dynamic> results = await Future.wait<dynamic>([
-        streamDataSource.getTrackInfo(movie.id).catchError((e) {
+        streamDataSource.getTrackInfo(_currentFileId!).catchError((e) {
           debugPrint('⚠️ Track probe failed: $e');
-          return TrackInfo(fileId: movie.id);
+          return TrackInfo(fileId: _currentFileId!);
         }),
-        streamDataSource.getExternalSubtitles(movie.id).catchError((e) {
+        streamDataSource.getExternalSubtitles(_currentFileId!).catchError((e) {
           debugPrint('⚠️ External subtitle fetch failed: $e');
           return <ExternalSubtitle>[];
         }),
@@ -247,20 +372,6 @@ class MoviePlayer extends _$MoviePlayer {
         if (!aHI && bHI) return 1;
         return 0;
       });
-
-      // Background Fetch: Parent TV details if playing a TV show episode
-      List<SeasonInfo> tvSeasons = keepSettings ? state.tvSeasons : [];
-      final showTmdbId = movie.tv?.showTmdbId ?? movie.tmdbId;
-      
-      if (tvSeasons.isEmpty && showTmdbId != null && (movie.type == 'tv' || movie.tv != null)) {
-        try {
-          debugPrint('📺 Pre-fetching seasons mapping for TV TMDB: $showTmdbId');
-          final tvShow = await ref.read(movieRepositoryProvider).getTvShowById(showTmdbId.toString());
-          tvSeasons = tvShow.seasons;
-        } catch (e) {
-          debugPrint('⚠️ Failed to pre-fetch TV show details: $e');
-        }
-      }
 
       debugPrint('🎵 Audio tracks: ${trackInfo.audioTracks.length}');
       debugPrint('📝 Embedded subtitle tracks: ${trackInfo.subtitleTracks.length}');
@@ -289,22 +400,11 @@ class MoviePlayer extends _$MoviePlayer {
             final idx = externalSubs.indexWhere((s) => s.language == prevSubLang);
             if (idx >= 0) {
               selectedSub = idx + 100;
-              final vttUrl = '${AppConfig.v1BaseUrl}/api/subtitles/file/${externalSubs[idx].id}';
-              if (!kIsWeb) {
-                await state.player.setSubtitleTrack(mk.SubtitleTrack.uri(vttUrl));
-              }
             }
           } else {
             final idx = trackInfo.subtitleTracks.indexWhere((t) => t.language == prevSubLang);
             if (idx >= 0) {
               selectedSub = idx;
-              if (!kIsWeb) {
-                final nativeTracks = state.player.state.tracks.subtitle;
-                final actualTracks = nativeTracks.where((t) => t.id != 'auto' && t.id != 'no').toList();
-                if (idx < actualTracks.length) {
-                  await state.player.setSubtitleTrack(actualTracks[idx]);
-                }
-              }
             }
           }
         }
@@ -313,6 +413,16 @@ class MoviePlayer extends _$MoviePlayer {
         selectedAudio = defaultAudioIdx >= 0 ? defaultAudioIdx : 0;
         await _setPropertySafe('sub-delay', '0.0');
         await _setPropertySafe('audio-delay', '0.0');
+
+        final embeddedSubs = trackInfo.subtitleTracks;
+        if (embeddedSubs.isNotEmpty) {
+          final defaultSubIdx = embeddedSubs.indexWhere((t) => t.isDefault);
+          selectedSub = defaultSubIdx >= 0 ? defaultSubIdx : 0;
+        } else if (externalSubs.isNotEmpty) {
+          selectedSub = 100;
+        } else {
+          selectedSub = -1;
+        }
       }
 
       // Determine streaming mode
@@ -322,32 +432,19 @@ class MoviePlayer extends _$MoviePlayer {
       final String streamUrl;
       if (useRemux) {
         streamUrl = StreamRemoteDataSource.buildStreamUrl(
-          movie.id,
+          _currentFileId!,
           audioTrack: selectedAudio,
           startSeconds: 0,
         );
       } else {
-        streamUrl = StreamRemoteDataSource.buildStreamUrl(movie.id);
+        streamUrl = StreamRemoteDataSource.buildStreamUrl(_currentFileId!);
       }
 
       debugPrint('🎬 Stream URL: $streamUrl (remux: $useRemux)');
 
-      // Check if there is saved resume progress
-      final String savedMovieId = (movie.tv?.showTmdbId != null)
-          ? 'show_${movie.tv!.showTmdbId}'
-          : movie.id;
-      final savedProgress = WatchHistoryManager.getProgress(savedMovieId);
-      Duration? resumePosition;
-      if (savedProgress != null && (savedProgress.episodeId == movie.id || movie.type == 'movie')) {
-        if (savedProgress.position > 2 && savedProgress.position < savedProgress.duration - 5) {
-          resumePosition = Duration(seconds: savedProgress.position);
-          debugPrint('🎯 Found saved resume position: $resumePosition');
-        }
-      }
-
       // Update state with track info before playback starts
       state = state.copyWith(
-        movie: movie,
+        movie: mediaToPlay,
         tvSeasons: tvSeasons,
         trackInfo: trackInfo,
         externalSubtitles: externalSubs,
@@ -355,6 +452,8 @@ class MoviePlayer extends _$MoviePlayer {
         currentSubtitleTrack: selectedSub,
         subtitleDelay: keepSettings ? prevSubDelay : 0.0,
         audioDelay: keepSettings ? prevAudioDelay : 0.0,
+        splitParts: splitParts,
+        currentPartIndex: currentPartIndex,
         isRemuxing: useRemux,
         seekOffset: 0,
         duration: trackInfo.duration,
@@ -374,9 +473,28 @@ class MoviePlayer extends _$MoviePlayer {
       state = state.copyWith(isInitialized: true, isLoading: false);
       debugPrint('🎬 Playback started successfully');
 
+      // Set/apply the tracks after the demuxer loads
+      await Future.delayed(const Duration(milliseconds: 700));
+
+      if (selectedSub == -1) {
+        debugPrint('📝 Explicitly disabling subtitles at playback start');
+        await state.player.setSubtitleTrack(mk.SubtitleTrack.no());
+      } else {
+        debugPrint('📝 Applying default subtitle selection: $selectedSub');
+        await switchSubtitleTrack(
+          selectedSub >= 100 ? selectedSub - 100 : selectedSub,
+          isExternal: selectedSub >= 100,
+        );
+      }
+
+      if (selectedAudio > 0) {
+        debugPrint('🎵 Applying default audio selection: $selectedAudio');
+        await switchAudioTrack(selectedAudio);
+      }
+
       // Start heartbeat (every 20 seconds, matching web reference)
-      _startHeartbeat(movie.id);
-      _startPositionTracking(movie);
+      _startHeartbeat(_currentFileId!);
+      _startPositionTracking(mediaToPlay);
     } catch (e, stackTrace) {
       debugPrint('❌ Player error: $e');
       debugPrint('Stack trace: $stackTrace');
@@ -414,6 +532,9 @@ class MoviePlayer extends _$MoviePlayer {
     state = state.copyWith(isLoading: true);
 
     try {
+      if (wasPlaying) {
+        await state.player.pause();
+      }
       await action();
     } catch (e) {
       debugPrint('⚠️ Error executing action: $e');
@@ -424,6 +545,8 @@ class MoviePlayer extends _$MoviePlayer {
 
     try {
       await state.player.seek(savedPosition);
+      // Wait another 150ms for decoder buffers to reload and align audio track!
+      await Future.delayed(const Duration(milliseconds: 150));
       if (wasPlaying) {
         await state.player.play();
       }
@@ -589,6 +712,12 @@ class MoviePlayer extends _$MoviePlayer {
     await state.player.setVolume(volume.clamp(0.0, 100.0));
   }
 
+  /// Set subtitle font size (reactively updates HUD and watch screen configuration)
+  void setSubtitleFontSize(double size) {
+    state = state.copyWith(subtitleFontSize: size.clamp(14.0, 48.0));
+    debugPrint('🔤 Subtitle font size state updated: ${size}px');
+  }
+
   // ==================== Heartbeat ====================
 
   void _startHeartbeat(String fileId) {
@@ -625,6 +754,24 @@ class MoviePlayer extends _$MoviePlayer {
         final durationSec = state.player.state.duration.inSeconds;
         if (durationSec <= 0) return;
 
+        // Calculate combined virtual progress across all parts for split movies
+        int virtualPosition = currentSec;
+        int virtualDuration = durationSec;
+
+        if (state.splitParts.isNotEmpty) {
+          double accumulated = 0.0;
+          for (int i = 0; i < state.currentPartIndex; i++) {
+            accumulated += state.splitParts[i].duration ?? 0.0;
+          }
+          virtualPosition = (accumulated + currentSec).round();
+          
+          double totalPartsDuration = 0.0;
+          for (final p in state.splitParts) {
+            totalPartsDuration += p.duration ?? 0.0;
+          }
+          virtualDuration = totalPartsDuration.round();
+        }
+
         final String savedMovieId = (movie.tv?.showTmdbId != null)
             ? 'show_${movie.tv!.showTmdbId}'
             : movie.id;
@@ -635,8 +782,8 @@ class MoviePlayer extends _$MoviePlayer {
           title: movie.title,
           poster: movie.poster,
           backdrop: movie.backdrop,
-          position: currentSec,
-          duration: durationSec,
+          position: virtualPosition,
+          duration: virtualDuration,
           tvShowName: movie.tv?.showTitle,
           seasonNumber: movie.tv?.seasonNumber,
           episodeNumber: movie.tv?.episodeNumber,
@@ -647,5 +794,45 @@ class MoviePlayer extends _$MoviePlayer {
         ref.read(continueWatchingProvider.notifier).refresh();
       }
     });
+  }
+
+  /// Automatically advance and stream the next part of split movies sequentially
+  Future<void> _handlePlaybackCompleted() async {
+    final hasNextPart = state.splitParts.isNotEmpty && 
+                         state.currentPartIndex < state.splitParts.length - 1;
+                         
+    if (hasNextPart) {
+      final nextPartIndex = state.currentPartIndex + 1;
+      final nextPart = state.splitParts[nextPartIndex];
+      final targetFileId = nextPart.fileId ?? '';
+      debugPrint('🎬 Multipart: Part ${state.currentPartIndex + 1} completed! Auto-advancing to Part ${nextPart.partNumber} (fileId: $targetFileId)');
+      
+      state = state.copyWith(
+        currentPartIndex: nextPartIndex,
+        isLoading: true,
+      );
+      
+      final streamUrl = StreamRemoteDataSource.buildStreamUrl(targetFileId);
+      _currentFileId = targetFileId;
+      
+      // Probe new track info for this part
+      final streamDataSource = ref.read(streamRemoteDataSourceProvider);
+      try {
+        final trackInfo = await streamDataSource.getTrackInfo(targetFileId);
+        state = state.copyWith(
+          trackInfo: trackInfo,
+          duration: trackInfo.duration,
+        );
+      } catch (e) {
+        debugPrint('⚠️ Failed to probe next part track info: $e');
+      }
+
+      await state.player.open(mk.Media(streamUrl), play: true);
+      state = state.copyWith(isLoading: false);
+      
+      _startHeartbeat(targetFileId);
+    } else {
+      debugPrint('🎬 Playback completed (no next parts).');
+    }
   }
 }

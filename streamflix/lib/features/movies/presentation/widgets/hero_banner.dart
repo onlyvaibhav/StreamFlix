@@ -59,7 +59,9 @@ class _HeroBannerState extends State<HeroBanner> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final height = size.height * 0.48; // Cinematic 48% of viewport height
+    final isLandscape = MediaQuery.of(context).orientation == Orientation.landscape;
+    // Default poster aspect ratio is 2:3, meaning height = width * 1.5
+    final height = isLandscape ? size.height * 0.80 : (size.width * 1.5).clamp(400.0, size.height * 0.72);
 
     return SizedBox(
       height: height,
@@ -77,7 +79,7 @@ class _HeroBannerState extends State<HeroBanner> {
               }
               _startAutoRotation(); // resume auto rotation
             },
-            child: AnimatedSwitcher(
+             child: AnimatedSwitcher(
               duration: const Duration(milliseconds: 600),
               switchInCurve: Curves.easeInOut,
               switchOutCurve: Curves.easeInOut,
@@ -88,21 +90,14 @@ class _HeroBannerState extends State<HeroBanner> {
                 key: ValueKey<int>(_currentPage),
                 movie: widget.movies[_currentPage],
                 height: height,
-              ),
-            ),
-          ),
-
-          // Page indicators
-          Positioned(
-            bottom: 24,
-            left: 0,
-            right: 0,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(
-                widget.movies.length,
-                (index) => PageIndicator(
-                  isActive: index == _currentPage,
+                pageIndicator: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: List.generate(
+                    widget.movies.length,
+                    (index) => PageIndicator(
+                      isActive: index == _currentPage,
+                    ),
+                  ),
                 ),
               ),
             ),

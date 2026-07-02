@@ -47,6 +47,9 @@ dependencies:
   flutter_dotenv: ^6.0.1
   google_fonts: ^6.2.0
 
+dependency_overrides:
+  wakelock_plus: ^1.2.8
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

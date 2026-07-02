@@ -1,7 +1,7 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:streamflix/core/constants/app_colors.dart';
-import 'package:streamflix/core/constants/app_text_styles.dart';
 import 'package:streamflix/core/widgets/app_image.dart';
 import 'package:streamflix/features/player/presentation/providers/player_provider.dart';
 
@@ -41,10 +41,9 @@ class _EpisodeListSheetState extends ConsumerState<EpisodeListSheet> {
     final notifier = ref.read(moviePlayerProvider(widget.movieId).notifier);
 
     if (playerState.tvSeasons.isEmpty) {
-      return Container(
-        height: 200,
-        color: AppColors.backgroundCard,
-        child: const Center(
+      return Scaffold(
+        backgroundColor: Colors.black.withValues(alpha: 0.8),
+        body: const Center(
           child: Text(
             'No episodes available for this series',
             style: TextStyle(color: Colors.white54, fontSize: 14),
@@ -55,170 +54,192 @@ class _EpisodeListSheetState extends ConsumerState<EpisodeListSheet> {
 
     final currentSeason = playerState.tvSeasons[_selectedSeasonIndex];
 
-    return Container(
-      decoration: const BoxDecoration(
-        color: AppColors.backgroundCard,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(16),
-          topRight: Radius.circular(16),
-        ),
-      ),
-      padding: const EdgeInsets.all(16),
-      child: Column(
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: Stack(
         children: [
-          // Drag handle indicator
-          Center(
-            child: Container(
-              width: 36,
-              height: 4,
-              decoration: BoxDecoration(
-                color: Colors.white30,
-                borderRadius: BorderRadius.circular(2),
+          // Glassmorphic backdrop blur covering the entire screen
+          Positioned.fill(
+            child: GestureDetector(
+              onTap: () => Navigator.pop(context),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
+                child: Container(
+                  color: Colors.black.withValues(alpha: 0.75),
+                ),
               ),
             ),
           ),
-          const SizedBox(height: 12),
 
-          // Header season selection dropdown
-          Row(
-            children: [
-              const Text('Episodes', style: AppTextStyles.heading2),
-              const Spacer(),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                decoration: BoxDecoration(
-                  color: AppColors.backgroundLight,
-                  borderRadius: BorderRadius.circular(6),
-                  border: Border.all(color: Colors.white12),
-                ),
-                child: DropdownButtonHideUnderline(
-                  child: DropdownButton<int>(
-                    value: _selectedSeasonIndex,
-                    dropdownColor: AppColors.backgroundCard,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                    ),
-                    icon: const Icon(Icons.arrow_drop_down, color: Colors.white),
-                    items: List.generate(playerState.tvSeasons.length, (idx) {
-                      final season = playerState.tvSeasons[idx];
-                      return DropdownMenuItem<int>(
-                        value: idx,
-                        child: Text('Season ${season.seasonNumber}'),
-                      );
-                    }),
-                    onChanged: (val) {
-                      if (val != null) {
-                        setState(() {
-                          _selectedSeasonIndex = val;
-                        });
-                      }
-                    },
+          // Main content container
+          SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 48.0, vertical: 24.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Header Row with Season selector and Close button
+                  Row(
+                    children: [
+                      const Text(
+                        'Episodes',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(width: 24),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: Colors.white.withValues(alpha: 0.08),
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(color: Colors.white.withValues(alpha: 0.12)),
+                        ),
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton<int>(
+                            value: _selectedSeasonIndex,
+                            dropdownColor: Colors.black.withValues(alpha: 0.95),
+                            borderRadius: BorderRadius.circular(12),
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                            ),
+                            icon: const Icon(Icons.keyboard_arrow_down_rounded, color: Colors.white70, size: 20),
+                            items: List.generate(playerState.tvSeasons.length, (idx) {
+                              final season = playerState.tvSeasons[idx];
+                              return DropdownMenuItem<int>(
+                                value: idx,
+                                child: Text('Season ${season.seasonNumber}'),
+                              );
+                            }),
+                            onChanged: (val) {
+                              if (val != null) {
+                                setState(() {
+                                  _selectedSeasonIndex = val;
+                                });
+                              }
+                            },
+                          ),
+                        ),
+                      ),
+                      const Spacer(),
+                      IconButton(
+                        icon: const Icon(Icons.close_rounded, color: Colors.white, size: 28),
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                    ],
                   ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 12),
-          const Divider(color: Colors.white10, height: 1),
-          const SizedBox(height: 12),
+                  const SizedBox(height: 8),
+                  const Divider(color: Colors.white24, height: 1),
+                  const SizedBox(height: 16),
 
-          // Scrollable Episode card rows list
-          Expanded(
-            child: ListView.separated(
-              itemCount: currentSeason.episodes.length,
-              separatorBuilder: (context, index) => const SizedBox(height: 16),
-              itemBuilder: (context, idx) {
-                final episode = currentSeason.episodes[idx];
-                final isPlaying = playerState.movie?.id == episode.id;
+                  // Scrollable Episode card rows list
+                  Expanded(
+                    child: ListView.separated(
+                      physics: const BouncingScrollPhysics(),
+                      itemCount: currentSeason.episodes.length,
+                      separatorBuilder: (context, index) => const SizedBox(height: 16),
+                      itemBuilder: (context, idx) {
+                        final episode = currentSeason.episodes[idx];
+                        final isPlaying = playerState.movie?.id == episode.id;
 
-                return InkWell(
-                  onTap: () {
-                    Navigator.pop(context);
-                    notifier.play(episode, keepSettings: true);
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 4),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // Episode Thumbnail with check play overlay
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(6),
-                          child: SizedBox(
-                            width: 120,
-                            height: 70,
-                            child: Stack(
+                        return InkWell(
+                          onTap: () {
+                            Navigator.pop(context);
+                            notifier.play(episode, keepSettings: true);
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                            decoration: BoxDecoration(
+                              color: isPlaying ? Colors.white.withValues(alpha: 0.08) : Colors.transparent,
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                AppImage(
-                                  imageUrl: '/api/movies/${episode.id}/thumbnail',
-                                  fit: BoxFit.cover,
-                                  width: 120,
-                                  height: 70,
-                                  errorWidget: AppImage(
-                                    imageUrl: playerState.movie?.backdrop ?? '',
-                                    fit: BoxFit.cover,
-                                    width: 120,
-                                    height: 70,
+                                // Episode Thumbnail with check play overlay
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(6),
+                                  child: SizedBox(
+                                    width: 140,
+                                    height: 80,
+                                    child: Stack(
+                                      children: [
+                                        AppImage(
+                                          imageUrl: '/api/movies/${episode.id}/thumbnail',
+                                          fit: BoxFit.cover,
+                                          width: 140,
+                                          height: 80,
+                                          errorWidget: AppImage(
+                                            imageUrl: playerState.movie?.backdrop ?? '',
+                                            fit: BoxFit.cover,
+                                            width: 140,
+                                            height: 80,
+                                          ),
+                                        ),
+                                        if (isPlaying)
+                                          Container(
+                                            color: Colors.black54,
+                                            child: const Center(
+                                              child: Icon(Icons.play_circle_fill, color: AppColors.netflixRed, size: 36),
+                                            ),
+                                          )
+                                        else
+                                          Container(
+                                            color: Colors.black26,
+                                            child: const Center(
+                                              child: Icon(Icons.play_circle_outline, color: Colors.white70, size: 32),
+                                            ),
+                                          ),
+                                      ],
+                                    ),
                                   ),
                                 ),
-                                if (isPlaying)
-                                  Container(
-                                    color: Colors.black54,
-                                    child: const Center(
-                                      child: Icon(Icons.play_circle_fill, color: AppColors.netflixRed, size: 32),
-                                    ),
-                                  )
-                                else
-                                  Container(
-                                    color: Colors.black26,
-                                    child: const Center(
-                                      child: Icon(Icons.play_circle_outline, color: Colors.white70, size: 28),
-                                    ),
+                                const SizedBox(width: 16),
+
+                                // Episode details description
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        '${episode.episodeNumber ?? (idx + 1)}. ${episode.title}',
+                                        style: TextStyle(
+                                          color: isPlaying ? AppColors.netflixRed : Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 14,
+                                        ),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      const SizedBox(height: 4),
+                                      if (episode.runtime != null)
+                                        Text(
+                                          '${episode.runtime} min',
+                                          style: const TextStyle(color: Colors.white54, fontSize: 11),
+                                        ),
+                                      const SizedBox(height: 6),
+                                      Text(
+                                        episode.overview ?? episode.description ?? 'No episode description available.',
+                                        style: const TextStyle(color: Colors.white70, fontSize: 12.5, height: 1.4),
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ],
                                   ),
+                                ),
                               ],
                             ),
                           ),
-                        ),
-                        const SizedBox(width: 16),
-
-                        // Episode details description
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                '${episode.episodeNumber ?? (idx + 1)}. ${episode.title}',
-                                style: TextStyle(
-                                  color: isPlaying ? AppColors.netflixRed : Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 13.5,
-                                ),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              const SizedBox(height: 4),
-                              if (episode.runtime != null)
-                                Text(
-                                  '${episode.runtime} min',
-                                  style: const TextStyle(color: Colors.white54, fontSize: 11),
-                                ),
-                              const SizedBox(height: 6),
-                              Text(
-                                episode.overview ?? episode.description ?? 'No episode description available.',
-                                style: const TextStyle(color: Colors.white70, fontSize: 12, height: 1.4),
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
+                        );
+                      },
                     ),
                   ),
-                );
-              },
+                ],
+              ),
             ),
           ),
         ],

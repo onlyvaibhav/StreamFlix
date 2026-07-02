@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:streamflix/core/constants/app_colors.dart';
 import 'package:streamflix/core/constants/app_text_styles.dart';
 import 'package:streamflix/core/router/route_names.dart';
+import 'package:streamflix/core/widgets/app_image.dart';
 import 'package:streamflix/features/movies/presentation/providers/movies_provider.dart';
 import 'package:streamflix/features/movies/presentation/widgets/movie_card.dart';
 import 'package:streamflix/features/shared/presentation/widgets/shimmer_loading.dart';
@@ -168,13 +169,9 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                                       borderRadius: BorderRadius.circular(4),
                                       child: AspectRatio(
                                         aspectRatio: 16 / 9,
-                                        child: Image.network(
-                                          item.backdrop ?? '',
+                                        child: AppImage(
+                                          imageUrl: item.backdrop ?? item.poster ?? '',
                                           fit: BoxFit.cover,
-                                          errorBuilder: (context, error, stackTrace) => Container(
-                                            color: AppColors.backgroundCard,
-                                            child: const Icon(Icons.movie, color: Colors.white24),
-                                          ),
                                         ),
                                       ),
                                     ),
