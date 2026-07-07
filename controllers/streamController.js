@@ -496,20 +496,7 @@ exports.getSubtitle = async (req, res) => {
 exports.stream = async (req, res) => {
   const { id } = req.params;
 
-  try {
-    const hasAudioTrackParam = Object.prototype.hasOwnProperty.call(req.query, 'audioTrack');
-    const parsedStart = parseFloat(req.query.start);
-    const startTime = Number.isFinite(parsedStart) && parsedStart > 0 ? parsedStart : 0;
-    const parsedAudioTrack = parseInt(req.query.audioTrack, 10);
-    const requestedAudioTrack = Number.isInteger(parsedAudioTrack) && parsedAudioTrack >= 0
-      ? parsedAudioTrack
-      : NaN;
-
-    if (hasAudioTrackParam && Number.isNaN(requestedAudioTrack)) {
-      return res.status(400).json({ error: 'Invalid audioTrack parameter' });
-    }
-
-    const { fileInfo, resolvedId } = await resolveFileInfo(id);
+  try {    const { fileInfo, resolvedId } = await resolveFileInfo(id);
     if (!fileInfo) {
       console.error(`[Stream] ❌ File ${id} not found in any source`);
       return res.status(404).json({ error: 'File not found' });
@@ -543,19 +530,7 @@ exports.stream = async (req, res) => {
       }
     }
 
-    if (hasAudioTrackParam) {
-      if (!HAS_FFMPEG) {
-        return res.status(503).json({ error: 'FFmpeg not available for remux stream' });
-      }
 
-      const selected = getAudioTrackAt(playbackMetadata, requestedAudioTrack);
-      await streamWithRemux(req, res, resolvedId, {
-        startTime,
-        audioTrack: selected.index,
-        transcodeAudio: !selected.track?.browserPlayable
-      });
-      return;
-    }
 
     await streamDirect(fileInfo, fileSize, start, end, range, res, req);
   } catch (error) {
@@ -751,159 +726,8 @@ async function streamDirect(fileInfo, fileSize, start, end, range, res, req = nu
   endRequest();
 }
 
-// ==================== FFMPEG REMUX STREAM ====================
-async function streamWithRemux(req, res, fileId, options = {}) {
-  const startTime = Number(options.startTime) > 0 ? Number(options.startTime) : 0;
-  const audioTrack = Number.isFinite(Number(options.audioTrack))
-    ? Math.max(0, parseInt(options.audioTrack, 10) || 0)
-    : 0;
 
-  const transcodeAudio = options.transcodeAudio === true;
 
-  const internalPort = req.app.get('internalPort') || process.env.PORT || 5000;
-  const inputUrl = `http://127.0.0.1:${internalPort}/internal/raw/${fileId}`;
-  const key = String(fileId);
-
-  const clientIp = req.ip || req.connection?.remoteAddress || 'unknown';
-  const userAgent = req.headers['user-agent'] || 'unknown';
-  const sessionKey = activityTracker.getSessionKey(clientIp, userAgent, fileId);
-  const reqId = `remux_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-
-  activityTracker.registerRangeRequest(sessionKey, {
-      fileId,
-      ip: clientIp,
-      userAgent,
-      rangeHeader: `seek=${startTime}s`,
-      startOffset: 0,
-      reqId
-  });
-
-  killTranscode(key);
-
-  const ffmpegArgs = [
-    '-fflags', '+genpts+discardcorrupt',
-    ...(startTime > 0 ? ['-ss', String(startTime)] : []),
-    '-i', inputUrl,
-    '-map', '0:v:0',
-    '-map', `0:a:${audioTrack}`,
-    '-c:v', 'copy',
-    ...(transcodeAudio ? ['-c:a', 'aac', '-b:a', '192k', '-ac', '2'] : ['-c:a', 'copy']),
-    '-avoid_negative_ts', 'make_zero',
-    '-max_delay', '0',
-    '-flush_packets', '1',
-    '-f', 'mp4',
-    '-movflags', 'frag_keyframe+empty_moov+default_base_moof',
-    '-frag_duration', '1000000',
-    '-threads', '2',
-    '-nostdin',
-    '-hide_banner',
-    '-loglevel', 'warning',
-    'pipe:1'
-  ];
-
-  let ffmpeg;
-  try {
-    ffmpeg = spawn('ffmpeg', ffmpegArgs, { stdio: ['ignore', 'pipe', 'pipe'] });
-  } catch (error) {
-    console.error(`[FFmpeg] Failed to spawn for ${fileId}:`, error.message);
-    if (!res.headersSent) {
-      res.status(500).json({ error: 'Failed to start transcoder' });
-    } else if (!res.writableEnded) {
-      res.end();
-    }
-    activityTracker.deregisterRangeRequest(sessionKey, reqId, 0);
-    return;
-  }
-
-  activeTranscodes.set(key, { process: ffmpeg, res });
-
-  res.setHeader('Content-Type', 'video/mp4');
-  res.setHeader('Transfer-Encoding', 'chunked');
-  res.setHeader('Cache-Control', 'no-cache, no-store');
-  res.setHeader('X-Transcode', 'true');
-
-  return new Promise((resolve) => {
-    let settled = false;
-    let bytesSent = 0;
-    let ended = false;
-
-    const endRequest = () => {
-      if (ended) return;
-      ended = true;
-      activityTracker.updateRangeRequestProgress(sessionKey, reqId, bytesSent);
-      activityTracker.deregisterRangeRequest(sessionKey, reqId, bytesSent);
-    };
-
-    const cleanup = () => {
-      if (settled) return;
-      settled = true;
-
-      const active = activeTranscodes.get(key);
-      if (active?.process === ffmpeg) {
-        activeTranscodes.delete(key);
-      }
-
-      if (!res.writableEnded && !res.destroyed) {
-        try { res.end(); } catch { }
-      }
-
-      endRequest();
-      resolve();
-    };
-
-    ffmpeg.stdout.pipe(res);
-
-    ffmpeg.stdout.on('data', (chunk) => {
-      bytesSent += chunk.length;
-      activityTracker.updateRangeRequestProgress(sessionKey, reqId, bytesSent);
-    });
-
-    ffmpeg.stderr.on('data', (data) => {
-      const msg = data.toString().trim();
-      if (msg) {
-        console.log(`[FFmpeg:${fileId}] ${msg}`);
-      }
-    });
-
-    ffmpeg.on('exit', (code, signal) => {
-      if (code !== 0 && signal !== 'SIGKILL') {
-        console.warn(`[FFmpeg:${fileId}] exited with code ${code}, signal ${signal || 'none'}`);
-      }
-      cleanup();
-    });
-
-    ffmpeg.on('error', (error) => {
-      console.error(`[FFmpeg:${fileId}] process error:`, error.message);
-      cleanup();
-    });
-
-    ffmpeg.stdout.on('error', (error) => {
-      console.error(`[FFmpeg:${fileId}] stdout error:`, error.message);
-      cleanup();
-    });
-
-    req.on('close', () => {
-      try { ffmpeg.stdout.unpipe(res); } catch { }
-      const active = activeTranscodes.get(key);
-      if (active?.process === ffmpeg) {
-        killTranscode(key);
-      }
-      cleanup();
-    });
-
-    res.on('error', (error) => {
-      if (error.code !== 'ERR_STREAM_WRITE_AFTER_END') {
-        console.error(`[FFmpeg:${fileId}] response error:`, error.message);
-      }
-      try { ffmpeg.stdout.unpipe(res); } catch { }
-      const active = activeTranscodes.get(key);
-      if (active?.process === ffmpeg) {
-        killTranscode(key);
-      }
-      cleanup();
-    });
-  });
-}
 
 function getContentType(filename) {
   const ext = (filename || '').split('.').pop().toLowerCase();

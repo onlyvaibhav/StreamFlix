@@ -75,18 +75,18 @@ class ActivityTracker extends EventEmitter {
     /**
      * Builds session key for grouping browser requests
      */
-    buildSessionKey({ userId, ip, userAgent, fileId }) {
+    buildSessionKey({ userId, ip, userAgent }) {
         if (userId) {
-            return `${userId}_${fileId}`;
+            return `user_${userId}`;
         }
-        return `${ip}_${userAgent}_${fileId}`;
+        return `anon_${ip}_${userAgent}`;
     }
 
     /**
      * Helper to retrieve session key from parameters
      */
-    getSessionKey(ip, userAgent, fileId) {
-        return this.buildSessionKey({ userId: null, ip, userAgent, fileId });
+    getSessionKey(ip, userAgent) {
+        return this.buildSessionKey({ userId: null, ip, userAgent });
     }
 
     /**
@@ -95,7 +95,8 @@ class ActivityTracker extends EventEmitter {
     registerActivity(fileId, info) {
         const ip = info.ip || 'unknown';
         const userAgent = info.userAgent || 'unknown';
-        const sessionKey = this.getSessionKey(ip, userAgent, fileId);
+        const userId = info.userId || null;
+        const sessionKey = this.buildSessionKey({ userId, ip, userAgent });
         const now = Date.now();
 
         if (this.activeSessions.has(sessionKey)) {
@@ -114,6 +115,28 @@ class ActivityTracker extends EventEmitter {
                 this._handleSessionExpiry(sessionKey);
             }, this.SESSION_TIMEOUT_MS);
 
+            if (session.fileId !== fileId) {
+                console.log(`[Session] Viewer switched title. Session #${session.viewerSessionNumber} (${session.title} -> file ${fileId})`);
+                
+                // Decrement old count
+                if (session.fileId) {
+                    const oldCount = this.mediaViewerCounts.get(session.fileId) || 1;
+                    this.mediaViewerCounts.set(session.fileId, Math.max(0, oldCount - 1));
+                }
+                
+                session.fileId = fileId;
+                session.title = `File ${fileId}`; // Placeholder until async title resolved
+                
+                // Increment new count
+                const newCount = this.mediaViewerCounts.get(fileId) || 0;
+                this.mediaViewerCounts.set(fileId, newCount + 1);
+
+                // Fetch new title
+                getDisplayTitle(fileId).then(title => {
+                    session.title = title;
+                }).catch(() => {});
+            }
+
             console.log(`[Session] Session merged: Session #${session.viewerSessionNumber} (${session.title})`);
             return sessionKey;
         }
@@ -126,7 +149,7 @@ class ActivityTracker extends EventEmitter {
             viewerSessionId,
             viewerSessionNumber: sessionNumber,
             sessionKey,
-            userId: null, // Reserved for future auth
+            userId,
             fileId,
             title: `File ${fileId}`, // Placeholder until async title resolved
             ip,

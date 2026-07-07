@@ -1,0 +1,41 @@
+{
+  "fileId": "1075",
+  "fileName": "From.S04E10.1080p.WEB-DL.Hindi-English.x264-Vegamovies.is.mkv",
+  "type": "tv",
+  "title": "FROM",
+  "originalTitle": "FROM",
+  "overview": "Unravel the mystery of a nightmarish town in middle America that traps all those who enter. As the unwilling residents fight to keep a sense of normalcy and search for a way out, they must also survive the threats of the surrounding forest – including the terrifying creatures that come out when the sun goes down.",
+  "releaseDate": "2022-02-20",
+  "year": 2022,
+  "runtime": 49,
+  "genres": [
+    "Mystery",
+    "Drama",
+    "Sci-Fi & Fantasy"
+  ],
+  "rating": 8.5,
+  "popularity": 508.3089,
+  "awards": "2 wins & 32 nominations total",
+  "poster": "/data/posters/show_124364.jpg",
+  "backdrop": "/data/backdrops/show_124364_bd.jpg",
+  "tmdbId": 124364,
+  "fetchedAt": "2026-07-07T13:46:30.136Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "FROM",
+    "originalShowTitle": "FROM",
+    "seasonNumber": 4,
+    "episodeNumber": 10,
+    "episodeTitle": "If a Tree Falls in the Forest…",
+    "episodeOverview": "Boyd’s quest to lead the residents home reaches a terrifying crossroads, and nothing will ever be the same again.",
+    "showTmdbId": 124364,
+    "episodeRuntime": 49,
+    "totalSeasons": 4,
+    "totalEpisodes": 40
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "_tracksDetected": true,
+  "metadataStatus": "COMPLETE",
+  "logo": "/data/logos/show_124364_logo.png"
+}

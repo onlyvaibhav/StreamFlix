@@ -11,6 +11,7 @@ const streamRoutes = require('./routes/streamRoutes');
 const internalRoutes = require('./routes/internal');
 const movieRoutes = require('./routes/movieRoutes');
 const authRoutes = require('./routes/authRoutes');
+const telegramAuthRoutes = require('./routes/telegramAuthRoutes');
 const subtitleRoutes = require('./routes/subtitleRoutes');
 const debugRoutes = require('./routes/debugRoutes');
 const homeRoutes = require('./routes/homeRoutes');
@@ -165,6 +166,7 @@ app.use('/data/backdrops', express.static(path.join(__dirname, 'data/backdrops')
 // API ROUTES
 // ============================================================
 app.use('/api/auth', authRoutes);
+app.use('/api/auth/telegram', telegramAuthRoutes);
 app.use('/api/admin', requireAdmin, adminRoutes);
 app.use('/api/movies', movieRoutes);
 app.use('/api/stream', streamRoutes);
@@ -834,6 +836,50 @@ app.get('/api/metadata/:fileId', async (req, res) => {
   }
 });
 
+// GET /api/stream/:fileId/file-info — Lightweight file location metadata for client-side streaming
+// Returns Telegram document location fields so the browser worker can call upload.getFile directly.
+// No video bytes flow through this endpoint — it's metadata only.
+app.get('/api/stream/:fileId/file-info', async (req, res) => {
+  try {
+    const { fileId } = req.params;
+    const tg = require('./services/telegramService');
+    const fileInfo = await tg.getFileInfo(fileId);
+
+    if (!fileInfo) {
+      return res.status(404).json({ error: 'File not found' });
+    }
+
+    // Serialize InputDocumentFileLocation fields for transport to the browser worker
+    const loc = fileInfo.inputLocation || fileInfo.location;
+    const serialized = {
+      fileId,
+      fileSize: Number(fileInfo.fileSize),
+      mimeType: fileInfo.mimeType || 'video/mp4',
+      fileName: fileInfo.fileName || '',
+      dcId: fileInfo.dcId || null,
+      fileLocation: null
+    };
+
+    if (loc) {
+      serialized.fileLocation = {
+        // BigInt values → string for JSON transport
+        id: loc.id ? loc.id.toString() : '0',
+        accessHash: loc.accessHash ? loc.accessHash.toString() : '0',
+        // fileReference is a Buffer → base64 for transport
+        fileReference: loc.fileReference
+          ? Buffer.from(loc.fileReference).toString('base64')
+          : '',
+        thumbSize: loc.thumbSize || ''
+      };
+    }
+
+    res.json(serialized);
+  } catch (error) {
+    console.error(`[FileInfo] Error for ${req.params.fileId}:`, error.message);
+    res.status(500).json({ error: 'Failed to get file info' });
+  }
+});
+
 // GET /api/stream/:fileId/part-info — Multipart movie part durations for seamless playback
 app.get('/api/stream/:fileId/part-info', async (req, res) => {
   try {
@@ -1260,11 +1306,19 @@ app.get('/admin/v2', (req, res) => {
   res.redirect('/admin');
 });
 
+// Serve service worker with correct scope header for client-side streaming
+app.get('/sw.js', (req, res) => {
+  res.setHeader('Service-Worker-Allowed', '/');
+  res.setHeader('Content-Type', 'application/javascript');
+  res.sendFile(path.join(__dirname, 'public', 'sw.js'));
+});
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Catch-all for SPA — serve index.html for any unmatched non-API route
+// Skip /vstream/ paths (handled by service worker) and /api/ and /data/ paths
 app.get('*', (req, res, next) => {
-  if (req.path.startsWith('/api/') || req.path.startsWith('/data/')) {
+  if (req.path.startsWith('/api/') || req.path.startsWith('/data/') || req.path.startsWith('/vstream/')) {
     return next();
   }
   res.sendFile(path.join(__dirname, 'public', 'index.html'));

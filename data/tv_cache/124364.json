@@ -344,6 +344,33 @@
         "episodeTitle": "Best Laid Plans",
         "episodeOverview": "As Tabitha and Jade’s troubling history is brought to light, things begin to unravel for another resident in town. Boyd wants to test a dangerous theory.",
         "runtime": 51
+      },
+      {
+        "fileId": "1073",
+        "fileName": "From.S04E08.1080p.AMZN.WEB-DL.DD5.1.x264-VegaMovies.is.mkv",
+        "seasonNumber": 4,
+        "episodeNumber": 8,
+        "episodeTitle": "Heavy Is the Head",
+        "episodeOverview": "A dangerous plan begins to take shape. How much is Boyd willing to risk for the chance to get everyone home?  Fatima and Henry find themselves at two very different and disturbing crossroads.  Victor helps Tabitha and Ethan prepare for the worst.",
+        "runtime": 58
+      },
+      {
+        "fileId": "1074",
+        "fileName": "From.S04E09.1080p.AMZN.WEB-DL.DDP5.1.x264-VegaMovies.is.mkv",
+        "seasonNumber": 4,
+        "episodeNumber": 9,
+        "episodeTitle": "The Calm Before",
+        "episodeOverview": "The residents of town stand at a crossroads unlike any they’ve faced before as Boyd sets a daring, and dangerous, plan in motion.",
+        "runtime": 47
+      },
+      {
+        "fileId": "1075",
+        "fileName": "From.S04E10.1080p.WEB-DL.Hindi-English.x264-Vegamovies.is.mkv",
+        "seasonNumber": 4,
+        "episodeNumber": 10,
+        "episodeTitle": "If a Tree Falls in the Forest…",
+        "episodeOverview": "Boyd’s quest to lead the residents home reaches a terrifying crossroads, and nothing will ever be the same again.",
+        "runtime": 49
       }
     ]
   },
@@ -353,5 +380,5 @@
     3,
     4
   ],
-  "availableEpisodeCount": 36
+  "availableEpisodeCount": 39
 }

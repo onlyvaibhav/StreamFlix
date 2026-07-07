@@ -1,8 +1,8 @@
 {
     "ignore": [
-        "data/*",
-        "data/movies/*",
-        "data/posters/*",
-        "data/backdrops/*"
+        "data/**",
+        "temp/**",
+        "scratch/**",
+        "streamflix/**"
     ]
 }

@@ -301,6 +301,10 @@ async function initTelegram() {
         }
       );
 
+      // Disable GramJS update loop on the server-side client
+      // We only use this client for channel polling and streaming, not for receiving push updates
+      client._loopStarted = true;
+
       await client.connect();
       telegramConnectionStats.connectCount += 1;
       telegramConnectionStats.lastConnectAt = new Date().toISOString();

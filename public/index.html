@@ -14,6 +14,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
   <link rel="manifest" href="/site.webmanifest" />
   <link rel="stylesheet" href="/css/app.css">
+  <link rel="stylesheet" href="/css/login.css">
 </head>
 
 <body>
@@ -66,6 +67,155 @@
   <main id="app">
     <!-- Content injected by JavaScript -->
   </main>
+
+  <!-- Premium Telegram Login Screen Overlay -->
+  <div id="login-screen" class="login-screen-overlay hidden">
+    <!-- Ambient Animated Background -->
+    <div class="login-ambient-bg">
+      <div class="login-blob-container">
+        <div class="login-blob red"></div>
+        <div class="login-blob blue"></div>
+        <div class="login-blob purple"></div>
+      </div>
+      <div class="login-vignette"></div>
+      <div class="login-noise"></div>
+    </div>
+
+    <!-- Top Logo -->
+    <a href="#" class="login-header-logo" onclick="event.preventDefault();">STREAMFLIX</a>
+
+    <!-- Main Central Login Card -->
+    <div id="login-card" class="login-card-container">
+      
+      <!-- Error Notification Toast -->
+      <div id="login-error" class="login-error-card hidden">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+        <span id="login-error-text">Error message goes here</span>
+      </div>
+
+      <!-- Step 1: Phone Number -->
+      <div id="step-phone" class="login-step active">
+        <h2 class="login-title">Sign In</h2>
+        <p class="login-subtitle">We will send a login code to your Telegram account.</p>
+        
+        <!-- Country Selector & Phone Input -->
+        <div class="login-country-container">
+          <select id="phone-country" class="login-country-select" aria-label="Country Code">
+            <option value="+91" selected>🇮🇳 India (+91)</option>
+            <option value="+1">🇺🇸 USA/Canada (+1)</option>
+            <option value="+44">🇬🇧 UK (+44)</option>
+            <option value="+7">🇷🇺 Russia (+7)</option>
+            <option value="+49">🇩🇪 Germany (+49)</option>
+            <option value="+33">🇫🇷 France (+33)</option>
+            <option value="+39">🇮🇹 Italy (+39)</option>
+            <option value="+34">🇪🇸 Spain (+34)</option>
+            <option value="+55">🇧🇷 Brazil (+55)</option>
+            <option value="+81">🇯🇵 Japan (+81)</option>
+            <option value="+86">🇨🇳 China (+86)</option>
+            <option value="+61">🇦🇺 Australia (+61)</option>
+            <option value="+971">🇦🇪 UAE (+971)</option>
+          </select>
+        </div>
+        
+        <div class="login-form-group">
+          <input type="tel" id="phone-number" class="login-input" placeholder=" " autocomplete="tel" required>
+          <label for="phone-number" class="login-label">Phone Number</label>
+        </div>
+
+        <button id="btn-phone-continue" class="login-btn-primary">
+          <span>Continue</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Step 2: OTP Box -->
+      <div id="step-otp" class="login-step enter-right">
+        <h2 class="login-title">Enter Code</h2>
+        <p class="login-subtitle">We sent a login code to Telegram on <strong id="otp-phone-display">+91 XXXXX XXXXX</strong>.</p>
+        
+        <!-- Five Styled OTP Inputs -->
+        <div class="otp-inputs-row">
+          <input type="text" maxlength="1" class="otp-box" data-index="0" inputmode="numeric" pattern="[0-9]*" aria-label="Digit 1" autocomplete="one-time-code">
+          <input type="text" maxlength="1" class="otp-box" data-index="1" inputmode="numeric" pattern="[0-9]*" aria-label="Digit 2">
+          <input type="text" maxlength="1" class="otp-box" data-index="2" inputmode="numeric" pattern="[0-9]*" aria-label="Digit 3">
+          <input type="text" maxlength="1" class="otp-box" data-index="3" inputmode="numeric" pattern="[0-9]*" aria-label="Digit 4">
+          <input type="text" maxlength="1" class="otp-box" data-index="4" inputmode="numeric" pattern="[0-9]*" aria-label="Digit 5">
+        </div>
+
+        <div class="otp-timer-container">
+          <span>Resend code in: <span id="otp-timer" class="otp-timer">02:00</span></span>
+          <a id="btn-resend-otp" class="otp-resend-link">Resend</a>
+        </div>
+
+        <button id="btn-otp-verify" class="login-btn-primary" disabled>
+          <span>Verify & Sign In</span>
+        </button>
+
+        <button id="btn-otp-back" class="login-btn-secondary">Change phone number</button>
+      </div>
+
+      <!-- Step 3: Cloud Password (2FA) -->
+      <div id="step-password" class="login-step enter-right">
+        <h2 class="login-title">Cloud Password</h2>
+        <p class="login-subtitle">Your account has 2-Step Verification enabled. Please enter your password.</p>
+        
+        <div class="login-form-group">
+          <input type="password" id="cloud-password" class="login-input" placeholder=" " required>
+          <label for="cloud-password" class="login-label">Password</label>
+          <button id="btn-password-toggle" class="login-password-toggle" aria-label="Show password">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+            </svg>
+          </button>
+        </div>
+
+        <button id="btn-password-submit" class="login-btn-primary">
+          <span>Continue</span>
+        </button>
+
+        <button id="btn-password-back" class="login-btn-secondary">Back</button>
+      </div>
+
+      <!-- Step 4: Success / Welcome -->
+      <div id="step-success" class="login-step enter-right">
+        <div class="success-checkmark-container">
+          <div class="checkmark-circle">
+            <svg class="checkmark-icon" viewBox="0 0 52 52">
+              <path d="M14 27 l10 10 l20 -20"/>
+            </svg>
+          </div>
+          <span class="success-welcome-text">Welcome back,</span>
+          <div id="success-user-name" class="success-name">User</div>
+        </div>
+      </div>
+
+      <!-- Step 5: Membership Required -->
+      <div id="step-membership" class="login-step enter-right">
+        <h2 class="login-title">Join Channel</h2>
+        <p class="login-subtitle">To access StreamFlix, you must be a member of our official Telegram channel.</p>
+        
+        <div style="margin: 24px 0; text-align: center;">
+          <a id="btn-join-channel" href="#" target="_blank" class="login-btn-primary" style="display: inline-flex; align-items: center; justify-content: center; text-decoration: none; width: 100%; box-sizing: border-box; gap: 8px;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21.198 2.402a2.224 2.224 0 0 0-1.914-.582L2.247 6.649a2.225 2.225 0 0 0-.14 4.164l6.002 2.666 2.666 6.002a2.225 2.225 0 0 0 4.164-.14l4.829-17.037a2.224 2.224 0 0 0-.57-1.902zM8.61 12.825l8.609-5.165a.557.557 0 0 1 .744.825l-5.166 8.609"/>
+            </svg>
+            <span>Join Telegram Channel</span>
+          </a>
+        </div>
+
+        <button id="btn-membership-verify" class="login-btn-primary">
+          <span>I Have Joined</span>
+        </button>
+
+        <button id="btn-membership-back" class="login-btn-secondary">Back to Login</button>
+      </div>
+
+    </div>
+  </div>
 
   <!-- Detail Modal -->
   <div id="detail-modal" class="modal-overlay hidden" onclick="if(event.target===this) closeModal()">
@@ -281,6 +431,7 @@
     </div>
   </div>
 
+  <script src="/js/services/authService.js"></script>
   <script src="/js/app.js"></script>
 </body>
 

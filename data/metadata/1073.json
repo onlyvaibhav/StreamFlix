@@ -1,0 +1,41 @@
+{
+  "fileId": "1073",
+  "fileName": "From.S04E08.1080p.AMZN.WEB-DL.DD5.1.x264-VegaMovies.is.mkv",
+  "type": "tv",
+  "title": "FROM",
+  "originalTitle": "FROM",
+  "overview": "Unravel the mystery of a nightmarish town in middle America that traps all those who enter. As the unwilling residents fight to keep a sense of normalcy and search for a way out, they must also survive the threats of the surrounding forest – including the terrifying creatures that come out when the sun goes down.",
+  "releaseDate": "2022-02-20",
+  "year": 2022,
+  "runtime": 58,
+  "genres": [
+    "Mystery",
+    "Drama",
+    "Sci-Fi & Fantasy"
+  ],
+  "rating": 8.5,
+  "popularity": 508.3089,
+  "awards": "2 wins & 32 nominations total",
+  "poster": "/data/posters/show_124364.jpg",
+  "backdrop": "/data/backdrops/show_124364_bd.jpg",
+  "tmdbId": 124364,
+  "fetchedAt": "2026-07-07T13:46:49.294Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "FROM",
+    "originalShowTitle": "FROM",
+    "seasonNumber": 4,
+    "episodeNumber": 8,
+    "episodeTitle": "Heavy Is the Head",
+    "episodeOverview": "A dangerous plan begins to take shape. How much is Boyd willing to risk for the chance to get everyone home?  Fatima and Henry find themselves at two very different and disturbing crossroads.  Victor helps Tabitha and Ethan prepare for the worst.",
+    "showTmdbId": 124364,
+    "episodeRuntime": 58,
+    "totalSeasons": 4,
+    "totalEpisodes": 40
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "_tracksDetected": true,
+  "metadataStatus": "COMPLETE",
+  "logo": "/data/logos/show_124364_logo.png"
+}

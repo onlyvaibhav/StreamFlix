@@ -24,10 +24,9 @@ const state = {
     hideControlsTimer: null,
     heartbeatTimer: null,
     abortController: null, // AbortController for all player event listeners
-    isRemuxing: false,
+    useClientStreaming: false, // Whether to route chunks through SW
     defaultAudioTrack: 0,
     duration: 0,
-    _seekOffset: 0,
     parsedCues: null,
     subtitleVTTCache: {},
     subtitleOffset: 0,
@@ -53,8 +52,90 @@ const state = {
   }
 };
 
+let telegramWorker = null;
+let telegramWorkerReady = null;
+
+// Helper to guarantee a file is registered with the worker before we point the video source to it
+async function ensureFileRegistered(fileId) {
+  if (!state.player.useClientStreaming || !telegramWorker) return;
+  try {
+    const res = await api(`/api/stream/${fileId}/file-info`);
+    if (res && telegramWorker) {
+      telegramWorker.postMessage({
+        type: 'REGISTER_FILE',
+        ...res
+      });
+    }
+  } catch (err) {
+    console.warn(`[Streaming] Failed to ensure file registered ${fileId}:`, err);
+  }
+}
+
+async function initTelegramWorker() {
+  if ('serviceWorker' in navigator) {
+    try {
+      const reg = await navigator.serviceWorker.register('/sw.js', { scope: '/' });
+      if (reg.installing) {
+        await new Promise(resolve => {
+          reg.installing.addEventListener('statechange', (e) => {
+            if (e.target.state === 'activated') resolve();
+          });
+        });
+      }
+    } catch (e) {
+      console.warn('SW reg failed', e);
+    }
+  }
+
+  if (telegramWorkerReady) return telegramWorkerReady;
+  
+  telegramWorkerReady = (async () => {
+    try {
+      const token = StreamFlixAuth.sessionToken;
+      if (!token) throw new Error('No session');
+
+      const configRes = await fetch('/api/auth/telegram/streaming-config', { headers: { 'Authorization': `Bearer ${token}` }});
+      const config = await configRes.json();
+      
+      const sessionRes = await fetch('/api/auth/telegram/session-string', { headers: { 'Authorization': `Bearer ${token}` }});
+      const session = await sessionRes.json();
+      
+      if (!config.success || !session.success) throw new Error('Failed to fetch streaming credentials');
+      
+      telegramWorker = new Worker('/js/telegram-worker.js');
+      
+      await new Promise((resolve, reject) => {
+        telegramWorker.onmessage = (event) => {
+          if (event.data.type === 'INIT_OK') {
+            resolve();
+          } else if (event.data.type === 'INIT_ERROR') {
+            reject(new Error(event.data.error));
+          }
+        };
+        
+        telegramWorker.postMessage({
+          type: 'INIT',
+          sessionString: session.sessionString,
+          apiId: config.apiId,
+          apiHash: config.apiHash
+        });
+      });
+      
+      if (navigator.serviceWorker && navigator.serviceWorker.controller) {
+        const channel = new MessageChannel();
+        navigator.serviceWorker.controller.postMessage({ type: 'INIT_PORT' }, [channel.port1]);
+        telegramWorker.postMessage({ type: 'INIT_PORT' }, [channel.port2]);
+      }
+    } catch (e) {
+      console.warn('Client streaming init failed, will fallback to proxy:', e);
+      telegramWorker = null;
+    }
+  })();
+  
+  return telegramWorkerReady;
+}
+
 let playPauseDebounce = false;
-let remuxSeekSequence = 0;
 const KEYBOARD_SEEK_DELAY = 180;
 const seekState = {
   dragging: false,
@@ -64,6 +145,8 @@ const seekState = {
   keyboardSeeking: false,
   keyboardAccum: 0,
   keyboardTimer: null,
+  isCrossPartSeeking: false,
+  crossPartVirtualTime: 0,
 };
 const progressRefs = {
   container: null,
@@ -1108,7 +1191,6 @@ window.renderEpisodeList = function (seasonNum) {
           <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
           Play S${seasonNum}E${firstEp.tv.episodeNumber}`;
 
-        // Update click handler
         // Note: we need the original tmdbId if possible. 
         // We can access it from the first episode if we stored it, or fallback to window._showTmdbId if we added it.
         // For now, let's grab it from the first episode's onclick if possible, or just pass null if strictly needed.
@@ -1241,16 +1323,8 @@ function resetPlayerState() {
     state.player.abortController = null;
   }
 
-  // Abort subtitle fetches
-  if (state.player.subtitleAbortController) {
-    state.player.subtitleAbortController.abort();
-    state.player.subtitleAbortController = null;
-  }
-
   // Stop heartbeat from any previous video
   stopHeartbeat();
-
-  remuxSeekSequence = 0;
 
   // Clear custom subtitle display
   if (subtitleDisplay) subtitleDisplay.innerHTML = '';
@@ -1284,10 +1358,8 @@ function resetPlayerState() {
   state.player.currentSubtitleTrack = -1;
   state.player.subtitleTracks = [];
   state.player.speed = 1;
-  state.player.isRemuxing = false;
   state.player.defaultAudioTrack = 0;
   state.player.duration = 0;
-  state.player._seekOffset = 0;
   state.player.parsedCues = null;
   state.player.subtitleVTTCache = {};
   state.player.subtitleOffset = 0;
@@ -1437,9 +1509,6 @@ function recalculateMultipartTimelineState(video, options = {}) {
       accumulatedBeforePart = resolved.part.start;
       offsetInPart = Math.max(0, clampedVirtual - accumulatedBeforePart);
     }
-    // NOTE: We do NOT mutate mp.currentPartIndex or mp.completedDuration here.
-    // State mutations belong in the calling code (multipartSeek, multipartAdvanceToNext),
-    // not in a display/calculation function. This prevents drift from side effects.
   } else {
     // Normal playback: clamp offset to part duration from durationMap
     const partDuration = mapEntry ? Math.max(0, mapEntry.end - mapEntry.start) : 0;
@@ -1471,19 +1540,22 @@ function recalculateMultipartTimelineState(video, options = {}) {
 }
 
 function getDisplayTimelineState(video, options = {}) {
+  // If we are mid-seek across parts, freeze the UI at the target
+  if (seekState.isCrossPartSeeking && !Number.isFinite(options.virtualTimeOverride)) {
+    options.virtualTimeOverride = seekState.crossPartVirtualTime;
+  }
+
   if (state.player.multipart.enabled) {
     return recalculateMultipartTimelineState(video, options);
   }
 
   const elapsed = (video && isFinite(video.currentTime)) ? Math.max(0, video.currentTime) : 0;
-  const totalDuration = state.player.isRemuxing
-    ? Number(state.player.duration || video?.duration || 0)
-    : Number(video?.duration || 0);
+  const totalDuration = Number(video?.duration || 0);
   const safeTotal = totalDuration > 0 ? totalDuration : 0;
-  const remuxOffset = state.player.isRemuxing ? Number(state.player._seekOffset || 0) : 0;
+  
   const requestedCurrent = Number.isFinite(options.virtualTimeOverride)
     ? Number(options.virtualTimeOverride)
-    : (elapsed + remuxOffset);
+    : elapsed;
   const displayCurrentTime = safeTotal > 0
     ? Math.max(0, Math.min(requestedCurrent, safeTotal))
     : Math.max(0, requestedCurrent);
@@ -1624,10 +1696,11 @@ async function multipartAdvanceToNext() {
   buffering?.classList.remove('hidden');
 
   try {
-    video.src = `/api/stream/${nextPart.fileId}`;
+    await ensureFileRegistered(nextPart.fileId);
+
+    const streamBaseUrl = state.player.useClientStreaming ? '/vstream' : '/api/stream';
+    video.src = `${streamBaseUrl}/${nextPart.fileId}`;
     state.player.fileId = nextPart.fileId;
-    state.player.isRemuxing = false;
-    state.player._seekOffset = 0;
 
     video.load();
 
@@ -1641,6 +1714,7 @@ async function multipartAdvanceToNext() {
       const timeout = setTimeout(() => reject(new Error('Part load timeout')), 15000);
       video.addEventListener('loadedmetadata', () => {
         clearTimeout(timeout);
+        applyNativeAudioTrack(video);
         // Correct duration with actual value
         if (isFinite(video.duration) && video.duration > 0) {
           multipartCorrectDuration(nextIndex, video.duration);
@@ -1707,7 +1781,7 @@ async function multipartAdvanceToNext() {
  */
 let multipartSeekSequence = 0;
 
-function multipartSeek(virtualTime) {
+async function multipartSeek(virtualTime) {
   const mp = state.player.multipart;
   if (!mp.enabled) return;
 
@@ -1742,11 +1816,7 @@ function multipartSeek(virtualTime) {
 
   if (finalIndex === mp.currentPartIndex) {
     // Same part - just seek within it
-    if (state.player.isRemuxing) {
-      remuxSeek(finalOffset);
-    } else {
-      video.currentTime = finalOffset;
-    }
+    video.currentTime = finalOffset;
     renderTimelineState(video, { virtualTimeOverride: targetVirtualTime });
     return;
   }
@@ -1767,14 +1837,17 @@ function multipartSeek(virtualTime) {
   const preservedRate = video.playbackRate;
   const preservedSubIndex = state.player.currentSubtitleTrack;
 
-  state.player.isRemuxing = false;
-  state.player._seekOffset = 0;
-
   // Pause gracefully to avoid 'play request interrupted' error
   const wasPlaying = !video.paused;
   if (wasPlaying) video.pause();
 
-  video.src = `/api/stream/${targetPart.fileId}`;
+  await ensureFileRegistered(targetPart.fileId);
+
+  seekState.isCrossPartSeeking = true;
+  seekState.crossPartVirtualTime = targetVirtualTime;
+
+  const streamBaseUrl = state.player.useClientStreaming ? '/vstream' : '/api/stream';
+  video.src = `${streamBaseUrl}/${targetPart.fileId}`;
   video.load();
   renderTimelineState(video, { virtualTimeOverride: targetVirtualTime });
 
@@ -1782,12 +1855,15 @@ function multipartSeek(virtualTime) {
     if (thisSeekSeq !== multipartSeekSequence) return;
     console.warn(`[Multipart] Cross-part seek timed out for part ${targetPart.partNumber}`);
     buffering?.classList.add('hidden');
+    seekState.isCrossPartSeeking = false;
     if (wasPlaying) video.play().catch(() => {});
   }, 15000);
 
   video.addEventListener('loadedmetadata', function onMeta() {
     if (thisSeekSeq !== multipartSeekSequence) return; // Stale seek, ignore
     clearTimeout(seekTimeout);
+    seekState.isCrossPartSeeking = false;
+    applyNativeAudioTrack(video);
 
     if (isFinite(video.duration) && video.duration > 0) {
       multipartCorrectDuration(finalIndex, video.duration);
@@ -2027,10 +2103,9 @@ function startProgressRAF(video, signal) {
     }
 
     if (duration && isFinite(duration) && video.buffered.length > 0) {
-      // Calculate buffer offset relative to current part + remux offset
+      // Calculate buffer offset relative to current part
       const timeOffset = state.player.multipart.enabled ? timeline.accumulatedBeforePart : 0;
-      const remuxOffset = state.player.isRemuxing ? (state.player._seekOffset || 0) : 0;
-      const seekOffset = timeOffset + remuxOffset;
+      const seekOffset = timeOffset;
 
       let bufPct = 0;
       for (let i = 0; i < video.buffered.length; i++) {
@@ -2060,53 +2135,7 @@ function startProgressRAF(video, signal) {
   signal.addEventListener('abort', () => cancelAnimationFrame(rafId), { once: true });
 }
 
-function remuxSeek(targetTime) {
-  const video = document.getElementById('video-player');
-  const buffering = document.getElementById('buffering-spinner');
-  const fileId = state.player.fileId;
-  if (!video || !fileId) return;
 
-  const totalDuration = Number(state.player.duration || video.duration || 0);
-  const clampedTarget = totalDuration > 0
-    ? Math.max(0, Math.min(Number(targetTime || 0), totalDuration))
-    : Math.max(0, Number(targetTime || 0));
-
-  const audioTrack = state.player.currentAudioTrack || 0;
-  const newSrc = `/api/stream/${fileId}?start=${clampedTarget.toFixed(2)}&audioTrack=${audioTrack}`;
-  const thisSeekSequence = ++remuxSeekSequence;
-
-  // Cancel and restart subtitle fetch if a subtitle is active
-  if (state.player.currentSubtitleTrack !== null && state.player.currentSubtitleTrack > -1) {
-    // Restart subtitle fetch with new seek time, but don't reset the whole UI
-    switchSubs(state.player.currentSubtitleTrack, null, clampedTarget);
-  }
-
-  state.player.isRemuxing = true;
-  state.player._seekOffset = clampedTarget;
-  buffering.classList.remove('hidden');
-  renderTimelineState(video, { virtualTimeOverride: clampedTarget });
-
-  video.src = newSrc;
-  video.load();
-
-  video.addEventListener('loadedmetadata', function onMeta() {
-    if (thisSeekSequence !== remuxSeekSequence) return;
-    if (video.currentTime > 1) {
-      state.player._seekOffset = clampedTarget - video.currentTime;
-    }
-    renderTimelineState(video);
-    video.play().catch(() => { });
-    buffering.classList.add('hidden');
-  }, { once: true });
-
-  setTimeout(() => {
-    if (thisSeekSequence !== remuxSeekSequence) return;
-    if (video.readyState < 1) {
-      video.play().catch(() => { });
-      buffering.classList.add('hidden');
-    }
-  }, 10000);
-}
 
 // ============================================================
 // PLAY VIDEO — Main entry point
@@ -2197,14 +2226,19 @@ async function playVideo(params, pushState = true) {
   // Show buffering spinner immediately
   document.getElementById('buffering-spinner').classList.remove('hidden');
 
+  // Init client-side streaming worker lazily
+  await initTelegramWorker();
+
   // Fetch tracks, external subtitles, AND multipart info concurrently
   let tracks = null;
   let externalSubs = [];
+  let fileInfo = null;
 
   try {
     const fetchJobs = [
       api(`/api/stream/${params.fileId}/tracks`),
-      api(`/api/subtitles/movie/${params.fileId}`)
+      api(`/api/subtitles/movie/${params.fileId}`),
+      api(`/api/stream/${params.fileId}/file-info`)
     ];
 
     // If parts were passed from the modal, also fetch part-info for durations
@@ -2235,6 +2269,16 @@ async function playVideo(params, pushState = true) {
         return 0;
       });
     }
+
+    if (results[2] && results[2].status === 'fulfilled' && results[2].value) {
+      fileInfo = results[2].value;
+      if (telegramWorker) {
+        telegramWorker.postMessage({
+          type: 'REGISTER_FILE',
+          ...fileInfo
+        });
+      }
+    }
   } catch (e) {
     console.warn('Parallel fetch failed:', e);
   }
@@ -2246,19 +2290,6 @@ async function playVideo(params, pushState = true) {
   state.player.currentAudioTrack = intendedDefault >= 0 ? intendedDefault : 0;
 
   state.player.duration = tracks?.duration || 0;
-  state.player._seekOffset = 0;
-
-  if (tracks?.hasUnsupportedAudio) {
-    const unsupported = (tracks.audioTracks || [])
-      .filter((t) => !t.browserPlayable)
-      .map((t) => `${t.language || 'Unknown'} (${(t.codec || '').toUpperCase()})`)
-      .join(', ');
-
-    const audioInfo = document.getElementById('audio-info');
-    audioInfo.innerHTML = `⚠️ Unsupported audio detected (${unsupported}). A/V may be desync.`;
-    audioInfo.classList.remove('hidden');
-    setTimeout(() => audioInfo.classList.add('hidden'), 8000);
-  }
 
   // Build subtitle track list: start with embedded tracks
   const embeddedSubs = (tracks?.subtitleTracks || []).map((t) => ({
@@ -2270,26 +2301,24 @@ async function playVideo(params, pushState = true) {
   // Merge: embedded first, then external
   state.player.subtitleTracks = [...embeddedSubs, ...externalSubs];
 
-  // Set source and play. Use Remux if we need to extract a non-zero audio track immediately.
-  if (state.player.currentAudioTrack === 0) {
-    state.player.isRemuxing = false;
-    video.src = `/api/stream/${params.fileId}`;
-  } else {
-    state.player.isRemuxing = true;
-    video.src = `/api/stream/${params.fileId}?start=0&audioTrack=${state.player.currentAudioTrack}`;
-  }
+  // Safari/MKV fallback detect
+  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+  const isMKV = fileInfo && (fileInfo.mimeType === 'video/x-matroska' || fileInfo.fileName?.endsWith('.mkv'));
+  
+  state.player.useClientStreaming = telegramWorker && !(isSafari && isMKV);
+  const streamBaseUrl = state.player.useClientStreaming ? '/vstream' : '/api/stream';
 
+  video.src = `${streamBaseUrl}/${params.fileId}`;
   video.currentTime = 0;
   video.load();
 
-  // Correct multipart duration map when first part's actual duration is discovered
-  if (state.player.multipart.enabled) {
-    video.addEventListener('loadedmetadata', function onFirstPartMeta() {
-      if (isFinite(video.duration) && video.duration > 0) {
-        multipartCorrectDuration(0, video.duration);
-      }
-    }, { once: true });
-  }
+  // Apply native track and correct multipart duration when first part's actual duration is discovered
+  video.addEventListener('loadedmetadata', function onFirstMeta() {
+    applyNativeAudioTrack(video);
+    if (state.player.multipart.enabled && isFinite(video.duration) && video.duration > 0) {
+      multipartCorrectDuration(0, video.duration);
+    }
+  }, { once: true });
 
   // Wire up controls BEFORE play() so 'playing' event listener catches the first play
   setupPlayerListeners();
@@ -2336,7 +2365,6 @@ async function closePlayer(pushState = true) {
   state.player.active = false;
   stopHeartbeat();
 
-  remuxSeekSequence = 0;
   clearTimeout(seekState.pendingSeekTimer);
   clearTimeout(seekState.keyboardTimer);
   seekState.pendingSeekTimer = null;
@@ -2372,9 +2400,7 @@ async function closePlayer(pushState = true) {
   // Reset subtitle state
   state.player.currentSubtitleTrack = -1;
   state.player.subtitleTracks = [];
-  state.player.isRemuxing = false;
   state.player.defaultAudioTrack = 0;
-  state.player._seekOffset = 0;
   state.player.duration = 0;
   state.player.parsedCues = null;
   state.player.subtitleVTTCache = {};
@@ -2407,7 +2433,7 @@ async function closePlayer(pushState = true) {
 }
 
 // ============================================================
-// HEARTBEAT — Keeps backend activity session alive
+// HEARTBEAT — Keeps backend session alive
 // ============================================================
 function startHeartbeat(fileId) {
   stopHeartbeat();
@@ -2854,7 +2880,7 @@ function setupSeekbar(video, signal) {
   };
 
   function throttledSeek(pct) {
-    if (state.player.isRemuxing || state.player.multipart.enabled) return;
+    if (state.player.multipart.enabled) return;
 
     const duration = video.duration;
     if (!isFinite(duration) || duration <= 0) return;
@@ -2923,15 +2949,6 @@ function setupSeekbar(video, signal) {
       const totalDuration = state.player.multipart.totalDuration;
       if (totalDuration > 0) {
         multipartSeek(seekState.dragPct * totalDuration);
-        seekState.lastActualSeek = performance.now();
-      }
-      return;
-    }
-
-    if (state.player.isRemuxing) {
-      const duration = state.player.duration || video.duration;
-      if (duration > 0) {
-        remuxSeek(seekState.dragPct * duration);
         seekState.lastActualSeek = performance.now();
       }
       return;
@@ -3024,8 +3041,6 @@ function seekRelative(sec) {
     // Multipart: use virtual seeking
     if (state.player.multipart.enabled) {
       multipartSeek(finalTarget);
-    } else if (state.player.isRemuxing) {
-      remuxSeek(finalTarget);
     } else {
       video.currentTime = finalTarget;
       seekState.lastActualSeek = performance.now();
@@ -3262,8 +3277,7 @@ function updateBuffer() {
   if (!totalDuration || video.buffered.length === 0) return;
 
   const multipartOffset = state.player.multipart.enabled ? timeline.accumulatedBeforePart : 0;
-  const remuxOffset = state.player.isRemuxing ? Number(state.player._seekOffset || 0) : 0;
-  const offset = multipartOffset + remuxOffset;
+  const offset = multipartOffset;
 
   const bufEnd = video.buffered.end(video.buffered.length - 1) + offset;
   setVisualBuffer(bufEnd, totalDuration);
@@ -3555,9 +3569,7 @@ function qsSyncMark(type, event) {
   if (event) event.stopPropagation();
   const video = document.getElementById('video-player');
   const elapsed = isFinite(video.currentTime) ? video.currentTime : 0;
-  const actualTime = state.player.isRemuxing
-    ? elapsed + (state.player._seekOffset || 0)
-    : elapsed;
+  const actualTime = elapsed;
 
   const step = state.player._syncStep || 0;
 
@@ -3650,7 +3662,6 @@ async function switchAudio(index, event) {
   if (event) event.stopPropagation();
 
   const video = document.getElementById('video-player');
-  const fileId = state.player.fileId;
   const audioInfo = document.getElementById('audio-info');
   const track = state.player.audioTracks[index];
 
@@ -3665,33 +3676,30 @@ async function switchAudio(index, event) {
   state.player.currentAudioTrack = index;
   updateTrackInfoUI();
 
-  audioInfo.textContent = 'Switching audio...';
-  audioInfo.classList.remove('hidden');
-  setTimeout(() => audioInfo.classList.add('hidden'), 2000);
-
-  const isDirectPlayable = index === 0; // Only track 0 can be reliably direct streamed
-  const actualTime = state.player.isRemuxing
-    ? (isFinite(video.currentTime) ? video.currentTime : 0) + (state.player._seekOffset || 0)
-    : (isFinite(video.currentTime) ? video.currentTime : 0);
-
-  if (isDirectPlayable) {
-    state.player.isRemuxing = false;
-    state.player._seekOffset = 0;
-    video.src = `/api/stream/${fileId}`;
-    video.load();
-
-    video.addEventListener('loadedmetadata', function onMeta() {
-      video.removeEventListener('loadedmetadata', onMeta);
-      if (isFinite(actualTime) && actualTime > 0) {
-        video.currentTime = actualTime;
-      }
-      video.play().catch(() => { });
-    }, { once: true });
-    return;
+  // Apply native track selection if supported by the browser
+  if (video.audioTracks && video.audioTracks.length > 0) {
+    for (let i = 0; i < video.audioTracks.length; i++) {
+      video.audioTracks[i].enabled = (i === index);
+    }
+    audioInfo.textContent = 'Audio track switched';
+  } else {
+    // Fallback message if browser does not support native multi-track
+    console.warn("Browser does not expose video.audioTracks natively for this container.");
+    audioInfo.textContent = 'Browser does not support native audio switching for this file.';
   }
 
-  state.player.isRemuxing = true;
-  remuxSeek(actualTime);
+  audioInfo.classList.remove('hidden');
+  setTimeout(() => audioInfo.classList.add('hidden'), 2000);
+}
+
+// Helper to re-apply the native audio track when video reloads (like crossing parts)
+function applyNativeAudioTrack(video) {
+  const targetIndex = state.player.currentAudioTrack || 0;
+  if (video.audioTracks && video.audioTracks.length > 0) {
+    for (let i = 0; i < video.audioTracks.length; i++) {
+      video.audioTracks[i].enabled = (i === targetIndex);
+    }
+  }
 }
 
 async function switchSubs(index, event, startTime = null) {
@@ -4007,11 +4015,43 @@ function parseUrlAndRoute(path, search) {
   }
 }
 
-async function loadLibrary() {
+async function loadLibrary(skipAuth = false) {
   const app = document.getElementById('app');
 
-  // Show skeleton immediately
-  app.innerHTML = buildHomePageSkeleton();
+  // Immediately show the appropriate skeleton before any async auth checks
+  const path = window.location.pathname;
+  if (path === '/movies') {
+    app.innerHTML = buildBrowsePageSkeleton('Movies');
+  } else if (path === '/tvshows') {
+    app.innerHTML = buildBrowsePageSkeleton('TV Shows');
+  } else if (path === '/genres' || path.startsWith('/genres/')) {
+    app.innerHTML = buildGenresPageSkeleton();
+  } else {
+    app.innerHTML = buildHomePageSkeleton();
+  }
+
+  if (!skipAuth) {
+    // Check auth first
+    const session = await StreamFlixAuth.initialize();
+    if (!session) {
+      showLoginScreen();
+      return;
+    }
+
+    // Verify backend status (Zero Trust)
+    const status = await StreamFlixAuth.validateSessionWithBackend();
+    if (status.requiresMembership) {
+      showMembershipScreen(status.inviteLink);
+      return;
+    }
+    if (!status.authorized) {
+      showLoginScreen(status.error || 'Your session has expired. Please sign in again.');
+      return;
+    }
+
+    // Session is valid! Setup profile display
+    setupNavbarUser(StreamFlixAuth.user);
+  }
 
   // Primary: /api/metadata reads JSON files directly (reliable TV detection)
   // Fallback: /api/movies/library uses Telegram cache (may miss TV shows)
@@ -4145,6 +4185,9 @@ window.addEventListener('offline', handleConnectionChange);
 document.addEventListener('DOMContentLoaded', () => {
   handleConnectionChange();
   
+  // Initialize login UI bindings
+  initLoginFlow();
+  
   const retryBtn = document.getElementById('btn-retry-connection');
   if (retryBtn) {
     retryBtn.addEventListener('click', () => {
@@ -4162,3 +4205,468 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+// ============================================================
+// TELEGRAM AUTHENTICATION FLOW CONTROLLER
+// ============================================================
+let currentLoginSessionId = null;
+let currentPhoneNumber = null;
+let otpResendTimer = null;
+
+function showLoginScreen(errorMessage = null) {
+  document.getElementById('login-screen').classList.remove('hidden');
+  document.getElementById('navbar').classList.add('hidden');
+  resetLoginState();
+  if (errorMessage) {
+    showError(errorMessage);
+  }
+}
+
+function showMembershipScreen(inviteLink) {
+  document.getElementById('login-screen').classList.remove('hidden');
+  document.getElementById('navbar').classList.add('hidden');
+  
+  // Transition directly to the membership step
+  const phoneStep = document.getElementById('step-phone');
+  const otpStep = document.getElementById('step-otp');
+  const pwdStep = document.getElementById('step-password');
+  const successStep = document.getElementById('step-success');
+  const membershipStep = document.getElementById('step-membership');
+  
+  phoneStep.className = 'login-step';
+  otpStep.className = 'login-step';
+  pwdStep.className = 'login-step';
+  successStep.className = 'login-step';
+  membershipStep.className = 'login-step active';
+  
+  const joinBtn = document.getElementById('btn-join-channel');
+  if (joinBtn) {
+    joinBtn.href = inviteLink || '#';
+  }
+  
+  hideError();
+}
+
+function resetLoginState() {
+  currentLoginSessionId = null;
+  currentPhoneNumber = null;
+  if (otpResendTimer) clearInterval(otpResendTimer);
+  
+  document.getElementById('phone-number').value = '';
+  document.getElementById('cloud-password').value = '';
+  document.querySelectorAll('.otp-box').forEach(b => b.value = '');
+  document.getElementById('btn-otp-verify').disabled = true;
+  
+  const phoneStep = document.getElementById('step-phone');
+  const otpStep = document.getElementById('step-otp');
+  const pwdStep = document.getElementById('step-password');
+  const successStep = document.getElementById('step-success');
+  const membershipStep = document.getElementById('step-membership');
+  
+  phoneStep.className = 'login-step active';
+  otpStep.className = 'login-step enter-right';
+  pwdStep.className = 'login-step enter-right';
+  successStep.className = 'login-step enter-right';
+  membershipStep.className = 'login-step enter-right';
+  
+  hideError();
+}
+
+function hideLoginScreen() {
+  document.getElementById('login-screen').classList.add('hidden');
+  document.getElementById('navbar').classList.remove('hidden');
+}
+
+function transitionStep(fromEl, toEl, direction = 'next') {
+  hideError();
+  if (direction === 'next') {
+    fromEl.classList.remove('active');
+    fromEl.classList.add('exit-left');
+    
+    toEl.classList.remove('exit-left');
+    toEl.classList.remove('enter-right');
+    toEl.classList.add('active');
+  } else {
+    fromEl.classList.remove('active');
+    fromEl.classList.add('enter-right');
+    
+    toEl.classList.remove('exit-left');
+    toEl.classList.remove('enter-right');
+    toEl.classList.add('active');
+  }
+}
+
+function showError(msg) {
+  const errorCard = document.getElementById('login-error');
+  const errorText = document.getElementById('login-error-text');
+  errorText.textContent = msg;
+  errorCard.classList.remove('hidden');
+  
+  const card = document.getElementById('login-card');
+  card.classList.remove('shake-effect');
+  void card.offsetWidth; // Trigger reflow
+  card.classList.add('shake-effect');
+  setTimeout(() => card.classList.remove('shake-effect'), 500);
+}
+
+function hideError() {
+  document.getElementById('login-error').classList.add('hidden');
+}
+
+function initLoginFlow() {
+  const phoneInput = document.getElementById('phone-number');
+  const phoneBtn = document.getElementById('btn-phone-continue');
+  const countrySelect = document.getElementById('phone-country');
+  
+  const otpInputs = document.querySelectorAll('.otp-box');
+  const otpBtn = document.getElementById('btn-otp-verify');
+  const otpBackBtn = document.getElementById('btn-otp-back');
+  const resendLink = document.getElementById('btn-resend-otp');
+  
+  const pwdInput = document.getElementById('cloud-password');
+  const pwdToggleBtn = document.getElementById('btn-password-toggle');
+  const pwdBtn = document.getElementById('btn-password-submit');
+  const pwdBackBtn = document.getElementById('btn-password-back');
+
+  const membershipVerifyBtn = document.getElementById('btn-membership-verify');
+  const membershipBackBtn = document.getElementById('btn-membership-back');
+  
+  phoneBtn.addEventListener('click', async () => {
+    const rawNumber = phoneInput.value.trim();
+    if (!rawNumber) {
+      showError('Please enter your phone number.');
+      return;
+    }
+    
+    // Clean all spacing, brackets, dashes, and extra plus signs
+    let cleanNumber = rawNumber.replace(/[\s\(\)\-\+]/g, '');
+    
+    // Check if the user typed the country code again
+    const selectedCountryCode = countrySelect.value.replace('+', '');
+    if (cleanNumber.startsWith(selectedCountryCode)) {
+      cleanNumber = cleanNumber.substring(selectedCountryCode.length);
+    }
+    
+    // Validate phone number format (must contain 7 to 15 digits)
+    if (!/^\d{7,15}$/.test(cleanNumber)) {
+      showError('Please enter a valid phone number.');
+      return;
+    }
+    
+    const fullNumber = countrySelect.value + cleanNumber;
+    currentPhoneNumber = fullNumber;
+    
+    setButtonLoading(phoneBtn, true);
+    hideError();
+    
+    try {
+      const data = await StreamFlixAuth.sendOTP(fullNumber);
+      currentLoginSessionId = data.loginSessionId;
+      
+      document.getElementById('otp-phone-display').textContent = formatPhoneForDisplay(fullNumber);
+      transitionStep(document.getElementById('step-phone'), document.getElementById('step-otp'), 'next');
+      startOtpCountdown();
+      
+      setTimeout(() => otpInputs[0].focus(), 200);
+    } catch (err) {
+      showError(err.message);
+    } finally {
+      setButtonLoading(phoneBtn, false);
+    }
+  });
+
+  phoneInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      phoneBtn.click();
+    }
+  });
+  
+  otpInputs.forEach((input, index) => {
+    input.addEventListener('input', (e) => {
+      e.target.value = e.target.value.replace(/[^0-9]/g, '');
+      const val = e.target.value;
+      
+      if (val.length === 1 && index < 4) {
+        otpInputs[index + 1].focus();
+      }
+      checkOtpComplete();
+    });
+    
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Backspace' && e.target.value.length === 0 && index > 0) {
+        otpInputs[index - 1].focus();
+      }
+    });
+    
+    input.addEventListener('paste', (e) => {
+      e.preventDefault();
+      const pastedData = (e.clipboardData || window.clipboardData).getData('text').trim().replace(/[^0-9]/g, '');
+      if (pastedData.length >= 5) {
+        for (let i = 0; i < 5; i++) {
+          otpInputs[i].value = pastedData[i] || '';
+        }
+        otpInputs[4].focus();
+        checkOtpComplete();
+        otpBtn.click();
+      }
+    });
+  });
+  
+  function checkOtpComplete() {
+    let code = '';
+    otpInputs.forEach(b => code += b.value);
+    otpBtn.disabled = code.length !== 5;
+  }
+  
+  otpBtn.addEventListener('click', async () => {
+    let code = '';
+    otpInputs.forEach(b => code += b.value);
+    if (code.length !== 5) return;
+    
+    setButtonLoading(otpBtn, true);
+    hideError();
+    
+    try {
+      const result = await StreamFlixAuth.verifyOTP(currentLoginSessionId, code);
+      if (result.requiresPassword) {
+        transitionStep(document.getElementById('step-otp'), document.getElementById('step-password'), 'next');
+        setTimeout(() => pwdInput.focus(), 200);
+      } else if (result.requiresMembership) {
+        showMembershipScreen(result.inviteLink);
+      } else {
+        showSuccessScreen(result.user);
+      }
+    } catch (err) {
+      showError(err.message);
+      otpInputs.forEach(b => b.value = '');
+      otpInputs[0].focus();
+      otpBtn.disabled = true;
+    } finally {
+      setButtonLoading(otpBtn, false);
+    }
+  });
+  
+  otpBackBtn.addEventListener('click', () => {
+    transitionStep(document.getElementById('step-otp'), document.getElementById('step-phone'), 'back');
+    if (otpResendTimer) clearInterval(otpResendTimer);
+  });
+  
+  resendLink.addEventListener('click', async (e) => {
+    e.preventDefault();
+    if (!resendLink.classList.contains('active')) return;
+    
+    hideError();
+    resendLink.classList.remove('active');
+    
+    try {
+      const data = await StreamFlixAuth.sendOTP(currentPhoneNumber);
+      currentLoginSessionId = data.loginSessionId;
+      startOtpCountdown();
+      otpInputs.forEach(b => b.value = '');
+      otpInputs[0].focus();
+      otpBtn.disabled = true;
+    } catch (err) {
+      showError(err.message);
+      resendLink.classList.add('active');
+    }
+  });
+  
+  pwdToggleBtn.addEventListener('click', () => {
+    const isPwd = pwdInput.type === 'password';
+    pwdInput.type = isPwd ? 'text' : 'password';
+    pwdToggleBtn.innerHTML = isPwd 
+      ? `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+           <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>
+         </svg>`
+      : `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+           <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+         </svg>`;
+  });
+  
+  pwdBtn.addEventListener('click', async () => {
+    const password = pwdInput.value;
+    if (!password) {
+      showError('Please enter your 2-Step Verification password.');
+      return;
+    }
+    
+    setButtonLoading(pwdBtn, true);
+    hideError();
+    
+    try {
+      const result = await StreamFlixAuth.verify2FAPassword(currentLoginSessionId, password);
+      if (result.requiresMembership) {
+        showMembershipScreen(result.inviteLink);
+      } else {
+        showSuccessScreen(result.user);
+      }
+    } catch (err) {
+      showError(err.message);
+      pwdInput.value = '';
+      pwdInput.focus();
+    } finally {
+      setButtonLoading(pwdBtn, false);
+    }
+  });
+
+  pwdInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      pwdBtn.click();
+    }
+  });
+  
+  pwdBackBtn.addEventListener('click', () => {
+    transitionStep(document.getElementById('step-password'), document.getElementById('step-otp'), 'back');
+  });
+
+  membershipVerifyBtn.addEventListener('click', async () => {
+    setButtonLoading(membershipVerifyBtn, true);
+    hideError();
+    try {
+      const status = await StreamFlixAuth.validateSessionWithBackend();
+      if (status.authorized) {
+        showSuccessScreen(status.user);
+      } else if (status.requiresMembership) {
+        showError('You must join the channel before you can proceed.');
+        // shake card
+        const card = document.getElementById('login-card');
+        card.classList.remove('shake-effect');
+        void card.offsetWidth;
+        card.classList.add('shake-effect');
+      } else {
+        showError('Session expired. Please restart login.');
+        setTimeout(() => showLoginScreen(), 1500);
+      }
+    } catch (err) {
+      showError(err.message);
+    } finally {
+      setButtonLoading(membershipVerifyBtn, false);
+    }
+  });
+
+  membershipBackBtn.addEventListener('click', () => {
+    showLoginScreen();
+  });
+}
+
+function startOtpCountdown() {
+  const timerDisplay = document.getElementById('otp-timer');
+  const resendLink = document.getElementById('btn-resend-otp');
+  resendLink.classList.remove('active');
+  
+  let duration = 120;
+  if (otpResendTimer) clearInterval(otpResendTimer);
+  
+  function updateTimer() {
+    const minutes = Math.floor(duration / 60);
+    const seconds = duration % 60;
+    
+    timerDisplay.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    
+    if (duration <= 0) {
+      clearInterval(otpResendTimer);
+      timerDisplay.textContent = '00:00';
+      resendLink.classList.add('active');
+    }
+    duration--;
+  }
+  
+  updateTimer();
+  otpResendTimer = setInterval(updateTimer, 1000);
+}
+
+function showSuccessScreen(user) {
+  hideError();
+  
+  const displayName = user.firstName + (user.lastName ? ' ' + user.lastName : '');
+  document.getElementById('success-user-name').textContent = displayName;
+  
+  const activeStep = document.querySelector('.login-step.active');
+  const successStep = document.getElementById('step-success');
+  transitionStep(activeStep, successStep, 'next');
+  
+  setTimeout(() => {
+    const loginScreen = document.getElementById('login-screen');
+    loginScreen.style.transition = 'opacity 0.6s ease';
+    loginScreen.style.opacity = '0';
+    
+    setTimeout(() => {
+      loginScreen.classList.add('hidden');
+      loginScreen.style.opacity = '1';
+      
+      document.getElementById('navbar').classList.remove('hidden');
+      setupNavbarUser(user);
+      loadLibrary(true);  // Skip auth re-check — we just authenticated
+    }, 600);
+    
+  }, 2000);
+}
+
+function setButtonLoading(btn, isLoading) {
+  btn.disabled = isLoading;
+  if (isLoading) {
+    btn.dataset.originalHtml = btn.innerHTML;
+    btn.innerHTML = `<span class="button-spinner"></span>`;
+  } else if (btn.dataset.originalHtml) {
+    btn.innerHTML = btn.dataset.originalHtml;
+  }
+}
+
+function formatPhoneForDisplay(phone) {
+  if (phone.startsWith('+91') && phone.length === 13) {
+    return `+91 ${phone.substring(3, 8)} ${phone.substring(8)}`;
+  }
+  return phone;
+}
+
+function setupNavbarUser(user) {
+  const navbarRight = document.querySelector('.navbar-right');
+  if (!navbarRight) return;
+  
+  const existing = navbarRight.querySelector('.nav-profile-container');
+  if (existing) existing.remove();
+  
+  const initial = (user && user.firstName) ? user.firstName.charAt(0).toUpperCase() : 'U';
+  const name = (user && user.firstName) ? (user.firstName + (user.lastName ? ' ' + user.lastName : '')) : 'StreamFlix User';
+  const phone = user && user.phone ? user.phone : '';
+  
+  const container = document.createElement('div');
+  container.className = 'nav-profile-container';
+  container.innerHTML = `
+    <button id="btn-user-profile" class="nav-profile-btn" aria-label="User Profile">
+      <span>${initial}</span>
+    </button>
+    <div id="profile-dropdown" class="profile-dropdown hidden">
+      <div class="dropdown-header">
+        <div class="dropdown-name">${esc(name)}</div>
+        ${phone ? `<div class="dropdown-phone">${esc(formatPhoneForDisplay(phone))}</div>` : ''}
+      </div>
+      <div class="dropdown-divider"></div>
+      <button id="btn-logout" class="dropdown-item">Sign Out of StreamFlix</button>
+    </div>
+  `;
+  
+  navbarRight.appendChild(container);
+  
+  const profileBtn = container.querySelector('#btn-user-profile');
+  const dropdown = container.querySelector('#profile-dropdown');
+  
+  profileBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    dropdown.classList.toggle('hidden');
+  });
+  
+  document.addEventListener('click', () => {
+    dropdown.classList.add('hidden');
+  });
+  
+  container.querySelector('#btn-logout').addEventListener('click', async () => {
+    container.querySelector('#btn-logout').textContent = 'Signing out...';
+    await StreamFlixAuth.logout();
+    state.data = null;
+    navigate('home');
+    showLoginScreen();
+  });
+}

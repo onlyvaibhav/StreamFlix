@@ -2,25 +2,38 @@
   "fileId": "1034",
   "fileName": "Made_In_India_A_Titan_Story_S01E03_720p_AMZN_WEB_DL_Hindi_DDP5_1.mkv",
   "type": "tv",
-  "title": "Made In India A Titan Story",
-  "year": null,
-  "tmdbId": 0,
-  "metadataStatus": "MATCHING",
-  "needsRetry": true,
-  "createdAt": "2026-06-30T13:05:04.034Z",
-  "_retry": {
-    "attemptCount": 0,
-    "lastAttempt": 0,
-    "searchedTitle": "Made In India A Titan Story",
-    "searchedYear": null
-  },
+  "title": "Made in India: A Titan Story",
+  "originalTitle": "Made in India: A Titan Story",
+  "overview": "In a market ruled by smuggling and foreign brands, a determined Indian man Xerxes Desai, with the help of his team, dares to build a world-class watch from scratch. Battling rejection, failure, and global humiliation, they transform Titan into a symbol of national pride and innovation.",
+  "releaseDate": "2026-06-03",
+  "year": 2026,
+  "runtime": 54,
+  "genres": [
+    "Drama"
+  ],
+  "rating": 9.5,
+  "popularity": 6.8457,
+  "awards": "",
+  "poster": "/data/posters/show_297171.jpg",
+  "backdrop": "/data/backdrops/show_297171_bd.jpg",
+  "tmdbId": 297171,
+  "fetchedAt": "2026-07-07T13:54:07.889Z",
+  "needsRetry": false,
   "tv": {
+    "showTitle": "Made in India: A Titan Story",
+    "originalShowTitle": "Made in India: A Titan Story",
     "seasonNumber": 1,
     "episodeNumber": 3,
-    "showTitle": "Made In India A Titan Story"
+    "episodeTitle": "Flying Saucer",
+    "episodeOverview": "When the team falters, Xerxes's unwavering belief, bolstered by family support, keeps Titan alive, leading to funding, a factory, and the birth of India's first Quartz watch. But just as the dream takes physical form, a public humiliation by a foreign rival threatens to shatter everything they've built.",
+    "showTmdbId": 297171,
+    "episodeRuntime": 54,
+    "totalSeasons": 1,
+    "totalEpisodes": 6
   },
-  "refetchAttempts": 3,
-  "lastRefetchAttempt": "2026-06-30T13:15:09.025Z",
-  "last_refetch_attempt": "2026-06-30T13:15:09.025Z",
-  "last_refetch_error": "timeout of 10000ms exceeded"
+  "audioCodec": "eac3",
+  "browserPlayable": false,
+  "_tracksDetected": true,
+  "metadataStatus": "COMPLETE",
+  "logo": "/data/logos/show_297171_logo.png"
 }
