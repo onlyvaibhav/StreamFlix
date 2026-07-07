@@ -157,10 +157,11 @@ const progressRefs = {
 // ============================================================
 // API — Only source of data, no fallbacks or defaults
 // ============================================================
-async function api(endpoint) {
+async function api(endpoint, silent404 = false) {
   try {
     const response = await fetch(endpoint);
     if (!response.ok) {
+      if (response.status === 404 && silent404) return null;
       console.error(`API ${response.status}: ${endpoint}`);
       return null;
     }
@@ -2178,6 +2179,24 @@ async function playVideo(params, pushState = true) {
   state.player.season = params.season || null;
   state.player.episode = params.episode || null;
   state.player.episodeTitle = params.episodeTitle || null;
+
+  // Dynamically resolve missing titles for unindexed items
+  if (params.title === 'Loading...' || params.title === 'Playing Movie') {
+    api(`/api/metadata/${params.fileId}`).then(meta => {
+      if (meta) {
+        if (meta.tv?.showTitle) state.player.title = meta.tv.showTitle;
+        else if (meta.title) state.player.title = meta.title;
+        
+        const titleEl = document.getElementById('player-title-main');
+        if (titleEl) titleEl.textContent = state.player.title;
+
+        const sheetTitleEl = document.getElementById('episodes-sheet-title');
+        if (sheetTitleEl && sheetTitleEl.textContent === 'Loading...') {
+          sheetTitleEl.textContent = state.player.title;
+        }
+      }
+    });
+  }
   state.player.tmdbId = params.tmdbId || null;
 
   if (pushState) {
@@ -2291,15 +2310,8 @@ async function playVideo(params, pushState = true) {
 
   state.player.duration = tracks?.duration || 0;
 
-  // Build subtitle track list: start with embedded tracks
-  const embeddedSubs = (tracks?.subtitleTracks || []).map((t) => ({
-    ...t,
-    source: 'embedded',
-    endpoint: `/api/stream/${params.fileId}/subtitle/${t.streamIndex}`,
-  }));
-
-  // Merge: embedded first, then external
-  state.player.subtitleTracks = [...embeddedSubs, ...externalSubs];
+  // Only use external subtitles natively on web
+  state.player.subtitleTracks = [...externalSubs];
 
   // Safari/MKV fallback detect
   const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
@@ -2323,6 +2335,13 @@ async function playVideo(params, pushState = true) {
   // Wire up controls BEFORE play() so 'playing' event listener catches the first play
   setupPlayerListeners();
   updateTrackInfoUI();
+
+  // Check if default audio is unsupported and show modal automatically
+  const defaultTrack = state.player.audioTracks[state.player.defaultAudioTrack];
+  if (defaultTrack && !defaultTrack.browserPlayable) {
+    const downloadUrl = state.config?.appDownloadUrl || 'https://github.com/StreamFlix/StreamFlix/releases';
+    showAppNudgeModal(downloadUrl, true);
+  }
 
   // Default subtitle selection priority: External first, disable embedded default
   const firstExternalSubIndex = state.player.subtitleTracks.findIndex(
@@ -3088,7 +3107,7 @@ async function playNextEpisode() {
   let showTitle = window._showTitle || state.player.title;
 
   if (!seasons) {
-    const data = await api(`/api/tv/${state.player.tmdbId}`);
+    const data = await api(`/api/tv/${state.player.tmdbId}`, true);
     seasons = data.seasons;
     showTitle = data.showTitle;
   }
@@ -3172,7 +3191,7 @@ async function renderEpisodesPanel(params) {
   // Fetch or use existing season data
   let seasons = window._showSeasons;
   if (!seasons || window._showTmdbId !== params.tmdbId) {
-    const data = await api(`/api/tv/${params.tmdbId}`);
+    const data = await api(`/api/tv/${params.tmdbId}`, true);
     if (data) {
       seasons = data.seasons;
       window._showSeasons = seasons;
@@ -3649,6 +3668,167 @@ function resetSubOffset(event) {
 function markSubtitleSeen(event) { qsSyncMark('subtitle', event); }
 function markVoiceHeard(event) { qsSyncMark('audio', event); }
 
+async function switchAudio(index, event) {
+  if (event) event.stopPropagation();
+
+  // Web only supports the default audio track.
+  if (index === state.player.defaultAudioTrack) {
+    const track = state.player.audioTracks[index];
+    if (track && !track.browserPlayable) {
+      const downloadUrl = state.config?.appDownloadUrl || 'https://github.com/StreamFlix/StreamFlix/releases';
+      showAppNudgeModal(downloadUrl, true);
+    }
+    
+    state.player.currentAudioTrack = index;
+    updateTrackInfoUI();
+    const video = document.getElementById('video-player');
+    // Apply native track selection just in case
+    if (video.audioTracks && video.audioTracks.length > 0) {
+      for (let i = 0; i < video.audioTracks.length; i++) {
+        video.audioTracks[i].enabled = (i === index);
+      }
+    }
+    return;
+  }
+
+  // Non-default track selected
+  const downloadUrl = state.config?.appDownloadUrl || 'https://github.com/StreamFlix/StreamFlix/releases';
+  showAppNudgeModal(downloadUrl);
+}
+
+function showAppNudgeModal(downloadUrl, isUnsupportedCodec = false) {
+  let overlay = document.getElementById('app-nudge-overlay');
+  
+  const titleText = isUnsupportedCodec ? 'Audio Format Not Supported' : 'Use the App for Multi-Track Audio';
+  const bodyText = isUnsupportedCodec 
+    ? 'This video uses an audio format that browsers cannot play natively (it will play without sound). Download the StreamFlix app for full native playback.'
+    : 'This audio track works best in the StreamFlix app. Download the app for native multi-track support without buffering.';
+  const cancelBtnText = isUnsupportedCodec ? 'Play Without Sound' : 'Stay on Web (Default)';
+
+  if (!overlay) {
+    overlay = document.createElement('div');
+    overlay.id = 'app-nudge-overlay';
+    overlay.style.position = 'absolute';
+    overlay.style.top = '0';
+    overlay.style.left = '0';
+    overlay.style.width = '100%';
+    overlay.style.height = '100%';
+    overlay.style.backgroundColor = 'var(--glass)';
+    overlay.style.display = 'flex';
+    overlay.style.alignItems = 'center';
+    overlay.style.justifyContent = 'center';
+    overlay.style.zIndex = '9999';
+    
+    const box = document.createElement('div');
+    box.style.backgroundColor = 'var(--bg-card)';
+    box.style.padding = '2rem';
+    box.style.borderRadius = '8px';
+    box.style.maxWidth = '400px';
+    box.style.textAlign = 'center';
+    box.style.border = '1px solid rgba(255,255,255,0.1)';
+    box.style.boxShadow = '0 10px 30px rgba(0,0,0,0.5)';
+
+    const icon = document.createElement('div');
+    icon.innerHTML = '<svg width="48" height="48" viewBox="0 0 24 24" fill="var(--primary)"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z"/></svg>';
+    icon.style.marginBottom = '1rem';
+    box.appendChild(icon);
+
+    const title = document.createElement('h2');
+    title.id = 'app-nudge-title';
+    title.textContent = titleText;
+    title.style.margin = '0 0 1rem 0';
+    title.style.color = 'var(--text-main)';
+    title.style.fontSize = '1.3rem';
+    title.style.fontWeight = '700';
+    box.appendChild(title);
+    
+    const text = document.createElement('p');
+    text.id = 'app-nudge-text';
+    text.textContent = bodyText;
+    text.style.color = 'var(--text-muted)';
+    text.style.marginBottom = '1.5rem';
+    text.style.lineHeight = '1.5';
+    text.style.fontSize = '0.95rem';
+    box.appendChild(text);
+
+    const buttons = document.createElement('div');
+    buttons.style.display = 'flex';
+    buttons.style.gap = '1rem';
+    buttons.style.justifyContent = 'center';
+
+    const cancelBtn = document.createElement('button');
+    cancelBtn.id = 'app-nudge-cancel';
+    cancelBtn.textContent = cancelBtnText;
+    cancelBtn.className = 'btn';
+    cancelBtn.style.backgroundColor = 'rgba(255,255,255,0.1)';
+    cancelBtn.style.color = 'var(--text-main)';
+    cancelBtn.onclick = (e) => {
+      e.stopPropagation();
+      overlay.style.display = 'none';
+      if (!isUnsupportedCodec) {
+        state.player.currentAudioTrack = state.player.defaultAudioTrack;
+        updateTrackInfoUI();
+      }
+    };
+
+    const downloadBtn = document.createElement('a');
+    downloadBtn.id = 'app-nudge-download';
+    downloadBtn.textContent = 'Download App';
+    downloadBtn.href = downloadUrl;
+    downloadBtn.target = '_blank';
+    downloadBtn.className = 'btn btn-retry';
+    downloadBtn.style.textDecoration = 'none';
+    downloadBtn.onclick = (e) => {
+      e.stopPropagation();
+      overlay.style.display = 'none';
+      if (!isUnsupportedCodec) {
+        state.player.currentAudioTrack = state.player.defaultAudioTrack;
+        updateTrackInfoUI();
+      }
+    };
+
+    buttons.appendChild(cancelBtn);
+    buttons.appendChild(downloadBtn);
+    box.appendChild(buttons);
+    overlay.appendChild(box);
+    
+    const playerScreen = document.getElementById('player-screen');
+    playerScreen.appendChild(overlay);
+  } else {
+    const downloadBtn = overlay.querySelector('#app-nudge-download');
+    if (downloadBtn) downloadBtn.href = downloadUrl;
+    
+    const titleEl = overlay.querySelector('#app-nudge-title');
+    if (titleEl) titleEl.textContent = titleText;
+    
+    const textEl = overlay.querySelector('#app-nudge-text');
+    if (textEl) textEl.textContent = bodyText;
+    
+    const cancelEl = overlay.querySelector('#app-nudge-cancel');
+    if (cancelEl) cancelEl.textContent = cancelBtnText;
+    
+    // update click handlers to handle state correctly
+    cancelEl.onclick = (e) => {
+      e.stopPropagation();
+      overlay.style.display = 'none';
+      if (!isUnsupportedCodec) {
+        state.player.currentAudioTrack = state.player.defaultAudioTrack;
+        updateTrackInfoUI();
+      }
+    };
+    downloadBtn.onclick = (e) => {
+      e.stopPropagation();
+      overlay.style.display = 'none';
+      if (!isUnsupportedCodec) {
+        state.player.currentAudioTrack = state.player.defaultAudioTrack;
+        updateTrackInfoUI();
+      }
+    };
+
+    overlay.style.display = 'flex';
+  }
+}
+
 function showSubOffsetNotification() {
   const offset = state.player.subtitleOffset;
   const sign = offset >= 0 ? '+' : '';
@@ -3658,39 +3838,7 @@ function showSubOffsetNotification() {
   setTimeout(() => audioInfo.classList.add('hidden'), 1500);
 }
 
-async function switchAudio(index, event) {
-  if (event) event.stopPropagation();
 
-  const video = document.getElementById('video-player');
-  const audioInfo = document.getElementById('audio-info');
-  const track = state.player.audioTracks[index];
-
-  if (track && !track.browserPlayable) {
-    audioInfo.textContent =
-      `⚠️ ${track.language || 'This'} audio (${(track.codec || '').toUpperCase()}) is not supported. Please re-upload with AAC.`;
-    audioInfo.classList.remove('hidden');
-    setTimeout(() => audioInfo.classList.add('hidden'), 4000);
-    return;
-  }
-
-  state.player.currentAudioTrack = index;
-  updateTrackInfoUI();
-
-  // Apply native track selection if supported by the browser
-  if (video.audioTracks && video.audioTracks.length > 0) {
-    for (let i = 0; i < video.audioTracks.length; i++) {
-      video.audioTracks[i].enabled = (i === index);
-    }
-    audioInfo.textContent = 'Audio track switched';
-  } else {
-    // Fallback message if browser does not support native multi-track
-    console.warn("Browser does not expose video.audioTracks natively for this container.");
-    audioInfo.textContent = 'Browser does not support native audio switching for this file.';
-  }
-
-  audioInfo.classList.remove('hidden');
-  setTimeout(() => audioInfo.classList.add('hidden'), 2000);
-}
 
 // Helper to re-apply the native audio track when video reloads (like crossing parts)
 function applyNativeAudioTrack(video) {
@@ -3835,25 +3983,21 @@ async function switchSubs(index, event, startTime = null) {
 function escapeSubHTML(str) {
   if (!str) return "";
   
-  // Clean raw markup out of subtitle
-  // Match standard tags (like <i>, <b>, <v Voice>, <font color="...">) and self-closing tags (like <br/>)
-  // This protects non-tag usages of < and > (e.g. <3 or < 10)
-  const tagRegex = /<(?:\/?(?:[a-zA-Z][a-zA-Z0-9.:-]*))(?:\s+[^>]*)?\/?\s*>/g;
-  const braceRegex = /\{[^}]*\}/g;
+  // Match standard subtitle styling HTML tags (i, b, u, c, font, v) and ASS style overrides {\...}
+  const tagRegex = /<\/?(?:i|b|u|c|font|v)(?:\s+[^>]*)?>/gi;
+  const braceRegex = /\{\\[^}]*\}/g;
+  
   const cleaned = str
+    .replace(/<br\s*\/?>/gi, "\n") // Convert explicit BR tags to newlines
     .replace(tagRegex, "")
     .replace(braceRegex, "")
     .replace(/\\N/gi, "\n") // Replace ASS newline markers with actual newlines
     .replace(/\\h/gi, " ")   // Replace ASS non-breaking spaces with spaces
     .trim();
 
-  // If cleaning resulted in empty string but original had meaningful content,
-  // we fallback to the original string (escaped) so we don't show an empty subtitle.
-  const finalText = cleaned || (str.includes('<') || str.includes('{') ? "" : str.trim());
-
   // Escape remaining string safely for DOM injection
   const div = document.createElement('div');
-  div.textContent = finalText || cleaned;
+  div.textContent = cleaned;
   return div.innerHTML;
 }
 
@@ -4184,6 +4328,12 @@ window.addEventListener('offline', handleConnectionChange);
 // Initial connection check and event binding
 document.addEventListener('DOMContentLoaded', () => {
   handleConnectionChange();
+  
+  // Fetch app config
+  fetch('/api/config')
+    .then(r => r.json())
+    .then(data => { state.config = data; })
+    .catch(err => console.warn('Failed to load config', err));
   
   // Initialize login UI bindings
   initLoginFlow();

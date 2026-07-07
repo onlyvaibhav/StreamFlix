@@ -1315,6 +1315,13 @@ app.get('/sw.js', (req, res) => {
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Public config
+app.get('/api/config', (req, res) => {
+  res.json({
+    appDownloadUrl: process.env.APP_DOWNLOAD_URL || 'https://github.com/StreamFlix/StreamFlix/releases'
+  });
+});
+
 // Catch-all for SPA — serve index.html for any unmatched non-API route
 // Skip /vstream/ paths (handled by service worker) and /api/ and /data/ paths
 app.get('*', (req, res, next) => {
