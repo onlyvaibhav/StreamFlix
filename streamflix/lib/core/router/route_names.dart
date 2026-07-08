@@ -3,6 +3,7 @@ class RouteNames {
   RouteNames._();
 
   static const String home = '/';
+  static const String login = '/login';
   static const String movies = '/movies';
   static const String tvShows = '/tv-shows';
   static const String search = '/search';

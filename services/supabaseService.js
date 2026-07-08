@@ -255,11 +255,102 @@ async function deleteSession(sessionId) {
   }
 }
 
+/**
+ * Watch Progress Methods
+ */
+const memoryWatchProgress = new Map(); // telegramId -> Map(fileId -> data)
+
+async function syncWatchProgress(telegramId, data) {
+  const tId = parseInt(telegramId);
+  const ratio = (data.duration_seconds > 0) ? (data.position_seconds / data.duration_seconds) : 0;
+  const isFinished = ratio >= 0.95;
+
+  // In-memory update
+  if (!memoryWatchProgress.has(tId)) {
+    memoryWatchProgress.set(tId, new Map());
+  }
+  const userProgress = memoryWatchProgress.get(tId);
+
+  if (isFinished) {
+    userProgress.delete(data.file_id);
+  } else {
+    userProgress.set(data.file_id, {
+      telegram_id: tId,
+      ...data,
+      updated_at: new Date().toISOString()
+    });
+  }
+
+  if (!isEnabled()) return true;
+
+  try {
+    if (isFinished) {
+      const { error } = await supabase
+        .from('watch_progress')
+        .delete()
+        .match({ telegram_id: tId, file_id: data.file_id });
+      if (error) console.error('❌ Supabase delete progress error:', error.message);
+    } else {
+      const payload = {
+        telegram_id: tId,
+        file_id: data.file_id,
+        position_seconds: data.position_seconds,
+        duration_seconds: data.duration_seconds,
+        title: data.title,
+        poster_path: data.poster_path,
+        media_type: data.media_type || 'movie',
+        season: data.season || null,
+        episode: data.episode || null,
+        show_id: data.show_id || null,
+        updated_at: new Date().toISOString()
+      };
+      const { error } = await supabase
+        .from('watch_progress')
+        .upsert(payload, { onConflict: 'telegram_id,file_id' });
+      if (error) console.error('❌ Supabase upsert progress error:', error.message);
+    }
+    return true;
+  } catch (err) {
+    console.error('❌ Failed to sync watch progress in Supabase:', err.message);
+    return false;
+  }
+}
+
+async function getWatchProgress(telegramId) {
+  const tId = parseInt(telegramId);
+  
+  if (isEnabled()) {
+    try {
+      const { data, error } = await supabase
+        .from('watch_progress')
+        .select('*')
+        .eq('telegram_id', tId)
+        .order('updated_at', { ascending: false });
+        
+      if (!error && data) {
+        return data;
+      }
+    } catch (err) {
+      console.error('❌ Failed to get watch progress from Supabase:', err.message);
+    }
+  }
+
+  // Fallback to memory
+  const userProgress = memoryWatchProgress.get(tId);
+  if (!userProgress) return [];
+  
+  const items = Array.from(userProgress.values());
+  items.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
+  return items;
+}
+
 module.exports = {
   isEnabled,
   syncUser,
   syncDevice,
   syncSession,
   getSession,
-  deleteSession
+  deleteSession,
+  syncWatchProgress,
+  getWatchProgress,
 };

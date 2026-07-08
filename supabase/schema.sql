@@ -135,3 +135,33 @@ CREATE POLICY "Service role has full access to sessions" ON sessions
 --        media_type VARCHAR(20) NOT NULL,
 --        created_at TIMESTAMP WITH TIME ZONE DEFAULT now()
 --    );
+
+-- ==========================================
+-- 5. WATCH PROGRESS TABLE
+-- ==========================================
+CREATE TABLE IF NOT EXISTS watch_progress (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    telegram_id BIGINT REFERENCES users(telegram_id) ON DELETE CASCADE,
+    file_id VARCHAR(255) NOT NULL,
+    position_seconds INT NOT NULL DEFAULT 0,
+    duration_seconds INT NOT NULL DEFAULT 0,
+    title TEXT,
+    poster_path TEXT,
+    media_type VARCHAR(20) DEFAULT 'movie',
+    season INT,
+    episode INT,
+    show_id VARCHAR(100),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
+    UNIQUE(telegram_id, file_id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_watch_progress_telegram_id ON watch_progress(telegram_id);
+CREATE INDEX IF NOT EXISTS idx_watch_progress_updated_at ON watch_progress(updated_at DESC);
+
+ALTER TABLE watch_progress ENABLE ROW LEVEL SECURITY;
+GRANT ALL ON watch_progress TO service_role;
+GRANT ALL ON watch_progress TO authenticated;
+
+CREATE POLICY "Service role has full access to watch_progress" ON watch_progress
+  FOR ALL USING (true) WITH CHECK (true);
+

@@ -121,11 +121,38 @@ Future<List<Movie>> allTvShows(Ref ref) async {
 @riverpod
 class ContinueWatching extends _$ContinueWatching {
   @override
-  List<WatchHistoryItem> build() {
+  FutureOr<List<WatchHistoryItem>> build() async {
+    try {
+      final backendProgress = await ref.watch(streamRemoteDataSourceProvider).getWatchProgress();
+      for (final p in backendProgress) {
+        await WatchHistoryManager.saveProgress(
+          movieId: p['file_id'],
+          title: p['title'] ?? 'Continue Watching',
+          poster: p['poster_path'],
+          position: p['position_seconds'] ?? 0,
+          duration: p['duration_seconds'] ?? 0,
+        );
+      }
+    } catch (e) {
+      debugPrint('⚠️ Failed to sync continue watching from backend: $e');
+    }
     return WatchHistoryManager.getContinueWatchingList();
   }
 
-  void refresh() {
-    state = WatchHistoryManager.getContinueWatchingList();
+  Future<void> refresh() async {
+    state = const AsyncLoading();
+    state = await AsyncValue.guard(() async {
+      final backendProgress = await ref.read(streamRemoteDataSourceProvider).getWatchProgress();
+      for (final p in backendProgress) {
+        await WatchHistoryManager.saveProgress(
+          movieId: p['file_id'],
+          title: p['title'] ?? 'Continue Watching',
+          poster: p['poster_path'],
+          position: p['position_seconds'] ?? 0,
+          duration: p['duration_seconds'] ?? 0,
+        );
+      }
+      return WatchHistoryManager.getContinueWatchingList();
+    });
   }
 }

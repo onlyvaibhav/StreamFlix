@@ -10,14 +10,31 @@ import 'package:streamflix/features/library/presentation/screens/movies_catalog_
 import 'package:streamflix/features/library/presentation/screens/tv_catalog_screen.dart';
 import 'package:streamflix/features/search/presentation/screens/search_screen.dart';
 import 'package:streamflix/features/profile/presentation/screens/profile_screen.dart';
+import 'package:streamflix/features/auth/presentation/screens/login_screen.dart';
+import 'package:streamflix/features/auth/presentation/providers/auth_provider.dart';
 
 part 'app_router.g.dart';
 
 @riverpod
 GoRouter appRouter(Ref ref) {
+  final isAuthenticated = ref.watch(authStateProvider);
+
   return GoRouter(
     initialLocation: RouteNames.home,
     debugLogDiagnostics: true,
+    redirect: (context, state) {
+      final isGoingToLogin = state.matchedLocation == RouteNames.login;
+
+      if (!isAuthenticated && !isGoingToLogin) {
+        return RouteNames.login;
+      }
+      
+      if (isAuthenticated && isGoingToLogin) {
+        return RouteNames.home;
+      }
+      
+      return null;
+    },
     routes: [
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
@@ -107,6 +124,14 @@ GoRouter appRouter(Ref ref) {
             child: WatchScreen(movieId: movieId),
           );
         },
+      ),
+      GoRoute(
+        path: RouteNames.login,
+        name: 'login',
+        pageBuilder: (context, state) => NoTransitionPage(
+          key: state.pageKey,
+          child: const LoginScreen(),
+        ),
       ),
     ],
     errorBuilder: (context, state) => Scaffold(

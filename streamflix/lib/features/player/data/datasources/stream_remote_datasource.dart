@@ -7,6 +7,8 @@ import 'package:streamflix/core/network/dio_client.dart';
 import 'package:streamflix/features/player/data/models/stream_track.dart';
 import 'package:streamflix/features/player/data/models/external_subtitle.dart';
 
+import 'package:streamflix/features/player/data/models/file_info.dart';
+
 /// Remote data source for streaming, track probing, subtitles, and heartbeat
 class StreamRemoteDataSource {
   final Dio _dio;
@@ -26,6 +28,23 @@ class StreamRemoteDataSource {
       throw Exception('Unexpected response format for track info');
     } on DioException catch (e) {
       throw _handleDioError(e);
+    }
+  }
+
+  /// Get file metadata including GramJS authentication details
+  /// GET /api/stream/:id/file-info
+  Future<FileInfo?> getFileInfo(String fileId) async {
+    try {
+      final response = await _dio.get(
+        '${AppConfig.v1BaseUrl}/api/stream/$fileId/file-info',
+      );
+      if (response.data is Map<String, dynamic>) {
+        return FileInfo.fromJson(response.data as Map<String, dynamic>);
+      }
+      return null;
+    } on DioException catch (e) {
+      debugPrint('⚠️ File Info fetch failed: ${e.message}');
+      return null;
     }
   }
 
@@ -96,6 +115,57 @@ class StreamRemoteDataSource {
   /// Build URL for downloading an external subtitle file
   static String buildExternalSubtitleUrl(String subtitleId) {
     return '${AppConfig.v1BaseUrl}/api/subtitles/file/$subtitleId';
+  }
+
+  // ==================== WATCH PROGRESS ====================
+
+  /// Save watch progress to the backend
+  Future<void> saveWatchProgress({
+    required String fileId,
+    required int positionSeconds,
+    required int durationSeconds,
+    String? title,
+    String? posterPath,
+    String? mediaType,
+    int? season,
+    int? episode,
+    String? showId,
+  }) async {
+    try {
+      await _dio.post(
+        '${AppConfig.v1BaseUrl}/api/progress',
+        data: {
+          'fileId': fileId,
+          'positionSeconds': positionSeconds,
+          'durationSeconds': durationSeconds,
+          'title': title,
+          'posterPath': posterPath,
+          'mediaType': mediaType,
+          'season': season,
+          'episode': episode,
+          'showId': showId,
+        },
+      );
+    } catch (e) {
+      debugPrint('⚠️ Save watch progress failed: $e');
+    }
+  }
+
+  /// Get watch progress from the backend
+  Future<List<Map<String, dynamic>>> getWatchProgress() async {
+    try {
+      final response = await _dio.get('${AppConfig.v1BaseUrl}/api/progress');
+      if (response.data is Map<String, dynamic> && response.data['success'] == true) {
+        final progress = response.data['progress'];
+        if (progress is List) {
+          return List<Map<String, dynamic>>.from(progress);
+        }
+      }
+      return [];
+    } catch (e) {
+      debugPrint('⚠️ Get watch progress failed: $e');
+      return [];
+    }
   }
 
   Exception _handleDioError(DioException e) {

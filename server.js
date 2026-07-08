@@ -1,6 +1,24 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+
+// Prevent GramJS background timeouts from spamming the console and appearing as crashes
+const originalConsoleError = console.error;
+console.error = function (...args) {
+  if (args.length > 0 && args[0] instanceof Error && args[0].message === 'TIMEOUT') {
+    // Silently suppress GramJS background timeouts
+    return;
+  }
+  originalConsoleError.apply(console, args);
+};
+
+process.on('uncaughtException', (err) => {
+  originalConsoleError('🔥 [Uncaught Exception]:', err);
+});
+process.on('unhandledRejection', (reason) => {
+  originalConsoleError('🔥 [Unhandled Rejection]:', reason);
+});
+
 const helmet = require('helmet');
 const morgan = require('morgan');
 const path = require('path');
@@ -17,6 +35,7 @@ const debugRoutes = require('./routes/debugRoutes');
 const homeRoutes = require('./routes/homeRoutes');
 const tvRoutes = require('./routes/tvRoutes');
 const adminRoutes = require('./routes/adminRoutes');
+const watchProgressRoutes = require('./routes/watchProgressRoutes');
 const activityTracker = require('./services/activityTracker');
 const { initTelegram, telegramService } = require('./services/telegramService');
 const {
@@ -174,6 +193,7 @@ app.use('/api/subtitles', subtitleRoutes);
 app.use('/api/debug', debugRoutes);
 app.use('/api/home', homeRoutes);
 app.use('/api/tv', tvRoutes);
+app.use('/api/progress', watchProgressRoutes);
 app.use('/internal', internalRoutes);
 
 // ============================================================
@@ -1262,6 +1282,30 @@ app.get('/api/admin/incomplete-metadata', requireAdmin, async (req, res) => {
     res.json({ count: incomplete.length, items: incomplete });
   } catch (e) {
     res.status(500).json({ error: e.message });
+  }
+});
+
+// POST /api/admin/metadata/retry-failed - Manually trigger retry for MANUAL_REVIEW items
+app.post('/api/admin/metadata/retry-failed', requireAdmin, async (req, res) => {
+  try {
+    const { getAllMetadata, saveMetadata } = require('./services/metadataWorker');
+    const all = await getAllMetadata();
+    let resetCount = 0;
+    
+    for (const entry of all) {
+      if (entry.metadataStatus === 'MANUAL_REVIEW' || entry.metadataStatus === 'FAILED') {
+        entry.metadataStatus = 'NEW';
+        entry.refetchAttempts = 0;
+        entry.needs_manual_fix = false;
+        await saveMetadata(entry);
+        resetCount++;
+      }
+    }
+    
+    res.json({ success: true, message: `Successfully reset ${resetCount} items back to NEW.` });
+  } catch (e) {
+    console.error('[Admin] Retry Failed Metadata Error:', e);
+    res.status(500).json({ success: false, error: e.message });
   }
 });
 

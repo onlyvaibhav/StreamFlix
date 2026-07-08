@@ -134,7 +134,7 @@ const Api = (() => {
     }
 
     async function retryFailed() {
-        return await post('/api/admin/retry-failed');
+        return await post('/api/admin/metadata/retry-failed');
     }
 
     async function refetchAllFailed() {

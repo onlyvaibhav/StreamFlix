@@ -1,6 +1,7 @@
 {
   "showTmdbId": 95479,
   "showTitle": "JUJUTSU KAISEN",
+  "originalShowTitle": "呪術廻戦",
   "overview": "Yuji Itadori is a boy with tremendous physical strength, though he lives a completely ordinary high school life. One day, to save a classmate who has been attacked by curses, he eats the finger of Ryomen Sukuna, taking the curse into his own soul. From then on, he shares one body with Ryomen Sukuna. Guided by the most powerful of sorcerers, Satoru Gojo, Itadori is admitted to Tokyo Jujutsu High School, an organization that fights the curses... and thus begins the heroic tale of a boy who became a curse to exorcise a curse, a life from which he could never turn back.",
   "genres": [
     "Animation",
@@ -8,11 +9,13 @@
     "Sci-Fi & Fantasy"
   ],
   "rating": 8.6,
+  "popularity": 103.6201,
   "poster": "/data/posters/show_95479.jpg",
   "backdrop": "/data/backdrops/show_95479_bd.jpg",
-  "year": 2020,
   "totalSeasons": 1,
   "totalEpisodes": 59,
+  "year": 2020,
+  "releaseDate": "2020-10-03",
   "seasons": {
     "1": [
       {
@@ -22,7 +25,8 @@
         "episodeNumber": 1,
         "episodeTitle": "Ryomen Sukuna",
         "episodeOverview": "After visiting his beloved grandfather in the hospital, Yuji Itadori encounters an apprentice sorcerer who demands that Yuji hand over a cursed relic.",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "54",
@@ -31,7 +35,8 @@
         "episodeNumber": 2,
         "episodeTitle": "For Myself",
         "episodeOverview": "Yuji manages to control the curse of Ryomen Sukuna. Later, he awakens in a room with Jujutsu High teacher Satoru Gojo, who offers him a deadly choice.",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "55",
@@ -40,7 +45,8 @@
         "episodeNumber": 3,
         "episodeTitle": "Girl of Steel",
         "episodeOverview": "Nobara Kugisaki joins the class on a trip to Roppongi where Gojo gives her and Yuji their first test: dispel a curse from an abandoned building.",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "56",
@@ -49,7 +55,8 @@
         "episodeNumber": 4,
         "episodeTitle": "Curse Womb Must Die",
         "episodeOverview": "When a curse womb attacks a juvenile detention center, Yuji's group is called upon to rescue any remaining survivors — but combat isn’t an option.",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "57",
@@ -58,7 +65,8 @@
         "episodeNumber": 7,
         "episodeTitle": "Assault",
         "episodeOverview": "The cursed spirit Jogo attacks Gojo, who has such little trouble fighting back that he leaves and brings back a student to observe the battle.",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "58",
@@ -67,7 +75,8 @@
         "episodeNumber": 8,
         "episodeTitle": "Boredom",
         "episodeOverview": "As Kugisaki and Fushiguro train for the exchange event, two older students from the Kyoto Jujutsu school arrive in Tokyo and pick a fight with them.",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "59",
@@ -76,7 +85,8 @@
         "episodeNumber": 9,
         "episodeTitle": "Small Fry and Reverse Retribution",
         "episodeOverview": "High schooler Junpei Yoshino finds his bullies horrifically killed in a movie theater. Sorcerer Kento Nanami and Yuji investigate the crime scene.",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "60",
@@ -85,7 +95,8 @@
         "episodeNumber": 10,
         "episodeTitle": "Idle Transfiguration",
         "episodeOverview": "Junpei gets some startling advice from Mahito. Later, Ijichi and Yuji track down Junpei and formulate a plan to set up a chance encounter with him.",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "61",
@@ -94,7 +105,8 @@
         "episodeNumber": 11,
         "episodeTitle": "Narrow-minded",
         "episodeOverview": "Annoyed at having to work off the clock, Nanami shows Mahito the true potential of his sorcery. Meanwhile, Yuji and Junpei bond over movies.",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "62",
@@ -103,7 +115,8 @@
         "episodeNumber": 12,
         "episodeTitle": "To You, Someday",
         "episodeOverview": "Ignoring Nanami's warning, Yuji dashes into the school and tries to reason with Junpei, but Mahito soon interrupts. Yuji appeals to Sukuna for help.",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "63",
@@ -112,7 +125,8 @@
         "episodeNumber": 13,
         "episodeTitle": "Tomorrow",
         "episodeOverview": "Yuji and Nanami coordinate their attacks on Mahito, wearing him down. But as the cursed spirit approaches death, he finds a new power within himself.",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "64",
@@ -121,7 +135,8 @@
         "episodeNumber": 14,
         "episodeTitle": "Kyoto Sister School Exchange Event - Group Battle 0 -",
         "episodeOverview": "With the exchange event between the Tokyo and Kyoto Jujutsu schools set to begin, Gojo arranges for Yuji to make a surprise appearance.",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "65",
@@ -130,7 +145,8 @@
         "episodeNumber": 15,
         "episodeTitle": "Kyoto Sister School Exchange Event - Group Battle 1 -",
         "episodeOverview": "Shortly after the exchange event team battle begins, Todo ambushes the Tokyo students. Yuji moves to stop him but soon finds himself surrounded.",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "66",
@@ -139,7 +155,8 @@
         "episodeNumber": 16,
         "episodeTitle": "Kyoto Sister School Exchange Event - Group Battle 2 -",
         "episodeOverview": "Todo gives Yuji advice on how to better tap into his curse powers. After Kugisaki taunts Nishimiya, Panda fights the remote-controlled Mechamaru.",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "67",
@@ -148,7 +165,8 @@
         "episodeNumber": 17,
         "episodeTitle": "Kyoto Sister School Exchange Event - Group Battle 3 -",
         "episodeOverview": "While Miwa struggles to stand her ground against Maki's attacks, Kugisaki chases down a flying Nishimiya, who lectures her about Mai's hardships.",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "68",
@@ -157,7 +175,8 @@
         "episodeNumber": 18,
         "episodeTitle": "Sage",
         "episodeOverview": "Fushiguro dodges Kamo's barrage of arrows but his opponent proves just as formidable in close combat. Meanwhile, Inumaki senses a foreboding presence.",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "69",
@@ -166,7 +185,8 @@
         "episodeNumber": 19,
         "episodeTitle": "Black Flash",
         "episodeOverview": "Inumaki, Fushiguro and Kamo struggle to hold their own against special grade cursed spirit Hanami, but Maki arrives to provide much-needed backup.",
-        "runtime": 26
+        "runtime": 26,
+        "tracks": null
       },
       {
         "fileId": "70",
@@ -175,7 +195,8 @@
         "episodeNumber": 20,
         "episodeTitle": "Nonstandard",
         "episodeOverview": "After analyzing Hanami's assortment of skills with his self-proclaimed intellect, Todo uses his disorienting technique to attack in tandem with Yuji.",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "71",
@@ -184,7 +205,8 @@
         "episodeNumber": 21,
         "episodeTitle": "Jujutsu Koshien",
         "episodeOverview": "After the event's interruption, the school tournament continues with a baseball match.",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "72",
@@ -193,7 +215,8 @@
         "episodeNumber": 22,
         "episodeTitle": "The Origin of Blind Obedience",
         "episodeOverview": "An investigation into a string of curse-related killings leads Yuji, Fushiguro and Kugisaki to the victims' – and Fushiguro's – former middle school.",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "73",
@@ -202,7 +225,8 @@
         "episodeNumber": 23,
         "episodeTitle": "The Origin of Blind Obedience -II-",
         "episodeOverview": "Fushiguro, Kugisaki and Itadori fight the cursed spirits on two fronts. When Fushiguro faces his enemy alone, he recalls his recent training with Gojo. He knows that he has to be able to surpass himself...",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "74",
@@ -211,7 +235,8 @@
         "episodeNumber": 24,
         "episodeTitle": "Accomplices",
         "episodeOverview": "Yuji and Nobara's battle against the Death Painting Wombs Kechizu and Eso reaches its conclusion! However, even in victory there is a cost in killing, something the Jujutsu High students had never considered before. Meanwhile, Choso, Geto and Mahito gain wind of this event.",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       }
     ],
     "2": [
@@ -220,324 +245,350 @@
         "fileName": "Jujutsu.Kaisen.S02E01.720p.[HIN.ENG.JAP].Vegamovies.To.mkv",
         "seasonNumber": 2,
         "episodeNumber": 1,
-        "episodeTitle": "",
+        "episodeTitle": "Episode 1",
         "episodeOverview": "",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "1039",
         "fileName": "Jujutsu.Kaisen.S02E02.720p.[HIN.ENG.JAP].Vegamovies.To.mkv",
         "seasonNumber": 2,
         "episodeNumber": 2,
-        "episodeTitle": "",
+        "episodeTitle": "Episode 2",
         "episodeOverview": "",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "1040",
         "fileName": "Jujutsu.Kaisen.S02E03.720p.[HIN.ENG.JAP].Vegamovies.To.mkv",
         "seasonNumber": 2,
         "episodeNumber": 3,
-        "episodeTitle": "",
+        "episodeTitle": "Episode 3",
         "episodeOverview": "",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "1041",
         "fileName": "Jujutsu.Kaisen.S02E04.720p.[HIN.ENG.JAP].Vegamovies.To.mkv",
         "seasonNumber": 2,
         "episodeNumber": 4,
-        "episodeTitle": "",
+        "episodeTitle": "Episode 4",
         "episodeOverview": "",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "1042",
         "fileName": "Jujutsu.Kaisen.S02E05.720p.[HIN.ENG.JAP].Vegamovies.To.mkv",
         "seasonNumber": 2,
         "episodeNumber": 5,
-        "episodeTitle": "",
+        "episodeTitle": "Episode 5",
         "episodeOverview": "",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "1043",
         "fileName": "Jujutsu.Kaisen.S02E06.720p.[HIN.ENG.JAP].Vegamovies.To.mkv",
         "seasonNumber": 2,
         "episodeNumber": 6,
-        "episodeTitle": "",
+        "episodeTitle": "Episode 6",
         "episodeOverview": "",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "1044",
         "fileName": "Jujutsu.Kaisen.S02E07..720p.[HIN.ENG.JAP].Vegamovies.To.mkv",
         "seasonNumber": 2,
         "episodeNumber": 7,
-        "episodeTitle": "",
+        "episodeTitle": "Episode 7",
         "episodeOverview": "",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "1045",
         "fileName": "Jujutsu.Kaisen.S02E08.720p.[HIN.ENG.JAP].Vegamovies.To.mkv",
         "seasonNumber": 2,
         "episodeNumber": 8,
-        "episodeTitle": "",
+        "episodeTitle": "Episode 8",
         "episodeOverview": "",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "1046",
         "fileName": "Jujutsu.Kaisen.S02E09.720p.[HIN.ENG.JAP].Vegamovies.To.mkv",
         "seasonNumber": 2,
         "episodeNumber": 9,
-        "episodeTitle": "",
+        "episodeTitle": "Episode 9",
         "episodeOverview": "",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "1047",
         "fileName": "Jujutsu.Kaisen.S02E10.720p.[HIN.ENG.JAP].Vegamovies.To.mkv",
         "seasonNumber": 2,
         "episodeNumber": 10,
-        "episodeTitle": "",
+        "episodeTitle": "Episode 10",
         "episodeOverview": "",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "1048",
         "fileName": "Jujutsu.Kaisen.S02E11.720p.[HIN.ENG.JAP].Vegamovies.To.mkv",
         "seasonNumber": 2,
         "episodeNumber": 11,
-        "episodeTitle": "",
+        "episodeTitle": "Episode 11",
         "episodeOverview": "",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "1049",
         "fileName": "Jujutsu.Kaisen.S02E12.720p.[HIN.ENG.JAP].Vegamovies.To.mkv",
         "seasonNumber": 2,
         "episodeNumber": 12,
-        "episodeTitle": "",
+        "episodeTitle": "Episode 12",
         "episodeOverview": "",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "1050",
         "fileName": "Jujutsu.Kaisen.S02E13.720p.[HIN.ENG.JAP].Vegamovies.To.mkv",
         "seasonNumber": 2,
         "episodeNumber": 13,
-        "episodeTitle": "",
+        "episodeTitle": "Episode 13",
         "episodeOverview": "",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "1051",
         "fileName": "Jujutsu.Kaisen.S02E14.720p.[HIN.ENG.JAP].Vegamovies.To.mkv",
         "seasonNumber": 2,
         "episodeNumber": 14,
-        "episodeTitle": "",
+        "episodeTitle": "Episode 14",
         "episodeOverview": "",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "1052",
         "fileName": "Jujutsu.Kaisen.S02E15.720p.[HIN.ENG.JAP].Vegamovies.To.mkv",
         "seasonNumber": 2,
         "episodeNumber": 15,
-        "episodeTitle": "",
+        "episodeTitle": "Episode 15",
         "episodeOverview": "",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "1053",
         "fileName": "Jujutsu.Kaisen.S02E16.720p.[HIN.ENG.JAP].Vegamovies.To.mkv",
         "seasonNumber": 2,
         "episodeNumber": 16,
-        "episodeTitle": "",
+        "episodeTitle": "Episode 16",
         "episodeOverview": "",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "1054",
         "fileName": "Jujutsu.Kaisen.S02E17.720p.[HIN.ENG.JAP].Vegamovies.To.mkv",
         "seasonNumber": 2,
         "episodeNumber": 17,
-        "episodeTitle": "",
+        "episodeTitle": "Episode 17",
         "episodeOverview": "",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "1055",
         "fileName": "Jujutsu.Kaisen.S02E18.720p.[HIN.ENG.JAP].Vegamovies.To.mkv",
         "seasonNumber": 2,
         "episodeNumber": 18,
-        "episodeTitle": "",
+        "episodeTitle": "Episode 18",
         "episodeOverview": "",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "1056",
         "fileName": "Jujutsu.Kaisen.S02E19.720p.[HIN.ENG.JAP].Vegamovies.To.mkv",
         "seasonNumber": 2,
         "episodeNumber": 19,
-        "episodeTitle": "",
+        "episodeTitle": "Episode 19",
         "episodeOverview": "",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "1057",
         "fileName": "Jujutsu.Kaisen.S02E20.720p.[HIN.ENG.JAP].Vegamovies.To.mkv",
         "seasonNumber": 2,
         "episodeNumber": 20,
-        "episodeTitle": "",
+        "episodeTitle": "Episode 20",
         "episodeOverview": "",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "1058",
         "fileName": "Jujutsu.Kaisen.S02E21.720p.[HIN.ENG.JAP].Vegamovies.To.mkv",
         "seasonNumber": 2,
         "episodeNumber": 21,
-        "episodeTitle": "",
+        "episodeTitle": "Episode 21",
         "episodeOverview": "",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "1059",
         "fileName": "Jujutsu.Kaisen.S02E22.720p.[HIN.ENG.JAP].Vegamovies.To.mkv",
         "seasonNumber": 2,
         "episodeNumber": 22,
-        "episodeTitle": "",
+        "episodeTitle": "Episode 22",
         "episodeOverview": "",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "1060",
         "fileName": "Jujutsu.Kaisen.S02E23.720p.[HIN.ENG.JAP].Vegamovies.To.mkv",
         "seasonNumber": 2,
         "episodeNumber": 23,
-        "episodeTitle": "",
+        "episodeTitle": "Episode 23",
         "episodeOverview": "",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       }
     ],
     "3": [
-      {
-        "fileId": "1061",
-        "fileName": "Jujutsu_Kaisen_S03E01_1080p_x265_10bit_WEB_DL_Multi_Audio_ESub_Vegamovies.mkv",
-        "seasonNumber": 3,
-        "episodeNumber": 1,
-        "episodeTitle": "",
-        "episodeOverview": "",
-        "runtime": 24
-      },
       {
         "fileId": "1062",
         "fileName": "Jujutsu_Kaisen_S03E02_1080p_x265_10bit_WEB_DL_Multi_Audio_ESub_Vegamovies.mkv",
         "seasonNumber": 3,
         "episodeNumber": 2,
-        "episodeTitle": "",
+        "episodeTitle": "Episode 2",
         "episodeOverview": "",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "1063",
         "fileName": "Jujutsu_Kaisen_S03E03_1080p_x265_10bit_WEB_DL_Multi_Audio_ESub_Vegamovies.mkv",
         "seasonNumber": 3,
         "episodeNumber": 3,
-        "episodeTitle": "",
+        "episodeTitle": "Episode 3",
         "episodeOverview": "",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "1064",
         "fileName": "Jujutsu_Kaisen_S03E04_1080p_x265_10bit_WEB_DL_Multi_Audio_ESub_Vegamovies.mkv",
         "seasonNumber": 3,
         "episodeNumber": 4,
-        "episodeTitle": "",
+        "episodeTitle": "Episode 4",
         "episodeOverview": "",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "1065",
         "fileName": "Jujutsu_Kaisen_S03E05_1080p_x265_10bit_WEB_DL_Multi_Audio_ESub_Vegamovies.mkv",
         "seasonNumber": 3,
         "episodeNumber": 5,
-        "episodeTitle": "",
+        "episodeTitle": "Episode 5",
         "episodeOverview": "",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "1066",
         "fileName": "Jujutsu_Kaisen_S03E06_1080p_x265_10bit_WEB_DL_Multi_Audio_ESub_Vegamovies.mkv",
         "seasonNumber": 3,
         "episodeNumber": 6,
-        "episodeTitle": "",
+        "episodeTitle": "Episode 6",
         "episodeOverview": "",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "1067",
         "fileName": "Jujutsu_Kaisen_S03E07_1080p_x265_10bit_WEB_DL_Multi_Audio_ESub_Vegamovies.mkv",
         "seasonNumber": 3,
         "episodeNumber": 7,
-        "episodeTitle": "",
+        "episodeTitle": "Episode 7",
         "episodeOverview": "",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "1068",
         "fileName": "Jujutsu_Kaisen_S03E08_1080p_x265_10bit_WEB_DL_Multi_Audio_ESub_Vegamovies.mkv",
         "seasonNumber": 3,
         "episodeNumber": 8,
-        "episodeTitle": "",
+        "episodeTitle": "Episode 8",
         "episodeOverview": "",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "1069",
         "fileName": "Jujutsu_Kaisen_S03E09_1080p_x265_10bit_WEB_DL_Multi_Audio_ESub_Vegamovies.mkv",
         "seasonNumber": 3,
         "episodeNumber": 9,
-        "episodeTitle": "",
+        "episodeTitle": "Episode 9",
         "episodeOverview": "",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "1070",
         "fileName": "Jujutsu_Kaisen_S03E10_1080p_x265_10bit_WEB_DL_Multi_Audio_ESub_Vegamovies.mkv",
         "seasonNumber": 3,
         "episodeNumber": 10,
-        "episodeTitle": "",
+        "episodeTitle": "Episode 10",
         "episodeOverview": "",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "1071",
         "fileName": "Jujutsu_Kaisen_S03E11_1080p_x265_10bit_WEB_DL_Multi_Audio_ESub_Vegamovies.mkv",
         "seasonNumber": 3,
         "episodeNumber": 11,
-        "episodeTitle": "",
+        "episodeTitle": "Episode 11",
         "episodeOverview": "",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "1072",
         "fileName": "Jujutsu_Kaisen_S03E12_1080p_x265_10bit_WEB_DL_Multi_Audio_ESub_Vegamovies.mkv",
         "seasonNumber": 3,
         "episodeNumber": 12,
-        "episodeTitle": "",
+        "episodeTitle": "Episode 12",
         "episodeOverview": "",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       }
     ]
   },
+  "episodes": [],
   "availableSeasons": [
     1,
     2,
     3
   ],
-  "availableEpisodeCount": 57
+  "availableEpisodeCount": 56
 }

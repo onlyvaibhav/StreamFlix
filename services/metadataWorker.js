@@ -108,19 +108,23 @@ async function promoteEligibleRecordsToNew() {
         } else if (entry.metadataStatus === 'STUB') {
             entry.metadataStatus = 'NEW';
             changed = true;
-        } else if (entry.metadataStatus === 'FAILED') {
+        } else if (entry.metadataStatus === 'FAILED' || entry.metadataStatus === 'MANUAL_REVIEW') {
             const now = Date.now();
             const lastAttempt = entry.lastRefetchAttempt ? new Date(entry.lastRefetchAttempt).getTime() : 0;
             const oneDay = 24 * 60 * 60 * 1000;
             const attempts = entry.refetchAttempts || 0;
             if (attempts < 3 || (now - lastAttempt >= oneDay)) {
                 entry.metadataStatus = 'NEW';
+                entry.refetchAttempts = 0; // Reset attempts to give it a fresh start
+                entry.needs_manual_fix = false;
                 changed = true;
             } else {
-                entry.metadataStatus = 'MANUAL_REVIEW';
-                entry.needs_manual_fix = true;
-                entry.last_refetch_error = "Too many refetch attempts";
-                changed = true;
+                if (entry.metadataStatus !== 'MANUAL_REVIEW') {
+                    entry.metadataStatus = 'MANUAL_REVIEW';
+                    entry.needs_manual_fix = true;
+                    entry.last_refetch_error = "Too many refetch attempts";
+                    changed = true;
+                }
             }
         }
         if (changed) {

@@ -489,6 +489,7 @@ function renderHome(container) {
 
   // ========== CONTENT ROWS ==========
   html += '<section class="content-section">';
+  html += '<div id="continue-watching-container"></div>';
 
   const allCards = [
     ...movies.map(m => ({
@@ -580,6 +581,69 @@ async function loadCuratedRows() {
   state.curatedData = curated;
 
   let html = '';
+  
+  // 1. Continue Watching
+  if (typeof fetchWatchProgress === 'function') {
+    const progressItems = await fetchWatchProgress();
+    if (progressItems && progressItems.length > 0) {
+      window._watchProgress = progressItems; // Store globally for modals to access
+      
+      const seenShows = new Set();
+      const continueItems = [];
+      
+      for (const p of progressItems) {
+        const isTVGuess = p.media_type === 'tv' || (p.title && p.title.includes(' - S') && p.title.includes('E'));
+        const playType = isTVGuess ? 'tv' : 'movie';
+        const season = p.season || (isTVGuess ? 1 : null);
+        const episode = p.episode || null;
+        let showId = p.show_id || null;
+        
+        // Smart Recovery for older watch progress rows that lack show_id
+        if (playType === 'tv' && !showId && state.data && state.data.tvShows) {
+           for (const show of state.data.tvShows) {
+             if (!show.seasons) continue;
+             for (const s of Object.keys(show.seasons)) {
+               for (const ep of show.seasons[s]) {
+                 if (String(ep.fileId) === String(p.file_id)) {
+                   showId = String(show.showTmdbId);
+                   break;
+                 }
+               }
+               if (showId) break;
+             }
+             if (showId) break;
+           }
+        }
+        
+        if (playType === 'tv' && showId) {
+          if (seenShows.has(showId)) continue; // Keep only the most recent episode for this show
+          seenShows.add(showId);
+        }
+        
+        let displayTitle = p.title || 'Continue Watching';
+        const onClickStr = (playType === 'tv' && showId) ? `openDetail('show_${showId}', 'tv')` : `openDetail('${p.file_id}', 'movie')`;
+        
+        continueItems.push({
+          id: p.file_id,
+          type: playType,
+          title: displayTitle,
+          season: season,
+          episode: episode,
+          poster: p.poster_path, // Could be null, fallbacks handled by UI
+          progressPercent: Math.min(100, Math.max(0, (p.position_seconds / p.duration_seconds) * 100)),
+          onClick: onClickStr
+        });
+      }
+      
+      const cwContainer = document.getElementById('continue-watching-container');
+      if (cwContainer) {
+        cwContainer.innerHTML = buildRow('▶ Continue Watching', continueItems);
+      } else {
+        html += buildRow('▶ Continue Watching', continueItems);
+      }
+    }
+  }
+
   const rows = curated.homepage.rows || {};
 
   // Section display config: key => {title, minItems}
@@ -898,16 +962,20 @@ function card(item) {
   const type = item.type || 'movie';
   const title = item.title || 'Untitled';
   const isTV = type === 'tv' || (id && id.startsWith('show_'));
+  const onClickStr = item.onClick ? item.onClick : `openDetail('${escArg(id)}', '${isTV ? 'tv' : type}')`;
 
   return `
-    <div class="card" onclick="openDetail('${escArg(id)}', '${isTV ? 'tv' : type}')">
-      ${posterHTML(item.poster, title)}
+    <div class="card" onclick="${onClickStr}">
+      <div style="position:relative; width:100%; height:100%;">
+        ${posterHTML(item.poster, title)}
+        ${item.progressPercent !== undefined ? `<div style="position:absolute; bottom:0; left:0; right:0; height:4px; background:rgba(255,255,255,0.2); z-index: 10;"><div style="height:100%; background:var(--primary); width:${item.progressPercent}%;"></div></div>` : ''}
+      </div>
       <div class="card-info">
         <div class="card-title">${esc(title)}</div>
         <div class="card-meta">
           ${item.rating ? `<span style="color:#46d369">★ ${Number(item.rating).toFixed(1)}</span>` : ''}
           ${item.year ? `<span>${item.year}</span>` : ''}
-          ${isTV && item.episodeCount ? `<span>${item.episodeCount} ep</span>` : ''}
+          ${item.season && item.episode ? `<span>S${item.season} E${item.episode}</span>` : (isTV && item.episodeCount ? `<span>${item.episodeCount} ep</span>` : '')}
         </div>
       </div>
       ${isTV ? '<div class="card-type-badge">Series</div>' : ''}
@@ -1022,7 +1090,6 @@ async function openDetail(id, type, pushState = true) {
 
 function renderMovieModal(container, movie) {
   const isSplit = movie.isSplit && movie.parts && movie.parts.length > 1;
-  const playLabel = 'Play';
   const backdrop = backdropSrc(movie.backdrop) || posterSrc(movie.poster);
 
   const metaItems = [
@@ -1030,23 +1097,26 @@ function renderMovieModal(container, movie) {
     movie.runtime ? fmtRuntime(movie.runtime) : null,
   ].filter(Boolean);
 
-  // Store parts data in window for multipart movies
-  // (Cannot inline JSON in onclick attributes — double quotes break HTML)
   if (isSplit) {
     window._pendingMovieParts = movie.parts;
-    console.log('[Multipart] Modal: stored parts for playback:', movie.parts.length, 'parts');
   } else {
     window._pendingMovieParts = null;
   }
 
   const playFileId = movie.fileId || (isSplit ? movie.parts[0].fileId : '');
-  console.log('[Multipart] Modal: isSplit=' + isSplit + ', playFileId=' + playFileId);
-
   const movieTitle = getItemTitle(movie);
   const logoUrl = movie.logo;
   const logoHtml = isValidLogo(logoUrl)
     ? `<img src="${logoUrl}" alt="${esc(movieTitle)}" class="modal-logo" crossorigin="anonymous" onerror="handleLogoError(this)">`
     : `<h1 class="modal-title">${esc(movieTitle)}</h1>`;
+
+  let dynamicPlayLabel = 'Play';
+  if (window._watchProgress) {
+    const prog = window._watchProgress.find(p => String(p.file_id) === String(playFileId));
+    if (prog && prog.position_seconds > 0) {
+      dynamicPlayLabel = 'Resume';
+    }
+  }
 
   container.innerHTML = `
     <div class="modal-hero" style="background-image: url('${backdrop}');">
@@ -1054,9 +1124,9 @@ function renderMovieModal(container, movie) {
       <div class="modal-hero-content">
         ${logoHtml}
         <div class="modal-actions">
-           <button class="btn-premium-play" onclick="playVideo({fileId: '${playFileId}', title: '${escArg(movieTitle)}', _useStoredParts: ${isSplit}})">
+           <button class="btn-premium-play" onclick="playVideo({fileId: '${playFileId}', title: '${escArg(movieTitle)}', poster: '${escArg(movie.poster || movie.backdrop || '')}', _useStoredParts: ${isSplit}})">
              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-             ${playLabel}
+             ${dynamicPlayLabel}
            </button>
            <button class="btn-circle" title="Add to List">
              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
@@ -1087,19 +1157,61 @@ function renderMovieModal(container, movie) {
     </div>`;
 }
 
-
 function renderShowModal(container, show) {
   const seasons = show.seasons || {};
   const seasonNums = Object.keys(seasons).map(Number).sort((a, b) => a - b);
   const firstS = seasonNums[0] || 1;
   const episodes = seasons[firstS] || [];
-  const firstEp = episodes[0];
+  const firstEp = episodes[0]; // Restored for badges/spec info
+  let targetEp = episodes[0];
+  let targetS = firstS;
+  let playLabel = targetEp ? `Play S${targetS}E${targetEp.tv.episodeNumber}` : 'Play';
   const backdrop = backdropSrc(show.backdrop) || posterSrc(show.poster);
 
-  // Logic for season switching
+  if (window._watchProgress) {
+    const allEpIds = new Set();
+    for (const s of Object.values(seasons)) {
+      for (const ep of s) {
+        allEpIds.add(String(ep.fileId));
+      }
+    }
+    let prog = window._watchProgress.find(p => 
+      String(p.show_id) === String(show.showTmdbId) || allEpIds.has(String(p.file_id))
+    );
+
+    if (prog) {
+      let targetEpNum = prog.episode;
+      let targetSeasonNum = prog.season;
+      
+      if (!targetEpNum || !targetSeasonNum) {
+         for (const s of Object.keys(seasons)) {
+           const found = seasons[s].find(ep => String(ep.fileId) === String(prog.file_id));
+           if (found) {
+             targetSeasonNum = Number(s);
+             targetEpNum = found.tv.episodeNumber;
+             break;
+           }
+         }
+      }
+
+      if (targetSeasonNum && targetEpNum) {
+        targetS = targetSeasonNum;
+        const progEpisodes = seasons[targetS];
+        if (progEpisodes) {
+          const foundEp = progEpisodes.find(e => e.tv.episodeNumber === targetEpNum);
+          if (foundEp) {
+            targetEp = foundEp;
+            playLabel = `Resume S${targetS}E${targetEpNum}`;
+          }
+        }
+      }
+    }
+  }
+
   window._showSeasons = seasons;
   window._showTitle = show.showTitle;
   window._showTmdbId = show.showTmdbId;
+  window._showPoster = show.poster || show.backdrop || '';
 
   const showTitle = getItemTitle(show);
   const logoUrl = show.logo;
@@ -1113,10 +1225,10 @@ function renderShowModal(container, show) {
       <div class="modal-hero-content">
         ${logoHtml}
         <div class="modal-actions">
-           ${firstEp ? `
-           <button class="btn-premium-play" onclick="playVideo({fileId:'${firstEp.fileId}', title:'${escArg(showTitle)}', season:${firstS}, episode:${firstEp.tv.episodeNumber}, episodeTitle:'${escArg(firstEp.tv.episodeTitle || `Episode ${firstEp.tv.episodeNumber}`)}', tmdbId:${show.showTmdbId}})">
+           ${targetEp ? `
+           <button class="btn-premium-play" onclick="playVideo({fileId:'${targetEp.fileId}', title:'${escArg(showTitle)}', poster:'${escArg(show.poster || show.backdrop || '')}', season:${targetS}, episode:${targetEp.tv.episodeNumber}, episodeTitle:'${escArg(targetEp.tv.episodeTitle || `Episode ${targetEp.tv.episodeNumber}`)}', tmdbId:${show.showTmdbId}})">
              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-             Play S${firstS}E${firstEp.tv.episodeNumber}
+             ${playLabel}
            </button>` : ''}
            <button class="btn-circle" title="Add to List">
              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
@@ -1157,7 +1269,7 @@ function renderShowModal(container, show) {
     </div>`;
 }
 
-function renderEpisodeRows(episodes, showTitle, tmdbId) {
+function renderEpisodeRows(episodes, showTitle, tmdbId, poster = '') {
   if (!episodes || episodes.length === 0) return '<div style="padding:20px; color:#666">No episodes</div>';
 
   return episodes.map(ep => {
@@ -1165,7 +1277,7 @@ function renderEpisodeRows(episodes, showTitle, tmdbId) {
     const e = ep.tv.episodeNumber;
     const title = ep.tv.episodeTitle || `Episode ${e}`;
     return `
-      <div class="episode-item" onclick="playVideo({fileId: '${ep.fileId}', title: '${escArg(showTitle)}', season:${s}, episode:${e}, episodeTitle:'${escArg(title)}', tmdbId:${tmdbId}})">
+      <div class="episode-item" onclick="playVideo({fileId: '${ep.fileId}', title: '${escArg(showTitle)}', poster: '${escArg(poster)}', season:${s}, episode:${e}, episodeTitle:'${escArg(title)}', tmdbId:${tmdbId || 'null'}})">
          <div class="episode-number">${e}</div>
          <div class="episode-info">
             <div class="episode-title">${esc(title)}</div>
@@ -1179,7 +1291,7 @@ function renderEpisodeRows(episodes, showTitle, tmdbId) {
 window.renderEpisodeList = function (seasonNum) {
   const container = document.getElementById('episode-list-container');
   if (window._showSeasons && window._showSeasons[seasonNum]) {
-    container.innerHTML = renderEpisodeRows(window._showSeasons[seasonNum], window._showTitle, null); // tmdbId unused here for now
+    container.innerHTML = renderEpisodeRows(window._showSeasons[seasonNum], window._showTitle, window._showTmdbId, window._showPoster);
 
     // --- NEW: Update the main Play button in the hero section ---
     const episodes = window._showSeasons[seasonNum];
@@ -1192,25 +1304,12 @@ window.renderEpisodeList = function (seasonNum) {
           <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
           Play S${seasonNum}E${firstEp.tv.episodeNumber}`;
 
-        // Note: we need the original tmdbId if possible. 
-        // We can access it from the first episode if we stored it, or fallback to window._showTmdbId if we added it.
-        // For now, let's grab it from the first episode's onclick if possible, or just pass null if strictly needed.
-        // Better: let's store tmdbId in window when opening modal.
-
-        // Actually, let's just use the data we have.
-        // We need: fileId, title, season, episode, tmdbId
-
-        // Let's attach the new onclick. 
-        // We can use a closure-like string or just set onclick property directly if we had referneces, 
-        // but since we're using inline HTML 'onclick' attributes elsewhere, we'll keep that pattern.
-
-        // We need the Show's TMDB ID. 
-        // Let's modify renderShowModal to store it in window._showTmdbId
         const tmdbId = window._showTmdbId;
 
         btn.setAttribute('onclick', `playVideo({
           fileId: '${firstEp.fileId}', 
           title: '${escArg(window._showTitle)}', 
+          poster: '${escArg(window._showPoster || '')}',
           season: ${seasonNum}, 
           episode: ${firstEp.tv.episodeNumber}, 
           episodeTitle: '${escArg(firstEp.tv.episodeTitle || `Episode ${firstEp.tv.episodeNumber}`)}',
@@ -1600,9 +1699,10 @@ function multipartFindPart(virtualTime) {
       return { index: i, part: map[i], offsetInPart: t - map[i].start };
     }
   }
-  // If beyond all parts, return last part at end
+  // If beyond all parts, return last part and let offset overflow naturally
+  // The player's native failsafe will clamp it to the true video duration later
   const last = map[map.length - 1];
-  return { index: map.length - 1, part: last, offsetInPart: last.end - last.start };
+  return { index: map.length - 1, part: last, offsetInPart: t - last.start };
 }
 
 /**
@@ -1790,8 +1890,8 @@ async function multipartSeek(virtualTime) {
   const buffering = document.getElementById('buffering-spinner');
   const totalDuration = mp.totalDuration;
 
-  // Clamp to valid range
-  const clamped = Math.max(0, Math.min(virtualTime, totalDuration));
+  // Only clamp to 0, let upper bound overflow for uncorrected duration maps
+  const clamped = Math.max(0, virtualTime);
 
   // Smart boundary snapping: if within 2s of a part boundary, snap to next part start
   const target = multipartFindPart(clamped);
@@ -2150,6 +2250,38 @@ async function playVideo(params, pushState = true) {
   if (params.episodeTitle === 'null' || params.episodeTitle === 'undefined') params.episodeTitle = null;
   if (params.tmdbId === 'null' || params.tmdbId === 'undefined') params.tmdbId = null;
 
+  // Smart Recovery: If played from a corrupted Continue Watching entry, we might lack tmdbId, season, and episode.
+  if (!params.tmdbId || !params.season) {
+    if (state.data && state.data.tvShows) {
+      for (const show of state.data.tvShows) {
+        if (!show.seasons) continue;
+        for (const s of Object.keys(show.seasons)) {
+           for (const ep of show.seasons[s]) {
+              if (String(ep.fileId) === String(params.fileId)) {
+                 params.tmdbId = show.showTmdbId;
+                 params.season = Number(s);
+                 params.episode = ep.tv?.episodeNumber || Number(ep.episodeNumber) || 1;
+                 if (params.title === 'Movie' || params.title === 'Loading...') params.title = show.showTitle;
+                 params.poster = show.poster || show.backdrop;
+                 break;
+              }
+           }
+        }
+        if (params.tmdbId) break;
+      }
+    }
+    // Also check movies to recover poster if missing
+    if (!params.tmdbId && state.data && state.data.movies) {
+       const m = state.data.movies.find(mv => String(mv.fileId) === String(params.fileId));
+       if (m && !params.poster) {
+          params.poster = m.poster || m.backdrop;
+          if (params.title === 'Movie' || params.title === 'Loading...') params.title = m.title;
+       }
+    }
+  }
+
+  params.isTV = params.season !== null && params.season !== undefined;
+
   // Retrieve parts from window variable if flagged by modal
   if (params._useStoredParts && window._pendingMovieParts) {
     params.parts = window._pendingMovieParts;
@@ -2235,9 +2367,9 @@ async function playVideo(params, pushState = true) {
 
   let subTitleText = '';
   if (params.season) {
-    subTitleText = `S${params.season}:E${params.episode}`;
+    subTitleText = `Season ${params.season} Episode ${params.episode}`;
     if (params.episodeTitle && !params.episodeTitle.toLowerCase().startsWith('episode ')) {
-      subTitleText += ` (${params.episodeTitle})`;
+      subTitleText += ` - ${params.episodeTitle}`;
     }
   }
   document.getElementById('player-title-sub').textContent = subTitleText;
@@ -2303,10 +2435,11 @@ async function playVideo(params, pushState = true) {
   }
 
   state.player.audioTracks = tracks?.audioTracks || [];
-  const intendedDefault = (tracks?.audioTracks || []).findIndex((t) => t.isDefault);
-  // Physical track 0 is the only one guaranteed to play via direct stream
+  
+  // Browsers ignore the MKV `default` flag and just play the first physical stream (index 0).
+  // Therefore, the only track that plays natively without transcoding is track 0.
   state.player.defaultAudioTrack = 0;
-  state.player.currentAudioTrack = intendedDefault >= 0 ? intendedDefault : 0;
+  state.player.currentAudioTrack = 0;
 
   state.player.duration = tracks?.duration || 0;
 
@@ -2322,6 +2455,34 @@ async function playVideo(params, pushState = true) {
 
   video.src = `${streamBaseUrl}/${params.fileId}`;
   video.currentTime = 0;
+  
+  // Resume from where left off if available
+  if (typeof fetchWatchProgress === 'function') {
+    fetchWatchProgress().then(progressItems => {
+      if (progressItems) {
+        const prog = progressItems.find(p => String(p.file_id) === String(params.fileId));
+        if (prog && prog.position_seconds > 5 && (prog.duration_seconds - prog.position_seconds > 30)) {
+          const doSeek = () => {
+            if (state.player.multipart && state.player.multipart.enabled) {
+              multipartSeek(prog.position_seconds);
+            } else {
+              video.currentTime = prog.position_seconds;
+            }
+          };
+
+          if (video.readyState >= 1) {
+            // Metadata is already loaded and the duration map is corrected.
+            // But we add a tiny delay to ensure the onFirstMeta event fully completed.
+            setTimeout(doSeek, 10);
+          } else {
+            // Queue the seek to happen after metadata is loaded (and duration map is corrected)
+            video.addEventListener('loadedmetadata', () => setTimeout(doSeek, 10), { once: true });
+          }
+        }
+      }
+    }).catch(e => console.warn('Failed to load resume position:', e));
+  }
+  
   video.load();
 
   // Apply native track and correct multipart duration when first part's actual duration is discovered
@@ -2330,7 +2491,7 @@ async function playVideo(params, pushState = true) {
     if (state.player.multipart.enabled && isFinite(video.duration) && video.duration > 0) {
       multipartCorrectDuration(0, video.duration);
     }
-  }, { once: true });
+  }, { once: true, signal: state.player.abortController?.signal });
 
   // Wire up controls BEFORE play() so 'playing' event listener catches the first play
   setupPlayerListeners();
@@ -2343,25 +2504,77 @@ async function playVideo(params, pushState = true) {
     showAppNudgeModal(downloadUrl, true);
   }
 
-  // Default subtitle selection priority: External first, disable embedded default
-  const firstExternalSubIndex = state.player.subtitleTracks.findIndex(
-    (t) => t.source !== 'embedded'
-  );
-  if (firstExternalSubIndex >= 0) {
-    console.log("Using first external subtitle:", state.player.subtitleTracks[firstExternalSubIndex].language);
-    switchSubs(firstExternalSubIndex).catch((err) => {
-      console.warn('Default external subtitle load failed:', err);
-    });
-  } else {
-    console.log("No external subtitles → OFF");
-  }
-
+  // Subtitles default to OFF based on user preference
+  state.player.currentSubtitleTrack = -1;
   try {
     await video.play();
   } catch (e) { console.warn('Autoplay blocked:', e); }
 
   // Start heartbeat — keeps backend session alive during buffered playback
   startHeartbeat(params.fileId);
+
+  // Watch Progress Heartbeat
+  function triggerSaveProgress() {
+    let currentPos = Math.floor(video.currentTime);
+    let totalDur = Math.floor(video.duration);
+
+    if (state.player.multipart && state.player.multipart.enabled) {
+      currentPos = Math.floor(multipartCalculateGlobalTime(video));
+      totalDur = Math.floor(state.player.multipart.totalDuration);
+    }
+
+    if (currentPos > 5 && totalDur > 0 && typeof saveWatchProgress === 'function') {
+      let titleToSave = params.title || 'Movie';
+      let posterToSave = params.poster;
+      
+      let mediaTypeToSave = params.isTV ? 'tv' : 'movie';
+      let seasonToSave = params.season || null;
+      let episodeToSave = params.episode || null;
+      let showIdToSave = params.tmdbId ? String(params.tmdbId) : null;
+
+      if (params.isTV) {
+        if (!titleToSave || titleToSave === 'Movie') {
+          titleToSave = 'TV Show';
+        }
+        if (!posterToSave) {
+          const showInfo = state.data?.tvShows?.find(s => String(s.showTmdbId) === String(params.tmdbId)) || {};
+          posterToSave = showInfo.poster || showInfo.backdrop;
+          if (titleToSave === 'TV Show' && showInfo.showTitle) {
+             titleToSave = showInfo.showTitle;
+          }
+        }
+      } else {
+        if (!posterToSave) {
+          const movieInfo = state.data?.movies?.find(m => String(m.fileId) === String(params.fileId)) || {};
+          posterToSave = movieInfo.poster || movieInfo.backdrop;
+          if (titleToSave === 'Movie' && movieInfo.title) {
+             titleToSave = movieInfo.title;
+          }
+        }
+      }
+
+      saveWatchProgress(params.fileId, currentPos, totalDur, titleToSave, posterToSave, mediaTypeToSave, seasonToSave, episodeToSave, showIdToSave);
+    }
+  }
+
+  video.addEventListener('playing', () => {
+    if (!state.player._watchProgressInterval) {
+      state.player._watchProgressInterval = setInterval(triggerSaveProgress, 10000);
+    }
+  }, { signal: state.player.abortController?.signal });
+
+  video.addEventListener('pause', () => {
+    triggerSaveProgress();
+    if (state.player._watchProgressInterval) {
+      clearInterval(state.player._watchProgressInterval);
+      state.player._watchProgressInterval = null;
+    }
+  }, { signal: state.player.abortController?.signal });
+
+  // Export for closePlayer
+  state.player._triggerSaveProgress = triggerSaveProgress;
+  window.addEventListener('beforeunload', state.player._triggerSaveProgress, { signal: state.player.abortController?.signal });
+  video.addEventListener('ended', state.player._triggerSaveProgress, { signal: state.player.abortController?.signal });
 }
 
 // ============================================================
@@ -2415,6 +2628,17 @@ async function closePlayer(pushState = true) {
   for (let i = 0; i < video.textTracks.length; i++) {
     video.textTracks[i].mode = 'disabled';
   }
+
+  // Clear watch progress heartbeat
+  if (state.player._triggerSaveProgress) {
+    state.player._triggerSaveProgress();
+    window.removeEventListener('beforeunload', state.player._triggerSaveProgress);
+  }
+  if (state.player._watchProgressInterval) {
+    clearInterval(state.player._watchProgressInterval);
+  }
+  state.player._watchProgressInterval = null;
+  state.player._triggerSaveProgress = null;
 
   // Reset subtitle state
   state.player.currentSubtitleTrack = -1;
@@ -3232,6 +3456,7 @@ function renderEpisodesPanelList(episodes, highlightEpisode) {
   const listContainer = document.getElementById('episodes-list');
   const showTitle = window._showTitle || state.player.title;
   const tmdbId = window._showTmdbId || state.player.tmdbId;
+  const poster = window._showPoster || '';
 
   if (!episodes || episodes.length === 0) {
     listContainer.innerHTML = '<div style="padding:15px; color:#888;">No episodes available.</div>';
@@ -3250,7 +3475,7 @@ function renderEpisodesPanelList(episodes, highlightEpisode) {
     // Custom handler to switch stream
     return `
       <div class="player-episode-item ${isActive ? 'active' : ''}" 
-           onclick="handleEpisodesPanelClick('${ep.fileId}', '${escArg(showTitle)}', ${s}, ${e}, '${escArg(title)}', ${tmdbId})">
+           onclick="handleEpisodesPanelClick('${ep.fileId}', '${escArg(showTitle)}', '${escArg(poster)}', ${s}, ${e}, '${escArg(title)}', ${tmdbId || 'null'})">
          <div class="player-episode-item-number">${e}</div>
          <div class="player-episode-item-content">
             <div class="player-episode-item-header">
@@ -3263,20 +3488,26 @@ function renderEpisodesPanelList(episodes, highlightEpisode) {
   }).join('');
 }
 
-window.handleEpisodesPanelClick = function(fileId, title, season, episode, episodeTitle, tmdbId) {
+window.handleEpisodesPanelClick = function(fileId, title, poster, season, episode, episodeTitle, tmdbId) {
   const sheet = document.getElementById('episodes-sheet');
   const overlay = document.getElementById('episodes-sheet-overlay');
   if (sheet) sheet.classList.add('hidden');
   if (overlay) overlay.classList.add('hidden');
   
+  if (!poster && state.data && state.data.tvShows && tmdbId) {
+    const show = state.data.tvShows.find(s => String(s.showTmdbId) === String(tmdbId));
+    if (show) poster = show.poster || show.backdrop || '';
+  }
+  
   playVideo({
     fileId,
     title,
+    poster,
     season,
     episode,
     episodeTitle,
     tmdbId
-  });
+  }, true);
 };
 
 // ============================================================
@@ -3475,6 +3706,13 @@ function updateTrackInfoUI() {
          <span class="track-detail">${srcLabel}${t.isDefault ? ' · Default' : ''}${t.rating ? ' · ' + t.rating : ''}</span>
        </div>`;
   });
+  
+  subHtml += `<input type="file" id="local-sub-upload" accept=".srt,.vtt" style="display:none" onchange="handleLocalSubtitleUpload(event)" />`;
+  subHtml += `<div class="track-item" onclick="document.getElementById('local-sub-upload').click()">
+         <span class="track-name">📁 Load Local Subtitle...</span>
+         <span class="track-detail">From your device</span>
+       </div>`;
+       
   sList.innerHTML = subHtml;
   renderSubtitleSyncUI();
 }
@@ -3930,10 +4168,7 @@ async function switchSubs(index, event, startTime = null) {
 
         vttText += decoder.decode(value, { stream: true });
 
-        if (isFirstChunk && vttText.length >= 6) {
-          if (!vttText.includes('WEBVTT')) {
-            throw new Error('Invalid VTT response');
-          }
+        if (isFirstChunk && vttText.length > 0) {
           isFirstChunk = false;
           audioInfo.classList.add('hidden'); // Hide loader immediately
         }
@@ -4121,13 +4356,22 @@ function parseUrlAndRoute(path, search) {
     const urlParams = new URLSearchParams(search);
     if (type === 'tv') {
       let title = 'Loading...';
+      let poster = '';
       if (state.data && state.data.tvShows) {
         const show = state.data.tvShows.find(s => String(s.showTmdbId) === String(mainId) || String(s.id) === String(mainId) || String(s.fileId) === String(mainId));
-        if (show) title = show.showTitle || show.title || title;
+        if (show) {
+           title = show.showTitle || show.title || title;
+           poster = show.poster || show.backdrop || '';
+        }
       }
+      
+      // If mainId matches fileId, it means tmdbId was missing from the URL. Pass null so Smart Recovery runs.
+      const actualTmdbId = (mainId === (urlParams.get('f') || mainId)) ? null : mainId;
+      
       playVideo({
         fileId: urlParams.get('f') || mainId,
-        tmdbId: mainId,
+        tmdbId: actualTmdbId,
+        poster: poster,
         season: urlParams.get('s'),
         episode: urlParams.get('e'),
         episodeTitle: urlParams.get('et'),
@@ -4820,3 +5064,92 @@ function setupNavbarUser(user) {
     showLoginScreen();
   });
 }
+
+// ==================== WATCH PROGRESS ====================
+
+async function fetchWatchProgress() {
+  if (!StreamFlixAuth.isLoggedIn()) return [];
+  try {
+    const res = await fetch('/api/progress', {
+      headers: {
+        'Authorization': `Bearer ${StreamFlixAuth.sessionToken}`
+      }
+    });
+    const data = await res.json();
+    return data.success && data.progress ? data.progress : [];
+  } catch (e) {
+    console.error('Failed to fetch watch progress:', e);
+    return [];
+  }
+}
+
+async function saveWatchProgress(fileId, positionSeconds, durationSeconds, title, posterPath, mediaType, season, episode, showId) {
+  if (!StreamFlixAuth.isLoggedIn()) return;
+  try {
+    await fetch('/api/progress', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${StreamFlixAuth.sessionToken}`
+      },
+      body: JSON.stringify({
+        fileId,
+        positionSeconds,
+        durationSeconds,
+        title,
+        posterPath,
+        mediaType,
+        season,
+        episode,
+        showId
+      })
+    });
+  } catch (e) {
+    console.error('Failed to save watch progress:', e);
+  }
+}
+
+// ==================== LOCAL SUBTITLE UPLOAD ====================
+
+window.handleLocalSubtitleUpload = async function(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = async function(e) {
+    const text = e.target.result;
+    let vttText = text;
+
+    // Very basic SRT to VTT conversion if needed
+    if (file.name.endsWith('.srt')) {
+      vttText = 'WEBVTT\n\n' + text
+        .replace(/\r\n|\r/g, '\n')
+        .replace(/(\d{2}:\d{2}:\d{2}),(\d{3})/g, '$1.$2');
+    }
+
+    // Add to tracks
+    const newTrackIndex = state.player.subtitleTracks.length;
+    const blob = new Blob([vttText], { type: 'text/vtt' });
+    const url = URL.createObjectURL(blob);
+
+    state.player.subtitleTracks.push({
+      language: 'Local File',
+      languageLabel: file.name,
+      source: 'local',
+      endpoint: url
+    });
+
+    // Cache the VTT text so parseVTT can use it immediately without fetching from Blob if needed
+    if (!state.player.subtitleVTTCache) state.player.subtitleVTTCache = {};
+    state.player.subtitleVTTCache[url] = vttText;
+
+    updateTrackInfoUI();
+    
+    // Switch to the newly added track
+    switchSubs(newTrackIndex);
+    
+    // Reset file input so same file can be uploaded again if needed
+    event.target.value = '';
+  };
+  reader.readAsText(file);
+};

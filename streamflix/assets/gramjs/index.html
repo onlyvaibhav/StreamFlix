@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Load the GramJS bundle -->
+    <script src="gramjs-worker-bundle.js"></script>
+    <script>
+        // The Flutter app injects a JavascriptChannel named "FlutterChannel"
+        function sendToFlutter(msg) {
+            if (window.FlutterChannel) {
+                window.FlutterChannel.postMessage(JSON.stringify(msg));
+            } else {
+                console.warn("FlutterChannel not found", msg);
+            }
+        }
+
+        let client = null;
+        let session = null;
+        let apiId = 25193240;
+        let apiHash = "24079455e34ad7368838fef9798878e7";
+        let isConnected = false;
+        let initPromise = null; // Track the init promise so sendCode can wait
+
+        async function initClient(sessionString) {
+            try {
+                const { TelegramClient, StringSession, PromisedWebSockets } = GramJSWorker;
+                
+                session = new StringSession(sessionString || "");
+                
+                // CRITICAL BUG FIX (Web): Use PromisedWebSockets and explicitly configure connection to avoid raw TCP fallback loops
+                client = new TelegramClient(session, apiId, apiHash, {
+                    connectionRetries: 5,
+                    useWSS: true,
+                    // Use a websocket connection for the webview environment since raw TCP won't work
+                });
+
+                // CRITICAL BUG FIX (Web): Disable the unnecessary update loop that causes timeouts/crashes
+                if (client._updateLoop) {
+                    client._updateLoop = () => {};
+                }
+
+                await client.connect();
+                isConnected = true;
+                
+                sendToFlutter({ type: "ready", session: client.session.save() });
+            } catch (err) {
+                sendToFlutter({ type: "error", error: err.toString() });
+            }
+        }
+
+        async function sendCode(phoneNumber) {
+            try {
+                // Wait for client init if it's still in progress
+                if (initPromise) await initPromise;
+                if (!client || !isConnected) {
+                    sendToFlutter({ type: "error", error: "Client not connected yet. Please wait and try again." });
+                    return;
+                }
+                const result = await client.sendCode(
+                    {
+                        apiId,
+                        apiHash
+                    },
+                    phoneNumber
+                );
+                sendToFlutter({ type: "phoneCodeSent", phoneCodeHash: result.phoneCodeHash });
+            } catch (err) {
+                sendToFlutter({ type: "error", error: err.toString() });
+            }
+        }
+
+        async function signIn(phoneNumber, phoneCodeHash, phoneCode) {
+            try {
+                if (!client || !isConnected) {
+                    sendToFlutter({ type: "error", error: "Client not connected." });
+                    return;
+                }
+                await client.invoke(
+                    new GramJSWorker.Api.auth.SignIn({
+                        phoneNumber,
+                        phoneCodeHash,
+                        phoneCode
+                    })
+                );
+                sendToFlutter({ type: "signedIn", session: client.session.save() });
+            } catch (err) {
+                sendToFlutter({ type: "error", error: err.toString() });
+            }
+        }
+
+        async function fetchChunk(requestId, fileData, offset, limit) {
+            try {
+                // fileData contains id, accessHash, fileReference, dcId
+                
+                // CRITICAL BUG FIX (Web): Ensure fileReference is reconstructed as a real Buffer
+                // When passing arrays over the bridge, they arrive as JS arrays. GramJS requires Buffer.
+                let refBuffer;
+                if (fileData.fileReference && Array.isArray(fileData.fileReference)) {
+                    refBuffer = GramJSWorker.Buffer.from(fileData.fileReference);
+                } else if (typeof fileData.fileReference === 'string') {
+                    refBuffer = GramJSWorker.Buffer.from(fileData.fileReference, 'base64');
+                } else {
+                    refBuffer = GramJSWorker.Buffer.from([]);
+                }
+
+                const location = new GramJSWorker.Api.InputDocumentFileLocation({
+                    id: fileData.id,
+                    accessHash: fileData.accessHash,
+                    fileReference: refBuffer,
+                    thumbSize: ""
+                });
+
+                // CRITICAL BUG FIX (Web): Offset and limit MUST align to 1MB/512KB boundaries (1048576 or 524288)
+                // The loopback server in Dart must handle the exact slicing, but GramJS will fetch the exact aligned offset
+                const result = await client.invoke(new GramJSWorker.Api.upload.GetFile({
+                    location,
+                    offset: offset,
+                    limit: limit,
+                    precise: true
+                }));
+
+                // Convert bytes to base64 for reliable transmission over JavascriptChannel
+                let base64String = GramJSWorker.Buffer.from(result.bytes).toString('base64');
+                
+                sendToFlutter({
+                    type: "chunkResult",
+                    requestId: requestId,
+                    data: base64String
+                });
+            } catch (err) {
+                sendToFlutter({
+                    type: "chunkError",
+                    requestId: requestId,
+                    error: err.toString()
+                });
+            }
+        }
+
+        // Message listener from Flutter
+        window.handleFlutterMessage = async function(jsonStr) {
+            try {
+                const msg = JSON.parse(jsonStr);
+                
+                if (msg.type === "init") {
+                    if (msg.apiId) apiId = msg.apiId;
+                    if (msg.apiHash) apiHash = msg.apiHash;
+                    initPromise = initClient(msg.session);
+                    await initPromise;
+                } 
+                else if (msg.type === "sendCode") {
+                    await sendCode(msg.phoneNumber);
+                }
+                else if (msg.type === "signIn") {
+                    await signIn(msg.phoneNumber, msg.phoneCodeHash, msg.phoneCode);
+                }
+                else if (msg.type === "fetchChunk") {
+                    await fetchChunk(msg.requestId, msg.fileData, msg.offset, msg.limit);
+                }
+            } catch(e) {
+                sendToFlutter({ type: "error", error: "Bad message format: " + e.toString() });
+            }
+        };
+
+        // Notify flutter that webview is loaded
+        sendToFlutter({ type: "webviewLoaded" });
+    </script>
+</head>
+<body>
+    <div id="status">GramJS Worker Running</div>
+</body>
+</html>

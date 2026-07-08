@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:streamflix/core/constants/app_colors.dart';
 import 'package:streamflix/core/constants/app_text_styles.dart';
+import 'package:streamflix/core/network/telegram_client_service.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -185,6 +187,33 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ],
                 ),
+                const SizedBox(height: 20),
+                _buildSettingsSection(
+                  title: 'Telegram Account',
+                  children: [
+                    ValueListenableBuilder<Box>(
+                      valueListenable: Hive.box('authBox').listenable(keys: ['telegram_session']),
+                      builder: (context, box, widget) {
+                        final session = box.get('telegram_session') as String?;
+                        final isLinked = session != null && session.isNotEmpty;
+                        return _buildSettingsTile(
+                          icon: Icons.telegram,
+                          title: isLinked ? 'Telegram Linked' : 'Link Telegram Account',
+                          subtitle: isLinked ? 'Ready for client-side streaming' : 'Authenticate to enable client-side streaming',
+                          onTap: () {
+                            if (!isLinked) {
+                              _showTelegramLoginDialog(context);
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text('Telegram is already linked')),
+                              );
+                            }
+                          },
+                        );
+                      }
+                    ),
+                  ],
+                ),
                 const SizedBox(height: 40),
                 
                 // App version text
@@ -270,6 +299,95 @@ class _ProfileScreenState extends State<ProfileScreen> {
       subtitle: Text(subtitle, style: AppTextStyles.bodySmall),
       trailing: const Icon(Icons.arrow_forward_ios, color: Colors.white24, size: 16),
       onTap: onTap,
+    );
+  }
+
+  void _showTelegramLoginDialog(BuildContext context) {
+    final phoneController = TextEditingController();
+    final otpController = TextEditingController();
+    bool codeSent = false;
+    
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, setDialogState) {
+            return AlertDialog(
+              backgroundColor: AppColors.backgroundLight,
+              title: const Text('Telegram Login', style: TextStyle(color: Colors.white)),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (!codeSent) ...[
+                    const Text('Enter your phone number including country code (e.g. +1234567890)', style: TextStyle(color: Colors.white70)),
+                    const SizedBox(height: 16),
+                    TextField(
+                      controller: phoneController,
+                      style: const TextStyle(color: Colors.white),
+                      decoration: const InputDecoration(
+                        hintText: 'Phone Number',
+                        hintStyle: TextStyle(color: Colors.white30),
+                        enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.white24)),
+                        focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: AppColors.netflixRed)),
+                      ),
+                      keyboardType: TextInputType.phone,
+                    ),
+                  ] else ...[
+                    const Text('Enter the code sent to your Telegram app', style: TextStyle(color: Colors.white70)),
+                    const SizedBox(height: 16),
+                    TextField(
+                      controller: otpController,
+                      style: const TextStyle(color: Colors.white),
+                      decoration: const InputDecoration(
+                        hintText: 'OTP Code',
+                        hintStyle: TextStyle(color: Colors.white30),
+                        enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.white24)),
+                        focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: AppColors.netflixRed)),
+                      ),
+                      keyboardType: TextInputType.number,
+                    ),
+                  ],
+                ],
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: const Text('Cancel', style: TextStyle(color: Colors.white54)),
+                ),
+                TextButton(
+                  onPressed: () async {
+                    if (!codeSent) {
+                      final phone = phoneController.text.trim();
+                      if (phone.isNotEmpty) {
+                        await TelegramClientService().sendCode(phone);
+                        // Wait for stream to emit 'phoneCodeSent'
+                        TelegramClientService().authStateStream.firstWhere((e) => e == 'phoneCodeSent').then((_) {
+                          setDialogState(() {
+                            codeSent = true;
+                          });
+                        });
+                      }
+                    } else {
+                      final otp = otpController.text.trim();
+                      if (otp.isNotEmpty) {
+                        await TelegramClientService().signIn(phoneController.text.trim(), otp);
+                        TelegramClientService().authStateStream.firstWhere((e) => e == 'signedIn').then((_) {
+                          Navigator.pop(context);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Telegram Login Successful!')),
+                          );
+                        });
+                      }
+                    }
+                  },
+                  child: Text(!codeSent ? 'Send Code' : 'Verify', style: const TextStyle(color: AppColors.netflixRed)),
+                ),
+              ],
+            );
+          },
+        );
+      },
     );
   }
 }

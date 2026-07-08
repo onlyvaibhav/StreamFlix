@@ -38,6 +38,9 @@ const MetadataModule = (() => {
                     <div class="data-card-header" style="flex-wrap:wrap">
                         <h3>Metadata Health Issues <span class="badge badge-danger">${data.length}</span></h3>
                         <div style="display:flex;gap:var(--space-md)">
+                            <button class="btn btn-secondary" onclick="MetadataModule.retryFailed()">
+                                <i data-lucide="refresh-cw" style="width:16px"></i> Retry Failed
+                            </button>
                             <button class="btn btn-secondary" onclick="MetadataModule.autoMatchAll()">
                                 <i data-lucide="wand-2" style="width:16px"></i> Auto Match All
                             </button>
@@ -247,6 +250,22 @@ const MetadataModule = (() => {
         }
     }
 
+    async function _handleRetryFailed() {
+        const confirmed = await ConfirmDialog.show({
+            title: 'Retry Failed',
+            message: 'Reset all MANUAL_REVIEW items back to NEW? They will be retried automatically.',
+        });
+        if (!confirmed) return;
+
+        try {
+            await Api.retryFailed();
+            Toast.success('Retry queue started');
+            _loadData();
+        } catch (err) {
+            Toast.error(err.message);
+        }
+    }
+
     async function _handleAutoMatch(fileId) {
         try {
             await Api.fixMetadata(fileId, null, null); // passing null triggers auto-match in backend
@@ -347,6 +366,7 @@ const MetadataModule = (() => {
         closeEditor: () => { if (_modal) _modal.close(); },
         toggleTVSettings: _toggleTVSettings,
         saveFix: _handleSaveFix,
-        saveManual: _handleSaveManual
+        saveManual: _handleSaveManual,
+        retryFailed: _handleRetryFailed
     };
 })();

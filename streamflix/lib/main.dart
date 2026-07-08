@@ -8,11 +8,32 @@ import 'package:streamflix/core/router/app_router.dart';
 
 import 'package:streamflix/features/movies/data/models/watch_history.dart';
 
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:streamflix/core/network/telegram_client_service.dart';
+import 'package:streamflix/core/network/local_loopback_server.dart';
+import 'package:webview_flutter/webview_flutter.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: '.env');
+  
+  await Hive.initFlutter();
+  await Hive.openBox('authBox');
+
+  await Supabase.initialize(
+    url: dotenv.env['SUPABASE_URL']!,
+    anonKey: dotenv.env['SUPABASE_ANON_KEY']!,
+  );
+
   PlayerConfig.initialize();
   await WatchHistoryManager.loadHistory();
+
+  // Initialize Telegram Client Service and Loopback Server
+  await LocalLoopbackServer().start();
+  final box = Hive.box('authBox');
+  final savedSession = box.get('telegram_session') as String?;
+  await TelegramClientService().init(initialSession: savedSession);
   runApp(
     const ProviderScope(
       child: StreamFlixApp(),
@@ -45,6 +66,19 @@ class StreamFlixApp extends ConsumerWidget {
         useMaterial3: true,
       ),
       routerConfig: router,
+      builder: (context, child) {
+        return Stack(
+          children: [
+            if (child != null) child,
+            Offstage(
+              offstage: true,
+              child: WebViewWidget(
+                controller: TelegramClientService().webViewController,
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }

@@ -46,6 +46,13 @@ dependencies:
   media_kit_libs_video: ^1.0.7
   flutter_dotenv: ^6.0.1
   google_fonts: ^6.2.0
+  webview_flutter: ^4.14.0
+  shelf: ^1.4.2
+  supabase_flutter: ^2.16.0
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  path_provider: ^2.1.6
+  shelf_router: ^1.1.4
 
 dependency_overrides:
   wakelock_plus: ^1.2.8
@@ -77,7 +84,9 @@ flutter:
   uses-material-design: true
   assets:
     - .env
-
+    - assets/gramjs/
+    - assets/gramjs/index.html
+    - assets/gramjs/gramjs-worker-bundle.js
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

@@ -13,6 +13,8 @@ import 'package:streamflix/features/movies/data/models/watch_history.dart';
 import 'package:streamflix/features/movies/presentation/providers/movies_provider.dart';
 import 'package:streamflix/features/movies/data/repositories/movie_repository_impl.dart';
 import 'package:streamflix/features/player/data/datasources/stream_remote_datasource.dart';
+import 'package:streamflix/core/network/telegram_client_service.dart';
+import 'package:streamflix/core/network/local_loopback_server.dart';
 
 part 'player_provider.g.dart';
 
@@ -183,13 +185,35 @@ class MoviePlayer extends _$MoviePlayer {
     // Listen to player error stream
     _errorSubscription = player.stream.error.listen((error) {
       final errStr = error.toString();
+      final errStrLower = errStr.toLowerCase();
       debugPrint('❌ MediaKit Player error: $errStr');
       
       // Ignore non-fatal play promise interruptions on Web/Chrome
-      if (errStr.contains('play() request was interrupted') || 
-          errStr.contains('media was removed from the document')) {
+      if (errStrLower.contains('play() request was interrupted') || 
+          errStrLower.contains('media was removed from the document') ||
+          errStrLower.contains('the play() request was interrupted')) {
         debugPrint('ℹ️ Ignoring benign play promise interruption.');
         return;
+      }
+      
+      if (errStrLower.contains('could not open codec') || 
+          errStrLower.contains('decoder') ||
+          errStrLower.contains('failed to initialize hardware')) {
+        debugPrint('⚠️ Codec error detected. Disabling hardware acceleration and restarting playback.');
+        try {
+          final platform = player.platform;
+          if (platform != null) {
+            final dynamic dynPlatform = platform;
+            dynPlatform.setProperty('hwdec', 'no');
+          }
+        } catch (e) {
+          debugPrint('⚠️ Failed to apply hwdec=no: $e');
+        }
+        
+        // Restart current media
+        if (state.movie != null) {
+          Future.microtask(() => play(state.movie!, keepSettings: true));
+        }
       }
       
       state = state.copyWith(error: errStr);
@@ -310,22 +334,28 @@ class MoviePlayer extends _$MoviePlayer {
 
       // If playing a split multipart movie, resolve correct starting part and time offset from virtual position
       if (movie.isSplit == true && splitParts.isNotEmpty) {
+        // Calculate cumulative durations to map global resume position to specific part
         double accumulated = 0.0;
-        final double savedSeconds = resumePosition?.inSeconds.toDouble() ?? 0.0;
-        
+        int resolvedPartIndex = 0;
+        double localResumeSeconds = resumePosition?.inSeconds.toDouble() ?? 0.0;
+
         for (int i = 0; i < splitParts.length; i++) {
           final partDur = splitParts[i].duration?.toDouble() ?? 0.0;
-          if (savedSeconds >= accumulated && savedSeconds < accumulated + partDur) {
-            currentPartIndex = i;
-            resumePosition = Duration(seconds: (savedSeconds - accumulated).round());
+          if (localResumeSeconds < accumulated + partDur) {
+            resolvedPartIndex = i;
+            localResumeSeconds = localResumeSeconds - accumulated;
             break;
           }
           accumulated += partDur;
         }
 
-        if (savedSeconds >= accumulated) {
+        // If seek was beyond the end, clamp to last part
+        if (localResumeSeconds >= (splitParts.last.duration ?? 0.0) && resolvedPartIndex == splitParts.length - 1) {
           currentPartIndex = splitParts.length - 1;
           resumePosition = Duration(seconds: (splitParts.last.duration ?? 0.0).round());
+        } else {
+          currentPartIndex = resolvedPartIndex;
+          resumePosition = Duration(seconds: localResumeSeconds.round());
         }
 
         final targetPartFileId = splitParts[currentPartIndex].fileId ?? '';
@@ -429,18 +459,62 @@ class MoviePlayer extends _$MoviePlayer {
       final bool useRemux = kIsWeb;
 
       // Build stream URL
-      final String streamUrl;
-      if (useRemux) {
-        streamUrl = StreamRemoteDataSource.buildStreamUrl(
-          _currentFileId!,
-          audioTrack: selectedAudio,
-          startSeconds: 0,
-        );
-      } else {
-        streamUrl = StreamRemoteDataSource.buildStreamUrl(_currentFileId!);
+      String streamUrl = '';
+      bool useClientStreaming = false;
+
+      try {
+        final telegramService = TelegramClientService();
+        // With the auth guard in place, if we have a session, use client-side streaming
+        if (telegramService.sessionString != null && telegramService.sessionString!.isNotEmpty) {
+          final dataSource = ref.read(streamRemoteDataSourceProvider);
+          if (splitParts.isNotEmpty) {
+             for (final part in splitParts) {
+                if (part.fileId == null) continue;
+                final fileInfo = await dataSource.getFileInfo(part.fileId!);
+                if (fileInfo != null && fileInfo.fileLocation != null) {
+                  LocalLoopbackServer().registerFile(
+                    fileId: part.fileId!,
+                    documentId: fileInfo.fileLocation!.id,
+                    accessHash: fileInfo.fileLocation!.accessHash,
+                    fileReference: fileInfo.fileLocation!.fileReference,
+                    size: fileInfo.fileSize,
+                  );
+                }
+             }
+             streamUrl = 'http://localhost:${LocalLoopbackServer().port}/stream/$_currentFileId';
+             useClientStreaming = true;
+          } else {
+             final fileInfo = await dataSource.getFileInfo(_currentFileId!);
+             if (fileInfo != null && fileInfo.fileLocation != null) {
+                LocalLoopbackServer().registerFile(
+                  fileId: _currentFileId!,
+                  documentId: fileInfo.fileLocation!.id,
+                  accessHash: fileInfo.fileLocation!.accessHash,
+                  fileReference: fileInfo.fileLocation!.fileReference,
+                  size: fileInfo.fileSize,
+                );
+                streamUrl = 'http://localhost:${LocalLoopbackServer().port}/stream/$_currentFileId';
+                useClientStreaming = true;
+             }
+          }
+        }
+      } catch (e) {
+        debugPrint('⚠️ Client-Side streaming setup failed, falling back to server: $e');
       }
 
-      debugPrint('🎬 Stream URL: $streamUrl (remux: $useRemux)');
+      if (!useClientStreaming) {
+        if (useRemux) {
+          streamUrl = StreamRemoteDataSource.buildStreamUrl(
+            _currentFileId!,
+            audioTrack: selectedAudio,
+            startSeconds: 0,
+          );
+        } else {
+          streamUrl = StreamRemoteDataSource.buildStreamUrl(_currentFileId!);
+        }
+      }
+
+      debugPrint('🎬 Stream URL: $streamUrl (client-side: $useClientStreaming, remux: $useRemux)');
 
       // Update state with track info before playback starts
       state = state.copyWith(
@@ -671,6 +745,65 @@ class MoviePlayer extends _$MoviePlayer {
 
   /// Seek to position
   Future<void> seekTo(Duration position) async {
+    if (state.splitParts.isNotEmpty) {
+      double globalSeekSeconds = position.inSeconds.toDouble();
+      
+      // Determine which part the target seek position belongs to
+      double accumulated = 0.0;
+      int targetPartIndex = 0;
+      double localSeekSeconds = globalSeekSeconds;
+      
+      for (int i = 0; i < state.splitParts.length; i++) {
+        final partDur = state.splitParts[i].duration ?? 0.0;
+        if (globalSeekSeconds < accumulated + partDur) {
+          targetPartIndex = i;
+          localSeekSeconds = globalSeekSeconds - accumulated;
+          break;
+        }
+        accumulated += partDur;
+      }
+      
+      if (globalSeekSeconds >= accumulated && targetPartIndex == 0) {
+         targetPartIndex = state.splitParts.length - 1;
+         localSeekSeconds = state.splitParts.last.duration ?? 0.0;
+      }
+
+      if (targetPartIndex != state.currentPartIndex) {
+        // Cross-part seek detected! Change current file ID and re-open media
+        final targetFileId = state.splitParts[targetPartIndex].fileId ?? '';
+        debugPrint('🎬 Cross-part seek: switching to part ${targetPartIndex + 1} (offset ${localSeekSeconds}s)');
+        
+        state = state.copyWith(
+          currentPartIndex: targetPartIndex,
+          isLoading: true,
+        );
+        _currentFileId = targetFileId;
+        
+        String streamUrl = '';
+        if (LocalLoopbackServer().port > 0 && TelegramClientService().sessionString?.isNotEmpty == true) {
+          streamUrl = 'http://localhost:${LocalLoopbackServer().port}/stream/$_currentFileId';
+        } else {
+          streamUrl = StreamRemoteDataSource.buildStreamUrl(targetFileId);
+        }
+        
+        // Load track info for the new part
+        try {
+          final trackInfo = await ref.read(streamRemoteDataSourceProvider).getTrackInfo(targetFileId);
+          state = state.copyWith(trackInfo: trackInfo, duration: trackInfo.duration);
+        } catch (_) {}
+
+        await state.player.open(mk.Media(streamUrl), play: false);
+        await state.player.seek(Duration(seconds: localSeekSeconds.round()));
+        await state.player.play();
+        state = state.copyWith(isLoading: false);
+        return;
+      } else {
+        // In same part
+        await state.player.seek(Duration(seconds: localSeekSeconds.round()));
+        return;
+      }
+    }
+
     if (state.isRemuxing && _currentFileId != null) {
       final targetSeconds = position.inMilliseconds / 1000.0;
       debugPrint('🔍 Remux seek to ${targetSeconds}s');
@@ -789,6 +922,22 @@ class MoviePlayer extends _$MoviePlayer {
           episodeNumber: movie.tv?.episodeNumber,
           episodeTitle: movie.title,
         );
+
+        try {
+          await ref.read(streamRemoteDataSourceProvider).saveWatchProgress(
+            fileId: savedMovieId,
+            positionSeconds: virtualPosition,
+            durationSeconds: virtualDuration,
+            title: movie.title,
+            posterPath: movie.poster,
+            mediaType: (movie.type == 'tv' || movie.tv != null) ? 'tv' : 'movie',
+            season: movie.tv?.seasonNumber,
+            episode: movie.tv?.episodeNumber,
+            showId: movie.tv?.showTmdbId?.toString() ?? movie.tmdbId?.toString(),
+          );
+        } catch (e) {
+          debugPrint('⚠️ Failed to sync watch progress to backend: $e');
+        }
         
         // Notify Riverpod continueWatchingProvider listeners
         ref.read(continueWatchingProvider.notifier).refresh();
@@ -812,7 +961,12 @@ class MoviePlayer extends _$MoviePlayer {
         isLoading: true,
       );
       
-      final streamUrl = StreamRemoteDataSource.buildStreamUrl(targetFileId);
+      String streamUrl = '';
+      if (LocalLoopbackServer().port > 0 && TelegramClientService().sessionString?.isNotEmpty == true) {
+        streamUrl = 'http://localhost:${LocalLoopbackServer().port}/stream/$targetFileId';
+      } else {
+        streamUrl = StreamRemoteDataSource.buildStreamUrl(targetFileId);
+      }
       _currentFileId = targetFileId;
       
       // Probe new track info for this part

@@ -84,13 +84,19 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 );
 
                 // 2. Continue Watching (netflix-style progress overlay immediately below Hero)
-                if (continueWatching.isNotEmpty) {
-                  sliverItems.add(
-                    SliverToBoxAdapter(
-                      child: ContinueWatchingRow(items: continueWatching),
-                    ),
-                  );
-                }
+                continueWatching.when(
+                  data: (items) {
+                    if (items.isNotEmpty) {
+                      sliverItems.add(
+                        SliverToBoxAdapter(
+                          child: ContinueWatchingRow(items: items),
+                        ),
+                      );
+                    }
+                  },
+                  loading: () {}, // Optional: Add a skeleton here if desired
+                  error: (_, __) {}, // Silently fail on error
+                );
 
                 // 3. Trending Now
                 if (homepage.trending.isNotEmpty) {
