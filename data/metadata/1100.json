@@ -1,0 +1,40 @@
+{
+  "fileId": "1100",
+  "fileName": "A.Romance.of.the.Little.Forest.S01E24.1080p.HIN-CHI.AV1.mkv",
+  "type": "tv",
+  "title": "A Romance of the Little Forest",
+  "originalTitle": "两个人的小森林",
+  "overview": "A story following a botany professor focusing only on research and does not care for fame, money, or love. Meeting a girl he had ill feelings with in the past, their interest in one another develops as she shows off her doctorate knowledge in ornithology.",
+  "releaseDate": "2022-09-15",
+  "year": 2022,
+  "runtime": 44,
+  "genres": [
+    "Comedy",
+    "Drama"
+  ],
+  "rating": 7.1,
+  "popularity": 5.2785,
+  "awards": "1 nomination total",
+  "poster": "/data/posters/show_135185.jpg",
+  "backdrop": "/data/backdrops/show_135185_bd.jpg",
+  "tmdbId": 135185,
+  "fetchedAt": "2026-07-13T12:39:34.507Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "A Romance of the Little Forest",
+    "originalShowTitle": "两个人的小森林",
+    "seasonNumber": 1,
+    "episodeNumber": 24,
+    "episodeTitle": "Isn't a Pure Beef Jerky Called a Jerk?",
+    "episodeOverview": "Mei Ren runs into Zhuang Yu on a shared taxi ride. She is still mad at him, so no matter what Zhuang Yu does, she gives him the cold shoulder. Just then, Mei Ren's parents come to visit. Unaware of their rift, Mrs. Yu cheers Zhuang Yu on and encourages him to take the initiative.",
+    "showTmdbId": 135185,
+    "episodeRuntime": 44,
+    "totalSeasons": 1,
+    "totalEpisodes": 35
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "_tracksDetected": true,
+  "metadataStatus": "COMPLETE",
+  "logo": "/data/logos/show_135185_logo.png"
+}

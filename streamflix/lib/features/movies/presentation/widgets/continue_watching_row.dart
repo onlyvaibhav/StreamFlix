@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:streamflix/core/constants/app_colors.dart';
 import 'package:streamflix/core/router/route_names.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:streamflix/core/widgets/app_image.dart';
 import 'package:streamflix/features/movies/data/models/watch_history.dart';
 
@@ -16,15 +17,21 @@ class ContinueWatchingRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (items.isEmpty) return const SizedBox.shrink();
+    final box = Hive.box('authBox');
+    final user = box.get('user') as Map<dynamic, dynamic>?;
+    final firstName = user?['firstName'] ?? user?['first_name'] ?? user?['username'] ?? '';
+    final headerText = firstName.toString().isNotEmpty 
+        ? 'Continue Watching for $firstName'
+        : 'Continue Watching';
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
           child: Text(
-            'Continue Watching',
-            style: TextStyle(
+            headerText,
+            style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
               color: Colors.white,
@@ -33,7 +40,7 @@ class ContinueWatchingRow extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: 180,
+          height: 230,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(horizontal: 12.0),
@@ -48,34 +55,26 @@ class ContinueWatchingRow extends StatelessWidget {
               final playableId = item.episodeId ?? item.movieId;
 
               return Container(
-                width: 220,
+                width: 125,
                 margin: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 8.0),
                 decoration: BoxDecoration(
-                  color: AppColors.backgroundCard,
-                  borderRadius: BorderRadius.circular(6.0),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.4),
-                      blurRadius: 6,
-                      offset: const Offset(0, 3),
-                    ),
-                  ],
+                  color: const Color(0xFF1C1C1C),
+                  borderRadius: BorderRadius.circular(4.0),
                 ),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Image part (16:9 aspect ratio)
+                    // Image part (2:3 aspect ratio)
                     Stack(
                       children: [
                         ClipRRect(
                           borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(6.0),
-                            topRight: Radius.circular(6.0),
+                            topLeft: Radius.circular(4.0),
+                            topRight: Radius.circular(4.0),
                           ),
                           child: AspectRatio(
-                            aspectRatio: 16 / 9,
+                            aspectRatio: 2 / 3,
                             child: AppImage(
-                              imageUrl: item.backdrop ?? item.poster ?? '',
+                              imageUrl: item.poster ?? item.backdrop ?? '',
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -85,19 +84,19 @@ class ContinueWatchingRow extends StatelessWidget {
                           child: Center(
                             child: GestureDetector(
                               onTap: () {
-                                context.push('/watch/$playableId');
+                                context.push('/watch/$playableId?startTime=${item.position}');
                               },
                               child: Container(
-                                padding: const EdgeInsets.all(8),
+                                padding: const EdgeInsets.all(10),
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
-                                  color: Colors.black.withValues(alpha: 0.4),
+                                  color: Colors.black.withValues(alpha: 0.5),
                                   border: Border.all(color: Colors.white, width: 1.5),
                                 ),
                                 child: const Icon(
                                   Icons.play_arrow_rounded,
                                   color: Colors.white,
-                                  size: 22,
+                                  size: 32,
                                 ),
                               ),
                             ),
@@ -109,7 +108,7 @@ class ContinueWatchingRow extends StatelessWidget {
                           right: 0,
                           bottom: 0,
                           child: Container(
-                            height: 3.5,
+                            height: 4.0,
                             color: Colors.white24,
                             alignment: Alignment.centerLeft,
                             child: FractionallySizedBox(
@@ -126,38 +125,22 @@ class ContinueWatchingRow extends StatelessWidget {
                     // Info/Details panel underneath
                     Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 2.0),
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    item.tvShowName ?? item.title,
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 12.0,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                  const SizedBox(height: 2),
-                                  Text(
-                                    item.tvShowName != null
-                                        ? 'S${item.seasonNumber} E${item.episodeNumber} • $remainingMin m left'
-                                        : '$remainingMin min left',
-                                    style: const TextStyle(
-                                      color: AppColors.textTertiary,
-                                      fontSize: 10.0,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ],
+                              child: Text(
+                                (item.seasonNumber != null && item.episodeNumber != null)
+                                    ? 'S${item.seasonNumber}:E${item.episodeNumber}'
+                                    : '$remainingMin m left',
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 13.0,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                               ),
                             ),
                             IconButton(

@@ -4,7 +4,7 @@ class AppDimensions {
 
   // Spacing scale
   static const double spaceXSmall = 4.0;
-  static const double spaceSmall = 8.0;
+  static const double spaceSmall = 6.0;
   static const double spaceMedium = 16.0;
   static const double spaceLarge = 24.0;
   static const double spaceXLarge = 32.0;
@@ -23,9 +23,9 @@ class AppDimensions {
   static const double iconXLarge = 48.0;
 
   // Movie card dimensions
-  static const double movieCardWidth = 160.0;
-  static const double movieCardHeight = 240.0; // 2:3 aspect ratio
-  static const double movieCardWidthLarge = 200.0;
+  static const double movieCardWidth = 125.0;
+  static const double movieCardHeight = 187.5; // 2:3 aspect ratio
+  static const double movieCardWidthLarge = 160.0;
   static const double movieCardHeightLarge = 300.0;
 
   // Hero banner

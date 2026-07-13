@@ -1,5 +1,7 @@
 {
     "ignore": [
+        "data",
+        "data/*",
         "data/**",
         "temp/**",
         "scratch/**",

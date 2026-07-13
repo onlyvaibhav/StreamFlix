@@ -26,6 +26,8 @@ class TelegramClientService {
 
   String? _sessionString;
   String? _phoneCodeHash;
+  Map<String, dynamic>? _userObj;
+  String? _lastRawMsg;
 
   WebViewController get webViewController => _controller;
 
@@ -41,7 +43,7 @@ class TelegramClientService {
 
     if (!kIsWeb) {
       // Load from Flutter assets — this correctly resolves relative <script src="..."> paths
-      await _controller.loadFlutterAsset('assets/gramjs/index.html');
+      await _controller.loadFlutterAsset('assets/gramjs/gramjs_worker.html');
     }
   }
 
@@ -68,11 +70,14 @@ class TelegramClientService {
           _authStream.add('phoneCodeSent');
           break;
         case 'signedIn':
+          _lastRawMsg = message.message;
           _sessionString = msg['session'] as String?;
-          if (_sessionString != null) {
-            Hive.box('authBox').put('telegram_session', _sessionString!);
-          }
+          _userObj = msg['user'] != null ? Map<String, dynamic>.from(msg['user'] as Map) : null;
+          
           _authStream.add('signedIn');
+          break;
+        case 'passwordNeeded':
+          _authStream.add('passwordNeeded');
           break;
         case 'chunkResult':
           final reqId = msg['requestId'] as int;
@@ -89,10 +94,35 @@ class TelegramClientService {
             _pendingChunkRequests[reqId]!.completeError(Exception(error));
             _pendingChunkRequests.remove(reqId);
           }
+          final upperError = error.toUpperCase();
+          if (upperError.contains('AUTH_KEY_UNREGISTERED') || upperError.contains('SESSION_REVOKED') || upperError.contains('USER_DEACTIVATED')) {
+            _authStream.add('error:revoked');
+          }
+          break;
+        case 'fileReferenceRefreshed':
+          final requestId = int.parse(msg['requestId'].toString());
+          if (_pendingFileReferenceRequests.containsKey(requestId)) {
+            _pendingFileReferenceRequests[requestId]!.complete({
+              'fileReference': base64Decode(msg['data']),
+              'accessHash': msg['accessHash'],
+              'id': msg['id'],
+            });
+            _pendingFileReferenceRequests.remove(requestId);
+          }
+          break;
+        case 'fileReferenceError':
+          final requestId = int.parse(msg['requestId'].toString());
+          if (_pendingFileReferenceRequests.containsKey(requestId)) {
+            _pendingFileReferenceRequests[requestId]!.completeError(Exception(msg['error']));
+            _pendingFileReferenceRequests.remove(requestId);
+          }
           break;
         case 'error':
           debugPrint('❌ GramJS Error: ${msg['error']}');
           _authStream.add('error:${msg['error']}');
+          break;
+        case 'log':
+          debugPrint('📄 JS Log: ${msg['message']}');
           break;
         default:
           debugPrint('⚠️ Unknown message from JS: $type');
@@ -100,6 +130,24 @@ class TelegramClientService {
     } catch (e) {
       debugPrint('⚠️ Failed to parse message from JS: $e');
     }
+  }
+
+  final Map<int, Completer<Map<String, dynamic>>> _pendingFileReferenceRequests = {};
+
+  Future<Map<String, dynamic>> refreshFileReference(String channelId, String messageId) async {
+    await isReady;
+    final reqId = _requestIdCounter++;
+    final completer = Completer<Map<String, dynamic>>();
+    _pendingFileReferenceRequests[reqId] = completer;
+
+    _sendToJS({
+      'type': 'refreshFileReference',
+      'requestId': reqId,
+      'channelId': channelId,
+      'messageId': messageId,
+    });
+
+    return completer.future;
   }
 
   void _sendInit() {
@@ -133,7 +181,17 @@ class TelegramClientService {
     });
   }
 
+  Future<void> checkPassword(String password) async {
+    await isReady;
+    _sendToJS({
+      'type': 'checkPassword',
+      'password': password,
+    });
+  }
+
   String? get sessionString => _sessionString;
+  Map<String, dynamic>? get userObj => _userObj;
+  String? get lastRawMsg => _lastRawMsg;
 
   Future<Uint8List> fetchChunk({
     required int documentId,
@@ -154,7 +212,7 @@ class TelegramClientService {
       'offset': offset,
       'limit': limit,
       'fileData': {
-        'id': documentId,
+        'id': documentId.toString(),
         'accessHash': accessHash,
         'fileReference': base64Encode(fileReference),
       }

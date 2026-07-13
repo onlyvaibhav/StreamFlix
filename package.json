@@ -14,7 +14,7 @@
   },
   "scripts": {
     "start": "node server.js",
-    "dev": "nodemon server.js --ignore data/",
+    "dev": "nodemon server.js",
     "repair:metadata": "node services/metadataRepairWorker.js"
   },
   "dependencies": {

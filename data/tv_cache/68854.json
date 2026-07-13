@@ -1,0 +1,453 @@
+{
+  "showTmdbId": 68854,
+  "showTitle": "From Me to You: Kimi ni Todoke",
+  "originalShowTitle": "君に届け",
+  "overview": "Nicknamed \"Sadako\" for her spooky appearance, high schooler Sawako begins to break out of her shell when she befriends popular boy Kazehaya.",
+  "genres": [
+    "Animation",
+    "Drama"
+  ],
+  "rating": 8.376,
+  "popularity": 22.012,
+  "poster": "/data/posters/show_68854.jpg",
+  "backdrop": "/data/backdrops/show_68854_bd.jpg",
+  "totalSeasons": 3,
+  "totalEpisodes": 42,
+  "year": 2009,
+  "releaseDate": "2009-10-07",
+  "seasons": {
+    "1": [
+      {
+        "fileId": "1114",
+        "fileName": "Kimi_ni_Todoke_From_Me_to_You_S01E01_Prologue_BD1080pAV1OPUSMulti.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 1,
+        "episodeTitle": "Prologue",
+        "episodeOverview": "Kuronuma Sawako is often misunderstood and feared by others for resembling a horror movie character. She enters her new high school hoping that she can make new friends. Her chance comes when she volunteers to be a ghost for a school activity.",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "1115",
+        "fileName": "Kimi_ni_Todoke_From_Me_to_You_S01E02_Seat_Change_BD1080pAV1OPUSMulti.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 2,
+        "episodeTitle": "Seat Change",
+        "episodeOverview": "Sawako finds a lost puppy and Kazehaya decides to take him in. The class seats are shuffled and Sawako learns that she might have more friends than she first thought.",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "1116",
+        "fileName": "Kimi_ni_Todoke_From_Me_to_You_S01E03_After_School_BD1080pAV1OPUSMulti.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 3,
+        "episodeTitle": "After School",
+        "episodeOverview": "Kazehaya and Sawako grow closer together and end up performing some classroom chores together after school.",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "1117",
+        "fileName": "Kimi_ni_Todoke_From_Me_to_You_S01E04_Rumors_BD1080pAV1OPUSMulti.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 4,
+        "episodeTitle": "Rumors",
+        "episodeOverview": "Rumors are circulating about Sawako's friends, Ayane and Chizuru. It is said that Sawako started these rumors, but she is unaware that anything is going on at all. When approached about it, Sawako hesitates in her response.",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "1118",
+        "fileName": "Kimi_ni_Todoke_From_Me_to_You_S01E05_Determination_BD1080pAV1OPUSMulti.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 5,
+        "episodeTitle": "Determination",
+        "episodeOverview": "The group is plagued by questions. Did Sawako start these rumors? Why would she do that? Who could really be responsible? No answers are in sight and Sawako shrinks back into her old ways-quiet and alone.",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "1119",
+        "fileName": "Kimi_ni_Todoke_From_Me_to_You_S01E06_Friends_BD1080pAV1OPUSMulti.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 6,
+        "episodeTitle": "Friends",
+        "episodeOverview": "The rumor-mongers are outed and confronted when they decide to move against Sawako. Sawako learns who her true friends are.",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "1120",
+        "fileName": "Kimi_ni_Todoke_From_Me_to_You_S01E07_Saturday_Evening_BD1080pAV1OPUSMulti.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 7,
+        "episodeTitle": "Saturday Evening",
+        "episodeOverview": "Sawako is invited to hang out with friends for the first time ever. She meets up with Ayane and Chizuru, and then spend some time at Ryuu's place. Kazehaya is invited over and everyone has a wonderful time.",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "1121",
+        "fileName": "Kimi_ni_Todoke_From_Me_to_You_S01E08_Free_Practice_BD1080pAV1OPUSMulti.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 8,
+        "episodeTitle": "Free Practice",
+        "episodeOverview": "New rumors are circulating! Apparently, making Sawako laugh gives you good luck! Kazehaya's old friend Kurumi begins to get involved in things. Sawako and Kazehaya grow closer.",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "1122",
+        "fileName": "Kimi_ni_Todoke_From_Me_to_You_S01E09_New_Friend_BD1080pAV1OPUSMulti.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 9,
+        "episodeTitle": "New Friend",
+        "episodeOverview": "Kurumi decides to become friends with Sawako in order to get closer to Kazehaya, herself. Ayane and Chizuru are suspicious of this eternally-cheerful girl.",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "1123",
+        "fileName": "Kimi_ni_Todoke_From_Me_to_You_S01E10_Collaboration_BD1080pAV1OPUSMulti.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 10,
+        "episodeTitle": "Collaboration",
+        "episodeOverview": "Sawako finds herself unable to avoid Kurumi, who pops up around every corner to offer support or ask for something. An unfamiliar feeling surrounds Sawako and Kazehaya, who grow too flustered to speak with one another like they used to.",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "1124",
+        "fileName": "Kimi_ni_Todoke_From_Me_to_You_S01E11_Special_BD1080pAV1OPUSMulti.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 11,
+        "episodeTitle": "Special?",
+        "episodeOverview": "Kurumi has told Sawako her big secret, but Sawako apologizes and says that she cannot help. Kurumi reveals her true colors, but Sawako remains undeterred and promises to remain her friend.",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "1125",
+        "fileName": "Kimi_ni_Todoke_From_Me_to_You_S01E12_Romantic_Feelings_BD1080pAV1OPUSMulti.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 12,
+        "episodeTitle": "Romantic Feelings",
+        "episodeOverview": "During a school event, Sawako finds a mysterious note in her shoe locker. Apparently, Ryuu has something to admit to her. Kurumi and Kazehaya intervene with the worst possible timing for Sawako...",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "1126",
+        "fileName": "Kimi_ni_Todoke_From_Me_to_You_S01E13_Love_BD1080pAV1OPUSMulti_Audio.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 13,
+        "episodeTitle": "Love",
+        "episodeOverview": "Kurumi's ultimate plan backfires, as Kazehaya pulls Sawako away in private when he finds her alone with Ryuu. The misunderstanding is cleared up instantly, but the feelings stirring within both Sawako and Kazehaya only get more confusing.",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "1127",
+        "fileName": "Kimi_ni_Todoke_From_Me_to_You_S01E14_Kurumi_BD1080pAV1OPUSMulti.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 14,
+        "episodeTitle": "Kurumi",
+        "episodeOverview": "The girls confront Kurumi, who has done everything in her power to pull Kazehaya away from Sawako and toward herself. Despite admitting to it all, Sawako forgives Kurumi and continues to treat her like a friend.",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "1128",
+        "fileName": "Kimi_ni_Todoke_From_Me_to_You_S01E15_Rival_BD1080pAV1OPUSMulti_Audio.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 15,
+        "episodeTitle": "Rival",
+        "episodeOverview": "Bolstered by the resolve shown by Sawako, Kurumi thinks about her past with Kazehaya and decides on her future. She faces Kazehaya, swallows her fear, and tells him the truth...",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "1129",
+        "fileName": "Kimi_ni_Todoke_From_Me_to_You_S01E16_Night_Story_BD1080pAV1OPUSMulti.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 16,
+        "episodeTitle": "Night Story",
+        "episodeOverview": "This episode is a recap of episodes 1 through 15 narrated by the tiny men Pin sees.",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "1130",
+        "fileName": "Kimi_ni_Todoke_From_Me_to_You_S01E17_Holiday_BD1080pAV1OPUSMulti.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 17,
+        "episodeTitle": "Holiday",
+        "episodeOverview": "Sawako is invited to a group get-together on a day off. She is inundated with wonderful memories of that evening, having pictures taken, singing karaoke, and-though she was not aware of it-falling asleep on Kazehaya's shoulder.",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "1131",
+        "fileName": "Kimi_ni_Todoke_From_Me_to_You_S01E18_Chizuru's_Love_BD1080pAV1OPUSMulti.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 18,
+        "episodeTitle": "Chizuru's Love",
+        "episodeOverview": "Sawako joins Chizuru on a shopping trip where Chizuru buys an out-of-character feminine outfit. When asked, she talks about the boy she likes. Sawako, thinking it is Ryuu, gives her some advice. But the truth is a bit more complicated...",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "1132",
+        "fileName": "Kimi_ni_Todoke_From_Me_to_You_S01E19_Dream_BD1080pAV1OPUSMulti_Audio.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 19,
+        "episodeTitle": "Dream",
+        "episodeOverview": "Sawako finds herself once again over at Chizuru's house, where the group has gathered together for a night of fun. Suddenly, Ryuu's older brother, Tooru, arrives. Excited to see her crush, Chizuru leaps into his arms. And then she sees the girl...",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "1133",
+        "fileName": "Kimi_ni_Todoke_From_Me_to_You_S01E20_Present_BD1080pAV1OPUSMulti.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 20,
+        "episodeTitle": "Present",
+        "episodeOverview": "Both Sawako and Ayane are at a loss. How can they console their friend? Kazehaya says that doing nothing is the best thing, but is he right? How can Ryuu and Chizuru make up after such a bitter argument?",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "1134",
+        "fileName": "Kimi_ni_Todoke_From_Me_to_You_S01E21_First_Snow_BD1080pAV1OPUSMulti.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 21,
+        "episodeTitle": "First Snow",
+        "episodeOverview": "Tooru returns, and he wants to speak with Chizuru. He takes her on a long walk, past places they both remember from their youth, and he makes certain she is all right with his decision before leaving. Ryuu finds her at just the right time.",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "1135",
+        "fileName": "Kimi_ni_Todoke_From_Me_to_You_S01E22_Christmas_BD1080pAV1OPUSMulti.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 22,
+        "episodeTitle": "Christmas",
+        "episodeOverview": "It's time for the Christmas party! However, Sawako promised her family to celebrate with them. Her anxiety clearly visible, Sawako's parents reluctantly let their daughter go meet her friends. But not before her father gives her her present-a cell phone!",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "1136",
+        "fileName": "Kimi_ni_Todoke_From_Me_to_You_S01E23_The_Two_BD1080pAV1OPUSMulti.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 23,
+        "episodeTitle": "The Two",
+        "episodeOverview": "With the new year approaching, the group makes some plans to visit a local shrine together. New Year's Day also happens to be Sawako's birthday, so to celebrate, Chizuru and Ayane prepare a makeover session for Sawako in order to floor Kazehaya.",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "1137",
+        "fileName": "Kimi_ni_Todoke_From_Me_to_You_S01E24_Birthday_BD1080pAV1OPUSMulti.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 24,
+        "episodeTitle": "Birthday",
+        "episodeOverview": "The group decided to go to the local shrine \"together\" on New Year's Eve, but when Kazehaya and Sawako show up, the rest of the group mysteriously vanishes! What follows is an awkward, but heartwarming, first date.",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "1138",
+        "fileName": "Kimi_ni_Todoke_From_Me_to_You_S01E25_New_Year_BD1080pAV1OPUSMulti.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 25,
+        "episodeTitle": "New Year",
+        "episodeOverview": "The date continues at the shrine. Sawako and Kazehaya begin to tell one another about their past, about themselves, and about many other things. After their first year of knowing one another, Sawako is certain what she feels is love.",
+        "runtime": 23,
+        "tracks": null
+      }
+    ],
+    "2": [
+      {
+        "fileId": "1139",
+        "fileName": "Kimi_ni_Todoke_From_Me_to_You_S02E01_Valentine_BD1080pAV1OPUSMulti.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 1,
+        "episodeTitle": "Valentine",
+        "episodeOverview": "Sawako stayed up late making chocolate for her friends...and for Kazehaya. When she sees him receiving chocolates from others as obligatory \"thank-you\" gifts, she is worried hers would be seen the same way. Kurumi taunts her, and Sawako hesitates.",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "1140",
+        "fileName": "Kimi_ni_Todoke_From_Me_to_You_S02E02_2nd_Years_BD1080pAV1OPUSMulti.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 2,
+        "episodeTitle": "2nd Years",
+        "episodeOverview": "Ever since Valentine's Day, a palpable rift has formed between Sawako and Kazehaya. Neither seem entirely sure why it is there, but they have trouble communicating as openly as they had been. Ayane and Chizuru try to intervene, but...",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "1141",
+        "fileName": "Kimi_ni_Todoke_From_Me_to_You_S02E03_Forget_BD1080pAV1OPUSMulti.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 3,
+        "episodeTitle": "Forget",
+        "episodeOverview": "Kazehaya confides in Ryuu, while a new boy in class begins to flirt openly with Sawako. Realizing that such a pretty girl could get scooped up by another boy, Kazehaya tries to confront her as well as Kento.",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "1142",
+        "fileName": "Kimi_ni_Todoke_From_Me_to_You_S02E04_Misunderstood_BD1080pAV1OPUSMulti.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 4,
+        "episodeTitle": "Misunderstood",
+        "episodeOverview": "Sawako's friends have words with Kazehaya, who seems to be making every wrong move. He is told that he is the \"farthest away\" from Sawako, and that he should lay off her or else other girls will grow jealous. Ayane gives Sawako some valuable advice.",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "1143",
+        "fileName": "Kimi_ni_Todoke_From_Me_to_You_S02E05_The_Person_I_Like_BD1080pAV1OPUSMulti.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 5,
+        "episodeTitle": "The Person I Like",
+        "episodeOverview": "Sawako begins to piece together that she may be the one pushing Kazehaya away. Chizuru gets a makeover for Tooru's wedding. Kento makes a surprising confession.",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "1144",
+        "fileName": "Kimi_ni_Todoke_From_Me_to_You_S02E06_Favour_and_Imposition_BD1080pAV1OPUSMulti.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 6,
+        "episodeTitle": "Favour and Imposition",
+        "episodeOverview": "Misunderstandings abound as Kazehaya aggressively confronts Kento, who he believes made Sawako cry. Kazehaya and Sawako share a moment that becomes yet another misunderstanding that crushes her self-esteem.",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "1145",
+        "fileName": "Kimi_ni_Todoke_From_Me_to_You_S02E07_Just_Give_Up_BD1080pAV1OPUSMulti.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 7,
+        "episodeTitle": "Just Give Up",
+        "episodeOverview": "The misunderstanding builds as both Kazehaya and Sawako believe they rejected one another's confessions. Sawako seeks comfort in Kurumi, who tells her that she didn't even put up a fight for Kazehaya. These words resonate deeply inside Sawako.",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "1146",
+        "fileName": "Kimi_ni_Todoke_From_Me_to_You_S02E08_Reach_BD1080pAV1OPUSMulti_Audio.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 8,
+        "episodeTitle": "Reach",
+        "episodeOverview": "Support comes in unexpected forms, as both Kento and Kurumi give advice to Sawako and Kazehaya. It spurs Sawako on to take action. As she runs to find her crush, all she can think about is finally letting her feelings out.",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "1147",
+        "fileName": "Kimi_ni_Todoke_From_Me_to_You_S02E09_Confession_BD1080pAV1OPUSMulti.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 9,
+        "episodeTitle": "Confession",
+        "episodeOverview": "Even though a sliding door separates them, the words are heard loud and clear. There can be no more misunderstandings now.",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "1148",
+        "fileName": "Kimi_ni_Todoke_From_Me_to_You_S02E10_From_Now_On_BD1080pAV1OPUSMulti.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 10,
+        "episodeTitle": "From Now On",
+        "episodeOverview": "It's the day of the float parade! Everyone dons a thematic costume and word gets out about what happened between Kazehaya and Sawako. The two begin their lives together anew.",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "1149",
+        "fileName": "Kimi_ni_Todoke_From_Me_to_You_S02E11_After_the_Festival_BD1080pAV1OPUSMulti.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 11,
+        "episodeTitle": "After the Festival",
+        "episodeOverview": "Sawako and Kazehaya go to karaoke with a group of friends. It turns out to be their first true date, and before the night ends, both of them want to make sure they're on the same page. But what do they both want to make clear?",
+        "runtime": 23,
+        "tracks": null
+      },
+      {
+        "fileId": "1150",
+        "fileName": "Kimi_ni_Todoke_From_Me_to_You_S02E12_Important_Person_BD1080pAV1OPUSMulti.mkv",
+        "seasonNumber": 2,
+        "episodeNumber": 12,
+        "episodeTitle": "Important Person",
+        "episodeOverview": "Sawako has conquered the rumors and obstacles that stood between her and the boy she loves. She tells Kurumi what happened, and the two come to an understanding. Kazehaya and Sawako meet up outside of school for a day together, all alone...",
+        "runtime": 23,
+        "tracks": null
+      }
+    ],
+    "3": [
+      {
+        "fileId": "1151",
+        "fileName": "Kimi_ni_Todoke_From_Me_to_You_S03E01_There's_No_Way_I_Would_Hate.mkv",
+        "seasonNumber": 3,
+        "episodeNumber": 1,
+        "episodeTitle": "There's No Way I Would Hate You",
+        "episodeOverview": "Now officially a couple, Kazehaya and Sawako go on their first real date. Over summer vacation, Sawako asks Chizu and Ayane for relationship advice.",
+        "runtime": 67,
+        "tracks": null
+      },
+      {
+        "fileId": "1152",
+        "fileName": "Kimi_ni_Todoke_From_Me_to_You_S03E02_School_Trip_WEB1080pAV1OPUSDual.mkv",
+        "seasonNumber": 3,
+        "episodeNumber": 2,
+        "episodeTitle": "School Trip",
+        "episodeOverview": "With the class trip coming up, another boy approaches Ayane. When the students arrive in Okinawa, the new atmosphere causes big changes in everyone.",
+        "runtime": 67,
+        "tracks": null
+      },
+      {
+        "fileId": "1153",
+        "fileName": "Kimi_ni_Todoke_From_Me_to_You_S03E03_Girlfriend_and_Boyfriend_W.mkv",
+        "seasonNumber": 3,
+        "episodeNumber": 3,
+        "episodeTitle": "Girlfriend and Boyfriend",
+        "episodeOverview": "Sawako feels like Kazehaya is keeping his distance. After connecting with Ryu on the trip, Chizu tells her friends about her memories with him.",
+        "runtime": 65,
+        "tracks": null
+      },
+      {
+        "fileId": "1154",
+        "fileName": "Kimi_ni_Todoke_From_Me_to_You_S03E04_Christmas_Party_WEB1080pAV1OPUSDual.mkv",
+        "seasonNumber": 3,
+        "episodeNumber": 4,
+        "episodeTitle": "Christmas Party",
+        "episodeOverview": "Though Sawako is excited about celebrating Christmas with Kazehaya and her friends, everyone is preoccupied with their own romantic problems.",
+        "runtime": 73,
+        "tracks": null
+      },
+      {
+        "fileId": "1155",
+        "fileName": "Kimi_ni_Todoke_From_Me_to_You_S03E05_Happy_Moment_WEB1080pAV1OPUSDual.mkv",
+        "seasonNumber": 3,
+        "episodeNumber": 5,
+        "episodeTitle": "Happy Moment",
+        "episodeOverview": "After his teacher gives him some advice, Kazehaya finally talks to Sawako on their way home. The next day, everyone gathers at Sawako's house.",
+        "runtime": 64,
+        "tracks": null
+      }
+    ]
+  },
+  "episodes": [],
+  "availableSeasons": [
+    1,
+    2,
+    3
+  ],
+  "availableEpisodeCount": 42
+}

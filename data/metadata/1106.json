@@ -1,0 +1,40 @@
+{
+  "fileId": "1106",
+  "fileName": "A.Romance.of.the.Little.Forest.S01E30.1080p.HIN-CHI.AV1.mkv",
+  "type": "tv",
+  "title": "A Romance of the Little Forest",
+  "originalTitle": "两个人的小森林",
+  "overview": "A story following a botany professor focusing only on research and does not care for fame, money, or love. Meeting a girl he had ill feelings with in the past, their interest in one another develops as she shows off her doctorate knowledge in ornithology.",
+  "releaseDate": "2022-09-15",
+  "year": 2022,
+  "runtime": 45,
+  "genres": [
+    "Comedy",
+    "Drama"
+  ],
+  "rating": 7.1,
+  "popularity": 5.2785,
+  "awards": "1 nomination total",
+  "poster": "/data/posters/show_135185.jpg",
+  "backdrop": "/data/backdrops/show_135185_bd.jpg",
+  "tmdbId": 135185,
+  "fetchedAt": "2026-07-13T12:37:50.860Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "A Romance of the Little Forest",
+    "originalShowTitle": "两个人的小森林",
+    "seasonNumber": 1,
+    "episodeNumber": 30,
+    "episodeTitle": "Deeply in Love With You and No One Else",
+    "episodeOverview": "Zhuang Yu is speechless when he finds out Mei Ren refuses to eat with him because of Lyu Jian. He then ends up eating with Chang Yuan and the latter shares some dating advice. On the other hand, Xia Zhi's boss encourages her to get Zhuang Yu's trust so that she can be the brand ambassador of Lami.",
+    "showTmdbId": 135185,
+    "episodeRuntime": 45,
+    "totalSeasons": 1,
+    "totalEpisodes": 35
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "_tracksDetected": true,
+  "metadataStatus": "COMPLETE",
+  "logo": "/data/logos/show_135185_logo.png"
+}

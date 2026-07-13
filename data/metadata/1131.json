@@ -1,0 +1,40 @@
+{
+  "fileId": "1131",
+  "fileName": "Kimi_ni_Todoke_From_Me_to_You_S01E18_Chizuru's_Love_BD1080pAV1OPUSMulti.mkv",
+  "type": "tv",
+  "title": "From Me to You: Kimi ni Todoke",
+  "originalTitle": "君に届け",
+  "overview": "Nicknamed \"Sadako\" for her spooky appearance, high schooler Sawako begins to break out of her shell when she befriends popular boy Kazehaya.",
+  "releaseDate": "2009-10-07",
+  "year": 2009,
+  "runtime": 23,
+  "genres": [
+    "Animation",
+    "Drama"
+  ],
+  "rating": 8.376,
+  "popularity": 22.012,
+  "awards": "1 nomination total",
+  "poster": "/data/posters/show_68854.jpg",
+  "backdrop": "/data/backdrops/show_68854_bd.jpg",
+  "tmdbId": 68854,
+  "fetchedAt": "2026-07-13T12:30:37.206Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "From Me to You: Kimi ni Todoke",
+    "originalShowTitle": "君に届け",
+    "seasonNumber": 1,
+    "episodeNumber": 18,
+    "episodeTitle": "Chizuru's Love",
+    "episodeOverview": "Sawako joins Chizuru on a shopping trip where Chizuru buys an out-of-character feminine outfit. When asked, she talks about the boy she likes. Sawako, thinking it is Ryuu, gives her some advice. But the truth is a bit more complicated...",
+    "showTmdbId": 68854,
+    "episodeRuntime": 23,
+    "totalSeasons": 3,
+    "totalEpisodes": 42
+  },
+  "audioCodec": "opus",
+  "browserPlayable": true,
+  "_tracksDetected": true,
+  "metadataStatus": "COMPLETE",
+  "logo": "/data/logos/show_68854_logo.png"
+}

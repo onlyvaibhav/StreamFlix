@@ -119,9 +119,11 @@ GoRouter appRouter(Ref ref) {
         name: 'watch',
         pageBuilder: (context, state) {
           final movieId = state.pathParameters['id']!;
+          final startTimeStr = state.uri.queryParameters['startTime'];
+          final startTime = startTimeStr != null ? int.tryParse(startTimeStr) : null;
           return MaterialPage(
             key: state.pageKey,
-            child: WatchScreen(movieId: movieId),
+            child: WatchScreen(movieId: movieId, startTime: startTime),
           );
         },
       ),

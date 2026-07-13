@@ -13,7 +13,7 @@ _SplitPart _$SplitPartFromJson(Map<String, dynamic> json) => _SplitPart(
   fileName: json['fileName'] as String?,
   size: (json['size'] as num?)?.toInt(),
   sizeFormatted: json['sizeFormatted'] as String?,
-  duration: (json['duration'] as num?)?.toDouble(),
+  duration: (_readDuration(json, 'duration') as num?)?.toDouble(),
 );
 
 Map<String, dynamic> _$SplitPartToJson(_SplitPart instance) =>

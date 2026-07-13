@@ -28,7 +28,11 @@ class NavigationShell extends StatelessWidget {
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 15.0, sigmaY: 15.0),
           child: Container(
-            height: 70,
+            constraints: const BoxConstraints(minHeight: 70),
+            padding: const EdgeInsets.only(
+              top: 4,
+              bottom: 4,
+            ),
             decoration: BoxDecoration(
               color: Colors.black.withValues(alpha: 0.8),
               border: Border(

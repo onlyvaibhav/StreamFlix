@@ -53,6 +53,7 @@ dependencies:
   hive_flutter: ^1.1.0
   path_provider: ^2.1.6
   shelf_router: ^1.1.4
+  device_info_plus: ^13.2.0
 
 dependency_overrides:
   wakelock_plus: ^1.2.8
@@ -85,8 +86,9 @@ flutter:
   assets:
     - .env
     - assets/gramjs/
-    - assets/gramjs/index.html
+    - assets/gramjs/gramjs_worker.html
     - assets/gramjs/gramjs-worker-bundle.js
+    - assets/images/
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

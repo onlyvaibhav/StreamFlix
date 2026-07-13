@@ -105,11 +105,16 @@ async function initTelegramWorker() {
       telegramWorker = new Worker('/js/telegram-worker.js');
       
       await new Promise((resolve, reject) => {
-        telegramWorker.onmessage = (event) => {
+        telegramWorker.onmessage = async (event) => {
           if (event.data.type === 'INIT_OK') {
             resolve();
           } else if (event.data.type === 'INIT_ERROR') {
             reject(new Error(event.data.error));
+          } else if (event.data.type === 'SESSION_REVOKED') {
+            console.error('[Web] Telegram Session Revoked detected in worker!');
+            if (window.StreamFlixAuth) {
+              await window.StreamFlixAuth.logout(true);
+            }
           }
         };
         

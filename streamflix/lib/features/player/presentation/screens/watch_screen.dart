@@ -17,10 +17,12 @@ import 'package:streamflix/features/player/presentation/widgets/next_episode_ove
 
 class WatchScreen extends ConsumerStatefulWidget {
   final String movieId;
+  final int? startTime;
 
   const WatchScreen({
     super.key,
     required this.movieId,
+    this.startTime,
   });
 
   @override
@@ -33,7 +35,7 @@ class _WatchScreenState extends ConsumerState<WatchScreen> {
   
   // Gesture controls levels
   double _simulatedBrightness = 0.8;
-  double _nativeVolume = 0.5;
+  double _localVolume = 1.0;
   double _nativeBrightness = 1.0;
   bool _showVolumeIndicator = false;
   bool _showBrightnessIndicator = false;
@@ -53,11 +55,8 @@ class _WatchScreenState extends ConsumerState<WatchScreen> {
     _initializePlayer();
     _setLandscapeOrientation();
 
-    // Fetch initial native volume & brightness on Android
+    // Fetch initial native brightness on Android
     if (defaultTargetPlatform == TargetPlatform.android) {
-      NativeControls.getVolume().then((val) {
-        if (mounted) setState(() => _nativeVolume = val);
-      });
       NativeControls.getBrightness().then((val) {
         if (mounted) {
           setState(() {
@@ -84,7 +83,7 @@ class _WatchScreenState extends ConsumerState<WatchScreen> {
       final movieAsync = ref.read(movieDetailProvider(widget.movieId));
       if (movieAsync is AsyncData<Movie>) {
         final playerNotifier = ref.read(moviePlayerProvider(widget.movieId).notifier);
-        playerNotifier.play(movieAsync.value);
+        playerNotifier.play(movieAsync.value, explicitStartTime: widget.startTime);
       }
     });
   }
@@ -165,12 +164,22 @@ class _WatchScreenState extends ConsumerState<WatchScreen> {
   void _executeImmediateSeek(int seconds, bool isForward, mk.Player player, PlayerState playerState) {
     final notifier = ref.read(moviePlayerProvider(widget.movieId).notifier);
     
-    final currentPos = playerState.isRemuxing
-        ? player.state.position + Duration(milliseconds: (playerState.seekOffset * 1000).round())
-        : player.state.position;
-    final totalDur = playerState.isRemuxing
-        ? Duration(seconds: playerState.duration.round())
-        : player.state.duration;
+    final bool isMultipart = playerState.splitParts.isNotEmpty;
+    
+    Duration currentPos = player.state.position;
+    Duration totalDur = player.state.duration;
+
+    if (isMultipart) {
+      double accumulated = 0.0;
+      for (int i = 0; i < playerState.currentPartIndex; i++) {
+        accumulated += playerState.splitParts[i].duration ?? 0.0;
+      }
+      currentPos = player.state.position + Duration(milliseconds: (accumulated * 1000).round());
+      totalDur = Duration(seconds: playerState.duration.round());
+    } else if (playerState.isRemuxing) {
+      currentPos = player.state.position + Duration(milliseconds: (playerState.seekOffset * 1000).round());
+      totalDur = Duration(seconds: playerState.duration.round());
+    }
 
     Duration targetPos;
     if (isForward) {
@@ -221,40 +230,25 @@ class _WatchScreenState extends ConsumerState<WatchScreen> {
     _startHudTimer();
   }
 
-  // Handle vertical drag for player volume (native or local)
+  // Handle vertical drag for player volume
   void _handleVolumeDragStart(DragStartDetails details, mk.Player player) async {
     _hudTimer?.cancel();
-    if (defaultTargetPlatform == TargetPlatform.android) {
-      final currentVol = await NativeControls.getVolume();
-      setState(() {
-        _nativeVolume = currentVol;
-        _showVolumeIndicator = true;
-        _showBrightnessIndicator = false;
-      });
-    } else {
-      setState(() {
-        _nativeVolume = player.state.volume / 100.0;
-        _showVolumeIndicator = true;
-        _showBrightnessIndicator = false;
-      });
-    }
+    setState(() {
+      _localVolume = player.state.volume / 100.0;
+      _showVolumeIndicator = true;
+      _showBrightnessIndicator = false;
+    });
   }
 
   void _handleVolumeDragUpdate(DragUpdateDetails details, mk.Player player) {
     final height = MediaQuery.of(context).size.height;
-    // A vertical drag of 50% of the screen height covers the full volume range
+    // A vertical drag of 50% of the screen height covers 100% volume
     final delta = -details.primaryDelta! / (height * 0.5);
-    final newVol = (_nativeVolume + delta).clamp(0.0, 1.0);
+    final newVol = (_localVolume + delta).clamp(0.0, 2.0); // Allow up to 200%
     
-    _nativeVolume = newVol;
+    _localVolume = newVol;
     
-    if (defaultTargetPlatform == TargetPlatform.android) {
-      NativeControls.setVolume(newVol);
-      // Sync media-kit player volume
-      ref.read(moviePlayerProvider(widget.movieId).notifier).setVolume(newVol * 100.0);
-    } else {
-      ref.read(moviePlayerProvider(widget.movieId).notifier).setVolume(newVol * 100.0);
-    }
+    ref.read(moviePlayerProvider(widget.movieId).notifier).setVolume(newVol * 100.0);
     
     setState(() {});
     _startHudTimer();
@@ -291,7 +285,7 @@ class _WatchScreenState extends ConsumerState<WatchScreen> {
           },
         ),
         data: (playingMovie) {
-          if (playerState.movie == null && playerState.error == null) {
+          if (playerState.movie == null && playerState.error == null && !playerState.isLoading) {
             WidgetsBinding.instance.addPostFrameCallback((_) {
               ref.read(moviePlayerProvider(widget.movieId).notifier).play(playingMovie);
             });
@@ -309,54 +303,45 @@ class _WatchScreenState extends ConsumerState<WatchScreen> {
             );
           }
 
-          return Stack(
-            children: [
-              // 1. Video view with custom Subtitle style
-              Positioned.fill(
-                child: Video(
-                  controller: playerState.videoController,
-                  subtitleViewConfiguration: SubtitleViewConfiguration(
-                    style: TextStyle(
-                      fontSize: playerState.subtitleFontSize, // dynamically bound and increased by 2
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      backgroundColor: Colors.black.withValues(alpha: 0.85), // black background box for high legibility
+          return GestureDetector(
+            onTapUp: (details) {
+              final isRightSide = details.globalPosition.dx > MediaQuery.of(context).size.width / 2;
+              _handleTap(isRightSide, playerState.player, playerState);
+            },
+            onVerticalDragStart: (details) {
+              final isRightSide = details.globalPosition.dx > MediaQuery.of(context).size.width / 2;
+              if (isRightSide) {
+                _handleBrightnessDragStart(details);
+              } else {
+                _handleVolumeDragStart(details, playerState.player);
+              }
+            },
+            onVerticalDragUpdate: (details) {
+              final isRightSide = details.globalPosition.dx > MediaQuery.of(context).size.width / 2;
+              if (isRightSide) {
+                _handleBrightnessDragUpdate(details);
+              } else {
+                _handleVolumeDragUpdate(details, playerState.player);
+              }
+            },
+            behavior: HitTestBehavior.opaque,
+            child: Stack(
+              children: [
+                // 1. Video view with custom Subtitle style
+                Positioned.fill(
+                  child: Video(
+                    controller: playerState.videoController,
+                    controls: NoVideoControls,
+                    subtitleViewConfiguration: SubtitleViewConfiguration(
+                      style: TextStyle(
+                        fontSize: playerState.subtitleFontSize, // dynamically bound and increased by 2
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        backgroundColor: Colors.black.withValues(alpha: 0.85), // black background box for high legibility
+                      ),
                     ),
                   ),
                 ),
-              ),
-
-              // 2. Gesture Detector halves (Swapped: Left for Volume, Right for Brightness)
-              Row(
-                children: [
-                  // Left half: Volume drag
-                  Expanded(
-                    child: GestureDetector(
-                      onTap: () => _handleTap(false, playerState.player, playerState),
-                      onVerticalDragStart: (details) => _handleVolumeDragStart(
-                        details,
-                        playerState.player,
-                      ),
-                      onVerticalDragUpdate: (details) => _handleVolumeDragUpdate(
-                        details,
-                        playerState.player,
-                      ),
-                      behavior: HitTestBehavior.translucent,
-                      child: Container(color: Colors.transparent),
-                    ),
-                  ),
-                  // Right half: Brightness drag
-                  Expanded(
-                    child: GestureDetector(
-                      onTap: () => _handleTap(true, playerState.player, playerState),
-                      onVerticalDragStart: _handleBrightnessDragStart,
-                      onVerticalDragUpdate: _handleBrightnessDragUpdate,
-                      behavior: HitTestBehavior.translucent,
-                      child: Container(color: Colors.transparent),
-                    ),
-                  ),
-                ],
-              ),
 
               // 3. Double-Tap Seek Pulse Indicators
               if (_showSeekFlash)
@@ -381,6 +366,18 @@ class _WatchScreenState extends ConsumerState<WatchScreen> {
                               _isSeekForwardFlash ? Icons.fast_forward_rounded : Icons.fast_rewind_rounded,
                               size: 44,
                               color: Colors.white,
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              '${_isSeekForwardFlash ? '+' : '-'}${_accumulatedSeekSeconds}s',
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                shadows: [
+                                  Shadow(color: Colors.black54, blurRadius: 4, offset: Offset(1, 1))
+                                ],
+                              ),
                             ),
                           ],
                         ),
@@ -408,7 +405,8 @@ class _WatchScreenState extends ConsumerState<WatchScreen> {
                   bottom: MediaQuery.of(context).size.height * 0.25,
                   child: _buildHudIndicator(
                     icon: Icons.volume_up_rounded,
-                    value: _nativeVolume,
+                    value: _localVolume,
+                    isVolume: true,
                   ),
                 ),
 
@@ -421,6 +419,7 @@ class _WatchScreenState extends ConsumerState<WatchScreen> {
                   child: _buildHudIndicator(
                     icon: Icons.brightness_6_rounded,
                     value: _simulatedBrightness,
+                    isVolume: false,
                   ),
                 ),
 
@@ -469,44 +468,60 @@ class _WatchScreenState extends ConsumerState<WatchScreen> {
                 },
               ),
             ],
+            ),
           );
         },
       ),
     );
   }
 
-  Widget _buildHudIndicator({required IconData icon, required double value}) {
+  Widget _buildHudIndicator({required IconData icon, required double value, required bool isVolume}) {
+    IconData dynamicIcon = icon;
+    Color accentColor = AppColors.netflixRed;
+    
+    if (isVolume) {
+      if (value == 0) {
+        dynamicIcon = Icons.volume_off_rounded;
+      } else if (value > 1.0) {
+        dynamicIcon = Icons.volume_up_rounded;
+        accentColor = Colors.orangeAccent; // Highlight audio boost
+      } else {
+        dynamicIcon = Icons.volume_down_rounded;
+      }
+    }
+
+    double fillRatio = isVolume ? (value / 2.0).clamp(0.0, 1.0) : value.clamp(0.0, 1.0);
+
     return Container(
-      width: 50,
-      height: 240,
+      width: 48,
+      height: 220,
       decoration: BoxDecoration(
-        color: Colors.black.withValues(alpha: 0.6),
-        borderRadius: BorderRadius.circular(25),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.15), width: 1.5),
+        color: Colors.black.withValues(alpha: 0.5),
+        borderRadius: BorderRadius.circular(24),
       ),
       padding: const EdgeInsets.symmetric(vertical: 16),
       child: Column(
         children: [
-          Icon(icon, color: Colors.white, size: 24),
-          const SizedBox(height: 16),
+          Icon(dynamicIcon, color: Colors.white, size: 22),
+          const SizedBox(height: 12),
           Expanded(
             child: Container(
-              width: 6,
+              width: 4,
               decoration: BoxDecoration(
-                color: Colors.white24,
-                borderRadius: BorderRadius.circular(3),
+                color: Colors.white.withValues(alpha: 0.2),
+                borderRadius: BorderRadius.circular(2),
               ),
               alignment: Alignment.bottomCenter,
               child: FractionallySizedBox(
-                heightFactor: value.clamp(0.0, 1.0),
+                heightFactor: fillRatio,
                 child: Container(
                   decoration: BoxDecoration(
-                    color: AppColors.netflixRed,
-                    borderRadius: BorderRadius.circular(3),
+                    color: accentColor,
+                    borderRadius: BorderRadius.circular(2),
                     boxShadow: [
                       BoxShadow(
-                        color: AppColors.netflixRed.withValues(alpha: 0.5),
-                        blurRadius: 6,
+                        color: accentColor.withValues(alpha: 0.4),
+                        blurRadius: 4,
                         spreadRadius: 1,
                       ),
                     ],
@@ -521,7 +536,7 @@ class _WatchScreenState extends ConsumerState<WatchScreen> {
             style: const TextStyle(
               color: Colors.white,
               fontSize: 10,
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w600,
             ),
           ),
         ],

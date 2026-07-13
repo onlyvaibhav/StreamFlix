@@ -1,0 +1,30 @@
+{
+  "fileId": "1077",
+  "fileName": "Awarapan_2007_RogMovies_AMZN_WebRip_Hindi_720p_x264_VegaMovies_hot.mkv",
+  "type": "movie",
+  "title": "Awarapan",
+  "originalTitle": "आवारापन",
+  "overview": "A loyal henchman is ordered by his boss to keep an eye on his mistress, and trouble begins when he refuses to kill her.",
+  "releaseDate": "2007-06-29",
+  "year": 2007,
+  "runtime": 124,
+  "genres": [
+    "Action",
+    "Drama",
+    "Crime"
+  ],
+  "rating": 6.8,
+  "popularity": 2.871,
+  "awards": "1 nomination total",
+  "poster": "/data/posters/1077.jpg",
+  "backdrop": "/data/backdrops/1077_bd.jpg",
+  "tmdbId": 22448,
+  "fetchedAt": "2026-07-13T12:44:58.050Z",
+  "needsRetry": false,
+  "tv": null,
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "_tracksDetected": true,
+  "metadataStatus": "COMPLETE",
+  "logo": "/data/logos/1077_logo.png"
+}

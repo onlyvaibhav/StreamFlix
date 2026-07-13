@@ -1,0 +1,40 @@
+{
+  "fileId": "1154",
+  "fileName": "Kimi_ni_Todoke_From_Me_to_You_S03E04_Christmas_Party_WEB1080pAV1OPUSDual.mkv",
+  "type": "tv",
+  "title": "From Me to You: Kimi ni Todoke",
+  "originalTitle": "君に届け",
+  "overview": "Nicknamed \"Sadako\" for her spooky appearance, high schooler Sawako begins to break out of her shell when she befriends popular boy Kazehaya.",
+  "releaseDate": "2009-10-07",
+  "year": 2009,
+  "runtime": 73,
+  "genres": [
+    "Animation",
+    "Drama"
+  ],
+  "rating": 8.376,
+  "popularity": 22.012,
+  "awards": "1 nomination total",
+  "poster": "/data/posters/show_68854.jpg",
+  "backdrop": "/data/backdrops/show_68854_bd.jpg",
+  "tmdbId": 68854,
+  "fetchedAt": "2026-07-13T12:24:54.852Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "From Me to You: Kimi ni Todoke",
+    "originalShowTitle": "君に届け",
+    "seasonNumber": 3,
+    "episodeNumber": 4,
+    "episodeTitle": "Christmas Party",
+    "episodeOverview": "Though Sawako is excited about celebrating Christmas with Kazehaya and her friends, everyone is preoccupied with their own romantic problems.",
+    "showTmdbId": 68854,
+    "episodeRuntime": 73,
+    "totalSeasons": 3,
+    "totalEpisodes": 42
+  },
+  "audioCodec": "opus",
+  "browserPlayable": true,
+  "_tracksDetected": true,
+  "metadataStatus": "COMPLETE",
+  "logo": "/data/logos/show_68854_logo.png"
+}

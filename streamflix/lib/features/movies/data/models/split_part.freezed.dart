@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$SplitPart {
 
- String? get fileId; int? get messageId; int? get partNumber; String? get fileName; int? get size; String? get sizeFormatted; double? get duration;
+ String? get fileId; int? get messageId; int? get partNumber; String? get fileName; int? get size; String? get sizeFormatted;@JsonKey(readValue: _readDuration) double? get duration;
 /// Create a copy of SplitPart
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $SplitPartCopyWith<$Res>  {
   factory $SplitPartCopyWith(SplitPart value, $Res Function(SplitPart) _then) = _$SplitPartCopyWithImpl;
 @useResult
 $Res call({
- String? fileId, int? messageId, int? partNumber, String? fileName, int? size, String? sizeFormatted, double? duration
+ String? fileId, int? messageId, int? partNumber, String? fileName, int? size, String? sizeFormatted,@JsonKey(readValue: _readDuration) double? duration
 });
 
 
@@ -156,7 +156,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? fileId,  int? messageId,  int? partNumber,  String? fileName,  int? size,  String? sizeFormatted,  double? duration)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? fileId,  int? messageId,  int? partNumber,  String? fileName,  int? size,  String? sizeFormatted, @JsonKey(readValue: _readDuration)  double? duration)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SplitPart() when $default != null:
 return $default(_that.fileId,_that.messageId,_that.partNumber,_that.fileName,_that.size,_that.sizeFormatted,_that.duration);case _:
@@ -177,7 +177,7 @@ return $default(_that.fileId,_that.messageId,_that.partNumber,_that.fileName,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? fileId,  int? messageId,  int? partNumber,  String? fileName,  int? size,  String? sizeFormatted,  double? duration)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? fileId,  int? messageId,  int? partNumber,  String? fileName,  int? size,  String? sizeFormatted, @JsonKey(readValue: _readDuration)  double? duration)  $default,) {final _that = this;
 switch (_that) {
 case _SplitPart():
 return $default(_that.fileId,_that.messageId,_that.partNumber,_that.fileName,_that.size,_that.sizeFormatted,_that.duration);}
@@ -194,7 +194,7 @@ return $default(_that.fileId,_that.messageId,_that.partNumber,_that.fileName,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? fileId,  int? messageId,  int? partNumber,  String? fileName,  int? size,  String? sizeFormatted,  double? duration)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? fileId,  int? messageId,  int? partNumber,  String? fileName,  int? size,  String? sizeFormatted, @JsonKey(readValue: _readDuration)  double? duration)?  $default,) {final _that = this;
 switch (_that) {
 case _SplitPart() when $default != null:
 return $default(_that.fileId,_that.messageId,_that.partNumber,_that.fileName,_that.size,_that.sizeFormatted,_that.duration);case _:
@@ -209,7 +209,7 @@ return $default(_that.fileId,_that.messageId,_that.partNumber,_that.fileName,_th
 @JsonSerializable()
 
 class _SplitPart implements SplitPart {
-  const _SplitPart({this.fileId, this.messageId, this.partNumber, this.fileName, this.size, this.sizeFormatted, this.duration});
+  const _SplitPart({this.fileId, this.messageId, this.partNumber, this.fileName, this.size, this.sizeFormatted, @JsonKey(readValue: _readDuration) this.duration});
   factory _SplitPart.fromJson(Map<String, dynamic> json) => _$SplitPartFromJson(json);
 
 @override final  String? fileId;
@@ -218,7 +218,7 @@ class _SplitPart implements SplitPart {
 @override final  String? fileName;
 @override final  int? size;
 @override final  String? sizeFormatted;
-@override final  double? duration;
+@override@JsonKey(readValue: _readDuration) final  double? duration;
 
 /// Create a copy of SplitPart
 /// with the given fields replaced by the non-null parameter values.
@@ -253,7 +253,7 @@ abstract mixin class _$SplitPartCopyWith<$Res> implements $SplitPartCopyWith<$Re
   factory _$SplitPartCopyWith(_SplitPart value, $Res Function(_SplitPart) _then) = __$SplitPartCopyWithImpl;
 @override @useResult
 $Res call({
- String? fileId, int? messageId, int? partNumber, String? fileName, int? size, String? sizeFormatted, double? duration
+ String? fileId, int? messageId, int? partNumber, String? fileName, int? size, String? sizeFormatted,@JsonKey(readValue: _readDuration) double? duration
 });
 
 

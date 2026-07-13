@@ -1,0 +1,40 @@
+{
+  "fileId": "1134",
+  "fileName": "Kimi_ni_Todoke_From_Me_to_You_S01E21_First_Snow_BD1080pAV1OPUSMulti.mkv",
+  "type": "tv",
+  "title": "From Me to You: Kimi ni Todoke",
+  "originalTitle": "君に届け",
+  "overview": "Nicknamed \"Sadako\" for her spooky appearance, high schooler Sawako begins to break out of her shell when she befriends popular boy Kazehaya.",
+  "releaseDate": "2009-10-07",
+  "year": 2009,
+  "runtime": 23,
+  "genres": [
+    "Animation",
+    "Drama"
+  ],
+  "rating": 8.376,
+  "popularity": 22.012,
+  "awards": "1 nomination total",
+  "poster": "/data/posters/show_68854.jpg",
+  "backdrop": "/data/backdrops/show_68854_bd.jpg",
+  "tmdbId": 68854,
+  "fetchedAt": "2026-07-13T12:29:31.484Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "From Me to You: Kimi ni Todoke",
+    "originalShowTitle": "君に届け",
+    "seasonNumber": 1,
+    "episodeNumber": 21,
+    "episodeTitle": "First Snow",
+    "episodeOverview": "Tooru returns, and he wants to speak with Chizuru. He takes her on a long walk, past places they both remember from their youth, and he makes certain she is all right with his decision before leaving. Ryuu finds her at just the right time.",
+    "showTmdbId": 68854,
+    "episodeRuntime": 23,
+    "totalSeasons": 3,
+    "totalEpisodes": 42
+  },
+  "audioCodec": "opus",
+  "browserPlayable": true,
+  "_tracksDetected": true,
+  "metadataStatus": "COMPLETE",
+  "logo": "/data/logos/show_68854_logo.png"
+}

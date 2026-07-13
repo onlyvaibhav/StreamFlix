@@ -146,7 +146,8 @@ async function syncSession(sessionData) {
     telegram_session: sessionData.telegramSession,
     created_at: new Date().toISOString(),
     last_used: new Date().toISOString(),
-    expires_at: sessionData.expiresAt ? new Date(sessionData.expiresAt).toISOString() : null
+    expires_at: sessionData.expiresAt ? new Date(sessionData.expiresAt).toISOString() : null,
+    status: 'active'
   });
 
   if (!isEnabled()) {
@@ -160,7 +161,8 @@ async function syncSession(sessionData) {
       device_id: sessionData.deviceId,
       telegram_session: sessionData.telegramSession, // Encrypted session string
       last_used: new Date().toISOString(),
-      expires_at: sessionData.expiresAt ? new Date(sessionData.expiresAt).toISOString() : null
+      expires_at: sessionData.expiresAt ? new Date(sessionData.expiresAt).toISOString() : null,
+      status: 'active'
     };
 
     const { data, error } = await supabase
@@ -223,6 +225,7 @@ async function getSession(sessionId) {
     created_at: memSession.created_at,
     last_used: memSession.last_used,
     expires_at: memSession.expires_at,
+    status: memSession.status,
     users: memUser || {
       telegram_id: memSession.telegram_id,
       first_name: 'Telegram User'
@@ -231,26 +234,29 @@ async function getSession(sessionId) {
 }
 
 /**
- * Delete session by ID (revocation).
+ * Update session expiry status (revocation/logout).
  */
-async function deleteSession(sessionId) {
-  memorySessions.delete(sessionId);
+async function markSessionRevoked(sessionId, status) {
+  const memSession = memorySessions.get(sessionId);
+  if (memSession) {
+    memSession.status = status;
+  }
 
   if (!isEnabled()) return true;
 
   try {
     const { error } = await supabase
       .from('sessions')
-      .delete()
+      .update({ status: status })
       .eq('session_id', sessionId);
 
     if (error) {
-      console.error('❌ Supabase deleteSession error:', error.message);
+      console.error('❌ Supabase markSessionRevoked error:', error.message);
       return false;
     }
     return true;
   } catch (err) {
-    console.error('❌ Failed to delete session in Supabase:', err.message);
+    console.error('❌ Failed to update session in Supabase:', err.message);
     return false;
   }
 }
@@ -350,7 +356,7 @@ module.exports = {
   syncDevice,
   syncSession,
   getSession,
-  deleteSession,
+  markSessionRevoked,
   syncWatchProgress,
   getWatchProgress,
 };

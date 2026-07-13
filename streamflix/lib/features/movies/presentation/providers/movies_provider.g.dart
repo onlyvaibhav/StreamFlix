@@ -562,7 +562,7 @@ final continueWatchingProvider = ContinueWatchingProvider._();
 
 /// Provider for managing and retrieving watch progress history
 final class ContinueWatchingProvider
-    extends $NotifierProvider<ContinueWatching, List<WatchHistoryItem>> {
+    extends $AsyncNotifierProvider<ContinueWatching, List<WatchHistoryItem>> {
   /// Provider for managing and retrieving watch progress history
   ContinueWatchingProvider._()
     : super(
@@ -581,32 +581,29 @@ final class ContinueWatchingProvider
   @$internal
   @override
   ContinueWatching create() => ContinueWatching();
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(List<WatchHistoryItem> value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<List<WatchHistoryItem>>(value),
-    );
-  }
 }
 
-String _$continueWatchingHash() => r'bbcd3e67db3366a24c963e89109491c8f9c82989';
+String _$continueWatchingHash() => r'5275fc7b77afd39017c7be2ea3339ebd41ac4127';
 
 /// Provider for managing and retrieving watch progress history
 
-abstract class _$ContinueWatching extends $Notifier<List<WatchHistoryItem>> {
-  List<WatchHistoryItem> build();
+abstract class _$ContinueWatching
+    extends $AsyncNotifier<List<WatchHistoryItem>> {
+  FutureOr<List<WatchHistoryItem>> build();
   @$mustCallSuper
   @override
   WhenComplete runBuild() {
     final ref =
-        this.ref as $Ref<List<WatchHistoryItem>, List<WatchHistoryItem>>;
+        this.ref
+            as $Ref<AsyncValue<List<WatchHistoryItem>>, List<WatchHistoryItem>>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<List<WatchHistoryItem>, List<WatchHistoryItem>>,
-              List<WatchHistoryItem>,
+              AnyNotifier<
+                AsyncValue<List<WatchHistoryItem>>,
+                List<WatchHistoryItem>
+              >,
+              AsyncValue<List<WatchHistoryItem>>,
               Object?,
               Object?
             >;

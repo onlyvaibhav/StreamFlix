@@ -13,6 +13,17 @@
                 console.warn("FlutterChannel not found", msg);
             }
         }
+        
+        window.onerror = function(message, source, lineno, colno, error) {
+            sendToFlutter({ type: "error", error: message + " at " + source + ":" + lineno });
+        };
+        
+        console.log = function(...args) {
+            sendToFlutter({ type: "log", message: args.join(" ") });
+        };
+        console.error = function(...args) {
+            sendToFlutter({ type: "error", error: args.join(" ") });
+        };
 
         let client = null;
         let session = null;
@@ -23,15 +34,30 @@
 
         async function initClient(sessionString) {
             try {
-                const { TelegramClient, StringSession, PromisedWebSockets } = GramJSWorker;
+                const { TelegramClient, StringSession, PromisedWebSockets, ConnectionTCPObfuscated } = GramJSWorker;
                 
                 session = new StringSession(sessionString || "");
+                
+                const dcId = session.dcId;
+                const webDcDomains = {
+                    1: "pluto.web.telegram.org",
+                    2: "venus.web.telegram.org",
+                    3: "aurora.web.telegram.org",
+                    4: "vesta.web.telegram.org",
+                    5: "flora.web.telegram.org"
+                };
+                
+                if (webDcDomains[dcId]) {
+                    session.setDC(dcId, webDcDomains[dcId], 443);
+                }
                 
                 // CRITICAL BUG FIX (Web): Use PromisedWebSockets and explicitly configure connection to avoid raw TCP fallback loops
                 client = new TelegramClient(session, apiId, apiHash, {
                     connectionRetries: 5,
                     useWSS: true,
-                    // Use a websocket connection for the webview environment since raw TCP won't work
+                    connection: ConnectionTCPObfuscated,
+                    networkSocket: PromisedWebSockets,
+                    autoReconnect: true
                 });
 
                 // CRITICAL BUG FIX (Web): Disable the unnecessary update loop that causes timeouts/crashes
@@ -75,14 +101,74 @@
                     sendToFlutter({ type: "error", error: "Client not connected." });
                     return;
                 }
-                await client.invoke(
+                const result = await client.invoke(
                     new GramJSWorker.Api.auth.SignIn({
                         phoneNumber,
                         phoneCodeHash,
                         phoneCode
                     })
                 );
-                sendToFlutter({ type: "signedIn", session: client.session.save() });
+                
+                let me = result.user;
+                if (!me) {
+                    me = await client.getMe();
+                }
+                
+                const userObj = {
+                    telegramId: me.id ? me.id.toString() : "",
+                    username: me.username || "",
+                    firstName: me.firstName || "Telegram User",
+                    lastName: me.lastName || "",
+                    phone: me.phone || "",
+                    premium: !!me.premium,
+                    language: me.langCode || "en",
+                    profilePhoto: me.photo ? "has_photo" : null
+                };
+
+                sendToFlutter({ 
+                    type: "signedIn", 
+                    session: client.session.save(),
+                    user: userObj
+                });
+            } catch (err) {
+                if (err.message && err.message.includes('SESSION_PASSWORD_NEEDED')) {
+                    sendToFlutter({ type: "passwordNeeded" });
+                } else {
+                    sendToFlutter({ type: "error", error: err.toString() });
+                }
+            }
+        }
+
+        async function signInWithPassword(password) {
+            try {
+                if (!client || !isConnected) {
+                    sendToFlutter({ type: "error", error: "Client not connected." });
+                    return;
+                }
+                const result = await client.signInWithPassword(
+                    { apiId: apiId, apiHash: apiHash },
+                    { password: async () => password, onError: (e) => { throw e; } }
+                );
+                
+                let me = client.session.save();
+                me = await client.getMe();
+                
+                const userObj = {
+                    telegramId: me.id ? me.id.toString() : "",
+                    username: me.username || "",
+                    firstName: me.firstName || "Telegram User",
+                    lastName: me.lastName || "",
+                    phone: me.phone || "",
+                    premium: !!me.premium,
+                    language: me.langCode || "en",
+                    profilePhoto: me.photo ? "has_photo" : null
+                };
+
+                sendToFlutter({ 
+                    type: "signedIn", 
+                    session: client.session.save(),
+                    user: userObj
+                });
             } catch (err) {
                 sendToFlutter({ type: "error", error: err.toString() });
             }
@@ -104,8 +190,8 @@
                 }
 
                 const location = new GramJSWorker.Api.InputDocumentFileLocation({
-                    id: fileData.id,
-                    accessHash: fileData.accessHash,
+                    id: fileData.id ? BigInt(fileData.id) : undefined,
+                    accessHash: fileData.accessHash ? BigInt(fileData.accessHash) : undefined,
                     fileReference: refBuffer,
                     thumbSize: ""
                 });
@@ -114,7 +200,7 @@
                 // The loopback server in Dart must handle the exact slicing, but GramJS will fetch the exact aligned offset
                 const result = await client.invoke(new GramJSWorker.Api.upload.GetFile({
                     location,
-                    offset: offset,
+                    offset: BigInt(offset),
                     limit: limit,
                     precise: true
                 }));
@@ -153,8 +239,41 @@
                 else if (msg.type === "signIn") {
                     await signIn(msg.phoneNumber, msg.phoneCodeHash, msg.phoneCode);
                 }
+                else if (msg.type === "checkPassword") {
+                    await signInWithPassword(msg.password);
+                }
                 else if (msg.type === "fetchChunk") {
                     await fetchChunk(msg.requestId, msg.fileData, msg.offset, msg.limit);
+                }
+                else if (msg.type === "refreshFileReference") {
+                    try {
+                        let channelIdStr = msg.channelId.toString();
+                        // Handle -100 prefix if missing for some reason, though it should be passed correctly
+                        if (!channelIdStr.startsWith('-100')) {
+                            channelIdStr = '-100' + channelIdStr.replace('-', '');
+                        }
+                        const channel = await client.getEntity(channelIdStr);
+                        const result = await client.invoke(new GramJSWorker.Api.channels.GetMessages({
+                            channel: channel,
+                            id: [new GramJSWorker.Api.InputMessageID({ id: parseInt(msg.messageId) })]
+                        }));
+                        if (result.messages && result.messages.length > 0 && result.messages[0].media && result.messages[0].media.document) {
+                            const doc = result.messages[0].media.document;
+                            const newRef = doc.fileReference;
+                            const base64String = GramJSWorker.Buffer.from(newRef).toString('base64');
+                            sendToFlutter({ 
+                                type: "fileReferenceRefreshed", 
+                                requestId: msg.requestId, 
+                                data: base64String,
+                                accessHash: doc.accessHash ? doc.accessHash.toString() : undefined,
+                                id: doc.id ? doc.id.toString() : undefined
+                            });
+                        } else {
+                            sendToFlutter({ type: "fileReferenceError", requestId: msg.requestId, error: "Message or document not found" });
+                        }
+                    } catch (err) {
+                        sendToFlutter({ type: "fileReferenceError", requestId: msg.requestId, error: err.toString() });
+                    }
                 }
             } catch(e) {
                 sendToFlutter({ type: "error", error: "Bad message format: " + e.toString() });

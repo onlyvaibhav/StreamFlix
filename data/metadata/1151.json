@@ -1,0 +1,40 @@
+{
+  "fileId": "1151",
+  "fileName": "Kimi_ni_Todoke_From_Me_to_You_S03E01_There's_No_Way_I_Would_Hate.mkv",
+  "type": "tv",
+  "title": "From Me to You: Kimi ni Todoke",
+  "originalTitle": "君に届け",
+  "overview": "Nicknamed \"Sadako\" for her spooky appearance, high schooler Sawako begins to break out of her shell when she befriends popular boy Kazehaya.",
+  "releaseDate": "2009-10-07",
+  "year": 2009,
+  "runtime": 67,
+  "genres": [
+    "Animation",
+    "Drama"
+  ],
+  "rating": 8.376,
+  "popularity": 22.012,
+  "awards": "1 nomination total",
+  "poster": "/data/posters/show_68854.jpg",
+  "backdrop": "/data/backdrops/show_68854_bd.jpg",
+  "tmdbId": 68854,
+  "fetchedAt": "2026-07-13T12:25:30.661Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "From Me to You: Kimi ni Todoke",
+    "originalShowTitle": "君に届け",
+    "seasonNumber": 3,
+    "episodeNumber": 1,
+    "episodeTitle": "There's No Way I Would Hate You",
+    "episodeOverview": "Now officially a couple, Kazehaya and Sawako go on their first real date. Over summer vacation, Sawako asks Chizu and Ayane for relationship advice.",
+    "showTmdbId": 68854,
+    "episodeRuntime": 67,
+    "totalSeasons": 3,
+    "totalEpisodes": 42
+  },
+  "audioCodec": "opus",
+  "browserPlayable": true,
+  "_tracksDetected": true,
+  "metadataStatus": "COMPLETE",
+  "logo": "/data/logos/show_68854_logo.png"
+}

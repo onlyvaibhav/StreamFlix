@@ -1,16 +1,19 @@
 {
   "showTmdbId": 297171,
   "showTitle": "Made in India: A Titan Story",
+  "originalShowTitle": "Made in India: A Titan Story",
   "overview": "In a market ruled by smuggling and foreign brands, a determined Indian man Xerxes Desai, with the help of his team, dares to build a world-class watch from scratch. Battling rejection, failure, and global humiliation, they transform Titan into a symbol of national pride and innovation.",
   "genres": [
     "Drama"
   ],
   "rating": 9.5,
+  "popularity": 5.172,
   "poster": "/data/posters/show_297171.jpg",
   "backdrop": "/data/backdrops/show_297171_bd.jpg",
-  "year": 2026,
   "totalSeasons": 1,
   "totalEpisodes": 6,
+  "year": 2026,
+  "releaseDate": "2026-06-03",
   "seasons": {
     "1": [
       {
@@ -20,7 +23,8 @@
         "episodeNumber": 1,
         "episodeTitle": "The Watch Project",
         "episodeOverview": "Year 1978. A Sidelined Tata executive Xerxes Desai is tasked with reviving a dying division of Tata's Tata Press, only to stumble upon a bold idea that could redefine Indian industry. Challenged by global humiliation, he sets out to build India's first world-class watch against all odds.",
-        "runtime": 57
+        "runtime": 57,
+        "tracks": null
       },
       {
         "fileId": "1033",
@@ -29,7 +33,8 @@
         "episodeNumber": 2,
         "episodeTitle": "Demonstration",
         "episodeOverview": "As the team comes together amid personal sacrifices, Xerxes pushes the dream of an Indian Quartz watch through boardroom battles and bureaucratic rejection. Just when hope resurfaces with a government partnership and the birth of \"Titan,\" financial doors slam shut, threatening the vision once again.",
-        "runtime": 57
+        "runtime": 57,
+        "tracks": null
       },
       {
         "fileId": "1034",
@@ -38,7 +43,8 @@
         "episodeNumber": 3,
         "episodeTitle": "Flying Saucer",
         "episodeOverview": "When the team falters, Xerxes's unwavering belief, bolstered by family support, keeps Titan alive, leading to funding, a factory, and the birth of India's first Quartz watch. But just as the dream takes physical form, a public humiliation by a foreign rival threatens to shatter everything they've built.",
-        "runtime": 54
+        "runtime": 54,
+        "tracks": null
       },
       {
         "fileId": "1035",
@@ -47,7 +53,8 @@
         "episodeNumber": 4,
         "episodeTitle": "The Real Value",
         "episodeOverview": "Reigniting the team's spirit, Xerxes turns failure into innovation, fixing the flaw and reshaping Titan through global learning and bold design. Though the launch struggles and sales falter, a startling clue in Chor Bazaar hints that Titan's impact is far greater than anyone realizes.",
-        "runtime": 54
+        "runtime": 54,
+        "tracks": null
       },
       {
         "fileId": "1036",
@@ -56,7 +63,8 @@
         "episodeNumber": 5,
         "episodeTitle": "Universal Language",
         "episodeOverview": "Xerxes cracks Titan's pricing puzzle and stabilizes the business, even as personal and professional shifts test the team's confidence. A bold branding leap, powered by Mozart's stirring symphony, transforms Titan into a cultural symbol and ignites explosive growth.",
-        "runtime": 54
+        "runtime": 54,
+        "tracks": null
       },
       {
         "fileId": "1037",
@@ -65,10 +73,12 @@
         "episodeNumber": 6,
         "episodeTitle": "Twenty Two",
         "episodeOverview": "At the peak of success, Xerxes's ambition costs him his closest ally and nearly destroys Titan's future. But one last act of belief leads to a historic innovation, turning humiliation into victory and sealing Titan's place on the world stage.",
-        "runtime": 53
+        "runtime": 53,
+        "tracks": null
       }
     ]
   },
+  "episodes": [],
   "availableSeasons": [
     1
   ],

@@ -9,7 +9,7 @@ router.get('/:id', streamLimiter, trackStream, streamController.stream);
 router.get('/:id/transmux', streamLimiter, streamController.transmuxStream); // New endpoint for MKV/AVI
 router.get('/:id/seek', streamLimiter, streamController.seek); // Time-based seeking for transmuxed streams
 router.get('/:id/tracks', streamController.getTracks); // NEW: On-demand track detection
-
+router.get('/:id/file-info', streamController.getFileInfo); // Expose file metadata for client-side streaming
 
 // Heartbeat — frontend pings every 20s while video is playing to keep session alive
 router.get('/:id/heartbeat', (req, res) => {

@@ -1,0 +1,40 @@
+{
+  "fileId": "1144",
+  "fileName": "Kimi_ni_Todoke_From_Me_to_You_S02E06_Favour_and_Imposition_BD1080pAV1OPUSMulti.mkv",
+  "type": "tv",
+  "title": "From Me to You: Kimi ni Todoke",
+  "originalTitle": "君に届け",
+  "overview": "Nicknamed \"Sadako\" for her spooky appearance, high schooler Sawako begins to break out of her shell when she befriends popular boy Kazehaya.",
+  "releaseDate": "2009-10-07",
+  "year": 2009,
+  "runtime": 23,
+  "genres": [
+    "Animation",
+    "Drama"
+  ],
+  "rating": 8.376,
+  "popularity": 22.012,
+  "awards": "1 nomination total",
+  "poster": "/data/posters/show_68854.jpg",
+  "backdrop": "/data/backdrops/show_68854_bd.jpg",
+  "tmdbId": 68854,
+  "fetchedAt": "2026-07-13T12:27:45.206Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "From Me to You: Kimi ni Todoke",
+    "originalShowTitle": "君に届け",
+    "seasonNumber": 2,
+    "episodeNumber": 6,
+    "episodeTitle": "Favour and Imposition",
+    "episodeOverview": "Misunderstandings abound as Kazehaya aggressively confronts Kento, who he believes made Sawako cry. Kazehaya and Sawako share a moment that becomes yet another misunderstanding that crushes her self-esteem.",
+    "showTmdbId": 68854,
+    "episodeRuntime": 23,
+    "totalSeasons": 3,
+    "totalEpisodes": 42
+  },
+  "audioCodec": "opus",
+  "browserPlayable": true,
+  "_tracksDetected": true,
+  "metadataStatus": "COMPLETE",
+  "logo": "/data/logos/show_68854_logo.png"
+}

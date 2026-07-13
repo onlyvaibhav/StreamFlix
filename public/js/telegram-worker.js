@@ -103,6 +103,7 @@ self.addEventListener('message', async (event) => {
       fileSize: data.fileSize,
       mimeType: data.mimeType,
       dcId: data.dcId,
+      channelId: data.channelId,
       location: deserializeLocation(data.fileLocation)
     });
   }
@@ -157,7 +158,13 @@ async function handleFetchRange(fileId, requestedStart, requestedEnd, port) {
         } catch (error) {
           lastError = error;
           
-          if (error.errorMessage === 'AUTH_KEY_UNREGISTERED') {
+          if (error.errorMessage === 'AUTH_KEY_UNREGISTERED' || 
+              (error.message && (
+                error.message.toUpperCase().includes('AUTH_KEY_UNREGISTERED') ||
+                error.message.toUpperCase().includes('SESSION_REVOKED') ||
+                error.message.toUpperCase().includes('USER_DEACTIVATED')
+              ))) {
+            postMessage({ type: 'SESSION_REVOKED' });
             throw error; // Fatal
           }
           
@@ -166,6 +173,37 @@ async function handleFetchRange(fileId, requestedStart, requestedEnd, port) {
             console.log(`[TelegramWorker] Flood wait for ${seconds}s`);
             await new Promise(r => setTimeout(r, seconds * 1000));
             continue; // Don't decrement retries for flood wait
+          }
+          
+          if (error.errorMessage && (error.errorMessage.includes('FILE_REFERENCE_EXPIRED') || error.errorMessage.includes('FILE_REFERENCE'))) {
+            console.log(`[TelegramWorker] FILE_REFERENCE_EXPIRED at offset ${alignedStart}, refreshing...`);
+            if (fileInfo.channelId) {
+              try {
+                let channelIdStr = fileInfo.channelId.toString();
+                if (!channelIdStr.startsWith('-100')) {
+                  channelIdStr = '-100' + channelIdStr.replace('-', '');
+                }
+                const channel = await client.getEntity(channelIdStr);
+                const result = await client.invoke(new Api.channels.GetMessages({
+                  channel: channel,
+                  id: [new Api.InputMessageID({ id: parseInt(fileId) })]
+                }));
+                if (result.messages && result.messages.length > 0 && result.messages[0].media && result.messages[0].media.document) {
+                  const doc = result.messages[0].media.document;
+                  // Update location with fresh reference and accessHash
+                  fileInfo.location.fileReference = doc.fileReference;
+                  if (doc.accessHash) fileInfo.location.accessHash = doc.accessHash;
+                  if (doc.id) fileInfo.location.id = doc.id;
+                  
+                  console.log(`[TelegramWorker] ✅ File reference refreshed successfully from Telegram.`);
+                  continue; // Retry with fresh reference
+                }
+              } catch (refErr) {
+                console.error(`[TelegramWorker] ❌ Failed to refresh file reference:`, refErr);
+              }
+            } else {
+              console.error(`[TelegramWorker] ❌ Cannot refresh file reference because channelId is missing.`);
+            }
           }
           
           retries--;

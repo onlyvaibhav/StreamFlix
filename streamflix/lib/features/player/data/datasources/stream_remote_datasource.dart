@@ -31,6 +31,23 @@ class StreamRemoteDataSource {
     }
   }
 
+  /// Get multipart movie part details
+  /// GET /api/stream/:id/part-info
+  Future<Map<String, dynamic>> getPartInfo(String fileId) async {
+    try {
+      final response = await _dio.get(
+        ApiEndpoints.streamPartInfo.replaceAll(':id', fileId),
+      );
+      if (response.data is Map<String, dynamic>) {
+        return response.data as Map<String, dynamic>;
+      }
+      return {};
+    } catch (e) {
+      debugPrint('⚠️ Part-info fetch failed: $e');
+      return {};
+    }
+  }
+
   /// Get file metadata including GramJS authentication details
   /// GET /api/stream/:id/file-info
   Future<FileInfo?> getFileInfo(String fileId) async {

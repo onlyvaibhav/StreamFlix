@@ -1,0 +1,40 @@
+{
+  "fileId": "1148",
+  "fileName": "Kimi_ni_Todoke_From_Me_to_You_S02E10_From_Now_On_BD1080pAV1OPUSMulti.mkv",
+  "type": "tv",
+  "title": "From Me to You: Kimi ni Todoke",
+  "originalTitle": "君に届け",
+  "overview": "Nicknamed \"Sadako\" for her spooky appearance, high schooler Sawako begins to break out of her shell when she befriends popular boy Kazehaya.",
+  "releaseDate": "2009-10-07",
+  "year": 2009,
+  "runtime": 23,
+  "genres": [
+    "Animation",
+    "Drama"
+  ],
+  "rating": 8.376,
+  "popularity": 22.012,
+  "awards": "1 nomination total",
+  "poster": "/data/posters/show_68854.jpg",
+  "backdrop": "/data/backdrops/show_68854_bd.jpg",
+  "tmdbId": 68854,
+  "fetchedAt": "2026-07-13T12:26:06.127Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "From Me to You: Kimi ni Todoke",
+    "originalShowTitle": "君に届け",
+    "seasonNumber": 2,
+    "episodeNumber": 10,
+    "episodeTitle": "From Now On",
+    "episodeOverview": "It's the day of the float parade! Everyone dons a thematic costume and word gets out about what happened between Kazehaya and Sawako. The two begin their lives together anew.",
+    "showTmdbId": 68854,
+    "episodeRuntime": 23,
+    "totalSeasons": 3,
+    "totalEpisodes": 42
+  },
+  "audioCodec": "opus",
+  "browserPlayable": true,
+  "_tracksDetected": true,
+  "metadataStatus": "COMPLETE",
+  "logo": "/data/logos/show_68854_logo.png"
+}

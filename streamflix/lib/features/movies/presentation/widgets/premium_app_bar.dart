@@ -1,9 +1,13 @@
 import 'dart:ui';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:go_router/go_router.dart';
 import 'package:streamflix/core/constants/app_colors.dart';
 import 'package:streamflix/core/router/route_names.dart';
+import 'package:streamflix/core/widgets/netflix_avatar.dart';
+
+import 'package:hive_flutter/hive_flutter.dart';
 
 class PremiumAppBar extends StatelessWidget implements PreferredSizeWidget {
   final double scrollOffset;
@@ -13,6 +17,7 @@ class PremiumAppBar extends StatelessWidget implements PreferredSizeWidget {
     required this.scrollOffset,
   });
 
+
   @override
   Size get preferredSize => const Size.fromHeight(60.0);
 
@@ -21,6 +26,10 @@ class PremiumAppBar extends StatelessWidget implements PreferredSizeWidget {
     // Transition background color from transparent to true dark background
     final double progress = (scrollOffset / 180.0).clamp(0.0, 1.0);
     final double blurSigma = progress * 12.0;
+
+    final user = Hive.box('authBox').get('user') as Map?;
+    final firstName = user?['firstName'] ?? 'Guest';
+    final nameStr = firstName.toString().split(' ').first;
 
     return ClipRect(
       child: BackdropFilter(
@@ -44,17 +53,18 @@ class PremiumAppBar extends StatelessWidget implements PreferredSizeWidget {
               height: 60.0,
               child: Row(
                 children: [
-                  // Left: StreamFlix bold text Logo
-                  Text(
-                    'STREAMFLIX',
-                    style: GoogleFonts.bebasNeue(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.netflixRed,
-                      letterSpacing: 1.2,
+                  // Left: Dynamic Greeting
+                  Expanded(
+                    child: Text(
+                      'STREAMFLIX',
+                      style: GoogleFonts.bebasNeue(
+                        fontSize: 32,
+                        color: const Color(0xFFE50914), // Netflix Red
+                        letterSpacing: 1.5,
+                      ),
+                      maxLines: 1,
                     ),
                   ),
-                  const Spacer(),
                   // Right actions
                   IconButton(
                     icon: const Icon(
@@ -84,19 +94,15 @@ class PremiumAppBar extends StatelessWidget implements PreferredSizeWidget {
                     },
                   ),
                   const SizedBox(width: 12),
-                  // Decorative Netflix-style avatar
-                  Container(
-                    width: 32,
-                    height: 32,
-                    decoration: BoxDecoration(
-                      color: Colors.blueAccent,
-                      borderRadius: BorderRadius.circular(4),
-                      image: const DecorationImage(
-                        image: NetworkImage(
-                          'https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png',
-                        ),
-                        fit: BoxFit.cover,
-                      ),
+                  // Dynamic avatar based on first letter
+                  GestureDetector(
+                    onTap: () {
+                      context.push('/profile'); // or RouteNames.profile if it exists
+                    },
+                    child: NetflixAvatar(
+                      name: nameStr,
+                      size: 34,
+                      useNetflixFace: true,
                     ),
                   ),
                 ],

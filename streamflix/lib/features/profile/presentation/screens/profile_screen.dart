@@ -4,257 +4,286 @@ import 'package:streamflix/core/constants/app_text_styles.dart';
 import 'package:streamflix/core/network/telegram_client_service.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-class ProfileScreen extends StatefulWidget {
+import 'package:streamflix/features/auth/presentation/providers/auth_provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:streamflix/core/widgets/netflix_avatar.dart';
+
+class ProfileScreen extends ConsumerStatefulWidget {
   const ProfileScreen({super.key});
 
   @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
+  ConsumerState<ProfileScreen> createState() => _ProfileScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
-  int _selectedProfileIndex = 0;
-
-  final List<Map<String, dynamic>> _profiles = [
-    {
-      'name': 'Vaibhav',
-      'avatar': 'https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png',
-      'color': Colors.blueAccent,
-    },
-    {
-      'name': 'Kids',
-      'avatar': 'https://wallpapers.com/images/hd/netflix-profile-pictures-1000-x-1000-2qo9h82134t9nv0i.jpg',
-      'color': Colors.amber,
-    },
-    {
-      'name': 'Guest',
-      'avatar': 'https://wallpapers.com/images/hd/netflix-profile-pictures-1000-x-1000-vnl1thqee0xo496c.jpg',
-      'color': Colors.green,
-    },
-  ];
+class _ProfileScreenState extends ConsumerState<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final user = Hive.box('authBox').get('user') as Map?;
+    
+    // Fallback info if not logged in or missing data
+    final String firstName = user?['firstName'] ?? 'Guest';
+
     return Scaffold(
-      backgroundColor: AppColors.background,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 24.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const SizedBox(height: 16),
-                const Text(
-                  'Who\'s Watching?',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 24),
-                
-                // Profile selector row
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: List.generate(_profiles.length + 1, (index) {
-                    if (index == _profiles.length) {
-                      // Add Profile button
-                      return Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 12.0),
-                        child: Column(
-                          children: [
-                            Container(
-                              width: 60,
-                              height: 60,
-                              decoration: BoxDecoration(
-                                color: AppColors.backgroundCard,
-                                borderRadius: BorderRadius.circular(8),
-                                border: Border.all(color: Colors.white24, width: 1.5),
-                              ),
-                              child: const Icon(
-                                Icons.add_rounded,
-                                color: Colors.white54,
-                                size: 30,
-                              ),
-                            ),
-                            const SizedBox(height: 8),
-                            const Text(
-                              'Add',
-                              style: TextStyle(
-                                color: Colors.white54,
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    }
-
-                    final p = _profiles[index];
-                    final isSelected = index == _selectedProfileIndex;
-
-                    return GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _selectedProfileIndex = index;
-                        });
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text('Switched to profile: ${p['name']}'),
-                            duration: const Duration(seconds: 1),
-                          ),
-                        );
-                      },
-                      child: Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 12.0),
-                        child: Column(
-                          children: [
-                            AnimatedContainer(
-                              duration: const Duration(milliseconds: 200),
-                              width: isSelected ? 66 : 60,
-                              height: isSelected ? 66 : 60,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                                border: Border.all(
-                                  color: isSelected ? AppColors.netflixRed : Colors.transparent,
-                                  width: 2.5,
-                                ),
-                                image: DecorationImage(
-                                  image: NetworkImage(p['avatar']),
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 8),
-                            Text(
-                              p['name'],
-                              style: TextStyle(
-                                color: isSelected ? Colors.white : Colors.white70,
-                                fontSize: 12,
-                                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  }),
-                ),
-
-                const SizedBox(height: 40),
-                const Divider(color: Colors.white10, height: 1),
-                const SizedBox(height: 24),
-
-                // Settings Cards
-                _buildSettingsSection(
-                  title: 'Device & Connections',
-                  children: [
-                    _buildSettingsTile(
-                      icon: Icons.wifi,
-                      title: 'Streaming Connection Mode',
-                      subtitle: 'Direct playback (libmpv native)',
-                    ),
-                    _buildSettingsTile(
-                      icon: Icons.high_quality,
-                      title: 'Video Quality',
-                      subtitle: 'Original source format (upto 4K)',
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 20),
-                _buildSettingsSection(
-                  title: 'Application Preferences',
-                  children: [
-                    _buildSettingsTile(
-                      icon: Icons.closed_caption,
-                      title: 'Subtitles Default Language',
-                      subtitle: 'English / SRT Auto-select',
-                    ),
-                    _buildSettingsTile(
-                      icon: Icons.delete_sweep,
-                      title: 'Clear Cache',
-                      subtitle: 'Free memory of buffered artwork',
-                      onTap: () {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Cache cleared successfully'),
-                            duration: Duration(seconds: 2),
-                          ),
-                        );
-                      },
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 20),
-                _buildSettingsSection(
-                  title: 'Telegram Account',
-                  children: [
-                    ValueListenableBuilder<Box>(
-                      valueListenable: Hive.box('authBox').listenable(keys: ['telegram_session']),
-                      builder: (context, box, widget) {
-                        final session = box.get('telegram_session') as String?;
-                        final isLinked = session != null && session.isNotEmpty;
-                        return _buildSettingsTile(
-                          icon: Icons.telegram,
-                          title: isLinked ? 'Telegram Linked' : 'Link Telegram Account',
-                          subtitle: isLinked ? 'Ready for client-side streaming' : 'Authenticate to enable client-side streaming',
-                          onTap: () {
-                            if (!isLinked) {
-                              _showTelegramLoginDialog(context);
-                            } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text('Telegram is already linked')),
-                              );
-                            }
-                          },
-                        );
-                      }
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 40),
-                
-                // App version text
-                Text(
-                  'StreamFlix Client v2.1.0 • Profile: ${_profiles[_selectedProfileIndex]['name']}',
-                  style: const TextStyle(
-                    color: Colors.white30,
-                    fontSize: 12,
-                  ),
-                ),
-                const SizedBox(height: 16),
-                
-                // Sign Out / Exit
-                SizedBox(
-                  width: double.infinity,
-                  child: OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                      foregroundColor: Colors.white70,
-                      side: const BorderSide(color: Colors.white24),
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                    onPressed: () {
-                      // Exit session/app
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Session closed. Goodbye!'),
-                          duration: Duration(seconds: 1),
-                        ),
-                      );
-                    },
-                    child: const Text('Exit Session', style: AppTextStyles.buttonSmall),
-                  ),
-                ),
-              ],
-            ),
+      backgroundColor: Colors.black, // Netflix style
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: const Icon(Icons.arrow_back, color: Colors.white),
+        title: const Text(
+          'Profiles & More',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
           ),
         ),
       ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // Avatars Row
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Main Profile
+                  _buildProfileAvatarColumn(
+                    name: firstName,
+                    useNetflixFace: true,
+                    isActive: true,
+                  ),
+                  const SizedBox(width: 20),
+                  // Kids Profile
+                  _buildProfileAvatarColumn(
+                    name: 'Kids',
+                    useNetflixFace: true,
+                  ),
+                  const SizedBox(width: 20),
+                  // Add Profile
+                  _buildProfileAvatarColumn(
+                    name: 'Add profile',
+                    overrideColor: Colors.white.withValues(alpha: 0.1),
+                    icon: Icons.add,
+                  ),
+                ],
+              ),
+              
+              const SizedBox(height: 16),
+              
+              // Manage Profiles
+              TextButton.icon(
+                onPressed: () {},
+                icon: const Icon(Icons.edit, color: Colors.white70, size: 16),
+                label: const Text(
+                  'Manage Profiles',
+                  style: TextStyle(
+                    color: Colors.white70,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                style: TextButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                ),
+              ),
+              
+              const SizedBox(height: 24),
+              
+              // Big Buttons
+              _buildBigTile(
+                icon: Icons.playlist_add_check_rounded,
+                title: 'My List',
+                onTap: () {},
+              ),
+              const SizedBox(height: 8),
+              _buildBigTile(
+                icon: Icons.person_outline_rounded,
+                title: 'Account',
+                onTap: () => _showAccountSheet(context),
+              ),
+              const SizedBox(height: 8),
+              _buildBigTile(
+                icon: Icons.help_outline_rounded,
+                title: 'Help',
+                onTap: () {},
+              ),
+              
+              const SizedBox(height: 32),
+              
+              // Sign Out
+              TextButton(
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      backgroundColor: AppColors.backgroundLight,
+                      title: const Text('Sign Out', style: TextStyle(color: Colors.white)),
+                      content: const Text('Are you sure you want to sign out?', style: TextStyle(color: Colors.white70)),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.pop(context),
+                          child: const Text('Cancel', style: TextStyle(color: Colors.white54)),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context); // Close dialog
+                            ref.read(authStateProvider.notifier).logout();
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Logged out successfully.'),
+                                duration: Duration(seconds: 1),
+                              ),
+                            );
+                          },
+                          child: const Text('Sign Out', style: TextStyle(color: AppColors.netflixRed)),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+                child: const Text(
+                  'Sign Out',
+                  style: TextStyle(
+                    color: Colors.white60,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+              
+              const SizedBox(height: 24),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildProfileAvatarColumn({
+    required String name,
+    bool isActive = false,
+    bool useNetflixFace = false,
+    IconData? icon,
+    Widget? child,
+    Color? overrideColor,
+  }) {
+    return Column(
+      children: [
+        NetflixAvatar(
+          name: name,
+          size: 72,
+          isActive: isActive,
+          useNetflixFace: useNetflixFace,
+          icon: icon,
+          child: child,
+          overrideColor: overrideColor,
+        ),
+        const SizedBox(height: 8),
+        Text(
+          name,
+          style: TextStyle(
+            color: isActive ? Colors.white : Colors.white70,
+            fontSize: 13,
+            fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildBigTile({
+    required IconData icon,
+    required String title,
+    required VoidCallback onTap,
+  }) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(8),
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+        decoration: BoxDecoration(
+          color: Colors.white.withValues(alpha: 0.08),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Row(
+          children: [
+            Icon(icon, color: Colors.white, size: 28),
+            const SizedBox(width: 16),
+            Text(
+              title,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _showAccountSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      useRootNavigator: true,
+      backgroundColor: AppColors.backgroundLight,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      ),
+      builder: (context) {
+        return Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'Account',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 24),
+              _buildSettingsSection(
+                title: 'Telegram Integration',
+                children: [
+                  ValueListenableBuilder<Box>(
+                    valueListenable: Hive.box('authBox').listenable(keys: ['telegram_session']),
+                    builder: (context, box, widget) {
+                      final session = box.get('telegram_session') as String?;
+                      final isLinked = session != null && session.isNotEmpty;
+                      return _buildSettingsTile(
+                        icon: Icons.telegram,
+                        title: isLinked ? 'Telegram Linked' : 'Link Telegram Account',
+                        subtitle: isLinked ? 'Ready for client-side streaming' : 'Authenticate to enable client-side streaming',
+                        onTap: () {
+                          if (!isLinked) {
+                            Navigator.pop(context);
+                            _showTelegramLoginDialog(context);
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Telegram is already linked')),
+                            );
+                          }
+                        },
+                      );
+                    }
+                  ),
+                ],
+              ),
+              const SizedBox(height: 24),
+            ],
+          ),
+        );
+      },
     );
   }
 
@@ -391,3 +420,5 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 }
+
+

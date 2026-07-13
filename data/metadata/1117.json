@@ -1,0 +1,40 @@
+{
+  "fileId": "1117",
+  "fileName": "Kimi_ni_Todoke_From_Me_to_You_S01E04_Rumors_BD1080pAV1OPUSMulti.mkv",
+  "type": "tv",
+  "title": "From Me to You: Kimi ni Todoke",
+  "originalTitle": "君に届け",
+  "overview": "Nicknamed \"Sadako\" for her spooky appearance, high schooler Sawako begins to break out of her shell when she befriends popular boy Kazehaya.",
+  "releaseDate": "2009-10-07",
+  "year": 2009,
+  "runtime": 23,
+  "genres": [
+    "Animation",
+    "Drama"
+  ],
+  "rating": 8.376,
+  "popularity": 22.012,
+  "awards": "1 nomination total",
+  "poster": "/data/posters/show_68854.jpg",
+  "backdrop": "/data/backdrops/show_68854_bd.jpg",
+  "tmdbId": 68854,
+  "fetchedAt": "2026-07-13T12:34:19.964Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "From Me to You: Kimi ni Todoke",
+    "originalShowTitle": "君に届け",
+    "seasonNumber": 1,
+    "episodeNumber": 4,
+    "episodeTitle": "Rumors",
+    "episodeOverview": "Rumors are circulating about Sawako's friends, Ayane and Chizuru. It is said that Sawako started these rumors, but she is unaware that anything is going on at all. When approached about it, Sawako hesitates in her response.",
+    "showTmdbId": 68854,
+    "episodeRuntime": 23,
+    "totalSeasons": 3,
+    "totalEpisodes": 42
+  },
+  "audioCodec": "opus",
+  "browserPlayable": true,
+  "_tracksDetected": true,
+  "metadataStatus": "COMPLETE",
+  "logo": "/data/logos/show_68854_logo.png"
+}

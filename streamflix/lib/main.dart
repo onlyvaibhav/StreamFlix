@@ -70,10 +70,15 @@ class StreamFlixApp extends ConsumerWidget {
         return Stack(
           children: [
             if (child != null) child,
-            Offstage(
-              offstage: true,
-              child: WebViewWidget(
-                controller: TelegramClientService().webViewController,
+            Positioned(
+              top: -100,
+              left: -100,
+              child: SizedBox(
+                width: 1,
+                height: 1,
+                child: WebViewWidget(
+                  controller: TelegramClientService().webViewController,
+                ),
               ),
             ),
           ],

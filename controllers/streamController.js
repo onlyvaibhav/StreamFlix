@@ -162,6 +162,47 @@ if (!process[SHUTDOWN_HOOK_FLAG]) {
   process.on('SIGTERM', () => killAllTranscodes());
 }
 
+exports.getFileInfo = async (req, res) => {
+  try {
+    const { id } = req.params;
+    
+    // Use the existing fallback resolver to get the exact file info
+    const { fileInfo, resolvedId } = await resolveFileInfo(id);
+    
+    if (!fileInfo) {
+      return res.status(404).json({ error: 'File info not found' });
+    }
+
+    // Convert the GramJS `inputLocation` into the JSON structure expected by the Flutter client
+    const location = fileInfo.inputLocation;
+    let fileReferenceBase64 = '';
+    
+    if (location && location.fileReference) {
+      // GramJS fileReference is a Buffer
+      fileReferenceBase64 = location.fileReference.toString('base64');
+    }
+
+    const config = require('../config/telegram');
+    res.json({
+      fileId: resolvedId,
+      fileSize: fileInfo.fileSize,
+      mimeType: fileInfo.mimeType || getContentType(fileInfo.fileName),
+      fileName: fileInfo.fileName,
+      dcId: fileInfo.dcId,
+      channelId: config.channelId,
+      fileLocation: location ? {
+        id: location.id.toString(),
+        accessHash: location.accessHash.toString(),
+        fileReference: fileReferenceBase64,
+        thumbSize: location.thumbSize
+      } : null
+    });
+  } catch (error) {
+    console.error('[Stream] getFileInfo error:', error.message);
+    res.status(500).json({ error: 'Internal server error fetching file info' });
+  }
+};
+
 async function resolveFileInfo(id) {
   let fileInfo = await telegramService.getFileInfo(id);
   let resolvedId = String(id);

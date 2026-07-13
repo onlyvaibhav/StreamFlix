@@ -14,12 +14,12 @@
     "Sci-Fi & Fantasy"
   ],
   "rating": 8.5,
-  "popularity": 508.3089,
-  "awards": "2 wins & 32 nominations total",
+  "popularity": 344.0067,
+  "awards": "2 wins & 34 nominations total",
   "poster": "/data/posters/show_124364.jpg",
   "backdrop": "/data/backdrops/show_124364_bd.jpg",
   "tmdbId": 124364,
-  "fetchedAt": "2026-07-07T13:46:30.136Z",
+  "fetchedAt": "2026-07-13T12:45:16.411Z",
   "needsRetry": false,
   "tv": {
     "showTitle": "FROM",
@@ -37,61 +37,5 @@
   "browserPlayable": true,
   "_tracksDetected": true,
   "metadataStatus": "COMPLETE",
-  "logo": "/data/logos/show_124364_logo.png",
-  "container": "matroska,webm",
-  "duration": 2935.914,
-  "audioTracks": [
-    {
-      "index": 0,
-      "streamIndex": 1,
-      "codec": "aac",
-      "language": "Hindi",
-      "languageCode": "hin",
-      "title": "VegaMovies.is",
-      "channels": 2,
-      "channelLayout": "stereo",
-      "browserPlayable": true,
-      "isDefault": true
-    },
-    {
-      "index": 1,
-      "streamIndex": 2,
-      "codec": "aac",
-      "language": "English",
-      "languageCode": "eng",
-      "title": "VegaMovies.is",
-      "channels": 2,
-      "channelLayout": "stereo",
-      "browserPlayable": true,
-      "isDefault": false
-    }
-  ],
-  "subtitleTracks": [
-    {
-      "index": 0,
-      "streamIndex": 3,
-      "codec": "subrip",
-      "language": "English",
-      "languageCode": "eng",
-      "title": "VegaMovies.is",
-      "isTextBased": true,
-      "isImageBased": false,
-      "extractable": true,
-      "isDefault": false,
-      "isForced": false
-    },
-    {
-      "index": 1,
-      "streamIndex": 4,
-      "codec": "ass",
-      "language": "Unknown",
-      "languageCode": "und",
-      "title": "",
-      "isTextBased": true,
-      "isImageBased": false,
-      "extractable": true,
-      "isDefault": true,
-      "isForced": true
-    }
-  ]
+  "logo": "/data/logos/show_124364_logo.png"
 }

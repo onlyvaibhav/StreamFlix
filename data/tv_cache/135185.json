@@ -1,0 +1,329 @@
+{
+  "showTmdbId": 135185,
+  "showTitle": "A Romance of the Little Forest",
+  "overview": "A story following a botany professor focusing only on research and does not care for fame, money, or love. Meeting a girl he had ill feelings with in the past, their interest in one another develops as she shows off her doctorate knowledge in ornithology.",
+  "genres": [
+    "Comedy",
+    "Drama"
+  ],
+  "rating": 7.1,
+  "poster": "/data/posters/show_135185.jpg",
+  "backdrop": "/data/backdrops/show_135185_bd.jpg",
+  "year": 2022,
+  "totalSeasons": 1,
+  "totalEpisodes": 35,
+  "seasons": {
+    "1": [
+      {
+        "fileId": "1078",
+        "fileName": "A.Romance.of.the.Little.Forest.S01E01.1080p.HIN-CHI.AV1.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 1,
+        "episodeTitle": "Show Me the Way to Your Heart",
+        "episodeOverview": "Yu Mei Ren is a Ph. D. graduate in Ornithology who works as a fashion blogger in Shanghai. She runs into Botany professor Zhuang Yu who was once her university schoolmate by accident while filming for a commercial. However, they get off on the wrong foot and trouble ensues.",
+        "runtime": 48
+      },
+      {
+        "fileId": "1079",
+        "fileName": "A.Romance.of.the.Little.Forest.S01E02.1080p.HIN-CHI.AV1.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 2,
+        "episodeTitle": "We Don't Share Common Ground or a Future",
+        "episodeOverview": "Mei Ren loses a job opportunity with Shaye, but an opportunity with Lami seems possible. She only needs to help Lami in getting Zhuang Yu as its brand ambassador for the new skincare line. Of course, Zhuang Yu is not interested and thinks that they have no common ground, but they seem to share an interest that he is not aware",
+        "runtime": 45
+      },
+      {
+        "fileId": "1080",
+        "fileName": "A.Romance.of.the.Little.Forest.S01E03.1080p.HIN-CHI.AV1.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 3,
+        "episodeTitle": "The Prettier a Plant Looks, the More Poisonous It Is",
+        "episodeOverview": "Mei Ren does all she can to please Zhuang Yu for the sake of the Lami project. Zhuang Yu appears to be very cold but surprisingly cooperates with Mei Ren and even sticks up for her at the Lami launch event. Mei Ren uses an anonymous Weibo account to get Zhuang Yu's attention.",
+        "runtime": 47
+      },
+      {
+        "fileId": "1081",
+        "fileName": "A.Romance.of.the.Little.Forest.S01E05.1080p.HIN-CHI.AV1.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 5,
+        "episodeTitle": "This is God's Will",
+        "episodeOverview": "Yu Mei Ren runs into Zhuang Yu again at Qingshui Village. She tells him that this ia God's will and tries to persuade him to pretend to be her boyfriend. At the same time, her parents make the guess that Zhuang Yu is indeed her boyfriend.",
+        "runtime": 45
+      },
+      {
+        "fileId": "1082",
+        "fileName": "A.Romance.of.the.Little.Forest.S01E06.1080p.HIN-CHI.AV1.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 6,
+        "episodeTitle": "Yu Mei Ren, Your Disguise is Gone",
+        "episodeOverview": "After done with her shooting, Yu Mei Ren happens to meet Zhuang Yu in Qingshui Village. Back at home, Mei Ren feels dejected as she has been rejected twice. Tian Tian encourages her to take the initiative and starts with doing the other person a favor.",
+        "runtime": 45
+      },
+      {
+        "fileId": "1083",
+        "fileName": "A.Romance.of.the.Little.Forest.S01E07.1080p.HIN-CHI.AV1.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 7,
+        "episodeTitle": "Let's Go Home and Eat",
+        "episodeOverview": "Mei Ren brings Zhuang Yu home to meet her parents. He plays along with her to hide her real career as a blogger from her family. Mei Ren is forced to attend a party where she has to face the bullies from her childhood. When Zhuang Yu hears about her past, he shows up at the party to stick up for her.",
+        "runtime": 45
+      },
+      {
+        "fileId": "1084",
+        "fileName": "A.Romance.of.the.Little.Forest.S01E08.1080p.HIN-CHI.AV1.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 8,
+        "episodeTitle": "Don't Worry, I'll Behave",
+        "episodeOverview": "Mei Ren and Zhuang Yu hike up the mountain to collect plant specimens. Trying to charm Zhuang Yu with her knowledge of the nature, Mei Ren shows him around the forest. Unexpectedly, it suddenly rains so heavily that they have to take shelter in a cave. Feeling shy, Mei Ren promises to behave.",
+        "runtime": 43
+      },
+      {
+        "fileId": "1085",
+        "fileName": "A.Romance.of.the.Little.Forest.S01E09.1080p.HIN-CHI.AV1.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 9,
+        "episodeTitle": "An Iceberg? Let Me Break It for You",
+        "episodeOverview": "Mei Ren can't seem to read Zhuang Yu. One moment he's nice to her, the next he's cold and indifferent. Tian Tian offers advice on how to break the ice. Tian Tian finds herself in a weird employment set up by Mr. Jin. However, she agrees to it in order to stay longer in the city.",
+        "runtime": 45
+      },
+      {
+        "fileId": "1086",
+        "fileName": "A.Romance.of.the.Little.Forest.S01E10.1080p.HIN-CHI.AV1.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 10,
+        "episodeTitle": "The Fear of Failure Makes Dreams Unable to Come True",
+        "episodeOverview": "It's Chinese Valentine's Day today. To Yu Mei Ren's surprise, Zhuang Yu actually agrees to go to the town and explore around with her. Later on, Mei Ren even asks Zhuang Yu to be the camera operator for her Chinese Valentine's Day vlog.",
+        "runtime": 45
+      },
+      {
+        "fileId": "1087",
+        "fileName": "A.Romance.of.the.Little.Forest.S01E11.1080p.HIN-CHI.AV1.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 11,
+        "episodeTitle": "To Places We Had Never Dreamed of When We First Made Our Decision",
+        "episodeOverview": "Jin Xi's lie about having a disability starts to grow bigger and bigger as he tries to keep Tian Tian close. Mei Ren and Zhuang Yu continue to put on an act in front of Mei Ren's parents. However, Mei Ren suspects that her mom overheard them talking about their fake relationship, so she tries to sound her parents out.",
+        "runtime": 45
+      },
+      {
+        "fileId": "1088",
+        "fileName": "A.Romance.of.the.Little.Forest.S01E12.1080p.HIN-CHI.AV1.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 12,
+        "episodeTitle": "Flowers Bloom",
+        "episodeOverview": "Mei Ren starts to panic when she observes her parents whispering behind her back. Fearing that her fake relationship with Zhuang Yu is exposed, she tries to prevent her mom from speaking with Zhuang Yu alone. Oblivious to the situation, Zhuang Yu hikes up the mountain to wait for the yellow mugworts to bloom.",
+        "runtime": 45
+      },
+      {
+        "fileId": "1089",
+        "fileName": "A.Romance.of.the.Little.Forest.S01E13.1080p.HIN-CHI.AV1.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 13,
+        "episodeTitle": "What Does It Mean to Like Someone?",
+        "episodeOverview": "Zhuang Yu successfully comes up with a solution to help the farmers manage their pest problem and increase crop production. The residents of Qingshui Village have nothing but good words for their \"son-in-law\" and call Zhuang Yu and Mei Ren as a match made in heaven. However, Mei Ren feels conflicted, unsure of her feelings towards Zhuang Yu.",
+        "runtime": 46
+      },
+      {
+        "fileId": "1090",
+        "fileName": "A.Romance.of.the.Little.Forest.S01E14.1080p.HIN-CHI.AV1.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 14,
+        "episodeTitle": "A Lie Needs to Be Covered Up with a Thousand Lies",
+        "episodeOverview": "Tian Tian doesn't want to eat in a western restaurant with Jin Xi, so both of them have rice noodles at a little food stall instead. After listening to his entrepreneurial experience, Tian Tian begins to have a good impression of Jin Xi. Before Zhuang Yu leaves the village, Mei Ren gives him sunscreen as a reward for helping her keep their relationship a secret.",
+        "runtime": 45
+      },
+      {
+        "fileId": "1091",
+        "fileName": "A.Romance.of.the.Little.Forest.S01E15.1080p.HIN-CHI.AV1.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 15,
+        "episodeTitle": "Ma'am, You're Being Too Friendly",
+        "episodeOverview": "Mei Ren has to find keep finding excuses to see Zhuang Yu now that their fake relationship has ended. She gets jealous when she suspects that Zhuang Yu is in contact with another girl, but she discovers this new third wheel is much different than she expected. With Mei Ren back in Shanghai, Jin Xi has to keep Tian Tian so the two friends don't run into each other.",
+        "runtime": 45
+      },
+      {
+        "fileId": "1092",
+        "fileName": "A.Romance.of.the.Little.Forest.S01E16.1080p.HIN-CHI.AV1.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 16,
+        "episodeTitle": "The Sour Stench of Romance",
+        "episodeOverview": "Zhuang Yu's younger brother, Zhuang Hui, is visiting. He is such a handful that Zhuang Yu's students decide to go to Mei Ren for help. To Zhuang Yu's surprise, Mei Ren has a way of getting along with Zhuang Hui. The three of them have a great time hanging out at an exhibition.",
+        "runtime": 45
+      },
+      {
+        "fileId": "1093",
+        "fileName": "A.Romance.of.the.Little.Forest.S01E17.1080p.HIN-CHI.AV1.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 17,
+        "episodeTitle": "Others Can't Take What Belongs to You",
+        "episodeOverview": "Tian Tian asks Mei Ren for advice about the gift she received from Jin Xi. Since then, she has started becoming more conscious of him. On the other hand, Zhuang Yu is conscious about making Mei Ren happy with his brother's help.",
+        "runtime": 45
+      },
+      {
+        "fileId": "1094",
+        "fileName": "A.Romance.of.the.Little.Forest.S01E18.1080p.HIN-CHI.AV1.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 18,
+        "episodeTitle": "Nothing Has Shaken My Pursuit of Profession",
+        "episodeOverview": "Jin Xi brings Tian Tian to a studio on her birthday to fulfill her dream. Tian Tian is very moved that Jin Xi can remember her birthday. Nevertheless, she is upset when she hears the gossip between Jin Xi and Ms. Jiang and mistakes the latter for Jin Xi's ex-lover.",
+        "runtime": 45
+      },
+      {
+        "fileId": "1095",
+        "fileName": "A.Romance.of.the.Little.Forest.S01E19.1080p.HIN-CHI.AV1.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 19,
+        "episodeTitle": "He's So Protective. The Only Thing Missing Is...",
+        "episodeOverview": "Zhuang Yu receives his admission letter to be a visiting professor overseas. However, his growing feelings for Mei Ren make him waver. After starting his new relationship with Tian Tian, Jin Xi is determined to come clean with the truth. Meanwhile, Mei Ren is met with trouble at work when her assistant gives her misleading information about a client.",
+        "runtime": 45
+      },
+      {
+        "fileId": "1096",
+        "fileName": "A.Romance.of.the.Little.Forest.S01E20.1080p.HIN-CHI.AV1.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 20,
+        "episodeTitle": "It's Your Fault If You Make the Same Mistake Twice",
+        "episodeOverview": "Zhuang Yu cannot find the right words to tell Mei Ren that he is leaving, so he leaves without saying goodbye. Totally oblivious, Mei Ren waits all day in the botanical gardens for Zhuang Yu. Mei Ren suddenly becomes a different person. Believing that she has been toyed with and fooled, Mei Ren thinks she should never make the same mistake twice by falling in love ever again.",
+        "runtime": 45
+      },
+      {
+        "fileId": "1097",
+        "fileName": "A.Romance.of.the.Little.Forest.S01E21.1080p.HIN-CHI.AV1.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 21,
+        "episodeTitle": "Don't Sigh, It Takes Away Good Luck",
+        "episodeOverview": "Mei Ren drowns in her sorrows and Lyu Jian goes to visit her only to be turned away. Zhuang Yu mistakes Mei Ren's condition. Meanwhile, Jin Xi continues to hide the fact that he knows Mei Ren from Tian Tian.",
+        "runtime": 45
+      },
+      {
+        "fileId": "1098",
+        "fileName": "A.Romance.of.the.Little.Forest.S01E22.1080p.HIN-CHI.AV1.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 22,
+        "episodeTitle": "I Wish Doomsday Would Come Sooner",
+        "episodeOverview": "Jin Xi has finally made up his mind to tell Tian Tian everything, but he is interrupted again when Mei Ren borrows his umbrella. After he plucks up the courage to confess the truth, Tian Tian feels deceived and leaves angrily. After understanding the whole story, Mei Ren blocks Jin Xi's number, and she decides to quit working for someone her best friend hates.",
+        "runtime": 45
+      },
+      {
+        "fileId": "1099",
+        "fileName": "A.Romance.of.the.Little.Forest.S01E23.1080p.HIN-CHI.AV1.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 23,
+        "episodeTitle": "If I Had a Single Flower for Every Time I Think About You, I Could Walk Forever in My Garden",
+        "episodeOverview": "After Zhuang Yu's departure, Mei Ren puts her focus on teaching. Tian Tian returns to Qingshui Village after breaking up with Jin Xi. Zhuang Yu is offered a tenure post overseas, but a chat with an elder makes him realize what is more important to him.",
+        "runtime": 45
+      },
+      {
+        "fileId": "1100",
+        "fileName": "A.Romance.of.the.Little.Forest.S01E24.1080p.HIN-CHI.AV1.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 24,
+        "episodeTitle": "Isn't a Pure Beef Jerky Called a Jerk?",
+        "episodeOverview": "Mei Ren runs into Zhuang Yu on a shared taxi ride. She is still mad at him, so no matter what Zhuang Yu does, she gives him the cold shoulder. Just then, Mei Ren's parents come to visit. Unaware of their rift, Mrs. Yu cheers Zhuang Yu on and encourages him to take the initiative.",
+        "runtime": 44
+      },
+      {
+        "fileId": "1101",
+        "fileName": "A.Romance.of.the.Little.Forest.S01E25.1080p.HIN-CHI.AV1.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 25,
+        "episodeTitle": "Some Plants are Decorative and Medicinal, Like the Common Poppy",
+        "episodeOverview": "Jin Xi goes to Qingshui Village to look for Tian Tian, but she ignores him. She also makes him do menial work in the vineyard, which he does willingly. Zhuang Yu buys a gift to cheer Mei Ren up, but she gives it away without opening it.",
+        "runtime": 45
+      },
+      {
+        "fileId": "1102",
+        "fileName": "A.Romance.of.the.Little.Forest.S01E26.1080p.HIN-CHI.AV1.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 26,
+        "episodeTitle": "When You Truly Desire Something, the Whole Universe Will Help You",
+        "episodeOverview": "In order to help the police catch the bird poacher, Jia San, Mei Ren has been waiting in the swale to collect evidence. Just when she's nearly discovered by Jia San, Zhuang Yu appears in time to save her. However, instead of thanking Zhuang Yu, Mei Ren blames him for ruining her plan.",
+        "runtime": 44
+      },
+      {
+        "fileId": "1103",
+        "fileName": "A.Romance.of.the.Little.Forest.S01E27.1080p.HIN-CHI.AV1.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 27,
+        "episodeTitle": "I'm as Beautiful as a Flower, but He's Untrustworthy",
+        "episodeOverview": "Zhuang Yu and Mei Ren act as a married couple in search of wild game to capture Jia San and his boss. Zhuang Yu's enthusiasm and flirtiness surprise Mei Ren as he is evidently different from the expressionless professor she used to know. Jin Xi tries to win Tian Tian back by helping her around Qingshui Village.",
+        "runtime": 45
+      },
+      {
+        "fileId": "1104",
+        "fileName": "A.Romance.of.the.Little.Forest.S01E28.1080p.HIN-CHI.AV1.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 28,
+        "episodeTitle": "I Owe You, I Haven't Said I Love You",
+        "episodeOverview": "Zhuang Yu and Mei Ren are separated in order to accomplish the final business deal. With a Plan B at hand, Zhuang Yu proceeds boldly. An anxious Mei Ren awaits and with their minds in sync, the two pulls off the task. Just when the police crack down the illegal wildlife trading, another danger strikes.",
+        "runtime": 45
+      },
+      {
+        "fileId": "1105",
+        "fileName": "A.Romance.of.the.Little.Forest.S01E29.1080p.HIN-CHI.AV1.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 29,
+        "episodeTitle": "I'm Pursuing, But It's More Than That",
+        "episodeOverview": "Zhuang Yu gets hurt in the operation, scaring Mei Ren who thinks his injury is much more serious than it is. He uses this to his advantage to pursue Mei Ren seriously. Meanwhile, Mei Nan tells Tian Tian that he can be an option too.",
+        "runtime": 45
+      },
+      {
+        "fileId": "1106",
+        "fileName": "A.Romance.of.the.Little.Forest.S01E30.1080p.HIN-CHI.AV1.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 30,
+        "episodeTitle": "Deeply in Love With You and No One Else",
+        "episodeOverview": "Zhuang Yu is speechless when he finds out Mei Ren refuses to eat with him because of Lyu Jian. He then ends up eating with Chang Yuan and the latter shares some dating advice. On the other hand, Xia Zhi's boss encourages her to get Zhuang Yu's trust so that she can be the brand ambassador of Lami.",
+        "runtime": 45
+      },
+      {
+        "fileId": "1107",
+        "fileName": "A.Romance.of.the.Little.Forest.S01E31.1080p.HIN-CHI.AV1.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 31,
+        "episodeTitle": "I Wasn't Playing Hard to Get, I Was Waiting Around For You",
+        "episodeOverview": "Mei Ren plans a charity sale to raise awareness for wildlife preservation. Her old assistant Xiao Fang offers to get her an invitation to an upcoming charity banquet to gain more exposure. Little does she know that Xiao Fang is in cahoots with Xia Zhi to sabotage her. Xia Zhi approaches Zhuang Yu with a secret about Mei Ren to get in between them.",
+        "runtime": 45
+      },
+      {
+        "fileId": "1108",
+        "fileName": "A.Romance.of.the.Little.Forest.S01E32.1080p.HIN-CHI.AV1.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 32,
+        "episodeTitle": "Throwing Yourself Off Your Ranks Is A Taboo",
+        "episodeOverview": "Mei Ren is worried that Zhuang Yu has learned of her plans to woo him. To make things worse, someone online is deliberately slandering her for getting a plastic surgery. Overwhelmed by her fear of being found out and the online haters' criticisms, Mei Ren spirals into despair.",
+        "runtime": 43
+      },
+      {
+        "fileId": "1109",
+        "fileName": "A.Romance.of.the.Little.Forest.S01E33.1080p.HIN-CHI.AV1.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 33,
+        "episodeTitle": "Freedom From Fear of Anxiety and Scrutiny",
+        "episodeOverview": "Mei Ren is beaten by the rumors of her getting plastic surgery, but Zhuang Yu tries to reassure them that she is beautiful in every way. Her parents show up at her house unexpectedly. They also come clean to Mei Ren about knowing of her blogger career.",
+        "runtime": 45
+      },
+      {
+        "fileId": "1110",
+        "fileName": "A.Romance.of.the.Little.Forest.S01E34.1080p.HIN-CHI.AV1.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 34,
+        "episodeTitle": "This Pursuing Yu Plan Didn't Really Work",
+        "episodeOverview": "Mei Ren feels shocked when she finds out that Zhuang Yu is actually the president of Jiantao Group during the charity event. Later, Mei Ren's parents call her and ask her and Zhuang Yu to go home for the Mid-Autumn Festival. Surprisingly, Gou Fei comes to the village to make a scene.",
+        "runtime": 45
+      },
+      {
+        "fileId": "1111",
+        "fileName": "A.Romance.of.the.Little.Forest.S01E35.1080p.HIN-CHI.AV1.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 35,
+        "episodeTitle": "My Wish Is for Us to Be Together Forever",
+        "episodeOverview": "Mei Ren gets nervous when Zhuang Yu's mom visits Qingshui Village to meet her and her family for the first time. Mei Ren expresses her support for Zhuang Yu's experiment despite the fact that he must leave for Africa. The two visit a sacred tree and make a wish. Will their wishes come true so they can have a happy ending?",
+        "runtime": 46
+      }
+    ]
+  },
+  "availableSeasons": [
+    1
+  ],
+  "availableEpisodeCount": 34
+}

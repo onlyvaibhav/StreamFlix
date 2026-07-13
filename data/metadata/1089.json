@@ -1,0 +1,40 @@
+{
+  "fileId": "1089",
+  "fileName": "A.Romance.of.the.Little.Forest.S01E13.1080p.HIN-CHI.AV1.mkv",
+  "type": "tv",
+  "title": "A Romance of the Little Forest",
+  "originalTitle": "两个人的小森林",
+  "overview": "A story following a botany professor focusing only on research and does not care for fame, money, or love. Meeting a girl he had ill feelings with in the past, their interest in one another develops as she shows off her doctorate knowledge in ornithology.",
+  "releaseDate": "2022-09-15",
+  "year": 2022,
+  "runtime": 46,
+  "genres": [
+    "Comedy",
+    "Drama"
+  ],
+  "rating": 7.1,
+  "popularity": 5.2785,
+  "awards": "1 nomination total",
+  "poster": "/data/posters/show_135185.jpg",
+  "backdrop": "/data/backdrops/show_135185_bd.jpg",
+  "tmdbId": 135185,
+  "fetchedAt": "2026-07-13T12:42:20.890Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "A Romance of the Little Forest",
+    "originalShowTitle": "两个人的小森林",
+    "seasonNumber": 1,
+    "episodeNumber": 13,
+    "episodeTitle": "What Does It Mean to Like Someone?",
+    "episodeOverview": "Zhuang Yu successfully comes up with a solution to help the farmers manage their pest problem and increase crop production. The residents of Qingshui Village have nothing but good words for their \"son-in-law\" and call Zhuang Yu and Mei Ren as a match made in heaven. However, Mei Ren feels conflicted, unsure of her feelings towards Zhuang Yu.",
+    "showTmdbId": 135185,
+    "episodeRuntime": 46,
+    "totalSeasons": 1,
+    "totalEpisodes": 35
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "_tracksDetected": true,
+  "metadataStatus": "COMPLETE",
+  "logo": "/data/logos/show_135185_logo.png"
+}

@@ -102,6 +102,7 @@ class WatchHistoryManager {
     int? seasonNumber,
     int? episodeNumber,
     String? episodeTitle,
+    DateTime? updatedAt,
   }) async {
     // Skip if duration is invalid or progress is less than 2s
     if (duration <= 0 || position < 2) return;
@@ -118,7 +119,7 @@ class WatchHistoryManager {
         backdrop: backdrop,
         position: position,
         duration: duration,
-        updatedAt: DateTime.now(),
+        updatedAt: updatedAt ?? DateTime.now(),
         tvShowName: tvShowName,
         seasonNumber: seasonNumber,
         episodeNumber: episodeNumber,

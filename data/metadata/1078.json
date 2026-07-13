@@ -1,0 +1,40 @@
+{
+  "fileId": "1078",
+  "fileName": "A.Romance.of.the.Little.Forest.S01E01.1080p.HIN-CHI.AV1.mkv",
+  "type": "tv",
+  "title": "A Romance of the Little Forest",
+  "originalTitle": "两个人的小森林",
+  "overview": "A story following a botany professor focusing only on research and does not care for fame, money, or love. Meeting a girl he had ill feelings with in the past, their interest in one another develops as she shows off her doctorate knowledge in ornithology.",
+  "releaseDate": "2022-09-15",
+  "year": 2022,
+  "runtime": 48,
+  "genres": [
+    "Comedy",
+    "Drama"
+  ],
+  "rating": 7.1,
+  "popularity": 5.2785,
+  "awards": "1 nomination total",
+  "poster": "/data/posters/show_135185.jpg",
+  "backdrop": "/data/backdrops/show_135185_bd.jpg",
+  "tmdbId": 135185,
+  "fetchedAt": "2026-07-13T12:44:40.877Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "A Romance of the Little Forest",
+    "originalShowTitle": "两个人的小森林",
+    "seasonNumber": 1,
+    "episodeNumber": 1,
+    "episodeTitle": "Show Me the Way to Your Heart",
+    "episodeOverview": "Yu Mei Ren is a Ph. D. graduate in Ornithology who works as a fashion blogger in Shanghai. She runs into Botany professor Zhuang Yu who was once her university schoolmate by accident while filming for a commercial. However, they get off on the wrong foot and trouble ensues.",
+    "showTmdbId": 135185,
+    "episodeRuntime": 48,
+    "totalSeasons": 1,
+    "totalEpisodes": 35
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "_tracksDetected": true,
+  "metadataStatus": "COMPLETE",
+  "logo": "/data/logos/show_135185_logo.png"
+}

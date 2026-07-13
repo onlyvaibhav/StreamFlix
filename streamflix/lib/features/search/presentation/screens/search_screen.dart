@@ -71,6 +71,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                 ),
                 child: TextField(
                   controller: _searchController,
+                  autofocus: true,
                   focusNode: _focusNode,
                   style: const TextStyle(color: Colors.white, fontSize: 16),
                   cursorColor: AppColors.netflixRed,
@@ -230,8 +231,8 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 3,
                             childAspectRatio: 2 / 3,
-                            crossAxisSpacing: 8,
-                            mainAxisSpacing: 8,
+                            crossAxisSpacing: 12.0,
+                            mainAxisSpacing: 12.0,
                           ),
                           itemCount: results.length,
                           itemBuilder: (context, index) {

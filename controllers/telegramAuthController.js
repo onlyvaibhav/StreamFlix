@@ -221,8 +221,8 @@ async function getStatus(req, res) {
     const sessionString = cryptoUtils.decrypt(dbSession.telegram_session);
     const isValid = await telegramAuthService.validateSession(sessionString);
     if (!isValid) {
-      console.log(`[Status] Session token ${sessionToken} was revoked in Telegram, deleting from DB...`);
-      await supabaseService.deleteSession(sessionToken);
+      console.log(`[Status] Session token ${sessionToken} was revoked in Telegram, marking in DB...`);
+      await supabaseService.markSessionRevoked(sessionToken, 'revoked');
       return res.status(401).json({
         success: false,
         authorized: false,
@@ -300,10 +300,16 @@ async function logout(req, res) {
       if (dbSession) {
         // Decrypt and log out from Telegram
         const sessionString = cryptoUtils.decrypt(dbSession.telegram_session);
-        await telegramAuthService.logoutSession(sessionString);
+        const status = req.body.status === 'revoked' ? 'revoked' : 'logout';
         
-        // Remove from database
-        await supabaseService.deleteSession(sessionToken);
+        // If the session was already revoked externally, don't attempt to connect to GramJS
+        // because it will cause an infinite reconnect loop inside GramJS.
+        if (status !== 'revoked') {
+          await telegramAuthService.logoutSession(sessionString);
+        }
+        
+        // Mark as logout in database
+        await supabaseService.markSessionRevoked(sessionToken, status);
       }
     }
 
@@ -391,6 +397,60 @@ async function getSessionString(req, res) {
   }
 }
 
+/**
+ * POST /api/auth/telegram/sync-client-session
+ * Body: { sessionString, device }
+ * Used by native apps (like Flutter) that handle GramJS login directly on the device.
+ * Syncs the newly created session with the backend so Supabase matches.
+ */
+async function syncClientSession(req, res) {
+  try {
+    const { sessionString, device, user } = req.body;
+    if (!sessionString) {
+      return res.status(400).json({ success: false, error: 'Session string is required' });
+    }
+    if (!device || !device.deviceId) {
+      return res.status(400).json({ success: false, error: 'Device details are required for identification' });
+    }
+    if (!user || !user.telegramId) {
+      return res.status(400).json({ success: false, error: 'User details are required' });
+    }
+
+    const encryptedSession = cryptoUtils.encrypt(sessionString);
+    const sessionToken = crypto.randomUUID();
+
+    // Sync database records
+    await supabaseService.syncUser(user);
+    await supabaseService.syncDevice({
+      deviceId: device.deviceId,
+      telegramId: user.telegramId,
+      browser: device.browser,
+      os: device.os,
+      platform: device.platform,
+      userAgent: device.userAgent
+    });
+    await supabaseService.syncSession({
+      sessionId: sessionToken,
+      telegramId: user.telegramId,
+      deviceId: device.deviceId,
+      telegramSession: encryptedSession,
+      expiresAt: Date.now() + 30 * 24 * 60 * 60 * 1000 // 30 Days expiry
+    });
+
+    return res.json({
+      success: true,
+      sessionToken,
+      user
+    });
+  } catch (error) {
+    console.error('❌ syncClientSession Controller Error:', error);
+    return res.status(500).json({
+      success: false,
+      error: 'Failed to sync client session: ' + error.message
+    });
+  }
+}
+
 module.exports = {
   sendCode,
   verifyCode,
@@ -398,5 +458,6 @@ module.exports = {
   getStatus,
   logout,
   getStreamingConfig,
-  getSessionString
+  getSessionString,
+  syncClientSession
 };

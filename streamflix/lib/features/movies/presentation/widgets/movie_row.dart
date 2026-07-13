@@ -51,7 +51,7 @@ class MovieRow extends StatelessWidget {
               return Padding(
                 padding: EdgeInsets.only(
                   right: index < movies.length - 1
-                      ? AppDimensions.spaceSmall
+                      ? 12.0
                       : 0,
                 ),
                 child: MovieCard(movie: movies[index]),

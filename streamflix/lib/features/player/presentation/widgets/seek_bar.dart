@@ -41,17 +41,27 @@ class _SeekBarState extends ConsumerState<SeekBar> {
                 final rawDuration = durationSnapshot.data ?? Duration.zero;
                 final rawBuffer = bufferSnapshot.data ?? Duration.zero;
 
-                final position = playerState.isRemuxing
-                    ? rawPosition + Duration(milliseconds: (playerState.seekOffset * 1000).round())
-                    : rawPosition;
+                bool isMultipart = playerState.splitParts.isNotEmpty;
+                
+                Duration position = rawPosition;
+                Duration duration = rawDuration;
+                Duration buffer = rawBuffer;
 
-                final duration = (playerState.isRemuxing && playerState.duration > 0)
-                    ? Duration(seconds: playerState.duration.round())
-                    : rawDuration;
-
-                final buffer = playerState.isRemuxing
-                    ? rawBuffer + Duration(milliseconds: (playerState.seekOffset * 1000).round())
-                    : rawBuffer;
+                if (isMultipart) {
+                  double accumulated = 0.0;
+                  for (int i = 0; i < playerState.currentPartIndex; i++) {
+                    accumulated += playerState.splitParts[i].duration ?? 0.0;
+                  }
+                  position = rawPosition + Duration(milliseconds: (accumulated * 1000).round());
+                  buffer = rawBuffer + Duration(milliseconds: (accumulated * 1000).round());
+                  duration = Duration(seconds: playerState.duration.round());
+                } else if (playerState.isRemuxing) {
+                  position = rawPosition + Duration(milliseconds: (playerState.seekOffset * 1000).round());
+                  buffer = rawBuffer + Duration(milliseconds: (playerState.seekOffset * 1000).round());
+                  if (playerState.duration > 0) {
+                    duration = Duration(seconds: playerState.duration.round());
+                  }
+                }
 
                 final durationMs = duration.inMilliseconds;
                 if (durationMs == 0) {

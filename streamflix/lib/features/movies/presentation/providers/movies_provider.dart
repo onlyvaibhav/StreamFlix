@@ -5,7 +5,8 @@ import 'package:streamflix/features/movies/data/models/curated_response.dart';
 import 'package:streamflix/features/movies/data/repositories/movie_repository_impl.dart';
 
 import 'package:streamflix/features/movies/data/models/watch_history.dart';
-
+import 'package:flutter/foundation.dart';
+import 'package:streamflix/features/player/data/datasources/stream_remote_datasource.dart';
 part 'movies_provider.g.dart';
 
 /// Provider for all movies list
@@ -125,12 +126,36 @@ class ContinueWatching extends _$ContinueWatching {
     try {
       final backendProgress = await ref.watch(streamRemoteDataSourceProvider).getWatchProgress();
       for (final p in backendProgress) {
+        final isTv = p['media_type'] == 'tv';
+        final String savedMovieId = isTv ? 'show_${p['show_id']}' : p['file_id'].toString();
+        
+        String? showName;
+        String? epTitle;
+        if (isTv) {
+          final titleStr = p['title']?.toString() ?? 'Continue Watching';
+          // Try to extract show name from "Show Name S01E02" format
+          final match = RegExp(r'^(.*?)\s*S\d+E\d+.*$').firstMatch(titleStr);
+          if (match != null) {
+            showName = match.group(1)?.trim();
+            epTitle = titleStr;
+          } else {
+            showName = titleStr;
+            epTitle = titleStr;
+          }
+        }
+        
         await WatchHistoryManager.saveProgress(
-          movieId: p['file_id'],
+          movieId: savedMovieId,
+          episodeId: p['file_id']?.toString(),
           title: p['title'] ?? 'Continue Watching',
           poster: p['poster_path'],
           position: p['position_seconds'] ?? 0,
           duration: p['duration_seconds'] ?? 0,
+          seasonNumber: p['season'],
+          episodeNumber: p['episode'],
+          tvShowName: showName,
+          episodeTitle: epTitle,
+          updatedAt: p['updated_at'] != null ? DateTime.tryParse(p['updated_at']) : null,
         );
       }
     } catch (e) {
@@ -144,12 +169,36 @@ class ContinueWatching extends _$ContinueWatching {
     state = await AsyncValue.guard(() async {
       final backendProgress = await ref.read(streamRemoteDataSourceProvider).getWatchProgress();
       for (final p in backendProgress) {
+        final isTv = p['media_type'] == 'tv';
+        final String savedMovieId = isTv ? 'show_${p['show_id']}' : p['file_id'].toString();
+        
+        String? showName;
+        String? epTitle;
+        if (isTv) {
+          final titleStr = p['title']?.toString() ?? 'Continue Watching';
+          // Try to extract show name from "Show Name S01E02" format
+          final match = RegExp(r'^(.*?)\s*S\d+E\d+.*$').firstMatch(titleStr);
+          if (match != null) {
+            showName = match.group(1)?.trim();
+            epTitle = titleStr;
+          } else {
+            showName = titleStr;
+            epTitle = titleStr;
+          }
+        }
+        
         await WatchHistoryManager.saveProgress(
-          movieId: p['file_id'],
+          movieId: savedMovieId,
+          episodeId: p['file_id']?.toString(),
           title: p['title'] ?? 'Continue Watching',
           poster: p['poster_path'],
           position: p['position_seconds'] ?? 0,
           duration: p['duration_seconds'] ?? 0,
+          seasonNumber: p['season'],
+          episodeNumber: p['episode'],
+          tvShowName: showName,
+          episodeTitle: epTitle,
+          updatedAt: p['updated_at'] != null ? DateTime.tryParse(p['updated_at']) : null,
         );
       }
       return WatchHistoryManager.getContinueWatchingList();

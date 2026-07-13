@@ -11,7 +11,7 @@ class AppConfig {
   }
 
   /// Request timeout in seconds
-  static const int timeoutSeconds = 30;
+  static const int timeoutSeconds = 10;
 
   /// Image cache duration
   static const Duration imageCacheDuration = Duration(days: 7);

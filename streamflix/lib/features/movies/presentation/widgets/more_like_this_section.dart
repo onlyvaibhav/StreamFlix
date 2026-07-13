@@ -44,9 +44,9 @@ class MoreLikeThisSection extends ConsumerWidget {
                 physics: const NeverScrollableScrollPhysics(),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: _getCrossAxisCount(context),
-                  childAspectRatio: 2 / 3.5, // Poster ratio + title space
-                  crossAxisSpacing: AppDimensions.spaceSmall,
-                  mainAxisSpacing: AppDimensions.spaceMedium,
+                  childAspectRatio: 2 / 3, // Perfect poster ratio
+                  crossAxisSpacing: 12.0,
+                  mainAxisSpacing: 12.0,
                 ),
                 itemCount: recommendations.length,
                 itemBuilder: (context, index) {
@@ -95,8 +95,7 @@ class MoreLikeThisSection extends ConsumerWidget {
 
   int _getCrossAxisCount(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    if (width > 1200) return 4;
-    if (width > 800) return 3;
-    return 2;
+    if (width > 800) return 4;
+    return 3;
   }
 }

@@ -12,12 +12,12 @@
     "Drama"
   ],
   "rating": 9.5,
-  "popularity": 6.8457,
+  "popularity": 5.172,
   "awards": "",
   "poster": "/data/posters/show_297171.jpg",
   "backdrop": "/data/backdrops/show_297171_bd.jpg",
   "tmdbId": 297171,
-  "fetchedAt": "2026-07-07T13:53:29.910Z",
+  "fetchedAt": "2026-07-13T12:50:50.290Z",
   "needsRetry": false,
   "tv": {
     "showTitle": "Made in India: A Titan Story",

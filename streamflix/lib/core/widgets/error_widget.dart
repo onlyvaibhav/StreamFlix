@@ -17,32 +17,42 @@ class AppErrorWidget extends StatelessWidget {
 
   String _getErrorState(Object error) {
     if (error is DioException) {
-      if (error.type == DioExceptionType.connectionError ||
-          error.type == DioExceptionType.unknown ||
-          error.type == DioExceptionType.connectionTimeout ||
-          error.type == DioExceptionType.sendTimeout ||
-          error.type == DioExceptionType.receiveTimeout) {
-        return 'cannot_connect';
+      final message = error.message?.toLowerCase() ?? '';
+      final innerError = error.error?.toString().toLowerCase() ?? '';
+      
+      // Check for No Internet (DNS failure or explicit network unreachable)
+      if (innerError.contains('failed host lookup') || 
+          innerError.contains('network is unreachable') ||
+          innerError.contains('no route to host') ||
+          innerError.contains('connection aborted') ||
+          message.contains('failed host lookup') ||
+          message.contains('network is unreachable') ||
+          message.contains('no route to host')) {
+        return 'no_internet';
       }
-      if (error.response?.statusCode != null) {
-        return 'server_error';
+      
+      // Backend down / timeouts
+      if (error.type == DioExceptionType.connectionTimeout ||
+          error.type == DioExceptionType.sendTimeout ||
+          error.type == DioExceptionType.receiveTimeout ||
+          error.type == DioExceptionType.connectionError ||
+          innerError.contains('connection refused') ||
+          (error.response != null && error.response!.statusCode != null && error.response!.statusCode! >= 500)) {
+        return 'server_down';
       }
     }
     
     final errorStr = error.toString().toLowerCase();
-    if (errorStr.contains('connectionerror') || 
-        errorStr.contains('cannot connect') ||
-        errorStr.contains('unable to connect') ||
-        errorStr.contains('connection timeout') ||
-        errorStr.contains('socketexception')) {
-      return 'cannot_connect';
+    if (errorStr.contains('failed host lookup') || 
+        errorStr.contains('network is unreachable') ||
+        errorStr.contains('no route to host')) {
+      return 'no_internet';
     }
-    if (errorStr.contains('server error') || 
-        errorStr.contains('unexpected response') ||
-        errorStr.contains('format') ||
-        errorStr.contains('typeerror') ||
-        errorStr.contains('null is not a subtype')) {
-      return 'server_error';
+    if (errorStr.contains('connection refused') || 
+        errorStr.contains('connection timeout') ||
+        errorStr.contains('cannot connect') ||
+        errorStr.contains('server error')) {
+      return 'server_down';
     }
 
     return 'unknown_error';
@@ -56,14 +66,14 @@ class AppErrorWidget extends StatelessWidget {
     String title;
     String subtitle;
     
-    if (state == 'cannot_connect') {
+    if (state == 'no_internet') {
       icon = Icons.wifi_off_outlined;
-      title = "Can't connect to StreamFlix";
-      subtitle = "Make sure your server is running and you're on the same network.";
-    } else if (state == 'server_error') {
-      icon = Icons.warning_amber_outlined;
-      title = "Something went wrong";
-      subtitle = "The server returned an unexpected response.";
+      title = "Plot twist: The internet disappeared.";
+      subtitle = "Reconnect and we'll get the show started.";
+    } else if (state == 'server_down') {
+      icon = Icons.dns_outlined;
+      title = "Seems like Server is having Snacks";
+      subtitle = "We couldn't reach the backend. Please try again later.";
     } else {
       icon = Icons.error_outline;
       title = "An error occurred";

@@ -317,7 +317,7 @@
     /**
      * Full logout (local + backend)
      */
-    async logout() {
+    async logout(isRevoked = false) {
       const token = this.sessionToken;
       await this.clearLocalSession();
 
@@ -328,12 +328,16 @@
             headers: {
               'Authorization': `Bearer ${token}`,
               'Content-Type': 'application/json'
-            }
+            },
+            body: JSON.stringify({ status: isRevoked ? 'revoked' : 'logout' })
           });
         } catch (err) {
           console.error('[AuthService] Backend logout error:', err.message);
         }
       }
+      
+      // Reload the page to clear any in-memory app state and redirect to login
+      window.location.reload();
     }
   };
 

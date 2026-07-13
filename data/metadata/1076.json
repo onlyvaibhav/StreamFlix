@@ -3,20 +3,28 @@
   "fileName": "Satluj_2026_1080p_ZEE5_WEB_DL_Hindi_DDP5_1_Atmos_H_264_Vegamovies.mkv",
   "type": "movie",
   "title": "Satluj",
+  "originalTitle": "ਸਤਲੁਜ",
+  "overview": "Triggered by the search for his missing aunt, human rights activist Jaswant Singh Khalra takes on a broken system in a courageous fight to uncover the conspiracy behind thousands of disappearances and extrajudicial killings during the nadir of Punjab’s period of insurgency.",
+  "releaseDate": "2026-07-03",
   "year": 2026,
-  "tmdbId": 0,
-  "metadataStatus": "MANUAL_REVIEW",
-  "needsRetry": true,
-  "createdAt": "2026-07-07T17:21:47.309Z",
-  "_retry": {
-    "attemptCount": 0,
-    "lastAttempt": 0,
-    "searchedTitle": "Satluj",
-    "searchedYear": 2026
-  },
-  "refetchAttempts": 3,
-  "lastRefetchAttempt": "2026-07-07T17:25:26.606Z",
-  "last_refetch_attempt": "2026-07-07T17:25:26.606Z",
-  "last_refetch_error": "timeout of 10000ms exceeded",
-  "needs_manual_fix": true
+  "runtime": 164,
+  "genres": [
+    "Crime",
+    "Drama",
+    "History"
+  ],
+  "rating": 8,
+  "popularity": 115.3673,
+  "awards": "",
+  "poster": "/data/posters/1076.jpg",
+  "backdrop": "/data/backdrops/1076_bd.jpg",
+  "tmdbId": 1155818,
+  "fetchedAt": "2026-07-13T12:44:58.051Z",
+  "needsRetry": false,
+  "tv": null,
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "_tracksDetected": true,
+  "metadataStatus": "COMPLETE",
+  "logo": "/data/logos/1076_logo.png"
 }

@@ -1,0 +1,40 @@
+{
+  "fileId": "1081",
+  "fileName": "A.Romance.of.the.Little.Forest.S01E05.1080p.HIN-CHI.AV1.mkv",
+  "type": "tv",
+  "title": "A Romance of the Little Forest",
+  "originalTitle": "两个人的小森林",
+  "overview": "A story following a botany professor focusing only on research and does not care for fame, money, or love. Meeting a girl he had ill feelings with in the past, their interest in one another develops as she shows off her doctorate knowledge in ornithology.",
+  "releaseDate": "2022-09-15",
+  "year": 2022,
+  "runtime": 45,
+  "genres": [
+    "Comedy",
+    "Drama"
+  ],
+  "rating": 7.1,
+  "popularity": 5.2785,
+  "awards": "1 nomination total",
+  "poster": "/data/posters/show_135185.jpg",
+  "backdrop": "/data/backdrops/show_135185_bd.jpg",
+  "tmdbId": 135185,
+  "fetchedAt": "2026-07-13T12:44:23.442Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "A Romance of the Little Forest",
+    "originalShowTitle": "两个人的小森林",
+    "seasonNumber": 1,
+    "episodeNumber": 5,
+    "episodeTitle": "This is God's Will",
+    "episodeOverview": "Yu Mei Ren runs into Zhuang Yu again at Qingshui Village. She tells him that this ia God's will and tries to persuade him to pretend to be her boyfriend. At the same time, her parents make the guess that Zhuang Yu is indeed her boyfriend.",
+    "showTmdbId": 135185,
+    "episodeRuntime": 45,
+    "totalSeasons": 1,
+    "totalEpisodes": 35
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "_tracksDetected": true,
+  "metadataStatus": "COMPLETE",
+  "logo": "/data/logos/show_135185_logo.png"
+}

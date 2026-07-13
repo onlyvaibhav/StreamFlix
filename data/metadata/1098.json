@@ -1,0 +1,40 @@
+{
+  "fileId": "1098",
+  "fileName": "A.Romance.of.the.Little.Forest.S01E22.1080p.HIN-CHI.AV1.mkv",
+  "type": "tv",
+  "title": "A Romance of the Little Forest",
+  "originalTitle": "两个人的小森林",
+  "overview": "A story following a botany professor focusing only on research and does not care for fame, money, or love. Meeting a girl he had ill feelings with in the past, their interest in one another develops as she shows off her doctorate knowledge in ornithology.",
+  "releaseDate": "2022-09-15",
+  "year": 2022,
+  "runtime": 45,
+  "genres": [
+    "Comedy",
+    "Drama"
+  ],
+  "rating": 7.1,
+  "popularity": 5.2785,
+  "awards": "1 nomination total",
+  "poster": "/data/posters/show_135185.jpg",
+  "backdrop": "/data/backdrops/show_135185_bd.jpg",
+  "tmdbId": 135185,
+  "fetchedAt": "2026-07-13T12:39:53.931Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "A Romance of the Little Forest",
+    "originalShowTitle": "两个人的小森林",
+    "seasonNumber": 1,
+    "episodeNumber": 22,
+    "episodeTitle": "I Wish Doomsday Would Come Sooner",
+    "episodeOverview": "Jin Xi has finally made up his mind to tell Tian Tian everything, but he is interrupted again when Mei Ren borrows his umbrella. After he plucks up the courage to confess the truth, Tian Tian feels deceived and leaves angrily. After understanding the whole story, Mei Ren blocks Jin Xi's number, and she decides to quit working for someone her best friend hates.",
+    "showTmdbId": 135185,
+    "episodeRuntime": 45,
+    "totalSeasons": 1,
+    "totalEpisodes": 35
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "_tracksDetected": true,
+  "metadataStatus": "COMPLETE",
+  "logo": "/data/logos/show_135185_logo.png"
+}

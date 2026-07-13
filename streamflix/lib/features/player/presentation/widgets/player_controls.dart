@@ -123,21 +123,28 @@ class _PlayerControlsState extends ConsumerState<PlayerControls> {
         child: AnimatedOpacity(
           opacity: widget.visible ? 1.0 : 0.0,
           duration: const Duration(milliseconds: 300),
-          child: GestureDetector(
-            onTap: () {
-              widget.onVisibilityChanged(false);
-            },
-            behavior: HitTestBehavior.translucent,
-            child: _buildControls(context, player, playerState),
-          ),
+          child: _buildControls(context, player, playerState),
         ),
       ),
     );
   }
 
   Widget _buildControls(BuildContext context, mk.Player player, PlayerState playerState) {
-    return Container(
-      decoration: BoxDecoration(
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final bool isSmallScreen = constraints.maxWidth < 600;
+        final bool isVerySmallHeight = constraints.maxHeight < 400;
+        
+        final double playBtnSize = isSmallScreen || isVerySmallHeight ? 56.0 : 76.0;
+        final double playIconSize = isSmallScreen || isVerySmallHeight ? 36.0 : 48.0;
+        
+        final double sideBtnSize = isSmallScreen || isVerySmallHeight ? 44.0 : 54.0;
+        final double sideIconSize = isSmallScreen || isVerySmallHeight ? 28.0 : 32.0;
+        
+        final double centerSpacing = isSmallScreen || isVerySmallHeight ? 32.0 : 64.0;
+
+        return Container(
+          decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
@@ -152,122 +159,19 @@ class _PlayerControlsState extends ConsumerState<PlayerControls> {
       ),
       child: Column(
         children: [
-          // Top bar (title + back button)
+          // Top bar (back button)
           SafeArea(
             bottom: false,
             child: Padding(
               padding: const EdgeInsets.all(AppDimensions.spaceMedium),
-              child: Row(
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.arrow_back, color: Colors.white),
-                    onPressed: widget.onExit,
-                    tooltip: 'Back',
-                  ),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: _buildTitleSection(playerState),
-                    ),
-                  ),
-                ],
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: IconButton(
+                  icon: const Icon(Icons.arrow_back, color: Colors.white, size: 28),
+                  onPressed: widget.onExit,
+                  tooltip: 'Back',
+                ),
               ),
-            ),
-          ),
-
-          const Spacer(),
-
-          // Center controls: Previous Episode, Rewind 10s, Play/Pause, Fast Forward 10s, Next Episode
-          Center(
-            child: StreamBuilder<bool>(
-              stream: player.stream.playing,
-              builder: (context, snapshot) {
-                final isPlaying = snapshot.data ?? false;
-                final notifier = ref.read(moviePlayerProvider(widget.movieId).notifier);
-
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    // Rewind 10s
-                    GestureDetector(
-                      onTap: () {
-                        _onUserInteraction();
-                        final currentPos = playerState.isRemuxing
-                            ? player.state.position + Duration(milliseconds: (playerState.seekOffset * 1000).round())
-                            : player.state.position;
-                        final targetPos = currentPos - const Duration(seconds: 10);
-                        notifier.seekTo(targetPos.isNegative ? Duration.zero : targetPos);
-                      },
-                      child: Container(
-                        width: 54,
-                        height: 54,
-                        decoration: const BoxDecoration(
-                          color: Colors.black45,
-                          shape: BoxShape.circle,
-                        ),
-                        child: const Icon(
-                          Icons.replay_10_rounded,
-                          size: 32,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 32),
-                    
-                    // Play / Pause
-                    GestureDetector(
-                      onTap: () {
-                        _onUserInteraction();
-                        notifier.playOrPause();
-                      },
-                      child: Container(
-                        width: 76,
-                        height: 76,
-                        decoration: const BoxDecoration(
-                          color: Colors.black54,
-                          shape: BoxShape.circle,
-                        ),
-                        child: Icon(
-                          isPlaying ? Icons.pause_rounded : Icons.play_arrow_rounded,
-                          size: 48,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 32),
-                    
-                    // Fast Forward 10s
-                    GestureDetector(
-                      onTap: () {
-                        _onUserInteraction();
-                        final currentPos = playerState.isRemuxing
-                            ? player.state.position + Duration(milliseconds: (playerState.seekOffset * 1000).round())
-                            : player.state.position;
-                        final totalDur = playerState.isRemuxing
-                            ? Duration(seconds: playerState.duration.round())
-                            : player.state.duration;
-                        final targetPos = currentPos + const Duration(seconds: 10);
-                        notifier.seekTo(targetPos > totalDur ? totalDur : targetPos);
-                      },
-                      child: Container(
-                        width: 54,
-                        height: 54,
-                        decoration: const BoxDecoration(
-                          color: Colors.black45,
-                          shape: BoxShape.circle,
-                        ),
-                        child: const Icon(
-                          Icons.forward_10_rounded,
-                          size: 32,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ],
-                );
-              },
             ),
           ),
 
@@ -280,49 +184,23 @@ class _PlayerControlsState extends ConsumerState<PlayerControls> {
               padding: const EdgeInsets.all(AppDimensions.spaceMedium),
               child: Column(
                 children: [
-                  // Seek bar
-                  SeekBar(
-                    movieId: widget.movieId,
-                    onDragStart: () {
-                      setState(() {
-                        _isDragging = true;
-                      });
-                      _hideTimer?.cancel();
-                    },
-                    onDragEnd: () {
-                      setState(() {
-                        _isDragging = false;
-                      });
-                      _startHideTimer();
-                    },
-                  ),
-                  const SizedBox(height: 8),
-
-                  // Bottom buttons row
+                  // Seek bar + Time display
                   Row(
                     children: [
-                      // Play / Pause mini button
-                      StreamBuilder<bool>(
-                        stream: player.stream.playing,
-                        builder: (context, snapshot) {
-                          final isPlaying = snapshot.data ?? false;
-                          return IconButton(
-                            icon: Icon(
-                              isPlaying ? Icons.pause : Icons.play_arrow,
-                              color: Colors.white,
-                              size: 28,
-                            ),
-                            onPressed: () {
-                              _onUserInteraction();
-                              ref.read(moviePlayerProvider(widget.movieId).notifier)
-                                  .playOrPause();
-                            },
-                          );
-                        },
+                      Expanded(
+                        child: SeekBar(
+                          movieId: widget.movieId,
+                          onDragStart: () {
+                            setState(() { _isDragging = true; });
+                            _hideTimer?.cancel();
+                          },
+                          onDragEnd: () {
+                            setState(() { _isDragging = false; });
+                            _startHideTimer();
+                          },
+                        ),
                       ),
-
-                      const SizedBox(width: 8),
-
+                      const SizedBox(width: 16),
                       // Time display
                       StreamBuilder<Duration>(
                         stream: player.stream.position,
@@ -333,127 +211,226 @@ class _PlayerControlsState extends ConsumerState<PlayerControls> {
                               final rawPosition = positionSnapshot.data ?? Duration.zero;
                               final rawDuration = durationSnapshot.data ?? Duration.zero;
                               
-                              final position = playerState.isRemuxing
-                                  ? rawPosition + Duration(milliseconds: (playerState.seekOffset * 1000).round())
-                                  : rawPosition;
+                              bool isMultipart = playerState.splitParts.isNotEmpty;
                               
-                              final duration = (playerState.isRemuxing && playerState.duration > 0)
-                                  ? Duration(seconds: playerState.duration.round())
-                                  : rawDuration;
+                              Duration position = rawPosition;
+                              Duration duration = rawDuration;
+
+                              if (isMultipart) {
+                                double accumulated = 0.0;
+                                for (int i = 0; i < playerState.currentPartIndex; i++) {
+                                  accumulated += playerState.splitParts[i].duration ?? 0.0;
+                                }
+                                position = rawPosition + Duration(milliseconds: (accumulated * 1000).round());
+                                duration = Duration(seconds: playerState.duration.round());
+                              } else if (playerState.isRemuxing) {
+                                position = rawPosition + Duration(milliseconds: (playerState.seekOffset * 1000).round());
+                                if (playerState.duration > 0) {
+                                  duration = Duration(seconds: playerState.duration.round());
+                                }
+                              }
 
                               return Text(
                                 '${_formatDuration(position)} / ${_formatDuration(duration)}',
                                 style: AppTextStyles.bodySmall.copyWith(
                                   color: Colors.white,
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w500,
                                 ),
                               );
                             },
                           );
                         },
                       ),
+                    ],
+                  ),
+                  const SizedBox(height: 12),
 
-                      const SizedBox(width: 16),
+                  // Bottom buttons row
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      // LEFT CONTROLS
+                      Expanded(
+                        child: StreamBuilder<bool>(
+                          stream: player.stream.playing,
+                          builder: (context, snapshot) {
+                            final isPlaying = snapshot.data ?? false;
+                            final notifier = ref.read(moviePlayerProvider(widget.movieId).notifier);
+                            
+                            return Row(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                // Play / Pause
+                                playerState.isLoading 
+                                  ? Container(
+                                      width: 40,
+                                      height: 40,
+                                      padding: const EdgeInsets.all(8),
+                                      child: const CircularProgressIndicator(
+                                        color: Colors.white,
+                                        strokeWidth: 2,
+                                      ),
+                                    )
+                                  : IconButton(
+                                      icon: Icon(
+                                        isPlaying ? Icons.pause_rounded : Icons.play_arrow_rounded,
+                                        color: Colors.white,
+                                        size: 36,
+                                      ),
+                                      onPressed: () {
+                                        _onUserInteraction();
+                                        notifier.playOrPause();
+                                      },
+                                    ),
+                                
+                                const SizedBox(width: 4),
+                                
+                                // Rewind 10s
+                                IconButton(
+                                  icon: const Icon(Icons.replay_10_rounded, color: Colors.white, size: 28),
+                                  onPressed: () {
+                                    _onUserInteraction();
+                                    final currentPos = playerState.isRemuxing
+                                        ? player.state.position + Duration(milliseconds: (playerState.seekOffset * 1000).round())
+                                        : player.state.position;
+                                    final targetPos = currentPos - const Duration(seconds: 10);
+                                    notifier.seekTo(targetPos.isNegative ? Duration.zero : targetPos);
+                                  },
+                                ),
+                                
+                                const SizedBox(width: 4),
+                                
+                                // Fast Forward 10s
+                                IconButton(
+                                  icon: const Icon(Icons.forward_10_rounded, color: Colors.white, size: 28),
+                                  onPressed: () {
+                                    _onUserInteraction();
+                                    final currentPos = playerState.isRemuxing
+                                        ? player.state.position + Duration(milliseconds: (playerState.seekOffset * 1000).round())
+                                        : player.state.position;
+                                    final totalDur = playerState.isRemuxing
+                                        ? Duration(seconds: playerState.duration.round())
+                                        : player.state.duration;
+                                    final targetPos = currentPos + const Duration(seconds: 10);
+                                    notifier.seekTo(targetPos > totalDur ? totalDur : targetPos);
+                                  },
+                                ),
+                                
+                                const SizedBox(width: 8),
+                                
+                                // Volume Control
+                                _buildVolumeControl(player, isSmallScreen),
 
-                      // Redesigned Volume Control (Inline Slider) - shifted to the right of timer!
-                      _buildVolumeControl(player),
-
-                      const Spacer(),
-
-                      // Next Episode button (TV Shows only)
-                      if (playerState.tvSeasons.isNotEmpty && playerState.nextEpisode != null) ...[
-                        TextButton.icon(
-                          onPressed: () {
-                            _onUserInteraction();
-                            ref.read(moviePlayerProvider(widget.movieId).notifier).playNextEpisode();
-                          },
-                          icon: const Icon(Icons.skip_next_rounded, color: Colors.white, size: 20),
-                          label: const Text(
-                            'Next Episode',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 13,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          style: TextButton.styleFrom(
-                            backgroundColor: Colors.white.withValues(alpha: 0.20), // 20% transparent white background
-                            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                      ],
-
-                      // Subtitle selector
-                      SubtitleSelector(movieId: widget.movieId),
-
-                      const SizedBox(width: 8),
-
-                      // In-Player TV Episode List navigation
-                      if (playerState.tvSeasons.isNotEmpty) ...[
-                        IconButton(
-                          icon: const Icon(Icons.format_list_bulleted_rounded, color: Colors.white, size: 24),
-                          onPressed: () {
-                            _onUserInteraction();
-                            showGeneralDialog(
-                              context: context,
-                              barrierDismissible: true,
-                              barrierLabel: 'Dismiss',
-                              barrierColor: Colors.black.withValues(alpha: 0.4),
-                              pageBuilder: (context, anim1, anim2) => EpisodeListSheet(movieId: widget.movieId),
+                                if (!isSmallScreen) ...[
+                                  const SizedBox(width: 24),
+                                  
+                                  // Title
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: _buildTitleSection(playerState),
+                                    ),
+                                  ),
+                                ],
+                              ],
                             );
                           },
-                          tooltip: 'Episodes',
                         ),
-                        const SizedBox(width: 8),
-                      ],
-
-                      const SizedBox(width: 8),
-
-                      // Playback Speed Selector (Reactive)
-                      StreamBuilder<double>(
-                        stream: player.stream.rate,
-                        builder: (context, rateSnapshot) {
-                          final currentSpeed = rateSnapshot.data ?? 1.0;
-                          return PopupMenuButton<double>(
-                            initialValue: currentSpeed,
-                            icon: Text(
-                              '${currentSpeed}x',
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14,
-                              ),
+                      ),
+                      
+                      // RIGHT CONTROLS
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          // Next Episode button
+                          if (playerState.tvSeasons.isNotEmpty && playerState.nextEpisode != null) ...[
+                            IconButton(
+                              onPressed: () {
+                                _onUserInteraction();
+                                ref.read(moviePlayerProvider(widget.movieId).notifier).playNextEpisode();
+                              },
+                              icon: const Icon(Icons.skip_next_rounded, color: Colors.white, size: 26),
+                              tooltip: 'Next Episode',
                             ),
-                            tooltip: 'Playback Speed',
-                            color: AppColors.backgroundCard,
-                            onSelected: (speed) async {
-                              _onUserInteraction();
-                              await player.setRate(speed);
-                            },
-                            itemBuilder: (context) => [
-                              0.25,
-                              0.5,
-                              0.75,
-                              1.0,
-                              1.25,
-                              1.5,
-                              2.0,
-                            ].map((speed) {
-                              final isSelected = currentSpeed == speed;
-                              return PopupMenuItem<double>(
-                                value: speed,
-                                child: Text(
-                                  speed == 1.0 ? 'Normal' : '${speed}x',
-                                  style: TextStyle(
-                                    color: isSelected ? AppColors.netflixRed : Colors.white,
-                                    fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                                  ),
-                                ),
+                            const SizedBox(width: 4),
+                          ],
+
+                          // Episodes List
+                          if (playerState.tvSeasons.isNotEmpty) ...[
+                            IconButton(
+                              icon: const Icon(Icons.library_books_rounded, color: Colors.white, size: 24),
+                              onPressed: () {
+                                _onUserInteraction();
+                                showGeneralDialog(
+                                  context: context,
+                                  barrierDismissible: true,
+                                  barrierLabel: 'Dismiss',
+                                  barrierColor: Colors.black.withValues(alpha: 0.4),
+                                  pageBuilder: (context, anim1, anim2) => EpisodeListSheet(movieId: widget.movieId),
+                                );
+                              },
+                              tooltip: 'Episodes',
+                            ),
+                            const SizedBox(width: 4),
+                          ],
+
+                          // Subtitle selector
+                          SubtitleSelector(movieId: widget.movieId),
+                          
+                          const SizedBox(width: 4),
+
+                          // Playback Speed
+                          StreamBuilder<double>(
+                            stream: player.stream.rate,
+                            builder: (context, rateSnapshot) {
+                              final currentSpeed = rateSnapshot.data ?? 1.0;
+                              return PopupMenuButton<double>(
+                                initialValue: currentSpeed,
+                                icon: const Icon(Icons.speed_rounded, color: Colors.white, size: 24),
+                                tooltip: 'Playback Speed',
+                                color: AppColors.backgroundCard,
+                                onSelected: (speed) async {
+                                  _onUserInteraction();
+                                  await player.setRate(speed);
+                                },
+                                itemBuilder: (context) => [
+                                  0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 2.0,
+                                ].map((speed) {
+                                  final isSelected = currentSpeed == speed;
+                                  return PopupMenuItem<double>(
+                                    value: speed,
+                                    child: Text(
+                                      speed == 1.0 ? 'Normal' : '${speed}x',
+                                      style: TextStyle(
+                                        color: isSelected ? AppColors.netflixRed : Colors.white,
+                                        fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                                      ),
+                                    ),
+                                  );
+                                }).toList(),
                               );
-                            }).toList(),
-                          );
-                        },
+                            },
+                          ),
+
+                          const SizedBox(width: 4),
+
+                          // Fullscreen toggle
+                          IconButton(
+                            icon: Icon(
+                              widget.isFullscreen ? Icons.fullscreen_exit_rounded : Icons.fullscreen_rounded,
+                              color: Colors.white,
+                              size: 28,
+                            ),
+                            onPressed: () {
+                              _onUserInteraction();
+                              widget.onFullscreenToggle();
+                            },
+                            tooltip: widget.isFullscreen ? 'Exit Fullscreen' : 'Fullscreen',
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -464,9 +441,34 @@ class _PlayerControlsState extends ConsumerState<PlayerControls> {
         ],
       ),
     );
+      },
+    );
   }
 
-  Widget _buildVolumeControl(mk.Player player) {
+  Widget _buildVolumeControl(mk.Player player, bool isSmallScreen) {
+    if (isSmallScreen) {
+      // Show only mute button on very small screens to save space
+      return StreamBuilder<double>(
+        stream: player.stream.volume,
+        builder: (context, snapshot) {
+          final volume = snapshot.data ?? 100.0;
+          final isMuted = volume == 0.0;
+          return IconButton(
+            icon: Icon(
+              isMuted ? Icons.volume_off_rounded : Icons.volume_up_rounded,
+              color: Colors.white,
+              size: 22,
+            ),
+            onPressed: () {
+              _onUserInteraction();
+              player.setVolume(isMuted ? 80.0 : 0.0);
+            },
+            tooltip: isMuted ? 'Unmute' : 'Mute',
+          );
+        },
+      );
+    }
+
     return StreamBuilder<double>(
       stream: player.stream.volume,
       builder: (context, snapshot) {

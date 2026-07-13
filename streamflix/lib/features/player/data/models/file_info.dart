@@ -6,6 +6,7 @@ class FileInfo {
   final String mimeType;
   final String fileName;
   final int? dcId;
+  final String? channelId;
   final FileLocation? fileLocation;
 
   FileInfo({
@@ -14,6 +15,7 @@ class FileInfo {
     required this.mimeType,
     required this.fileName,
     this.dcId,
+    this.channelId,
     this.fileLocation,
   });
 
@@ -24,6 +26,7 @@ class FileInfo {
       mimeType: json['mimeType'] as String? ?? 'video/mp4',
       fileName: json['fileName'] as String? ?? '',
       dcId: json['dcId'] as int?,
+      channelId: json['channelId']?.toString(),
       fileLocation: json['fileLocation'] != null
           ? FileLocation.fromJson(json['fileLocation'] as Map<String, dynamic>)
           : null,

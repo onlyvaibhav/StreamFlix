@@ -1,0 +1,40 @@
+{
+  "fileId": "1102",
+  "fileName": "A.Romance.of.the.Little.Forest.S01E26.1080p.HIN-CHI.AV1.mkv",
+  "type": "tv",
+  "title": "A Romance of the Little Forest",
+  "originalTitle": "两个人的小森林",
+  "overview": "A story following a botany professor focusing only on research and does not care for fame, money, or love. Meeting a girl he had ill feelings with in the past, their interest in one another develops as she shows off her doctorate knowledge in ornithology.",
+  "releaseDate": "2022-09-15",
+  "year": 2022,
+  "runtime": 44,
+  "genres": [
+    "Comedy",
+    "Drama"
+  ],
+  "rating": 7.1,
+  "popularity": 5.2785,
+  "awards": "1 nomination total",
+  "poster": "/data/posters/show_135185.jpg",
+  "backdrop": "/data/backdrops/show_135185_bd.jpg",
+  "tmdbId": 135185,
+  "fetchedAt": "2026-07-13T12:39:02.331Z",
+  "needsRetry": false,
+  "tv": {
+    "showTitle": "A Romance of the Little Forest",
+    "originalShowTitle": "两个人的小森林",
+    "seasonNumber": 1,
+    "episodeNumber": 26,
+    "episodeTitle": "When You Truly Desire Something, the Whole Universe Will Help You",
+    "episodeOverview": "In order to help the police catch the bird poacher, Jia San, Mei Ren has been waiting in the swale to collect evidence. Just when she's nearly discovered by Jia San, Zhuang Yu appears in time to save her. However, instead of thanking Zhuang Yu, Mei Ren blames him for ruining her plan.",
+    "showTmdbId": 135185,
+    "episodeRuntime": 44,
+    "totalSeasons": 1,
+    "totalEpisodes": 35
+  },
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "_tracksDetected": true,
+  "metadataStatus": "COMPLETE",
+  "logo": "/data/logos/show_135185_logo.png"
+}

@@ -3,6 +3,13 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'split_part.freezed.dart';
 part 'split_part.g.dart';
 
+double? _readDuration(Map json, String key) {
+  final val = json[key];
+  if (val is num) return val.toDouble();
+  if (val is String) return double.tryParse(val);
+  return null;
+}
+
 @freezed
 sealed class SplitPart with _$SplitPart {
   const factory SplitPart({
@@ -12,7 +19,7 @@ sealed class SplitPart with _$SplitPart {
     String? fileName,
     int? size,
     String? sizeFormatted,
-    double? duration,
+    @JsonKey(readValue: _readDuration) double? duration,
   }) = _SplitPart;
 
   factory SplitPart.fromJson(Map<String, dynamic> json) =>

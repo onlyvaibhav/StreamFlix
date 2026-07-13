@@ -6,6 +6,7 @@ import 'package:streamflix/core/constants/app_text_styles.dart';
 import 'package:streamflix/core/router/route_names.dart';
 import 'package:streamflix/core/widgets/app_image.dart';
 import 'package:streamflix/features/movies/data/models/movie.dart';
+import 'package:streamflix/features/movies/data/models/watch_history.dart';
 
 class MovieDetailInfo extends StatefulWidget {
   final Movie movie;
@@ -28,6 +29,33 @@ class _MovieDetailInfoState extends State<MovieDetailInfo> {
   Widget build(BuildContext context) {
     final isMobile = MediaQuery.of(context).size.width < 600;
     final overviewText = widget.movie.overview ?? widget.movie.description ?? '';
+    
+    final progress = WatchHistoryManager.getProgress(widget.movie.id);
+    final isResume = progress != null;
+
+    String primaryActionText;
+    String primaryActionPath;
+
+    if (isResume) {
+      if (widget.movie.type == 'tv' && progress.seasonNumber != null && progress.episodeNumber != null) {
+        primaryActionText = 'Resume S${progress.seasonNumber} E${progress.episodeNumber}';
+      } else {
+        primaryActionText = 'Resume';
+      }
+      primaryActionPath = RouteNames.watchPath(progress.episodeId ?? widget.movie.id);
+    } else {
+      if (widget.movie.type == 'tv' &&
+          widget.movie.seasons != null &&
+          widget.movie.seasons!.isNotEmpty) {
+        final selectedSeason = widget.movie.seasons![_selectedSeasonIndex];
+        primaryActionText = 'Play S${selectedSeason.seasonNumber}E1';
+        final firstEp = selectedSeason.episodes.firstOrNull;
+        primaryActionPath = firstEp != null ? RouteNames.watchPath(firstEp.id) : RouteNames.watchPath(widget.movie.id);
+      } else {
+        primaryActionText = 'Play';
+        primaryActionPath = RouteNames.watchPath(widget.movie.id);
+      }
+    }
 
     return Padding(
       padding: EdgeInsets.all(
@@ -140,23 +168,11 @@ class _MovieDetailInfoState extends State<MovieDetailInfo> {
             height: 48,
             child: ElevatedButton.icon(
               onPressed: () {
-                if (widget.movie.type == 'tv' &&
-                    widget.movie.seasons != null &&
-                    widget.movie.seasons!.isNotEmpty) {
-                  final selectedSeason = widget.movie.seasons![_selectedSeasonIndex];
-                  final firstEp = selectedSeason.episodes.firstOrNull;
-                  if (firstEp != null) {
-                    context.push(RouteNames.watchPath(firstEp.id));
-                  }
-                } else {
-                  context.push(RouteNames.watchPath(widget.movie.id));
-                }
+                context.push(primaryActionPath);
               },
-              icon: const Icon(Icons.play_arrow_rounded, size: 28, color: Colors.black),
+              icon: Icon(isResume ? Icons.play_circle_fill_rounded : Icons.play_arrow_rounded, size: 28, color: Colors.black),
               label: Text(
-                (widget.movie.type == 'tv' && widget.movie.seasons != null && widget.movie.seasons!.isNotEmpty)
-                    ? 'Play S${widget.movie.seasons![_selectedSeasonIndex].seasonNumber}E1'
-                    : 'Play',
+                primaryActionText,
                 style: const TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
