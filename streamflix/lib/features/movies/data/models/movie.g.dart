@@ -47,6 +47,7 @@ _Movie _$MovieFromJson(Map<String, dynamic> json) => _Movie(
   parts: (json['parts'] as List<dynamic>?)
       ?.map((e) => SplitPart.fromJson(e as Map<String, dynamic>))
       .toList(),
+  episodeStill: json['episode_still'] as String?,
 );
 
 Map<String, dynamic> _$MovieToJson(_Movie instance) => <String, dynamic>{
@@ -84,4 +85,5 @@ Map<String, dynamic> _$MovieToJson(_Movie instance) => <String, dynamic>{
   'isSplit': instance.isSplit,
   'totalParts': instance.totalParts,
   'parts': instance.parts,
+  'episode_still': instance.episodeStill,
 };

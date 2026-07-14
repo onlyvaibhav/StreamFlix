@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:streamflix/core/constants/app_colors.dart';
 import 'package:streamflix/core/widgets/app_image.dart';
+import 'package:streamflix/features/movies/data/models/movie.dart';
 import 'package:streamflix/features/player/presentation/providers/player_provider.dart';
 
 class EpisodeListSheet extends ConsumerStatefulWidget {
@@ -169,7 +170,7 @@ class _EpisodeListSheetState extends ConsumerState<EpisodeListSheet> {
                                     child: Stack(
                                       children: [
                                         AppImage(
-                                          imageUrl: '/api/movies/${episode.id}/thumbnail',
+                                          imageUrl: episode.episodeStill ?? '/api/movies/${episode.id}/thumbnail',
                                           fit: BoxFit.cover,
                                           width: 140,
                                           height: 80,

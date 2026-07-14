@@ -81,6 +81,9 @@ sealed class Movie with _$Movie {
     bool? isSplit,
     int? totalParts,
     List<SplitPart>? parts,
+    
+    // Episode specific metadata
+    @JsonKey(name: 'episode_still') String? episodeStill,
   }) = _Movie;
 
   factory Movie.fromJson(Map<String, dynamic> json) => _$MovieFromJson(json);
@@ -106,6 +109,13 @@ extension MovieX on Movie {
     if (logo == null) return null;
     if (logo!.startsWith('http')) return logo;
     return logo;
+  }
+
+  /// Full episode still URL
+  String? get fullEpisodeStillUrl {
+    if (episodeStill == null) return null;
+    if (episodeStill!.startsWith('http')) return episodeStill;
+    return episodeStill; // AppImage wrapper handles prefixing the baseUrl
   }
 
   /// Release year extracted from release_date

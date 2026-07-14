@@ -583,7 +583,7 @@ final class ContinueWatchingProvider
   ContinueWatching create() => ContinueWatching();
 }
 
-String _$continueWatchingHash() => r'5275fc7b77afd39017c7be2ea3339ebd41ac4127';
+String _$continueWatchingHash() => r'2936800175e2dfeb7a44273fb3e9cbc4365f6c73';
 
 /// Provider for managing and retrieving watch progress history
 

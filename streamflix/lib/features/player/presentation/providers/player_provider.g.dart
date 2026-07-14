@@ -61,7 +61,7 @@ final class MoviePlayerProvider
   }
 }
 
-String _$moviePlayerHash() => r'f8d0b9aba8c043daa0740e3df70f03796601da5c';
+String _$moviePlayerHash() => r'020d909cdab530c09af6153011092e3cd48c88ba';
 
 /// Provider for video player instance with full streaming pipeline
 
