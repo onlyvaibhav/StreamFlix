@@ -104,7 +104,8 @@ const Api = (() => {
     // METADATA MANAGEMENT
     // ══════════════════════════════════════
     async function getIssues() {
-        const data = await get('/api/admin/metadata/issues');
+        const response = await get('/api/admin/metadata/issues');
+        const data = response.issues || response || [];
         AppState.set('metadata', data);
         return data;
     }
@@ -139,6 +140,10 @@ const Api = (() => {
 
     async function refetchAllFailed() {
         return await post('/api/admin/metadata/refetch-all-failed');
+    }
+
+    async function downloadMissingStills() {
+        return await post('/api/admin/metadata/download-missing-stills');
     }
 
     // ══════════════════════════════════════
@@ -230,8 +235,16 @@ const Api = (() => {
         // Media
         searchMedia, getFileMetadata,
         // Metadata
-        getIssues, fixMetadata, refetchMetadata, manualOverride,
-        setProbeResult, autoMatchAll, fixBroken, retryFailed, refetchAllFailed,
+        getIssues,
+        fixMetadata,
+        refetchMetadata,
+        manualOverride,
+        setProbeResult,
+        autoMatchAll,
+        fixBroken,
+        retryFailed,
+        refetchAllFailed,
+        downloadMissingStills,
         // Workers
         getWorkerStatus, pauseWorker, resumeWorker, getAudioAudit, startAudioSweep,
         // Telegram

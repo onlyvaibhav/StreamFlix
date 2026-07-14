@@ -800,5 +800,7 @@
   "duration": 1484,
   "_tracksDetected": true,
   "certification": "TV-PG",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "_stillPath": "/7SSOymqRFf4biVMezBqBcCgPcyZ.jpg",
+  "episode_still": "/data/stills/830_still.jpg"
 }

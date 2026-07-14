@@ -160,5 +160,7 @@
   "container": "matroska,webm",
   "_tracksDetected": true,
   "certification": "NC16",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "_stillPath": "/4j0ZDDo9IFZ9r6ixL2GJERSScUm.jpg",
+  "episode_still": "/data/stills/561_still.jpg"
 }

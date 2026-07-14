@@ -1,17 +1,20 @@
 {
   "showTmdbId": 278043,
   "showTitle": "You and I Are Polar Opposites",
+  "originalShowTitle": "正反対な君と僕",
   "overview": "Suzuki's a high school girl in love, but the guy she's fallen for is nothing like her! While she's cheerful, outgoing, and always trying to fit in, her classmate Yusuke Tani is stoic, quiet, and doesn't seem to care what people think of him. Will Suzuki be able to overcome her anxieties and ask him out, or will she discover that opposites really don't attract?",
   "genres": [
     "Animation",
     "Comedy"
   ],
   "rating": 8.491,
+  "popularity": 11.467,
   "poster": "/data/posters/show_278043.jpg",
   "backdrop": "/data/backdrops/show_278043_bd.jpg",
-  "year": 2026,
   "totalSeasons": 2,
   "totalEpisodes": 13,
+  "year": 2026,
+  "releaseDate": "2026-01-11",
   "seasons": {
     "1": [
       {
@@ -21,7 +24,8 @@
         "episodeNumber": 1,
         "episodeTitle": "You, My Polar Opposite",
         "episodeOverview": "Suzuki is always cheerful and energetic, but she often worries about what the people around her think of her. That's why she secretly admires Tani, the quiet boy who sits next to her in class, for always clearly speaking his mind. One day after school, the two of them end up walking home together, and then...",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "945",
@@ -30,7 +34,8 @@
         "episodeNumber": 2,
         "episodeTitle": "First Date!",
         "episodeOverview": "After their confessions of love are successful, Suzuki and Tani begin dating. Suzuki wants to impress Tani on their first date, a date she's wished for for so long, but she feels like she just keeps spinning her wheels.",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "946",
@@ -39,7 +44,8 @@
         "episodeNumber": 3,
         "episodeTitle": "Cute and Cool",
         "episodeOverview": "Knowledge of Suzuki and Tani's relationship slowly spreads through their class. When Suzuki calls Tani \"adorable,\" it leaves him feeling unsettled and wondering what she means by that word.",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "947",
@@ -48,7 +54,8 @@
         "episodeNumber": 4,
         "episodeTitle": "Summer Night Vibes",
         "episodeOverview": "Suzuki organizes a study group for their end of term exams. She's happy to see Tani is growing closer to her friends. Then, at last, the day of the summer festival arrives.",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "948",
@@ -57,7 +64,8 @@
         "episodeNumber": 5,
         "episodeTitle": "Someone Who Thinks and Someone Who Doesn't",
         "episodeOverview": "Yamada is touched by the shy, reserved Nishi's smile and gradually becomes interested in her. He decides to jump right in and say, \"Be my friend!\" Little by little, they grow closer.",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       },
       {
         "fileId": "949",
@@ -66,66 +74,14 @@
         "episodeNumber": 6,
         "episodeTitle": "Culture Festival!",
         "episodeOverview": "With the close of summer break, the culture festival arrives. Suzuki reunites with Rihito, a boy she dated in middle school.",
-        "runtime": 24
-      },
-      {
-        "fileId": "950",
-        "fileName": "Seihantai - S01E07.mkv",
-        "seasonNumber": 1,
-        "episodeNumber": 7,
-        "episodeTitle": "Fluttery Confusion",
-        "episodeOverview": "After the culture festival, an undefined sort of atmosphere hangs between Yamada and Nishi. Suzuki notices and begins plotting. Tani finds himself left at the mercy of the situation.",
-        "runtime": 24
-      },
-      {
-        "fileId": "951",
-        "fileName": "Seihantai - S01E08.mkv",
-        "seasonNumber": 1,
-        "episodeNumber": 8,
-        "episodeTitle": "This Autumn...",
-        "episodeOverview": "The culture festival is over and the season turns to autumn. Azuma is troubled by a message from her ex-boyfriend, and Taira defends Azuma's feelings in her stead. Little by little their relationship is changing.",
-        "runtime": 24
-      },
-      {
-        "fileId": "952",
-        "fileName": "Seihantai - S01E09.mkv",
-        "seasonNumber": 1,
-        "episodeNumber": 9,
-        "episodeTitle": "Surprise!",
-        "episodeOverview": "For Tani's birthday, he and Suzuki go on a museum date. Despite being struck with crowds and other trouble, they express their feelings to each other and grow closer.",
-        "runtime": 24
-      },
-      {
-        "fileId": "953",
-        "fileName": "Seihantai - S01E10.mkv",
-        "seasonNumber": 1,
-        "episodeNumber": 10,
-        "episodeTitle": "Class Trip (Part 1)",
-        "episodeOverview": "At last it's time for the class trip. The girls in her class pelt Suzuki with questions about her relationship with Tani. Suzuki confesses her true feelings to Azuma, saying, \"I want to take things further with Tani.\"",
-        "runtime": 24
-      },
-      {
-        "fileId": "954",
-        "fileName": "Seihantai - S01E11.mkv",
-        "seasonNumber": 1,
-        "episodeNumber": 11,
-        "episodeTitle": "Class Trip (Part 2)",
-        "episodeOverview": "On the second day of the class trip, Nishi gets a message from Yamada saying \"I want to see you.\" She heads out and finally realizes her true feelings. On the last day of the trip, Tani and Suzuki enjoy their time at a theme park, but Tani stops her from leaving and says, \"I want to spend a little more time with you.\"",
-        "runtime": 24
-      },
-      {
-        "fileId": "955",
-        "fileName": "Seihantai - S01E12.mkv",
-        "seasonNumber": 1,
-        "episodeNumber": 12,
-        "episodeTitle": "Step by Step",
-        "episodeOverview": "As the seasons change, Yamada and Nishi become more open with each other, and the negative aura around Azuma and Taira continues to soften. Suzuki and Tani go on a date in Yokohama, and the chance for their first kiss finally arrives, but...",
-        "runtime": 24
+        "runtime": 24,
+        "tracks": null
       }
     ]
   },
+  "episodes": [],
   "availableSeasons": [
     1
   ],
-  "availableEpisodeCount": 12
+  "availableEpisodeCount": 6
 }

@@ -157,5 +157,7 @@
   "duration": 3602,
   "_tracksDetected": true,
   "certification": "TV-MA",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "_stillPath": "/kSyAAbk0UR8XMB4HH90x1QHqLQC.jpg",
+  "episode_still": "/data/stills/626_still.jpg"
 }

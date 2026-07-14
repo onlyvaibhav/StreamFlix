@@ -181,6 +181,11 @@ app.use('/data/backdrops', express.static(path.join(__dirname, 'data/backdrops')
   maxAge: '7d'
 }));
 
+app.use('/data/stills', express.static(path.join(__dirname, 'data/stills'), {
+  fallthrough: false,
+  maxAge: '7d'
+}));
+
 // ============================================================
 // API ROUTES
 // ============================================================

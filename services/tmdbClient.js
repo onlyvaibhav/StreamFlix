@@ -174,14 +174,16 @@ class TMDBClient {
             return {
                 episodeTitle: d.name || '',
                 episodeOverview: d.overview || '',
-                episodeRuntime: d.runtime || 0
+                episodeRuntime: d.runtime || 0,
+                stillPath: d.still_path || null
             };
         } catch (err) {
             // Episode might not exist on TMDB — not fatal
             return {
                 episodeTitle: '',
                 episodeOverview: '',
-                episodeRuntime: 0
+                episodeRuntime: 0,
+                stillPath: null
             };
         }
     }
@@ -263,7 +265,8 @@ class TMDBClient {
             },
             _posterPath: showMeta.posterPath,
             _backdropPath: showMeta.backdropPath,
-            _logoPath: showMeta.logoPath
+            _logoPath: showMeta.logoPath,
+            _stillPath: episodeDetails.stillPath || null
         };
     }
 }

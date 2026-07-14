@@ -67,5 +67,7 @@
   "container": "matroska,webm",
   "_tracksDetected": true,
   "certification": "TV-14",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "_stillPath": "/pRtxYDNJf4mb6uwW5fXSTEdpdAt.jpg",
+  "episode_still": "/data/stills/744_still.jpg"
 }

@@ -18,26 +18,6 @@
   "seasons": {
     "1": [
       {
-        "fileId": "97",
-        "fileName": "Khakee_The_Bihar_Chapter_S01_E01_720p_HEVC_Hindi_WEB_DL_ESub_x265.mkv",
-        "seasonNumber": 1,
-        "episodeNumber": 1,
-        "episodeTitle": "PATRA PARICHAY !",
-        "episodeOverview": "Upon arriving in Bihar, police officer Amit Lodha grapples with a tough new way of life — but when a child is kidnapped, he springs into action.",
-        "runtime": 57,
-        "tracks": null
-      },
-      {
-        "fileId": "96",
-        "fileName": "Khakee_The_Bihar_Chapter_S01_E02_720p_HEVC_Hindi_WEB_DL_ESub_x265.mkv",
-        "seasonNumber": 1,
-        "episodeNumber": 2,
-        "episodeTitle": "CHANDANWA KA JANM !",
-        "episodeOverview": "Chandan Mahto's notoriety grows after a bold move. As Amit's career advances, deep-rooted social mindsets and political pressures create hurdles.",
-        "runtime": 51,
-        "tracks": null
-      },
-      {
         "fileId": "95",
         "fileName": "Khakee_The_Bihar_Chapter_S01_E03_720p_HEVC_Hindi_WEB_DL_ESub_x265.mkv",
         "seasonNumber": 1,
@@ -93,5 +73,5 @@
   "availableSeasons": [
     1
   ],
-  "availableEpisodeCount": 7
+  "availableEpisodeCount": 5
 }

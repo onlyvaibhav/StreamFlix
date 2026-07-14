@@ -7,6 +7,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:streamflix/core/router/app_router.dart';
 
 import 'package:streamflix/features/movies/data/models/watch_history.dart';
+import 'package:streamflix/features/downloads/data/download_manager.dart';
 
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -28,12 +29,14 @@ void main() async {
 
   PlayerConfig.initialize();
   await WatchHistoryManager.loadHistory();
+  await DownloadManager().init();
 
   // Initialize Telegram Client Service and Loopback Server
   await LocalLoopbackServer().start();
   final box = Hive.box('authBox');
   final savedSession = box.get('telegram_session') as String?;
   await TelegramClientService().init(initialSession: savedSession);
+
   runApp(
     const ProviderScope(
       child: StreamFlixApp(),

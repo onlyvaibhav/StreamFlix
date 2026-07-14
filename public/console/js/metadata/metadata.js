@@ -44,6 +44,9 @@ const MetadataModule = (() => {
                             <button class="btn btn-secondary" onclick="MetadataModule.autoMatchAll()">
                                 <i data-lucide="wand-2" style="width:16px"></i> Auto Match All
                             </button>
+                            <button class="btn btn-secondary" onclick="MetadataModule.downloadMissingStills()">
+                                <i data-lucide="image" style="width:16px"></i> Download Missing Stills
+                            </button>
                             <button class="btn btn-primary" onclick="MetadataModule.fixBroken()">
                                 <i data-lucide="wrench" style="width:16px"></i> Run Repair Worker
                             </button>
@@ -250,6 +253,22 @@ const MetadataModule = (() => {
         }
     }
 
+    async function _handleDownloadMissingStills() {
+        const confirmed = await ConfirmDialog.show({
+            title: 'Download Missing Stills',
+            message: 'Find all TV episodes missing episode stills and queue them for download?',
+        });
+        if (!confirmed) return;
+
+        try {
+            await Api.downloadMissingStills();
+            Toast.success('Still download queue started');
+            _loadData();
+        } catch (err) {
+            Toast.error(err.message);
+        }
+    }
+
     async function _handleRetryFailed() {
         const confirmed = await ConfirmDialog.show({
             title: 'Retry Failed',
@@ -362,6 +381,7 @@ const MetadataModule = (() => {
         autoMatchAll: _handleAutoMatchAll,
         autoMatch: _handleAutoMatch,
         fixBroken: _handleFixBroken,
+        downloadMissingStills: _handleDownloadMissingStills,
         edit: _openEditor,
         closeEditor: () => { if (_modal) _modal.close(); },
         toggleTVSettings: _toggleTVSettings,
@@ -370,3 +390,5 @@ const MetadataModule = (() => {
         retryFailed: _handleRetryFailed
     };
 })();
+
+window.MetadataModule = MetadataModule;

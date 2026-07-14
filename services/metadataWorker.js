@@ -13,6 +13,7 @@ const MOVIES_DIR = path.join(__dirname, '../data/movies');
 const POSTERS_DIR = path.join(__dirname, '../data/posters');
 const BACKDROPS_DIR = path.join(__dirname, '../data/backdrops');
 const LOGOS_DIR = path.join(__dirname, '../data/logos');
+const STILLS_DIR = path.join(__dirname, '../data/stills');
 
 const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p';
 
@@ -22,7 +23,7 @@ function sleep(ms) {
 
 // Helper: Ensure directories exist
 async function ensureDirs() {
-    const dirs = [DATA_DIR, TV_CACHE_DIR, POSTERS_DIR, BACKDROPS_DIR, LOGOS_DIR];
+    const dirs = [DATA_DIR, TV_CACHE_DIR, POSTERS_DIR, BACKDROPS_DIR, LOGOS_DIR, STILLS_DIR];
     for (const dir of dirs) {
         try {
             await fs.mkdir(dir, { recursive: true });
@@ -343,6 +344,29 @@ async function downloadShowImages(showTmdbId, posterTmdbPath, backdropTmdbPath, 
     };
 }
 
+// EPISODE still images
+async function downloadEpisodeStill(fileId, stillTmdbPath) {
+    const stillFilename = `${fileId}_still.jpg`;
+    const still = await downloadImage(
+        stillTmdbPath,
+        STILLS_DIR,
+        stillFilename,
+        'w1280' // Using w1280 for good quality preview images
+    );
+    return still ? `/data/stills/${stillFilename}` : null;
+}
+
+async function forceDownloadEpisodeStill(fileId, stillTmdbPath) {
+    const stillFilename = `${fileId}_still.jpg`;
+    const still = await forceDownloadImage(
+        stillTmdbPath,
+        STILLS_DIR,
+        stillFilename,
+        'w1280'
+    );
+    return still ? `/data/stills/${stillFilename}` : null;
+}
+
 
 // ==================== PHASE 3: TV Show Registry (Rebuilt with Shared Images) ====================
 class TVShowRegistry {
@@ -599,9 +623,47 @@ class MetadataWorker {
         this.isRunning = false;
         this.telegramService = null; // Will be set externally
     }
-
     setTelegramService(service) {
         this.telegramService = service;
+    }
+
+    // ==================== BATCH DOWNLOAD MISSING STILLS ====================
+    async downloadMissingStills() {
+        if (this.isRunning) {
+            logger.warn('Already running a task', 'worker');
+            return;
+        }
+        this.isRunning = true;
+        try {
+            const all = await getAllMetadata();
+            const episodes = all.filter(m => m.type === 'tv' && m.tmdbId && !m.episode_still);
+            console.log(`[Worker] Found ${episodes.length} episodes missing stills. Fetching...`);
+
+            for (const ep of episodes) {
+                if (activityTracker.isPaused()) {
+                    await activityTracker.waitIfBusy();
+                }
+
+                try {
+                    const episodeDetails = await this.tmdb.fetchEpisodeDetails(
+                        ep.tv.showTmdbId, ep.tv.seasonNumber, ep.tv.episodeNumber
+                    );
+                    
+                    if (episodeDetails && episodeDetails.stillPath) {
+                        ep._stillPath = episodeDetails.stillPath;
+                        ep.episode_still = await downloadEpisodeStill(ep.fileId, ep._stillPath);
+                        await saveMetadata(ep);
+                        console.log(`    ✓ Downloaded still for S${String(ep.tv.seasonNumber).padStart(2, '0')}E${String(ep.tv.episodeNumber).padStart(2, '0')}`);
+                    }
+                } catch (e) {
+                    console.error(`    ✗ Failed to download still for fileId ${ep.fileId}:`, e.message);
+                }
+
+                await sleep(500);
+            }
+        } finally {
+            this.isRunning = false;
+        }
     }
 
     // ==================== PROCESS BATCH ====================
@@ -921,6 +983,13 @@ class MetadataWorker {
                             metadata.backdrop = sharedImages.backdrop;
                             metadata.logo = sharedImages.logo;
  
+                            // Download Episode Still
+                            if (metadata._stillPath) {
+                                metadata.episode_still = await downloadEpisodeStill(metadata.fileId, metadata._stillPath);
+                            } else {
+                                metadata.episode_still = null;
+                            }
+
                             // Transfer track info to the new metadata object
                             if (ep.baseMetadata) {
                                 metadata.audioCodec = ep.baseMetadata.audioCodec;

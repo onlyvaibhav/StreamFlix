@@ -80,5 +80,7 @@
   "container": "matroska,webm",
   "duration": 2984.901,
   "certification": "TV-MA",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "_stillPath": "/mMGMvT9ldQW6Zd85sRafpJL8IMM.jpg",
+  "episode_still": "/data/stills/794_still.jpg"
 }

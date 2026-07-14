@@ -115,5 +115,7 @@
   "duration": 2328,
   "_tracksDetected": true,
   "certification": "A",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "_stillPath": "/bq3CZGGbIOHogcuPjp4KRAaIMyH.jpg",
+  "episode_still": "/data/stills/608_still.jpg"
 }

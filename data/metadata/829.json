@@ -800,5 +800,7 @@
   "container": "matroska,webm",
   "duration": 1490.091,
   "certification": "TV-PG",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "_stillPath": "/tt3Fu2Qy2Bo2QpYquaR59ejow9A.jpg",
+  "episode_still": "/data/stills/829_still.jpg"
 }

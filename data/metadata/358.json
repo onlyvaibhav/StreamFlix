@@ -119,5 +119,7 @@
   "duration": 1435,
   "_tracksDetected": true,
   "certification": "TV-14",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "_stillPath": "/sHT11G9NrSxYCTPLJn0Uo8UGVys.jpg",
+  "episode_still": "/data/stills/358_still.jpg"
 }

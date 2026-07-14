@@ -7,6 +7,7 @@ import 'package:streamflix/core/router/route_names.dart';
 import 'package:streamflix/core/widgets/app_image.dart';
 import 'package:streamflix/features/movies/data/models/movie.dart';
 import 'package:streamflix/features/movies/data/models/watch_history.dart';
+import 'package:streamflix/features/downloads/presentation/widgets/download_button.dart';
 
 class MovieDetailInfo extends StatefulWidget {
   final Movie movie;
@@ -162,31 +163,43 @@ class _MovieDetailInfoState extends State<MovieDetailInfo> {
 
           const SizedBox(height: 28),
 
-          // Play button (full width, Netflix White-Style)
-          SizedBox(
-            width: double.infinity,
-            height: 48,
-            child: ElevatedButton.icon(
-              onPressed: () {
-                context.push(primaryActionPath);
-              },
-              icon: Icon(isResume ? Icons.play_circle_fill_rounded : Icons.play_arrow_rounded, size: 28, color: Colors.black),
-              label: Text(
-                primaryActionText,
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
+          // Action buttons (Play and Download)
+          Row(
+            children: [
+              Expanded(
+                child: SizedBox(
+                  height: 48,
+                  child: ElevatedButton.icon(
+                    onPressed: () {
+                      context.push(primaryActionPath);
+                    },
+                    icon: Icon(isResume ? Icons.play_circle_fill_rounded : Icons.play_arrow_rounded, size: 28, color: Colors.black),
+                    label: Text(
+                      primaryActionText,
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      foregroundColor: Colors.black,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                    ),
+                  ),
                 ),
               ),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
-                foregroundColor: Colors.black,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(6),
+              if (widget.movie.type != 'tv' && widget.movie.type != 'tv_show') ...[
+                const SizedBox(width: 12),
+                SizedBox(
+                  height: 48,
+                  child: DownloadButton(movie: widget.movie, compact: false),
                 ),
-              ),
-            ),
+              ],
+            ],
           ),
 
           const SizedBox(height: 24),
@@ -392,6 +405,9 @@ class _MovieDetailInfoState extends State<MovieDetailInfo> {
                           ],
                         ),
                       ),
+                      const SizedBox(width: 8),
+                      // Download button for episode
+                      DownloadButton(movie: episode, compact: true),
                     ],
                   ),
                 );

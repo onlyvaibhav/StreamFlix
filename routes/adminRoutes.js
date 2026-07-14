@@ -457,6 +457,20 @@ router.post('/metadata/auto-match-all', async (req, res) => {
     }
 });
 
+// POST /api/admin/metadata/download-missing-stills — Trigger background still download
+router.post('/metadata/download-missing-stills', async (req, res) => {
+    try {
+        console.log('[Admin] Trigger missing stills download requested');
+        if (worker) {
+            worker.downloadMissingStills().catch(e => console.error(e));
+        }
+        res.json({ success: true, message: `Started downloading missing episode stills in background.` });
+    } catch (error) {
+        console.error('[Admin] Trigger failed:', error.message);
+        res.status(500).json({ error: error.message });
+    }
+});
+
 // POST /api/admin/metadata/:fileId/manual-override — Manually edit metadata fields
 router.post('/metadata/:fileId/manual-override', async (req, res) => {
     try {

@@ -1,17 +1,20 @@
 {
   "showTmdbId": 76479,
   "showTitle": "The Boys",
+  "originalShowTitle": "The Boys",
   "overview": "A group of vigilantes known informally as “The Boys” set out to take down corrupt superheroes with no more than blue-collar grit and a willingness to fight dirty.",
   "genres": [
     "Sci-Fi & Fantasy",
     "Action & Adventure"
   ],
-  "rating": 8.4,
+  "rating": 8.5,
+  "popularity": 742.908,
   "poster": "/data/posters/show_76479.jpg",
   "backdrop": "/data/backdrops/show_76479_bd.jpg",
-  "year": 2019,
   "totalSeasons": 5,
   "totalEpisodes": 40,
+  "year": 2019,
+  "releaseDate": "2019-07-25",
   "seasons": {
     "1": [
       {
@@ -21,7 +24,8 @@
         "episodeNumber": 1,
         "episodeTitle": "The Name of the Game",
         "episodeOverview": "When a Supe kills the love of his life, A/V salesman Hughie Campbell teams up with Billy Butcher, a vigilante hell-bent on punishing corrupt Supes — and Hughie’s life will never be the same again.",
-        "runtime": 62
+        "runtime": 62,
+        "tracks": null
       },
       {
         "fileId": "895",
@@ -30,7 +34,8 @@
         "episodeNumber": 2,
         "episodeTitle": "Cherry",
         "episodeOverview": "The Boys get themselves a Superhero, Starlight gets payback, Homelander gets naughty, and a Senator gets naughtier.",
-        "runtime": 59
+        "runtime": 59,
+        "tracks": null
       },
       {
         "fileId": "896",
@@ -39,7 +44,8 @@
         "episodeNumber": 3,
         "episodeTitle": "Get Some",
         "episodeOverview": "It’s the race of the century. A-Train versus Shockwave, vying for the title of World’s Fastest Man. Meanwhile, the Boys are reunited and it feels so good.",
-        "runtime": 55
+        "runtime": 55,
+        "tracks": null
       },
       {
         "fileId": "897",
@@ -48,7 +54,8 @@
         "episodeNumber": 4,
         "episodeTitle": "The Female of the Species",
         "episodeOverview": "On a very special episode of The Boys… an hour of guts, gutterballs, airplane hijackings, madness, ghosts, and one very intriguing Female. Oh, and lots of heart — both in the sentimental sense, and in the gory literal sense.",
-        "runtime": 56
+        "runtime": 56,
+        "tracks": null
       },
       {
         "fileId": "898",
@@ -57,7 +64,8 @@
         "episodeNumber": 5,
         "episodeTitle": "Good for the Soul",
         "episodeOverview": "The Boys head to the “Believe” Expo to follow a promising lead in their ongoing war against the Supes. There might — MIGHT — be a homicidal infant, but you’ll have to see for yourself.",
-        "runtime": 60
+        "runtime": 60,
+        "tracks": null
       },
       {
         "fileId": "899",
@@ -66,7 +74,8 @@
         "episodeNumber": 6,
         "episodeTitle": "The Innocents",
         "episodeOverview": "SUPER IN AMERICA (2019). Vought Studios. Genre: Reality. Starring: Homelander, Queen Maeve, Black Noir, The Deep, A-Train, Starlight, Tara Reid, Billy Zane.",
-        "runtime": 60
+        "runtime": 60,
+        "tracks": null
       },
       {
         "fileId": "900",
@@ -75,7 +84,8 @@
         "episodeNumber": 7,
         "episodeTitle": "The Self-Preservation Society",
         "episodeOverview": "Never trust a washed-up Supe — the Boys learn this lesson the hard way. Meanwhile, Homelander digs into his past, Starlight discovers that love hurts, and if you’re ever in Sandusky, Ohio and a girl asks if she can touch your gills, say NO.",
-        "runtime": 56
+        "runtime": 56,
+        "tracks": null
       },
       {
         "fileId": "901",
@@ -84,7 +94,8 @@
         "episodeNumber": 8,
         "episodeTitle": "You Found Me",
         "episodeOverview": "Season Finale Time! Questions answered! Secrets revealed! Conflicts… conflicted! Characters exploded! And so much more!",
-        "runtime": 66
+        "runtime": 66,
+        "tracks": null
       }
     ],
     "2": [
@@ -95,7 +106,8 @@
         "episodeNumber": 1,
         "episodeTitle": "The Big Ride",
         "episodeOverview": "Season 2! New and improved! Now with 50% more explosive decapitations, terrorists, S&M hookers, cults, and a new pine fresh scent! But wait, there’s more! 2X MORE blood, guts and gore than the other leading brands! This exclusive offer is available only on Amazon Prime Video! Don’t delay! Order now!",
-        "runtime": 63
+        "runtime": 63,
+        "tracks": null
       },
       {
         "fileId": "903",
@@ -104,7 +116,8 @@
         "episodeNumber": 2,
         "episodeTitle": "Proper Preparation and Planning",
         "episodeOverview": "The Boys get themselves a Super Terrorist, Starlight gets evidence against Vought, The Deep gets in touch with his feelings, and Homelander gets himself a family (sort of).  All that, and a hard-hitting exposé on why Super Suits don’t have pockets.",
-        "runtime": 59
+        "runtime": 59,
+        "tracks": null
       },
       {
         "fileId": "904",
@@ -113,7 +126,8 @@
         "episodeNumber": 3,
         "episodeTitle": "Over the Hill with the Swords of a Thousand Men",
         "episodeOverview": "Attention: If you or a loved one were exposed to Compound V, you may be entitled to financial compensation. Vought has given the drug to multiple victims, without their knowledge or consent. If you believe that you or a loved one were administered Compound V, call the law firm of Bremmer & Bremmer at 1-888-177-2774 for a free legal consultation. Know your rights!",
-        "runtime": 61
+        "runtime": 61,
+        "tracks": null
       },
       {
         "fileId": "905",
@@ -122,7 +136,8 @@
         "episodeNumber": 4,
         "episodeTitle": "Nothing Like It in the World",
         "episodeOverview": "Road trip! The Boys head to North Carolina to follow a lead on a mysterious Supe named Liberty. And did you know a person’s choice of candy bars might tell you if they’re a serial killer? Watch and learn the warning signs! This episode could save your life!",
-        "runtime": 70
+        "runtime": 70,
+        "tracks": null
       },
       {
         "fileId": "906",
@@ -131,7 +146,8 @@
         "episodeNumber": 5,
         "episodeTitle": "We Gotta Go Now",
         "episodeOverview": "VoughtStudios is pleased to announce that filming has begun on #DawnOfTheSeven. 12 years of VCU movies have led to this. If you like movies about One Hero, you’ll love a movie about Seven Heroes. Introducing newest member @RealStormfront! See how the legend began! In theaters Summer 2021!",
-        "runtime": 63
+        "runtime": 63,
+        "tracks": null
       },
       {
         "fileId": "907",
@@ -140,7 +156,8 @@
         "episodeNumber": 6,
         "episodeTitle": "The Bloody Doors Off",
         "episodeOverview": "The Sage Grove Center® is dedicated to caring for those struggling with mental illness. Our compassionate doctors and counselors provide personalized services to help patients live their best lives. If you or a loved one need help, call the Sage Grove Center today at 1-800-122-8585. A proud subsidiary of Global Wellness Services®, which is a proud subsidiary of Vought International®",
-        "runtime": 66
+        "runtime": 66,
+        "tracks": null
       },
       {
         "fileId": "908",
@@ -149,7 +166,8 @@
         "episodeNumber": 7,
         "episodeTitle": "Butcher, Baker, Candlestick Maker",
         "episodeOverview": "Congresswoman Victoria Neuman’s sham Congressional Hearing against Vought takes place in 3 DAYS. Are we going to let her criminalize Superheroes when we need them most? We have to stand up against such blatant partisan politics. Please join fellow Patriotic Americans and send $20 to VOUGHTPROMISE.COM to tell Neuman and her Kangaroo Court Cronies that they won’t win, “Not On Our Watch”™.",
-        "runtime": 56
+        "runtime": 56,
+        "tracks": null
       },
       {
         "fileId": "909",
@@ -158,7 +176,8 @@
         "episodeNumber": 8,
         "episodeTitle": "What I Know",
         "episodeOverview": "***SUPER VILLAIN ALERT*** YOU ARE RECEIVING THIS NOTIFICATION FROM THE DEPARTMENT OF HOMELAND SECURITY. A SUPER VILLAIN ALERT HAS BEEN ISSUED FOR YOUR AREA. PLEASE BE VIGILANT AND REPORT ANY SUSPICIOUS PERSONS OR ACTIVITY. IF YOU BELIEVE YOU HAVE SEEN A SUPER VILLAIN, DO NOT APPROACH OR ATTEMPT TO APPREHEND THEM. CONTACT LAW ENFORCEMENT IMMEDIATELY",
-        "runtime": 70
+        "runtime": 70,
+        "tracks": null
       }
     ],
     "3": [
@@ -169,7 +188,8 @@
         "episodeNumber": 1,
         "episodeTitle": "Payback",
         "episodeOverview": "You and a guest are invited to the premiere of DAWN OF THE SEVEN this Tuesday at 7PM in Vought Tower’s Lamplighter Memorial Theater! Screening will be followed by a Q&A with director Adam Bourke and an after-party with Supe DJ Malchemical on the turntables! Join us for the greatest true origin story ever told about America’s number one Superhero team and see how the legend began!",
-        "runtime": 64
+        "runtime": 64,
+        "tracks": null
       },
       {
         "fileId": "911",
@@ -178,7 +198,8 @@
         "episodeNumber": 2,
         "episodeTitle": "The Only Man in the Sky",
         "episodeOverview": "Homelander. America’s greatest Superhero. Defending our shores from sea to shining sea. Today, America honors him on his birthday. And the Vought Shopping Network is celebrating by offering the exclusive Homelander Limited Birthday Edition Gold Coin for only $99.95 (plus tax and shipping) while supplies last. Vought Gold Commemorative Coins: An investment that lasts a lifetime.",
-        "runtime": 62
+        "runtime": 62,
+        "tracks": null
       },
       {
         "fileId": "912",
@@ -187,7 +208,8 @@
         "episodeNumber": 3,
         "episodeTitle": "Barbary Coast",
         "episodeOverview": "Tonight at 9/8C on Vought Plus, it’s the season finale of #AmericanHero! Three contestants remain, but only TWO will join #TheSeven! Will Starlight choose her old flame Supersonic? Or will someone else be moving into the Seven Tower? Tune in tonight for the SHOCKING final episode, brought to you by Lean Lady Frozen Dinners by Vought: Where slim tastes super!",
-        "runtime": 63
+        "runtime": 63,
+        "tracks": null
       },
       {
         "fileId": "913",
@@ -196,7 +218,8 @@
         "episodeNumber": 4,
         "episodeTitle": "Glorious Five Year Plan",
         "episodeOverview": "Tonight, streaming live exclusively for Supeporn.com Super-Subscribers, it’s the #ClashOfTheDildos! Which of The Seven-inspired dildos will crush the competition in this tip-to-tip challenge? Will it be the reigning champion Homelander Star-Spangled Banger or Starlight’s electrified Star-Brator? Join us as we put these pleasure-pounding penetrators through their paces! Only on Supeporn.com!",
-        "runtime": 62
+        "runtime": 62,
+        "tracks": null
       },
       {
         "fileId": "914",
@@ -205,7 +228,8 @@
         "episodeNumber": 5,
         "episodeTitle": "The Last Time to Look on This World of Lies",
         "episodeOverview": "Did you know chimpanzees are an endangered species largely because of human activity? But you can help by supporting construction costs for Crimson Countess’s Chimp Country! This beautiful refuge for chimpanzees will feature a banana plantation, four daily stunt shows, and a petting zoo! And when you donate, you’ll be entered to win a private video chat with Crimson Countess! Donate today!",
-        "runtime": 63
+        "runtime": 63,
+        "tracks": null
       },
       {
         "fileId": "915",
@@ -214,7 +238,8 @@
         "episodeNumber": 6,
         "episodeTitle": "Herogasm",
         "episodeOverview": "You’re invited to the 70th Annual Herogasm! You must present this invitation in order to be admitted! Same rules as always: no cameras, no non-Supe guests unless they sign an NDA and they’re DTF, and no telling any news media! It’s BYOD, but food, alcohol and lube will be provided! And please remember to RSVP so we can get an accurate headcount for the caterer!",
-        "runtime": 63
+        "runtime": 63,
+        "tracks": null
       },
       {
         "fileId": "916",
@@ -223,7 +248,8 @@
         "episodeNumber": 7,
         "episodeTitle": "Here Comes a Candle to Light You to Bed",
         "episodeOverview": "Did someone say birthday? Come celebrate at Buster Beaver’s with our new Deluxe VIP Birthday Package, with seating for up to 30 guests, ten large two-topping pizzas, and ten pitchers of your choice of soda! And of course, a special birthday play starring Buster Beaver and his cast of furry forest friends! All for only $199.99 + tax! Buster Beaver’s Pizza! Where Kids Make the Rules®!",
-        "runtime": 67
+        "runtime": 67,
+        "tracks": null
       },
       {
         "fileId": "917",
@@ -232,7 +258,8 @@
         "episodeNumber": 8,
         "episodeTitle": "The Instant White-Hot Wild",
         "episodeOverview": "Calling all patriots! Let’s show Homelander we’ve got his back and we’re not going to let Starlight and her Starlight House of Horrors get away with trafficking children and drinking their adrenaline! It’s time for real Americans to fight back! Join the Hometeamers and Stormchasers tomorrow at Vought Square! Stand back and stand by!",
-        "runtime": 64
+        "runtime": 64,
+        "tracks": null
       }
     ],
     "4": [
@@ -243,7 +270,8 @@
         "episodeNumber": 1,
         "episodeTitle": "Department of Dirty Tricks",
         "episodeOverview": "CALLING ALL PATRIOTS. BE AT THE COURTHOUSE TOMORROW FOR HOMELANDER'S #VERDICT AND BE READY. IF THE CORRUPT \"JUSTICE\" SYSTEM WANTS TO F**K AROUND, THEY'RE GONNA FIND OUT. #HOMEFREE",
-        "runtime": 66
+        "runtime": 66,
+        "tracks": null
       },
       {
         "fileId": "919",
@@ -252,7 +280,8 @@
         "episodeNumber": 2,
         "episodeTitle": "Life Among the Septics",
         "episodeOverview": "Did you know globalists put chemicals in food to make us gay, Dakota Bob is a demon from hell, and the Moon isn't real? Find out what they don't want you to know at #TruthCon!",
-        "runtime": 62
+        "runtime": 62,
+        "tracks": null
       },
       {
         "fileId": "920",
@@ -261,7 +290,8 @@
         "episodeNumber": 3,
         "episodeTitle": "We'll Keep the Red Flag Flying Here",
         "episodeOverview": "This December at VoughtCoin Arena, experience the story of Christmas the way it was meant to be told... on ice! Vought Presents Vought on Ice! Tickets available now at VoughtOnIce.com!",
-        "runtime": 61
+        "runtime": 61,
+        "tracks": null
       },
       {
         "fileId": "921",
@@ -270,7 +300,8 @@
         "episodeNumber": 4,
         "episodeTitle": "Wisdom of the Ages",
         "episodeOverview": "Vought News Network is proud to announce its new series #Truthbomb! Join host Firecracker and her celebrity guests for the live 6-hour premiere as they expose Starlight's Adrenochrome Parties!",
-        "runtime": 67
+        "runtime": 67,
+        "tracks": null
       },
       {
         "fileId": "922",
@@ -279,7 +310,8 @@
         "episodeNumber": 5,
         "episodeTitle": "Beware the Jabberwock, My Son",
         "episodeOverview": "Attention #superfans! This year at #V52 see A-Train live and in person, as he presents an exclusive sneak peek at his powerful, true-life story: TRAINING A-TRAIN! V52: Powered by fans, for fans!",
-        "runtime": 69
+        "runtime": 69,
+        "tracks": null
       },
       {
         "fileId": "923",
@@ -288,7 +320,8 @@
         "episodeNumber": 6,
         "episodeTitle": "Dirty Business",
         "episodeOverview": "Vernon Correctional Services provides compassionate rehabilitation to those in our care to prepare them for successful community reentry. At Vernon, it's not about custody. It's about family.",
-        "runtime": 66
+        "runtime": 66,
+        "tracks": null
       },
       {
         "fileId": "924",
@@ -297,7 +330,8 @@
         "episodeNumber": 7,
         "episodeTitle": "The Insider",
         "episodeOverview": "Hey kids! Did you know your neighbor, uncle, or even Mom and Dad might be trying to destroy America? Find out how to stop them on the Avenue V Christmas Special! If you see something, say something!",
-        "runtime": 65
+        "runtime": 65,
+        "tracks": null
       },
       {
         "fileId": "925",
@@ -306,7 +340,8 @@
         "episodeNumber": 8,
         "episodeTitle": "Season Four Finale",
         "episodeOverview": "Calling all patriots! We will not allow this stolen election to be certified tomorrow! We must stop Bob Singer's woke anti-Supe agenda! PREPARE FOR WAR! #WhereWeGoOneWeGoVought",
-        "runtime": 69
+        "runtime": 69,
+        "tracks": null
       }
     ],
     "5": [
@@ -317,7 +352,8 @@
         "episodeNumber": 1,
         "episodeTitle": "Fifteen Inches of Sheer Dynamite",
         "episodeOverview": "ATTENTION FREEDOM CAMPERS: ESCAPE ATTEMPTS WILL BE MET WITH DEADLY FORCE. Have a super day!",
-        "runtime": 64
+        "runtime": 64,
+        "tracks": null
       },
       {
         "fileId": "927",
@@ -326,7 +362,8 @@
         "episodeNumber": 2,
         "episodeTitle": "Teenage Kix",
         "episodeOverview": "Tonight at 9/8C a @VoughtNews special report: Is your loved one a secret Starlighter terrorist?",
-        "runtime": 63
+        "runtime": 63,
+        "tracks": null
       },
       {
         "fileId": "930",
@@ -335,7 +372,8 @@
         "episodeNumber": 3,
         "episodeTitle": "Every One of You Sons of Bitches",
         "episodeOverview": "Storm her senses with V-Bro Mango Thunder Body Spray by Vought! She'll never know what hit her!",
-        "runtime": 66
+        "runtime": 66,
+        "tracks": null
       },
       {
         "fileId": "943",
@@ -344,16 +382,8 @@
         "episodeNumber": 4,
         "episodeTitle": "King of Hell",
         "episodeOverview": "IN THIS HOUSE, WE BELIEVE IN HOMELANDER!",
-        "runtime": 66
-      },
-      {
-        "fileId": "958",
-        "fileName": "The.Boys.S05E05.720p.AMZN.WEB-DL.DD5.1.x264-VegaMovies.is.mkv",
-        "seasonNumber": 5,
-        "episodeNumber": 5,
-        "episodeTitle": "One-Shots",
-        "episodeOverview": "Tonight at 9/8C a @VoughtNews special report: Treason in Tinseltown! Find out which of your favorite Hollywood stars are rumored to be Starlighters!",
-        "runtime": 69
+        "runtime": 66,
+        "tracks": null
       },
       {
         "fileId": "987",
@@ -362,7 +392,8 @@
         "episodeNumber": 6,
         "episodeTitle": "Though the Heavens Fall",
         "episodeOverview": "Available now, EXCLUSIVELY at @VMCtheaters, get the new #DeepPopcornBucket for only $32.99!",
-        "runtime": 65
+        "runtime": 65,
+        "tracks": null
       },
       {
         "fileId": "995",
@@ -371,10 +402,12 @@
         "episodeNumber": 8,
         "episodeTitle": "Blood and Bone",
         "episodeOverview": "Easter Sunday. 2PM. Live on @VoughtNews. Bear witness as Homelander reboots the universe.",
-        "runtime": 67
+        "runtime": 67,
+        "tracks": null
       }
     ]
   },
+  "episodes": [],
   "availableSeasons": [
     1,
     2,
@@ -382,5 +415,5 @@
     4,
     5
   ],
-  "availableEpisodeCount": 39
+  "availableEpisodeCount": 38
 }
