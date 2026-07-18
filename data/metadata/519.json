@@ -70,5 +70,117 @@
   "duration": 6433,
   "_tracksDetected": true,
   "certification": "PG",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "sailboat",
+    "sea",
+    "island",
+    "saving the world",
+    "ocean",
+    "cartoon",
+    "mythology",
+    "villain",
+    "musical",
+    "coming of age",
+    "curse",
+    "sailor",
+    "explorer",
+    "aftercreditsstinger",
+    "demigod",
+    "polynesia",
+    "voyage",
+    "pacific  ocean",
+    "quest",
+    "island life",
+    "giant crab",
+    "animal sidekick",
+    "seafarer",
+    "3d animation",
+    "admiring",
+    "female explorer"
+  ],
+  "collection": {
+    "id": 1241984,
+    "name": "Moana Collection",
+    "posterPath": "/jjlmK4jA7XCFztNlmYkO4u0Mqv4.jpg",
+    "backdropPath": "/4OgaftFNqtE1UvfDDb2Eov7A5Rz.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/277834-moana/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    1241982,
+    72197,
+    228165,
+    9982,
+    560057,
+    60293,
+    1040148,
+    127380,
+    11836,
+    10865,
+    175112,
+    718789,
+    57800,
+    14411,
+    15173,
+    8355,
+    476631,
+    16866,
+    50321,
+    25475
+  ],
+  "similar": [
+    438695,
+    1088,
+    438788,
+    1547620,
+    1438,
+    1452,
+    1497,
+    1498,
+    1499,
+    995989,
+    1371439,
+    1267,
+    1361,
+    1408,
+    1548,
+    1574,
+    1588,
+    260263,
+    260234,
+    618355
+  ]
 }

@@ -55,5 +55,114 @@
   "subtitleTracks": [],
   "logo": "/data/logos/89_logo.png",
   "certification": "PG-13",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "sadism",
+    "chaos",
+    "secret identity",
+    "crime fighter",
+    "superhero",
+    "anti hero",
+    "scarecrow",
+    "based on comic",
+    "vigilante",
+    "organized crime",
+    "tragic hero",
+    "anti villain",
+    "criminal mastermind",
+    "district attorney",
+    "super power",
+    "super villain",
+    "neo-noir",
+    "bold"
+  ],
+  "collection": {
+    "id": 263,
+    "name": "The Dark Knight Collection",
+    "posterPath": "/ogyw5LTmL53dVxsppcy8Dlm30Fu.jpg",
+    "backdropPath": "/xyhrCEdB4XRkelfVsqXeUZ6rLHi.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/155-the-dark-knight/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    268,
+    49026,
+    272,
+    414906,
+    232842,
+    242643,
+    46529,
+    5174,
+    32080,
+    5175,
+    823625,
+    262500,
+    21683,
+    13387,
+    1093995,
+    24528,
+    253,
+    1088166,
+    366924,
+    404733
+  ],
+  "similar": [
+    9947,
+    9954,
+    10117,
+    1002780,
+    10131,
+    10136,
+    10138,
+    10155,
+    10160,
+    10234,
+    10251,
+    10283,
+    10285,
+    10306,
+    10002,
+    10072,
+    10080,
+    266366,
+    445651,
+    624728
+  ]
 }

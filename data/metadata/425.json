@@ -81,5 +81,70 @@
   "certification": "A",
   "metadataStatus": "COMPLETE",
   "_stillPath": "/1p02COhQPCKCev9gwnHjfmBA42e.jpg",
-  "episode_still": "/data/stills/425_still.jpg"
+  "episode_still": "/data/stills/425_still.jpg",
+  "keywords": [
+    "serial killer"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/tv/259546/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 237,
+        "name": "Sony Liv",
+        "logoPath": "/3973zlBbBXdXxaWqRWzGG2GYxbT.jpg"
+      },
+      {
+        "id": 614,
+        "name": "VI movies and tv",
+        "logoPath": "/9YJY5OwsIPMoX3xC3TdtZVbKBpE.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    213306,
+    245746,
+    70485,
+    65784,
+    256317,
+    157061,
+    4860,
+    204490,
+    277439,
+    1426,
+    218342,
+    246461,
+    302074,
+    45094,
+    106454,
+    1405,
+    241549,
+    285807,
+    126167,
+    106349
+  ],
+  "similar": [
+    1405,
+    1413,
+    1426,
+    91875,
+    205553,
+    1920,
+    90462,
+    318,
+    300315,
+    122672,
+    90621,
+    58257,
+    89959,
+    93454,
+    61299,
+    61863,
+    304556,
+    304561,
+    304634,
+    239740
+  ]
 }

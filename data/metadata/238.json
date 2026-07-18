@@ -70,5 +70,121 @@
   "duration": 2211,
   "_tracksDetected": true,
   "certification": "PG-13",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "london, england",
+    "paris, france",
+    "detective",
+    "detective inspector",
+    "steampunk",
+    "buddy",
+    "criminal mastermind",
+    "19th century",
+    "sherlock holmes",
+    "whodunnit"
+  ],
+  "collection": {
+    "id": 102322,
+    "name": "Sherlock Holmes Collection",
+    "posterPath": "/xuYFmFESW4If76qRZvPwZSqWtiY.jpg",
+    "backdropPath": "/ub7gaxUghGF0r4INAy0Upx9gMCa.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/58574-sherlock-holmes-a-game-of-shadows/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    10528,
+    1202033,
+    829280,
+    11904,
+    497582,
+    253,
+    575094,
+    657,
+    479455,
+    667,
+    335787,
+    2501,
+    1995,
+    1310568,
+    9543,
+    177677,
+    353081,
+    682,
+    667739,
+    92272
+  ],
+  "similar": [
+    1052,
+    1249,
+    1487,
+    1386,
+    1541,
+    260033,
+    1571,
+    1572,
+    1586,
+    1672,
+    1834,
+    1840,
+    618370,
+    1548029,
+    1547713,
+    439138,
+    1284,
+    1181107,
+    1281,
+    253
+  ]
 }

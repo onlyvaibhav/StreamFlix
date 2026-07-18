@@ -69,5 +69,73 @@
   "certification": "A",
   "metadataStatus": "COMPLETE",
   "_stillPath": "/aL1nPHB6rwldSz6ftGGWWFi9QRD.jpg",
-  "episode_still": "/data/stills/302_still.jpg"
+  "episode_still": "/data/stills/302_still.jpg",
+  "keywords": [
+    "remake",
+    "signal",
+    "past and present",
+    "changing the past"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/tv/259688-gyaarah-gyaarah/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 232,
+        "name": "Zee5",
+        "logoPath": "/gP67NRy1ShUJilrzMsbOmEmdmcv.jpg"
+      },
+      {
+        "id": 614,
+        "name": "VI movies and tv",
+        "logoPath": "/9YJY5OwsIPMoX3xC3TdtZVbKBpE.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    48860,
+    125116,
+    70485,
+    1639,
+    238128,
+    76479,
+    90399,
+    323903,
+    60735,
+    85232,
+    73607,
+    1403,
+    124394,
+    259909,
+    128839,
+    85273,
+    114922,
+    253372,
+    71663,
+    93352
+  ],
+  "similar": [
+    91827,
+    236838,
+    1771,
+    92045,
+    29853,
+    236960,
+    92090,
+    92433,
+    237338,
+    237348,
+    237329,
+    30237,
+    237565,
+    302650,
+    273199,
+    31319,
+    61192,
+    61405,
+    93735,
+    61339
+  ]
 }

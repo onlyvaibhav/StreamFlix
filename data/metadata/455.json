@@ -82,5 +82,107 @@
   "duration": 9755,
   "_tracksDetected": true,
   "certification": "R",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "newspaper",
+    "journalist",
+    "california",
+    "based on novel or book",
+    "police",
+    "san francisco, california",
+    "killing",
+    "detective",
+    "1970s",
+    "investigation",
+    "victim",
+    "code",
+    "murder",
+    "serial killer",
+    "crime scene",
+    "reporter",
+    "whodunit",
+    "alcoholic",
+    "true crime",
+    "young man",
+    "fourth of july",
+    "newspaper article",
+    "cartoonist",
+    "1960s",
+    "zodiac killer",
+    "malicious",
+    "clinical",
+    "bar",
+    "ambiguous",
+    "awestruck",
+    "foreboding",
+    "frightened"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1949-zodiac/watch?locale=IN",
+    "flatrate": [],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    881164,
+    1290879,
+    10909,
+    8512,
+    984,
+    829,
+    13389,
+    916,
+    9481,
+    1330443,
+    3594,
+    13252,
+    6075,
+    9437,
+    18587,
+    602269,
+    11074,
+    10629,
+    75780,
+    910
+  ],
+  "similar": [
+    9960,
+    10108,
+    266402,
+    10124,
+    10126,
+    10131,
+    445790,
+    624789,
+    10153,
+    10157,
+    10160,
+    10170,
+    10234,
+    10237,
+    10242,
+    10283,
+    10285,
+    10287,
+    266468,
+    10299
+  ]
 }

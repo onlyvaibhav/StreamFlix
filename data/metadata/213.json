@@ -69,5 +69,113 @@
   "duration": 8404,
   "_tracksDetected": true,
   "certification": "PG-13",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "future",
+    "based on novel or book",
+    "video game",
+    "virtual reality",
+    "dystopia",
+    "nostalgia",
+    "love",
+    "film in film",
+    "evil corporation",
+    "quest",
+    "1980s",
+    "2040s",
+    "based on young adult novel",
+    "virtual game",
+    "columbus, ohio",
+    "dreary",
+    "gloomy",
+    "vrmmo"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/333339-ready-player-one/watch?locale=IN",
+    "flatrate": [],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    353486,
+    20526,
+    412656,
+    97,
+    604,
+    101299,
+    2135,
+    428078,
+    2114,
+    603,
+    487186,
+    777443,
+    696806,
+    75612,
+    9543,
+    157350,
+    70160,
+    695721,
+    262504,
+    294254
+  ],
+  "similar": [
+    602109,
+    602411,
+    602557,
+    602547,
+    602551,
+    602554,
+    1538157,
+    604079,
+    604605,
+    1539718,
+    431164,
+    798645,
+    1369354,
+    1177684,
+    430945,
+    1177726,
+    431009,
+    431228,
+    431580,
+    240488
+  ]
 }

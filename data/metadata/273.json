@@ -56,5 +56,122 @@
   "duration": 8401,
   "_tracksDetected": true,
   "certification": "PG",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "martial arts",
+    "kung fu",
+    "sequel",
+    "reboot",
+    "aftercreditsstinger",
+    "duringcreditsstinger",
+    "karate kid",
+    "intense",
+    "pretentious",
+    "straightforward",
+    "tragic"
+  ],
+  "collection": {
+    "id": 8580,
+    "name": "The Karate Kid Collection",
+    "posterPath": "/o6h2F0C5eZOy50Q76fNYzc9mvvw.jpg",
+    "backdropPath": "/vG9eCvIfSoucQZ9EFEOrSXhesws.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/38575-the-karate-kid/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      },
+      {
+        "id": 237,
+        "name": "Sony Liv",
+        "logoPath": "/3973zlBbBXdXxaWqRWzGG2GYxbT.jpg"
+      },
+      {
+        "id": 2180,
+        "name": "Sony Pictures Amazon Channel",
+        "logoPath": "/i7FaDWpD2xoIWB5lyF191cykfck.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 232,
+        "name": "Zee5",
+        "logoPath": "/gP67NRy1ShUJilrzMsbOmEmdmcv.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    566525,
+    260514,
+    324857,
+    10138,
+    1011477,
+    141052,
+    385128,
+    284054,
+    263341,
+    980489,
+    1061474,
+    68721,
+    399579,
+    16690,
+    10423,
+    10495,
+    640146,
+    436270,
+    283995,
+    718789
+  ],
+  "similar": [
+    10009,
+    10040,
+    10074,
+    9947,
+    9948,
+    9954,
+    10109,
+    1002780,
+    10134,
+    10138,
+    10139,
+    10140,
+    1554048,
+    10167,
+    10303,
+    9998,
+    10044,
+    10045,
+    10049,
+    9978
+  ]
 }

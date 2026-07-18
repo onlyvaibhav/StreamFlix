@@ -68,5 +68,66 @@
   "duration": 9495,
   "_tracksDetected": true,
   "certification": "U",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "family",
+    "admiring"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1136423/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    499338,
+    14012,
+    38602,
+    785522,
+    26514,
+    506574,
+    260234,
+    46169,
+    92620,
+    61005,
+    43625,
+    495193,
+    252674,
+    19933,
+    30943,
+    1140521,
+    1374686,
+    56601,
+    1358305,
+    29918
+  ],
+  "similar": [
+    1557075,
+    627635,
+    627642,
+    269509,
+    12651,
+    12828,
+    627725,
+    448949,
+    813800,
+    1006302,
+    1006359,
+    1006389,
+    449500,
+    1557662,
+    449700,
+    13688,
+    1557938,
+    13763,
+    814309,
+    1557550
+  ]
 }

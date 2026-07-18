@@ -200,5 +200,95 @@
   "logo": "/data/logos/853_logo.png",
   "_tracksDetected": true,
   "certification": "UA",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/456756/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    14550,
+    24109,
+    1001783,
+    32080,
+    27590,
+    408648,
+    158990,
+    14809,
+    14584,
+    5516,
+    39180,
+    1035259,
+    20294,
+    3172,
+    16806,
+    16384,
+    11485,
+    370665,
+    5854,
+    457840
+  ],
+  "similar": [
+    13123,
+    269995,
+    627655,
+    269758,
+    1190972,
+    449510,
+    270386,
+    270417,
+    449627,
+    813360,
+    12273,
+    1005581,
+    627072,
+    12177,
+    628854,
+    14165,
+    14194,
+    1192097,
+    271210,
+    628833
+  ]
 }

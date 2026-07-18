@@ -58,5 +58,114 @@
   "duration": 6467.55,
   "_probeFailCount": 0,
   "logo": "/data/logos/1006_logo.png",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "new york city",
+    "marriage proposal",
+    "blackmail",
+    "ex-girlfriend",
+    "assistant",
+    "deportation",
+    "immigration law",
+    "romcom",
+    "alaska",
+    "fish out of water",
+    "humiliation",
+    "book editor",
+    "green card",
+    "employer employee relationship",
+    "duringcreditsstinger",
+    "woman director",
+    "publishing house",
+    "pretend relationship",
+    "rich family",
+    "father son conflict",
+    "tyrannical boss",
+    "enemies to lovers",
+    "hilarious",
+    "fake fiancé",
+    "romantic",
+    "amused",
+    "grandmother's birthday",
+    "romantic comedy"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/18240-the-proposal/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    603661,
+    10878,
+    57157,
+    10184,
+    90563,
+    9413,
+    1140498,
+    245906,
+    1968,
+    41760,
+    975043,
+    3101,
+    8488,
+    11775,
+    51828,
+    800279,
+    17202,
+    703451,
+    164,
+    1433842
+  ],
+  "similar": [
+    449060,
+    449074,
+    449045,
+    449052,
+    814130,
+    814132,
+    13053,
+    13055,
+    13075,
+    13090,
+    13092,
+    13097,
+    13098,
+    13105,
+    449202,
+    1006297,
+    1381634,
+    270001,
+    13163,
+    270014
+  ]
 }

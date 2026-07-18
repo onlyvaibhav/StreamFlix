@@ -55,5 +55,125 @@
   "duration": 5690,
   "_tracksDetected": true,
   "certification": "PG",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "based on novel or book",
+    "inventor",
+    "villain",
+    "sequel",
+    "food",
+    "scientist",
+    "based on children's book",
+    "duringcreditsstinger",
+    "3d animation"
+  ],
+  "collection": {
+    "id": 177467,
+    "name": "Cloudy with a Chance of Meatballs Collection",
+    "posterPath": "/pRAzOs9cZN8LlhaCKo6LQ0bSfyi.jpg",
+    "backdropPath": "/eANL41F9Zp1xHMD6VnHnD3QS7ui.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/109451-cloudy-with-a-chance-of-meatballs-2/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 237,
+        "name": "Sony Liv",
+        "logoPath": "/3973zlBbBXdXxaWqRWzGG2GYxbT.jpg"
+      },
+      {
+        "id": 2180,
+        "name": "Sony Pictures Amazon Channel",
+        "logoPath": "/i7FaDWpD2xoIWB5lyF191cykfck.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 232,
+        "name": "Zee5",
+        "logoPath": "/gP67NRy1ShUJilrzMsbOmEmdmcv.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    22794,
+    519182,
+    438148,
+    587807,
+    748783,
+    381719,
+    8355,
+    927254,
+    823609,
+    258509,
+    897192,
+    15512,
+    57800,
+    170687,
+    529203,
+    16690,
+    404368,
+    1392796,
+    33217,
+    698687
+  ],
+  "similar": [
+    13053,
+    13060,
+    13062,
+    449176,
+    13128,
+    1381634,
+    1190624,
+    12702,
+    12705,
+    13002,
+    1381151,
+    269495,
+    269509,
+    12630,
+    12634,
+    12819,
+    13004,
+    13017,
+    448736,
+    12689
+  ]
 }

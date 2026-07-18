@@ -57,5 +57,67 @@
   "duration": 7873,
   "_tracksDetected": true,
   "certification": "N/A",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "non linear",
+    "cheerful",
+    "exhilarated"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1118224/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    1167271,
+    860623,
+    48129,
+    1439112,
+    522016,
+    1469354,
+    4959,
+    809314,
+    399035,
+    1156255,
+    831946,
+    999205,
+    760926,
+    1387382,
+    1319895,
+    1280450,
+    1024627,
+    628847,
+    1461181,
+    793
+  ],
+  "similar": [
+    122,
+    87,
+    1669,
+    591,
+    652,
+    616803,
+    564,
+    679,
+    10253,
+    9946,
+    10328,
+    284235,
+    4437,
+    280217,
+    8961,
+    19205,
+    1013446,
+    26682,
+    36294,
+    1576887
+  ]
 }

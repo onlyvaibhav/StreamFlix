@@ -55,5 +55,133 @@
   "container": "matroska,webm",
   "duration": 8058.847,
   "certification": "PG-13",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "martial arts",
+    "undercover",
+    "loss of loved one",
+    "secret identity",
+    "crime fighter",
+    "superhero",
+    "based on comic",
+    "rivalry",
+    "ninja",
+    "vigilante",
+    "tragic hero",
+    "super power",
+    "haunted by the past",
+    "evil doctor",
+    "master villain",
+    "unfulfilled love",
+    "inspirational"
+  ],
+  "collection": {
+    "id": 263,
+    "name": "The Dark Knight Collection",
+    "posterPath": "/ogyw5LTmL53dVxsppcy8Dlm30Fu.jpg",
+    "backdropPath": "/xyhrCEdB4XRkelfVsqXeUZ6rLHi.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/272-batman-begins/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    155,
+    268,
+    49026,
+    13387,
+    64686,
+    242643,
+    21683,
+    17687,
+    32080,
+    408266,
+    232842,
+    315837,
+    385128,
+    35006,
+    10423,
+    385687,
+    26881,
+    17585,
+    1088166,
+    46041
+  ],
+  "similar": [
+    3877,
+    3989,
+    4105,
+    4108,
+    262248,
+    4253,
+    4599,
+    4629,
+    4630,
+    4680,
+    441115,
+    1373952,
+    441282,
+    4352,
+    4413,
+    440941,
+    4481,
+    4552,
+    620181,
+    4147
+  ]
 }

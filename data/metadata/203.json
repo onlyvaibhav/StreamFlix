@@ -70,5 +70,157 @@
   "duration": 3723,
   "_tracksDetected": true,
   "certification": "PG",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "martial arts",
+    "kung fu",
+    "strong woman",
+    "china",
+    "tiger",
+    "bravery",
+    "restaurant",
+    "villain",
+    "chosen one",
+    "shop",
+    "panda",
+    "sensei",
+    "anthropomorphism",
+    "fighting",
+    "master",
+    "destiny",
+    "crane",
+    "rope bridge",
+    "aftercreditsstinger",
+    "wuxia",
+    "monkey warrior",
+    "viper",
+    "3d animation",
+    "inspirational",
+    "whimsical",
+    "joyful"
+  ],
+  "collection": {
+    "id": 77816,
+    "name": "Kung Fu Panda Collection",
+    "posterPath": "/xoYc0RYKSc3xC4S9OpPZxKocKtj.jpg",
+    "backdropPath": "/2nbtv33hEk2CTnuMhTGZgsFdi3K.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/9502-kung-fu-panda/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      },
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      },
+      {
+        "id": 614,
+        "name": "VI movies and tv",
+        "logoPath": "/9YJY5OwsIPMoX3xC3TdtZVbKBpE.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 232,
+        "name": "Zee5",
+        "logoPath": "/gP67NRy1ShUJilrzMsbOmEmdmcv.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    140300,
+    1011985,
+    527774,
+    49444,
+    61717,
+    10674,
+    116711,
+    11891,
+    38055,
+    416153,
+    10315,
+    133931,
+    269149,
+    8916,
+    629542,
+    77950,
+    59387,
+    598331,
+    324852,
+    597316
+  ],
+  "similar": [
+    438695,
+    438788,
+    1436,
+    1488,
+    1494,
+    1497,
+    1498,
+    1499,
+    1267,
+    1273,
+    1372,
+    1535,
+    1548,
+    618113,
+    618176,
+    1577,
+    260263,
+    260234,
+    1726,
+    1819
+  ]
 }

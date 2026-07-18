@@ -69,5 +69,109 @@
   "duration": 6884.252,
   "_probeFailCount": 0,
   "logo": "/data/logos/1000_logo.png",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "chicago, illinois",
+    "future",
+    "man vs machine",
+    "hero",
+    "artificial intelligence (a.i.)",
+    "based on novel or book",
+    "grandparent grandchild relationship",
+    "homicide",
+    "detective",
+    "dystopia",
+    "hologram",
+    "murder",
+    "robot as menace",
+    "car accident",
+    "robot",
+    "grandmother",
+    "humanity",
+    "futuristic city",
+    "robotics",
+    "humanoid robot",
+    "talking robot",
+    "self-driving car",
+    "homicide investigation",
+    "2030s",
+    "serious",
+    "robot companion",
+    "old robot",
+    "new robot",
+    "tense"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/2048-i-robot/watch?locale=IN",
+    "flatrate": [],
+    "rent": [
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    777443,
+    19959,
+    670292,
+    97020,
+    262543,
+    644,
+    262504,
+    91314,
+    87101,
+    152601,
+    438590,
+    39254,
+    586707,
+    505948,
+    604,
+    335988,
+    453405,
+    603,
+    1236153,
+    180
+  ],
+  "similar": [
+    617859,
+    1547609,
+    1251,
+    1534,
+    1090,
+    1091,
+    1266,
+    1267,
+    438885,
+    1398,
+    1410,
+    260159,
+    1547858,
+    1571,
+    1572,
+    1573,
+    1576,
+    1577,
+    1654,
+    1694
+  ]
 }

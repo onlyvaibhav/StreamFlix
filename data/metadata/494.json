@@ -82,5 +82,146 @@
   "duration": 7607,
   "_tracksDetected": true,
   "certification": "R",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "mission",
+    "japan",
+    "assassin",
+    "based on novel or book",
+    "hitman",
+    "briefcase",
+    "train",
+    "luck",
+    "runaway train",
+    "deadly snake",
+    "duringcreditsstinger",
+    "train travel",
+    "professional assassin",
+    "interwoven stories",
+    "high speed",
+    "passenger train",
+    "bullet train",
+    "death by poisoning",
+    "shinkansen",
+    "traveling by train"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/718930-bullet-train/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      },
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 237,
+        "name": "Sony Liv",
+        "logoPath": "/3973zlBbBXdXxaWqRWzGG2GYxbT.jpg"
+      },
+      {
+        "id": 2180,
+        "name": "Sony Pictures Amazon Channel",
+        "logoPath": "/i7FaDWpD2xoIWB5lyF191cykfck.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 232,
+        "name": "Zee5",
+        "logoPath": "/gP67NRy1ShUJilrzMsbOmEmdmcv.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    8909,
+    399035,
+    278924,
+    22832,
+    1007427,
+    1319895,
+    879444,
+    4959,
+    808023,
+    14576,
+    970347,
+    49021,
+    1167271,
+    876969,
+    578701,
+    180894,
+    1130818,
+    628847,
+    10431,
+    461053
+  ],
+  "similar": [
+    440762,
+    4025,
+    4105,
+    4176,
+    262254,
+    4258,
+    4614,
+    4641,
+    4706,
+    262504,
+    262508,
+    4824,
+    1550140,
+    1373956,
+    1549858,
+    4477,
+    4538,
+    4541,
+    4543,
+    4551
+  ]
 }

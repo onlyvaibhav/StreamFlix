@@ -55,5 +55,109 @@
   "container": "matroska,webm",
   "duration": 4663.68,
   "certification": "G",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "friendship",
+    "mouse",
+    "falcon",
+    "sequel",
+    "family",
+    "live action and animation",
+    "talking animal",
+    "cgi-live action hybrid",
+    "different species"
+  ],
+  "collection": {
+    "id": 99727,
+    "name": "Stuart Little Collection",
+    "posterPath": "/pyYBMLZiBn8qKXJ0kKSMdt2PZqd.jpg",
+    "backdropPath": "/r74LzQMN1EdvdCvbIqHA95TvEKt.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/10996-stuart-little-2/watch?locale=IN",
+    "flatrate": [],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    10137,
+    412117,
+    9948,
+    25475,
+    335360,
+    10199,
+    22582,
+    270946,
+    585245,
+    774825,
+    748783,
+    826510,
+    520758,
+    896536,
+    33539,
+    72972,
+    522478,
+    16690,
+    315162,
+    27653
+  ],
+  "similar": [
+    10009,
+    10040,
+    9948,
+    10118,
+    1002770,
+    810457,
+    624698,
+    10127,
+    10137,
+    10138,
+    10140,
+    445817,
+    1554048,
+    10152,
+    10158,
+    10166,
+    10303,
+    9992,
+    9994,
+    9973
+  ]
 }

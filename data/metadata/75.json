@@ -57,5 +57,94 @@
   "logo": "/data/logos/75_logo.png",
   "_tracksDetected": true,
   "certification": "PG",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "high school",
+    "race against time",
+    "dreams",
+    "afterlife",
+    "natural disaster",
+    "supernatural",
+    "time travel",
+    "comet",
+    "romance",
+    "tragedy",
+    "school",
+    "body-swap",
+    "high school student",
+    "nonlinear timeline",
+    "naked",
+    "star crossed lovers",
+    "power of love",
+    "anime",
+    "japanese high school",
+    "urban fantasy"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/372058/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 283,
+        "name": "Crunchyroll",
+        "logoPath": "/fzN5Jok5Ig1eJ7gyNGoMhnLSCfh.jpg"
+      },
+      {
+        "id": 237,
+        "name": "Sony Liv",
+        "logoPath": "/3973zlBbBXdXxaWqRWzGG2GYxbT.jpg"
+      },
+      {
+        "id": 1968,
+        "name": "Crunchyroll Amazon Channel",
+        "logoPath": "/pgjz7bzfBq4nFDu8JJDLBoUVAX8.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    916192,
+    14069,
+    680041,
+    572154,
+    21057,
+    225745,
+    16516,
+    378064,
+    896499,
+    615165,
+    667520,
+    568160,
+    12924,
+    1056803,
+    364111,
+    798544,
+    504253,
+    15080,
+    1104844,
+    632632
+  ],
+  "similar": [
+    13078,
+    13079,
+    1381579,
+    449176,
+    12697,
+    12994,
+    1381413,
+    449025,
+    12795,
+    12839,
+    12919,
+    12924,
+    269795,
+    1557259,
+    448802,
+    449132,
+    1381548,
+    13185,
+    13188,
+    13190
+  ]
 }

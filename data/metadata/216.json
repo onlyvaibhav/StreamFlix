@@ -132,5 +132,113 @@
   "duration": 3016,
   "_tracksDetected": true,
   "certification": "PG-13",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "vietnam veteran",
+    "island",
+    "monster",
+    "1970s",
+    "expedition",
+    "giant monster",
+    "giant spider",
+    "creature",
+    "spin off",
+    "u.s. soldier",
+    "giant animal",
+    "kaiju",
+    "aftercreditsstinger",
+    "giant ape",
+    "monster island",
+    "uncharted",
+    "king kong"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/293167-kong-skull-island/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      },
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    68726,
+    823464,
+    399566,
+    254,
+    427641,
+    443791,
+    258489,
+    268896,
+    580489,
+    118340,
+    653346,
+    1858,
+    458576,
+    893345,
+    284054,
+    1058537,
+    297802,
+    24428,
+    14611,
+    166426
+  ],
+  "similar": [
+    13053,
+    13022,
+    12636,
+    12646,
+    13006,
+    269601,
+    13051,
+    13158,
+    13253,
+    13335,
+    270336,
+    270512,
+    270595,
+    13654,
+    13494,
+    13486,
+    449574,
+    814700,
+    628571,
+    814764
+  ]
 }

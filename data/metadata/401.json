@@ -56,5 +56,68 @@
   "duration": 7689,
   "_tracksDetected": true,
   "certification": "N/A",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "black magic",
+    "remake",
+    "absurd",
+    "shaitaan universe"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1187619/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    24418,
+    993867,
+    408220,
+    1109086,
+    32051,
+    1118595,
+    470897,
+    1419229,
+    24528,
+    1195430,
+    1093995,
+    15301,
+    306947,
+    13455,
+    242643,
+    374515,
+    19345,
+    291805,
+    24655,
+    849369
+  ],
+  "similar": [
+    9946,
+    624794,
+    10007,
+    10083,
+    10066,
+    10281,
+    10225,
+    10955,
+    11026,
+    11027,
+    11377,
+    267931,
+    268000,
+    20129,
+    20132,
+    20145,
+    20534,
+    20731,
+    276480,
+    20916
+  ]
 }

@@ -72,5 +72,115 @@
   "duration": 6113.023,
   "_probeFailCount": 0,
   "logo": "/data/logos/993_logo.png",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "friendship",
+    "martial arts",
+    "hero",
+    "sibling relationship",
+    "san francisco, california",
+    "superhero",
+    "talent",
+    "cartoon",
+    "villain",
+    "based on comic",
+    "coming of age",
+    "revenge",
+    "tokyo, japan",
+    "best friend",
+    "another dimension",
+    "robot",
+    "east asian lead",
+    "boy genius",
+    "super villain",
+    "aftercreditsstinger",
+    "villain arrested",
+    "supervillain",
+    "moral dilemma",
+    "teen superhero",
+    "dead brother",
+    "loving",
+    "3d animation",
+    "depressing",
+    "hopeful"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/177572-big-hero-6/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    1226863,
+    614930,
+    1273,
+    829402,
+    385103,
+    698687,
+    137106,
+    71689,
+    9806,
+    260513,
+    228165,
+    508439,
+    10054,
+    377897,
+    1022787,
+    41216,
+    10137,
+    12589,
+    295693,
+    862
+  ],
+  "similar": [
+    10009,
+    10074,
+    10034,
+    9947,
+    9951,
+    10109,
+    10112,
+    10118,
+    810457,
+    1002780,
+    624653,
+    810516,
+    266396,
+    624663,
+    1553986,
+    1553988,
+    10134,
+    10135,
+    10137,
+    10138
+  ]
 }

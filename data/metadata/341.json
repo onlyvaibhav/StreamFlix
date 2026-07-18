@@ -93,5 +93,47 @@
   "duration": 8560,
   "_tracksDetected": true,
   "certification": "UA",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/803666/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 237,
+        "name": "Sony Liv",
+        "logoPath": "/3973zlBbBXdXxaWqRWzGG2GYxbT.jpg"
+      },
+      {
+        "id": 614,
+        "name": "VI movies and tv",
+        "logoPath": "/9YJY5OwsIPMoX3xC3TdtZVbKBpE.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    32080,
+    404733,
+    27590,
+    492613,
+    785585,
+    17585,
+    14550,
+    37821,
+    6028,
+    14979,
+    1077670,
+    13387,
+    155,
+    724209,
+    385687,
+    706872,
+    2207,
+    564701,
+    24528,
+    1001783
+  ],
+  "similar": []
 }

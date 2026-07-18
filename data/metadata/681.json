@@ -69,5 +69,73 @@
   "duration": 9284,
   "_tracksDetected": true,
   "certification": "R",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "investigation",
+    "violent death",
+    "anxious",
+    "brutal murder"
+  ],
+  "collection": {
+    "id": 918344,
+    "name": "HIT Verse",
+    "posterPath": "/dVgCr5wtKZhFzCDi3L8319ch6rg.jpg",
+    "backdropPath": null
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1060046/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    13389,
+    11074,
+    4959,
+    808023,
+    876969,
+    1059345,
+    62835,
+    13252,
+    970347,
+    938150,
+    419835,
+    1530875,
+    539885,
+    617502,
+    1138749,
+    1319895,
+    1227816,
+    1146344,
+    808396,
+    1835
+  ],
+  "similar": [
+    12720,
+    448916,
+    269804,
+    449443,
+    628704,
+    1006763,
+    449459,
+    12554,
+    12493,
+    268978,
+    12096,
+    1005183,
+    13855,
+    450274,
+    271078,
+    14285,
+    14148,
+    14240,
+    10157,
+    810687
+  ]
 }

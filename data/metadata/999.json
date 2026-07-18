@@ -58,5 +58,71 @@
   "duration": 7924.169,
   "_probeFailCount": 0,
   "logo": "N/A",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "framed for a crime",
+    "framed for murder"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/135199/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    25006,
+    126400,
+    10431,
+    245527,
+    336845,
+    79026,
+    45408,
+    484889,
+    611914,
+    10394,
+    6723,
+    1846,
+    33055,
+    363343,
+    14575,
+    47504,
+    43051,
+    843633,
+    22021,
+    14786
+  ],
+  "similar": [
+    10117,
+    266310,
+    1378037,
+    1378043,
+    624794,
+    445685,
+    446861,
+    268000,
+    634304,
+    20092,
+    20129,
+    20132,
+    20174,
+    820829,
+    20534,
+    20535,
+    276378,
+    20742,
+    20769,
+    20688
+  ]
 }

@@ -56,5 +56,112 @@
   "duration": 11185,
   "_tracksDetected": true,
   "certification": "U",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "fight",
+    "knife",
+    "biography",
+    "past",
+    "sister",
+    "love",
+    "jail",
+    "slaughter",
+    "family",
+    "sports documentary",
+    "athlete"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/206324/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    1144932,
+    878361,
+    10423,
+    774531,
+    677179,
+    284288,
+    1885,
+    9361,
+    10495,
+    610219,
+    480530,
+    263341,
+    317557,
+    14534,
+    10400,
+    31908,
+    653851,
+    458131,
+    862557,
+    35371
+  ],
+  "similar": [
+    1024,
+    259885,
+    438824,
+    1371303,
+    1162,
+    1165,
+    1246,
+    1247,
+    1443,
+    1491,
+    1494,
+    1523,
+    438818,
+    1255,
+    996003,
+    1366,
+    1393,
+    1402,
+    1407,
+    1414
+  ]
 }

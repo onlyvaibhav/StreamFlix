@@ -173,6 +173,14 @@ const Api = (() => {
         return await post('/api/admin/audio/sweep', { limit, concurrency });
     }
 
+    async function startExtendedBackfill() {
+        return await post('/api/admin/metadata/backfill-extended');
+    }
+
+    async function getExtendedBackfillStatus() {
+        return await get('/api/admin/metadata/backfill-extended/status');
+    }
+
     // ══════════════════════════════════════
     // TELEGRAM
     // ══════════════════════════════════════
@@ -246,7 +254,7 @@ const Api = (() => {
         refetchAllFailed,
         downloadMissingStills,
         // Workers
-        getWorkerStatus, pauseWorker, resumeWorker, getAudioAudit, startAudioSweep,
+        getWorkerStatus, pauseWorker, resumeWorker, getAudioAudit, startAudioSweep, startExtendedBackfill, getExtendedBackfillStatus,
         // Telegram
         syncTelegram, getSyncStatus, rebuildTVCaches,
         // Streams

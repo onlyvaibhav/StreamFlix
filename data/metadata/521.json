@@ -69,5 +69,76 @@
   "duration": 8216,
   "_tracksDetected": true,
   "certification": "UA",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "cold case",
+    "fictionalized history"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1290954/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 237,
+        "name": "Sony Liv",
+        "logoPath": "/3973zlBbBXdXxaWqRWzGG2GYxbT.jpg"
+      },
+      {
+        "id": 532,
+        "name": "aha",
+        "logoPath": "/8WerMI8XcZXqPpkHTZNtzMzousF.jpg"
+      },
+      {
+        "id": 614,
+        "name": "VI movies and tv",
+        "logoPath": "/9YJY5OwsIPMoX3xC3TdtZVbKBpE.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    32080,
+    6028,
+    404733,
+    9944,
+    1077670,
+    320,
+    657593,
+    785585,
+    706872,
+    160139,
+    13387,
+    1128547,
+    20482,
+    298093,
+    4281,
+    14979,
+    4193,
+    20408,
+    92272,
+    2086
+  ],
+  "similar": [
+    20000,
+    822144,
+    1014099,
+    6637,
+    458353,
+    2059,
+    1371739,
+    437142,
+    479226,
+    65754,
+    1060000,
+    1043905,
+    42700,
+    676792,
+    32160,
+    848791,
+    1573542,
+    1601794,
+    1258393,
+    1255795
+  ]
 }

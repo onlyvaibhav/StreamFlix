@@ -68,5 +68,74 @@
   "duration": 6458,
   "_tracksDetected": true,
   "certification": "PG-13",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "central intelligence agency (cia)",
+    "espionage",
+    "spy",
+    "secret agent",
+    "high school reunion",
+    "reconnect",
+    "accountant",
+    "radical transformation",
+    "high school classmates",
+    "glory days"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/302699-central-intelligence/watch?locale=IN",
+    "flatrate": [],
+    "rent": [
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": []
+  },
+  "recommendations": [
+    1048241,
+    254904,
+    725201,
+    1535,
+    1584215,
+    9705,
+    261392,
+    423204,
+    648579,
+    717930,
+    59961,
+    343668,
+    1122573,
+    1215162,
+    955,
+    64688,
+    932420,
+    280,
+    26389,
+    454992
+  ],
+  "similar": [
+    266280,
+    445648,
+    10157,
+    10003,
+    10013,
+    10054,
+    1187354,
+    266239,
+    10265,
+    10923,
+    11239,
+    20187,
+    634452,
+    20771,
+    20873,
+    1388260,
+    455504,
+    20242,
+    455778,
+    20483
+  ]
 }

@@ -84,6 +84,14 @@ const AppEvents = (() => {
                 } catch (err) {}
             });
 
+            _source.addEventListener('backfill.updated', (e) => {
+                try {
+                    _lastEventTime = Date.now();
+                    const status = JSON.parse(e.data);
+                    AppState.set('backfill', status);
+                } catch (err) {}
+            });
+
             _source.addEventListener('health', (e) => {
                 try {
                     _lastEventTime = Date.now();

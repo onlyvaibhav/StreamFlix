@@ -68,5 +68,83 @@
   "duration": 9419,
   "_tracksDetected": true,
   "certification": "U/A 13+",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "historical drama",
+    "courtroom drama",
+    "taj mahal, india"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1531858-the-taj-story/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 561,
+        "name": "Lionsgate Play",
+        "logoPath": "/e2hCUg2Z3sJ6yWF9NLU24SIKeWa.jpg"
+      },
+      {
+        "id": 2053,
+        "name": "Lionsgate Play Apple TV Channel",
+        "logoPath": "/p8i1zUcZYQ7qU6RrGvGbDItvcx4.jpg"
+      },
+      {
+        "id": 2074,
+        "name": "Lionsgate Play Amazon Channel",
+        "logoPath": "/yVbjPWEbsStanRAxwKMDARVOvsn.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      }
+    ],
+    "buy": []
+  },
+  "recommendations": [
+    16727,
+    159389,
+    753336,
+    1147546,
+    812178,
+    424600,
+    1243741,
+    829503,
+    809727,
+    292011,
+    649394,
+    113294,
+    9944,
+    885331,
+    1106739,
+    1084066,
+    273059,
+    760336,
+    67809,
+    16056
+  ],
+  "similar": [
+    1396,
+    258158,
+    93,
+    1908,
+    1592,
+    1645,
+    424,
+    1371995,
+    1941,
+    1966,
+    595,
+    606,
+    1370509,
+    819,
+    820,
+    803208,
+    995746,
+    617653,
+    9950,
+    1187274
+  ]
 }

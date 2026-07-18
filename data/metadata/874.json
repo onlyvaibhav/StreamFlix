@@ -39,5 +39,68 @@
   "_tracksDetected": true,
   "certification": "N/A",
   "logo": "N/A",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/33147-jumbo/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    329996,
+    12222,
+    776835,
+    10714,
+    665135,
+    1451867,
+    172391,
+    23903,
+    9975,
+    116149,
+    9325,
+    9732,
+    560964,
+    278927,
+    37135,
+    541572,
+    11360,
+    570488,
+    55787,
+    407436
+  ],
+  "similar": [
+    814128,
+    13123,
+    814215,
+    269995,
+    1381436,
+    1190690,
+    1005728,
+    627655,
+    269758,
+    627715,
+    269621,
+    1006154,
+    1190972,
+    814425,
+    814430,
+    270296,
+    270586,
+    270567,
+    449777,
+    1006654
+  ]
 }

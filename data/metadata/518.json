@@ -69,5 +69,71 @@
   "certification": "U/A 7+",
   "metadataStatus": "COMPLETE",
   "_stillPath": "/rgRGT7SaaWCDAgXk6W2Z7Y760bQ.jpg",
-  "episode_still": "/data/stills/518_still.jpg"
+  "episode_still": "/data/stills/518_still.jpg",
+  "keywords": [
+    "romance",
+    "romantic drama"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/tv/280889-bada-naam-karenge/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 237,
+        "name": "Sony Liv",
+        "logoPath": "/3973zlBbBXdXxaWqRWzGG2GYxbT.jpg"
+      },
+      {
+        "id": 614,
+        "name": "VI movies and tv",
+        "logoPath": "/9YJY5OwsIPMoX3xC3TdtZVbKBpE.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    95004,
+    215902,
+    10860,
+    33155,
+    21762,
+    211564,
+    76818,
+    1054,
+    881,
+    113218,
+    254071,
+    223438,
+    133908,
+    72462,
+    120835,
+    341,
+    112945,
+    62404,
+    33841,
+    3828
+  ],
+  "similar": [
+    1,
+    152,
+    171,
+    57306,
+    57339,
+    57238,
+    57255,
+    57260,
+    57372,
+    234845,
+    234859,
+    234914,
+    234919,
+    203706,
+    121852,
+    121943,
+    260,
+    122010,
+    203727,
+    121857
+  ]
 }

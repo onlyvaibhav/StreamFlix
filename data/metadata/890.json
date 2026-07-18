@@ -68,5 +68,66 @@
   "duration": 10314,
   "_tracksDetected": true,
   "certification": "N/A",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "affectation",
+    "romantic"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1194915/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    1093995,
+    1288341,
+    690957,
+    24528,
+    37821,
+    1363123,
+    404733,
+    27590,
+    2086,
+    13064,
+    423087,
+    92272,
+    408266,
+    374515,
+    51997,
+    181812,
+    385128,
+    19345,
+    213927,
+    385687
+  ],
+  "similar": [
+    1013482,
+    9326,
+    10885,
+    604,
+    617786,
+    1579,
+    1491,
+    283601,
+    442065,
+    1393034,
+    27503,
+    27316,
+    629542,
+    443700,
+    9799,
+    9281,
+    623521,
+    811592,
+    629017,
+    629015
+  ]
 }

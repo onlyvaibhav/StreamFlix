@@ -70,5 +70,116 @@
   "duration": 4228,
   "_tracksDetected": true,
   "certification": "R",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "hitman",
+    "bodyguard",
+    "sequel",
+    "aftercreditsstinger",
+    "duringcreditsstinger"
+  ],
+  "collection": {
+    "id": 608101,
+    "name": "The Hitman's Bodyguard Collection",
+    "posterPath": "/7LSrP9MURgzqHFFzcQ8jndUasaF.jpg",
+    "backdropPath": "/8FgE8oDOkldI9iAM6FxcByIlROz.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/522931-hitman-s-wife-s-bodyguard/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 2053,
+        "name": "Lionsgate Play Apple TV Channel",
+        "logoPath": "/p8i1zUcZYQ7qU6RrGvGbDItvcx4.jpg"
+      },
+      {
+        "id": 2074,
+        "name": "Lionsgate Play Amazon Channel",
+        "logoPath": "/yVbjPWEbsStanRAxwKMDARVOvsn.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    390043,
+    50022,
+    1319895,
+    241554,
+    455236,
+    278924,
+    879444,
+    342521,
+    573435,
+    507241,
+    59859,
+    617502,
+    187017,
+    4959,
+    958006,
+    1410082,
+    1217602,
+    943,
+    293660,
+    9705
+  ],
+  "similar": [
+    449077,
+    13053,
+    13056,
+    12699,
+    12702,
+    12705,
+    1005776,
+    12633,
+    12662,
+    13007,
+    12685,
+    13051,
+    13184,
+    13191,
+    448950,
+    13158,
+    13186,
+    13202,
+    13204,
+    13253
+  ]
 }

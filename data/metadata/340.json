@@ -82,5 +82,85 @@
   "duration": 7015.217,
   "_tracksDetected": true,
   "certification": "PG-13",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "immortality",
+    "lie",
+    "terminal illness",
+    "laboratory",
+    "cancer",
+    "transhumanism",
+    "doctor",
+    "body-swap",
+    "death",
+    "false memory",
+    "soul transference",
+    "rich man",
+    "mind transfer",
+    "host body",
+    "body snatching",
+    "eternal"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/238615-self-less/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    157353,
+    274855,
+    10514,
+    300681,
+    453405,
+    72710,
+    1275779,
+    13455,
+    9620,
+    1090,
+    1738,
+    1236153,
+    559581,
+    505948,
+    1093995,
+    22824,
+    335866,
+    670292,
+    87101,
+    13811
+  ],
+  "similar": [
+    9959,
+    10133,
+    10299,
+    10092,
+    445821,
+    10224,
+    10176,
+    10180,
+    11016,
+    11182,
+    11336,
+    11411,
+    11222,
+    20153,
+    20533,
+    1388181,
+    634521,
+    21168,
+    19936,
+    20028
+  ]
 }

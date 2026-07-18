@@ -69,5 +69,116 @@
   "duration": 7816,
   "_tracksDetected": true,
   "certification": "PG-13",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "dystopia",
+    "secret agent",
+    "remake",
+    "machine gun",
+    "resistance fighter",
+    "false memory",
+    "robot cop",
+    "suppression",
+    "rebel hero",
+    "safe deposit box",
+    "british colonialism",
+    "smog",
+    "gatling gun",
+    "center of the earth",
+    "implanted memory"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/64635-total-recall/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    8452,
+    461130,
+    1576,
+    534,
+    5549,
+    10596,
+    280,
+    218,
+    31867,
+    733317,
+    861,
+    142061,
+    198184,
+    296,
+    343668,
+    290859,
+    932420,
+    324670,
+    937249,
+    460458
+  ],
+  "similar": [
+    10133,
+    1187619,
+    10007,
+    10045,
+    10083,
+    10054,
+    10066,
+    445651,
+    10265,
+    10923,
+    10955,
+    11027,
+    11119,
+    11309,
+    267931,
+    11234,
+    1012652,
+    1012734,
+    20526,
+    20534
+  ]
 }

@@ -69,5 +69,31 @@
   "_tracksDetected": true,
   "certification": "U/A 13+",
   "logo": "/data/logos/928_logo.png",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [],
+  "collection": null,
+  "watchProviders": null,
+  "recommendations": [
+    31016,
+    38925,
+    450489,
+    14834,
+    611114,
+    1140498,
+    826769,
+    975043,
+    17956,
+    746419,
+    1273049,
+    745391,
+    18417,
+    41760,
+    768520,
+    98545,
+    881209,
+    1421990,
+    6282,
+    1618945
+  ],
+  "similar": []
 }

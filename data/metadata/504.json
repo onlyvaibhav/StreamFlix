@@ -59,5 +59,83 @@
   "duration": 9230,
   "_tracksDetected": true,
   "certification": "PG-13",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "rescue",
+    "dancing",
+    "london, england",
+    "secret agent",
+    "heist",
+    "revenge",
+    "jewel thief",
+    "jewelry heist",
+    "motorcycle chase"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/283589/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 614,
+        "name": "VI movies and tv",
+        "logoPath": "/9YJY5OwsIPMoX3xC3TdtZVbKBpE.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    11001,
+    49375,
+    19017,
+    353081,
+    512195,
+    32050,
+    404733,
+    707,
+    13387,
+    724209,
+    24528,
+    44147,
+    657,
+    37710,
+    11006,
+    10003,
+    1618945,
+    277432,
+    1218762,
+    58574
+  ],
+  "similar": [
+    10117,
+    266310,
+    266396,
+    10135,
+    10138,
+    1554075,
+    624794,
+    1187619,
+    10228,
+    10247,
+    9994,
+    10002,
+    10003,
+    10049,
+    10084,
+    10054,
+    9978,
+    9986,
+    445571,
+    1553834
+  ]
 }

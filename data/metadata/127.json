@@ -54,5 +54,61 @@
   "certification": "U/A 16+",
   "metadataStatus": "COMPLETE",
   "_stillPath": "/z0rUBCduhuA0Tvt6rOiQrEiD8hk.jpg",
-  "episode_still": "/data/stills/127_still.jpg"
+  "episode_still": "/data/stills/127_still.jpg",
+  "keywords": [
+    "friendship",
+    "romance",
+    "lgbt"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/tv/236445-campus-beats/watch?locale=IN",
+    "flatrate": [],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    3475,
+    89630,
+    199001,
+    273240,
+    130842,
+    51537,
+    107365,
+    103411,
+    87049,
+    90399,
+    194741,
+    77031,
+    262848,
+    269,
+    73607,
+    31917,
+    131142,
+    102904,
+    116761,
+    85232
+  ],
+  "similar": [
+    123737,
+    236740,
+    236809,
+    236815,
+    91750,
+    205487,
+    205516,
+    123784,
+    91814,
+    91825,
+    91827,
+    91885,
+    205226,
+    236602,
+    59081,
+    123644,
+    59150,
+    91630,
+    91635,
+    91636
+  ]
 }

@@ -43,5 +43,86 @@
   "duration": 7269,
   "_tracksDetected": true,
   "certification": "U",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "beggar",
+    "motherly love"
+  ],
+  "collection": {
+    "id": 955033,
+    "name": "Pichaikkaran Collection",
+    "posterPath": "/rhEpUrOcsyIUAcI4WDrp103JCKf.jpg",
+    "backdropPath": "/h7Fc0rpUQohRJJdXKHOBMSAkiht.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/382736/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 309,
+        "name": "Sun Nxt",
+        "logoPath": "/6KEQzITx2RrCAQt5Nw9WrL1OI8z.jpg"
+      },
+      {
+        "id": 614,
+        "name": "VI movies and tv",
+        "logoPath": "/9YJY5OwsIPMoX3xC3TdtZVbKBpE.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    300983,
+    74525,
+    370076,
+    412096,
+    1093995,
+    4999,
+    415193,
+    333658,
+    480853,
+    30162,
+    236399,
+    4931,
+    46041,
+    459008,
+    949229,
+    60938,
+    51997,
+    20003,
+    37698,
+    594139
+  ],
+  "similar": [
+    4479,
+    4681,
+    1552667,
+    282153,
+    2047,
+    450159,
+    1395549,
+    831279,
+    7549,
+    8247,
+    1403437,
+    451519,
+    1028404,
+    11537,
+    446446,
+    11110,
+    29811,
+    32764,
+    5123,
+    262970
+  ]
 }

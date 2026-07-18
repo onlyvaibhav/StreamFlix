@@ -42,5 +42,70 @@
   "duration": 7679,
   "_tracksDetected": true,
   "certification": "UA",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "parking lot",
+    "new neighbor",
+    "ego",
+    "parking",
+    "human interest",
+    "male egos"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1174777/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    1254624,
+    893086,
+    1042834,
+    157351,
+    489243,
+    13279,
+    1023915,
+    339849,
+    846956,
+    928270,
+    1469354,
+    67530,
+    33408,
+    35030,
+    13560,
+    1145725,
+    58626,
+    891644,
+    1293286,
+    371462
+  ],
+  "similar": [
+    345,
+    805,
+    30569,
+    27585,
+    1399080,
+    1024599,
+    1560135,
+    280959,
+    1393187,
+    1401196,
+    1379222,
+    11928,
+    13310,
+    13441,
+    24349,
+    1431450,
+    508301,
+    319877,
+    56399,
+    2655
+  ]
 }

@@ -173,5 +173,89 @@
   "certification": "U/A 7+",
   "metadataStatus": "COMPLETE",
   "_stillPath": "/9DWHSnWE1R2FKbFZmafn3PA2KA9.jpg",
-  "episode_still": "/data/stills/778_still.jpg"
+  "episode_still": "/data/stills/778_still.jpg",
+  "keywords": [
+    "cooking",
+    "college",
+    "friendship",
+    "slice of life",
+    "food",
+    "university",
+    "school life",
+    "college student",
+    "calm",
+    "anime",
+    "school club",
+    "social anxiety",
+    "food culture",
+    "iyashikei",
+    "university student"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/tv/281042/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 283,
+        "name": "Crunchyroll",
+        "logoPath": "/fzN5Jok5Ig1eJ7gyNGoMhnLSCfh.jpg"
+      },
+      {
+        "id": 237,
+        "name": "Sony Liv",
+        "logoPath": "/3973zlBbBXdXxaWqRWzGG2GYxbT.jpg"
+      },
+      {
+        "id": 1968,
+        "name": "Crunchyroll Amazon Channel",
+        "logoPath": "/pgjz7bzfBq4nFDu8JJDLBoUVAX8.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    48561,
+    76075,
+    66077,
+    115694,
+    45501,
+    60843,
+    75865,
+    276349,
+    42253,
+    66875,
+    207250,
+    61379,
+    76047,
+    235758,
+    43018,
+    154743,
+    217407,
+    257790,
+    155779,
+    201889
+  ],
+  "similar": [
+    60286,
+    206437,
+    60424,
+    30964,
+    30979,
+    30984,
+    30986,
+    30991,
+    30992,
+    124572,
+    124576,
+    92835,
+    92892,
+    206483,
+    206490,
+    30801,
+    206629,
+    206630,
+    206561,
+    30977
+  ]
 }

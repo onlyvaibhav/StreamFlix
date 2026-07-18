@@ -93,5 +93,121 @@
   "container": "matroska,webm",
   "duration": 7415.616,
   "certification": "PG-13",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "dying and death",
+    "mask",
+    "island",
+    "central intelligence agency (cia)",
+    "helicopter",
+    "computer",
+    "spain",
+    "undercover",
+    "skyscraper",
+    "secret mission",
+    "spy",
+    "secret identity",
+    "ex-lover",
+    "fake identity",
+    "secret agent",
+    "climbing",
+    "sequel",
+    "secret government organization",
+    "infiltration",
+    "duel",
+    "lethal virus",
+    "motorcycle",
+    "rescue team",
+    "slow motion",
+    "agent",
+    "fictional government agency",
+    "research laboratory",
+    "motorcycle chase",
+    "government agency",
+    "based on tv series"
+  ],
+  "collection": {
+    "id": 87359,
+    "name": "Mission: Impossible Collection",
+    "posterPath": "/geEjCGfdmRAA1skBPwojcdvnZ8A.jpg",
+    "backdropPath": "/mroWh717g0Ah2c0rrPGW6f3EWMM.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/955-mission-impossible-ii/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 232,
+        "name": "Zee5",
+        "logoPath": "/gP67NRy1ShUJilrzMsbOmEmdmcv.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    739405,
+    290859,
+    47971,
+    1167271,
+    49021,
+    522016,
+    278924,
+    1620,
+    976734,
+    254904,
+    37724,
+    1410082,
+    260346,
+    249070,
+    454992,
+    725201,
+    415842,
+    59961,
+    457332,
+    484641
+  ],
+  "similar": [
+    1049,
+    259907,
+    438788,
+    1213,
+    1247,
+    1248,
+    1250,
+    1251,
+    1180831,
+    1422,
+    1428,
+    1433,
+    1452,
+    1479,
+    1497,
+    1499,
+    1073,
+    995926,
+    1256,
+    1266
+  ]
 }

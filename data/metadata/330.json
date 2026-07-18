@@ -68,5 +68,130 @@
   "duration": 8179,
   "_tracksDetected": true,
   "certification": "R",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "man vs machine",
+    "martial arts",
+    "fortune teller",
+    "artificial intelligence (a.i.)",
+    "saving the world",
+    "prophecy",
+    "philosophy",
+    "dystopia",
+    "allegory",
+    "insurgence",
+    "chosen one",
+    "simulated reality ",
+    "cyberpunk",
+    "gnosticism"
+  ],
+  "collection": {
+    "id": 2344,
+    "name": "The Matrix Collection",
+    "posterPath": "/bV9qTVHTVf0gkW0j7p7M0ILD4pG.jpg",
+    "backdropPath": "/bRm2DEgUiYciDw3myHuYFInD7la.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/603-the-matrix/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    604,
+    87101,
+    99861,
+    777443,
+    1738,
+    157350,
+    274855,
+    1090,
+    262543,
+    670292,
+    20526,
+    524434,
+    2135,
+    860,
+    533533,
+    412656,
+    522402,
+    13253,
+    14161,
+    262500
+  ],
+  "similar": [
+    13124,
+    13126,
+    13127,
+    12715,
+    269651,
+    448916,
+    448923,
+    13027,
+    1190581,
+    12780,
+    12889,
+    13006,
+    269650,
+    13153,
+    13154,
+    13253,
+    13273,
+    13282,
+    13293,
+    13295
+  ]
 }

@@ -69,5 +69,83 @@
   "duration": 8359,
   "_tracksDetected": true,
   "certification": "U/A 16+",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "black magic",
+    "sorcerer",
+    "black and white",
+    "witchcraft",
+    "dark fantasy",
+    "old mansion",
+    "folk horror",
+    "folktale",
+    "haunted mansion",
+    "supernatural horror",
+    "experimental",
+    "arthouse horror",
+    "arthouse",
+    "fantasy folk"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1166133/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 237,
+        "name": "Sony Liv",
+        "logoPath": "/3973zlBbBXdXxaWqRWzGG2GYxbT.jpg"
+      },
+      {
+        "id": 614,
+        "name": "VI movies and tv",
+        "logoPath": "/9YJY5OwsIPMoX3xC3TdtZVbKBpE.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    933090,
+    44698,
+    862552,
+    91586,
+    1339206,
+    782936,
+    1519168,
+    740903,
+    1081208,
+    18256,
+    1353117,
+    590995,
+    24740,
+    675531,
+    930600,
+    830788,
+    423108,
+    9529,
+    1278950,
+    406563
+  ],
+  "similar": [
+    1546270,
+    1370040,
+    1370047,
+    994532,
+    1546195,
+    1546200,
+    1546211,
+    1546213,
+    1546244,
+    1546154,
+    1541654,
+    1172809,
+    1541979,
+    1730206,
+    599973,
+    609756,
+    1176166,
+    1544465,
+    1544159,
+    1544162
+  ]
 }

@@ -69,5 +69,147 @@
   "duration": 8891,
   "_tracksDetected": true,
   "certification": "PG-13",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "new york city",
+    "hero",
+    "showdown",
+    "magic",
+    "loss of loved one",
+    "secret identity",
+    "superhero",
+    "villain",
+    "portal",
+    "based on comic",
+    "sequel",
+    "vigilante",
+    "superhero team",
+    "masked vigilante",
+    "alternative reality",
+    "aftercreditsstinger",
+    "duringcreditsstinger",
+    "marvel cinematic universe (mcu)",
+    "masked superhero",
+    "fight for justice",
+    "teen superhero",
+    "superhero teamup",
+    "returning hero",
+    "teamwork",
+    "excited",
+    "multiverse"
+  ],
+  "collection": {
+    "id": 531241,
+    "name": "Spider-Man (MCU) Collection",
+    "posterPath": "/yeba3Y820OjApZO9aJevDsNeMEd.jpg",
+    "backdropPath": "/AvnqpRwlEaYNVL6wzC4RN94EdSd.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/634649-spider-man-no-way-home/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      },
+      {
+        "id": 237,
+        "name": "Sony Liv",
+        "logoPath": "/3973zlBbBXdXxaWqRWzGG2GYxbT.jpg"
+      },
+      {
+        "id": 2180,
+        "name": "Sony Pictures Amazon Channel",
+        "logoPath": "/i7FaDWpD2xoIWB5lyF191cykfck.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 232,
+        "name": "Zee5",
+        "logoPath": "/gP67NRy1ShUJilrzMsbOmEmdmcv.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    271110,
+    102382,
+    447365,
+    640146,
+    298618,
+    283995,
+    453395,
+    986056,
+    505642,
+    209112,
+    10138,
+    100402,
+    99861,
+    299536,
+    436270,
+    284054,
+    609681,
+    559,
+    572802,
+    1155089
+  ],
+  "similar": [
+    13053,
+    13056,
+    13098,
+    12702,
+    12705,
+    13027,
+    449014,
+    269444,
+    12721,
+    12780,
+    269795,
+    12685,
+    13051,
+    13183,
+    448950,
+    269718,
+    13155,
+    13158,
+    13201,
+    13202
+  ]
 }

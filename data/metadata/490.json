@@ -69,5 +69,125 @@
   "duration": 6992,
   "_tracksDetected": true,
   "certification": "PG-13",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "spacecraft",
+    "extraterrestrial technology",
+    "loss",
+    "time",
+    "alien",
+    "language",
+    "female protagonist",
+    "scientist",
+    "heartbreak",
+    "based on short story",
+    "alien contact",
+    "military",
+    "alien language",
+    "linguist",
+    "first contact",
+    "communication",
+    "linguistics",
+    "time-manipulation",
+    "complex",
+    "determinism",
+    "science fiction",
+    "wistful",
+    "incredulous",
+    "hopeful"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/329865-arrival/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 561,
+        "name": "Lionsgate Play",
+        "logoPath": "/e2hCUg2Z3sJ6yWF9NLU24SIKeWa.jpg"
+      },
+      {
+        "id": 2053,
+        "name": "Lionsgate Play Apple TV Channel",
+        "logoPath": "/p8i1zUcZYQ7qU6RrGvGbDItvcx4.jpg"
+      },
+      {
+        "id": 2074,
+        "name": "Lionsgate Play Amazon Channel",
+        "logoPath": "/yVbjPWEbsStanRAxwKMDARVOvsn.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    2103,
+    17431,
+    639771,
+    686,
+    2067,
+    9620,
+    522402,
+    286217,
+    559581,
+    152,
+    157336,
+    644,
+    75612,
+    14337,
+    585378,
+    871,
+    62,
+    2267,
+    419704,
+    828
+  ],
+  "similar": [
+    449060,
+    814172,
+    13060,
+    13068,
+    13071,
+    813958,
+    12702,
+    13001,
+    269423,
+    813917,
+    12837,
+    12889,
+    12900,
+    12914,
+    1381548,
+    13189,
+    13190,
+    269711,
+    13374,
+    1006851
+  ]
 }

@@ -160,5 +160,65 @@
   "certification": "TV-14",
   "metadataStatus": "COMPLETE",
   "_stillPath": "/hOSx57jNtN0MsaX53SFTQhl3JI1.jpg",
-  "episode_still": "/data/stills/95_still.jpg"
+  "episode_still": "/data/stills/95_still.jpg",
+  "keywords": [
+    "miniseries"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/tv/213635/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    254071,
+    3828,
+    134375,
+    58057,
+    218346,
+    120835,
+    223438,
+    12026,
+    1059,
+    3216,
+    84007,
+    120317,
+    6127,
+    75944,
+    214259,
+    132117,
+    99121,
+    587,
+    758,
+    85547
+  ],
+  "similar": [
+    27848,
+    27945,
+    57261,
+    57447,
+    57389,
+    203728,
+    203675,
+    235,
+    260,
+    122022,
+    352,
+    234994,
+    232,
+    271001,
+    271080,
+    122048,
+    28140,
+    203554,
+    121893,
+    300231
+  ]
 }

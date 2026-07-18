@@ -69,5 +69,36 @@
   "certification": "U/A 16+",
   "metadataStatus": "COMPLETE",
   "_stillPath": "/4GT1fg9VJIiS09Qkt2C6vvia9YD.jpg",
-  "episode_still": "/data/stills/267_still.jpg"
+  "episode_still": "/data/stills/267_still.jpg",
+  "keywords": [],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/tv/256538-sisterhood/watch?locale=IN",
+    "flatrate": [],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    5721,
+    62704,
+    211,
+    85727,
+    116450,
+    100883,
+    261545,
+    73925,
+    156812,
+    126914,
+    96734,
+    107365,
+    72001,
+    84150,
+    78950,
+    61637,
+    243861,
+    136745,
+    136044,
+    82862
+  ],
+  "similar": []
 }

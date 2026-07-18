@@ -82,5 +82,79 @@
   "duration": 2453.368,
   "_tracksDetected": true,
   "certification": "PG-13",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "hero",
+    "artificial intelligence (a.i.)",
+    "video game",
+    "virtual reality",
+    "gun",
+    "code",
+    "gamer",
+    "bank robbery",
+    "bank teller",
+    "programmer",
+    "thoughtful",
+    "mmorpg",
+    "virtual game",
+    "heroic",
+    "vrmmo"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/550988-free-guy/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    20526,
+    604,
+    533533,
+    670292,
+    2114,
+    97,
+    777443,
+    99861,
+    487186,
+    268896,
+    463272,
+    13253,
+    413658,
+    353486,
+    131631,
+    1029575,
+    399579,
+    91314,
+    5137,
+    75612
+  ],
+  "similar": [
+    1004926,
+    12279,
+    269149,
+    13097,
+    1556843,
+    13391,
+    1380907,
+    13334,
+    15601,
+    1383260,
+    1558752,
+    1558376,
+    15050,
+    15067,
+    16311,
+    16314,
+    16437,
+    16530,
+    451048,
+    630656
+  ]
 }

@@ -82,5 +82,97 @@
   "duration": 7710,
   "_tracksDetected": true,
   "certification": "R",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "bad smell",
+    "based on novel or book",
+    "eroticism",
+    "perversion",
+    "spanking",
+    "billionaire",
+    "psychological thriller",
+    "rich",
+    "bdsm",
+    "woman director",
+    "psychological drama",
+    "baffled"
+  ],
+  "collection": {
+    "id": 344830,
+    "name": "Fifty Shades Collection",
+    "posterPath": "/29sMhnMJPHsbO2XHu35iQjk4eFR.jpg",
+    "backdropPath": "/f7F56YyMX9G6L4ffqNpA9zlG6fm.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/216015-fifty-shades-of-grey/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      },
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      },
+      {
+        "id": 614,
+        "name": "VI movies and tv",
+        "logoPath": "/9YJY5OwsIPMoX3xC3TdtZVbKBpE.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 232,
+        "name": "Zee5",
+        "logoPath": "/gP67NRy1ShUJilrzMsbOmEmdmcv.jpg"
+      }
+    ],
+    "buy": []
+  },
+  "recommendations": [
+    337167,
+    2251,
+    345,
+    1359,
+    884,
+    15720,
+    2057,
+    910571,
+    250225,
+    370663,
+    40814,
+    11845,
+    42634,
+    434203,
+    763148,
+    24461,
+    976581,
+    38027,
+    16229,
+    799546
+  ],
+  "similar": [
+    1058,
+    1088,
+    259903,
+    259932,
+    1547602,
+    1163,
+    1213,
+    1248,
+    1251,
+    1252,
+    996067,
+    1415,
+    1418,
+    1424,
+    1427,
+    1429,
+    1440,
+    1443,
+    1523,
+    1090
+  ]
 }

@@ -108,5 +108,76 @@
   "duration": 6772.011,
   "_probeFailCount": 0,
   "logo": "/data/logos/998_logo.png",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "based on novel or book",
+    "sequel"
+  ],
+  "collection": {
+    "id": 1156666,
+    "name": "Fault Collection",
+    "posterPath": "/sClS8nmwN9uVRy4rzwzil01aTY9.jpg",
+    "backdropPath": "/7N9p8D39MXJDfm14zlBwW7mBh7g.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1156594-culpa-nuestra/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    1477317,
+    724089,
+    1156593,
+    337167,
+    744276,
+    1379963,
+    1317672,
+    613504,
+    434203,
+    1078600,
+    479957,
+    1294203,
+    341174,
+    1595852,
+    610781,
+    744114,
+    466708,
+    15720,
+    675485,
+    1312946
+  ],
+  "similar": [
+    1213,
+    1246,
+    1251,
+    1415,
+    1427,
+    1429,
+    1440,
+    1443,
+    1523,
+    1367,
+    1375,
+    1398,
+    803700,
+    1547766,
+    1547846,
+    1587,
+    1715,
+    1717,
+    1547894,
+    1818
+  ]
 }

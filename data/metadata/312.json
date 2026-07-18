@@ -96,5 +96,66 @@
   "duration": 4902,
   "_tracksDetected": true,
   "certification": "UA",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "remake",
+    "based on movie"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/887109-hit-the-first-case/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    1195430,
+    1077670,
+    32080,
+    581361,
+    1029827,
+    404733,
+    6028,
+    16056,
+    17585,
+    9944,
+    242643,
+    22448,
+    86616,
+    505026,
+    28297,
+    829280,
+    492613,
+    13387,
+    20003,
+    2207
+  ],
+  "similar": [
+    10141,
+    1187619,
+    9991,
+    10007,
+    10083,
+    10066,
+    10955,
+    11007,
+    11026,
+    11027,
+    267931,
+    20534,
+    20971,
+    276699,
+    20646,
+    456715,
+    456529,
+    265208,
+    9378,
+    265321
+  ]
 }

@@ -69,5 +69,76 @@
   "certification": "TV-MA",
   "metadataStatus": "COMPLETE",
   "_stillPath": "/4rftUHwHSNr4rLsl4nUPzBTYA2I.jpg",
-  "episode_still": "/data/stills/484_still.jpg"
+  "episode_still": "/data/stills/484_still.jpg",
+  "keywords": [
+    "detective",
+    "police",
+    "organized crime",
+    "conspiracy",
+    "street crime",
+    "transphobia",
+    "criminal conspiracy"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/tv/103051/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    79352,
+    58841,
+    1486,
+    106158,
+    4057,
+    1426,
+    46648,
+    75797,
+    228026,
+    245746,
+    87773,
+    4860,
+    204490,
+    85385,
+    100729,
+    4040,
+    62620,
+    39351,
+    4170,
+    1409
+  ],
+  "similar": [
+    205440,
+    91699,
+    123787,
+    123794,
+    29746,
+    91638,
+    1625,
+    29642,
+    91520,
+    91552,
+    1596,
+    1620,
+    1626,
+    1527,
+    1532,
+    123504,
+    301589,
+    205456,
+    205591,
+    1706
+  ]
 }

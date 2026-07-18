@@ -69,5 +69,121 @@
   "duration": 7387,
   "_tracksDetected": true,
   "certification": "PG-13",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "japan",
+    "monster",
+    "san francisco, california",
+    "hawaii",
+    "giant monster",
+    "tsunami",
+    "remake",
+    "prehistoric creature",
+    "golden gate bridge",
+    "dinosaur",
+    "kaiju",
+    "honolulu, hawaii",
+    "disaster movie",
+    "global threat",
+    "animal horror",
+    "godzilla"
+  ],
+  "collection": {
+    "id": 535313,
+    "name": "Godzilla Collection",
+    "posterPath": "/inNN466SKHNjbGmpfhfsaPQNleS.jpg",
+    "backdropPath": "/psZ5CETZoaq2VRnxk95HuxOnI5D.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/124905-godzilla/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    373571,
+    68726,
+    823464,
+    399566,
+    119450,
+    427641,
+    254,
+    268896,
+    254128,
+    14161,
+    10357,
+    514690,
+    61791,
+    91314,
+    274855,
+    406759,
+    441183,
+    13475,
+    487670,
+    44943
+  ],
+  "similar": [
+    10075,
+    10077,
+    10116,
+    10139,
+    9991,
+    10083,
+    10204,
+    10973,
+    11007,
+    11027,
+    447163,
+    267977,
+    267970,
+    20113,
+    20527,
+    20529,
+    20532,
+    20534,
+    20760
+  ]
 }

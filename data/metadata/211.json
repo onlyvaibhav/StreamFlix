@@ -81,5 +81,84 @@
   "duration": 6619,
   "_tracksDetected": true,
   "certification": "R",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "based on novel or book",
+    "eroticism",
+    "sequel",
+    "bdsm"
+  ],
+  "collection": {
+    "id": 344830,
+    "name": "Fifty Shades Collection",
+    "posterPath": "/29sMhnMJPHsbO2XHu35iQjk4eFR.jpg",
+    "backdropPath": "/f7F56YyMX9G6L4ffqNpA9zlG6fm.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/337167-fifty-shades-freed/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      },
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 232,
+        "name": "Zee5",
+        "logoPath": "/gP67NRy1ShUJilrzMsbOmEmdmcv.jpg"
+      }
+    ],
+    "buy": []
+  },
+  "recommendations": [
+    434203,
+    250225,
+    2251,
+    15720,
+    610781,
+    249397,
+    370663,
+    763148,
+    42634,
+    345,
+    57575,
+    2057,
+    7515,
+    40814,
+    11845,
+    417688,
+    976581,
+    884,
+    436932,
+    258216
+  ],
+  "similar": [
+    10068,
+    10075,
+    9960,
+    9956,
+    10110,
+    1002770,
+    1554048,
+    1554065,
+    624789,
+    10170,
+    10229,
+    10236,
+    10242,
+    10296,
+    10303,
+    10003,
+    10004,
+    810406,
+    445651,
+    10217
+  ]
 }

@@ -83,5 +83,101 @@
   "duration": 2016,
   "_tracksDetected": true,
   "certification": "R",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "saving the world",
+    "spy",
+    "secret agent",
+    "europe",
+    "sequel",
+    "secret government organization",
+    "agent",
+    "statesman",
+    "joyous",
+    "amused"
+  ],
+  "collection": {
+    "id": 391860,
+    "name": "Kingsman Collection",
+    "posterPath": "/iR8L2XHA72wmYHc6O8LZmwV5hd5.jpg",
+    "backdropPath": "/i8SLS8XFbjiUheIObBxZDvk0MtJ.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/343668-kingsman-the-golden-circle/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    296,
+    605,
+    1048241,
+    64635,
+    534,
+    166076,
+    522931,
+    739405,
+    454992,
+    5549,
+    455236,
+    278924,
+    791373,
+    796499,
+    1327690,
+    507244,
+    955,
+    4375,
+    218,
+    1215162
+  ],
+  "similar": [
+    438695,
+    259907,
+    1180831,
+    1420,
+    1452,
+    1497,
+    1498,
+    1499,
+    1073,
+    995926,
+    1255,
+    1267,
+    1269,
+    1272,
+    1361,
+    1535,
+    1541,
+    438970,
+    1371510,
+    1571
+  ]
 }

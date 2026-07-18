@@ -251,5 +251,76 @@
   "certification": "TV-MA",
   "metadataStatus": "COMPLETE",
   "_stillPath": "/sjiOg7Pbj7UPJMBCxF8rKvFlICp.jpg",
-  "episode_still": "/data/stills/47_still.jpg"
+  "episode_still": "/data/stills/47_still.jpg",
+  "keywords": [
+    "supernatural",
+    "survival",
+    "tokyo, japan",
+    "psychological thriller",
+    "based on manga",
+    "game",
+    "wonder",
+    "suspense",
+    "death game",
+    "suspenseful",
+    "brisk",
+    "urgent"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/tv/110316/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    137718,
+    46671,
+    123528,
+    42410,
+    90677,
+    65931,
+    70592,
+    8864,
+    92602,
+    80623,
+    83054,
+    112940,
+    134843,
+    252193,
+    34791,
+    229858,
+    66053,
+    62286,
+    72517,
+    2321
+  ],
+  "similar": [
+    91699,
+    91827,
+    123525,
+    123528,
+    123542,
+    91613,
+    91636,
+    205343,
+    1622,
+    29663,
+    91539,
+    272683,
+    123494,
+    205183,
+    236457,
+    236532,
+    236712,
+    205599,
+    91845,
+    1705
+  ]
 }

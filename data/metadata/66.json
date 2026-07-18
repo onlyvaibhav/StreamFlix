@@ -119,5 +119,121 @@
   "certification": "TV-14",
   "metadataStatus": "COMPLETE",
   "_stillPath": "/bDM0qdyzYUMhNpIH9AUkz7okbRE.jpg",
-  "episode_still": "/data/stills/66_still.jpg"
+  "episode_still": "/data/stills/66_still.jpg",
+  "keywords": [
+    "martial arts",
+    "exorcism",
+    "secret organization",
+    "sorcery",
+    "supernatural",
+    "possession",
+    "paranormal",
+    "curse",
+    "tragedy",
+    "sorcerer",
+    "school",
+    "bromance",
+    "based on manga",
+    "spirit",
+    "demon",
+    "demonic possession",
+    "dark fantasy",
+    "school life",
+    "youkai",
+    "hopeless",
+    "domineering",
+    "shounen",
+    "anime",
+    "somber",
+    "japanese high school",
+    "occultism",
+    "vindictive",
+    "supernatural ability",
+    "urban fantasy",
+    "cursed object",
+    "admiring",
+    "enraged"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/tv/95479/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      },
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      },
+      {
+        "id": 283,
+        "name": "Crunchyroll",
+        "logoPath": "/fzN5Jok5Ig1eJ7gyNGoMhnLSCfh.jpg"
+      },
+      {
+        "id": 237,
+        "name": "Sony Liv",
+        "logoPath": "/3973zlBbBXdXxaWqRWzGG2GYxbT.jpg"
+      },
+      {
+        "id": 1968,
+        "name": "Crunchyroll Amazon Channel",
+        "logoPath": "/pgjz7bzfBq4nFDu8JJDLBoUVAX8.jpg"
+      },
+      {
+        "id": 2182,
+        "name": "Anime Times Amazon Channel",
+        "logoPath": "/p2fVhnzr0znG2KnVLmH9bjj7F0S.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    69500,
+    30669,
+    95269,
+    30984,
+    113808,
+    60833,
+    67075,
+    208493,
+    245842,
+    71000,
+    64710,
+    194774,
+    136840,
+    38464,
+    120155,
+    240411,
+    66078,
+    61374,
+    56351,
+    127532
+  ],
+  "similar": [
+    2426,
+    2429,
+    60286,
+    206534,
+    60424,
+    30979,
+    30984,
+    30986,
+    30991,
+    30992,
+    124572,
+    124576,
+    92835,
+    302705,
+    92892,
+    2603,
+    206470,
+    206483,
+    206490,
+    60306
+  ]
 }

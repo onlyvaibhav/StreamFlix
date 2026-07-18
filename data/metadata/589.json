@@ -69,5 +69,67 @@
   "duration": 9228,
   "_tracksDetected": true,
   "certification": "N/A",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "relationship",
+    "madcap comedy",
+    "college life"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1273049/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    31016,
+    1140498,
+    1321439,
+    932430,
+    8488,
+    38925,
+    625450,
+    975043,
+    18417,
+    826769,
+    4951,
+    14429,
+    1433842,
+    17956,
+    745391,
+    12890,
+    1272149,
+    44705,
+    393656,
+    41760
+  ],
+  "similar": [
+    445685,
+    10184,
+    1013246,
+    20943,
+    456261,
+    21135,
+    20067,
+    276908,
+    822213,
+    11095,
+    11129,
+    1188843,
+    1555230,
+    10904,
+    15788,
+    272693,
+    1567633,
+    460033,
+    1392152,
+    280867
+  ]
 }

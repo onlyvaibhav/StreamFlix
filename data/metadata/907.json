@@ -185,5 +185,81 @@
   "certification": "TV-MA",
   "metadataStatus": "COMPLETE",
   "_stillPath": "/ApfUQLbraTvHT1ZQ5qSafKkJC9Z.jpg",
-  "episode_still": "/data/stills/907_still.jpg"
+  "episode_still": "/data/stills/907_still.jpg",
+  "keywords": [
+    "corruption",
+    "satire",
+    "superhero",
+    "based on comic",
+    "gore",
+    "tragedy",
+    "evil corporation",
+    "super power",
+    "superhero team",
+    "violence",
+    "hilarious",
+    "action"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/tv/76479-the-boys/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    90228,
+    1403,
+    158141,
+    67487,
+    128839,
+    75450,
+    1412,
+    71663,
+    62643,
+    85273,
+    79788,
+    62285,
+    93484,
+    89247,
+    1639,
+    74440,
+    7704,
+    2321,
+    203555,
+    195868
+  ],
+  "similar": [
+    44,
+    196,
+    216,
+    131,
+    132,
+    160,
+    184,
+    237,
+    246,
+    122015,
+    354,
+    410,
+    416,
+    236,
+    326,
+    270931,
+    203573,
+    518,
+    520,
+    530
+  ]
 }

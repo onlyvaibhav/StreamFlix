@@ -57,5 +57,67 @@
   "duration": 6699.105,
   "_tracksDetected": true,
   "certification": "U/A 13+",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "train ticket",
+    "fraudster",
+    "financial scam"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1389152-hisaab-barabar/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 232,
+        "name": "Zee5",
+        "logoPath": "/gP67NRy1ShUJilrzMsbOmEmdmcv.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    27590,
+    73208,
+    492613,
+    5854,
+    4780,
+    17585,
+    1227128,
+    19169,
+    423087,
+    92272,
+    4176,
+    673159,
+    13490,
+    44549,
+    7270,
+    61041,
+    14550,
+    616651,
+    31555,
+    547012
+  ],
+  "similar": [
+    262034,
+    1183156,
+    805916,
+    1183237,
+    4251,
+    4252,
+    4253,
+    4254,
+    4435,
+    262352,
+    805785,
+    440792,
+    4157,
+    441071,
+    441139,
+    262120,
+    440873,
+    441515,
+    262903,
+    621003
+  ]
 }

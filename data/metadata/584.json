@@ -57,5 +57,68 @@
   "container": "matroska,webm",
   "duration": 9390.834,
   "certification": "U/A 16+",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1233531-370/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      },
+      {
+        "id": 232,
+        "name": "Zee5",
+        "logoPath": "/gP67NRy1ShUJilrzMsbOmEmdmcv.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    32080,
+    404733,
+    423087,
+    46406,
+    17585,
+    864692,
+    492613,
+    1029827,
+    302528,
+    24528,
+    1195430,
+    22448,
+    14979,
+    594669,
+    809727,
+    1310568,
+    812178,
+    900409,
+    1084066,
+    9944
+  ],
+  "similar": [
+    1371763,
+    804005,
+    618473,
+    1181291,
+    1181298,
+    439128,
+    258413,
+    1369909,
+    616573,
+    801831,
+    260519,
+    804312,
+    1181508,
+    439341,
+    1181346,
+    616880,
+    1370264,
+    260649,
+    260655,
+    1372059
+  ]
 }

@@ -95,5 +95,92 @@
   "duration": 5995,
   "_tracksDetected": true,
   "certification": "R",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "future",
+    "artificial intelligence (a.i.)",
+    "hacker",
+    "police",
+    "technology",
+    "cyborg",
+    "dystopia",
+    "revenge",
+    "murder",
+    "drone",
+    "cyberpunk",
+    "transhumanism",
+    "brutality",
+    "implant",
+    "surgery",
+    "quadriplegic",
+    "cyber thriller",
+    "near future",
+    "body enhancement",
+    "body horror",
+    "violence",
+    "microship",
+    "android horror"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/500664-upgrade/watch?locale=IN",
+    "flatrate": [],
+    "rent": [
+      {
+        "id": 232,
+        "name": "Zee5",
+        "logoPath": "/gP67NRy1ShUJilrzMsbOmEmdmcv.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": []
+  },
+  "recommendations": [
+    8452,
+    280,
+    198184,
+    4965,
+    218,
+    59967,
+    435615,
+    8078,
+    5548,
+    78,
+    937249,
+    396806,
+    31867,
+    1064028,
+    11309,
+    819876,
+    606234,
+    5549,
+    775996,
+    733317
+  ],
+  "similar": [
+    449091,
+    13099,
+    13106,
+    449196,
+    1557057,
+    12718,
+    269651,
+    448916,
+    13027,
+    269776,
+    1557238,
+    269494,
+    269506,
+    12656,
+    1190581,
+    12662,
+    12663,
+    448914,
+    12724,
+    12767
+  ]
 }

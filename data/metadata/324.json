@@ -68,5 +68,119 @@
   "duration": 7698,
   "_tracksDetected": true,
   "certification": "PG",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "based on novel or book",
+    "england",
+    "bachelor",
+    "family relationships",
+    "suitor",
+    "prejudice",
+    "period drama",
+    "pride",
+    "18th century",
+    "opposites attract",
+    "gentleman",
+    "georgian or regency era",
+    "sisters"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/4348-pride-prejudice/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    8293,
+    12184,
+    250734,
+    11121,
+    11257,
+    12783,
+    9044,
+    25095,
+    17015,
+    330483,
+    423899,
+    354743,
+    121674,
+    17127,
+    226857,
+    91745,
+    36758,
+    36194,
+    96724,
+    22522
+  ],
+  "similar": [
+    1213,
+    1245,
+    1251,
+    1415,
+    1420,
+    1421,
+    1427,
+    1429,
+    1440,
+    1443,
+    1494,
+    1523,
+    438917,
+    1398,
+    1552,
+    803700,
+    1547766,
+    1547846,
+    1587,
+    1715
+  ]
 }

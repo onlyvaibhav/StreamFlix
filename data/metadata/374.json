@@ -82,5 +82,95 @@
   "duration": 7675.379,
   "_tracksDetected": true,
   "certification": "R",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "hero",
+    "superhero",
+    "anti hero",
+    "mutant",
+    "breaking the fourth wall",
+    "aftercreditsstinger",
+    "duringcreditsstinger",
+    "marvel cinematic universe (mcu)",
+    "mutants",
+    "superhero teamup"
+  ],
+  "collection": {
+    "id": 448150,
+    "name": "Deadpool Collection",
+    "posterPath": "/30c5jO7YEXuF8KiWXLg9m28GWDA.jpg",
+    "backdropPath": "/dTq7mGyAR5eAydR532feWfjJjzm.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/533535-deadpool-wolverine/watch?locale=IN",
+    "flatrate": [],
+    "rent": [
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    383498,
+    293660,
+    436969,
+    76170,
+    912649,
+    31867,
+    1209288,
+    338969,
+    2294,
+    461130,
+    629176,
+    1003581,
+    932420,
+    142061,
+    507244,
+    338762,
+    522931,
+    123025,
+    828898,
+    630656
+  ],
+  "similar": [
+    446893,
+    446894,
+    11836,
+    11918,
+    268531,
+    11967,
+    12123,
+    12133,
+    12138,
+    12107,
+    268673,
+    12241,
+    12277,
+    269149,
+    269246,
+    13051,
+    13053,
+    13056,
+    13158,
+    13161
+  ]
 }

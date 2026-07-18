@@ -43,5 +43,86 @@
   "subtitleTracks": [],
   "logo": "/data/logos/849_logo.png",
   "certification": "NR",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "video game",
+    "superhero",
+    "villain",
+    "robot",
+    "based on video game",
+    "science fiction",
+    "playstation",
+    "action",
+    "adventure",
+    "based on game"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/41517-ra-one/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 2059,
+        "name": "Eros Now Select Apple TV Channel",
+        "logoPath": "/cqgeSQHqKEkfcmsiy7GoCnf1Q2I.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    353486,
+    399579,
+    487186,
+    25642,
+    886396,
+    11884,
+    2114,
+    76589,
+    1452,
+    297761,
+    849,
+    141052,
+    17445,
+    284274,
+    91314,
+    16000,
+    926670,
+    10640,
+    453405,
+    268896
+  ],
+  "similar": [
+    262034,
+    1373952,
+    4435,
+    4474,
+    1549551,
+    1549620,
+    4296,
+    441139,
+    1373388,
+    440873,
+    4935,
+    4978,
+    621003,
+    621005,
+    5549,
+    5550,
+    1550198,
+    1550201,
+    1183970,
+    5137
+  ]
 }

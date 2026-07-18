@@ -57,5 +57,95 @@
   "duration": 8433,
   "_tracksDetected": true,
   "certification": "N/A",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "murder",
+    "police investigation",
+    "murder investigation",
+    "woman director",
+    "neo-noir"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/86004/watch?locale=IN",
+    "flatrate": [],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    320,
+    17221,
+    14979,
+    10056,
+    32080,
+    963,
+    35006,
+    1077670,
+    43566,
+    21734,
+    37257,
+    17136,
+    17801,
+    567,
+    152792,
+    30159,
+    13387,
+    44902,
+    848791,
+    379170
+  ],
+  "similar": [
+    449060,
+    449052,
+    814128,
+    814130,
+    814132,
+    449091,
+    13055,
+    13056,
+    13075,
+    13090,
+    13106,
+    449196,
+    449202,
+    1006297,
+    13123,
+    13127,
+    814215,
+    270001,
+    270014,
+    12706
+  ]
 }

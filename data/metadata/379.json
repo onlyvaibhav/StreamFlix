@@ -67,5 +67,120 @@
   "duration": 6009,
   "_tracksDetected": true,
   "certification": "R",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "sequel",
+    "las vegas",
+    "hopeless",
+    "absurd"
+  ],
+  "collection": {
+    "id": 86119,
+    "name": "The Hangover Collection",
+    "posterPath": "/x8D6HXhmvdtPhM219J5Rc6ESagr.jpg",
+    "backdropPath": "/9tpB49XNPEvxEkdsIkJWP0sZWtf.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/109439-the-hangover-part-iii/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    1398050,
+    45243,
+    104859,
+    660982,
+    975225,
+    1262852,
+    17870,
+    5709,
+    661747,
+    2171,
+    71552,
+    484718,
+    521844,
+    862551,
+    8386,
+    675595,
+    27088,
+    18391,
+    1151334,
+    507244
+  ],
+  "similar": [
+    625790,
+    11024,
+    11211,
+    11284,
+    11230,
+    11249,
+    20755,
+    20759,
+    20760,
+    20694,
+    20197,
+    634496,
+    21029,
+    20886,
+    1388487,
+    21138,
+    20036,
+    20029,
+    1387874,
+    21474
+  ]
 }

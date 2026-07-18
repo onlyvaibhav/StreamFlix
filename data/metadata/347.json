@@ -43,5 +43,73 @@
   "duration": 7128,
   "_tracksDetected": true,
   "certification": "PG",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "countryside",
+    "country life",
+    "marriage",
+    "folk music",
+    "flashback",
+    "school",
+    "based on manga",
+    "anime",
+    "reflective"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/15080/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    615165,
+    579741,
+    21057,
+    896499,
+    16516,
+    798544,
+    198375,
+    242828,
+    680041,
+    14069,
+    372058,
+    37797,
+    364111,
+    572154,
+    378064,
+    845387,
+    628964,
+    12924,
+    225745,
+    38142
+  ],
+  "similar": [
+    13067,
+    12709,
+    1005937,
+    1381413,
+    449025,
+    269495,
+    269516,
+    1190670,
+    12761,
+    12924,
+    13185,
+    13190,
+    269650,
+    448967,
+    448969,
+    627915,
+    449245,
+    13169,
+    13254,
+    1006346
+  ]
 }

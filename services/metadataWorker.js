@@ -518,6 +518,12 @@ function buildFailedEntry(fileId, fileName, type, title, year, failureType, seas
         tmdbId: 0,
         fetchedAt: null,
         needsRetry: true,
+        // Extended fields
+        keywords: [],
+        collection: null,
+        watchProviders: null,
+        recommendations: [],
+        similar: [],
         tv: type === 'tv' ? {
             showTitle: title,
             originalShowTitle: '',
@@ -1509,7 +1515,31 @@ class MetadataWorker {
 
             let metadata;
             if (type === 'movie') {
-                const d = await this.tmdb.request(`/movie/${tmdbId}`);
+                const d = await this.tmdb.request(`/movie/${tmdbId}`, {
+                    append_to_response: 'keywords,recommendations,similar,watch/providers'
+                });
+
+                const region = process.env.WATCH_PROVIDER_REGION || 'IN';
+                const providersData = d['watch/providers']?.results?.[region] || null;
+                const watchProviders = providersData ? {
+                    link: providersData.link || '',
+                    flatrate: (providersData.flatrate || []).map(p => ({
+                        id: p.provider_id,
+                        name: p.provider_name,
+                        logoPath: p.logo_path
+                    })),
+                    rent: (providersData.rent || []).map(p => ({
+                        id: p.provider_id,
+                        name: p.provider_name,
+                        logoPath: p.logo_path
+                    })),
+                    buy: (providersData.buy || []).map(p => ({
+                        id: p.provider_id,
+                        name: p.provider_name,
+                        logoPath: p.logo_path
+                    }))
+                } : null;
+
                 metadata = {
                     fileId: existing.fileId,
                     fileName: existing.fileName,
@@ -1534,7 +1564,18 @@ class MetadataWorker {
                     last_refetch_error: null,
                     metadataStatus: 'COMPLETE',
                     confidence,
-                    matchedBy
+                    matchedBy,
+                    // Extended fields
+                    keywords: (d.keywords?.keywords || []).map(k => k.name),
+                    collection: d.belongs_to_collection ? {
+                        id: d.belongs_to_collection.id,
+                        name: d.belongs_to_collection.name,
+                        posterPath: d.belongs_to_collection.poster_path,
+                        backdropPath: d.belongs_to_collection.backdrop_path
+                    } : null,
+                    watchProviders,
+                    recommendations: (d.recommendations?.results || []).slice(0, 20).map(r => r.id),
+                    similar: (d.similar?.results || []).slice(0, 20).map(s => s.id)
                 };
 
                 if (existing.isSplit) {
@@ -1560,7 +1601,31 @@ class MetadataWorker {
                 console.log(`[Worker] ✅ Refetched movie: ${metadata.title} (${metadata.year})`);
                 return metadata;
             } else if (type === 'tv') {
-                const d = await this.tmdb.request(`/tv/${tmdbId}`);
+                const d = await this.tmdb.request(`/tv/${tmdbId}`, {
+                    append_to_response: 'keywords,recommendations,similar,watch/providers'
+                });
+
+                const region = process.env.WATCH_PROVIDER_REGION || 'IN';
+                const providersData = d['watch/providers']?.results?.[region] || null;
+                const watchProviders = providersData ? {
+                    link: providersData.link || '',
+                    flatrate: (providersData.flatrate || []).map(p => ({
+                        id: p.provider_id,
+                        name: p.provider_name,
+                        logoPath: p.logo_path
+                    })),
+                    rent: (providersData.rent || []).map(p => ({
+                        id: p.provider_id,
+                        name: p.provider_name,
+                        logoPath: p.logo_path
+                    })),
+                    buy: (providersData.buy || []).map(p => ({
+                        id: p.provider_id,
+                        name: p.provider_name,
+                        logoPath: p.logo_path
+                    }))
+                } : null;
+
                 const showMeta = {
                     showTmdbId: d.id,
                     showTitle: d.name || existing.title,
@@ -1574,7 +1639,12 @@ class MetadataWorker {
                     backdropPath: d.backdrop_path,
                     defaultEpisodeRuntime: (d.episode_run_time && d.episode_run_time.length > 0) ? d.episode_run_time[0] : 0,
                     totalSeasons: d.number_of_seasons || 0,
-                    totalEpisodes: d.number_of_episodes || 0
+                    totalEpisodes: d.number_of_episodes || 0,
+                    // Extended fields show-level
+                    keywords: (d.keywords?.results || []).map(k => k.name),
+                    watchProviders: watchProviders,
+                    recommendations: (d.recommendations?.results || []).slice(0, 20).map(r => r.id),
+                    similar: (d.similar?.results || []).slice(0, 20).map(s => s.id)
                 };
 
                 const season = existing.tv?.seasonNumber || 1;
@@ -3127,6 +3197,285 @@ async function fetchMissingAudioInfo(limit = 0, concurrency = 3, options = {}) {
     return getAudioSweepStatus();
 }
 
+// ==================== EXTENDED METADATA BACKFILL JOB ====================
+
+const backfillState = {
+    running: false,
+    startedAt: null,
+    finishedAt: null,
+    candidates: 0,
+    processed: 0,
+    updated: 0,
+    failed: 0,
+    skipped: 0,
+    active: 0,
+    lastFileId: null,
+    lastTitle: null,
+    lastError: null,
+    failedList: []
+};
+
+function getBackfillStatus() {
+    return {
+        ...backfillState,
+        queueRemaining: Math.max(0, backfillState.candidates - backfillState.processed)
+    };
+}
+
+function needsBackfill(meta) {
+    if (!meta || !meta.fileId || !meta.fetchedAt || meta.needsRetry) return false;
+    
+    const isTv = meta.type === 'tv' || (meta.tv && meta.tv.showTmdbId);
+    
+    if (meta.keywords === undefined) return true;
+    if (meta.watchProviders === undefined) return true;
+    if (meta.recommendations === undefined) return true;
+    if (meta.similar === undefined) return true;
+    if (!isTv && meta.collection === undefined) return true;
+    
+    return false;
+}
+
+async function backfillExtendedMetadata() {
+    if (backfillState.running) {
+        console.log('[Worker] Backfill already running.');
+        return getBackfillStatus();
+    }
+
+    Object.assign(backfillState, {
+        running: true,
+        startedAt: new Date().toISOString(),
+        finishedAt: null,
+        candidates: 0,
+        processed: 0,
+        updated: 0,
+        failed: 0,
+        skipped: 0,
+        active: 0,
+        lastFileId: null,
+        lastTitle: null,
+        lastError: null,
+        failedList: []
+    });
+
+    console.log('[Worker] Extended metadata backfill job started.');
+
+    let files = [];
+    try {
+        files = await fs.readdir(DATA_DIR);
+    } catch (err) {
+        backfillState.running = false;
+        backfillState.finishedAt = new Date().toISOString();
+        return getBackfillStatus();
+    }
+
+    const candidates = [];
+    for (const file of files) {
+        if (!file.endsWith('.json')) continue;
+        try {
+            const raw = await fs.readFile(path.join(DATA_DIR, file), 'utf-8');
+            const meta = JSON.parse(raw);
+            if (needsBackfill(meta)) {
+                candidates.push({ file, filePath: path.join(DATA_DIR, file), meta });
+            }
+        } catch { continue; }
+    }
+
+    backfillState.candidates = candidates.length;
+    if (candidates.length === 0) {
+        console.log('[Worker] No files need extended metadata backfill.');
+        backfillState.running = false;
+        backfillState.finishedAt = new Date().toISOString();
+        return getBackfillStatus();
+    }
+
+    console.log(`[Worker] Found ${candidates.length} files needing backfill.`);
+
+    const moviesList = [];
+    const tvGroupMap = new Map(); // showTmdbId -> [candidates]
+
+    for (const cand of candidates) {
+        const isTv = cand.meta.type === 'tv' || (cand.meta.tv && cand.meta.tv.showTmdbId);
+        if (isTv) {
+            const showId = cand.meta.tv?.showTmdbId || cand.meta.tmdbId;
+            if (showId) {
+                if (!tvGroupMap.has(showId)) {
+                    tvGroupMap.set(showId, []);
+                }
+                tvGroupMap.get(showId).push(cand);
+            } else {
+                moviesList.push(cand);
+            }
+        } else {
+            moviesList.push(cand);
+        }
+    }
+
+    const runBackfill = async () => {
+        try {
+            // Process movies
+            for (const item of moviesList) {
+                if (!backfillState.running) break;
+                if (activityTracker.isPaused()) {
+                    await activityTracker.waitIfBusy();
+                }
+
+                backfillState.active++;
+                backfillState.lastFileId = item.meta.fileId;
+                backfillState.lastTitle = item.meta.title || item.meta.fileName;
+
+                try {
+                    await activityTracker.waitIfBusy();
+                    const d = await worker.tmdb.request(`/movie/${item.meta.tmdbId}`, {
+                        append_to_response: 'keywords,recommendations,similar,watch/providers'
+                    });
+
+                    const region = process.env.WATCH_PROVIDER_REGION || 'IN';
+                    const providersData = d['watch/providers']?.results?.[region] || null;
+                    const watchProviders = providersData ? {
+                        link: providersData.link || '',
+                        flatrate: (providersData.flatrate || []).map(p => ({
+                            id: p.provider_id,
+                            name: p.provider_name,
+                            logoPath: p.logo_path
+                        })),
+                        rent: (providersData.rent || []).map(p => ({
+                            id: p.provider_id,
+                            name: p.provider_name,
+                            logoPath: p.logo_path
+                        })),
+                        buy: (providersData.buy || []).map(p => ({
+                            id: p.provider_id,
+                            name: p.provider_name,
+                            logoPath: p.logo_path
+                        }))
+                    } : null;
+
+                    item.meta.keywords = (d.keywords?.keywords || []).map(k => k.name);
+                    item.meta.collection = d.belongs_to_collection ? {
+                        id: d.belongs_to_collection.id,
+                        name: d.belongs_to_collection.name,
+                        posterPath: d.belongs_to_collection.poster_path,
+                        backdropPath: d.belongs_to_collection.backdrop_path
+                    } : null;
+                    item.meta.watchProviders = watchProviders;
+                    item.meta.recommendations = (d.recommendations?.results || []).slice(0, 20).map(r => r.id);
+                    item.meta.similar = (d.similar?.results || []).slice(0, 20).map(s => s.id);
+
+                    await saveMetadata(item.meta);
+                    backfillState.updated++;
+                } catch (e) {
+                    backfillState.failed++;
+                    backfillState.lastError = e.message;
+                    backfillState.failedList.push({
+                        fileId: item.meta.fileId,
+                        title: item.meta.title || item.meta.fileName,
+                        error: e.message
+                    });
+                } finally {
+                    backfillState.processed++;
+                    backfillState.active--;
+                }
+
+                await sleep(400); // Throttling
+            }
+
+            // Process TV Shows
+            for (const [showId, episodes] of tvGroupMap.entries()) {
+                if (!backfillState.running) break;
+                if (activityTracker.isPaused()) {
+                    await activityTracker.waitIfBusy();
+                }
+
+                try {
+                    await activityTracker.waitIfBusy();
+                    const d = await worker.tmdb.request(`/tv/${showId}`, {
+                        append_to_response: 'keywords,recommendations,similar,watch/providers'
+                    });
+
+                    const region = process.env.WATCH_PROVIDER_REGION || 'IN';
+                    const providersData = d['watch/providers']?.results?.[region] || null;
+                    const watchProviders = providersData ? {
+                        link: providersData.link || '',
+                        flatrate: (providersData.flatrate || []).map(p => ({
+                            id: p.provider_id,
+                            name: p.provider_name,
+                            logoPath: p.logo_path
+                        })),
+                        rent: (providersData.rent || []).map(p => ({
+                            id: p.provider_id,
+                            name: p.provider_name,
+                            logoPath: p.logo_path
+                        })),
+                        buy: (providersData.buy || []).map(p => ({
+                            id: p.provider_id,
+                            name: p.provider_name,
+                            logoPath: p.logo_path
+                        }))
+                    } : null;
+
+                    const keywords = (d.keywords?.results || []).map(k => k.name);
+                    const recommendations = (d.recommendations?.results || []).slice(0, 20).map(r => r.id);
+                    const similar = (d.similar?.results || []).slice(0, 20).map(s => s.id);
+
+                    // Update all episodes in the group
+                    for (const ep of episodes) {
+                        backfillState.active++;
+                        backfillState.lastFileId = ep.meta.fileId;
+                        backfillState.lastTitle = ep.meta.title || ep.meta.fileName;
+
+                        try {
+                            ep.meta.keywords = keywords;
+                            ep.meta.collection = null;
+                            ep.meta.watchProviders = watchProviders;
+                            ep.meta.recommendations = recommendations;
+                            ep.meta.similar = similar;
+
+                            await saveMetadata(ep.meta);
+                            backfillState.updated++;
+                        } catch (e) {
+                            backfillState.failed++;
+                            backfillState.lastError = e.message;
+                            backfillState.failedList.push({
+                                fileId: ep.meta.fileId,
+                                title: ep.meta.title || ep.meta.fileName,
+                                error: e.message
+                            });
+                        } finally {
+                            backfillState.processed++;
+                            backfillState.active--;
+                        }
+                    }
+                } catch (e) {
+                    // Entire show fetch failed, mark all episodes in group as failed
+                    for (const ep of episodes) {
+                        backfillState.processed++;
+                        backfillState.failed++;
+                        backfillState.lastError = e.message;
+                        backfillState.failedList.push({
+                            fileId: ep.meta.fileId,
+                            title: ep.meta.title || ep.meta.fileName,
+                            error: e.message
+                        });
+                    }
+                }
+
+                await sleep(400); // Throttling
+            }
+        } catch (err) {
+            console.error('[Worker] Fatal error in backfill loop:', err.message);
+        } finally {
+            backfillState.running = false;
+            backfillState.finishedAt = new Date().toISOString();
+            console.log('[Worker] Extended metadata backfill job completed.');
+            try { require('../server').invalidateCache?.('backfill_complete'); } catch {}
+        }
+    };
+
+    runBackfill().catch(err => console.error('[Worker] Backfill async error:', err));
+    return getBackfillStatus();
+}
+
 module.exports = {
     worker,
     saveMetadata,
@@ -3145,5 +3494,7 @@ module.exports = {
     findIncompleteMetadata,
     fetchMissingLogos,
     fetchMissingAudioInfo,
-    getAudioSweepStatus
+    getAudioSweepStatus,
+    backfillExtendedMetadata,
+    getBackfillStatus
 };

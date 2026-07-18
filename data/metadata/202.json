@@ -55,5 +55,78 @@
   "duration": 3766,
   "_tracksDetected": true,
   "certification": "PG-13",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "princess",
+    "medallion",
+    "planet mars",
+    "based on novel or book",
+    "escape",
+    "space travel",
+    "alien",
+    "martian",
+    "steampunk",
+    "alien race",
+    "superhuman strength",
+    "martian civilization",
+    "sword and planet",
+    "19th century"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/49529-john-carter/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    49521,
+    8974,
+    339964,
+    286217,
+    80274,
+    2135,
+    428078,
+    72710,
+    118340,
+    299537,
+    399579,
+    454639,
+    412656,
+    13475,
+    1452,
+    157350,
+    886396,
+    696806,
+    479455,
+    848326
+  ],
+  "similar": [
+    9960,
+    9952,
+    10122,
+    10127,
+    10137,
+    10140,
+    10153,
+    10249,
+    266535,
+    9994,
+    10003,
+    10057,
+    9978,
+    266411,
+    266424,
+    266433,
+    445651,
+    10204,
+    10176,
+    10177
+  ]
 }

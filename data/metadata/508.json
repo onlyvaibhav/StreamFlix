@@ -69,5 +69,68 @@
   "duration": 9273,
   "_tracksDetected": true,
   "certification": "A",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "biography",
+    "historical drama",
+    "17th century",
+    "historical epic"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1196943/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    848439,
+    551271,
+    454227,
+    504949,
+    522925,
+    197,
+    664332,
+    402529,
+    443072,
+    96399,
+    9664,
+    943822,
+    617653,
+    1443940,
+    1214931,
+    1315986,
+    2024,
+    760329,
+    411728,
+    256476
+  ],
+  "similar": [
+    814128,
+    1006268,
+    814215,
+    12716,
+    12717,
+    1005728,
+    627655,
+    1381142,
+    12783,
+    448711,
+    627715,
+    448776,
+    269973,
+    1006154,
+    449157,
+    1190972,
+    814425,
+    814430,
+    1557642,
+    270296
+  ]
 }

@@ -68,5 +68,76 @@
   "duration": 6933,
   "_tracksDetected": true,
   "certification": "R",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "philadelphia, pennsylvania",
+    "detective",
+    "time travel",
+    "living in car",
+    "serial killer",
+    "hospital",
+    "grave digger",
+    "polaroid camera",
+    "angry",
+    "white supremacy",
+    "father daughter relationship",
+    "grandfather granddaughter relationship"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/530382-in-the-shadow-of-the-moon/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    146233,
+    11644,
+    745,
+    396806,
+    539651,
+    11074,
+    972614,
+    10331,
+    1083968,
+    298312,
+    863873,
+    63,
+    717634,
+    9542,
+    70577,
+    29425,
+    1340110,
+    13197,
+    10596,
+    938150
+  ],
+  "similar": [
+    449091,
+    449196,
+    13122,
+    12720,
+    814053,
+    12633,
+    12834,
+    12914,
+    13006,
+    1190836,
+    13197,
+    13293,
+    449443,
+    13387,
+    1382129,
+    628704,
+    449756,
+    628707,
+    449809,
+    13475
+  ]
 }

@@ -82,5 +82,42 @@
   "certification": "TV-MA",
   "metadataStatus": "COMPLETE",
   "_stillPath": "/8nhR2pCnJFYQ1xw4OigMCP5fi0K.jpg",
-  "episode_still": "/data/stills/873_still.jpg"
+  "episode_still": "/data/stills/873_still.jpg",
+  "keywords": [],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/tv/292625/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    94686,
+    90966,
+    47813,
+    71887,
+    494,
+    1530,
+    42548,
+    32815,
+    133727,
+    2251,
+    223438,
+    4241,
+    215902,
+    124010,
+    3690,
+    81127,
+    39357,
+    91814,
+    749,
+    101352
+  ],
+  "similar": []
 }

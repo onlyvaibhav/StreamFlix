@@ -69,5 +69,47 @@
   "certification": "TV-14",
   "metadataStatus": "COMPLETE",
   "_stillPath": "/5auhjQcTt9Qmu1N7V3ILFUACobJ.jpg",
-  "episode_still": "/data/stills/543_still.jpg"
+  "episode_still": "/data/stills/543_still.jpg",
+  "keywords": [],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/tv/280689-the-secret-of-the-shiledars/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      },
+      {
+        "id": 614,
+        "name": "VI movies and tv",
+        "logoPath": "/9YJY5OwsIPMoX3xC3TdtZVbKBpE.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    95439,
+    47665,
+    114165,
+    88118,
+    247174,
+    222766,
+    93352,
+    26777,
+    219760,
+    114922,
+    300894,
+    2321,
+    99799,
+    262280,
+    285807,
+    1403,
+    167,
+    1412,
+    120911,
+    4297
+  ],
+  "similar": []
 }

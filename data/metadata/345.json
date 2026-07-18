@@ -96,5 +96,142 @@
   "duration": 5834,
   "_tracksDetected": true,
   "certification": "PG",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "island",
+    "pig",
+    "villain",
+    "eagle",
+    "rivalry",
+    "based on video game",
+    "creature feature",
+    "duringcreditsstinger",
+    "anger management",
+    "animal kingdom",
+    "talking animal",
+    "bird",
+    "3d animation",
+    "creature comedy",
+    "action",
+    "slapstick"
+  ],
+  "collection": {
+    "id": 531315,
+    "name": "The Angry Birds Collection",
+    "posterPath": "/ehoZnL5usVagZOJ2VccmqZKa8in.jpg",
+    "backdropPath": "/v46tzzYiG2FIXqtuuo1OLSjOLuQ.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/153518-the-angry-birds-movie/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      },
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2180,
+        "name": "Sony Pictures Amazon Channel",
+        "logoPath": "/i7FaDWpD2xoIWB5lyF191cykfck.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 232,
+        "name": "Zee5",
+        "logoPath": "/gP67NRy1ShUJilrzMsbOmEmdmcv.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    454640,
+    10527,
+    72197,
+    8355,
+    228165,
+    57800,
+    15512,
+    227973,
+    927254,
+    140300,
+    539681,
+    228161,
+    431693,
+    381719,
+    520758,
+    629542,
+    1084244,
+    718789,
+    16394,
+    9982
+  ],
+  "similar": [
+    438695,
+    438788,
+    1267,
+    1269,
+    1362,
+    1408,
+    1542,
+    259996,
+    1588,
+    260263,
+    260234,
+    1832,
+    1371727,
+    803796,
+    1547567,
+    1181114,
+    260310,
+    35,
+    258152,
+    616473
+  ]
 }

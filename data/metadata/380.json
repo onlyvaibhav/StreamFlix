@@ -71,5 +71,71 @@
   "container": "matroska,webm",
   "duration": 5760.32,
   "certification": "PG",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "holiday",
+    "santa claus",
+    "affectation",
+    "stage play",
+    "christmas",
+    "3d animation",
+    "adoring"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/645757-that-christmas/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    1045944,
+    360920,
+    5255,
+    13378,
+    927254,
+    355547,
+    9479,
+    170687,
+    9279,
+    1029119,
+    13379,
+    592983,
+    870358,
+    410113,
+    1001884,
+    1392796,
+    585245,
+    13382,
+    46929,
+    133931
+  ],
+  "similar": [
+    438695,
+    438788,
+    1180795,
+    1180796,
+    1180841,
+    1180842,
+    1267,
+    1550,
+    1581,
+    1585,
+    1588,
+    260263,
+    260234,
+    1371727,
+    439190,
+    803796,
+    439068,
+    1547882,
+    1180746,
+    1180747
+  ]
 }

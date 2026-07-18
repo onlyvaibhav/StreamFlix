@@ -82,5 +82,131 @@
   "browserPlayable": false,
   "_tracksDetected": true,
   "_probeFailCount": 0,
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "husband wife relationship",
+    "based on novel or book",
+    "atomic bomb",
+    "patriotism",
+    "new mexico",
+    "world war ii",
+    "atomic bomb test",
+    "physics",
+    "biography",
+    "based on true story",
+    "antisemitism",
+    "interrogation",
+    "guilt",
+    "historical event",
+    "nuclear weapons",
+    "communism",
+    "red scare",
+    "mccarthyism",
+    "top secret project",
+    "moral dilemma",
+    "usa politics",
+    "1940s",
+    "20th century",
+    "manhattan project",
+    "los alamos"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/872585-oppenheimer/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 232,
+        "name": "Zee5",
+        "logoPath": "/gP67NRy1ShUJilrzMsbOmEmdmcv.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    16850,
+    24559,
+    38199,
+    1214931,
+    600583,
+    467952,
+    326285,
+    340613,
+    301502,
+    644583,
+    1419826,
+    553087,
+    15497,
+    466420,
+    10435,
+    13813,
+    8999,
+    17365,
+    340666,
+    16241
+  ],
+  "similar": [
+    1024,
+    1049,
+    1050,
+    259932,
+    438808,
+    1180791,
+    1162,
+    1165,
+    1213,
+    1247,
+    1251,
+    1415,
+    1418,
+    1427,
+    1429,
+    1439,
+    1440,
+    1443,
+    1523,
+    996003
+  ]
 }

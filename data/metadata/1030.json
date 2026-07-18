@@ -68,5 +68,83 @@
       "isDefault": false,
       "isForced": false
     }
+  ],
+  "keywords": [
+    "crooked lawyer",
+    "lawyer",
+    "taunting",
+    "political corruption",
+    "hindu god",
+    "supernatural drama",
+    "corrupt legal system",
+    "crime drama"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1367220/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": []
+  },
+  "recommendations": [
+    10136,
+    251,
+    32235,
+    453395,
+    464052,
+    576928,
+    455476,
+    809727,
+    1003579,
+    284052,
+    72358,
+    1088166,
+    812178,
+    122917,
+    268,
+    10052,
+    44603,
+    779782,
+    11891,
+    14830
+  ],
+  "similar": [
+    154,
+    1624,
+    617097,
+    445954,
+    263336,
+    442370,
+    9911,
+    12797,
+    16311,
+    16209,
+    17263,
+    18196,
+    9449,
+    20968,
+    21040,
+    31521,
+    32887,
+    286746,
+    32517,
+    7446
   ]
 }

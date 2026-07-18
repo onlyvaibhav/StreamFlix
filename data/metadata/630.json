@@ -159,5 +159,73 @@
   "certification": "TV-MA",
   "metadataStatus": "COMPLETE",
   "_stillPath": "/yHXKHLQdpUdJRVDTfCuycAPSJ01.jpg",
-  "episode_still": "/data/stills/630_still.jpg"
+  "episode_still": "/data/stills/630_still.jpg",
+  "keywords": [
+    "secret organization",
+    "challenge",
+    "survival",
+    "fictional game show",
+    "cruelty",
+    "game",
+    "prize",
+    "death game",
+    "thriller"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/tv/93405/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    122530,
+    114922,
+    119769,
+    2321,
+    262280,
+    61700,
+    95439,
+    155226,
+    85021,
+    222766,
+    167,
+    100757,
+    285807,
+    238084,
+    75450,
+    262352,
+    90795,
+    114165,
+    127529,
+    97766
+  ],
+  "similar": [
+    91725,
+    91827,
+    205272,
+    91601,
+    301589,
+    1663,
+    1732,
+    273081,
+    1918,
+    2118,
+    237347,
+    92235,
+    92246,
+    92586,
+    92588,
+    92602,
+    124548,
+    302635,
+    273199,
+    124396
+  ]
 }

@@ -69,5 +69,118 @@
   "duration": 4184,
   "_tracksDetected": true,
   "certification": "PG-13",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "giant monster",
+    "sequel",
+    "dinosaur",
+    "monkey",
+    "kaiju",
+    "fantasy world",
+    "giant ape",
+    "godzilla",
+    "king kong",
+    "amused",
+    "bold",
+    "cliché"
+  ],
+  "collection": {
+    "id": 1539140,
+    "name": "Godzilla x Kong Collection",
+    "posterPath": "/m4JJ0c2vFu5QDGaMNnhjOLFgkJh.jpg",
+    "backdropPath": "/nB5NgrPi7h1EsFCHUvbzGBXqZ2Z.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/823464-godzilla-x-kong-the-new-empire/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    399566,
+    68726,
+    124905,
+    427641,
+    293167,
+    653346,
+    373571,
+    254,
+    268896,
+    507086,
+    81005,
+    1497,
+    1061474,
+    246655,
+    505642,
+    580489,
+    91314,
+    443791,
+    135397,
+    351286
+  ],
+  "similar": [
+    10040,
+    10077,
+    9948,
+    10127,
+    10138,
+    10140,
+    10159,
+    10243,
+    10253,
+    10303,
+    9992,
+    9975,
+    10214,
+    10173,
+    11024,
+    11199,
+    11411,
+    11230,
+    11231,
+    11237
+  ]
 }

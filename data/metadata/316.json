@@ -56,5 +56,63 @@
   "duration": 7841,
   "_tracksDetected": true,
   "certification": "A",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1171133/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    899294,
+    1109406,
+    916605,
+    1189798,
+    253849,
+    512239,
+    1387382,
+    126400,
+    10431,
+    455236,
+    484889,
+    843633,
+    216580,
+    25006,
+    51512,
+    14575,
+    45408,
+    227300,
+    28339,
+    79026
+  ],
+  "similar": [
+    624794,
+    1187619,
+    268000,
+    20092,
+    20129,
+    20132,
+    20145,
+    20534,
+    20731,
+    20742,
+    20769,
+    20688,
+    276480,
+    20916,
+    20917,
+    20931,
+    20968,
+    20971,
+    20294,
+    20296
+  ]
 }

@@ -144,6 +144,10 @@ exports.getShowByTmdbId = async (tmdbId) => {
 
     // Use the first episode to build the show object
     const showBase = episodes[0];
+    const availableTmdbIds = new Set(all.map(m => m.tmdbId).filter(Boolean));
+    const filteredRecommendations = (showBase.recommendations || []).filter(id => availableTmdbIds.has(id));
+    const filteredSimilar = (showBase.similar || []).filter(id => availableTmdbIds.has(id));
+
     const show = {
         type: 'tv_show',
         title: showBase.tv?.showTitle || showBase.title,
@@ -153,6 +157,10 @@ exports.getShowByTmdbId = async (tmdbId) => {
         tmdbId: tmdbId,
         overview: showBase.tv?.overview || showBase.overview,
         logo: showBase.logo,
+        keywords: showBase.keywords || [],
+        watchProviders: showBase.watchProviders || null,
+        recommendations: filteredRecommendations,
+        similar: filteredSimilar,
         seasons: {}
     };
 

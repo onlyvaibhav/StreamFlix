@@ -69,5 +69,58 @@
   "duration": 7065,
   "_tracksDetected": true,
   "certification": "R",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [],
+  "collection": {
+    "id": 918344,
+    "name": "HIT Verse",
+    "posterPath": "/dVgCr5wtKZhFzCDi3L8319ch6rg.jpg",
+    "backdropPath": null
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/811945/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": []
+  },
+  "recommendations": [
+    970347,
+    1227816,
+    808023,
+    808396,
+    1007427,
+    1461181,
+    14576,
+    4959,
+    938150,
+    1319895,
+    13252,
+    899294,
+    1138749,
+    628847,
+    1530875,
+    1293162,
+    1020662,
+    1024627,
+    848123,
+    461053
+  ],
+  "similar": []
 }

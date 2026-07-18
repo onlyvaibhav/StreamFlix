@@ -56,5 +56,65 @@
   "duration": 9049,
   "_tracksDetected": true,
   "certification": "UA",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "blind artist",
+    "rape trial"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1164370/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 614,
+        "name": "VI movies and tv",
+        "logoPath": "/9YJY5OwsIPMoX3xC3TdtZVbKBpE.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    985617,
+    945167,
+    302528,
+    423087,
+    785522,
+    16,
+    83686,
+    67809,
+    273059,
+    339145,
+    16056,
+    1106739,
+    1096846,
+    10056,
+    463158,
+    159389,
+    103648,
+    492613,
+    706260,
+    41214
+  ],
+  "similar": [
+    1073462,
+    1265993,
+    550067,
+    194833,
+    980816,
+    1057038,
+    1008218,
+    1243664,
+    87472,
+    1280735,
+    791812,
+    1211867,
+    617834,
+    617869,
+    617871,
+    617876,
+    617882,
+    617888,
+    803405
+  ]
 }

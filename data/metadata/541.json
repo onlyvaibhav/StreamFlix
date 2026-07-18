@@ -119,5 +119,86 @@
   "duration": 3500,
   "_tracksDetected": true,
   "certification": "NR",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "friendship",
+    "elementary school",
+    "friends",
+    "school",
+    "based on manga",
+    "shounen",
+    "anime",
+    "philosophical",
+    "complex",
+    "mangaka",
+    "manga artist",
+    "depressed",
+    "admiring",
+    "adoring",
+    "amused",
+    "joyful",
+    "akita, japan"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1244492/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    83389,
+    242828,
+    1295026,
+    461763,
+    1050035,
+    37797,
+    768744,
+    482150,
+    505262,
+    1056444,
+    585077,
+    508883,
+    1265,
+    912598,
+    995133,
+    592350,
+    877957,
+    913001,
+    128,
+    1104844
+  ],
+  "similar": [
+    617882,
+    1024,
+    259907,
+    1127,
+    1213,
+    996056,
+    1415,
+    1420,
+    1422,
+    1429,
+    1430,
+    1523,
+    1255,
+    1267,
+    1294,
+    1375,
+    1379,
+    1391,
+    1398,
+    1541
+  ]
 }

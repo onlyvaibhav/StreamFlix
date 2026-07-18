@@ -71,5 +71,42 @@
   "duration": 7654.999,
   "_probeFailCount": 0,
   "logo": "/data/logos/1002_logo.png",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1628448/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    14550,
+    492613,
+    9894,
+    28059,
+    10056,
+    423087,
+    27590,
+    13490,
+    61041,
+    46041,
+    15659,
+    356298,
+    17585,
+    4772,
+    43609,
+    1077670,
+    673159,
+    57157,
+    44549,
+    581361
+  ],
+  "similar": []
 }

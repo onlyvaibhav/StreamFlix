@@ -67,5 +67,130 @@
   "duration": 6474,
   "_tracksDetected": true,
   "certification": "R",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "amnesia",
+    "blackjack",
+    "stag night",
+    "lost weekend",
+    "chapel",
+    "hit with tire iron",
+    "memory loss",
+    "las vegas",
+    "drugs",
+    "joyous",
+    "absurd",
+    "amused",
+    "cheerful",
+    "shaggy dog story"
+  ],
+  "collection": {
+    "id": 86119,
+    "name": "The Hangover Collection",
+    "posterPath": "/x8D6HXhmvdtPhM219J5Rc6ESagr.jpg",
+    "backdropPath": "/9tpB49XNPEvxEkdsIkJWP0sZWtf.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/18785-the-hangover/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    45243,
+    10029,
+    109439,
+    208134,
+    115,
+    16094,
+    912908,
+    175291,
+    13168,
+    10189,
+    1398050,
+    296099,
+    503619,
+    1022690,
+    1621,
+    295699,
+    1008953,
+    11185,
+    2171,
+    445571
+  ],
+  "similar": [
+    1415,
+    1420,
+    1498,
+    1267,
+    1583,
+    1584,
+    1588,
+    1824,
+    1371739,
+    1694,
+    1811,
+    1547780,
+    260201,
+    1371427,
+    35,
+    252,
+    115,
+    150,
+    90,
+    114
+  ]
 }

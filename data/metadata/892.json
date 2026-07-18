@@ -57,5 +57,36 @@
   "duration": 7858,
   "_tracksDetected": true,
   "certification": "U/A 7+",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1507617/watch?locale=IN",
+    "flatrate": [],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    1068452,
+    361475,
+    810223,
+    785522,
+    13610,
+    550231,
+    47525,
+    38602,
+    686142,
+    585244,
+    410366,
+    499338,
+    513296,
+    61005,
+    26243,
+    47333,
+    57412,
+    43625,
+    383256,
+    16659
+  ],
+  "similar": []
 }

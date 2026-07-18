@@ -70,5 +70,99 @@
   "certification": "TV-14",
   "metadataStatus": "COMPLETE",
   "_stillPath": "/PVxRD2JqT2QM4t1Cih0v2AoRSR.jpg",
-  "episode_still": "/data/stills/266_still.jpg"
+  "episode_still": "/data/stills/266_still.jpg",
+  "keywords": [
+    "london, england",
+    "detective",
+    "based on novel or book",
+    "workaholic",
+    "investigation",
+    "friendship",
+    "police",
+    "genius",
+    "murder",
+    "whodunit",
+    "doctor",
+    "private detective",
+    "murder mystery",
+    "police procedural",
+    "sherlock holmes",
+    "army medic",
+    "cerebral",
+    "suspenseful",
+    "tense",
+    "deduction",
+    "ambiguous",
+    "amused",
+    "urgent",
+    "sharp",
+    "tortured genius"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/tv/19885-sherlock/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 561,
+        "name": "Lionsgate Play",
+        "logoPath": "/e2hCUg2Z3sJ6yWF9NLU24SIKeWa.jpg"
+      },
+      {
+        "id": 2053,
+        "name": "Lionsgate Play Apple TV Channel",
+        "logoPath": "/p8i1zUcZYQ7qU6RrGvGbDItvcx4.jpg"
+      },
+      {
+        "id": 2074,
+        "name": "Lionsgate Play Amazon Channel",
+        "logoPath": "/yVbjPWEbsStanRAxwKMDARVOvsn.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    72748,
+    3476,
+    16343,
+    1426,
+    137127,
+    96450,
+    246461,
+    62505,
+    40675,
+    4043,
+    62620,
+    218342,
+    241549,
+    213306,
+    46930,
+    85021,
+    132306,
+    96608,
+    259731,
+    244243
+  ],
+  "similar": [
+    205441,
+    123737,
+    236731,
+    236771,
+    91699,
+    236815,
+    91725,
+    91746,
+    91752,
+    205487,
+    236839,
+    123787,
+    123872,
+    59410,
+    91827,
+    91830,
+    91875,
+    91902,
+    29746,
+    29748
+  ]
 }

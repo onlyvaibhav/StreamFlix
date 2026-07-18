@@ -69,5 +69,77 @@
   "duration": 7451,
   "_tracksDetected": true,
   "certification": "R",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "secret society",
+    "grave",
+    "conspiracy",
+    "cynical",
+    "disturbed",
+    "angry",
+    "hostile",
+    "anxious",
+    "cautionary",
+    "absurd",
+    "dramatic",
+    "suspenseful",
+    "offbeat"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/736769-they-cloned-tyrone/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    13183,
+    701387,
+    619730,
+    44801,
+    507244,
+    1052280,
+    13282,
+    406990,
+    445571,
+    142061,
+    26509,
+    7512,
+    812583,
+    13820,
+    5709,
+    2666,
+    536437,
+    846,
+    396806,
+    484247
+  ],
+  "similar": [
+    13122,
+    1005685,
+    1190485,
+    12921,
+    1005799,
+    270047,
+    13183,
+    1381027,
+    13282,
+    270303,
+    13408,
+    13685,
+    13805,
+    1557691,
+    13475,
+    13448,
+    13477,
+    13515,
+    449459,
+    12123
+  ]
 }

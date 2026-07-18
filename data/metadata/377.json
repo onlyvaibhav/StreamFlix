@@ -80,5 +80,127 @@
   "duration": 6110,
   "_tracksDetected": true,
   "certification": "R",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "stag night",
+    "sequel",
+    "memory loss",
+    "undercover cop",
+    "drugs",
+    "hopeless"
+  ],
+  "collection": {
+    "id": 86119,
+    "name": "The Hangover Collection",
+    "posterPath": "/x8D6HXhmvdtPhM219J5Rc6ESagr.jpg",
+    "backdropPath": "/9tpB49XNPEvxEkdsIkJWP0sZWtf.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/45243-the-hangover-part-ii/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      },
+      {
+        "id": 614,
+        "name": "VI movies and tv",
+        "logoPath": "/9YJY5OwsIPMoX3xC3TdtZVbKBpE.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    109439,
+    18785,
+    187017,
+    522931,
+    573435,
+    648579,
+    1007734,
+    9384,
+    484718,
+    812583,
+    879444,
+    486131,
+    50022,
+    290250,
+    13335,
+    208134,
+    522627,
+    680,
+    1084577,
+    521844
+  ],
+  "similar": [
+    13170,
+    12702,
+    12705,
+    448950,
+    13168,
+    13243,
+    449380,
+    13335,
+    13376,
+    13378,
+    13649,
+    13654,
+    13690,
+    13767,
+    13489,
+    13446,
+    12118,
+    12268,
+    12279,
+    12309
+  ]
 }

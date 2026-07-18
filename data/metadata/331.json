@@ -81,5 +81,84 @@
   "duration": 6735,
   "_tracksDetected": true,
   "certification": "R",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "friendship",
+    "dreams",
+    "satire",
+    "love",
+    "buddy",
+    "teddy bear",
+    "toy comes to life",
+    "wishes come true",
+    "joyous"
+  ],
+  "collection": {
+    "id": 266672,
+    "name": "Ted Collection",
+    "posterPath": "/byyIOLolJek05l4d1QAmLwtuyDO.jpg",
+    "backdropPath": "/dGrNuWhapf8T0WH98xTC4LXgk1G.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/72105-ted/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 232,
+        "name": "Zee5",
+        "logoPath": "/gP67NRy1ShUJilrzMsbOmEmdmcv.jpg"
+      }
+    ],
+    "buy": []
+  },
+  "recommendations": [
+    214756,
+    823482,
+    11834,
+    1493859,
+    912908,
+    8386,
+    1084577,
+    1280672,
+    999582,
+    1262852,
+    862551,
+    928344,
+    513045,
+    424781,
+    661747,
+    14166,
+    1368881,
+    146304,
+    521777,
+    675595
+  ],
+  "similar": [
+    13067,
+    449176,
+    13141,
+    13163,
+    270010,
+    1557058,
+    1557079,
+    12994,
+    1381140,
+    12630,
+    12649,
+    12656,
+    12768,
+    12831,
+    1557259,
+    1557399,
+    13193,
+    1557162,
+    449246,
+    13166
+  ]
 }

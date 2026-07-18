@@ -56,5 +56,80 @@
   "duration": 9275,
   "_tracksDetected": true,
   "certification": "PG-13",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "sea",
+    "ship",
+    "red sea",
+    "boat",
+    "fear",
+    "battle",
+    "unassuming",
+    "swords",
+    "ships",
+    "violence",
+    "boats"
+  ],
+  "collection": {
+    "id": 1187990,
+    "name": "Devara Collection",
+    "posterPath": null,
+    "backdropPath": null
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/811941-devara-part-1/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    516486,
+    8619,
+    29805,
+    166426,
+    17744,
+    285,
+    40578,
+    12311,
+    812178,
+    972533,
+    809727,
+    35371,
+    2133,
+    404733,
+    10339,
+    199048,
+    22,
+    58,
+    390253,
+    42737
+  ],
+  "similar": [
+    10040,
+    10171,
+    10235,
+    10293,
+    1187538,
+    10971,
+    11021,
+    11198,
+    11199,
+    11331,
+    11387,
+    1379747,
+    19995,
+    276583,
+    21181,
+    1388330,
+    21128,
+    21519,
+    21922,
+    21447
+  ]
 }

@@ -71,5 +71,146 @@
   "duration": 3976,
   "_tracksDetected": true,
   "certification": "PG",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "martial arts",
+    "kung fu",
+    "china",
+    "fighter",
+    "village",
+    "villain",
+    "sequel",
+    "panda",
+    "anthropomorphism",
+    "dragon",
+    "aftercreditsstinger",
+    "duringcreditsstinger",
+    "wuxia",
+    "woman director",
+    "talking animal",
+    "3d animation",
+    "adoring",
+    "awestruck",
+    "enthusiastic",
+    "joyful"
+  ],
+  "collection": {
+    "id": 77816,
+    "name": "Kung Fu Panda Collection",
+    "posterPath": "/xoYc0RYKSc3xC4S9OpPZxKocKtj.jpg",
+    "backdropPath": "/2nbtv33hEk2CTnuMhTGZgsFdi3K.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/140300-kung-fu-panda-3/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      },
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 232,
+        "name": "Zee5",
+        "logoPath": "/gP67NRy1ShUJilrzMsbOmEmdmcv.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    1011985,
+    9502,
+    315162,
+    49444,
+    927254,
+    529203,
+    527774,
+    153518,
+    431693,
+    585083,
+    417859,
+    381719,
+    116711,
+    65759,
+    1084242,
+    416153,
+    404368,
+    170687,
+    228165,
+    10192
+  ],
+  "similar": [
+    10009,
+    10040,
+    10074,
+    10033,
+    9947,
+    9948,
+    10109,
+    10111,
+    10112,
+    10115,
+    10118,
+    10119,
+    1002770,
+    810457,
+    1002780,
+    810516,
+    266396,
+    266457,
+    266461,
+    10127
+  ]
 }

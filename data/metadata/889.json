@@ -68,5 +68,68 @@
   "duration": 8484,
   "_tracksDetected": true,
   "certification": "U",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "friends to lovers",
+    "modern love",
+    "unlikely romance",
+    "introvert boy extrovert girl"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1508564/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    1618945,
+    9603,
+    454983,
+    818612,
+    1321439,
+    1319504,
+    523773,
+    932430,
+    627103,
+    800301,
+    1433842,
+    1515615,
+    15144,
+    27397,
+    51588,
+    727745,
+    14750,
+    1128614,
+    37725,
+    1323475
+  ],
+  "similar": [
+    509,
+    10201,
+    283447,
+    12797,
+    1017492,
+    18551,
+    1576921,
+    11584,
+    11860,
+    1584849,
+    292354,
+    1222903,
+    1240879,
+    1240516,
+    317578,
+    1246020,
+    1245488,
+    54773,
+    305718,
+    1229163
+  ]
 }

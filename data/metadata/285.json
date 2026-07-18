@@ -95,5 +95,75 @@
   "certification": "TV-MA",
   "metadataStatus": "COMPLETE",
   "_stillPath": "/jZI9jDanZtpUVXvMvMhwM2SsTA8.jpg",
-  "episode_still": "/data/stills/285_still.jpg"
+  "episode_still": "/data/stills/285_still.jpg",
+  "keywords": [
+    "superhero",
+    "based on comic",
+    "dark comedy",
+    "spin off",
+    "super power",
+    "college student"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/tv/205715-gen-v/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    75450,
+    71663,
+    66190,
+    62643,
+    1403,
+    71340,
+    195868,
+    158141,
+    93484,
+    75006,
+    67195,
+    60708,
+    1639,
+    62126,
+    88987,
+    79788,
+    60735,
+    194583,
+    63210,
+    61889
+  ],
+  "similar": [
+    1794,
+    91885,
+    59427,
+    123542,
+    205285,
+    59150,
+    91613,
+    91656,
+    205335,
+    1639,
+    1550,
+    1570,
+    1578,
+    123670,
+    1618,
+    1620,
+    1487,
+    123496,
+    1771,
+    91801
+  ]
 }

@@ -68,5 +68,119 @@
   ],
   "logo": "/data/logos/850_logo.png",
   "certification": "PG",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "escape",
+    "paranoia",
+    "dystopia",
+    "dark comedy",
+    "suspicion",
+    "video surveillance",
+    "deception",
+    "hidden camera",
+    "simulated reality ",
+    "television producer",
+    "tv show in film",
+    "make believe",
+    "actor"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/37165-the-truman-show/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 232,
+        "name": "Zee5",
+        "logoPath": "/gP67NRy1ShUJilrzMsbOmEmdmcv.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    4953,
+    800279,
+    28059,
+    159389,
+    592,
+    1242669,
+    457840,
+    15869,
+    985617,
+    2907,
+    9894,
+    463158,
+    30943,
+    3172,
+    262,
+    426254,
+    26450,
+    9504,
+    636,
+    360605
+  ],
+  "similar": [
+    449052,
+    13065,
+    269991,
+    13122,
+    13141,
+    1557079,
+    12704,
+    12994,
+    449016,
+    12634,
+    813923,
+    1190581,
+    12777,
+    13005,
+    814077,
+    12660,
+    270037,
+    448975,
+    13282,
+    13291
+  ]
 }

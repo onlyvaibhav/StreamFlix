@@ -82,5 +82,72 @@
   "duration": 5990.965,
   "_probeFailCount": 0,
   "logo": "/data/logos/1008_logo.png",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "based on novel or book",
+    "desperate",
+    "embarrassed"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1317672-love-me-love-me/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    1078600,
+    1477317,
+    724089,
+    341174,
+    434203,
+    337167,
+    540023,
+    1294203,
+    613504,
+    744114,
+    763148,
+    610781,
+    744276,
+    15720,
+    846956,
+    1292415,
+    85654,
+    1059073,
+    845659,
+    501841
+  ],
+  "similar": [
+    269971,
+    449176,
+    13128,
+    269998,
+    12700,
+    12994,
+    448925,
+    269783,
+    1381151,
+    269495,
+    813845,
+    12774,
+    269589,
+    448776,
+    12684,
+    12689,
+    449132,
+    13188,
+    13189,
+    627857
+  ]
 }

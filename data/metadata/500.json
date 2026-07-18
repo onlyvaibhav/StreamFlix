@@ -70,5 +70,144 @@
   "duration": 5879,
   "_tracksDetected": true,
   "certification": "PG-13",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "new york city",
+    "cannon",
+    "space marine",
+    "flying saucer",
+    "undercover",
+    "secret identity",
+    "superhero",
+    "deportation",
+    "illegal immigration",
+    "new identity",
+    "stay permit",
+    "giant cockroach",
+    "based on comic",
+    "alien",
+    "buddy cop",
+    "fictional government agency",
+    "hilarious",
+    "intense"
+  ],
+  "collection": {
+    "id": 86055,
+    "name": "Men in Black Collection",
+    "posterPath": "/rWcgZaoJ0nxTFRn0H6w9bdtoDUI.jpg",
+    "backdropPath": "/xKz6YaOvmnIJQ3MYIpnaa7FBaAB.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/607-men-in-black/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 237,
+        "name": "Sony Liv",
+        "logoPath": "/3973zlBbBXdXxaWqRWzGG2GYxbT.jpg"
+      },
+      {
+        "id": 561,
+        "name": "Lionsgate Play",
+        "logoPath": "/e2hCUg2Z3sJ6yWF9NLU24SIKeWa.jpg"
+      },
+      {
+        "id": 2053,
+        "name": "Lionsgate Play Apple TV Channel",
+        "logoPath": "/p8i1zUcZYQ7qU6RrGvGbDItvcx4.jpg"
+      },
+      {
+        "id": 2074,
+        "name": "Lionsgate Play Amazon Channel",
+        "logoPath": "/yVbjPWEbsStanRAxwKMDARVOvsn.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 232,
+        "name": "Zee5",
+        "logoPath": "/gP67NRy1ShUJilrzMsbOmEmdmcv.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    608,
+    479455,
+    618354,
+    46529,
+    102382,
+    886396,
+    531306,
+    791155,
+    1724,
+    75612,
+    339964,
+    14609,
+    887357,
+    24428,
+    49521,
+    17445,
+    13455,
+    262504,
+    5174,
+    118340
+  ],
+  "similar": [
+    1051,
+    438713,
+    1250,
+    1415,
+    1452,
+    1487,
+    1497,
+    1498,
+    1499,
+    1271,
+    1272,
+    1273,
+    438890,
+    1378,
+    1398,
+    1548,
+    1550,
+    438971,
+    1371523,
+    1572
+  ]
 }

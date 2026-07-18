@@ -69,5 +69,81 @@
   "container": "matroska,webm",
   "duration": 4503.488,
   "certification": "G",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "friendship",
+    "mouse",
+    "rescue mission",
+    "vacation",
+    "sequel",
+    "cabin"
+  ],
+  "collection": {
+    "id": 99727,
+    "name": "Stuart Little Collection",
+    "posterPath": "/pyYBMLZiBn8qKXJ0kKSMdt2PZqd.jpg",
+    "backdropPath": "/r74LzQMN1EdvdCvbIqHA95TvEKt.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/30178-stuart-little-3-call-of-the-wild/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 2180,
+        "name": "Sony Pictures Amazon Channel",
+        "logoPath": "/i7FaDWpD2xoIWB5lyF191cykfck.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": []
+  },
+  "recommendations": [
+    412117,
+    675445,
+    1239146,
+    520758,
+    12242,
+    25475,
+    774825,
+    9948,
+    499088,
+    1084242,
+    80321,
+    28118,
+    137116,
+    10199,
+    1084244,
+    10380,
+    1267,
+    6878,
+    72972,
+    13691
+  ],
+  "similar": [
+    1557058,
+    12702,
+    12705,
+    1381140,
+    12630,
+    12661,
+    12768,
+    12831,
+    448950,
+    1557162,
+    13155,
+    13204,
+    13205,
+    814340,
+    449380,
+    13313,
+    13335,
+    13342,
+    13378,
+    13386
+  ]
 }

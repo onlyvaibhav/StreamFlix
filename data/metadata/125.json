@@ -56,5 +56,126 @@
   "container": "matroska,webm",
   "duration": 5076.076,
   "certification": "PG",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "sibling relationship",
+    "based on novel or book",
+    "cat",
+    "gangster",
+    "orphanage",
+    "adoption",
+    "mouse",
+    "stepbrother",
+    "world trade center",
+    "live action and animation",
+    "talking animal",
+    "cgi-live action hybrid",
+    "different species",
+    "feeling different",
+    "familiar"
+  ],
+  "collection": {
+    "id": 99727,
+    "name": "Stuart Little Collection",
+    "posterPath": "/pyYBMLZiBn8qKXJ0kKSMdt2PZqd.jpg",
+    "backdropPath": "/r74LzQMN1EdvdCvbIqHA95TvEKt.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/10137-stuart-little/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 2180,
+        "name": "Sony Pictures Amazon Channel",
+        "logoPath": "/i7FaDWpD2xoIWB5lyF191cykfck.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 232,
+        "name": "Zee5",
+        "logoPath": "/gP67NRy1ShUJilrzMsbOmEmdmcv.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    585245,
+    177572,
+    1226863,
+    1139829,
+    71689,
+    2454,
+    13053,
+    14836,
+    862,
+    676710,
+    10199,
+    748783,
+    22582,
+    82703,
+    1184918,
+    20352,
+    1273,
+    295693,
+    826510,
+    896536
+  ],
+  "similar": [
+    10009,
+    10074,
+    10075,
+    9960,
+    9950,
+    10118,
+    10120,
+    810457,
+    10122,
+    10140,
+    10152,
+    10166,
+    266236,
+    9992,
+    9994,
+    10003,
+    10004,
+    10012,
+    10071,
+    10054
+  ]
 }

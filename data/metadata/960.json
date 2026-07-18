@@ -57,5 +57,42 @@
   "duration": 7884.01,
   "_probeFailCount": 0,
   "logo": "/data/logos/960_logo.png",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1625582-the-kerala-story-2/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 232,
+        "name": "Zee5",
+        "logoPath": "/gP67NRy1ShUJilrzMsbOmEmdmcv.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    171337,
+    20637,
+    16759,
+    12888,
+    645886,
+    1155324,
+    435036,
+    31863,
+    339395,
+    1461181,
+    642803,
+    25006,
+    970347,
+    1292415,
+    395458,
+    1020662,
+    51512,
+    19092,
+    157351,
+    774301
+  ],
+  "similar": []
 }

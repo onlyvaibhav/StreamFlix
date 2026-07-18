@@ -68,5 +68,42 @@
   "duration": 8044.459,
   "_tracksDetected": true,
   "certification": "N/A",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1281091/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    512239,
+    899294,
+    1109406,
+    25006,
+    45408,
+    10431,
+    455236,
+    843633,
+    79026,
+    1387382,
+    10877,
+    227300,
+    916605,
+    6723,
+    680,
+    43051,
+    180894,
+    28339,
+    1189798,
+    13054
+  ],
+  "similar": []
 }

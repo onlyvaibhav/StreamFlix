@@ -70,5 +70,78 @@
   "container": "matroska,webm",
   "duration": 5950.527,
   "certification": "PG-13",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "new york city",
+    "martial arts",
+    "chauffeur",
+    "bomb",
+    "spy",
+    "intelligence",
+    "wound",
+    "secret agent",
+    "high technology",
+    "fistfight",
+    "parody",
+    "head injury",
+    "action hero",
+    "tecnología"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/10771-the-tuxedo/watch?locale=IN",
+    "flatrate": [],
+    "rent": [
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": []
+  },
+  "recommendations": [
+    39514,
+    1093995,
+    607,
+    463272,
+    993710,
+    232842,
+    823625,
+    102382,
+    4327,
+    608,
+    13455,
+    1087891,
+    5175,
+    11244,
+    24528,
+    10724,
+    704239,
+    5174,
+    464882,
+    2114
+  ],
+  "similar": [
+    449074,
+    13092,
+    13097,
+    13098,
+    13124,
+    13126,
+    13127,
+    12708,
+    12715,
+    1381273,
+    269651,
+    12797,
+    12994,
+    448923,
+    1190516,
+    12629,
+    12649,
+    448887,
+    269640,
+    12762
+  ]
 }

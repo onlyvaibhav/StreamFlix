@@ -58,5 +58,101 @@
   "duration": 10558,
   "_tracksDetected": true,
   "certification": "PG-13",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "rebellion",
+    "hero",
+    "temple",
+    "dystopia",
+    "villain",
+    "desert",
+    "religious statue",
+    "futuristic society",
+    "quest",
+    "imperialism",
+    "ancient temple",
+    "indian folklore",
+    "evil empire",
+    "fantasy",
+    "indian gods",
+    "mahabharat"
+  ],
+  "collection": {
+    "id": 1310970,
+    "name": "Kalki Cinematic Universe",
+    "posterPath": null,
+    "backdropPath": "/on8c6SMsJFj8bhwWuR9rYYVM7cO.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/801688-2898/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      },
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": []
+  },
+  "recommendations": [
+    604,
+    262500,
+    81005,
+    1729,
+    70160,
+    268,
+    603,
+    120,
+    3604,
+    871,
+    121,
+    455476,
+    1003579,
+    68735,
+    1895,
+    602,
+    370097,
+    14011,
+    450465,
+    399579
+  ],
+  "similar": [
+    10133,
+    10140,
+    10144,
+    10155,
+    10228,
+    10243,
+    10303,
+    10045,
+    9978,
+    9986,
+    266373,
+    266418,
+    445651,
+    1378130,
+    1187538,
+    10214,
+    10817,
+    10957,
+    10975,
+    1188721
+  ]
 }

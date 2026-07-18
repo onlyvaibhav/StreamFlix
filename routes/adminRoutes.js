@@ -10,7 +10,9 @@ const {
     refetchQueue,
     getIdleLoopStatus,
     fetchMissingAudioInfo,
-    getAudioSweepStatus
+    getAudioSweepStatus,
+    backfillExtendedMetadata,
+    getBackfillStatus
 } = require('../services/metadataWorker');
 const logger = require('../services/logger');
 const activityTracker = require('../services/activityTracker');
@@ -289,6 +291,31 @@ router.post('/audio/sweep', async (req, res) => {
         });
     } catch (error) {
         res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+// POST /api/admin/metadata/backfill-extended
+router.post('/metadata/backfill-extended', async (req, res) => {
+    try {
+        backfillExtendedMetadata().catch(error => {
+            console.error('[Admin] Extended metadata backfill failed:', error.message);
+        });
+        res.json({
+            success: true,
+            message: 'Extended metadata backfill started',
+            status: getBackfillStatus()
+        });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+// GET /api/admin/metadata/backfill-extended/status
+router.get('/metadata/backfill-extended/status', async (req, res) => {
+    try {
+        res.json(getBackfillStatus());
+    } catch (error) {
+        res.status(500).json({ error: error.message });
     }
 });
 
@@ -893,6 +920,7 @@ router.get('/events', (req, res) => {
     _sseSend(res, 'log.initial', logger.getLogs());
     _sseSend(res, 'stream.updated', activityTracker.getStatus());
     _sseSend(res, 'worker.updated', getIdleLoopStatus());
+    _sseSend(res, 'backfill.updated', getBackfillStatus());
 
     // ── Event listeners ──
     const onLog = (entry) => {
@@ -929,6 +957,7 @@ router.get('/events', (req, res) => {
             const status = getIdleLoopStatus();
             status.activeViewers = activityTracker.getStatus().activeViewers;
             _sseSend(res, 'worker.updated', status);
+            _sseSend(res, 'backfill.updated', getBackfillStatus());
         } catch (err) {
             cleanup();
         }

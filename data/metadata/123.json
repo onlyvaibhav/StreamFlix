@@ -57,5 +57,85 @@
   "container": "matroska,webm",
   "duration": 9501.98,
   "certification": "U",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "loving",
+    "love in war",
+    "pure love",
+    "intense",
+    "romantic",
+    "classic",
+    "admiring",
+    "awestruck",
+    "vibrant",
+    "pure heart"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/894803/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": []
+  },
+  "recommendations": [
+    410366,
+    907,
+    9560,
+    25988,
+    28966,
+    763144,
+    978,
+    289,
+    770,
+    10110,
+    3060,
+    606,
+    9663,
+    65488,
+    38684,
+    63888,
+    16638,
+    10236,
+    426618,
+    228205
+  ],
+  "similar": [
+    2280,
+    4952,
+    4982,
+    4497,
+    4547,
+    4995,
+    5038,
+    4679,
+    4820,
+    4806,
+    998846,
+    13552,
+    13665,
+    13667,
+    13669,
+    13688,
+    814338,
+    802219,
+    480,
+    80
+  ]
 }

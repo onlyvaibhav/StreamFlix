@@ -68,5 +68,42 @@
   "duration": 10330,
   "_tracksDetected": true,
   "certification": "UA",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/894730/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 532,
+        "name": "aha",
+        "logoPath": "/8WerMI8XcZXqPpkHTZNtzMzousF.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    1477317,
+    85654,
+    610781,
+    540023,
+    434203,
+    1078600,
+    724089,
+    744276,
+    763148,
+    77985,
+    613504,
+    1059073,
+    888479,
+    584288,
+    1317672,
+    1312946,
+    390874,
+    744114,
+    364733,
+    675485
+  ],
+  "similar": []
 }

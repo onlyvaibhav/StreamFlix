@@ -71,5 +71,125 @@
   "duration": 7863.2,
   "_probeFailCount": 0,
   "logo": "/data/logos/956_logo.png",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "chicago, illinois",
+    "death penalty",
+    "child abuse",
+    "corruption",
+    "based on novel or book",
+    "court case",
+    "court",
+    "psychopath",
+    "bishop",
+    "manipulation",
+    "pornographic video",
+    "lawyer",
+    "capital punishment",
+    "whodunit",
+    "psychiatrist",
+    "mental illness",
+    "taunting",
+    "murder trial",
+    "altar boy",
+    "courtroom drama",
+    "legal drama",
+    "legal thriller",
+    "suspenseful",
+    "harsh"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1592-primal-fear/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    819,
+    11524,
+    93,
+    457799,
+    808396,
+    489932,
+    1598,
+    2118,
+    13250,
+    9411,
+    1128546,
+    274,
+    877,
+    18262,
+    322,
+    11092,
+    240916,
+    395458,
+    1020662,
+    258284
+  ],
+  "similar": [
+    1049,
+    1213,
+    1248,
+    1251,
+    1415,
+    1427,
+    1428,
+    1429,
+    1435,
+    1439,
+    1440,
+    1443,
+    1481,
+    1484,
+    1523,
+    1090,
+    1092,
+    259918,
+    1371395,
+    1266
+  ]
 }

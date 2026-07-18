@@ -69,5 +69,67 @@
   "_tracksDetected": true,
   "_probeFailCount": 0,
   "logo": "/data/logos/959_logo.png",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "time loop",
+    "trapped soul",
+    "haunted forest"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1469458/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    808228,
+    43549,
+    862552,
+    6947,
+    157351,
+    400106,
+    607430,
+    1145725,
+    1023915,
+    834,
+    48129,
+    1387382,
+    831395,
+    268060,
+    471506,
+    846956,
+    876911,
+    244536,
+    589820,
+    8884
+  ],
+  "similar": [
+    1002439,
+    1738,
+    9608,
+    1551042,
+    137,
+    11348,
+    815845,
+    1565487,
+    1600706,
+    57865,
+    672647,
+    494734,
+    1572400,
+    1404861,
+    1422441,
+    1424291,
+    671046,
+    825461,
+    49160,
+    61550
+  ]
 }

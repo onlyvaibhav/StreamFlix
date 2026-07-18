@@ -615,6 +615,16 @@ app.get('/api/metadata', async (req, res) => {
     const rawMovies = allMetadata.filter(isMovieContent);
     const movies = groupSplitMovies(rawMovies);
 
+    const availableTmdbIds = new Set(allMetadata.map(m => m.tmdbId).filter(Boolean));
+    for (const movie of movies) {
+      if (Array.isArray(movie.recommendations)) {
+        movie.recommendations = movie.recommendations.filter(id => availableTmdbIds.has(id));
+      }
+      if (Array.isArray(movie.similar)) {
+        movie.similar = movie.similar.filter(id => availableTmdbIds.has(id));
+      }
+    }
+
     // Group TV episodes by show
     const tvShowsMap = new Map();
     for (const item of allMetadata.filter(isTVContent)) {
@@ -637,6 +647,10 @@ app.get('/api/metadata', async (req, res) => {
           totalEpisodes: item.tv.totalEpisodes || 0,
           year: item.year,
           releaseDate: item.releaseDate,
+          keywords: item.keywords || [],
+          watchProviders: item.watchProviders || null,
+          recommendations: (item.recommendations || []).filter(id => availableTmdbIds.has(id)),
+          similar: (item.similar || []).filter(id => availableTmdbIds.has(id)),
           episodes: []
         });
       }
@@ -840,9 +854,18 @@ app.get('/api/metadata/:fileId', async (req, res) => {
     delete parsed._posterPath;
     delete parsed._backdropPath;
 
+    // Filter recommendations and similar titles against current catalog
+    const allMetadata = await loadAllValidMetadata();
+    const availableTmdbIds = new Set(allMetadata.map(m => m.tmdbId).filter(Boolean));
+    if (Array.isArray(parsed.recommendations)) {
+      parsed.recommendations = parsed.recommendations.filter(id => availableTmdbIds.has(id));
+    }
+    if (Array.isArray(parsed.similar)) {
+      parsed.similar = parsed.similar.filter(id => availableTmdbIds.has(id));
+    }
+
     // Check for split parts (same tmdbId)
     if (parsed.type === 'movie' && parsed.tmdbId) {
-      const allMetadata = await loadAllValidMetadata();
       const sameMovie = allMetadata.filter(m =>
         m.tmdbId === parsed.tmdbId &&
         isMovieContent(m)

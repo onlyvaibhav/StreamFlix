@@ -56,5 +56,131 @@
   "duration": 6669,
   "_tracksDetected": true,
   "certification": "R",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "based on novel or book",
+    "faith",
+    "exorcism",
+    "possession",
+    "sequel",
+    "priest",
+    "disappearance",
+    "demon",
+    "roman catholic church",
+    "death of mother",
+    "exorcist",
+    "reboot",
+    "demonic possession",
+    "religious horror",
+    "father daughter relationship",
+    "supernatural horror",
+    "awestruck",
+    "frightened",
+    "horrified",
+    "missing children"
+  ],
+  "collection": {
+    "id": 12263,
+    "name": "The Exorcist Collection",
+    "posterPath": "/1gw7RCYyRqginNo5D9PMPQQw7QB.jpg",
+    "backdropPath": "/pgxFa9jkfOaopuw5kGZ7KgVkhwW.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/807172-the-exorcist-believer/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 232,
+        "name": "Zee5",
+        "logoPath": "/gP67NRy1ShUJilrzMsbOmEmdmcv.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    11587,
+    1212763,
+    676547,
+    439079,
+    758323,
+    259693,
+    1038392,
+    521029,
+    930600,
+    423108,
+    493922,
+    396422,
+    10307,
+    77883,
+    760161,
+    1089123,
+    7340,
+    532408,
+    138843,
+    91586
+  ],
+  "similar": [
+    2291,
+    1372435,
+    1183970,
+    4970,
+    620953,
+    4722,
+    4858,
+    262091,
+    4234,
+    1374067,
+    13515,
+    13570,
+    628038,
+    13465,
+    13489,
+    448245,
+    13549,
+    1006462,
+    1381071,
+    1381087
+  ]
 }

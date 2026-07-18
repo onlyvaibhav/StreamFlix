@@ -53,5 +53,42 @@
   "duration": 8028,
   "_tracksDetected": true,
   "certification": "UA",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/540468/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 614,
+        "name": "VI movies and tv",
+        "logoPath": "/9YJY5OwsIPMoX3xC3TdtZVbKBpE.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    495386,
+    160139,
+    465136,
+    499635,
+    112949,
+    33218,
+    446493,
+    435107,
+    299574,
+    631430,
+    474972,
+    609734,
+    483104,
+    626319,
+    251,
+    668047,
+    594696,
+    299582,
+    478210,
+    543342
+  ],
+  "similar": []
 }

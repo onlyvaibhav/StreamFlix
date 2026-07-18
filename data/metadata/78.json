@@ -239,5 +239,104 @@
   "duration": 8933,
   "_tracksDetected": true,
   "certification": "NR",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "spy",
+    "fake death",
+    "spy thriller"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/864692/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    1087891,
+    206647,
+    404733,
+    32080,
+    594669,
+    27590,
+    1088166,
+    575264,
+    823625,
+    2501,
+    25670,
+    213,
+    2502,
+    37821,
+    17585,
+    453405,
+    2503,
+    203801,
+    575265,
+    1310568
+  ],
+  "similar": [
+    1369909,
+    377897,
+    743243,
+    377985,
+    560702,
+    1302123,
+    377498,
+    559131,
+    1678376,
+    152035,
+    560964,
+    379542,
+    554503,
+    554600,
+    1120679,
+    553749,
+    375058,
+    375290,
+    739838,
+    739405
+  ]
 }

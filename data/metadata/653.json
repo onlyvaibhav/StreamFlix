@@ -70,5 +70,66 @@
   "certification": "TV-MA",
   "metadataStatus": "COMPLETE",
   "_stillPath": "/bsgmN50hPdXo9uqqo0yCnFqTyD5.jpg",
-  "episode_still": "/data/stills/653_still.jpg"
+  "episode_still": "/data/stills/653_still.jpg",
+  "keywords": [
+    "shocking",
+    "based on webcomic or webtoon"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/tv/232402-s/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 2491,
+        "name": "Channel K Amazon Channel",
+        "logoPath": "/pQvLERAjzSc9XfrRppJQLoMKMPH.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    2188,
+    107119,
+    86423,
+    70485,
+    74104,
+    83685,
+    1705,
+    114118,
+    62822,
+    119955,
+    137043,
+    39510,
+    64394,
+    83135,
+    253372,
+    1639,
+    1593,
+    106651,
+    69061,
+    72752
+  ],
+  "similar": [
+    205454,
+    205319,
+    205366,
+    59312,
+    273124,
+    236887,
+    237182,
+    237335,
+    93657,
+    238458,
+    238566,
+    93541,
+    238673,
+    61538,
+    126035,
+    207887,
+    61678,
+    89959,
+    271003,
+    1126
+  ]
 }

@@ -68,5 +68,136 @@
   "duration": 3265,
   "_tracksDetected": true,
   "certification": "PG-13",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "mexico",
+    "boston, massachusetts",
+    "giant monster",
+    "cryptozoology",
+    "eco terrorism",
+    "creature feature",
+    "rodan",
+    "kaiju",
+    "aftercreditsstinger",
+    "global threat",
+    "animal horror",
+    "king ghidorah",
+    "sunken city",
+    "mothra",
+    "godzilla"
+  ],
+  "collection": {
+    "id": 535313,
+    "name": "Godzilla Collection",
+    "posterPath": "/inNN466SKHNjbGmpfhfsaPQNleS.jpg",
+    "backdropPath": "/psZ5CETZoaq2VRnxk95HuxOnI5D.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/373571-godzilla-king-of-the-monsters/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      },
+      {
+        "id": 614,
+        "name": "VI movies and tv",
+        "logoPath": "/9YJY5OwsIPMoX3xC3TdtZVbKBpE.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    124905,
+    443791,
+    68726,
+    399566,
+    823464,
+    427641,
+    9397,
+    293167,
+    615656,
+    268896,
+    11071,
+    345940,
+    254,
+    339967,
+    127585,
+    10829,
+    11228,
+    435,
+    1275779,
+    10514
+  ],
+  "similar": [
+    10074,
+    10048,
+    1002780,
+    10138,
+    11416,
+    634649,
+    634429,
+    634528,
+    21266,
+    456740,
+    21779,
+    822119,
+    9353,
+    444579,
+    444292,
+    267805,
+    11090,
+    267767,
+    11071,
+    1188859
+  ]
 }

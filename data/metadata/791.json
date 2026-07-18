@@ -43,5 +43,85 @@
   "duration": 10735,
   "_tracksDetected": true,
   "certification": "A",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "corruption",
+    "ideology",
+    "controversy",
+    "gore",
+    "phobia",
+    "hatred",
+    "bloodshed",
+    "bengal",
+    "political drama",
+    "violence",
+    "box office flop",
+    "bollywood",
+    "flop films",
+    "political films",
+    "nsfw",
+    "communal violence"
+  ],
+  "collection": {
+    "id": 900844,
+    "name": "Untold Stories of Independent India Collection",
+    "posterPath": "/xUVf6OACVdmGmTM6klUe7oF5StD.jpg",
+    "backdropPath": null
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/900838-the-bengal-files/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 232,
+        "name": "Zee5",
+        "logoPath": "/gP67NRy1ShUJilrzMsbOmEmdmcv.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    157351,
+    379,
+    22021,
+    48129,
+    1372,
+    1020662,
+    20721,
+    482,
+    615115,
+    4911,
+    317744,
+    1254624,
+    1245700,
+    574207,
+    893086,
+    395458,
+    589820,
+    1266,
+    1387382,
+    43549
+  ],
+  "similar": [
+    1428,
+    1266,
+    1717,
+    1836,
+    804044,
+    260274,
+    1371763,
+    804005,
+    618473,
+    1181291,
+    1181298,
+    439128,
+    73,
+    101,
+    241,
+    251,
+    258413,
+    801937,
+    1369909,
+    182
+  ]
 }

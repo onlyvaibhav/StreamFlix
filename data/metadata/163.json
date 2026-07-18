@@ -68,5 +68,128 @@
   "duration": 9140,
   "_tracksDetected": true,
   "certification": "PG",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "witch",
+    "school friend",
+    "friendship",
+    "london, england",
+    "based on novel or book",
+    "magic",
+    "boarding school",
+    "male friendship",
+    "child hero",
+    "school of witchcraft",
+    "chosen one",
+    "bullying",
+    "school",
+    "ghost",
+    "fantasy world",
+    "wizard",
+    "pre-teen",
+    "calm",
+    "children's adventure",
+    "based on young adult novel",
+    "found family",
+    "teen adventure",
+    "owl",
+    "male female friendship",
+    "admiring",
+    "adoring",
+    "teen fantasy"
+  ],
+  "collection": {
+    "id": 1241,
+    "name": "Harry Potter Collection",
+    "posterPath": "/eVPs2Y0LyvTLZn6AP5Z6O2rtiGB.jpg",
+    "backdropPath": "/kmEsQL2vOTA0jnM28fXS45Ky8kX.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/671-harry-potter-and-the-philosopher-s-stone/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    767,
+    673,
+    674,
+    779782,
+    12444,
+    675,
+    12445,
+    672,
+    19101,
+    10957,
+    671583,
+    338952,
+    6435,
+    630,
+    2454,
+    18032,
+    38117,
+    10439,
+    10166,
+    68728
+  ],
+  "similar": [
+    1059,
+    1427,
+    1433,
+    1491,
+    1267,
+    438885,
+    1361,
+    1362,
+    260026,
+    260159,
+    1585,
+    803878,
+    1654,
+    803796,
+    803661,
+    1181107,
+    1265,
+    1281,
+    1371855,
+    74
+  ]
 }

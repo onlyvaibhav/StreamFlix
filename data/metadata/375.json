@@ -69,5 +69,125 @@
   "duration": 7826,
   "_tracksDetected": true,
   "certification": "PG-13",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "dying and death",
+    "suicide",
+    "class society",
+    "london, england",
+    "based on novel or book",
+    "magic",
+    "competition",
+    "obsession",
+    "hostility",
+    "class",
+    "diary",
+    "twist",
+    "tricks",
+    "illusion",
+    "rivalry",
+    "partner",
+    "steampunk",
+    "cruelty",
+    "hanging",
+    "jail cell",
+    "shocking",
+    "19th century",
+    "nikola tesla",
+    "magician",
+    "tesla coil",
+    "bittersweet",
+    "secret",
+    "direct",
+    "mind-blowing",
+    "antagonistic"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1124-the-prestige/watch?locale=IN",
+    "flatrate": [],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    1242669,
+    426254,
+    10740,
+    12101,
+    228968,
+    422619,
+    450465,
+    359305,
+    1084066,
+    370097,
+    9620,
+    749395,
+    6107,
+    339967,
+    92272,
+    644,
+    1667198,
+    35006,
+    11099,
+    227156
+  ],
+  "similar": [
+    10075,
+    10077,
+    9960,
+    9962,
+    9963,
+    10039,
+    9956,
+    266285,
+    10102,
+    10110,
+    10115,
+    10139,
+    10145,
+    1554065,
+    1554075,
+    624789,
+    10153,
+    10170,
+    10229,
+    10236
+  ]
 }

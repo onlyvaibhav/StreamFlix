@@ -55,5 +55,76 @@
   "duration": 8317,
   "_tracksDetected": true,
   "certification": "A",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "muslim",
+    "propaganda",
+    "controversy",
+    "jihad",
+    "religious conversion",
+    "terrorism",
+    "discrimination",
+    "kerala",
+    "religious controversy",
+    "brain washing",
+    "hindi film",
+    "indian film"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1117411-the-kerala-story/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 232,
+        "name": "Zee5",
+        "logoPath": "/gP67NRy1ShUJilrzMsbOmEmdmcv.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    436932,
+    22021,
+    475214,
+    245527,
+    484889,
+    336845,
+    464733,
+    1582770,
+    250388,
+    1387382,
+    180894,
+    25006,
+    40814,
+    374617,
+    6723,
+    15255,
+    14705,
+    18533,
+    13054,
+    36884
+  ],
+  "similar": [
+    1493,
+    1495,
+    1073,
+    1404,
+    1411,
+    1535,
+    260227,
+    1817,
+    241,
+    67,
+    1546172,
+    258019,
+    260533,
+    1883,
+    1595,
+    1629,
+    1852,
+    1941,
+    600,
+    612
+  ]
 }

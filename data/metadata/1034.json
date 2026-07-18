@@ -37,5 +37,60 @@
   "metadataStatus": "COMPLETE",
   "logo": "/data/logos/show_297171_logo.png",
   "_stillPath": "/f2yrbO9kI6dWNM10tJNTKqEo5UE.jpg",
-  "episode_still": "/data/stills/1034_still.jpg"
+  "episode_still": "/data/stills/1034_still.jpg",
+  "keywords": [
+    "biography",
+    "history"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/tv/297171-made-in-india-a-titan-story/watch?locale=IN",
+    "flatrate": [],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    94245,
+    211564,
+    68780,
+    33155,
+    66830,
+    3828,
+    133908,
+    81131,
+    727,
+    1465,
+    95004,
+    69760,
+    92875,
+    3414,
+    223438,
+    70128,
+    341,
+    21762,
+    44549,
+    67118
+  ],
+  "similar": [
+    236469,
+    91696,
+    236563,
+    92135,
+    206048,
+    237143,
+    30217,
+    206285,
+    124714,
+    206227,
+    303364,
+    274326,
+    61428,
+    207434,
+    93673,
+    238406,
+    94143,
+    207934,
+    57263,
+    90757
+  ]
 }

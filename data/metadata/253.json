@@ -56,5 +56,63 @@
   "duration": 8455.637,
   "_tracksDetected": true,
   "certification": "N/A",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/232808-maharaja/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 614,
+        "name": "VI movies and tv",
+        "logoPath": "/9YJY5OwsIPMoX3xC3TdtZVbKBpE.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    1167271,
+    33454,
+    527400,
+    1280450,
+    43643,
+    1411773,
+    465136,
+    831946,
+    1016414,
+    73454,
+    65869,
+    32726,
+    1000475,
+    25516,
+    145728,
+    522016,
+    346687,
+    666750,
+    572751,
+    294272
+  ],
+  "similar": [
+    1181291,
+    1371839,
+    260674,
+    1372069,
+    480,
+    802403,
+    1180009,
+    259399,
+    259720,
+    445685,
+    266310,
+    266556,
+    445988,
+    445995,
+    273324,
+    817876,
+    1009723,
+    16576,
+    1194578,
+    16987
+  ]
 }

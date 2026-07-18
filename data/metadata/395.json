@@ -198,5 +198,67 @@
   "certification": "TV-MA",
   "metadataStatus": "COMPLETE",
   "_stillPath": "/xRK7vEgctFVcNyFITZSj9lU1iUu.jpg",
-  "episode_still": "/data/stills/395_still.jpg"
+  "episode_still": "/data/stills/395_still.jpg",
+  "keywords": [
+    "anthology",
+    "horror",
+    "thriller"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/tv/258306/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    73987,
+    7143,
+    113036,
+    10370,
+    3470,
+    120462,
+    71116,
+    1386,
+    12832,
+    246461,
+    94251,
+    65784,
+    86686,
+    130464,
+    80213,
+    83659,
+    241372,
+    75191,
+    147050,
+    129612
+  ],
+  "similar": [
+    206586,
+    237586,
+    92739,
+    92829,
+    60339,
+    206674,
+    206799,
+    206916,
+    124548,
+    302649,
+    60791,
+    92916,
+    92926,
+    92933,
+    273908,
+    237997,
+    238084,
+    124817,
+    124822,
+    302942
+  ]
 }

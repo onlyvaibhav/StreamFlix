@@ -550,5 +550,76 @@
   "logo": "/data/logos/show_210942_logo.png",
   "metadataStatus": "COMPLETE",
   "_stillPath": "/29GciXzxaRJqSSM1LJwj6qm7maQ.jpg",
-  "episode_still": "/data/stills/934_still.jpg"
+  "episode_still": "/data/stills/934_still.jpg",
+  "keywords": [
+    "body-swap",
+    "high school student",
+    "discrimination",
+    "anime",
+    "web series",
+    "based on webcomic or webtoon",
+    "aeni",
+    "appearances",
+    "appearance",
+    "original net animation (ona)",
+    "based on manhwa",
+    "lookism"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/tv/210942/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    112888,
+    80737,
+    314784,
+    233347,
+    276161,
+    93657,
+    100883,
+    209502,
+    262657,
+    34524,
+    93292,
+    93541,
+    709,
+    47007,
+    80743,
+    108290,
+    61890,
+    251,
+    259015,
+    274570
+  ],
+  "similar": [
+    27838,
+    27845,
+    27885,
+    27866,
+    27816,
+    27942,
+    27813,
+    27977,
+    28136,
+    89742,
+    89850,
+    89959,
+    234868,
+    28037,
+    28061,
+    89811,
+    203704,
+    121840,
+    121848,
+    57287
+  ]
 }

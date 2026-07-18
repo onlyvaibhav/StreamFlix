@@ -55,5 +55,115 @@
   "duration": 6263.274,
   "_probeFailCount": 0,
   "logo": "/data/logos/1007_logo.png",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "california",
+    "bungee-jump",
+    "falling in love",
+    "ex-wife",
+    "hollywood bowl",
+    "excuse",
+    "burlesque",
+    "opposites attract",
+    "loan officer",
+    "scooter",
+    "duringcreditsstinger",
+    "life changing",
+    "candid",
+    "inspirational",
+    "best friends",
+    "unlikely romance",
+    "amused",
+    "cheerful",
+    "derisive",
+    "joyful"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/10201-yes-man/watch?locale=IN",
+    "flatrate": [],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    5966,
+    1034716,
+    32856,
+    17927,
+    184098,
+    1321439,
+    11452,
+    114,
+    8872,
+    9029,
+    12309,
+    1618945,
+    981,
+    9472,
+    137093,
+    9293,
+    12919,
+    272693,
+    15128,
+    523773
+  ],
+  "similar": [
+    13053,
+    13105,
+    13162,
+    1557066,
+    12705,
+    12708,
+    12797,
+    12637,
+    12771,
+    12776,
+    12795,
+    1381548,
+    13160,
+    13161,
+    13247,
+    13335,
+    13342,
+    13408,
+    13562,
+    13596
+  ]
 }

@@ -96,5 +96,90 @@
   "_tracksDetected": true,
   "certification": "R",
   "logo": "/data/logos/929_logo.png",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "infidelity",
+    "based on novel or book",
+    "wife",
+    "marriage crisis",
+    "investigation",
+    "disappearance",
+    "psychological thriller",
+    "whodunit",
+    "cynical",
+    "missing person",
+    "search party",
+    "criminal lawyer",
+    "murder suspect",
+    "missing wife",
+    "perspective",
+    "manipulative woman",
+    "toxic relationship",
+    "revenge thriller",
+    "killed during sex",
+    "hate",
+    "controlling wife"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/210577-gone-girl/watch?locale=IN",
+    "flatrate": [],
+    "rent": [],
+    "buy": [
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    619979,
+    346685,
+    11092,
+    18190,
+    9437,
+    169917,
+    317744,
+    651070,
+    1249213,
+    419835,
+    1249,
+    10675,
+    311667,
+    33195,
+    399057,
+    1368166,
+    866463,
+    26337,
+    1586,
+    376004
+  ],
+  "similar": [
+    10075,
+    9960,
+    9956,
+    445473,
+    10110,
+    10133,
+    1554065,
+    624789,
+    10153,
+    10170,
+    10229,
+    10234,
+    10236,
+    10242,
+    10287,
+    10291,
+    10294,
+    10296,
+    10299,
+    10003
+  ]
 }

@@ -69,5 +69,47 @@
   "certification": "TV-MA",
   "metadataStatus": "COMPLETE",
   "_stillPath": "/xBJzLQRrjmtsHD8SFxCBWmKzsRo.jpg",
-  "episode_still": "/data/stills/356_still.jpg"
+  "episode_still": "/data/stills/356_still.jpg",
+  "keywords": [],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/tv/232282-the-freelancer/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      },
+      {
+        "id": 614,
+        "name": "VI movies and tv",
+        "logoPath": "/9YJY5OwsIPMoX3xC3TdtZVbKBpE.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    114165,
+    219760,
+    2321,
+    300894,
+    95439,
+    93352,
+    262280,
+    18653,
+    3894,
+    99799,
+    247174,
+    1837,
+    26777,
+    222766,
+    4297,
+    54155,
+    17627,
+    247732,
+    67178,
+    120911
+  ],
+  "similar": []
 }

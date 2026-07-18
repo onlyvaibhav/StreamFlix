@@ -72,5 +72,126 @@
   "duration": 5714,
   "_tracksDetected": true,
   "certification": "PG",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "martial arts",
+    "kung fu",
+    "china",
+    "villain",
+    "sequel",
+    "panda",
+    "anthropomorphism",
+    "chameleon",
+    "female villain",
+    "3d animation",
+    "pathetic",
+    "joyous",
+    "cliché",
+    "enthusiastic",
+    "joyful"
+  ],
+  "collection": {
+    "id": 77816,
+    "name": "Kung Fu Panda Collection",
+    "posterPath": "/xoYc0RYKSc3xC4S9OpPZxKocKtj.jpg",
+    "backdropPath": "/2nbtv33hEk2CTnuMhTGZgsFdi3K.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1011985-kung-fu-panda-4/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 232,
+        "name": "Zee5",
+        "logoPath": "/gP67NRy1ShUJilrzMsbOmEmdmcv.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    140300,
+    9502,
+    49444,
+    527774,
+    991494,
+    778855,
+    400160,
+    808,
+    355547,
+    1084242,
+    324852,
+    315162,
+    585511,
+    269149,
+    22259,
+    1117857,
+    560044,
+    520758,
+    16690,
+    116711
+  ],
+  "similar": [
+    438695,
+    259907,
+    438788,
+    1180831,
+    1436,
+    1452,
+    1488,
+    1494,
+    1497,
+    1498,
+    1499,
+    995926,
+    1267,
+    1269,
+    1273,
+    1361,
+    1381,
+    1535,
+    1541,
+    1547
+  ]
 }

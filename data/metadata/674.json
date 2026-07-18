@@ -117,5 +117,42 @@
   "certification": "U/A 13+",
   "metadataStatus": "COMPLETE",
   "_stillPath": "/lUpO1f0OLQtcCk13QgTqbcFvZzl.jpg",
-  "episode_still": "/data/stills/674_still.jpg"
+  "episode_still": "/data/stills/674_still.jpg",
+  "keywords": [],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/tv/298052-court-kacheri/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 237,
+        "name": "Sony Liv",
+        "logoPath": "/3973zlBbBXdXxaWqRWzGG2GYxbT.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    246483,
+    42548,
+    90872,
+    47813,
+    94686,
+    37780,
+    90966,
+    1205,
+    72743,
+    32549,
+    133727,
+    101352,
+    4123,
+    2251,
+    71887,
+    124010,
+    494,
+    223438,
+    156993,
+    2093
+  ],
+  "similar": []
 }

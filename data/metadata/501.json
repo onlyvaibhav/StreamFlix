@@ -43,5 +43,138 @@
   "duration": 5062,
   "_tracksDetected": true,
   "certification": "PG-13",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "new york city",
+    "space marine",
+    "saving the world",
+    "flying saucer",
+    "undercover",
+    "secret identity",
+    "superhero",
+    "deportation",
+    "illegal immigration",
+    "new identity",
+    "firearm",
+    "light",
+    "based on comic",
+    "sequel",
+    "alien",
+    "buddy cop",
+    "fictional government agency"
+  ],
+  "collection": {
+    "id": 86055,
+    "name": "Men in Black Collection",
+    "posterPath": "/rWcgZaoJ0nxTFRn0H6w9bdtoDUI.jpg",
+    "backdropPath": "/xKz6YaOvmnIJQ3MYIpnaa7FBaAB.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/608-men-in-black-ii/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2180,
+        "name": "Sony Pictures Amazon Channel",
+        "logoPath": "/i7FaDWpD2xoIWB5lyF191cykfck.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 232,
+        "name": "Zee5",
+        "logoPath": "/gP67NRy1ShUJilrzMsbOmEmdmcv.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    607,
+    1924,
+    479455,
+    1452,
+    41154,
+    102382,
+    49521,
+    618354,
+    98566,
+    8536,
+    524434,
+    887357,
+    99861,
+    558,
+    1724,
+    24428,
+    38055,
+    46529,
+    315635,
+    791155
+  ],
+  "similar": [
+    10040,
+    9946,
+    9947,
+    9948,
+    10096,
+    1002770,
+    1002780,
+    624653,
+    10122,
+    10127,
+    10133,
+    10134,
+    10138,
+    1554048,
+    10152,
+    10153,
+    10154,
+    10167,
+    10249,
+    266535
+  ]
 }

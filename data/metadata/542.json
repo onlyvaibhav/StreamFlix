@@ -82,5 +82,65 @@
   "duration": 8455,
   "_tracksDetected": true,
   "certification": "UA",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "dark comedy"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/950075/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 614,
+        "name": "VI movies and tv",
+        "logoPath": "/9YJY5OwsIPMoX3xC3TdtZVbKBpE.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    404733,
+    32080,
+    15659,
+    14550,
+    328480,
+    457840,
+    6028,
+    27590,
+    32620,
+    14584,
+    20482,
+    1100795,
+    42228,
+    744653,
+    1594,
+    47533,
+    1015724,
+    414906,
+    657593,
+    1310568
+  ],
+  "similar": [
+    1379537,
+    1189863,
+    12138,
+    12249,
+    1380623,
+    627446,
+    13141,
+    13436,
+    13446,
+    13501,
+    1380907,
+    1557079,
+    13484,
+    15661,
+    15742,
+    1383190,
+    816707,
+    15465,
+    816566,
+    15952
+  ]
 }

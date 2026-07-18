@@ -146,5 +146,114 @@
   "container": "matroska,webm",
   "duration": 10375.124,
   "certification": "PG-13",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "mask",
+    "artificial intelligence (a.i.)",
+    "diving",
+    "submarine",
+    "espionage",
+    "spy",
+    "nuclear missile",
+    "fake identity",
+    "secret agent",
+    "stunt",
+    "sequel",
+    "secret government organization",
+    "infiltration",
+    "terrorist plot",
+    "fictional government agency",
+    "misinformation",
+    "government agency",
+    "based on tv series"
+  ],
+  "collection": {
+    "id": 87359,
+    "name": "Mission: Impossible Collection",
+    "posterPath": "/geEjCGfdmRAA1skBPwojcdvnZ8A.jpg",
+    "backdropPath": "/mroWh717g0Ah2c0rrPGW6f3EWMM.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/575265-mission-impossible-the-final-reckoning/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 232,
+        "name": "Zee5",
+        "logoPath": "/gP67NRy1ShUJilrzMsbOmEmdmcv.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    56292,
+    575264,
+    13027,
+    954,
+    353081,
+    691,
+    956,
+    177677,
+    257088,
+    203801,
+    463272,
+    36670,
+    724209,
+    20526,
+    206647,
+    297761,
+    699,
+    268896,
+    1093995,
+    348350
+  ],
+  "similar": [
+    10040,
+    10074,
+    9948,
+    445648,
+    10122,
+    10131,
+    10133,
+    10138,
+    10140,
+    10160,
+    10283,
+    10285,
+    10303,
+    10306,
+    10003,
+    10005,
+    10072,
+    10083,
+    10054,
+    1187354
+  ]
 }

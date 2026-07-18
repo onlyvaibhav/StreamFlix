@@ -68,5 +68,47 @@
   "duration": 2812.864,
   "_probeFailCount": 0,
   "logo": "/data/logos/show_249765_logo.png",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/tv/249765/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    138108,
+    204290,
+    156473,
+    226174,
+    119845,
+    10370,
+    2850,
+    64836,
+    126167,
+    86588,
+    81358,
+    4170,
+    100729,
+    230034,
+    64199,
+    241549,
+    100414,
+    10305,
+    225265,
+    65628
+  ],
+  "similar": []
 }

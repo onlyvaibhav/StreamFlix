@@ -175,5 +175,80 @@
   "certification": "NC16",
   "metadataStatus": "COMPLETE",
   "_stillPath": "/6q53aCEhJ2Ji7ufN63ONxj82GI6.jpg",
-  "episode_still": "/data/stills/570_still.jpg"
+  "episode_still": "/data/stills/570_still.jpg",
+  "keywords": [
+    "work",
+    "road trip",
+    "god",
+    "remake",
+    "romance",
+    "travel",
+    "peddler",
+    "merchant",
+    "seinen",
+    "fox spirit",
+    "anime",
+    "based on light novel",
+    "adventure",
+    "admiring",
+    "antagonistic",
+    "bold"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/tv/229676-merchant-meets-the-wise-wolf/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    26707,
+    218493,
+    218843,
+    285166,
+    87142,
+    66053,
+    31911,
+    91764,
+    34791,
+    260463,
+    9410,
+    237233,
+    123525,
+    76125,
+    270474,
+    92090,
+    208891,
+    38251,
+    261745,
+    214587
+  ],
+  "similar": [
+    42140,
+    42173,
+    219527,
+    219532,
+    219533,
+    219556,
+    285275,
+    285291,
+    249360,
+    73361,
+    73395,
+    73396,
+    137178,
+    137194,
+    249418,
+    13780,
+    285356,
+    285357,
+    73433,
+    73435
+  ]
 }

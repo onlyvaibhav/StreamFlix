@@ -55,5 +55,80 @@
   "duration": 6323,
   "_tracksDetected": true,
   "certification": "R",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "nightmare",
+    "madrid, spain",
+    "widow",
+    "supernatural",
+    "solar eclipse",
+    "possession",
+    "based on true story",
+    "ouija",
+    "family",
+    "crucifix",
+    "1990s"
+  ],
+  "collection": {
+    "id": 1235789,
+    "name": "Veronica Collection",
+    "posterPath": "/2ktJIZbpvkVtjTdp22PYkks8L3.jpg",
+    "backdropPath": "/ds3uylkUT6TtKGSV7uwdCXWSx2r.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/441701-veronica/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    758323,
+    10836,
+    9299,
+    930600,
+    1089123,
+    1023313,
+    709631,
+    814889,
+    493922,
+    23827,
+    1212763,
+    807356,
+    439079,
+    28485,
+    77883,
+    1309083,
+    72571,
+    591273,
+    1426297,
+    91586
+  ],
+  "similar": [
+    1381579,
+    12700,
+    13022,
+    12724,
+    13008,
+    13254,
+    449352,
+    270303,
+    270314,
+    1381901,
+    449535,
+    13581,
+    814889,
+    814320,
+    270379,
+    13515,
+    270478,
+    449454,
+    13548,
+    13549
+  ]
 }

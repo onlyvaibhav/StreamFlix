@@ -76,5 +76,10 @@
   "duration": 1542,
   "_tracksDetected": true,
   "certification": "N/A",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [],
+  "collection": null,
+  "watchProviders": null,
+  "recommendations": [],
+  "similar": []
 }

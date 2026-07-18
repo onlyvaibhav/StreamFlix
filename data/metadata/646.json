@@ -69,5 +69,75 @@
   "certification": "TV-14",
   "metadataStatus": "COMPLETE",
   "_stillPath": "/ypDblhkpuXvaFkXpKp41yt22t0e.jpg",
-  "episode_still": "/data/stills/646_still.jpg"
+  "episode_still": "/data/stills/646_still.jpg",
+  "keywords": [
+    "season",
+    "satire",
+    "rural india",
+    "political comedy",
+    "comedy",
+    "panchayat"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/tv/101352/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    47813,
+    246483,
+    2184,
+    11089,
+    1803,
+    90966,
+    2132,
+    3501,
+    4107,
+    2251,
+    2455,
+    114655,
+    2359,
+    2187,
+    42548,
+    494,
+    1849,
+    67117,
+    124010,
+    9895
+  ],
+  "similar": [
+    59426,
+    1628,
+    1521,
+    1533,
+    236450,
+    301747,
+    301679,
+    1679,
+    1753,
+    123889,
+    2000,
+    273126,
+    273135,
+    273152,
+    30072,
+    1852,
+    1912,
+    1813,
+    301882,
+    2055
+  ]
 }

@@ -84,5 +84,105 @@
   "duration": 5984,
   "_tracksDetected": true,
   "certification": "PG",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "sea",
+    "ocean",
+    "villain",
+    "musical",
+    "sequel",
+    "coming of age",
+    "explorer",
+    "duringcreditsstinger",
+    "polynesia",
+    "giant crab",
+    "seafarer",
+    "3d animation",
+    "hopeful",
+    "female explorer"
+  ],
+  "collection": {
+    "id": 1241984,
+    "name": "Moana Collection",
+    "posterPath": "/jjlmK4jA7XCFztNlmYkO4u0Mqv4.jpg",
+    "backdropPath": "/4OgaftFNqtE1UvfDDb2Eov7A5Rz.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1241982-moana-2/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    277834,
+    228165,
+    72197,
+    560057,
+    175112,
+    57800,
+    1280282,
+    127380,
+    877269,
+    1040148,
+    991494,
+    529203,
+    11836,
+    228161,
+    20760,
+    8355,
+    585083,
+    1022789,
+    10501,
+    15512
+  ],
+  "similar": [
+    997317,
+    261103,
+    2310,
+    2312,
+    2280,
+    2295,
+    2300,
+    1372441,
+    619261,
+    4927,
+    999041,
+    4951,
+    1550192,
+    1550201,
+    1550207,
+    4964,
+    4978,
+    440991,
+    4543,
+    262340
+  ]
 }

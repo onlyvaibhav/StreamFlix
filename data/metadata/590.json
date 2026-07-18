@@ -42,5 +42,62 @@
   "duration": 7312,
   "_tracksDetected": true,
   "certification": "A",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "biography",
+    "lawyer",
+    "20th century",
+    "intense"
+  ],
+  "collection": {
+    "id": 1462446,
+    "name": "Kesari Collection",
+    "posterPath": "/nAgchpafzRQb7GnvZRzp8zqLDiY.jpg",
+    "backdropPath": "/giH39yURcr3XxT9GSLSHUI3JZN5.jpg"
+  },
+  "watchProviders": null,
+  "recommendations": [
+    664332,
+    245168,
+    41478,
+    556984,
+    553087,
+    402529,
+    1013601,
+    401743,
+    763165,
+    17443,
+    517088,
+    1443940,
+    14882,
+    846956,
+    4556,
+    253279,
+    392982,
+    1196943,
+    88794,
+    48129
+  ],
+  "similar": [
+    814128,
+    13071,
+    13098,
+    1006268,
+    814215,
+    12716,
+    12717,
+    12797,
+    1005728,
+    627655,
+    1381142,
+    12633,
+    12761,
+    12783,
+    269820,
+    448711,
+    448776,
+    1006154,
+    449157,
+    814425
+  ]
 }

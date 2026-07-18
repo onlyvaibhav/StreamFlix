@@ -56,5 +56,68 @@
   "duration": 7443.572,
   "_tracksDetected": true,
   "certification": "N/A",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/15975-oye-lucky-lucky-oye/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    1363123,
+    1035259,
+    404733,
+    74723,
+    168530,
+    323675,
+    41902,
+    24109,
+    731738,
+    39180,
+    936,
+    24528,
+    1045931,
+    31665,
+    592834,
+    1499984,
+    37834,
+    638597,
+    27590,
+    299
+  ],
+  "similar": [
+    262034,
+    4252,
+    4253,
+    4254,
+    4435,
+    805785,
+    4157,
+    441139,
+    440873,
+    262903,
+    621003,
+    621005,
+    441547,
+    5319,
+    807072,
+    1373996,
+    261020,
+    619075,
+    619078,
+    618977
+  ]
 }

@@ -57,5 +57,71 @@
   "duration": 8247,
   "_tracksDetected": true,
   "certification": "U/A 13+",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "sequel",
+    "political corruption"
+  ],
+  "collection": {
+    "id": 1397777,
+    "name": "Raid Collection",
+    "posterPath": "/aUN0CI9x7CtIUwEcNkQri3iwmGw.jpg",
+    "backdropPath": null
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1227128/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    16056,
+    1088166,
+    385687,
+    32080,
+    9944,
+    414906,
+    17585,
+    2086,
+    492613,
+    13387,
+    46041,
+    82992,
+    16958,
+    2502,
+    35006,
+    14979,
+    28297,
+    1195430,
+    581361,
+    4999
+  ],
+  "similar": [
+    814128,
+    13056,
+    13123,
+    814215,
+    12699,
+    1005728,
+    627655,
+    1005776,
+    12662,
+    1006154,
+    13186,
+    13202,
+    13204,
+    13205,
+    13293,
+    814425,
+    814430,
+    13387,
+    270296,
+    1006854
+  ]
 }

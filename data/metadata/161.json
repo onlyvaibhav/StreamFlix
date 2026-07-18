@@ -58,5 +58,69 @@
   "duration": 4730,
   "_tracksDetected": true,
   "certification": "UA",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "hanuman",
+    "prasanth varma cinematic universe"
+  ],
+  "collection": {
+    "id": 1208912,
+    "name": "PVCU",
+    "posterPath": "/20N5pSukhU01cOoTmK8neG6IBty.jpg",
+    "backdropPath": "/hdYyHdQhpylt8SKlH3UesibOw9k.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/869760/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 614,
+        "name": "VI movies and tv",
+        "logoPath": "/9YJY5OwsIPMoX3xC3TdtZVbKBpE.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    621870,
+    926670,
+    76589,
+    464882,
+    839033,
+    17445,
+    360605,
+    15359,
+    14011,
+    22259,
+    464052,
+    141052,
+    25132,
+    209112,
+    353486,
+    284054,
+    324857,
+    411736,
+    668461,
+    268531
+  ],
+  "similar": [
+    85998,
+    217086,
+    1532239,
+    1413633,
+    1709391,
+    821902,
+    446879,
+    446893,
+    446894,
+    446896,
+    446902,
+    11857,
+    11858,
+    11859,
+    11860,
+    11862,
+    1379536,
+    1379537
+  ]
 }

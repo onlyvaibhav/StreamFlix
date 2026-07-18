@@ -148,5 +148,103 @@
   "duration": 5825,
   "_tracksDetected": true,
   "certification": "R",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "android",
+    "artificial intelligence (a.i.)",
+    "cabin",
+    "robot",
+    "boyfriend girlfriend relationship",
+    "duringcreditsstinger",
+    "robot girl",
+    "weekend getaway",
+    "human android relationship",
+    "toxic relationship",
+    "abusive relationship",
+    "malfunctioning android",
+    "sentient machine",
+    "sci-fi horror",
+    "human vs machines",
+    "cybernetics",
+    "android horror"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1084199-companion/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      },
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    1064028,
+    1001835,
+    1062215,
+    942199,
+    1702,
+    500664,
+    536554,
+    411143,
+    126889,
+    10596,
+    1071585,
+    983282,
+    377264,
+    9102,
+    33278,
+    534,
+    12088,
+    846778,
+    18775,
+    11309
+  ],
+  "similar": [
+    448916,
+    13027,
+    448831,
+    13190,
+    13158,
+    1381027,
+    13391,
+    13413,
+    13805,
+    13529,
+    12279,
+    12589,
+    1190431,
+    448194,
+    269037,
+    1190012,
+    12107,
+    268896,
+    12180,
+    12140
+  ]
 }

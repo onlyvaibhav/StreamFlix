@@ -69,5 +69,90 @@
   "duration": 6032,
   "_tracksDetected": true,
   "certification": "PG-13",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "new york city",
+    "medicine",
+    "politician",
+    "iq",
+    "pill",
+    "stalking",
+    "superhuman",
+    "transhumanism",
+    "writer",
+    "drugs",
+    "threat",
+    "knowledge",
+    "nootropics",
+    "mind booster",
+    "inspirational"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/51876-limitless/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": []
+  },
+  "recommendations": [
+    3509,
+    446827,
+    81796,
+    207933,
+    11542,
+    1635,
+    411143,
+    8066,
+    522526,
+    1023915,
+    8836,
+    3574,
+    549294,
+    24099,
+    19384,
+    59967,
+    411999,
+    296,
+    522406,
+    419430
+  ],
+  "similar": [
+    2251,
+    2291,
+    2297,
+    2370,
+    2371,
+    4928,
+    4931,
+    4474,
+    4477,
+    4547,
+    4566,
+    262338,
+    4997,
+    4574,
+    262500,
+    4639,
+    262504,
+    4771,
+    13715,
+    270109
+  ]
 }

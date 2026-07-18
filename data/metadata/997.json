@@ -58,5 +58,101 @@
   "duration": 8343.027,
   "_probeFailCount": 0,
   "logo": "/data/logos/997_logo.png",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "detective",
+    "conspiracy",
+    "criminal mastermind",
+    "private detective",
+    "evil genius"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/320295/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    13252,
+    862552,
+    1059345,
+    1043565,
+    13389,
+    399035,
+    1020662,
+    9411,
+    419835,
+    4959,
+    812583,
+    395458,
+    457962,
+    9437,
+    1530875,
+    14576,
+    169917,
+    1079346,
+    4771,
+    976734
+  ],
+  "similar": [
+    1249,
+    1252,
+    1479,
+    1073,
+    1269,
+    260015,
+    1571,
+    1572,
+    1586,
+    1834,
+    1840,
+    804005,
+    1181291,
+    1181298,
+    1547713,
+    1284,
+    1285,
+    996010,
+    231,
+    260
+  ]
 }

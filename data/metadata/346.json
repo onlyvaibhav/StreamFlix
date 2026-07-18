@@ -83,5 +83,133 @@
   "duration": 5808,
   "_tracksDetected": true,
   "certification": "PG",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "island",
+    "rivalry",
+    "sequel",
+    "family",
+    "based on video game",
+    "animal kingdom",
+    "unassuming",
+    "irreverent",
+    "3d animation",
+    "cliché",
+    "embarrassed",
+    "frustrated"
+  ],
+  "collection": {
+    "id": 531315,
+    "name": "The Angry Birds Collection",
+    "posterPath": "/ehoZnL5usVagZOJ2VccmqZKa8in.jpg",
+    "backdropPath": "/v46tzzYiG2FIXqtuuo1OLSjOLuQ.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/454640-the-angry-birds-movie-2/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      },
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 237,
+        "name": "Sony Liv",
+        "logoPath": "/3973zlBbBXdXxaWqRWzGG2GYxbT.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    153518,
+    57800,
+    25475,
+    8355,
+    1280768,
+    877269,
+    1084244,
+    326215,
+    520758,
+    1104845,
+    20694,
+    774825,
+    308531,
+    280217,
+    10527,
+    11430,
+    7518,
+    13417,
+    227973,
+    499088
+  ],
+  "similar": [
+    1370023,
+    1369921,
+    44090,
+    1409863,
+    656185,
+    1219162,
+    297221,
+    1410129,
+    1035259,
+    655620,
+    1218925,
+    844075,
+    1409435,
+    43783,
+    844158,
+    44191,
+    478157,
+    1219304,
+    44397,
+    478176
+  ]
 }

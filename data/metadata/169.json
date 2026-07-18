@@ -158,5 +158,125 @@
   "duration": 7227,
   "_tracksDetected": true,
   "certification": "PG-13",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "hacker",
+    "based on novel or book",
+    "boston, massachusetts",
+    "ex-girlfriend",
+    "biography",
+    "based on true story",
+    "historical fiction",
+    "university",
+    "twins",
+    "docudrama",
+    "blunt",
+    "social media",
+    "legal drama",
+    "conceited"
+  ],
+  "collection": {
+    "id": 1504252,
+    "name": "The Social Network Collection",
+    "posterPath": null,
+    "backdropPath": null
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/37799-the-social-network/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 2180,
+        "name": "Sony Pictures Amazon Channel",
+        "logoPath": "/i7FaDWpD2xoIWB5lyF191cykfck.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 232,
+        "name": "Zee5",
+        "logoPath": "/gP67NRy1ShUJilrzMsbOmEmdmcv.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    489,
+    115782,
+    113294,
+    292011,
+    677179,
+    829503,
+    227156,
+    205596,
+    249164,
+    619594,
+    7214,
+    339145,
+    315837,
+    9944,
+    127373,
+    9989,
+    221,
+    67809,
+    8065,
+    14914
+  ],
+  "similar": [
+    449074,
+    1006201,
+    13097,
+    269971,
+    449176,
+    13128,
+    814215,
+    269998,
+    12700,
+    12701,
+    12703,
+    12716,
+    12717,
+    12994,
+    448925,
+    269783,
+    1381142,
+    1381151,
+    269495,
+    813845
+  ]
 }

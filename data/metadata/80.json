@@ -56,5 +56,100 @@
   "duration": 10239,
   "_tracksDetected": true,
   "certification": "PG-13",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "revenge",
+    "vigilantism",
+    "political",
+    "admiring"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/872906/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    1093995,
+    1109086,
+    1288341,
+    1227128,
+    2086,
+    51997,
+    262500,
+    24528,
+    1499984,
+    385687,
+    688258,
+    308504,
+    31665,
+    302401,
+    181812,
+    268,
+    592834,
+    823625,
+    297761,
+    209112
+  ],
+  "similar": [
+    262034,
+    1183237,
+    4108,
+    4689,
+    4824,
+    4413,
+    4421,
+    4435,
+    4477,
+    4550,
+    4147,
+    4270,
+    4327,
+    441071,
+    441139,
+    440873,
+    262829,
+    262839,
+    621003,
+    621005
+  ]
 }

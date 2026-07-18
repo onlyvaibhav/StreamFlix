@@ -147,5 +147,95 @@
       "isDefault": true,
       "isForced": false
     }
+  ],
+  "keywords": [
+    "martial arts",
+    "magic",
+    "ninja fighter",
+    "gore",
+    "sequel",
+    "god",
+    "alternate dimension",
+    "ninja",
+    "fighting",
+    "based on video game",
+    "martial arts tournament",
+    "struggling actor",
+    "hand to hand combat",
+    "aggressive",
+    "amused"
+  ],
+  "collection": {
+    "id": 931431,
+    "name": "Mortal Kombat (Reboot) Collection",
+    "posterPath": "/fzMBv3Bu8sWdsCQJbtF0XhY4Q2X.jpg",
+    "backdropPath": "/hq4SfEXIXaukxNGf5VgXgGb3UG4.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/931285-mortal-kombat-ii/watch?locale=IN",
+    "flatrate": [],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    460465,
+    664767,
+    9312,
+    1034062,
+    1007401,
+    841755,
+    21512,
+    22832,
+    1036561,
+    831405,
+    28148,
+    9355,
+    36586,
+    1411773,
+    11358,
+    293660,
+    732450,
+    101907,
+    270938,
+    388191
+  ],
+  "similar": [
+    259907,
+    1180831,
+    1452,
+    1483,
+    1491,
+    1494,
+    1497,
+    1498,
+    1499,
+    438798,
+    995926,
+    1267,
+    1271,
+    1273,
+    1361,
+    1362,
+    1373,
+    618176,
+    438970,
+    1371510
   ]
 }

@@ -84,5 +84,146 @@
   "logo": "/data/logos/388_logo.png",
   "_tracksDetected": true,
   "certification": "PG",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "island",
+    "based on novel or book",
+    "parent child relationship",
+    "fox",
+    "robot",
+    "based on children's book",
+    "kindness",
+    "goose",
+    "nostalgic",
+    "aftercreditsstinger",
+    "duringcreditsstinger",
+    "shipwrecked",
+    "kids",
+    "adopted son",
+    "wonder",
+    "3d animation",
+    "admiring",
+    "adoring",
+    "amused",
+    "audacious",
+    "awestruck",
+    "comforting",
+    "enthusiastic",
+    "gentle",
+    "woodland animals"
+  ],
+  "collection": {
+    "id": 1370345,
+    "name": "The Wild Robot Collection",
+    "posterPath": "/vm94OwAJdVE62BnNdrkM0aAgnEi.jpg",
+    "backdropPath": "/f6G8QPeod5ngQMs5Fe1O4LdphB7.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1184918-the-wild-robot/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      },
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      },
+      {
+        "id": 614,
+        "name": "VI movies and tv",
+        "logoPath": "/9YJY5OwsIPMoX3xC3TdtZVbKBpE.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 232,
+        "name": "Zee5",
+        "logoPath": "/gP67NRy1ShUJilrzMsbOmEmdmcv.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    170687,
+    381719,
+    1022787,
+    995133,
+    9982,
+    150540,
+    927254,
+    1267,
+    529203,
+    16866,
+    50321,
+    20352,
+    25475,
+    10681,
+    698687,
+    15512,
+    49519,
+    227973,
+    877269,
+    560057
+  ],
+  "similar": [
+    10009,
+    10048,
+    9960,
+    9948,
+    810457,
+    1002780,
+    810516,
+    624663,
+    10134,
+    10137,
+    10138,
+    10140,
+    445748,
+    10153,
+    10159,
+    10166,
+    10243,
+    10253,
+    9992,
+    10003
+  ]
 }

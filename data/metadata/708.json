@@ -93,5 +93,102 @@
   "duration": 8150,
   "_tracksDetected": true,
   "certification": "R",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "pennsylvania, usa",
+    "supernatural",
+    "exorcism",
+    "haunted house",
+    "sequel",
+    "priest",
+    "religion",
+    "wedding",
+    "spirit",
+    "paranormal investigation",
+    "ghost",
+    "1980s",
+    "demonic",
+    "mirror",
+    "supernatural horror",
+    "horror"
+  ],
+  "collection": {
+    "id": 313086,
+    "name": "The Conjuring Collection",
+    "posterPath": "/z5VKhNSQKQyxm0co68HAkCqHnmX.jpg",
+    "backdropPath": "/kHZaX0vuhZdbuq0WKU3BpA9WIQ0.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1038392-the-conjuring-last-rites/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    423108,
+    138843,
+    91586,
+    11587,
+    807172,
+    1078605,
+    532671,
+    280092,
+    72571,
+    406563,
+    283445,
+    424139,
+    1212763,
+    259693,
+    1083381,
+    758323,
+    381288,
+    814889,
+    948,
+    521029
+  ],
+  "similar": [
+    1381579,
+    12699,
+    12700,
+    12702,
+    1381320,
+    448939,
+    1557140,
+    1005776,
+    12662,
+    12685,
+    1190888,
+    13190,
+    448961,
+    13151,
+    13186,
+    13204,
+    1381711,
+    270303,
+    270314,
+    1381901
+  ]
 }

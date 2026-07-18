@@ -43,5 +43,73 @@
   "duration": 8930,
   "_tracksDetected": true,
   "certification": "UA",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "1970s",
+    "based on true story",
+    "historical drama",
+    "india pakistan war"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/814215/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 232,
+        "name": "Zee5",
+        "logoPath": "/gP67NRy1ShUJilrzMsbOmEmdmcv.jpg"
+      },
+      {
+        "id": 614,
+        "name": "VI movies and tv",
+        "logoPath": "/9YJY5OwsIPMoX3xC3TdtZVbKBpE.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    33125,
+    763144,
+    653851,
+    491629,
+    1079244,
+    152760,
+    9361,
+    31010,
+    1432596,
+    525428,
+    661231,
+    522162,
+    44691,
+    5902,
+    26843,
+    13210,
+    9289,
+    70925,
+    826,
+    589612
+  ],
+  "similar": [
+    9952,
+    445456,
+    266310,
+    1378037,
+    1378043,
+    10139,
+    10142,
+    624794,
+    10161,
+    10237,
+    266503,
+    1187274,
+    445685,
+    10279,
+    10217,
+    10971,
+    446861,
+    11020,
+    11021,
+    447199
+  ]
 }

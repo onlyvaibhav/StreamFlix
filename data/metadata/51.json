@@ -69,5 +69,42 @@
   "duration": 9370,
   "_tracksDetected": true,
   "certification": "U",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1068452/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    785522,
+    499338,
+    40724,
+    35690,
+    810223,
+    61005,
+    30071,
+    64868,
+    426203,
+    381289,
+    550231,
+    495193,
+    14012,
+    92620,
+    16659,
+    1309070,
+    64269,
+    26514,
+    397520,
+    410366
+  ],
+  "similar": []
 }

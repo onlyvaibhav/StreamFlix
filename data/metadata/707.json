@@ -69,5 +69,98 @@
   "duration": 5246,
   "_tracksDetected": true,
   "certification": "PG",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "hero",
+    "funeral",
+    "spy",
+    "intelligence",
+    "queen",
+    "coronation",
+    "secret agent",
+    "slapstick comedy",
+    "spoof",
+    "explosion",
+    "agent",
+    "pen",
+    "duringcreditsstinger"
+  ],
+  "collection": {
+    "id": 86117,
+    "name": "Johnny English Collection",
+    "posterPath": "/4ICdnU5ieFquD2kIs9Mwt4NGZcR.jpg",
+    "backdropPath": "/pMHHhMKu2iQichL6Eym4ApCvIEB.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/9486-johnny-english/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 561,
+        "name": "Lionsgate Play",
+        "logoPath": "/e2hCUg2Z3sJ6yWF9NLU24SIKeWa.jpg"
+      },
+      {
+        "id": 2053,
+        "name": "Lionsgate Play Apple TV Channel",
+        "logoPath": "/p8i1zUcZYQ7qU6RrGvGbDItvcx4.jpg"
+      },
+      {
+        "id": 2074,
+        "name": "Lionsgate Play Amazon Channel",
+        "logoPath": "/yVbjPWEbsStanRAxwKMDARVOvsn.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": []
+  },
+  "recommendations": [
+    21779,
+    4327,
+    592834,
+    817,
+    146216,
+    848538,
+    37834,
+    431693,
+    993710,
+    11665,
+    956,
+    12277,
+    594767,
+    203801,
+    49013,
+    458897,
+    9595,
+    206647,
+    22434,
+    11891
+  ],
+  "similar": [
+    259886,
+    996129,
+    1487,
+    438747,
+    1269,
+    438885,
+    1381,
+    1535,
+    1542,
+    438970,
+    1572,
+    1573,
+    1588,
+    1654,
+    1672,
+    1832,
+    260406,
+    803796,
+    439138,
+    438725
+  ]
 }

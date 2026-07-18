@@ -69,5 +69,141 @@
   "container": "matroska,webm",
   "duration": 10144.043,
   "certification": "PG-13",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "spacecraft",
+    "race against time",
+    "artificial intelligence (a.i.)",
+    "nasa",
+    "time warp",
+    "dystopia",
+    "expedition",
+    "time travel",
+    "space travel",
+    "wormhole",
+    "famine",
+    "hibernation",
+    "black hole",
+    "quantum mechanics",
+    "family relationships",
+    "space",
+    "planet",
+    "astronaut",
+    "scientist",
+    "single father",
+    "space station",
+    "gravity",
+    "space adventure",
+    "time-manipulation",
+    "cryonics",
+    "father daughter relationship",
+    "2060s",
+    "audacious",
+    "enthusiastic",
+    "epic sci-fi"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/157336-interstellar/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    670292,
+    559581,
+    13475,
+    299534,
+    2103,
+    14337,
+    777443,
+    75612,
+    644,
+    339964,
+    871,
+    1143128,
+    20526,
+    12914,
+    157350,
+    419704,
+    441183,
+    2114,
+    262504,
+    188927
+  ],
+  "similar": [
+    10077,
+    10048,
+    9963,
+    624460,
+    1553867,
+    1553986,
+    10122,
+    10127,
+    10133,
+    10153,
+    10163,
+    10289,
+    10003,
+    10013,
+    10045,
+    445651,
+    10216,
+    446696,
+    1003758,
+    10950
+  ]
 }

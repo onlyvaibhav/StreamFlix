@@ -57,5 +57,69 @@
   "duration": 7510,
   "_tracksDetected": true,
   "certification": "UA",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "social injustice",
+    "police investigation",
+    "caste system",
+    "social issues",
+    "dalit"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/597089-article-15/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    808396,
+    560016,
+    16759,
+    9281,
+    9411,
+    1242501,
+    1155324,
+    1215162,
+    1461181,
+    10877,
+    1138749,
+    11074,
+    628847,
+    19092,
+    4959,
+    13252,
+    1020662,
+    395458,
+    970347,
+    507532
+  ],
+  "similar": [
+    1371763,
+    804005,
+    618473,
+    1547999,
+    1181291,
+    1181298,
+    439128,
+    996010,
+    82,
+    258413,
+    1369909,
+    616573,
+    801831,
+    260519,
+    804312,
+    1181508,
+    1939,
+    439341,
+    1181346,
+    616880
+  ]
 }

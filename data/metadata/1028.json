@@ -70,5 +70,71 @@
   "_tracksDetected": true,
   "_probeFailCount": 0,
   "logo": "/data/logos/1028_logo.png",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "haunted house",
+    "black magic",
+    "based on myths, legends or folklore",
+    "supernatural horror",
+    "indian mythology",
+    "comedy horror",
+    "supernatural comedy"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1239134/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    1196364,
+    91586,
+    4248,
+    23827,
+    184345,
+    24925,
+    714338,
+    11797,
+    44698,
+    2662,
+    675531,
+    1022128,
+    21362,
+    740925,
+    24924,
+    1292695,
+    1561969,
+    380124,
+    930600,
+    715123
+  ],
+  "similar": [
+    9946,
+    10131,
+    1187619,
+    10160,
+    10283,
+    10285,
+    10307,
+    10072,
+    1377961,
+    10281,
+    10225,
+    446854,
+    1555177,
+    11026,
+    11284,
+    447240,
+    634336,
+    1013482,
+    456045,
+    1197137
+  ]
 }

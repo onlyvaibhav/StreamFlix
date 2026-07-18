@@ -95,5 +95,91 @@
   "duration": 6297,
   "_tracksDetected": true,
   "certification": "PG-13",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "supernatural",
+    "exorcism",
+    "paranormal",
+    "prequel",
+    "tragedy",
+    "curse",
+    "based on manga",
+    "spirit",
+    "demon",
+    "school life",
+    "shounen",
+    "anime"
+  ],
+  "collection": {
+    "id": 1529614,
+    "name": "Jujutsu Kaisen Collection",
+    "posterPath": "/8IddvFXm6Txk3YAEIcgPm0ukY6K.jpg",
+    "backdropPath": "/2HRyeMLdUvn3l9DqjPU3hWn3SiX.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/810693-0/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 283,
+        "name": "Crunchyroll",
+        "logoPath": "/fzN5Jok5Ig1eJ7gyNGoMhnLSCfh.jpg"
+      },
+      {
+        "id": 237,
+        "name": "Sony Liv",
+        "logoPath": "/3973zlBbBXdXxaWqRWzGG2GYxbT.jpg"
+      },
+      {
+        "id": 1968,
+        "name": "Crunchyroll Amazon Channel",
+        "logoPath": "/pgjz7bzfBq4nFDu8JJDLBoUVAX8.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    201223,
+    989730,
+    812225,
+    989937,
+    876792,
+    1086591,
+    802401,
+    1067282,
+    843241,
+    17165,
+    1216221,
+    39145,
+    877957,
+    20982,
+    680041,
+    39319,
+    1357633,
+    433422,
+    829920,
+    39107
+  ],
+  "similar": [
+    617913,
+    259907,
+    1250,
+    996056,
+    1427,
+    1487,
+    438736,
+    1371510,
+    1371517,
+    803905,
+    618352,
+    1181323,
+    439191,
+    803796,
+    439096,
+    439138,
+    803675,
+    149,
+    81,
+    118
+  ]
 }

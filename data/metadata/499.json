@@ -56,5 +56,84 @@
   "duration": 9230,
   "_tracksDetected": true,
   "certification": "UA",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "musical",
+    "loss",
+    "melodramatic"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/381418/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 232,
+        "name": "Zee5",
+        "logoPath": "/gP67NRy1ShUJilrzMsbOmEmdmcv.jpg"
+      },
+      {
+        "id": 2059,
+        "name": "Eros Now Select Apple TV Channel",
+        "logoPath": "/cqgeSQHqKEkfcmsiy7GoCnf1Q2I.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    239571,
+    407445,
+    13457,
+    14834,
+    585244,
+    6003,
+    518497,
+    1371189,
+    382399,
+    9816,
+    79464,
+    132316,
+    16659,
+    397837,
+    550231,
+    159389,
+    426203,
+    528761,
+    45602,
+    209451
+  ],
+  "similar": [
+    266310,
+    1378037,
+    1378043,
+    624794,
+    10297,
+    9995,
+    445685,
+    10269,
+    446861,
+    11161,
+    447163,
+    447172,
+    11405,
+    11224,
+    268000,
+    447277,
+    634304,
+    20129,
+    1563517,
+    276223
+  ]
 }

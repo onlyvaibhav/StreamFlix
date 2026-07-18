@@ -263,5 +263,79 @@
   "certification": "TV-14",
   "metadataStatus": "COMPLETE",
   "_stillPath": "/5fRAAO13URmteku8mb39V9YPJBb.jpg",
-  "episode_still": "/data/stills/190_still.jpg"
+  "episode_still": "/data/stills/190_still.jpg",
+  "keywords": [
+    "secret organization",
+    "time",
+    "time travel",
+    "superhero",
+    "based on comic",
+    "spin off",
+    "marvel cinematic universe (mcu)",
+    "alternate timeline",
+    "woman director",
+    "multiverse"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/tv/84958-loki/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      },
+      {
+        "id": 614,
+        "name": "VI movies and tv",
+        "logoPath": "/9YJY5OwsIPMoX3xC3TdtZVbKBpE.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    6343,
+    4562,
+    67466,
+    80986,
+    14956,
+    88396,
+    69629,
+    2407,
+    33217,
+    85271,
+    1449,
+    66786,
+    92749,
+    114461,
+    63175,
+    95057,
+    62688,
+    111837,
+    4414,
+    89572
+  ],
+  "similar": [
+    219543,
+    13812,
+    13821,
+    137206,
+    73549,
+    105468,
+    316037,
+    105596,
+    219673,
+    42361,
+    13967,
+    13989,
+    14037,
+    73471,
+    42412,
+    13848,
+    13851,
+    285414,
+    105797,
+    73780
+  ]
 }

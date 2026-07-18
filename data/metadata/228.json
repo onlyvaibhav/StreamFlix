@@ -70,5 +70,115 @@
   "duration": 7111,
   "_tracksDetected": true,
   "certification": "R",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "assassin",
+    "court",
+    "england",
+    "hitman",
+    "bodyguard",
+    "travel",
+    "on the run",
+    "criminal",
+    "killer",
+    "courtroom",
+    "opposites attract",
+    "buddy comedy",
+    "aftercreditsstinger",
+    "testify"
+  ],
+  "collection": {
+    "id": 608101,
+    "name": "The Hitman's Bodyguard Collection",
+    "posterPath": "/7LSrP9MURgzqHFFzcQ8jndUasaF.jpg",
+    "backdropPath": "/8FgE8oDOkldI9iAM6FxcByIlROz.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/390043-the-hitman-s-bodyguard/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 2053,
+        "name": "Lionsgate Play Apple TV Channel",
+        "logoPath": "/p8i1zUcZYQ7qU6RrGvGbDItvcx4.jpg"
+      },
+      {
+        "id": 2074,
+        "name": "Lionsgate Play Amazon Channel",
+        "logoPath": "/yVbjPWEbsStanRAxwKMDARVOvsn.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    522931,
+    7516,
+    241554,
+    12138,
+    738652,
+    1217602,
+    573435,
+    4824,
+    1319895,
+    342521,
+    9737,
+    13809,
+    9618,
+    574060,
+    974453,
+    9874,
+    9401,
+    4959,
+    455236,
+    90
+  ],
+  "similar": [
+    449074,
+    449077,
+    13053,
+    12702,
+    12704,
+    12708,
+    12709,
+    12715,
+    13022,
+    12633,
+    13005,
+    13007,
+    13012,
+    13051,
+    13184,
+    13191,
+    13158,
+    13253,
+    13335,
+    13343
+  ]
 }

@@ -68,5 +68,92 @@
   "duration": 7889,
   "_tracksDetected": true,
   "certification": "R",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "based on novel or book",
+    "boat",
+    "eroticism",
+    "kiss",
+    "sequel",
+    "bdsm",
+    "dreary"
+  ],
+  "collection": {
+    "id": 344830,
+    "name": "Fifty Shades Collection",
+    "posterPath": "/29sMhnMJPHsbO2XHu35iQjk4eFR.jpg",
+    "backdropPath": "/f7F56YyMX9G6L4ffqNpA9zlG6fm.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/341174-fifty-shades-darker/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      },
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      },
+      {
+        "id": 614,
+        "name": "VI movies and tv",
+        "logoPath": "/9YJY5OwsIPMoX3xC3TdtZVbKBpE.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 232,
+        "name": "Zee5",
+        "logoPath": "/gP67NRy1ShUJilrzMsbOmEmdmcv.jpg"
+      }
+    ],
+    "buy": []
+  },
+  "recommendations": [
+    337167,
+    1477317,
+    1317672,
+    434203,
+    744114,
+    1078600,
+    724089,
+    744276,
+    15720,
+    216015,
+    42135,
+    250225,
+    675485,
+    50512,
+    41003,
+    1294203,
+    66027,
+    2623,
+    2251,
+    613504
+  ],
+  "similar": [
+    1024,
+    1058,
+    259872,
+    1127,
+    1213,
+    1246,
+    1251,
+    1252,
+    1415,
+    1422,
+    1427,
+    1429,
+    1440,
+    1443,
+    1479,
+    1523,
+    1277,
+    1278,
+    1364,
+    1367
+  ]
 }

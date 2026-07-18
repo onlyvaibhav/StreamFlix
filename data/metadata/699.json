@@ -57,5 +57,67 @@
   "duration": 9022,
   "_tracksDetected": true,
   "certification": "PG-13",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "romantic",
+    "romance musical",
+    "young adult romance"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1241634/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    434203,
+    19610,
+    43340,
+    109417,
+    41823,
+    1059073,
+    1450257,
+    1078600,
+    235984,
+    1477317,
+    14882,
+    121879,
+    27804,
+    1317672,
+    1319965,
+    1312946,
+    85654,
+    1075456,
+    744276,
+    613504
+  ],
+  "similar": [
+    10229,
+    10236,
+    10013,
+    10215,
+    1387778,
+    20312,
+    21626,
+    9062,
+    9087,
+    9326,
+    11036,
+    10938,
+    267481,
+    11130,
+    26044,
+    25767,
+    1392469,
+    887,
+    901,
+    872
+  ]
 }

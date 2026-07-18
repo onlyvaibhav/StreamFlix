@@ -57,5 +57,47 @@
   ],
   "logo": "/data/logos/846_logo.png",
   "certification": "U/A 16+",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [],
+  "collection": {
+    "id": 1425100,
+    "name": "World Of Raanjhanaa",
+    "posterPath": "/odV8XsZyUrDsHIou9Fr0CWsu1AS.jpg",
+    "backdropPath": "/8aWG8SzVovCSP5DP8wSrllOsybc.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1142921/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    14834,
+    426203,
+    447362,
+    35064,
+    31005,
+    762975,
+    413884,
+    47525,
+    132316,
+    226857,
+    550231,
+    574451,
+    745376,
+    47359,
+    518497,
+    239571,
+    18538,
+    16022,
+    16659,
+    228205
+  ],
+  "similar": []
 }

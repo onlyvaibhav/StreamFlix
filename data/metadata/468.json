@@ -83,5 +83,79 @@
   "certification": "TV-MA",
   "metadataStatus": "COMPLETE",
   "_stillPath": "/3EPpXB0XNQqXNfAivvJQhOVJvf9.jpg",
-  "episode_still": "/data/stills/468_still.jpg"
+  "episode_still": "/data/stills/468_still.jpg",
+  "keywords": [
+    "suicide",
+    "inspector",
+    "police",
+    "murder",
+    "serial killer",
+    "series of murders",
+    "criminal",
+    "killer",
+    "survey",
+    "mystery"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/tv/201050/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    1426,
+    46648,
+    6322,
+    5920,
+    4860,
+    91875,
+    247518,
+    67743,
+    3476,
+    1405,
+    106349,
+    203504,
+    4057,
+    137127,
+    46316,
+    213306,
+    95272,
+    2428,
+    65784,
+    241549
+  ],
+  "similar": [
+    285278,
+    285295,
+    73368,
+    42221,
+    13749,
+    285338,
+    13821,
+    13865,
+    73527,
+    73554,
+    73557,
+    13869,
+    219661,
+    13916,
+    285480,
+    249582,
+    42456,
+    73650,
+    137140,
+    42389
+  ]
 }

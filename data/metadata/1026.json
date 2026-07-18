@@ -109,5 +109,97 @@
   "duration": 6556.852,
   "_probeFailCount": 0,
   "logo": "/data/logos/1026_logo.png",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "future",
+    "race against time",
+    "immortality",
+    "bank",
+    "dystopia",
+    "time",
+    "love",
+    "on the run",
+    "class differences",
+    "biting",
+    "cops and robbers ",
+    "aggressive",
+    "rich vs poor",
+    "in time",
+    "antagonistic",
+    "defiant",
+    "urgent"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/49530-in-time/watch?locale=IN",
+    "flatrate": [],
+    "rent": [
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    1738,
+    97020,
+    14337,
+    273271,
+    404733,
+    19959,
+    38050,
+    87101,
+    10559,
+    370097,
+    24528,
+    262500,
+    157350,
+    70160,
+    9620,
+    2135,
+    603,
+    32080,
+    339964,
+    577922
+  ],
+  "similar": [
+    10077,
+    266396,
+    10126,
+    10133,
+    10134,
+    10045,
+    445651,
+    445821,
+    10270,
+    10216,
+    10222,
+    10173,
+    11119,
+    626083,
+    11220,
+    11309,
+    11413,
+    11228,
+    11234,
+    1379747
+  ]
 }

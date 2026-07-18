@@ -57,5 +57,42 @@
   "container": "matroska,webm",
   "duration": 6327.24,
   "certification": "UA",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/881099/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 237,
+        "name": "Sony Liv",
+        "logoPath": "/3973zlBbBXdXxaWqRWzGG2GYxbT.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    40387,
+    993867,
+    404733,
+    32080,
+    328480,
+    20482,
+    758724,
+    6028,
+    24655,
+    524251,
+    374515,
+    39925,
+    11167,
+    1310568,
+    11336,
+    11223,
+    21970,
+    2675,
+    25670,
+    13549
+  ],
+  "similar": []
 }

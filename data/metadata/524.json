@@ -303,5 +303,69 @@
   "certification": "TV-MA",
   "metadataStatus": "COMPLETE",
   "_stillPath": "/2Icl9zEy4yCBvkmHA0cp10MKO5s.jpg",
-  "episode_still": "/data/stills/524_still.jpg"
+  "episode_still": "/data/stills/524_still.jpg",
+  "keywords": [
+    "based on true story",
+    "heist",
+    "miniseries",
+    "1980s",
+    "action thriller"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/tv/236449-asalto-al-banco-central/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    156902,
+    72710,
+    308014,
+    218351,
+    146176,
+    285807,
+    262280,
+    227318,
+    108978,
+    216322,
+    114922,
+    137893,
+    67335,
+    280511,
+    222766,
+    132016,
+    68734,
+    64199,
+    278178,
+    64969
+  ],
+  "similar": [
+    27848,
+    27945,
+    57261,
+    57447,
+    57389,
+    205,
+    234979,
+    203728,
+    203675,
+    235,
+    260,
+    122022,
+    352,
+    234994,
+    232,
+    270957,
+    271001,
+    271080,
+    122048,
+    28140
+  ]
 }

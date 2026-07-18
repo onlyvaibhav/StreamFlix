@@ -69,5 +69,116 @@
   "duration": 7718,
   "_tracksDetected": true,
   "certification": "PG-13",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "armor",
+    "superhero",
+    "family relationships",
+    "family",
+    "high tech",
+    "job hunting",
+    "mexican american",
+    "aftercreditsstinger",
+    "duringcreditsstinger",
+    "immigrant family",
+    "college graduate",
+    "dc extended universe (dceu)",
+    "alien technology",
+    "brother sister relationship",
+    "latino"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/565770-blue-beetle/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    283995,
+    447365,
+    640146,
+    609681,
+    986056,
+    566525,
+    299534,
+    118340,
+    384018,
+    791155,
+    24428,
+    102899,
+    299537,
+    284053,
+    385128,
+    284054,
+    524434,
+    10195,
+    487186,
+    99861
+  ],
+  "similar": [
+    10009,
+    10074,
+    10048,
+    9947,
+    1002780,
+    10122,
+    10126,
+    10138,
+    10140,
+    10249,
+    9992,
+    9973,
+    9975,
+    266366,
+    10206,
+    10214,
+    10173,
+    11024,
+    11158,
+    447200
+  ]
 }

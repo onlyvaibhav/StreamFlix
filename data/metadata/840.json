@@ -802,5 +802,73 @@
   "certification": "TV-PG",
   "metadataStatus": "COMPLETE",
   "_stillPath": "/uBZWOLLatkePDrDGtMIQN3jGzeG.jpg",
-  "episode_still": "/data/stills/840_still.jpg"
+  "episode_still": "/data/stills/840_still.jpg",
+  "keywords": [
+    "romance",
+    "based on manga",
+    "shounen",
+    "anime",
+    "japanese high school",
+    "romantic",
+    "admiring",
+    "adoring",
+    "joyful"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/tv/271607/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    239761,
+    247859,
+    82861,
+    22577,
+    72026,
+    209648,
+    34162,
+    81044,
+    74096,
+    156510,
+    42468,
+    42557,
+    43926,
+    63495,
+    36250,
+    43288,
+    67389,
+    235978,
+    278196,
+    65614
+  ],
+  "similar": [
+    236740,
+    236809,
+    91750,
+    205493,
+    205516,
+    123784,
+    123802,
+    91764,
+    91765,
+    91825,
+    91827,
+    91885,
+    205226,
+    123525,
+    123528,
+    236602,
+    59081,
+    123644,
+    59150,
+    91584
+  ]
 }

@@ -56,5 +56,63 @@
   "duration": 6997,
   "_tracksDetected": true,
   "certification": "U/A 16+",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1229078/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 232,
+        "name": "Zee5",
+        "logoPath": "/gP67NRy1ShUJilrzMsbOmEmdmcv.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    576004,
+    1196364,
+    11797,
+    893338,
+    66489,
+    1561969,
+    711705,
+    510388,
+    899294,
+    755566,
+    1519168,
+    28339,
+    1142414,
+    929230,
+    21362,
+    24925,
+    514847,
+    44698,
+    1130276,
+    1109406
+  ],
+  "similar": [
+    618320,
+    618473,
+    439128,
+    1371351,
+    1369953,
+    1369909,
+    1369887,
+    1369901,
+    1369935,
+    437113,
+    1369912,
+    616434,
+    260266,
+    260318,
+    616880,
+    1372069,
+    802793,
+    480,
+    1180009,
+    258688
+  ]
 }

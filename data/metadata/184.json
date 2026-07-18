@@ -122,5 +122,67 @@
   "duration": 7421,
   "_tracksDetected": true,
   "certification": "N/A",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "bride",
+    "rural india",
+    "adventure"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1163194/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    746419,
+    2755,
+    1968,
+    745391,
+    1128614,
+    4806,
+    18417,
+    205022,
+    1241921,
+    550231,
+    6282,
+    14072,
+    881209,
+    975043,
+    426203,
+    450489,
+    6463,
+    818612,
+    611114,
+    664035
+  ],
+  "similar": [
+    814128,
+    814215,
+    269995,
+    1381436,
+    1005728,
+    627655,
+    269758,
+    627715,
+    1006154,
+    1190972,
+    814425,
+    814430,
+    270296,
+    270586,
+    270567,
+    449777,
+    1006660,
+    628566,
+    449510,
+    270386
+  ]
 }

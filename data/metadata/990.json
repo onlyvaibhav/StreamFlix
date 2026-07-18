@@ -71,5 +71,96 @@
   "_tracksDetected": true,
   "_probeFailCount": 0,
   "logo": "/data/logos/990_logo.png",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "undercover",
+    "espionage",
+    "politics",
+    "spy",
+    "traitor",
+    "patriotism",
+    "nationalism",
+    "gore",
+    "gang leader",
+    "pakistan",
+    "sequel",
+    "betrayal",
+    "conspiracy",
+    "torture",
+    "soldier",
+    "india",
+    "interrogation",
+    "terrorist attack",
+    "undercover operation",
+    "gun violence",
+    "bloodshed",
+    "political corruption"
+  ],
+  "collection": {
+    "id": 1628043,
+    "name": "Dhurandhar Collection",
+    "posterPath": "/r4w2Ps0QN9wzMHDepRoj4H7tAM.jpg",
+    "backdropPath": "/4Xv36ZwubtUn6JlIKoKDdhZj565.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1582770/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      },
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    10431,
+    126400,
+    13054,
+    10877,
+    250388,
+    14362,
+    180894,
+    484889,
+    843633,
+    986070,
+    455236,
+    216580,
+    401478,
+    9395,
+    10596,
+    36884,
+    45408,
+    290729,
+    1413976,
+    500
+  ],
+  "similar": [
+    1381465,
+    13056,
+    13123,
+    12699,
+    12705,
+    12711,
+    12715,
+    449033,
+    1005776,
+    12651,
+    12662,
+    12663,
+    448887,
+    12764,
+    12877,
+    13008,
+    269490,
+    12685,
+    13183,
+    13184
+  ]
 }

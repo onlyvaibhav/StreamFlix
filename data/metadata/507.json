@@ -136,5 +136,79 @@
   "duration": 7355,
   "_tracksDetected": true,
   "certification": "N/A",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "based on true story",
+    "historical epic",
+    "indian air force",
+    "pakistani air force"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1143407/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": []
+  },
+  "recommendations": [
+    554600,
+    9664,
+    429351,
+    16113,
+    531876,
+    489245,
+    193756,
+    15497,
+    1291608,
+    545609,
+    13922,
+    542196,
+    1582770,
+    44136,
+    551271,
+    1654,
+    256476,
+    1251,
+    508664,
+    31623
+  ],
+  "similar": [
+    1049,
+    1165,
+    1251,
+    1439,
+    1271,
+    1413,
+    1557,
+    1632,
+    1830,
+    804005,
+    1181291,
+    1181298,
+    1371855,
+    1369909,
+    197,
+    205,
+    616558,
+    437068,
+    437081,
+    437031
+  ]
 }

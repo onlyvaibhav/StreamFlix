@@ -121,5 +121,66 @@
   "certification": "TV-MA",
   "metadataStatus": "COMPLETE",
   "_stillPath": "/aloOSABHsRzN3mxCIuO9GKsWYPm.jpg",
-  "episode_still": "/data/stills/700_still.jpg"
+  "episode_still": "/data/stills/700_still.jpg",
+  "keywords": [
+    "satire",
+    "film industry"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/tv/247043-the-ba-ds-of-bollywood/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    216619,
+    262657,
+    73552,
+    133903,
+    1795,
+    4483,
+    10283,
+    76345,
+    63593,
+    709,
+    39680,
+    32351,
+    112211,
+    4165,
+    307534,
+    39373,
+    1433,
+    133808,
+    2604,
+    243316
+  ],
+  "similar": [
+    29,
+    63,
+    189,
+    121979,
+    304,
+    121926,
+    249,
+    259,
+    380,
+    520,
+    550,
+    555,
+    759,
+    849,
+    854,
+    719,
+    90577,
+    797,
+    90848,
+    90811
+  ]
 }

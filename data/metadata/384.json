@@ -55,5 +55,65 @@
   "duration": 8507,
   "_tracksDetected": true,
   "certification": "UA",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "sex tape"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1213712/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    227159,
+    566927,
+    119738,
+    33871,
+    91739,
+    24109,
+    7288,
+    638597,
+    54540,
+    682254,
+    560044,
+    1045931,
+    12309,
+    582570,
+    1201012,
+    15251,
+    37610,
+    15938,
+    22643,
+    408648
+  ],
+  "similar": [
+    269995,
+    627655,
+    269758,
+    1190972,
+    449510,
+    449627,
+    12273,
+    627072,
+    14165,
+    13986,
+    629104,
+    14071,
+    14072,
+    14214,
+    445685,
+    266550,
+    1187058,
+    445038,
+    1002082,
+    10757
+  ]
 }

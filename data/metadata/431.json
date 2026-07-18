@@ -58,5 +58,78 @@
   "duration": 10531,
   "_tracksDetected": true,
   "certification": "A",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "dark comedy",
+    "hyperlink cinema"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/432011/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 532,
+        "name": "aha",
+        "logoPath": "/8WerMI8XcZXqPpkHTZNtzMzousF.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    28339,
+    172631,
+    95755,
+    455236,
+    680,
+    14575,
+    30709,
+    2239,
+    51512,
+    433503,
+    14262,
+    25006,
+    227300,
+    484889,
+    109843,
+    10683,
+    512239,
+    1387382,
+    245527,
+    31583
+  ],
+  "similar": [
+    9958,
+    266451,
+    624788,
+    10247,
+    266515,
+    10288,
+    9968,
+    445571,
+    266429,
+    10212,
+    1188590,
+    267573,
+    447304,
+    20223,
+    634706,
+    20701,
+    20339,
+    1013482,
+    1564367,
+    20679
+  ]
 }

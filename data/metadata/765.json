@@ -277,5 +277,77 @@
   "certification": "12",
   "metadataStatus": "COMPLETE",
   "_stillPath": "/n41Rbd8VuQ7A2Z2ANI3sl726e76.jpg",
-  "episode_still": "/data/stills/765_still.jpg"
+  "episode_still": "/data/stills/765_still.jpg",
+  "keywords": [
+    "pet",
+    "slice of life",
+    "based on manga",
+    "novelist",
+    "tanuki",
+    "seinen",
+    "anime",
+    "animal human friendship"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/tv/262254/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 283,
+        "name": "Crunchyroll",
+        "logoPath": "/fzN5Jok5Ig1eJ7gyNGoMhnLSCfh.jpg"
+      },
+      {
+        "id": 237,
+        "name": "Sony Liv",
+        "logoPath": "/3973zlBbBXdXxaWqRWzGG2GYxbT.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    202821,
+    43018,
+    48561,
+    138357,
+    196285,
+    88806,
+    60843,
+    288590,
+    15260,
+    154743,
+    231357,
+    34708,
+    75865,
+    229443,
+    57706,
+    138441,
+    276349,
+    19238,
+    36250,
+    912
+  ],
+  "similar": [
+    27838,
+    27845,
+    27885,
+    27866,
+    27816,
+    27942,
+    27813,
+    27977,
+    28136,
+    89742,
+    234868,
+    28037,
+    28061,
+    89796,
+    89811,
+    203704,
+    121840,
+    121848,
+    57287,
+    203521
+  ]
 }

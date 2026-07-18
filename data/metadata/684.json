@@ -497,5 +497,72 @@
   "duration": 7743,
   "_tracksDetected": true,
   "certification": "PG-13",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "central intelligence agency (cia)",
+    "based on novel or book",
+    "hitman",
+    "kidnapping",
+    "agent",
+    "rogue agent",
+    "hunted",
+    "ex-cia agent"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/725201-the-gray-man/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    254904,
+    976734,
+    717930,
+    294793,
+    106021,
+    415842,
+    27576,
+    345887,
+    1197306,
+    59961,
+    1535,
+    347375,
+    22090,
+    10431,
+    302156,
+    137094,
+    9869,
+    68734,
+    9691,
+    30941
+  ],
+  "similar": [
+    9960,
+    1187345,
+    10120,
+    266396,
+    10153,
+    10170,
+    10242,
+    10287,
+    10303,
+    10003,
+    10004,
+    10044,
+    10057,
+    9978,
+    266411,
+    266425,
+    445651,
+    624728,
+    10223,
+    10176
+  ]
 }

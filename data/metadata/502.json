@@ -55,5 +55,129 @@
   "duration": 6351,
   "_tracksDetected": true,
   "certification": "PG-13",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "time travel",
+    "time machine",
+    "based on comic",
+    "alien",
+    "buddy cop",
+    "fictional government agency",
+    "seeing the future",
+    "changing history"
+  ],
+  "collection": {
+    "id": 86055,
+    "name": "Men in Black Collection",
+    "posterPath": "/rWcgZaoJ0nxTFRn0H6w9bdtoDUI.jpg",
+    "backdropPath": "/xKz6YaOvmnIJQ3MYIpnaa7FBaAB.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/41154-men-in-black-3/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 237,
+        "name": "Sony Liv",
+        "logoPath": "/3973zlBbBXdXxaWqRWzGG2GYxbT.jpg"
+      },
+      {
+        "id": 614,
+        "name": "VI movies and tv",
+        "logoPath": "/9YJY5OwsIPMoX3xC3TdtZVbKBpE.jpg"
+      },
+      {
+        "id": 2180,
+        "name": "Sony Pictures Amazon Channel",
+        "logoPath": "/i7FaDWpD2xoIWB5lyF191cykfck.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 232,
+        "name": "Zee5",
+        "logoPath": "/gP67NRy1ShUJilrzMsbOmEmdmcv.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    339964,
+    607,
+    696806,
+    2135,
+    97020,
+    618354,
+    75612,
+    434853,
+    19959,
+    7551,
+    1003580,
+    183011,
+    25642,
+    887357,
+    1410,
+    251768,
+    765172,
+    354857,
+    479455,
+    16000
+  ],
+  "similar": [
+    10040,
+    10077,
+    9947,
+    1553867,
+    10096,
+    10122,
+    10127,
+    10138,
+    10153,
+    10249,
+    266535,
+    10013,
+    9982,
+    1187277,
+    266433,
+    10260,
+    10214,
+    10177,
+    1003758,
+    11335
+  ]
 }

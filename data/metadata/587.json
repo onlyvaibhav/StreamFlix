@@ -69,5 +69,123 @@
   "duration": 9473,
   "_tracksDetected": true,
   "certification": "PG-13",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "race against time",
+    "maya civilization",
+    "civilization",
+    "natural disaster",
+    "earthquake",
+    "end of the world",
+    "disaster",
+    "apocalypse",
+    "destruction",
+    "volcanic eruption",
+    "flood",
+    "disaster movie",
+    "ark",
+    "solar",
+    "2010s",
+    "cautionary",
+    "dramatic",
+    "tense"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/14161-2012/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 2180,
+        "name": "Sony Pictures Amazon Channel",
+        "logoPath": "/i7FaDWpD2xoIWB5lyF191cykfck.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 232,
+        "name": "Zee5",
+        "logoPath": "/gP67NRy1ShUJilrzMsbOmEmdmcv.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    9341,
+    274855,
+    406759,
+    1895,
+    514690,
+    603,
+    615656,
+    95,
+    294254,
+    119450,
+    10357,
+    604,
+    19995,
+    443791,
+    181812,
+    336843,
+    72710,
+    602,
+    68726,
+    124905
+  ],
+  "similar": [
+    2265,
+    2320,
+    619264,
+    4928,
+    4723,
+    4296,
+    4643,
+    1381120,
+    13597,
+    269711,
+    1006462,
+    437543,
+    268,
+    149,
+    217,
+    101,
+    105,
+    437463,
+    482
+  ]
 }

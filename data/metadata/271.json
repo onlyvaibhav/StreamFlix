@@ -55,5 +55,47 @@
   "duration": 7481,
   "_tracksDetected": true,
   "certification": "UA",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1171096/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    1499984,
+    461126,
+    1016414,
+    1086910,
+    213927,
+    31665,
+    690957,
+    24528,
+    981848,
+    487186,
+    731738,
+    1288341,
+    181812,
+    404733,
+    45611,
+    17585,
+    32726,
+    11286,
+    1363123,
+    839033
+  ],
+  "similar": []
 }

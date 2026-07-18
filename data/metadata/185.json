@@ -68,5 +68,75 @@
   "duration": 9286,
   "_tracksDetected": true,
   "certification": "N/A",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "romcom"
+  ],
+  "collection": {
+    "id": 1276844,
+    "name": "Premalu Collection",
+    "posterPath": null,
+    "backdropPath": null
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1149791/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 532,
+        "name": "aha",
+        "logoPath": "/8WerMI8XcZXqPpkHTZNtzMzousF.jpg"
+      },
+      {
+        "id": 614,
+        "name": "VI movies and tv",
+        "logoPath": "/9YJY5OwsIPMoX3xC3TdtZVbKBpE.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    1433842,
+    1618945,
+    1167725,
+    1319504,
+    1321439,
+    818612,
+    22100,
+    199341,
+    936960,
+    523773,
+    17334,
+    627103,
+    1323475,
+    865559,
+    800301,
+    449563,
+    36515,
+    26014,
+    24621,
+    27397
+  ],
+  "similar": [
+    260010,
+    1824,
+    1371430,
+    258354,
+    114,
+    194,
+    1181429,
+    1901,
+    1968,
+    2018,
+    1181237,
+    284,
+    392,
+    1845,
+    1548226,
+    2064,
+    703,
+    637,
+    1180199,
+    802139
+  ]
 }

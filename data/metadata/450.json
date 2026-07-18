@@ -247,5 +247,73 @@
   "certification": "TV-14",
   "metadataStatus": "COMPLETE",
   "_stillPath": "/8Q1vzEL7xPc87pgacuPJHtRAK3X.jpg",
-  "episode_still": "/data/stills/450_still.jpg"
+  "episode_still": "/data/stills/450_still.jpg",
+  "keywords": [
+    "musical",
+    "classical music",
+    "electronic music",
+    "prodigy"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/tv/106872/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    130464,
+    256711,
+    262352,
+    246461,
+    259909,
+    80213,
+    287231,
+    241372,
+    133813,
+    90399,
+    100612,
+    4920,
+    194741,
+    226174,
+    253376,
+    280511,
+    323903,
+    220801,
+    2595,
+    10370
+  ],
+  "similar": [
+    123349,
+    1346,
+    1417,
+    1706,
+    1894,
+    1897,
+    205346,
+    90306,
+    473,
+    90823,
+    658,
+    27907,
+    29063,
+    94617,
+    94639,
+    4048,
+    239496,
+    304699,
+    237529,
+    124572
+  ]
 }

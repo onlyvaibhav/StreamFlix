@@ -70,5 +70,136 @@
   "duration": 9873,
   "_tracksDetected": true,
   "certification": "PG-13",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "airplane",
+    "fight",
+    "burglar",
+    "hostage",
+    "secret identity",
+    "crime fighter",
+    "superhero",
+    "villainess",
+    "time bomb",
+    "based on comic",
+    "cover-up",
+    "vigilante",
+    "tragic hero",
+    "mobile",
+    "terrorism",
+    "destruction",
+    "fighting",
+    "criminal underworld",
+    "cat burglar",
+    "flood"
+  ],
+  "collection": {
+    "id": 263,
+    "name": "The Dark Knight Collection",
+    "posterPath": "/ogyw5LTmL53dVxsppcy8Dlm30Fu.jpg",
+    "backdropPath": "/xyhrCEdB4XRkelfVsqXeUZ6rLHi.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/49026-the-dark-knight-rises/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    155,
+    268,
+    272,
+    414906,
+    242643,
+    2503,
+    667,
+    13387,
+    681,
+    56292,
+    682,
+    232842,
+    253,
+    13291,
+    823625,
+    657,
+    11088,
+    2501,
+    11128,
+    36670
+  ],
+  "similar": [
+    9947,
+    1002780,
+    10138,
+    1187508,
+    10153,
+    10159,
+    10165,
+    10167,
+    10045,
+    10049,
+    266366,
+    10274,
+    10222,
+    10223,
+    10958,
+    10908,
+    11022,
+    11182,
+    11198,
+    11220
+  ]
 }

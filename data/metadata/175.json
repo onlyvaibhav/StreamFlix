@@ -184,5 +184,76 @@
   "certification": "TV-14",
   "metadataStatus": "COMPLETE",
   "_stillPath": "/dcko5CPrv3N6CX0PH6nr5JUO9wf.jpg",
-  "episode_still": "/data/stills/175_still.jpg"
+  "episode_still": "/data/stills/175_still.jpg",
+  "keywords": [
+    "based on novel or book",
+    "fake identity",
+    "businessman",
+    "blind date",
+    "romance",
+    "heir",
+    "employer employee relationship",
+    "office romance",
+    "rich man poor woman",
+    "secondary couple",
+    "charming",
+    "chaebol"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/tv/154825/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    88783,
+    198004,
+    134465,
+    215720,
+    68947,
+    229480,
+    77284,
+    230198,
+    281013,
+    135895,
+    62117,
+    63767,
+    93541,
+    66560,
+    122978,
+    259015,
+    281011,
+    234061,
+    218539,
+    68814
+  ],
+  "similar": [
+    205441,
+    236731,
+    236740,
+    236771,
+    91715,
+    236809,
+    236815,
+    91725,
+    91746,
+    91750,
+    236839,
+    205460,
+    205516,
+    123784,
+    59366,
+    91825,
+    91827,
+    91883,
+    91885,
+    91902
+  ]
 }

@@ -58,5 +58,71 @@
   "duration": 6325,
   "_tracksDetected": true,
   "certification": "R",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "train",
+    "one man army",
+    "relationship",
+    "train robbery",
+    "aggressive",
+    "action hero",
+    "high octane"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1160018-kill/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    484889,
+    6723,
+    79026,
+    25006,
+    45408,
+    9569,
+    15255,
+    14575,
+    395990,
+    8909,
+    843633,
+    36884,
+    1512623,
+    9924,
+    17386,
+    29812,
+    43051,
+    10431,
+    436932,
+    13054
+  ],
+  "similar": [
+    619061,
+    619075,
+    619078,
+    619086,
+    619091,
+    619093,
+    619098,
+    4968,
+    4974,
+    441402,
+    1184060,
+    4465,
+    262352,
+    4706,
+    262120,
+    4251,
+    4252,
+    4253,
+    4254,
+    620766
+  ]
 }

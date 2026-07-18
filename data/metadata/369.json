@@ -42,5 +42,73 @@
   "duration": 9514,
   "_tracksDetected": true,
   "certification": "N/A",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "haunted house",
+    "sequel",
+    "vengeful spirit",
+    "west bengal"
+  ],
+  "collection": {
+    "id": 977824,
+    "name": "Bhool Bhulaiyaa Collection",
+    "posterPath": "/6Q1yAfPwrVahnGw8XafDHI47NDf.jpg",
+    "backdropPath": "/sRNFXlwXN441His0KxAeR62zRtj.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/980599-3/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    917496,
+    695962,
+    4011,
+    9297,
+    19025,
+    864959,
+    1480387,
+    852096,
+    1422096,
+    62213,
+    12268,
+    257445,
+    585083,
+    34560,
+    533991,
+    442062,
+    10192,
+    11024,
+    1187058,
+    15856
+  ],
+  "similar": [
+    10040,
+    9948,
+    1002770,
+    10127,
+    10131,
+    1554048,
+    1187619,
+    10152,
+    10160,
+    10283,
+    10285,
+    10292,
+    10303,
+    10306,
+    10072,
+    1187417,
+    266419,
+    445685,
+    445710,
+    10281
+  ]
 }

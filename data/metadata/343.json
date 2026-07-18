@@ -43,5 +43,66 @@
   "duration": 7430,
   "_tracksDetected": true,
   "certification": "R",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "suspenseful",
+    "horrified"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1245700-36/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    4959,
+    48129,
+    395458,
+    970347,
+    862552,
+    1128546,
+    1020662,
+    1043565,
+    323368,
+    808396,
+    846956,
+    419835,
+    435036,
+    13252,
+    13483,
+    1530875,
+    190955,
+    51512,
+    43549,
+    457962
+  ],
+  "similar": [
+    814128,
+    13123,
+    814215,
+    1005728,
+    627655,
+    13195,
+    1006154,
+    814425,
+    814430,
+    13333,
+    270296,
+    270586,
+    13703,
+    270567,
+    449777,
+    1006660,
+    628566,
+    270386,
+    270417,
+    449361
+  ]
 }

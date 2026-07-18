@@ -95,5 +95,83 @@
   "certification": "TV-MA",
   "metadataStatus": "COMPLETE",
   "_stillPath": "/jIMSYqNIjAqMIDdeD361dzWwfZB.jpg",
-  "episode_still": "/data/stills/819_still.jpg"
+  "episode_still": "/data/stills/819_still.jpg",
+  "keywords": [
+    "sheriff",
+    "small town",
+    "gore",
+    "trapped",
+    "cynical",
+    "folk horror",
+    "supernatural horror",
+    "lovecraftian",
+    "suspense",
+    "violence",
+    "horror",
+    "apathetic",
+    "complicated",
+    "cruel"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/tv/124364-from/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    66732,
+    68315,
+    10545,
+    71116,
+    84647,
+    93826,
+    247721,
+    1920,
+    86423,
+    3470,
+    120462,
+    12832,
+    79240,
+    82816,
+    93784,
+    53425,
+    54344,
+    39351,
+    80213,
+    83659
+  ],
+  "similar": [
+    105555,
+    219661,
+    42329,
+    13915,
+    13916,
+    42460,
+    137408,
+    137417,
+    13989,
+    73467,
+    249527,
+    42390,
+    73699,
+    249617,
+    73501,
+    73586,
+    42282,
+    42671,
+    249812,
+    249748
+  ]
 }

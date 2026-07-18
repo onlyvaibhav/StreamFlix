@@ -84,5 +84,77 @@
   "duration": 9572,
   "_tracksDetected": true,
   "certification": "U/A 16+",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "remake",
+    "based on movie"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1083241/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": []
+  },
+  "recommendations": [
+    945937,
+    1327690,
+    846433,
+    974453,
+    22029,
+    531503,
+    34813,
+    51216,
+    14576,
+    438650,
+    23847,
+    808396,
+    628847,
+    48129,
+    45408,
+    893086,
+    22314,
+    14575,
+    351901,
+    1387382
+  ],
+  "similar": [
+    619061,
+    619075,
+    619078,
+    619086,
+    619091,
+    619093,
+    619098,
+    4955,
+    1550345,
+    1184060,
+    4541,
+    4542,
+    4544,
+    262352,
+    4858,
+    262120,
+    4251,
+    4252,
+    4253,
+    4254
+  ]
 }

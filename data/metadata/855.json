@@ -70,5 +70,105 @@
   "duration": 7244,
   "_tracksDetected": true,
   "certification": "PG",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "africa",
+    "lion",
+    "prince",
+    "redemption",
+    "musical",
+    "uncle",
+    "remake",
+    "grief",
+    "king",
+    "family",
+    "sidekick",
+    "live action and animation",
+    "father son relationship",
+    "live action remake"
+  ],
+  "collection": {
+    "id": 762512,
+    "name": "The Lion King (Reboot) Collection",
+    "posterPath": "/dGpIRn4Nqi63JO1RlKxjcPbQSAw.jpg",
+    "backdropPath": "/1KeXF239BkqLChcAcF8gKl1stZz.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/420818-the-lion-king/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    8587,
+    762509,
+    14499,
+    14873,
+    41216,
+    1374686,
+    16366,
+    11238,
+    359983,
+    1181107,
+    805051,
+    1358305,
+    13205,
+    44283,
+    2454,
+    309809,
+    59981,
+    278927,
+    730840,
+    15657
+  ],
+  "similar": [
+    617882,
+    438695,
+    438824,
+    1125,
+    1247,
+    996087,
+    1422,
+    1443,
+    1450,
+    1523,
+    1534,
+    438818,
+    1255,
+    1267,
+    1361,
+    1372,
+    1393,
+    1402,
+    1407,
+    1414
+  ]
 }

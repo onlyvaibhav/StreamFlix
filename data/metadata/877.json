@@ -55,5 +55,64 @@
   "duration": 7661,
   "_tracksDetected": true,
   "certification": "U/A 16+",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "bhagwat"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1554037-bhagwat-chapter-one-raakshas/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 232,
+        "name": "Zee5",
+        "logoPath": "/gP67NRy1ShUJilrzMsbOmEmdmcv.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    1242501,
+    846956,
+    339849,
+    1387382,
+    1109406,
+    1225915,
+    1644,
+    763788,
+    808396,
+    157351,
+    375846,
+    244536,
+    978796,
+    760741,
+    1469354,
+    5852,
+    1024127,
+    522016,
+    87867,
+    1093994
+  ],
+  "similar": [
+    994580,
+    1546104,
+    1546149,
+    1546316,
+    257895,
+    1546259,
+    1369987,
+    1370041,
+    1546184,
+    1546190,
+    1546158,
+    1546171,
+    1546180,
+    1546181,
+    1369909,
+    994587,
+    1370027,
+    1369928,
+    616253
+  ]
 }

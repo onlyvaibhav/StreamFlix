@@ -57,5 +57,69 @@
   "duration": 4313,
   "_tracksDetected": true,
   "certification": "N/A",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "based on novel or book",
+    "mysterious killer",
+    "murder mystery",
+    "idle rich",
+    "mystery killings"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1051023/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    419835,
+    808396,
+    13252,
+    6105,
+    1530875,
+    320295,
+    4959,
+    970347,
+    808023,
+    1043565,
+    1461181,
+    122930,
+    2118,
+    1227816,
+    30941,
+    64689,
+    13389,
+    3594,
+    812583,
+    11092
+  ],
+  "similar": [
+    269971,
+    449176,
+    13123,
+    13128,
+    1381634,
+    269995,
+    12699,
+    12994,
+    448925,
+    627655,
+    1381151,
+    269495,
+    269509,
+    12634,
+    269758,
+    448736,
+    448776,
+    12684,
+    12689,
+    1190972
+  ]
 }

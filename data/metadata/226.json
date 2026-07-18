@@ -69,5 +69,105 @@
   "duration": 3495,
   "_tracksDetected": true,
   "certification": "PG-13",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "assassin",
+    "spain",
+    "assassination",
+    "chase",
+    "secret society",
+    "brotherhood",
+    "parkour",
+    "conspiracy",
+    "religion",
+    "memory",
+    "based on video game",
+    "15th century",
+    "corporate conspiracy",
+    "genetic memory"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/121856-assassin-s-creed/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 614,
+        "name": "VI movies and tv",
+        "logoPath": "/9YJY5OwsIPMoX3xC3TdtZVbKBpE.jpg"
+      },
+      {
+        "id": 701,
+        "name": "FilmBox+",
+        "logoPath": "/fbveJTcro9Xw2KuPIIoPPePHiwy.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    406990,
+    278924,
+    470114,
+    581726,
+    401478,
+    955,
+    739405,
+    13282,
+    156717,
+    10366,
+    10596,
+    932420,
+    8452,
+    1576,
+    324670,
+    325348,
+    46528,
+    22832,
+    59967,
+    9739
+  ],
+  "similar": [
+    12701,
+    269741,
+    12653,
+    12683,
+    12685,
+    13051,
+    13183,
+    13184,
+    13190,
+    13273,
+    13336,
+    13648,
+    13798,
+    13363,
+    13492,
+    13274,
+    449306,
+    12123,
+    269340,
+    12580
+  ]
 }

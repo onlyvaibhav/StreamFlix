@@ -68,5 +68,89 @@
   "duration": 7551,
   "_tracksDetected": true,
   "certification": "R",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "sperm bank",
+    "sequel",
+    "buddy",
+    "courthouse",
+    "teddy bear",
+    "aftercreditsstinger",
+    "toy comes to life",
+    "provocative",
+    "high concept comedy"
+  ],
+  "collection": {
+    "id": 266672,
+    "name": "Ted Collection",
+    "posterPath": "/byyIOLolJek05l4d1QAmLwtuyDO.jpg",
+    "backdropPath": "/dGrNuWhapf8T0WH98xTC4LXgk1G.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/214756-ted-2/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      },
+      {
+        "id": 614,
+        "name": "VI movies and tv",
+        "logoPath": "/9YJY5OwsIPMoX3xC3TdtZVbKBpE.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": []
+  },
+  "recommendations": [
+    72105,
+    71552,
+    187017,
+    573435,
+    862551,
+    9285,
+    208134,
+    343668,
+    522931,
+    109439,
+    521844,
+    188161,
+    8386,
+    1368881,
+    1013860,
+    50022,
+    28339,
+    1217602,
+    507244,
+    2295
+  ],
+  "similar": [
+    13053,
+    13073,
+    12702,
+    12705,
+    13007,
+    12685,
+    448950,
+    13155,
+    13158,
+    13204,
+    13253,
+    449380,
+    13313,
+    13335,
+    13378,
+    13649,
+    13654,
+    13667,
+    13690,
+    13767
+  ]
 }

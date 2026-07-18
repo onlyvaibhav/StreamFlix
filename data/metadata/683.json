@@ -71,5 +71,105 @@
   "duration": 6246,
   "_tracksDetected": true,
   "certification": "PG",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "california",
+    "based on novel or book",
+    "snake",
+    "police",
+    "wolf",
+    "fight",
+    "spider",
+    "villain",
+    "sequel",
+    "heist",
+    "anthropomorphism",
+    "space",
+    "los angeles, california",
+    "wedding",
+    "space station",
+    "framed for a crime",
+    "luchador",
+    "3d animation",
+    "joyful"
+  ],
+  "collection": {
+    "id": 1231053,
+    "name": "The Bad Guys Collection",
+    "posterPath": "/MvnERW28KnZ5fmxS73a27m3qhN.jpg",
+    "backdropPath": "/m4WprwbsvC1HsORjSiZmiARy9yl.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1175942-the-bad-guys-2/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    629542,
+    13690,
+    137116,
+    420821,
+    12242,
+    748783,
+    639721,
+    774370,
+    774825,
+    417859,
+    412117,
+    8355,
+    1084242,
+    324852,
+    57800,
+    927254,
+    585245,
+    6878,
+    1029119,
+    20694
+  ],
+  "similar": [
+    438695,
+    259907,
+    438788,
+    1213,
+    1248,
+    996129,
+    1415,
+    1422,
+    1427,
+    1429,
+    1452,
+    1497,
+    1499,
+    995926,
+    1266,
+    1267,
+    1269,
+    1361,
+    1362,
+    1380
+  ]
 }

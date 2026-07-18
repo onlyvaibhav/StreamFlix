@@ -69,5 +69,91 @@
   ],
   "logo": "/data/logos/847_logo.png",
   "certification": "PG-13",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "deja vu",
+    "technology",
+    "fbi",
+    "patriotism",
+    "new orleans, louisiana",
+    "time travel",
+    "wormhole",
+    "terrorism",
+    "investigator",
+    "alternate timeline",
+    "ferry"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/7551-deja-vu/watch?locale=IN",
+    "flatrate": [],
+    "rent": [
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    180,
+    10559,
+    577922,
+    1738,
+    97020,
+    1236153,
+    19959,
+    9620,
+    269795,
+    14337,
+    13027,
+    575265,
+    1275779,
+    823625,
+    13455,
+    137113,
+    10796,
+    2135,
+    12914,
+    860
+  ],
+  "similar": [
+    10040,
+    10077,
+    9963,
+    1553867,
+    10122,
+    10138,
+    10153,
+    10163,
+    10167,
+    9989,
+    10824,
+    1003758,
+    10958,
+    11028,
+    11182,
+    447191,
+    11198,
+    11329,
+    268002,
+    1563912
+  ]
 }

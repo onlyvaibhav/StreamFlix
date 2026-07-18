@@ -82,5 +82,76 @@
   "duration": 9155.465,
   "_tracksDetected": true,
   "certification": "PG-13",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "based on novel or book",
+    "car race",
+    "sports",
+    "car mechanic",
+    "biography",
+    "based on true story",
+    "le mans",
+    "racing",
+    "race car driver",
+    "frantic",
+    "1960s",
+    "motorsport"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/359724-ford-v-ferrari/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    457232,
+    292011,
+    2133,
+    10423,
+    972433,
+    9549,
+    2119,
+    300673,
+    1852,
+    9289,
+    458131,
+    17599,
+    408266,
+    911430,
+    136797,
+    388399,
+    522162,
+    10971,
+    10911,
+    2503
+  ],
+  "similar": [
+    449074,
+    13064,
+    13074,
+    1006201,
+    269971,
+    449176,
+    1006268,
+    13128,
+    814215,
+    269998,
+    12700,
+    12701,
+    12716,
+    12717,
+    12994,
+    448925,
+    13022,
+    269783,
+    1005728,
+    1381142
+  ]
 }

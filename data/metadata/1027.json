@@ -58,5 +58,69 @@
   "duration": 7103.668,
   "_probeFailCount": 0,
   "logo": "N/A",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/71481-404-error-not-found/watch?locale=IN",
+    "flatrate": [],
+    "rent": [
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    302528,
+    65650,
+    48129,
+    435036,
+    1242669,
+    14755,
+    149509,
+    157351,
+    33195,
+    32080,
+    13483,
+    395458,
+    862552,
+    404733,
+    808228,
+    13252,
+    1530875,
+    1029827,
+    1020662,
+    1128546
+  ],
+  "similar": [
+    814128,
+    13123,
+    814215,
+    1005728,
+    627655,
+    1006154,
+    814425,
+    814430,
+    270296,
+    270586,
+    270567,
+    449777,
+    1006660,
+    628566,
+    270386,
+    270417,
+    449361,
+    1006715,
+    449627,
+    813360
+  ]
 }

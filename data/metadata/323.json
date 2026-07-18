@@ -82,5 +82,70 @@
   "certification": "TV-MA",
   "metadataStatus": "COMPLETE",
   "_stillPath": "/3AtpmAknPSnHQT6f7cmhiLRHMcZ.jpg",
-  "episode_still": "/data/stills/323_still.jpg"
+  "episode_still": "/data/stills/323_still.jpg",
+  "keywords": [
+    "hotstar special"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/tv/203832/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      },
+      {
+        "id": 614,
+        "name": "VI movies and tv",
+        "logoPath": "/9YJY5OwsIPMoX3xC3TdtZVbKBpE.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    323411,
+    125116,
+    1593,
+    85273,
+    238128,
+    1639,
+    85232,
+    63201,
+    131992,
+    72752,
+    1386,
+    80828,
+    48860,
+    60735,
+    93352,
+    128839,
+    76479,
+    70485,
+    107365,
+    71693
+  ],
+  "similar": [
+    301070,
+    204908,
+    294087,
+    27826,
+    27827,
+    27841,
+    27846,
+    27848,
+    27855,
+    27863,
+    27866,
+    27867,
+    27870,
+    27932,
+    27936,
+    27907,
+    27940,
+    27945,
+    27771,
+    27916
+  ]
 }

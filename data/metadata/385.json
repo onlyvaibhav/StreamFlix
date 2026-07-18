@@ -81,5 +81,145 @@
   "duration": 9325,
   "_tracksDetected": true,
   "certification": "PG-13",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "empire",
+    "future",
+    "army",
+    "prophecy",
+    "dystopia",
+    "emperor",
+    "sand",
+    "spice",
+    "chosen one",
+    "hallucinogen",
+    "treason",
+    "baron",
+    "revenge",
+    "premonition",
+    "betrayal",
+    "space",
+    "water shortage",
+    "creature",
+    "desert",
+    "knife fight",
+    "destiny",
+    "giant worm",
+    "space opera",
+    "sand dune",
+    "messiah",
+    "complex",
+    "mother son relationship",
+    "giant creature",
+    "epic sci-fi"
+  ],
+  "collection": {
+    "id": 726871,
+    "name": "Dune Collection",
+    "posterPath": "/lxIGYkpvYjLtYtZH684AQft0FhD.jpg",
+    "backdropPath": "/fahk0Fu7VUUfK6IkTt1R3waOD9F.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/438631-dune/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      },
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    693134,
+    1895,
+    3604,
+    604,
+    339964,
+    80274,
+    412656,
+    181812,
+    72710,
+    83533,
+    13475,
+    2114,
+    559,
+    74,
+    127585,
+    348350,
+    871,
+    68726,
+    188927,
+    8373
+  ],
+  "similar": [
+    10077,
+    9960,
+    10127,
+    10133,
+    10134,
+    10138,
+    10140,
+    10163,
+    10165,
+    10228,
+    10243,
+    10303,
+    10304,
+    10045,
+    10049,
+    445481,
+    266261,
+    266373,
+    445651,
+    10257
+  ]
 }

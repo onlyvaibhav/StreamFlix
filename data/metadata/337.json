@@ -69,5 +69,60 @@
   "certification": "U/A 16+",
   "metadataStatus": "COMPLETE",
   "_stillPath": "/r1ghDrurBISSqmaWoMmWMHwTl3x.jpg",
-  "episode_still": "/data/stills/337_still.jpg"
+  "episode_still": "/data/stills/337_still.jpg",
+  "keywords": [
+    "romance",
+    "teen drama"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/tv/223952-gutar-gu/watch?locale=IN",
+    "flatrate": [],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    126914,
+    41875,
+    96734,
+    261545,
+    113457,
+    42032,
+    246992,
+    62704,
+    105,
+    211,
+    900,
+    5721,
+    116450,
+    158756,
+    100883,
+    61871,
+    85727,
+    71199,
+    269,
+    273240
+  ],
+  "similar": [
+    206437,
+    60358,
+    60406,
+    206602,
+    206646,
+    30961,
+    273642,
+    273643,
+    30979,
+    237843,
+    124585,
+    124595,
+    237918,
+    237925,
+    92721,
+    92755,
+    92778,
+    92779,
+    302706,
+    302707
+  ]
 }

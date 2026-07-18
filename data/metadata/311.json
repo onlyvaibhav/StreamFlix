@@ -82,5 +82,121 @@
   "duration": 6504,
   "_tracksDetected": true,
   "certification": "R",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "mythology",
+    "longing",
+    "djinn",
+    "desire",
+    "storytelling",
+    "wish fulfillment",
+    "genie",
+    "public speaking",
+    "istanbul, turkey",
+    "scholar",
+    "lonely woman",
+    "complex",
+    "wishes",
+    "doctorate",
+    "whimsical"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/556694-three-thousand-years-of-longing/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    19214,
+    399055,
+    354859,
+    831395,
+    152603,
+    559907,
+    10922,
+    77985,
+    1059128,
+    390874,
+    607430,
+    763148,
+    790459,
+    14553,
+    12568,
+    20312,
+    15720,
+    11559,
+    141,
+    1024
+  ],
+  "similar": [
+    449016,
+    12900,
+    1557162,
+    13688,
+    13703,
+    13783,
+    814675,
+    270417,
+    628516,
+    12594,
+    11976,
+    12092,
+    12093,
+    12232,
+    1380894,
+    13945,
+    13967,
+    14064,
+    9963,
+    10191
+  ]
 }

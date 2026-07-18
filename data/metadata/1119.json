@@ -38,5 +38,77 @@
   "metadataStatus": "COMPLETE",
   "logo": "/data/logos/show_68854_logo.png",
   "_stillPath": "/qsVL2nwLrijPN1I4oHsouABbyta.jpg",
-  "episode_still": "/data/stills/1119_still.jpg"
+  "episode_still": "/data/stills/1119_still.jpg",
+  "keywords": [
+    "friendship",
+    "high school",
+    "romance",
+    "slice of life",
+    "coming of age",
+    "school",
+    "based on manga",
+    "school life",
+    "heart warming",
+    "shoujo",
+    "anime",
+    "japanese high school",
+    "hokkaido, japan"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/tv/68854/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    271607,
+    287591,
+    247859,
+    239761,
+    35790,
+    297438,
+    82861,
+    67389,
+    56568,
+    43288,
+    42557,
+    63495,
+    82738,
+    278196,
+    43926,
+    63145,
+    61339,
+    39434,
+    5405,
+    39218
+  ],
+  "similar": [
+    205155,
+    1536,
+    123491,
+    123494,
+    123503,
+    236445,
+    205182,
+    205183,
+    205192,
+    236520,
+    301488,
+    236530,
+    236532,
+    236533,
+    301544,
+    205258,
+    91538,
+    91539,
+    91547,
+    91565
+  ]
 }

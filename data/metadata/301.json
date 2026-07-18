@@ -94,5 +94,75 @@
   "certification": "TV-MA",
   "metadataStatus": "COMPLETE",
   "_stillPath": "/oIRkUYbf7dQBjq6kZsjrMrPd49x.jpg",
-  "episode_still": "/data/stills/301_still.jpg"
+  "episode_still": "/data/stills/301_still.jpg",
+  "keywords": [
+    "sibling relationship",
+    "based on novel or book",
+    "haunted house",
+    "supernatural",
+    "family relationships",
+    "old dark house",
+    "ghost",
+    "curious",
+    "supernatural power",
+    "supernatural horror",
+    "horror"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/tv/72844-the-haunting-of-hill-house/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    67136,
+    253321,
+    61986,
+    126254,
+    1622,
+    269,
+    79242,
+    40008,
+    7087,
+    88055,
+    39852,
+    63210,
+    109958,
+    157065,
+    246461,
+    68421,
+    18165,
+    73987,
+    69050,
+    66025
+  ],
+  "similar": [
+    27907,
+    27945,
+    19,
+    32,
+    52,
+    27771,
+    95,
+    140,
+    155,
+    185,
+    57306,
+    57433,
+    205,
+    206,
+    203502,
+    121837,
+    203704,
+    203706,
+    203728,
+    269
+  ]
 }

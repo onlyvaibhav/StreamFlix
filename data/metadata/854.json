@@ -72,5 +72,74 @@
   ],
   "logo": "/data/logos/854_logo.png",
   "certification": "PG",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "wish",
+    "dragon",
+    "nostalgic",
+    "3d animation",
+    "cheerful"
+  ],
+  "collection": {
+    "id": 1618054,
+    "name": "Wish Dragon Collection",
+    "posterPath": "/tXwPdAua93BkDzuV2UCVkNkizM0.jpg",
+    "backdropPath": "/n0wt2Ad6Rsl6qJ5darc9zMALacg.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/550205-wish-dragon/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    1117857,
+    832502,
+    560052,
+    527774,
+    877269,
+    410113,
+    991494,
+    82702,
+    809,
+    430162,
+    315162,
+    778855,
+    594328,
+    13682,
+    1029119,
+    523366,
+    442056,
+    592983,
+    682254,
+    170687
+  ],
+  "similar": [
+    438695,
+    438788,
+    1267,
+    1362,
+    260263,
+    260234,
+    1371727,
+    803796,
+    1180750,
+    1547567,
+    260310,
+    122,
+    258152,
+    616473,
+    1369921,
+    114,
+    168,
+    12,
+    194,
+    239
+  ]
 }

@@ -55,5 +55,65 @@
   "duration": 8814,
   "_tracksDetected": true,
   "certification": "N/A",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "awestruck"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1163258-12/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    113294,
+    463158,
+    829503,
+    1212271,
+    69557,
+    9815,
+    159389,
+    82631,
+    1227128,
+    673309,
+    940139,
+    283698,
+    249164,
+    29989,
+    514439,
+    24747,
+    19819,
+    273059,
+    878375,
+    67809
+  ],
+  "similar": [
+    814128,
+    814215,
+    1005728,
+    627655,
+    1006154,
+    814425,
+    814430,
+    270296,
+    270586,
+    270567,
+    449777,
+    1006660,
+    628566,
+    270386,
+    270417,
+    449361,
+    1006715,
+    449627,
+    12106,
+    627072
+  ]
 }

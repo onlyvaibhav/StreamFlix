@@ -57,5 +57,68 @@
   "duration": 10398,
   "_tracksDetected": true,
   "certification": "NR",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [],
+  "collection": {
+    "id": 1717785,
+    "name": "War Collection",
+    "posterPath": "/3kt1lkq3f1KKpXRsoC8fprW5WcW.jpg",
+    "backdropPath": "/3cJLDFZXPgQYNh3rE7nW96zMRkd.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1109086-2/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    1093995,
+    1288341,
+    24528,
+    51997,
+    37821,
+    19403,
+    1363123,
+    17585,
+    404733,
+    32080,
+    453405,
+    823625,
+    423087,
+    993867,
+    1499984,
+    885331,
+    46041,
+    32740,
+    13064,
+    27590
+  ],
+  "similar": [
+    1369909,
+    56901,
+    491111,
+    491114,
+    491120,
+    56969,
+    309467,
+    309494,
+    669750,
+    309671,
+    309593,
+    669696,
+    858288,
+    491109,
+    309689,
+    309698,
+    670217,
+    491916,
+    1233208,
+    310123
+  ]
 }

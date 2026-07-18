@@ -121,5 +121,104 @@
   "duration": 7487,
   "_tracksDetected": true,
   "certification": "R",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "assassin",
+    "tattoo",
+    "grenade",
+    "austria",
+    "training",
+    "female protagonist",
+    "female assassin",
+    "spin off",
+    "flamethrower",
+    "burning",
+    "hunted",
+    "burning building",
+    "ballerina",
+    "gun fight",
+    "vengeance",
+    "knocked unconscious",
+    "sisters",
+    "brutal violence"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/541671-ballerina/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    50456,
+    324552,
+    539885,
+    62835,
+    578701,
+    24,
+    11412,
+    617502,
+    574060,
+    393,
+    552688,
+    484641,
+    645788,
+    339692,
+    22832,
+    278924,
+    534490,
+    597891,
+    414419,
+    4959
+  ],
+  "similar": [
+    9947,
+    266396,
+    10134,
+    9978,
+    10066,
+    11220,
+    11423,
+    20187,
+    20769,
+    20329,
+    21015,
+    276526,
+    634528,
+    455402,
+    455476,
+    20270,
+    21489,
+    21575,
+    21635,
+    1198263
+  ]
 }

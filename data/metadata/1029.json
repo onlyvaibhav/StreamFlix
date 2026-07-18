@@ -81,5 +81,47 @@
   "_tracksDetected": true,
   "_probeFailCount": 0,
   "logo": "/data/logos/1029_logo.png",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1150478/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    1288341,
+    1363123,
+    993867,
+    423087,
+    1499984,
+    24528,
+    37821,
+    27590,
+    1016414,
+    32627,
+    2453,
+    981848,
+    404733,
+    32080,
+    690957,
+    592834,
+    370097,
+    1086910,
+    17585,
+    457249
+  ],
+  "similar": []
 }

@@ -69,5 +69,114 @@
   "duration": 2624,
   "_tracksDetected": true,
   "certification": "PG-13",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "hero",
+    "superhero",
+    "anti hero",
+    "villain",
+    "alien life-form",
+    "based on comic",
+    "sequel",
+    "aftercreditsstinger",
+    "woman director"
+  ],
+  "collection": {
+    "id": 558216,
+    "name": "Venom Collection",
+    "posterPath": "/unpRHoS5df7VEukeukCAgHU1sV2.jpg",
+    "backdropPath": "/vq340s8DxA5Q209FT8PHA6CXYOx.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/912649-venom-the-last-dance/watch?locale=IN",
+    "flatrate": [],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 232,
+        "name": "Zee5",
+        "logoPath": "/gP67NRy1ShUJilrzMsbOmEmdmcv.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    76170,
+    539972,
+    436969,
+    293660,
+    335983,
+    383498,
+    34851,
+    533535,
+    338762,
+    496704,
+    1242898,
+    932420,
+    59859,
+    10366,
+    7737,
+    1003581,
+    507244,
+    1577,
+    324670,
+    280
+  ],
+  "similar": [
+    438713,
+    259907,
+    1250,
+    1180831,
+    1452,
+    1487,
+    1497,
+    1498,
+    1499,
+    1091,
+    995926,
+    1267,
+    1271,
+    1273,
+    438885,
+    438890,
+    1361,
+    438970,
+    438971,
+    1371510
+  ]
 }

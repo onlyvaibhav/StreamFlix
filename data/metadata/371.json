@@ -69,5 +69,146 @@
   "duration": 4503.007,
   "_tracksDetected": true,
   "certification": "PG-13",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "mask",
+    "mission",
+    "london, england",
+    "central intelligence agency (cia)",
+    "computer",
+    "paris, france",
+    "undercover",
+    "espionage",
+    "secret mission",
+    "arms deal",
+    "spy",
+    "secret identity",
+    "headquarter",
+    "embassy",
+    "secret base",
+    "fake identity",
+    "prague, czech republic",
+    "secret agent",
+    "secret government organization",
+    "infiltration",
+    "terrorism",
+    "agent",
+    "fictional government agency",
+    "government agency",
+    "based on tv series"
+  ],
+  "collection": {
+    "id": 87359,
+    "name": "Mission: Impossible Collection",
+    "posterPath": "/geEjCGfdmRAA1skBPwojcdvnZ8A.jpg",
+    "backdropPath": "/mroWh717g0Ah2c0rrPGW6f3EWMM.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/954-mission-impossible/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 232,
+        "name": "Zee5",
+        "logoPath": "/gP67NRy1ShUJilrzMsbOmEmdmcv.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    177677,
+    353081,
+    575264,
+    206647,
+    146216,
+    956,
+    1087891,
+    203801,
+    575265,
+    56292,
+    848538,
+    2503,
+    1088166,
+    658,
+    2501,
+    724209,
+    714,
+    479455,
+    699,
+    1093995
+  ],
+  "similar": [
+    1187345,
+    10112,
+    445648,
+    10133,
+    1554075,
+    10167,
+    10170,
+    10283,
+    9989,
+    9994,
+    10002,
+    10003,
+    10045,
+    10083,
+    10084,
+    10054,
+    10057,
+    9978,
+    1187354,
+    1553889
+  ]
 }

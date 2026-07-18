@@ -69,5 +69,87 @@
   "certification": "TV-14",
   "metadataStatus": "COMPLETE",
   "_stillPath": "/n2Q0rl4sY5fLqTFhf9VBaMpdd54.jpg",
-  "episode_still": "/data/stills/746_still.jpg"
+  "episode_still": "/data/stills/746_still.jpg",
+  "keywords": [
+    "friendship",
+    "high school",
+    "romance",
+    "slice of life",
+    "school",
+    "based on manga",
+    "country girl",
+    "seinen",
+    "anime",
+    "japanese high school",
+    "high school romance",
+    "high school life",
+    "student council"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/tv/139130/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 283,
+        "name": "Crunchyroll",
+        "logoPath": "/fzN5Jok5Ig1eJ7gyNGoMhnLSCfh.jpg"
+      },
+      {
+        "id": 237,
+        "name": "Sony Liv",
+        "logoPath": "/3973zlBbBXdXxaWqRWzGG2GYxbT.jpg"
+      },
+      {
+        "id": 1968,
+        "name": "Crunchyroll Amazon Channel",
+        "logoPath": "/pgjz7bzfBq4nFDu8JJDLBoUVAX8.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    130237,
+    72509,
+    36697,
+    209845,
+    63330,
+    96316,
+    56354,
+    65944,
+    72523,
+    121792,
+    83121,
+    127549,
+    139287,
+    50076,
+    105556,
+    42500,
+    52891,
+    239214,
+    98986,
+    72296
+  ],
+  "similar": [
+    123737,
+    236740,
+    91715,
+    236809,
+    91729,
+    91750,
+    205487,
+    205493,
+    205460,
+    205516,
+    123784,
+    123802,
+    91764,
+    91765,
+    91780,
+    1786,
+    91825,
+    91827,
+    91883,
+    91885
+  ]
 }

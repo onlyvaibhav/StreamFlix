@@ -55,5 +55,69 @@
   "duration": 8447,
   "_tracksDetected": true,
   "certification": "N/A",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/523278-saand-ki-aankh/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 232,
+        "name": "Zee5",
+        "logoPath": "/gP67NRy1ShUJilrzMsbOmEmdmcv.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 232,
+        "name": "Zee5",
+        "logoPath": "/gP67NRy1ShUJilrzMsbOmEmdmcv.jpg"
+      }
+    ],
+    "buy": []
+  },
+  "recommendations": [
+    113294,
+    1292415,
+    273059,
+    159389,
+    79026,
+    295886,
+    1227739,
+    67809,
+    1636891,
+    413337,
+    29989,
+    15797,
+    846433,
+    945937,
+    127373,
+    463158,
+    411139,
+    184341,
+    35030,
+    586032
+  ],
+  "similar": [
+    619061,
+    619078,
+    619086,
+    619093,
+    619098,
+    1184060,
+    262352,
+    262120,
+    4251,
+    4252,
+    4253,
+    4254,
+    441139,
+    814425,
+    627964,
+    616870,
+    802403,
+    480,
+    258709,
+    258710
+  ]
 }

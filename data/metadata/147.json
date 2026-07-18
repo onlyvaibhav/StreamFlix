@@ -68,5 +68,71 @@
   "duration": 9371,
   "_tracksDetected": true,
   "certification": "UA",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "sacrifice",
+    "redemption",
+    "betrayal",
+    "political intrigue ",
+    "wrongful conviction",
+    "mother son relationship",
+    "mother son estrangement"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/868660/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    891699,
+    364223,
+    574060,
+    500922,
+    1315986,
+    1196573,
+    758679,
+    855263,
+    48129,
+    1167271,
+    589820,
+    645886,
+    1387382,
+    860623,
+    1007427,
+    572751,
+    157351,
+    340666,
+    1211776,
+    497814
+  ],
+  "similar": [
+    1371303,
+    1429,
+    1487,
+    1494,
+    1408,
+    1541,
+    804095,
+    1547881,
+    439138,
+    439144,
+    1181068,
+    240,
+    203,
+    1179489,
+    436969,
+    13,
+    16,
+    996565,
+    996569,
+    631
+  ]
 }

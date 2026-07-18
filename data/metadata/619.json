@@ -96,5 +96,98 @@
   "duration": 8217,
   "_tracksDetected": true,
   "certification": "R",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "based on novel or book",
+    "dark comedy",
+    "space travel",
+    "betrayal",
+    "alien planet",
+    "creature",
+    "space adventure",
+    "human clone",
+    "spaceship",
+    "2050s",
+    "space sci-fi",
+    "futuristic world",
+    "colonial workforce",
+    "clone technology",
+    "frozen world",
+    "authoritarian leader",
+    "expendable worker"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/696506-mickey-17/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    507244,
+    701387,
+    605722,
+    26509,
+    44801,
+    861,
+    7512,
+    8069,
+    299687,
+    13282,
+    16320,
+    1119449,
+    338762,
+    1685,
+    563,
+    581726,
+    37420,
+    624860,
+    9355,
+    39513
+  ],
+  "similar": [
+    1023,
+    438847,
+    1415,
+    1090,
+    1091,
+    438738,
+    1267,
+    1272,
+    1361,
+    1362,
+    1398,
+    1408,
+    1410,
+    1541,
+    260159,
+    618303,
+    1654,
+    1832,
+    1547898,
+    439096
+  ]
 }

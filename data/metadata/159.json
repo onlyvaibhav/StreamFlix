@@ -161,5 +161,68 @@
   "duration": 8626,
   "_tracksDetected": true,
   "certification": "UA",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "based on novel or book",
+    "christmas spirit",
+    "neo-noir",
+    "bilingual"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/890116/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    302528,
+    1029827,
+    404733,
+    480853,
+    426254,
+    1242669,
+    20482,
+    10056,
+    32080,
+    492613,
+    30943,
+    423087,
+    9311,
+    4281,
+    11963,
+    9944,
+    32620,
+    1077670,
+    207932,
+    53712
+  ],
+  "similar": [
+    10075,
+    9960,
+    9956,
+    10110,
+    266310,
+    1378037,
+    1378043,
+    1554065,
+    624789,
+    624794,
+    1187619,
+    10153,
+    10155,
+    10170,
+    10229,
+    10236,
+    10242,
+    10287,
+    10296,
+    10002
+  ]
 }

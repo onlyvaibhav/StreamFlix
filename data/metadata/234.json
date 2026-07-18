@@ -55,5 +55,67 @@
   "duration": 2862,
   "_tracksDetected": true,
   "certification": "UA",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "heist",
+    "comedy thriller",
+    "cabin crew"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1045931-crew/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    74723,
+    955916,
+    24109,
+    37834,
+    402900,
+    1287536,
+    567604,
+    33871,
+    3172,
+    11576,
+    20625,
+    216769,
+    15938,
+    65215,
+    845781,
+    638597,
+    5854,
+    772,
+    9595,
+    1022964
+  ],
+  "similar": [
+    1553834,
+    445685,
+    20145,
+    20192,
+    20915,
+    20916,
+    20917,
+    20931,
+    1196942,
+    20294,
+    20295,
+    20359,
+    20360,
+    20364,
+    20365,
+    20390,
+    20413,
+    1197914,
+    821786,
+    20832
+  ]
 }

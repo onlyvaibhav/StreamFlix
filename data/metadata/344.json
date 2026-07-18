@@ -68,5 +68,136 @@
   "duration": 7025,
   "_tracksDetected": true,
   "certification": "R",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "suicide",
+    "new jersey",
+    "post-traumatic stress disorder (ptsd)",
+    "therapist",
+    "detective",
+    "paranoia",
+    "trauma",
+    "curse",
+    "hospital",
+    "doctor",
+    "mental illness",
+    "evil",
+    "self-harm",
+    "demonic",
+    "smile",
+    "supernatural horror",
+    "based on short film",
+    "body horror",
+    "psychological horror",
+    "horror"
+  ],
+  "collection": {
+    "id": 1100788,
+    "name": "Smile Collection",
+    "posterPath": "/nWiM6F3n2t9HYZfa2ZgVKijCPBY.jpg",
+    "backdropPath": "/fKhwWPMFuUbbMBD7mgZMbHKa6aw.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/882598-smile/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 232,
+        "name": "Zee5",
+        "logoPath": "/gP67NRy1ShUJilrzMsbOmEmdmcv.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    207933,
+    532671,
+    4970,
+    24740,
+    11348,
+    423108,
+    571384,
+    41505,
+    18781,
+    23827,
+    345911,
+    13937,
+    619778,
+    782936,
+    9358,
+    1212742,
+    13515,
+    378018,
+    1081208,
+    12103
+  ],
+  "similar": [
+    1381579,
+    13121,
+    13122,
+    12700,
+    12720,
+    1381320,
+    1557140,
+    449033,
+    12662,
+    12902,
+    269804,
+    1190888,
+    13190,
+    13151,
+    13254,
+    1006341,
+    1381711,
+    13319,
+    270303,
+    1381901
+  ]
 }

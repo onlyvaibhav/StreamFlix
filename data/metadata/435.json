@@ -69,5 +69,68 @@
   "duration": 8877,
   "_tracksDetected": true,
   "certification": "NR",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "money laundering",
+    "anti hero",
+    "bank employee",
+    "investment"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1239511/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    32080,
+    9944,
+    14979,
+    17585,
+    10056,
+    16056,
+    1088166,
+    53712,
+    28297,
+    20482,
+    11975,
+    20003,
+    4780,
+    9504,
+    3112,
+    35006,
+    155,
+    4566,
+    92272,
+    492613
+  ],
+  "similar": [
+    269494,
+    13161,
+    13715,
+    13939,
+    270975,
+    271078,
+    14295,
+    628914,
+    10061,
+    10336,
+    445030,
+    627,
+    311,
+    1417,
+    1103,
+    1368,
+    2994,
+    8426,
+    8961,
+    9028
+  ]
 }

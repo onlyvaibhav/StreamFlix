@@ -199,5 +199,75 @@
   "logo": "/data/logos/show_278043_logo.png",
   "metadataStatus": "COMPLETE",
   "_stillPath": "/kzwArBjJYjwOIVyQKjH3Wa7xLJP.jpg",
-  "episode_still": "/data/stills/946_still.jpg"
+  "episode_still": "/data/stills/946_still.jpg",
+  "keywords": [
+    "romcom",
+    "romance",
+    "slice of life",
+    "based on manga",
+    "anime",
+    "japanese high school"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/tv/278043/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 283,
+        "name": "Crunchyroll",
+        "logoPath": "/fzN5Jok5Ig1eJ7gyNGoMhnLSCfh.jpg"
+      },
+      {
+        "id": 1968,
+        "name": "Crunchyroll Amazon Channel",
+        "logoPath": "/pgjz7bzfBq4nFDu8JJDLBoUVAX8.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    115694,
+    75865,
+    207250,
+    235758,
+    224753,
+    201889,
+    61379,
+    45501,
+    276349,
+    31665,
+    254492,
+    277513,
+    274622,
+    66077,
+    68960,
+    217407,
+    45859,
+    43018,
+    117879,
+    257790
+  ],
+  "similar": [
+    27838,
+    27845,
+    27885,
+    27813,
+    27866,
+    27942,
+    27816,
+    27977,
+    151,
+    171,
+    57238,
+    57239,
+    57255,
+    57287,
+    57406,
+    57407,
+    234868,
+    234910,
+    121840,
+    203704
+  ]
 }

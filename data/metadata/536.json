@@ -42,5 +42,79 @@
   "duration": 3699,
   "_tracksDetected": true,
   "certification": "PG-13",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "based on novel or book",
+    "transformation",
+    "body switch",
+    "based on young adult novel"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/465136-every-day/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 701,
+        "name": "FilmBox+",
+        "logoPath": "/fbveJTcro9Xw2KuPIIoPPePHiwy.jpg"
+      },
+      {
+        "id": 2141,
+        "name": "MGM Plus Amazon Channel",
+        "logoPath": "/efu1Cqc63XrPBoreYnf2mn0Nizj.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": []
+  },
+  "recommendations": [
+    2270,
+    123553,
+    24418,
+    609734,
+    283366,
+    412656,
+    575094,
+    50619,
+    672647,
+    2268,
+    297761,
+    76285,
+    112949,
+    338970,
+    455476,
+    8850,
+    167313,
+    33454,
+    674,
+    145728
+  ],
+  "similar": [
+    10075,
+    10137,
+    10140,
+    10166,
+    10170,
+    10229,
+    10236,
+    10003,
+    10004,
+    9986,
+    810406,
+    10280,
+    10214,
+    10184,
+    10830,
+    10957,
+    11027,
+    11121,
+    11283,
+    11387
+  ]
 }

@@ -52,9 +52,9 @@ class TMDBClient {
 
         const tmdbId = search.results[0].id;
 
-        // STEP 2: Full details (include images for logos, external_ids for imdb_id)
+        // STEP 2: Full details (include images for logos, external_ids for imdb_id, keywords, recommendations, similar, watch/providers)
         const d = await this.request(`/movie/${tmdbId}`, {
-            append_to_response: 'images,external_ids',
+            append_to_response: 'images,external_ids,keywords,recommendations,similar,watch/providers',
             include_image_language: 'en,null'
         });
 
@@ -74,6 +74,28 @@ class TMDBClient {
         if (d.images && d.images.logos && d.images.logos.length > 0) {
             logoPath = d.images.logos[0].file_path;
         }
+
+        // Parse watch providers for the configured region
+        const region = process.env.WATCH_PROVIDER_REGION || 'IN';
+        const providersData = d['watch/providers']?.results?.[region] || null;
+        const watchProviders = providersData ? {
+            link: providersData.link || '',
+            flatrate: (providersData.flatrate || []).map(p => ({
+                id: p.provider_id,
+                name: p.provider_name,
+                logoPath: p.logo_path
+            })),
+            rent: (providersData.rent || []).map(p => ({
+                id: p.provider_id,
+                name: p.provider_name,
+                logoPath: p.logo_path
+            })),
+            buy: (providersData.buy || []).map(p => ({
+                id: p.provider_id,
+                name: p.provider_name,
+                logoPath: p.logo_path
+            }))
+        } : null;
 
         return {
             fileId,
@@ -95,6 +117,17 @@ class TMDBClient {
             fetchedAt: new Date().toISOString(),
             needsRetry: false,
             tv: null,
+            // Extended fields
+            keywords: (d.keywords?.keywords || []).map(k => k.name),
+            collection: d.belongs_to_collection ? {
+                id: d.belongs_to_collection.id,
+                name: d.belongs_to_collection.name,
+                posterPath: d.belongs_to_collection.poster_path,
+                backdropPath: d.belongs_to_collection.backdrop_path
+            } : null,
+            watchProviders,
+            recommendations: (d.recommendations?.results || []).slice(0, 20).map(r => r.id),
+            similar: (d.similar?.results || []).slice(0, 20).map(s => s.id),
             // Internal — used by worker for image download, stripped before final save
             _posterPath: d.poster_path,
             _backdropPath: d.backdrop_path,
@@ -119,7 +152,7 @@ class TMDBClient {
 
         const tmdbId = search.results[0].id;
         const d = await this.request(`/tv/${tmdbId}`, {
-            append_to_response: 'images,external_ids',
+            append_to_response: 'images,external_ids,keywords,recommendations,similar,watch/providers',
             include_image_language: 'en,null'
         });
 
@@ -140,6 +173,28 @@ class TMDBClient {
             logoPath = d.images.logos[0].file_path;
         }
 
+        // Parse watch providers for the configured region
+        const region = process.env.WATCH_PROVIDER_REGION || 'IN';
+        const providersData = d['watch/providers']?.results?.[region] || null;
+        const watchProviders = providersData ? {
+            link: providersData.link || '',
+            flatrate: (providersData.flatrate || []).map(p => ({
+                id: p.provider_id,
+                name: p.provider_name,
+                logoPath: p.logo_path
+            })),
+            rent: (providersData.rent || []).map(p => ({
+                id: p.provider_id,
+                name: p.provider_name,
+                logoPath: p.logo_path
+            })),
+            buy: (providersData.buy || []).map(p => ({
+                id: p.provider_id,
+                name: p.provider_name,
+                logoPath: p.logo_path
+            }))
+        } : null;
+
         return {
             showTmdbId: d.id,
             showTitle: d.name || title,
@@ -158,7 +213,12 @@ class TMDBClient {
                 ? d.episode_run_time[0]
                 : 0,
             totalSeasons: d.number_of_seasons || 0,
-            totalEpisodes: d.number_of_episodes || 0
+            totalEpisodes: d.number_of_episodes || 0,
+            // Extended fields show-level
+            keywords: (d.keywords?.results || []).map(k => k.name),
+            watchProviders,
+            recommendations: (d.recommendations?.results || []).slice(0, 20).map(r => r.id),
+            similar: (d.similar?.results || []).slice(0, 20).map(s => s.id)
         };
     }
 
@@ -251,6 +311,12 @@ class TMDBClient {
             tmdbId: showMeta.showTmdbId,
             fetchedAt: new Date().toISOString(),
             needsRetry: false,
+            // Extended fields show-level
+            keywords: showMeta.keywords || [],
+            collection: null, // TV shows don't have collections
+            watchProviders: showMeta.watchProviders || null,
+            recommendations: showMeta.recommendations || [],
+            similar: showMeta.similar || [],
             tv: {
                 showTitle: showMeta.showTitle,
                 originalShowTitle: showMeta.originalShowTitle,

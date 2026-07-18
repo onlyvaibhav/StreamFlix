@@ -68,5 +68,89 @@
   "duration": 8348,
   "_tracksDetected": true,
   "certification": "R",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "dual identity",
+    "rage and hate",
+    "based on novel or book",
+    "nihilism",
+    "fight",
+    "support group",
+    "dystopia",
+    "insomnia",
+    "alter ego",
+    "breaking the fourth wall",
+    "split personality",
+    "quitting a job",
+    "dissociative identity disorder",
+    "self destructiveness"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/550-fight-club/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": [
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    641,
+    187,
+    50032,
+    1439930,
+    884,
+    916605,
+    799546,
+    436932,
+    833425,
+    209276,
+    627,
+    189,
+    307946,
+    638,
+    1359,
+    301502,
+    59,
+    483906,
+    3432,
+    3131
+  ],
+  "similar": [
+    10075,
+    9960,
+    9956,
+    10110,
+    10133,
+    1554065,
+    624789,
+    10153,
+    10159,
+    10170,
+    10229,
+    10234,
+    10236,
+    10242,
+    10243,
+    10247,
+    10287,
+    10296,
+    10002,
+    10003
+  ]
 }

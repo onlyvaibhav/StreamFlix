@@ -70,5 +70,80 @@
   "certification": "TV-MA",
   "metadataStatus": "COMPLETE",
   "_stillPath": "/iPXH1U4hXevtSVZ76AjSVfSwhvN.jpg",
-  "episode_still": "/data/stills/131_still.jpg"
+  "episode_still": "/data/stills/131_still.jpg",
+  "keywords": [
+    "gun",
+    "gangster",
+    "lawlessness",
+    "drugs",
+    "father son relationship",
+    "brother brother relationship",
+    "sex",
+    "abusive language",
+    "weapons smuggling",
+    "businessman criminal",
+    "shot in the head"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/tv/84105-mirzapur/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    247718,
+    66025,
+    66676,
+    112693,
+    194764,
+    85021,
+    2204,
+    1409,
+    79086,
+    97951,
+    101591,
+    262280,
+    75666,
+    1398,
+    81358,
+    76231,
+    33273,
+    255570,
+    153312,
+    47318
+  ],
+  "similar": [
+    73411,
+    219788,
+    73659,
+    285234,
+    73661,
+    285686,
+    249838,
+    316456,
+    137731,
+    285970,
+    44177,
+    44457,
+    75867,
+    318046,
+    44641,
+    107590,
+    15915,
+    222241,
+    71871,
+    71806
+  ]
 }

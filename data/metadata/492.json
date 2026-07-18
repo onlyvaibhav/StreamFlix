@@ -42,5 +42,42 @@
   "container": "matroska,webm",
   "duration": 9147.305,
   "certification": "UA",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1032627/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    28339,
+    21586,
+    455236,
+    1390300,
+    1169007,
+    14166,
+    1312150,
+    308024,
+    185574,
+    1262852,
+    14262,
+    199420,
+    507241,
+    14267,
+    227300,
+    506407,
+    879444,
+    15372,
+    175291,
+    692
+  ],
+  "similar": []
 }

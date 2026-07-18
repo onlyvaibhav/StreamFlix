@@ -69,5 +69,47 @@
   "certification": "U/A 13+",
   "metadataStatus": "COMPLETE",
   "_stillPath": "/t7Oj8JGFSOEtLCgBiDt1nuMsuPV.jpg",
-  "episode_still": "/data/stills/283_still.jpg"
+  "episode_still": "/data/stills/283_still.jpg",
+  "keywords": [],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/tv/260203-shekhar-home/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      },
+      {
+        "id": 614,
+        "name": "VI movies and tv",
+        "logoPath": "/9YJY5OwsIPMoX3xC3TdtZVbKBpE.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    223438,
+    3828,
+    3216,
+    134375,
+    1059,
+    254071,
+    132117,
+    138181,
+    6127,
+    214259,
+    95004,
+    925,
+    120835,
+    32692,
+    2072,
+    157409,
+    790,
+    72743,
+    21728,
+    120317
+  ],
+  "similar": []
 }

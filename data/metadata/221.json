@@ -69,5 +69,131 @@
   "duration": 4843,
   "_tracksDetected": true,
   "certification": "PG-13",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "giant monster",
+    "dinosaur",
+    "creature feature",
+    "kaiju",
+    "sign languages",
+    "giant ape",
+    "godzilla",
+    "robot dinosaur",
+    "king kong",
+    "cliché"
+  ],
+  "collection": {
+    "id": 535313,
+    "name": "Godzilla Collection",
+    "posterPath": "/inNN466SKHNjbGmpfhfsaPQNleS.jpg",
+    "backdropPath": "/psZ5CETZoaq2VRnxk95HuxOnI5D.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/399566-godzilla-vs-kong/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      },
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    823464,
+    68726,
+    124905,
+    427641,
+    373571,
+    293167,
+    254,
+    268896,
+    443791,
+    9397,
+    91314,
+    1061474,
+    3604,
+    670292,
+    653346,
+    11379,
+    345940,
+    81005,
+    1858,
+    5137
+  ],
+  "similar": [
+    269444,
+    12636,
+    270313,
+    449700,
+    449574,
+    270462,
+    270475,
+    1191058,
+    12144,
+    1005559,
+    12561,
+    1381071,
+    1189970,
+    268896,
+    627243,
+    1191653,
+    270938,
+    10077,
+    1002780,
+    10173
+  ]
 }

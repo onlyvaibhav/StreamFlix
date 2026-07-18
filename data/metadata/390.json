@@ -56,5 +56,69 @@
   "duration": 10247,
   "_tracksDetected": true,
   "certification": "N/A",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "based on novel or book",
+    "based on true story",
+    "missing person",
+    "migrant worker",
+    "goat life"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/472221/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    24767,
+    14522,
+    15397,
+    58995,
+    33539,
+    10714,
+    381289,
+    11120,
+    16523,
+    495193,
+    11236,
+    11837,
+    739986,
+    829503,
+    24086,
+    22660,
+    481848,
+    805051,
+    45611,
+    618588
+  ],
+  "similar": [
+    449074,
+    269971,
+    449176,
+    13128,
+    814215,
+    269998,
+    12700,
+    12701,
+    12994,
+    448925,
+    269783,
+    1381151,
+    269495,
+    813845,
+    12774,
+    12783,
+    12900,
+    12920,
+    13008,
+    269820
+  ]
 }

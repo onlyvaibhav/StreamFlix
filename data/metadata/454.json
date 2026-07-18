@@ -43,5 +43,74 @@
   "duration": 6335,
   "_tracksDetected": true,
   "certification": "U",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/729700/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 232,
+        "name": "Zee5",
+        "logoPath": "/gP67NRy1ShUJilrzMsbOmEmdmcv.jpg"
+      },
+      {
+        "id": 614,
+        "name": "VI movies and tv",
+        "logoPath": "/9YJY5OwsIPMoX3xC3TdtZVbKBpE.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 232,
+        "name": "Zee5",
+        "logoPath": "/gP67NRy1ShUJilrzMsbOmEmdmcv.jpg"
+      }
+    ],
+    "buy": []
+  },
+  "recommendations": [
+    13490,
+    14544,
+    776098,
+    119738,
+    25445,
+    410113,
+    638597,
+    823609,
+    20294,
+    54540,
+    353595,
+    31504,
+    637157,
+    513736,
+    33839,
+    39180,
+    30071,
+    12242,
+    638134,
+    560044
+  ],
+  "similar": [
+    1371763,
+    618320,
+    804005,
+    618473,
+    439128,
+    258413,
+    616573,
+    801831,
+    616434,
+    260519,
+    1181508,
+    260318,
+    1181346,
+    260649,
+    260655,
+    1372069,
+    260508,
+    259042,
+    802793,
+    616686
+  ]
 }

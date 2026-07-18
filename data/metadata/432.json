@@ -69,5 +69,114 @@
   "duration": 6543,
   "_tracksDetected": true,
   "certification": "PG",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "witch",
+    "mission",
+    "magic",
+    "mystic",
+    "castle",
+    "sorcerer's apprentice",
+    "sorcery",
+    "sorcerer",
+    "falling in love",
+    "based on movie",
+    "reflection",
+    "magic trick",
+    "wizard",
+    "aftercreditsstinger",
+    "magical creature",
+    "quest",
+    "statue",
+    "college student",
+    "electric power",
+    "magician",
+    "magic book",
+    "live action remake",
+    "good versus evil",
+    "electricity",
+    "salem witch",
+    "magic ring",
+    "callback",
+    "raising the dead"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/27022-the-sorcerer-s-apprentice/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 614,
+        "name": "VI movies and tv",
+        "logoPath": "/9YJY5OwsIPMoX3xC3TdtZVbKBpE.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    401689,
+    34560,
+    121,
+    9610,
+    417320,
+    370687,
+    338952,
+    674,
+    102651,
+    57158,
+    12445,
+    512200,
+    779782,
+    122,
+    10150,
+    672,
+    454294,
+    506574,
+    767,
+    675
+  ],
+  "similar": [
+    1450,
+    1491,
+    995980,
+    1267,
+    438885,
+    1362,
+    1372,
+    803878,
+    1654,
+    1724,
+    1726,
+    1832,
+    618463,
+    253,
+    120,
+    121,
+    122,
+    123,
+    258251,
+    218
+  ]
 }

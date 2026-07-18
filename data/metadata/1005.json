@@ -58,5 +58,77 @@
   "duration": 8986.41,
   "_probeFailCount": 0,
   "logo": "/data/logos/1005_logo.png",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "betrayal",
+    "false imprisonment"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1220522/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": []
+  },
+  "recommendations": [
+    404733,
+    160139,
+    32080,
+    1093995,
+    37710,
+    2207,
+    14979,
+    112949,
+    385687,
+    1310568,
+    823625,
+    251,
+    2086,
+    51997,
+    24528,
+    257088,
+    13387,
+    854467,
+    426,
+    1087891
+  ],
+  "similar": [
+    449033,
+    13184,
+    13653,
+    12138,
+    14249,
+    14245,
+    13988,
+    628900,
+    445517,
+    9679,
+    9739,
+    1001925,
+    1186831,
+    10668,
+    438070,
+    949,
+    259695,
+    1408,
+    617888,
+    1494
+  ]
 }

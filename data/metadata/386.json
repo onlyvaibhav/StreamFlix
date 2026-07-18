@@ -69,5 +69,106 @@
   "duration": 5893,
   "_tracksDetected": true,
   "certification": "G",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "garbage",
+    "dystopia",
+    "space travel",
+    "distant future",
+    "loneliness",
+    "robot",
+    "aftercreditsstinger",
+    "duringcreditsstinger",
+    "reflective",
+    "3d animation",
+    "inspirational",
+    "psychological drama",
+    "understated",
+    "suspenseful",
+    "sentimental",
+    "cheerful",
+    "compassionate",
+    "hopeful",
+    "joyful",
+    "sincere"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/10681-wall-e/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    1022787,
+    1022789,
+    16866,
+    228161,
+    718789,
+    698687,
+    529203,
+    587807,
+    15512,
+    65759,
+    431693,
+    877269,
+    1184918,
+    7450,
+    594328,
+    976573,
+    1857,
+    381719,
+    170687,
+    404368
+  ],
+  "similar": [
+    13053,
+    13060,
+    13062,
+    1190624,
+    12702,
+    13002,
+    13001,
+    1190581,
+    12819,
+    12837,
+    12914,
+    13004,
+    13006,
+    13017,
+    13042,
+    13189,
+    13151,
+    13158,
+    1556919,
+    13179
+  ]
 }

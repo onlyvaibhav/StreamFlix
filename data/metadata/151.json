@@ -92,5 +92,65 @@
   "duration": 6618,
   "_tracksDetected": true,
   "certification": "UA",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "twins"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/945167/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    159389,
+    404733,
+    32080,
+    463158,
+    423087,
+    92272,
+    302528,
+    273059,
+    426254,
+    17585,
+    480853,
+    1025125,
+    1212271,
+    113294,
+    32627,
+    16056,
+    283698,
+    1128547,
+    75889,
+    785522
+  ],
+  "similar": [
+    814800,
+    627070,
+    269136,
+    10066,
+    266370,
+    9594,
+    554,
+    694,
+    1254,
+    1278,
+    2757,
+    437882,
+    1371807,
+    8325,
+    8204,
+    9313,
+    9540,
+    444839,
+    1183002,
+    5857
+  ]
 }

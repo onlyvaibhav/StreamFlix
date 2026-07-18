@@ -108,5 +108,109 @@
   "container": "matroska,webm",
   "duration": 7475.264,
   "certification": "PG-13",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "rescue",
+    "bounty hunter",
+    "holiday",
+    "kidnapping",
+    "santa claus",
+    "rescue mission",
+    "polar bear",
+    "rescue team",
+    "christmas",
+    "action comedy",
+    "christmas eve",
+    "absurd",
+    "defence team"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/845781-red-one/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    567604,
+    654028,
+    527435,
+    9021,
+    10719,
+    78080,
+    870358,
+    645757,
+    13378,
+    355547,
+    454467,
+    34560,
+    360920,
+    1001884,
+    1022964,
+    8871,
+    512200,
+    1019939,
+    675445,
+    417859
+  ],
+  "similar": [
+    1190807,
+    13122,
+    269741,
+    1005685,
+    1190486,
+    12921,
+    269584,
+    1557011,
+    13042,
+    13187,
+    13188,
+    13189,
+    13246,
+    13247,
+    13248,
+    13291,
+    270109,
+    13313,
+    13352,
+    13356
+  ]
 }

@@ -69,5 +69,117 @@
   "duration": 7613,
   "_tracksDetected": true,
   "certification": "R",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "rage and hate",
+    "police",
+    "s.w.a.t.",
+    "sadism",
+    "self-fulfilling prophecy",
+    "psychopath",
+    "detective",
+    "investigation",
+    "insomnia",
+    "murder",
+    "serial killer",
+    "religion",
+    "shootout",
+    "corpse",
+    "seven deadly sins",
+    "depravity",
+    "neo-noir",
+    "urban gothic",
+    "anxious",
+    "grimdark",
+    "suspenseful",
+    "seven: los siete pecados capitales"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/807-se7en/watch?locale=IN",
+    "flatrate": [],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    398173,
+    1160003,
+    18405,
+    32076,
+    11917,
+    9437,
+    37414,
+    899294,
+    680,
+    214,
+    1081208,
+    73567,
+    1330421,
+    31583,
+    189,
+    1359,
+    281,
+    22021,
+    187,
+    14864
+  ],
+  "similar": [
+    617888,
+    1023,
+    1052,
+    259879,
+    259935,
+    1213,
+    1248,
+    1249,
+    1252,
+    1415,
+    1422,
+    1424,
+    1427,
+    1441,
+    1448,
+    1479,
+    1480,
+    1485,
+    1493,
+    1073
+  ]
 }

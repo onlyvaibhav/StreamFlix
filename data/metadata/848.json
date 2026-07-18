@@ -57,5 +57,58 @@
   "logo": "/data/logos/848_logo.png",
   "_tracksDetected": true,
   "certification": "U/A 16+",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [],
+  "collection": {
+    "id": 1516488,
+    "name": "Kantara Collection",
+    "posterPath": "/sYWv0xx1f937spsbHpSV0tykgq5.jpg",
+    "backdropPath": "/58qaCoeGnXdbWjqseyrTNuvKq5F.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1083637/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": []
+  },
+  "recommendations": [
+    1636891,
+    14041,
+    25006,
+    48129,
+    73499,
+    34421,
+    1387382,
+    245527,
+    79026,
+    1292415,
+    808228,
+    776660,
+    1315986,
+    846433,
+    848123,
+    321068,
+    858485,
+    945937,
+    56427,
+    15797
+  ],
+  "similar": []
 }

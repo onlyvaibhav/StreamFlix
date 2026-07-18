@@ -95,5 +95,74 @@
   "logo": "/data/logos/show_215522_logo.png",
   "metadataStatus": "COMPLETE",
   "_stillPath": "/6qGDMniWfHaOBcCP7H7sf3aoFKs.jpg",
-  "episode_still": "/data/stills/1019_still.jpg"
+  "episode_still": "/data/stills/1019_still.jpg",
+  "keywords": [
+    "island",
+    "memory loss",
+    "martha's vineyard",
+    "accident",
+    "based on young adult novel"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/tv/215522-we-were-liars/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    4607,
+    113367,
+    270572,
+    130464,
+    203744,
+    118958,
+    90972,
+    284605,
+    287231,
+    64684,
+    66788,
+    31917,
+    126118,
+    199001,
+    39358,
+    123192,
+    120909,
+    262352,
+    157372,
+    80213
+  ],
+  "similar": [
+    236300,
+    1395,
+    272642,
+    289,
+    90259,
+    90755,
+    204489,
+    58810,
+    31319,
+    93463,
+    31375,
+    94523,
+    304412,
+    237882,
+    206216,
+    31917,
+    32016,
+    129129,
+    129188,
+    34747
+  ]
 }

@@ -60,5 +60,62 @@
   "container": "matroska,webm",
   "duration": 6114,
   "_tracksDetected": true,
-  "logo": "N/A"
+  "logo": "N/A",
+  "keywords": [
+    "claustrophobia",
+    "hallucination",
+    "survival",
+    "trapped in building"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/431892/watch?locale=IN",
+    "flatrate": [],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    641,
+    760926,
+    26388,
+    369894,
+    423087,
+    431,
+    158011,
+    157351,
+    5919,
+    10413,
+    1254624,
+    43549,
+    1242669,
+    846956,
+    7191,
+    435036,
+    1042834,
+    44603,
+    11128,
+    893086
+  ],
+  "similar": [
+    9960,
+    266310,
+    1378037,
+    1378043,
+    624794,
+    1187619,
+    266229,
+    445685,
+    10212,
+    10971,
+    446861,
+    11210,
+    11228,
+    11237,
+    11246,
+    268000,
+    268091,
+    634304,
+    20129,
+    20132
+  ]
 }

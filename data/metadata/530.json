@@ -55,5 +55,36 @@
   "certification": "N/A",
   "metadataStatus": "COMPLETE",
   "_stillPath": "/fmcn4T8JXPC2VVhFz3yzYUnt15I.jpg",
-  "episode_still": "/data/stills/530_still.jpg"
+  "episode_still": "/data/stills/530_still.jpg",
+  "keywords": [],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/tv/107588/watch?locale=IN",
+    "flatrate": [],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    156473,
+    84007,
+    138108,
+    2850,
+    119845,
+    100414,
+    4170,
+    64836,
+    75666,
+    85385,
+    223438,
+    10370,
+    204290,
+    67384,
+    86588,
+    226174,
+    58057,
+    3828,
+    241549,
+    203202
+  ],
+  "similar": []
 }

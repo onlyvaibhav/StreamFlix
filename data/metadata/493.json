@@ -68,5 +68,69 @@
   "duration": 6416,
   "_tracksDetected": true,
   "certification": "N/A",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "housewife",
+    "patriarchy",
+    "remake",
+    "based on movie",
+    "bad marriage"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/942411/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 232,
+        "name": "Zee5",
+        "logoPath": "/gP67NRy1ShUJilrzMsbOmEmdmcv.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    127373,
+    1217690,
+    22448,
+    69557,
+    397520,
+    67809,
+    159389,
+    328425,
+    273059,
+    70590,
+    85350,
+    1227128,
+    20003,
+    1714,
+    283698,
+    82631,
+    1096846,
+    39507,
+    9361,
+    29989
+  ],
+  "similar": [
+    481533,
+    659994,
+    300316,
+    1590194,
+    1039067,
+    300333,
+    848116,
+    317216,
+    65521,
+    65624,
+    499729,
+    499732,
+    499740,
+    868553,
+    317633,
+    678027,
+    65804,
+    317371,
+    499660,
+    65951
+  ]
 }

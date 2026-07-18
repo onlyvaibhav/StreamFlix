@@ -19,6 +19,7 @@ const WorkersModule = (() => {
             // Subscribe to live updates
             AppState.subscribe('workers', _renderUI);
             AppState.subscribe('audioAudit', _renderUI);
+            AppState.subscribe('backfill', _renderUI);
         } catch (err) {
             _container.innerHTML = EmptyState.html(`Failed to load workers: ${err.message}`, 'alert-triangle');
         }
@@ -93,6 +94,9 @@ const WorkersModule = (() => {
                         </div>
                     </div>
                 </div>
+
+                <!-- Extended Metadata Backfill Card -->
+                ${_renderBackfillCard()}
             </div>
         `;
 
@@ -135,9 +139,84 @@ const WorkersModule = (() => {
         }
     }
 
+    function _renderBackfillCard() {
+        const bf = AppState.get('backfill') || {};
+        const running = bf.running || false;
+        const processed = bf.processed || 0;
+        const total = bf.candidates || 0;
+        const failedItems = bf.failedList || [];
+        const pct = total > 0 ? Math.round((processed / total) * 100) : 0;
+        const current = bf.lastTitle || bf.lastFileId || '';
+        const startedAt = bf.startedAt ? new Date(bf.startedAt).toLocaleTimeString() : '\u2014';
+        const finishedAt = bf.finishedAt ? new Date(bf.finishedAt).toLocaleTimeString() : null;
+        const elapsed = bf.startedAt ? ((Date.now() - new Date(bf.startedAt).getTime()) / 1000).toFixed(0) + 's' : '\u2014';
+
+        const statusLabel = running ? `<span style="color:var(--success)">● Running</span>` 
+            : (finishedAt ? `<span style="color:var(--text-secondary)">Completed at ${finishedAt}</span>` 
+            : `<span style="color:var(--text-secondary)">Idle</span>`);
+
+        const progressBar = total > 0 ? `
+            <div style="margin:var(--space-md) 0">
+                <div style="display:flex;justify-content:space-between;font-size:var(--text-xs);color:var(--text-secondary);margin-bottom:var(--space-xs)">
+                    <span>${processed} / ${total} items</span>
+                    <span>${pct}%</span>
+                </div>
+                <div style="height:8px;background:var(--bg-surface);border-radius:var(--radius-full);overflow:hidden">
+                    <div style="height:100%;width:${pct}%;background:var(--primary);border-radius:var(--radius-full);transition:width 0.4s ease"></div>
+                </div>
+                ${running && current ? `<div style="font-size:var(--text-xs);color:var(--text-tertiary);margin-top:var(--space-xs);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Current: ${current}</div>` : ''}
+            </div>` : '';
+
+        const failedHtml = failedItems.length > 0 ? `
+            <details style="margin-top:var(--space-md)">
+                <summary style="cursor:pointer;font-size:var(--text-sm);color:var(--danger);font-weight:var(--weight-semibold)">
+                    ${failedItems.length} failed item${failedItems.length !== 1 ? 's' : ''}
+                </summary>
+                <ul style="margin-top:var(--space-sm);font-size:var(--text-xs);color:var(--text-secondary);max-height:160px;overflow-y:auto;list-style:none;padding:0">
+                    ${failedItems.map(f => `<li style="padding:var(--space-xs) 0;border-bottom:1px solid var(--border)" title="${f.error || ''}">${f.fileId || f} \u2014 ${f.error || 'Unknown error'}</li>`).join('')}
+                </ul>
+            </details>` : '';
+
+        return `
+            <div class="data-card" style="margin-top:var(--space-2xl)">
+                <div class="data-card-header">
+                    <h3>Extended Metadata Backfill</h3>
+                    <span style="font-size:var(--text-sm)">${statusLabel}</span>
+                </div>
+                <div class="data-card-body">
+                    <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-lg)">
+                        Backfills keywords, collection, watch providers, recommendations, and similar titles for existing catalog items that predate this enrichment.
+                    </p>
+
+                    ${progressBar}
+
+                    <div style="display:flex;gap:var(--space-md);align-items:center;flex-wrap:wrap;margin-top:var(--space-md)">
+                        <button class="btn btn-primary" ${running ? 'disabled style="opacity:0.5;cursor:not-allowed;height:42px"' : 'style="height:42px"'} onclick="WorkersModule.startExtendedBackfill()">
+                            <i data-lucide="${running ? 'loader' : 'database'}" style="width:16px"></i>
+                            ${running ? 'Backfill Running…' : 'Backfill Extended Metadata'}
+                        </button>
+                        ${total > 0 ? `<span style="font-size:var(--text-xs);color:var(--text-tertiary)">Started: ${startedAt} · Elapsed: ${elapsed}</span>` : ''}
+                    </div>
+
+                    ${failedHtml}
+                </div>
+            </div>`;
+    }
+
+    async function _startExtendedBackfill() {
+        try {
+            const result = await Api.startExtendedBackfill();
+            if (result.status) AppState.set('backfill', result.status);
+            Toast.success(result.message || 'Extended metadata backfill started');
+        } catch (err) {
+            Toast.error(err.message);
+        }
+    }
+
     function destroy() {
         AppState.unsubscribe('workers', _renderUI);
         AppState.unsubscribe('audioAudit', _renderUI);
+        AppState.unsubscribe('backfill', _renderUI);
         _container = null;
     }
 
@@ -148,7 +227,8 @@ const WorkersModule = (() => {
         render,
         destroy,
         commands: [
-            { id: 'audio-sweep', group: 'Actions', title: 'Start Audio Sweep', icon: 'file-audio', action: () => _execAction(Api.startAudioSweep, 'Sweep started') }
+            { id: 'audio-sweep', group: 'Actions', title: 'Start Audio Sweep', icon: 'file-audio', action: () => _execAction(Api.startAudioSweep, 'Sweep started') },
+            { id: 'extended-backfill', group: 'Actions', title: 'Backfill Extended Metadata', icon: 'database', action: () => _execAction(Api.startExtendedBackfill, 'Backfill started') }
         ]
     });
 
@@ -156,5 +236,5 @@ const WorkersModule = (() => {
         try { await apiCall(); Toast.success(msg); } catch (e) { Toast.error(e.message); }
     }
 
-    return { render, destroy, togglePause: _togglePause, retryFailed: _retryFailed, startAudioSweep: _startAudioSweep };
+    return { render, destroy, togglePause: _togglePause, retryFailed: _retryFailed, startAudioSweep: _startAudioSweep, startExtendedBackfill: _startExtendedBackfill };
 })();

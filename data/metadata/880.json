@@ -70,5 +70,70 @@
   "certification": "TV-MA",
   "metadataStatus": "COMPLETE",
   "_stillPath": "/aN0aywy9q8VIoFifcplmLbo3qFS.jpg",
-  "episode_still": "/data/stills/880_still.jpg"
+  "episode_still": "/data/stills/880_still.jpg",
+  "keywords": [
+    "犯罪"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/tv/228658/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      },
+      {
+        "id": 614,
+        "name": "VI movies and tv",
+        "logoPath": "/9YJY5OwsIPMoX3xC3TdtZVbKBpE.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    106349,
+    213306,
+    246461,
+    72748,
+    80213,
+    157061,
+    4860,
+    133813,
+    241372,
+    262352,
+    46316,
+    220801,
+    218342,
+    244243,
+    201408,
+    4043,
+    1486,
+    80210,
+    280511,
+    278178
+  ],
+  "similar": [
+    205434,
+    205440,
+    205441,
+    205442,
+    205443,
+    301776,
+    301801,
+    123721,
+    123723,
+    123725,
+    123726,
+    123727,
+    123728,
+    123730,
+    123732,
+    123734,
+    123736,
+    123737,
+    123742,
+    123744
+  ]
 }

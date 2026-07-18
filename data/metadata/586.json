@@ -69,5 +69,69 @@
   "duration": 7958,
   "_tracksDetected": true,
   "certification": "U/A 13+",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "based on true story",
+    "pakistan",
+    "sexual violence",
+    "sex trafficking",
+    "forced marriage"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1147546/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    423087,
+    67809,
+    1243741,
+    16056,
+    159389,
+    328425,
+    228968,
+    677179,
+    127373,
+    2207,
+    785752,
+    972533,
+    80219,
+    10056,
+    885331,
+    259611,
+    46041,
+    1084066,
+    29989,
+    302528
+  ],
+  "similar": [
+    11854,
+    447034,
+    268494,
+    12093,
+    12109,
+    447199,
+    1379877,
+    626708,
+    447286,
+    12311,
+    813360,
+    1005728,
+    1380530,
+    12900,
+    12920,
+    13008,
+    13022,
+    447856,
+    13123,
+    13177
+  ]
 }

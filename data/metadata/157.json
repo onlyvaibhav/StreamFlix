@@ -55,5 +55,73 @@
   "certification": "TV-14",
   "metadataStatus": "COMPLETE",
   "_stillPath": "/opAcPaS7H3XjBwtZkZw8qugAxnL.jpg",
-  "episode_still": "/data/stills/157_still.jpg"
+  "episode_still": "/data/stills/157_still.jpg",
+  "keywords": [
+    "friendship",
+    "teenage crush",
+    "boys hostel",
+    "hostel life"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/tv/96421-hostel-daze/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    900,
+    100883,
+    42282,
+    5721,
+    156812,
+    33301,
+    116450,
+    216795,
+    113457,
+    126914,
+    815,
+    67697,
+    74577,
+    117581,
+    84150,
+    40632,
+    62704,
+    69630,
+    96734,
+    4556
+  ],
+  "similar": [
+    73523,
+    42253,
+    137258,
+    137296,
+    137299,
+    42417,
+    42444,
+    13967,
+    73659,
+    137363,
+    13994,
+    14037,
+    285567,
+    42194,
+    73449,
+    73667,
+    13945,
+    42282,
+    219651,
+    105741
+  ]
 }

@@ -174,5 +174,99 @@
   "duration": 7067,
   "_tracksDetected": true,
   "certification": "R",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "race against time",
+    "video game",
+    "nintendo",
+    "cold war",
+    "based on true story",
+    "salesman",
+    "copyright",
+    "duringcreditsstinger",
+    "1980s",
+    "russia",
+    "urss",
+    "communist regime",
+    "international travel",
+    "contract disputes",
+    "game licensing",
+    "intellectual property rights",
+    "soviet bureaucracy",
+    "kgb surveillance"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/726759-tetris/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 350,
+        "name": "Apple TV",
+        "logoPath": "/mcbz1LgtErU9p4UdbZ0rG6RTWHX.jpg"
+      },
+      {
+        "id": 2243,
+        "name": "Apple TV Amazon Channel",
+        "logoPath": "/mHrYMgnZIp6lgW2aXg7ix9zGOnA.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    8289,
+    1023915,
+    615115,
+    1620,
+    333352,
+    1211776,
+    44982,
+    137094,
+    9314,
+    7304,
+    848123,
+    231,
+    10413,
+    1830,
+    190955,
+    74998,
+    520016,
+    117,
+    68724,
+    476678
+  ],
+  "similar": [
+    1024,
+    1049,
+    259932,
+    438808,
+    1180791,
+    1165,
+    1247,
+    1251,
+    996087,
+    1439,
+    1396,
+    1402,
+    1413,
+    1535,
+    1547,
+    1557,
+    1632,
+    1830,
+    1181400,
+    1808
+  ]
 }

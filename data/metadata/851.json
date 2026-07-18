@@ -56,5 +56,102 @@
   ],
   "logo": "/data/logos/851_logo.png",
   "certification": "NR",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "espionage",
+    "political party",
+    "politics",
+    "asia",
+    "patriotism",
+    "nationalism",
+    "controversy",
+    "gore",
+    "pakistan",
+    "torture",
+    "terrorism",
+    "india",
+    "terrorist attack",
+    "gun violence",
+    "bloodshed",
+    "political corruption",
+    "grim",
+    "1990s",
+    "spy thriller",
+    "punjabi",
+    "indian",
+    "2000s",
+    "international espionage",
+    "thriller",
+    "hindi film",
+    "action",
+    "chase scene",
+    "indian film"
+  ],
+  "collection": {
+    "id": 1628043,
+    "name": "Dhurandhar Collection",
+    "posterPath": "/r4w2Ps0QN9wzMHDepRoj4H7tAM.jpg",
+    "backdropPath": "/4Xv36ZwubtUn6JlIKoKDdhZj565.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1291608/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      },
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    1582770,
+    560016,
+    10431,
+    21610,
+    1167271,
+    628847,
+    4959,
+    278924,
+    1146344,
+    976734,
+    1242265,
+    1024627,
+    668489,
+    4477,
+    1242501,
+    51512,
+    20721,
+    11412,
+    10651,
+    1215162
+  ],
+  "similar": [
+    1381465,
+    13123,
+    12699,
+    12711,
+    13027,
+    12629,
+    12662,
+    448887,
+    13008,
+    13177,
+    13183,
+    13184,
+    13293,
+    449352,
+    13336,
+    13390,
+    449535,
+    270585,
+    13703,
+    13637
+  ]
 }

@@ -56,5 +56,68 @@
   "duration": 6907,
   "_tracksDetected": true,
   "certification": "UA",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/636449-ujda-chaman/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    28059,
+    673159,
+    43609,
+    57157,
+    41496,
+    356298,
+    61041,
+    44549,
+    119738,
+    9894,
+    607259,
+    159389,
+    1201012,
+    14204,
+    4104,
+    39800,
+    157099,
+    38291,
+    646453,
+    492613
+  ],
+  "similar": [
+    266310,
+    1378037,
+    1378043,
+    624794,
+    445685,
+    446861,
+    268000,
+    634304,
+    20129,
+    20145,
+    20192,
+    20534,
+    20535,
+    276378,
+    20769,
+    20688,
+    276498,
+    20915,
+    20916,
+    20917
+  ]
 }

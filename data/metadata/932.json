@@ -69,5 +69,138 @@
   "_probeFailCount": 0,
   "logo": "/data/logos/932_logo.png",
   "_tracksDetected": true,
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "hero",
+    "psychopath",
+    "superhero",
+    "anti hero",
+    "villain",
+    "alien life-form",
+    "based on comic",
+    "sequel",
+    "fear",
+    "aftercreditsstinger",
+    "symbiote",
+    "carnage"
+  ],
+  "collection": {
+    "id": 558216,
+    "name": "Venom Collection",
+    "posterPath": "/unpRHoS5df7VEukeukCAgHU1sV2.jpg",
+    "backdropPath": "/vq340s8DxA5Q209FT8PHA6CXYOx.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/580489-venom-let-there-be-carnage/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      },
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      },
+      {
+        "id": 237,
+        "name": "Sony Liv",
+        "logoPath": "/3973zlBbBXdXxaWqRWzGG2GYxbT.jpg"
+      },
+      {
+        "id": 2180,
+        "name": "Sony Pictures Amazon Channel",
+        "logoPath": "/i7FaDWpD2xoIWB5lyF191cykfck.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 232,
+        "name": "Zee5",
+        "logoPath": "/gP67NRy1ShUJilrzMsbOmEmdmcv.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    559,
+    526896,
+    640146,
+    447365,
+    283995,
+    271110,
+    609681,
+    1452,
+    436270,
+    246655,
+    284053,
+    453395,
+    10138,
+    24428,
+    8373,
+    100402,
+    284054,
+    99861,
+    320288,
+    127585
+  ],
+  "similar": [
+    438713,
+    259907,
+    1250,
+    1180831,
+    1452,
+    1487,
+    1497,
+    1498,
+    1499,
+    995926,
+    1267,
+    1271,
+    1273,
+    438885,
+    438890,
+    1361,
+    438970,
+    438971,
+    1371510,
+    1571
+  ]
 }

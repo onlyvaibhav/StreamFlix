@@ -57,5 +57,69 @@
   "duration": 7433,
   "_tracksDetected": true,
   "certification": "N/A",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "army",
+    "based on true story",
+    "nuclear explosion",
+    "indian army",
+    "nuclear testing"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/465642-parmanu-the-story-of-pokhran/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 232,
+        "name": "Zee5",
+        "logoPath": "/gP67NRy1ShUJilrzMsbOmEmdmcv.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    375290,
+    27461,
+    4614,
+    33125,
+    522241,
+    292011,
+    900783,
+    2503,
+    399404,
+    390061,
+    27568,
+    2253,
+    21039,
+    343611,
+    2502,
+    1227128,
+    1029827,
+    491629,
+    9559,
+    26578
+  ],
+  "similar": [
+    262034,
+    1183156,
+    805916,
+    1183237,
+    4107,
+    4195,
+    1373492,
+    4251,
+    4252,
+    4253,
+    4254,
+    4614,
+    1373801,
+    4383,
+    4435,
+    4483,
+    262352,
+    805785,
+    440792,
+    4133
+  ]
 }

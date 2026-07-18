@@ -69,5 +69,144 @@
   "duration": 1723,
   "_tracksDetected": true,
   "certification": "PG",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "mission",
+    "martial arts",
+    "kung fu",
+    "fortune teller",
+    "post-traumatic stress disorder (ptsd)",
+    "prophecy",
+    "hope",
+    "villain",
+    "chosen one",
+    "fleet",
+    "sequel",
+    "panda",
+    "friends",
+    "accidental death",
+    "genocide",
+    "woman director",
+    "inspiring",
+    "henchmen",
+    "3d animation",
+    "traumatic past",
+    "whimsical",
+    "enthusiastic",
+    "post traumatic growth"
+  ],
+  "collection": {
+    "id": 77816,
+    "name": "Kung Fu Panda Collection",
+    "posterPath": "/xoYc0RYKSc3xC4S9OpPZxKocKtj.jpg",
+    "backdropPath": "/2nbtv33hEk2CTnuMhTGZgsFdi3K.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/49444-kung-fu-panda-2/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      },
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 232,
+        "name": "Zee5",
+        "logoPath": "/gP67NRy1ShUJilrzMsbOmEmdmcv.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    140300,
+    9502,
+    1011985,
+    527774,
+    585511,
+    1117857,
+    315162,
+    137106,
+    65759,
+    529203,
+    991494,
+    177572,
+    13179,
+    137116,
+    823609,
+    1022789,
+    774825,
+    877269,
+    829402,
+    482321
+  ],
+  "similar": [
+    13053,
+    13055,
+    13056,
+    13060,
+    13062,
+    13090,
+    13124,
+    13126,
+    13127,
+    1381634,
+    13163,
+    1190624,
+    12702,
+    12704,
+    12705,
+    12715,
+    269651,
+    13002,
+    448923,
+    269781
+  ]
 }

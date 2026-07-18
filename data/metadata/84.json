@@ -69,5 +69,125 @@
   "duration": 9009,
   "_tracksDetected": true,
   "certification": "PG-13",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "assassin",
+    "espionage",
+    "spy",
+    "time travel",
+    "mumbai (bombay), india",
+    "arms dealer",
+    "terrorism",
+    "terrorist attack",
+    "nuclear weapons",
+    "terrorist plot",
+    "backwards",
+    "alternate timeline",
+    "oslo, norway",
+    "curious",
+    "time paradox",
+    "kyiv (kiev), ukraine",
+    "intense",
+    "ambivalent",
+    "complicated"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/577922-tenet/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    27576,
+    137094,
+    59967,
+    976734,
+    937249,
+    1215162,
+    10596,
+    484641,
+    410199,
+    2320,
+    324670,
+    254904,
+    500664,
+    10431,
+    4824,
+    717930,
+    416144,
+    1369679,
+    9383,
+    1461181
+  ],
+  "similar": [
+    803438,
+    1051,
+    1213,
+    1247,
+    1180831,
+    1422,
+    1493,
+    1499,
+    1073,
+    1090,
+    1371312,
+    1267,
+    438885,
+    438890,
+    1535,
+    1557,
+    438970,
+    1571,
+    1572,
+    1573
+  ]
 }

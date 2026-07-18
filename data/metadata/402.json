@@ -56,5 +56,62 @@
   "duration": 7981,
   "_tracksDetected": true,
   "certification": "UA",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "balding man",
+    "alopecia",
+    "lack of confidence",
+    "bala"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/579230/watch?locale=IN",
+    "flatrate": [],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    460668,
+    1321439,
+    957119,
+    9919,
+    523773,
+    14848,
+    10033,
+    1618945,
+    1433842,
+    26014,
+    199341,
+    818612,
+    14750,
+    582570,
+    22100,
+    727745,
+    1104171,
+    1001811,
+    91739,
+    1515615
+  ],
+  "similar": [
+    266310,
+    445685,
+    20145,
+    20192,
+    20535,
+    276480,
+    20915,
+    20916,
+    20917,
+    20929,
+    20931,
+    1196942,
+    20294,
+    20295,
+    20299,
+    20359,
+    20360,
+    20364,
+    20365,
+    20390
+  ]
 }

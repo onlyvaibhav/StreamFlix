@@ -83,5 +83,103 @@
   "duration": 3474,
   "_tracksDetected": true,
   "certification": "R",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "great britain",
+    "spy",
+    "secret organization",
+    "microchip",
+    "secret agent",
+    "training",
+    "based on comic",
+    "implant",
+    "united kingdom",
+    "duringcreditsstinger",
+    "global threat",
+    "abusive stepfather"
+  ],
+  "collection": {
+    "id": 391860,
+    "name": "Kingsman Collection",
+    "posterPath": "/iR8L2XHA72wmYHc6O8LZmwV5hd5.jpg",
+    "backdropPath": "/i8SLS8XFbjiUheIObBxZDvk0MtJ.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/207703-kingsman-the-secret-service/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    9705,
+    59859,
+    522931,
+    461130,
+    932420,
+    1048241,
+    293660,
+    461053,
+    198184,
+    23483,
+    9739,
+    31867,
+    343668,
+    267193,
+    976734,
+    37724,
+    1319895,
+    648579,
+    754,
+    1215162
+  ],
+  "similar": [
+    13053,
+    13056,
+    12705,
+    449014,
+    12721,
+    12796,
+    269490,
+    13183,
+    13159,
+    13204,
+    13335,
+    270326,
+    13408,
+    13596,
+    270585,
+    270589,
+    13667,
+    270579,
+    13640,
+    13647
+  ]
 }

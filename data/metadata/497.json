@@ -58,5 +58,92 @@
   "duration": 7164,
   "_tracksDetected": true,
   "certification": "NR",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "supernatural"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/18673-8x10-tasveer/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    1093995,
+    178146,
+    37342,
+    864692,
+    1029827,
+    954388,
+    926670,
+    1109086,
+    15360,
+    854467,
+    33104,
+    44041,
+    51997,
+    74525,
+    1039960,
+    6028,
+    32051,
+    434853,
+    335866,
+    60938
+  ],
+  "similar": [
+    1547602,
+    439015,
+    1562,
+    804005,
+    1181291,
+    1181298,
+    1369953,
+    437395,
+    1369909,
+    616587,
+    804312,
+    1181508,
+    439341,
+    996581,
+    616880,
+    616844,
+    1370264,
+    260650,
+    1372059,
+    1923
+  ]
 }

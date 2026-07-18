@@ -83,5 +83,129 @@
   "_tracksDetected": true,
   "_probeFailCount": 0,
   "logo": "/data/logos/988_logo.png",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "martial arts",
+    "saving the world",
+    "magic",
+    "ninja fighter",
+    "gore",
+    "god",
+    "alternate dimension",
+    "shaolin monk",
+    "fighting",
+    "based on video game",
+    "martial arts tournament",
+    "reboot",
+    "hand to hand combat"
+  ],
+  "collection": {
+    "id": 931431,
+    "name": "Mortal Kombat (Reboot) Collection",
+    "posterPath": "/fzMBv3Bu8sWdsCQJbtF0XhY4Q2X.jpg",
+    "backdropPath": "/hq4SfEXIXaukxNGf5VgXgGb3UG4.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/460465-mortal-kombat/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      },
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    9312,
+    931285,
+    664767,
+    791373,
+    1034062,
+    841755,
+    1007401,
+    21512,
+    605,
+    1036561,
+    11358,
+    9387,
+    293660,
+    831405,
+    270938,
+    732450,
+    166076,
+    36586,
+    547016,
+    6978
+  ],
+  "similar": [
+    1452,
+    1483,
+    1491,
+    1494,
+    1497,
+    1498,
+    1499,
+    438798,
+    1266,
+    1267,
+    1271,
+    1273,
+    1362,
+    1373,
+    618176,
+    1571,
+    1572,
+    1573,
+    1576,
+    1577
+  ]
 }

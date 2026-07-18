@@ -71,5 +71,82 @@
   "duration": 5367,
   "_tracksDetected": true,
   "certification": "PG",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "gold",
+    "horse",
+    "cartoon",
+    "musical",
+    "con artist",
+    "sword fight",
+    "adventurer",
+    "16th century",
+    "conquistador",
+    "el dorado",
+    "3d animation",
+    "age of discovery"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/10501-the-road-to-el-dorado/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": []
+  },
+  "recommendations": [
+    14411,
+    560057,
+    410113,
+    927254,
+    400160,
+    832502,
+    1287536,
+    355547,
+    137116,
+    430162,
+    592983,
+    278154,
+    597316,
+    529203,
+    645757,
+    585511,
+    416153,
+    756397,
+    10837,
+    1029119
+  ],
+  "similar": [
+    1059,
+    438695,
+    438788,
+    1492,
+    1494,
+    1497,
+    1498,
+    1499,
+    1267,
+    1271,
+    1361,
+    1362,
+    1408,
+    1574,
+    260263,
+    260234,
+    618355,
+    1371727,
+    803796,
+    1547567
+  ]
 }

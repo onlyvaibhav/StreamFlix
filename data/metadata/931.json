@@ -70,5 +70,42 @@
   "_probeFailCount": 0,
   "_tracksDetected": true,
   "logo": "/data/logos/931_logo.png",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1321108/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    14834,
+    38031,
+    37821,
+    611114,
+    38925,
+    826769,
+    746419,
+    31016,
+    446131,
+    450489,
+    881209,
+    975043,
+    745391,
+    20758,
+    43609,
+    6282,
+    426203,
+    28059,
+    17585,
+    27590
+  ],
+  "similar": []
 }

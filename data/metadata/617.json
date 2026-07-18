@@ -69,5 +69,47 @@
   "certification": "A",
   "metadataStatus": "COMPLETE",
   "_stillPath": "/zuj7YeSiYoGZIAejxs1OrlxvOx6.jpg",
-  "episode_still": "/data/stills/617_still.jpg"
+  "episode_still": "/data/stills/617_still.jpg",
+  "keywords": [],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/tv/105759/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 237,
+        "name": "Sony Liv",
+        "logoPath": "/3973zlBbBXdXxaWqRWzGG2GYxbT.jpg"
+      },
+      {
+        "id": 614,
+        "name": "VI movies and tv",
+        "logoPath": "/9YJY5OwsIPMoX3xC3TdtZVbKBpE.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    119845,
+    4170,
+    67384,
+    2850,
+    85385,
+    226174,
+    100414,
+    230034,
+    153657,
+    96567,
+    72742,
+    138108,
+    204290,
+    81358,
+    158083,
+    1409,
+    132016,
+    90399,
+    65628,
+    86588
+  ],
+  "similar": []
 }

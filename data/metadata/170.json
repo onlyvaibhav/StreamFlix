@@ -94,5 +94,66 @@
   "duration": 7049,
   "_tracksDetected": true,
   "certification": "PG-13",
-  "metadataStatus": "COMPLETE"
+  "metadataStatus": "COMPLETE",
+  "keywords": [
+    "afterlife",
+    "communicating with the dead"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/818750-the-in-between/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    426254,
+    795,
+    152601,
+    447362,
+    441183,
+    644,
+    137321,
+    1087593,
+    470610,
+    14834,
+    329865,
+    365942,
+    317182,
+    301875,
+    453405,
+    762975,
+    426203,
+    1241921,
+    22556,
+    6023
+  ],
+  "similar": [
+    639009,
+    26600,
+    795,
+    745,
+    995771,
+    1649,
+    1551,
+    830427,
+    1374985,
+    631427,
+    640421,
+    14849,
+    1383557,
+    1008580,
+    7980,
+    265003,
+    1558922,
+    8967,
+    9030,
+    19599
+  ]
 }
