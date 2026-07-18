@@ -54,23 +54,33 @@ class MovieRemoteDataSource {
     }
   }
 
-  /// Fetch movies by genre
+  /// Fetch movies by genre using curated local data (bypasses TMDB blocks)
   Future<List<Movie>> getMoviesByGenre(String genreId) async {
     try {
-      final response = await _dio.get(
-        ApiEndpoints.moviesByGenre.replaceAll(':id', genreId),
-      );
+      final curated = await getCuratedContent();
+      final sections = curated.genresPage.sections[genreId];
       
-      if (response.data is List) {
-        return (response.data as List)
-            .map((json) => Movie.fromJson(json as Map<String, dynamic>))
-            .toList();
+      if (sections != null) {
+        // Return popular or combine them
+        final popular = sections['popular'] ?? [];
+        if (popular.isNotEmpty) return popular;
+        
+        // Fallback to top_rated or anything else available
+        return sections.values.expand((element) => element).toList();
       }
-      
-      final movies = response.data['movies'] ?? response.data['data'] ?? response.data['results'] ?? [];
-      return (movies as List)
-          .map((json) => Movie.fromJson(json as Map<String, dynamic>))
-          .toList();
+      return [];
+    } catch (e) {
+      if (e is DioException) throw _handleDioError(e);
+      throw Exception('Failed to load genre movies: $e');
+    }
+  }
+
+  /// Fetch list of genres
+  Future<List<Map<String, dynamic>>> getGenres() async {
+    try {
+      final response = await _dio.get(ApiEndpoints.genresList);
+      final genres = response.data['genres'] as List? ?? [];
+      return genres.cast<Map<String, dynamic>>();
     } on DioException catch (e) {
       throw _handleDioError(e);
     }
@@ -150,7 +160,7 @@ class MovieRemoteDataSource {
             overview: tvShow.overview,
             poster: tvShow.poster,
             backdrop: tvShow.backdrop,
-            logo: tvShow.logo,
+            logo: tvShow.logo ?? ApiEndpoints.movieLogoStatic('show_${tvShow.showTmdbId}'),
             year: tvShow.year,
             rating: tvShow.rating,
             popularity: tvShow.popularity,
@@ -169,6 +179,18 @@ class MovieRemoteDataSource {
   /// Intercept and sanitize incoming TV Show JSON to prevent schema structure crashes.
   Map<String, dynamic> _sanitizeTvShowJson(Map<String, dynamic> json) {
     final copy = Map<String, dynamic>.from(json);
+    
+    // Fix missing or mismatched fields from backend for TV Shows
+    if (copy['showTmdbId'] == null) {
+      final fallbackId = copy['tmdbId'] ?? copy['id'] ?? 0;
+      copy['showTmdbId'] = fallbackId is num ? fallbackId.toInt() : int.tryParse(fallbackId.toString()) ?? 0;
+    } else if (copy['showTmdbId'] is! num) {
+      copy['showTmdbId'] = int.tryParse(copy['showTmdbId'].toString()) ?? 0;
+    }
+    
+    if (copy['showTitle'] == null) {
+      copy['showTitle'] = copy['title'] ?? 'Unknown TV Show';
+    }
     
     // 1. Sanitize seasons Map/List
     final seasonsRaw = copy['seasons'];

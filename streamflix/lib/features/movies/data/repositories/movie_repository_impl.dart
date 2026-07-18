@@ -27,6 +27,11 @@ class MovieRepositoryImpl implements MovieRepository {
   }
 
   @override
+  Future<List<Map<String, dynamic>>> getGenres() async {
+    return await _remoteDataSource.getGenres();
+  }
+
+  @override
   Future<List<Movie>> getFeaturedMovies() async {
     return await _remoteDataSource.getFeaturedMovies();
   }

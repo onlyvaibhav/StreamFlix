@@ -180,17 +180,12 @@ final class MoviesByGenreFamily extends $Family
   String toString() => r'moviesByGenreProvider';
 }
 
-/// Provider for single movie detail or TV show detail adapted to Movie model
-
 @ProviderFor(movieDetail)
 final movieDetailProvider = MovieDetailFamily._();
-
-/// Provider for single movie detail or TV show detail adapted to Movie model
 
 final class MovieDetailProvider
     extends $FunctionalProvider<AsyncValue<Movie>, Movie, FutureOr<Movie>>
     with $FutureModifier<Movie>, $FutureProvider<Movie> {
-  /// Provider for single movie detail or TV show detail adapted to Movie model
   MovieDetailProvider._({
     required MovieDetailFamily super.from,
     required String super.argument,
@@ -234,9 +229,7 @@ final class MovieDetailProvider
   }
 }
 
-String _$movieDetailHash() => r'28f8420ae1a3f9062c14d3df934ffc4bfe0602b2';
-
-/// Provider for single movie detail or TV show detail adapted to Movie model
+String _$movieDetailHash() => r'b7f3ed878389f8137d0bfcf0a64a36baa95534f3';
 
 final class MovieDetailFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<Movie>, String> {
@@ -248,8 +241,6 @@ final class MovieDetailFamily extends $Family
         $allTransitiveDependencies: null,
         isAutoDispose: true,
       );
-
-  /// Provider for single movie detail or TV show detail adapted to Movie model
 
   MovieDetailProvider call(String movieId) =>
       MovieDetailProvider._(argument: movieId, from: this);

@@ -4,17 +4,16 @@ import 'package:streamflix/features/downloads/data/download_item.dart';
 import 'package:streamflix/features/downloads/data/download_manager.dart';
 import 'package:streamflix/features/movies/data/models/movie.dart';
 import 'package:streamflix/features/movies/data/models/split_part.dart';
+import 'package:streamflix/core/constants/app_colors.dart';
 
 class DownloadButton extends ConsumerWidget {
   final Movie movie;
   final List<SplitPart>? resolvedParts;
-  final bool compact; // If true, shows just the icon. If false, shows icon + text (for detail page)
 
   const DownloadButton({
     super.key,
     required this.movie,
     this.resolvedParts,
-    this.compact = false,
   });
 
   @override
@@ -34,137 +33,127 @@ class DownloadButton extends ConsumerWidget {
           return _buildIdleState(context, manager);
         }
 
+        Widget child = const SizedBox.shrink();
         switch (status) {
           case DownloadStatus.queued:
-            return _buildProgressState(context, manager, null);
+            child = _buildQueuedState(context, manager);
+            break;
           case DownloadStatus.downloading:
-            return _buildProgressState(context, manager, downloadItem.progress);
+            child = _buildProgressState(context, manager, downloadItem.progress);
+            break;
           case DownloadStatus.paused:
-            return _buildPausedState(context, manager);
+            child = _buildPausedState(context, manager);
+            break;
           case DownloadStatus.completed:
-            return _buildCompletedState(context, manager);
+            child = _buildCompletedState(context, manager);
+            break;
           case DownloadStatus.failed:
-            return _buildFailedState(context, manager);
+            child = _buildFailedState(context, manager);
+            break;
         }
+
+        return AnimatedSwitcher(
+          duration: const Duration(milliseconds: 300),
+          transitionBuilder: (Widget child, Animation<double> animation) {
+            return FadeTransition(
+              opacity: animation,
+              child: ScaleTransition(
+                scale: animation,
+                child: child,
+              ),
+            );
+          },
+          child: child,
+        );
       },
     );
   }
 
   Widget _buildIdleState(BuildContext context, DownloadManager manager) {
-    if (compact) {
-      return IconButton(
-        icon: const Icon(Icons.download_rounded, color: Colors.white70),
-        onPressed: () => _enqueue(manager),
-        tooltip: 'Download',
-      );
-    }
-    return ElevatedButton.icon(
+    return _buildIconWrapper(
+      key: const ValueKey('idle'),
+      icon: const Icon(Icons.download_rounded, color: AppColors.textSecondary, size: 28),
       onPressed: () => _enqueue(manager),
-      icon: const Icon(Icons.download_rounded),
-      label: const Text('Download'),
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.white12,
-        foregroundColor: Colors.white,
-      ),
+      tooltip: 'Download',
+    );
+  }
+
+  Widget _buildQueuedState(BuildContext context, DownloadManager manager) {
+    return _buildIconWrapper(
+      key: const ValueKey('queued'),
+      icon: const Icon(Icons.access_time_rounded, color: AppColors.textSecondary, size: 26),
+      onPressed: () => _pause(manager),
+      tooltip: 'Queued',
     );
   }
 
   Widget _buildProgressState(BuildContext context, DownloadManager manager, double? progress) {
-    if (compact) {
-      return IconButton(
-        icon: Stack(
-          alignment: Alignment.center,
-          children: [
-            SizedBox(
-              width: 24,
-              height: 24,
-              child: CircularProgressIndicator(
-                value: progress,
-                strokeWidth: 2,
-                color: Colors.white,
-                backgroundColor: Colors.white24,
-              ),
+    return _buildIconWrapper(
+      key: const ValueKey('progress'),
+      icon: Stack(
+        alignment: Alignment.center,
+        children: [
+          SizedBox(
+            width: 26,
+            height: 26,
+            child: CircularProgressIndicator(
+              value: progress,
+              strokeWidth: 2.5,
+              color: AppColors.textPrimary,
+              backgroundColor: Colors.white12,
             ),
-            const Icon(Icons.stop_rounded, size: 14, color: Colors.white),
-          ],
-        ),
-        onPressed: () => _pause(manager),
-        tooltip: 'Pause Download',
-      );
-    }
-    return ElevatedButton.icon(
+          ),
+          const Icon(Icons.stop_rounded, size: 14, color: AppColors.textPrimary),
+        ],
+      ),
       onPressed: () => _pause(manager),
-      icon: SizedBox(
-        width: 18,
-        height: 18,
-        child: CircularProgressIndicator(
-          value: progress,
-          strokeWidth: 2,
-          color: Colors.white,
-          backgroundColor: Colors.white24,
-        ),
-      ),
-      label: Text(progress != null ? '${(progress * 100).toInt()}%' : 'Queued'),
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.white12,
-        foregroundColor: Colors.white,
-      ),
+      tooltip: 'Pause Download',
     );
   }
 
   Widget _buildPausedState(BuildContext context, DownloadManager manager) {
-    if (compact) {
-      return IconButton(
-        icon: const Icon(Icons.play_arrow_rounded, color: Colors.white),
-        onPressed: () => _resume(manager),
-        tooltip: 'Resume Download',
-      );
-    }
-    return ElevatedButton.icon(
+    return _buildIconWrapper(
+      key: const ValueKey('paused'),
+      icon: const Icon(Icons.pause_circle_outline_rounded, color: AppColors.textSecondary, size: 28),
       onPressed: () => _resume(manager),
-      icon: const Icon(Icons.pause_rounded),
-      label: const Text('Paused'),
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.white12,
-        foregroundColor: Colors.white,
-      ),
+      tooltip: 'Resume Download',
     );
   }
 
   Widget _buildCompletedState(BuildContext context, DownloadManager manager) {
-    if (compact) {
-      return IconButton(
-        icon: const Icon(Icons.check_circle_rounded, color: Colors.green),
-        onPressed: () => _promptDelete(context, manager),
-        tooltip: 'Downloaded',
-      );
-    }
-    return ElevatedButton.icon(
+    return _buildIconWrapper(
+      key: const ValueKey('completed'),
+      icon: const Icon(Icons.download_done_rounded, color: AppColors.textPrimary, size: 28),
       onPressed: () => _promptDelete(context, manager),
-      icon: const Icon(Icons.check_rounded, color: Colors.green),
-      label: const Text('Downloaded'),
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.white12,
-        foregroundColor: Colors.white,
-      ),
+      tooltip: 'Downloaded',
     );
   }
 
   Widget _buildFailedState(BuildContext context, DownloadManager manager) {
-    if (compact) {
-      return IconButton(
-        icon: const Icon(Icons.error_outline_rounded, color: Colors.redAccent),
-        onPressed: () => _resume(manager),
-        tooltip: 'Retry Download',
-      );
-    }
-    return ElevatedButton.icon(
+    return _buildIconWrapper(
+      key: const ValueKey('failed'),
+      icon: const Icon(Icons.error_outline_rounded, color: AppColors.error, size: 28),
       onPressed: () => _resume(manager),
-      icon: const Icon(Icons.refresh_rounded, color: Colors.redAccent),
-      label: const Text('Retry'),
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.white12,
-        foregroundColor: Colors.white,
+      tooltip: 'Retry Download',
+    );
+  }
+
+  Widget _buildIconWrapper({
+    required Key key,
+    required Widget icon,
+    required VoidCallback onPressed,
+    required String tooltip,
+  }) {
+    return Material(
+      key: key,
+      color: Colors.transparent,
+      shape: const CircleBorder(),
+      clipBehavior: Clip.antiAlias,
+      child: IconButton(
+        icon: icon,
+        onPressed: onPressed,
+        tooltip: tooltip,
+        splashRadius: 24,
       ),
     );
   }
@@ -186,23 +175,23 @@ class DownloadButton extends ConsumerWidget {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        backgroundColor: Colors.grey[900],
-        title: const Text('Remove Download?', style: TextStyle(color: Colors.white)),
+        backgroundColor: AppColors.backgroundCard,
+        title: const Text('Remove Download?', style: TextStyle(color: AppColors.textPrimary)),
         content: const Text(
           'Are you sure you want to remove this download from your device?',
-          style: TextStyle(color: Colors.white70),
+          style: TextStyle(color: AppColors.textSecondary),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child: const Text('Cancel', style: TextStyle(color: Colors.white)),
+            child: const Text('Cancel', style: TextStyle(color: AppColors.textPrimary)),
           ),
           TextButton(
             onPressed: () {
               manager.deleteDownload(movie.id);
               Navigator.pop(ctx);
             },
-            child: const Text('Remove', style: TextStyle(color: Colors.redAccent)),
+            child: const Text('Remove', style: TextStyle(color: AppColors.error)),
           ),
         ],
       ),

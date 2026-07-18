@@ -92,6 +92,7 @@ function groupMoviesAndTV(items) {
                     rating: item.rating,
                     tmdbId: item.tv?.showTmdbId || item.tmdbId, // Show ID
                     overview: item.tv?.overview || item.overview,
+                    logo: item.logo,
                     seasons: {}
                 };
             }
@@ -119,7 +120,11 @@ function groupMoviesAndTV(items) {
     const tvList = Object.values(tvShows).map(show => {
         show.seasons = Object.values(show.seasons).sort((a, b) => a.seasonNumber - b.seasonNumber);
         show.seasons.forEach(season => {
-            season.episodes.sort((a, b) => a.episodeNumber - b.episodeNumber);
+            season.episodes.sort((a, b) => {
+                const numA = a.tv?.episodeNumber || a.episodeNumber || 0;
+                const numB = b.tv?.episodeNumber || b.episodeNumber || 0;
+                return numA - numB;
+            });
         });
         return show;
     });
@@ -147,6 +152,7 @@ exports.getShowByTmdbId = async (tmdbId) => {
         rating: showBase.rating,
         tmdbId: tmdbId,
         overview: showBase.tv?.overview || showBase.overview,
+        logo: showBase.logo,
         seasons: {}
     };
 
@@ -163,7 +169,11 @@ exports.getShowByTmdbId = async (tmdbId) => {
 
     show.seasons = Object.values(show.seasons).sort((a, b) => a.seasonNumber - b.seasonNumber);
     show.seasons.forEach(season => {
-        season.episodes.sort((a, b) => a.episodeNumber - b.episodeNumber);
+        season.episodes.sort((a, b) => {
+            const numA = a.tv?.episodeNumber || a.episodeNumber || 0;
+            const numB = b.tv?.episodeNumber || b.episodeNumber || 0;
+            return numA - numB;
+        });
     });
 
     return show;

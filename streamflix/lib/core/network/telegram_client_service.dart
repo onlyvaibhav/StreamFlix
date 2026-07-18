@@ -2,11 +2,13 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:webview_flutter_android/webview_flutter_android.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-class TelegramClientService {
+class TelegramClientService with WidgetsBindingObserver {
   static final TelegramClientService _instance = TelegramClientService._internal();
   factory TelegramClientService() => _instance;
   TelegramClientService._internal();
@@ -24,26 +26,70 @@ class TelegramClientService {
   final StreamController<String> _authStream = StreamController<String>.broadcast();
   Stream<String> get authStateStream => _authStream.stream;
 
+  // Parallel download events
+  final StreamController<Map<String, dynamic>> _parallelDownloadStream = StreamController<Map<String, dynamic>>.broadcast();
+  Stream<Map<String, dynamic>> get parallelDownloadStream => _parallelDownloadStream.stream;
+
+
   String? _sessionString;
   String? _phoneCodeHash;
   Map<String, dynamic>? _userObj;
   String? _lastRawMsg;
+  DateTime? _lastInactiveTime;
 
   WebViewController get webViewController => _controller;
 
-  Future<void> init({String? initialSession}) async {
-    _sessionString = initialSession;
-    
-    _controller = WebViewController()
+  void setupController() {
+    late final PlatformWebViewControllerCreationParams params;
+    if (WebViewPlatform.instance is AndroidWebViewPlatform) {
+      params = AndroidWebViewControllerCreationParams();
+    } else {
+      params = const PlatformWebViewControllerCreationParams();
+    }
+
+    _controller = WebViewController.fromPlatformCreationParams(params)
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..addJavaScriptChannel(
         'FlutterChannel',
         onMessageReceived: _handleMessageFromJS,
       );
 
+    if (_controller.platform is AndroidWebViewController) {
+      (_controller.platform as AndroidWebViewController)
+          .setMediaPlaybackRequiresUserGesture(false);
+    }
+  }
+
+  Future<void> init({String? initialSession}) async {
+    _sessionString = initialSession;
+    
     if (!kIsWeb) {
       // Load from Flutter assets — this correctly resolves relative <script src="..."> paths
       await _controller.loadFlutterAsset('assets/gramjs/gramjs_worker.html');
+    }
+    
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  void pingWebview() {
+    try {
+      _controller.runJavaScript('if(window._jsHeartbeatTimer) { console.log("Dart ping to wake JS loop!"); }');
+    } catch (_) {}
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.paused || state == AppLifecycleState.inactive) {
+      _lastInactiveTime ??= DateTime.now();
+    } else if (state == AppLifecycleState.resumed) {
+      if (_lastInactiveTime != null) {
+        final elapsed = DateTime.now().difference(_lastInactiveTime!);
+        if (elapsed > const Duration(seconds: 5)) {
+          debugPrint('📱 App Resumed (Backgrounded for ${elapsed.inSeconds}s) - Notifying GramJS to reconnect');
+          _sendToJS({'type': 'appResumed'});
+        }
+        _lastInactiveTime = null;
+      }
     }
   }
 
@@ -116,6 +162,12 @@ class TelegramClientService {
             _pendingFileReferenceRequests[requestId]!.completeError(Exception(msg['error']));
             _pendingFileReferenceRequests.remove(requestId);
           }
+          break;
+        case 'workerCountReduced':
+        case 'parallelChunkResult':
+        case 'parallelChunkError':
+        case 'parallelDownloadComplete':
+          _parallelDownloadStream.add(msg);
           break;
         case 'error':
           debugPrint('❌ GramJS Error: ${msg['error']}');
@@ -226,5 +278,38 @@ class TelegramClientService {
     // Use single quotes to wrap the argument so JSON double-quotes pass through safely
     final escaped = jsonStr.replaceAll("\\", "\\\\").replaceAll("'", "\\'");
     _controller.runJavaScript("window.handleFlutterMessage('$escaped');");
+  }
+
+  Future<void> startParallelDownload({
+    required String mediaId,
+    required Map<String, dynamic> fileData,
+    required int totalSize,
+    required int startOffset,
+    int workers = 4,
+  }) async {
+    await isReady;
+    _sendToJS({
+      'type': 'startParallelDownload',
+      'mediaId': mediaId,
+      'fileData': fileData,
+      'totalSize': totalSize,
+      'startOffset': startOffset,
+      'workers': workers,
+    });
+  }
+
+  void cancelParallelDownload(String mediaId) {
+    _sendToJS({
+      'type': 'cancelParallelDownload',
+      'mediaId': mediaId,
+    });
+  }
+
+  void setParallelWorkerCount(String mediaId, int workers) {
+    _sendToJS({
+      'type': 'setParallelWorkerCount',
+      'mediaId': mediaId,
+      'workers': workers,
+    });
   }
 }

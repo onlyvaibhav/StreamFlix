@@ -28,38 +28,9 @@ class MovieDetailScreen extends ConsumerWidget {
     return Scaffold(
       backgroundColor: AppColors.background,
       body: movieAsync.when(
-        loading: () => ShimmerLoading(
-          child: SingleChildScrollView(
-            physics: const NeverScrollableScrollPhysics(),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.4,
-                  color: Colors.white10,
-                ),
-                const SizedBox(height: 24),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Container(width: 220, height: 28, color: Colors.white10),
-                ),
-                const SizedBox(height: 12),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Container(width: 140, height: 16, color: Colors.white10),
-                ),
-                const SizedBox(height: 24),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Container(height: 48, color: Colors.white10),
-                ),
-                const SizedBox(height: 24),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Container(height: 120, color: Colors.white10),
-                ),
-              ],
-            ),
+        loading: () => const Center(
+          child: CircularProgressIndicator(
+            color: AppColors.netflixRed,
           ),
         ),
         error: (error, stack) => AppErrorWidget(

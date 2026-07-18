@@ -7,6 +7,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:streamflix/features/auth/presentation/providers/auth_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:streamflix/core/widgets/netflix_avatar.dart';
+import 'package:streamflix/features/profile/presentation/widgets/help_support_sheet.dart';
 
 class ProfileScreen extends ConsumerStatefulWidget {
   const ProfileScreen({super.key});
@@ -109,7 +110,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
               _buildBigTile(
                 icon: Icons.help_outline_rounded,
                 title: 'Help',
-                onTap: () {},
+                onTap: () => _showHelpSupportSheet(context),
               ),
               
               const SizedBox(height: 32),
@@ -228,6 +229,21 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     );
   }
 
+  void _showHelpSupportSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      useRootNavigator: true,
+      backgroundColor: AppColors.backgroundLight,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      ),
+      builder: (context) {
+        return const SafeArea(child: HelpSupportSheet());
+      },
+    );
+  }
+
   void _showAccountSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -303,11 +319,10 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
             ),
           ),
         ),
-        Container(
-          decoration: BoxDecoration(
-            color: AppColors.backgroundLight,
-            borderRadius: BorderRadius.circular(12),
-          ),
+        Material(
+          color: AppColors.backgroundLight,
+          borderRadius: BorderRadius.circular(12),
+          clipBehavior: Clip.antiAlias,
           child: Column(
             children: children,
           ),

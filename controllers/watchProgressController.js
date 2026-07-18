@@ -1,34 +1,6 @@
 const supabaseService = require('../services/supabaseService');
 
-/**
- * Helper to extract session token from the request
- */
-function getSessionToken(req) {
-  const authHeader = req.headers['authorization'];
-  if (authHeader && authHeader.startsWith('Bearer ')) {
-    return authHeader.substring(7);
-  }
-  return req.body?.sessionToken || req.query?.sessionToken;
-}
 
-/**
- * Helper to authenticate and get user's Telegram ID
- */
-async function authenticateRequest(req, res) {
-  const sessionToken = getSessionToken(req);
-  if (!sessionToken) {
-    res.status(401).json({ success: false, error: 'Authorization required' });
-    return null;
-  }
-
-  const dbSession = await supabaseService.getSession(sessionToken);
-  if (!dbSession) {
-    res.status(401).json({ success: false, error: 'Invalid or expired session' });
-    return null;
-  }
-
-  return dbSession.telegram_id;
-}
 
 /**
  * GET /api/progress
@@ -36,8 +8,7 @@ async function authenticateRequest(req, res) {
  */
 async function getWatchProgress(req, res) {
   try {
-    const telegramId = await authenticateRequest(req, res);
-    if (!telegramId) return; // Response already sent
+    const telegramId = req.deviceAuth.telegramId;
 
     const progress = await supabaseService.getWatchProgress(telegramId);
     return res.json({ success: true, progress });
@@ -53,8 +24,7 @@ async function getWatchProgress(req, res) {
  */
 async function saveWatchProgress(req, res) {
   try {
-    const telegramId = await authenticateRequest(req, res);
-    if (!telegramId) return;
+    const telegramId = req.deviceAuth.telegramId;
 
     const { fileId, positionSeconds, durationSeconds, title, posterPath, mediaType, season, episode, showId } = req.body;
     

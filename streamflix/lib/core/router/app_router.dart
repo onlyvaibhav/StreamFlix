@@ -9,27 +9,50 @@ import 'package:streamflix/features/player/presentation/screens/watch_screen.dar
 import 'package:streamflix/features/library/presentation/screens/movies_catalog_screen.dart';
 import 'package:streamflix/features/library/presentation/screens/tv_catalog_screen.dart';
 import 'package:streamflix/features/search/presentation/screens/search_screen.dart';
+import 'package:streamflix/features/genres/presentation/screens/genres_screen.dart';
+import 'package:streamflix/features/genres/presentation/screens/genre_detail_screen.dart';
 import 'package:streamflix/features/profile/presentation/screens/profile_screen.dart';
+import 'package:streamflix/features/downloads/presentation/screens/downloads_screen.dart';
 import 'package:streamflix/features/auth/presentation/screens/login_screen.dart';
 import 'package:streamflix/features/auth/presentation/providers/auth_provider.dart';
+import 'package:streamflix/features/downloads/presentation/screens/series_downloads_screen.dart';
+import 'package:streamflix/features/onboarding/presentation/screens/onboarding_screen.dart';
+import 'package:streamflix/features/onboarding/presentation/providers/onboarding_provider.dart';
+import 'package:streamflix/features/splash/presentation/screens/splash_screen.dart';
 
 part 'app_router.g.dart';
+
+final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
 
 @riverpod
 GoRouter appRouter(Ref ref) {
   final isAuthenticated = ref.watch(authStateProvider);
+  final hasSeenOnboarding = ref.watch(onboardingStateProvider);
 
   return GoRouter(
-    initialLocation: RouteNames.home,
+    navigatorKey: rootNavigatorKey,
+    initialLocation: RouteNames.splash,
     debugLogDiagnostics: true,
     redirect: (context, state) {
-      final isGoingToLogin = state.matchedLocation == RouteNames.login;
+      final isGoingToSplash = state.matchedLocation == RouteNames.splash;
+      if (isGoingToSplash) return null;
 
-      if (!isAuthenticated && !isGoingToLogin) {
+      final isGoingToLogin = state.matchedLocation == RouteNames.login;
+      final isGoingToOnboarding = state.matchedLocation == RouteNames.onboarding;
+
+      if (!hasSeenOnboarding && !isGoingToOnboarding) {
+        return RouteNames.onboarding;
+      }
+      
+      if (hasSeenOnboarding && isGoingToOnboarding) {
+         return isAuthenticated ? RouteNames.home : RouteNames.login;
+      }
+
+      if (hasSeenOnboarding && !isAuthenticated && !isGoingToLogin) {
         return RouteNames.login;
       }
       
-      if (isAuthenticated && isGoingToLogin) {
+      if (hasSeenOnboarding && isAuthenticated && isGoingToLogin) {
         return RouteNames.home;
       }
       
@@ -56,11 +79,11 @@ GoRouter appRouter(Ref ref) {
           StatefulShellBranch(
             routes: [
               GoRoute(
-                path: RouteNames.search,
-                name: 'search',
+                path: RouteNames.genres,
+                name: 'genres',
                 pageBuilder: (context, state) => NoTransitionPage(
                   key: state.pageKey,
-                  child: const SearchScreen(),
+                  child: const GenresScreen(),
                 ),
               ),
             ],
@@ -92,6 +115,32 @@ GoRouter appRouter(Ref ref) {
           StatefulShellBranch(
             routes: [
               GoRoute(
+                path: RouteNames.downloads,
+                name: 'downloads',
+                pageBuilder: (context, state) => NoTransitionPage(
+                  key: state.pageKey,
+                  child: const DownloadsScreen(),
+                ),
+                routes: [
+                  GoRoute(
+                    path: RouteNames.seriesDownloads,
+                    name: 'seriesDownloads',
+                    pageBuilder: (context, state) {
+                      final seriesId = state.pathParameters['seriesId']!;
+                      final showTitle = state.uri.queryParameters['showTitle'] ?? 'Episodes';
+                      return MaterialPage(
+                        key: state.pageKey,
+                        child: SeriesDownloadsScreen(seriesId: seriesId, showTitle: showTitle),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
                 path: RouteNames.profile,
                 name: 'profile',
                 pageBuilder: (context, state) => NoTransitionPage(
@@ -115,6 +164,18 @@ GoRouter appRouter(Ref ref) {
         },
       ),
       GoRoute(
+        path: RouteNames.genreDetail,
+        name: 'genreDetail',
+        pageBuilder: (context, state) {
+          final slug = state.pathParameters['slug']!;
+          final genreName = state.uri.queryParameters['name'] ?? 'Genre';
+          return MaterialPage(
+            key: state.pageKey,
+            child: GenreDetailScreen(slug: slug, genreName: genreName),
+          );
+        },
+      ),
+      GoRoute(
         path: RouteNames.watch,
         name: 'watch',
         pageBuilder: (context, state) {
@@ -130,9 +191,24 @@ GoRouter appRouter(Ref ref) {
       GoRoute(
         path: RouteNames.login,
         name: 'login',
-        pageBuilder: (context, state) => NoTransitionPage(
+        builder: (context, state) => const LoginScreen(),
+      ),
+      GoRoute(
+        path: RouteNames.splash,
+        name: 'splash',
+        builder: (context, state) => const SplashScreen(),
+      ),
+      GoRoute(
+        path: RouteNames.onboarding,
+        name: 'onboarding',
+        builder: (context, state) => const OnboardingScreen(),
+      ),
+      GoRoute(
+        path: RouteNames.search,
+        name: 'search',
+        pageBuilder: (context, state) => MaterialPage(
           key: state.pageKey,
-          child: const LoginScreen(),
+          child: const SearchScreen(),
         ),
       ),
     ],

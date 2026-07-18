@@ -11,31 +11,22 @@ import 'package:streamflix/features/downloads/data/download_manager.dart';
 
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:streamflix/core/network/telegram_client_service.dart';
 import 'package:streamflix/core/network/local_loopback_server.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+
   await dotenv.load(fileName: '.env');
   
   await Hive.initFlutter();
   await Hive.openBox('authBox');
 
-  await Supabase.initialize(
-    url: dotenv.env['SUPABASE_URL']!,
-    anonKey: dotenv.env['SUPABASE_ANON_KEY']!,
-  );
-
-  PlayerConfig.initialize();
-  await WatchHistoryManager.loadHistory();
-  await DownloadManager().init();
-
-  // Initialize Telegram Client Service and Loopback Server
-  await LocalLoopbackServer().start();
-  final box = Hive.box('authBox');
-  final savedSession = box.get('telegram_session') as String?;
-  await TelegramClientService().init(initialSession: savedSession);
+  // Setup WebViewController early so it can be mounted by StreamFlixApp
+  TelegramClientService().setupController();
 
   runApp(
     const ProviderScope(
@@ -43,6 +34,8 @@ void main() async {
     ),
   );
 }
+
+final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
 
 class StreamFlixApp extends ConsumerWidget {
   const StreamFlixApp({super.key});
@@ -52,6 +45,7 @@ class StreamFlixApp extends ConsumerWidget {
     final router = ref.watch(appRouterProvider);
 
     return MaterialApp.router(
+      scaffoldMessengerKey: scaffoldMessengerKey,
       title: 'StreamFlix',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(

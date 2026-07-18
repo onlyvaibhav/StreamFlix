@@ -1,0 +1,614 @@
+
+        // The Flutter app injects a JavascriptChannel named "FlutterChannel"
+        function sendToFlutter(msg) {
+            if (window.FlutterChannel) {
+                window.FlutterChannel.postMessage(JSON.stringify(msg));
+            } else {
+                console.warn("FlutterChannel not found", msg);
+            }
+        }
+        
+        window.onerror = function(message, source, lineno, colno, error) {
+            sendToFlutter({ type: "error", error: message + " at " + source + ":" + lineno });
+        };
+        
+        console.log = function(...args) {
+            sendToFlutter({ type: "log", message: args.join(" ") });
+        };
+        console.error = function(...args) {
+            sendToFlutter({ type: "error", error: args.join(" ") });
+        };
+
+        let client = null;
+        let session = null;
+        let apiId = 25193240;
+        let apiHash = "24079455e34ad7368838fef9798878e7";
+        let isConnected = false;
+        let initPromise = null; // Track the init promise so sendCode can wait
+
+        async function initClient(sessionString) {
+            try {
+                const { TelegramClient, StringSession, PromisedWebSockets, ConnectionTCPObfuscated } = GramJSWorker;
+                
+                session = new StringSession(sessionString || "");
+                
+                const dcId = session.dcId;
+                const webDcDomains = {
+                    1: "pluto.web.telegram.org",
+                    2: "venus.web.telegram.org",
+                    3: "aurora.web.telegram.org",
+                    4: "vesta.web.telegram.org",
+                    5: "flora.web.telegram.org"
+                };
+                
+                if (webDcDomains[dcId]) {
+                    session.setDC(dcId, webDcDomains[dcId], 443);
+                }
+                
+                // CRITICAL BUG FIX (Web): Use PromisedWebSockets and explicitly configure connection to avoid raw TCP fallback loops
+                client = new TelegramClient(session, apiId, apiHash, {
+                    connectionRetries: 5,
+                    useWSS: true,
+                    connection: ConnectionTCPObfuscated,
+                    networkSocket: PromisedWebSockets,
+                    autoReconnect: true
+                });
+
+                // CRITICAL BUG FIX (Web): Disable the unnecessary update loop that causes timeouts/crashes
+                if (client._updateLoop) {
+                    client._updateLoop = () => {};
+                }
+                
+                client.floodSleepThreshold = 0; // Disable automatic sleeping to handle it in our worker logic
+
+                await client.connect();
+                isConnected = true;
+                
+                sendToFlutter({ type: "ready", session: client.session.save() });
+            } catch (err) {
+                sendToFlutter({ type: "error", error: err.toString() });
+            }
+        }
+
+        async function sendCode(phoneNumber) {
+            try {
+                // Wait for client init if it's still in progress
+                if (initPromise) await initPromise;
+                if (!client || !isConnected) {
+                    sendToFlutter({ type: "error", error: "Client not connected yet. Please wait and try again." });
+                    return;
+                }
+                const result = await client.sendCode(
+                    {
+                        apiId,
+                        apiHash
+                    },
+                    phoneNumber
+                );
+                sendToFlutter({ type: "phoneCodeSent", phoneCodeHash: result.phoneCodeHash });
+            } catch (err) {
+                sendToFlutter({ type: "error", error: err.toString() });
+            }
+        }
+
+        async function signIn(phoneNumber, phoneCodeHash, phoneCode) {
+            try {
+                if (!client || !isConnected) {
+                    sendToFlutter({ type: "error", error: "Client not connected." });
+                    return;
+                }
+                const result = await client.invoke(
+                    new GramJSWorker.Api.auth.SignIn({
+                        phoneNumber,
+                        phoneCodeHash,
+                        phoneCode
+                    })
+                );
+                
+                let me = result.user;
+                if (!me) {
+                    me = await client.getMe();
+                }
+                
+                const userObj = {
+                    telegramId: me.id ? me.id.toString() : "",
+                    username: me.username || "",
+                    firstName: me.firstName || "Telegram User",
+                    lastName: me.lastName || "",
+                    phone: me.phone || "",
+                    premium: !!me.premium,
+                    language: me.langCode || "en",
+                    profilePhoto: me.photo ? "has_photo" : null
+                };
+
+                sendToFlutter({ 
+                    type: "signedIn", 
+                    session: client.session.save(),
+                    user: userObj
+                });
+            } catch (err) {
+                if (err.message && err.message.includes('SESSION_PASSWORD_NEEDED')) {
+                    sendToFlutter({ type: "passwordNeeded" });
+                } else {
+                    sendToFlutter({ type: "error", error: err.toString() });
+                }
+            }
+        }
+
+        async function signInWithPassword(password) {
+            try {
+                if (!client || !isConnected) {
+                    sendToFlutter({ type: "error", error: "Client not connected." });
+                    return;
+                }
+                const result = await client.signInWithPassword(
+                    { apiId: apiId, apiHash: apiHash },
+                    { password: async () => password, onError: (e) => { throw e; } }
+                );
+                
+                let me = client.session.save();
+                me = await client.getMe();
+                
+                const userObj = {
+                    telegramId: me.id ? me.id.toString() : "",
+                    username: me.username || "",
+                    firstName: me.firstName || "Telegram User",
+                    lastName: me.lastName || "",
+                    phone: me.phone || "",
+                    premium: !!me.premium,
+                    language: me.langCode || "en",
+                    profilePhoto: me.photo ? "has_photo" : null
+                };
+
+                sendToFlutter({ 
+                    type: "signedIn", 
+                    session: client.session.save(),
+                    user: userObj
+                });
+            } catch (err) {
+                sendToFlutter({ type: "error", error: err.toString() });
+            }
+        }
+
+        let dcSenders = new Map();
+        let documentDcCache = new Map();
+        let activeParallelDownloads = new Map();
+
+        async function startParallelDownload(msg) {
+            const { mediaId, fileData, totalSize, startOffset, workers } = msg;
+            if (activeParallelDownloads.has(mediaId)) {
+                let existingState = activeParallelDownloads.get(mediaId);
+                if (existingState.isCancelled) {
+                    console.log(`⏳ Waiting for old workers to drain on ${mediaId} before resuming...`);
+                    await new Promise(resolve => {
+                        let check = setInterval(() => {
+                            if (!activeParallelDownloads.has(mediaId)) {
+                                clearInterval(check);
+                                resolve();
+                            }
+                        }, 50);
+                    });
+                } else {
+                    return;
+                }
+            }
+            
+            const chunkSize = 512 * 1024; // 512KB
+            const queue = [];
+            for (let offset = startOffset; offset < totalSize; offset += chunkSize) {
+                let limit = Math.min(chunkSize, totalSize - offset);
+                if (limit % 4096 !== 0) {
+                    limit = limit + (4096 - (limit % 4096));
+                }
+                queue.push({ offset, limit });
+            }
+            
+            const state = {
+                queue,
+                isCancelled: false,
+                activeWorkers: 0,
+                targetWorkers: workers,
+            };
+            activeParallelDownloads.set(mediaId, state);
+            
+            state.workerFn = async () => {
+                while (!state.isCancelled && state.queue.length > 0) {
+                    if (state.activeWorkers > state.targetWorkers) {
+                        break;
+                    }
+                    const chunk = state.queue.shift();
+                    let attempts = 0;
+                    let success = false;
+                    
+                    let docIdStr = fileData.id ? fileData.id.toString() : "";
+                    let currentDcId = documentDcCache.get(docIdStr) || (fileData.dcId ? parseInt(fileData.dcId) : null);
+                    
+                    while (attempts < 3 && !success && !state.isCancelled) {
+                        attempts++;
+                        try {
+                            let refBuffer;
+                            if (fileData.fileReference && Array.isArray(fileData.fileReference)) {
+                                refBuffer = GramJSWorker.Buffer.from(fileData.fileReference);
+                            } else if (typeof fileData.fileReference === 'string') {
+                                refBuffer = GramJSWorker.Buffer.from(fileData.fileReference, 'base64');
+                            } else {
+                                refBuffer = GramJSWorker.Buffer.from([]);
+                            }
+
+                            const location = new GramJSWorker.Api.InputDocumentFileLocation({
+                                id: fileData.id ? BigInt(fileData.id) : undefined,
+                                accessHash: fileData.accessHash ? BigInt(fileData.accessHash) : undefined,
+                                fileReference: refBuffer,
+                                thumbSize: ""
+                            });
+
+                            const getFileRequest = new GramJSWorker.Api.upload.GetFile({
+                                location,
+                                offset: BigInt(chunk.offset),
+                                limit: chunk.limit,
+                                precise: true
+                            });
+
+                            const invokePromise = currentDcId 
+                                ? client.invokeWithSender(getFileRequest, dcSenders.get(currentDcId))
+                                : client.invoke(getFileRequest);
+                                
+                            const timeoutPromise = new Promise((_, reject) => 
+                                setTimeout(() => reject(new Error("Timeout: Socket likely dead in background")), 15000)
+                            );
+                            
+                            let result = await Promise.race([invokePromise, timeoutPromise]);
+                            
+                            let base64String = GramJSWorker.Buffer.from(result.bytes).toString('base64');
+                            if (result.bytes.length > 0 && result.bytes.length < chunk.limit) {
+                                const currentEnd = chunk.offset + result.bytes.length;
+                                if (currentEnd < totalSize) {
+                                    console.log(`⚠️ Telegram returned ${result.bytes.length} bytes (expected ${chunk.limit}) at offset ${chunk.offset}. Re-queueing the remaining ${chunk.limit - result.bytes.length} bytes.`);
+                                    const missingOffset = currentEnd;
+                                    let missingLimit = chunk.limit - result.bytes.length;
+                                    if (missingLimit % 4096 !== 0) missingLimit += (4096 - (missingLimit % 4096));
+                                    state.queue.push({ offset: missingOffset, limit: missingLimit });
+                                }
+                            }
+                            sendToFlutter({
+                                type: "parallelChunkResult",
+                                mediaId: mediaId,
+                                offset: chunk.offset,
+                                data: base64String
+                            });
+                            success = true;
+                        } catch (error) {
+                            const errorMsg = error.toString();
+                            console.log(`❌ Chunk error at offset ${chunk.offset}: ${errorMsg}`);
+                            
+                            const waitMatch = errorMsg.match(/FLOOD_WAIT_(\d+)/) || errorMsg.match(/wait of (\d+) seconds/i);
+                            if (waitMatch) {
+                                const waitMs = parseInt(waitMatch[1]) * 1000;
+                                    console.log(`Worker hitting flood wait. Pausing for ${waitMs}ms`);
+                                    
+                                    if (state.targetWorkers > 1) {
+                                        state.targetWorkers--;
+                                        console.log(`📉 Reducing target workers for ${mediaId} to ${state.targetWorkers}`);
+                                        sendToFlutter({ type: "workerCountReduced", mediaId: mediaId, newCount: state.targetWorkers });
+                                    }
+                                    
+                                    // Add jitter so all workers don't wake up simultaneously
+                                    await new Promise(resolve => setTimeout(resolve, waitMs + (Math.random() * 2000)));
+                                    
+                                    if (state.activeWorkers > state.targetWorkers) {
+                                        console.log(`Aborting excess worker after flood wait.`);
+                                        state.queue.unshift(chunk);
+                                        break;
+                                    }
+                                    
+                                    attempts--; // Flood wait doesn't count against limit
+                                    continue;
+                                }
+                            
+
+                            if (errorMsg.includes('Timeout') || errorMsg.includes('Socket closed') || errorMsg.includes('ENOTFOUND') || errorMsg.includes('ECONNRESET')) {
+                                console.log(`Network error: ${errorMsg}. Retrying...`);
+                                await new Promise(resolve => setTimeout(resolve, 3000));
+                                attempts--; // Don't fail the download, retry infinitely (useful for background disconnects)
+                                continue;
+                            }
+                            
+                            if (
+                                errorMsg.includes('FILE_MIGRATE') ||
+                                errorMsg.includes('DC_ID_INVALID') ||
+                                errorMsg.includes('currently stored in DC')
+                            ) {
+                                const match = errorMsg.match(/(?:DC\s*|_)(\d+)/i);
+                                if (match) {
+                                    currentDcId = parseInt(match[1]);
+                                    documentDcCache.set(docIdStr, currentDcId);
+                                    if (attempts < 3) continue;
+                                }
+                            } else if (errorMsg.includes('disconnected') || errorMsg.includes('Cannot send requests while disconnected') || errorMsg.includes('TIMEOUT') || errorMsg.includes('Not connected')) {
+                                if (currentDcId) {
+                                    dcSenders.delete(currentDcId);
+                                }
+                                if (client && !client.connected) {
+                                    await client.connect();
+                                }
+                                if (attempts < 3) continue;
+                            }
+                        }
+                    }
+                    if (!success && !state.isCancelled) {
+                        sendToFlutter({
+                            type: "parallelChunkError",
+                            mediaId: mediaId,
+                            offset: chunk.offset,
+                            error: "Failed to fetch chunk after max attempts"
+                        });
+                        state.isCancelled = true; // stop others
+                    }
+                }
+                state.activeWorkers--;
+                if (state.activeWorkers === 0 && !state.isCancelled && state.queue.length === 0) {
+                    sendToFlutter({
+                        type: "parallelDownloadComplete",
+                        mediaId: mediaId
+                    });
+                    activeParallelDownloads.delete(mediaId);
+                }
+            };
+            
+            // Pre-connect to the DC to ensure workers don't bunch up waiting for the connection
+            let initialDcId = fileData.dcId ? parseInt(fileData.dcId) : null;
+            if (initialDcId && !dcSenders.has(initialDcId)) {
+                console.log(`🔌 Pre-connecting to DC ${initialDcId} before spawning workers...`);
+                try {
+                    const sender = await client.getSender(initialDcId);
+                    dcSenders.set(initialDcId, sender);
+                    // Force the socket to fully open and handshake by sending a dummy request.
+                    // This prevents GramJS from queueing the staggered worker requests and sending them in a single burst!
+                    const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error('TIMEOUT_PRECONNECT')), 10000));
+                    await Promise.race([
+                        client.invokeWithSender(new GramJSWorker.Api.help.GetNearestDc(), sender),
+                        timeoutPromise
+                    ]);
+                    console.log(`🔥 Socket to DC ${initialDcId} is fully warm and ready.`);
+                } catch(e) {
+                    console.log(`Failed to pre-connect to DC ${initialDcId}: ${e.toString()}`);
+                }
+            }
+            
+            state.activeWorkers = workers;
+            for (let i = 0; i < workers; i++) {
+                setTimeout(() => {
+                    if (!state.isCancelled) {
+                        state.workerFn();
+                    } else {
+                        state.activeWorkers--;
+                        if (state.activeWorkers === 0) {
+                            activeParallelDownloads.delete(mediaId);
+                        }
+                    }
+                }, i * 250);
+            }
+        }
+        
+        function setParallelWorkerCount(msg) {
+            const { mediaId, workers } = msg;
+            if (activeParallelDownloads.has(mediaId)) {
+                const state = activeParallelDownloads.get(mediaId);
+                state.targetWorkers = workers;
+                // If we increased workers, spawn them
+                while (state.activeWorkers < state.targetWorkers && state.queue.length > 0 && !state.isCancelled) {
+                    state.activeWorkers++;
+                    state.workerFn();
+                }
+            }
+        }
+
+        function cancelParallelDownload(mediaId) {
+            const state = activeParallelDownloads.get(mediaId);
+            if (state) {
+                state.isCancelled = true;
+                activeParallelDownloads.delete(mediaId);
+            }
+        }
+
+        async function fetchChunk(requestId, fileData, offset, limit) {
+            let attempts = 0;
+            let docIdStr = fileData.id ? fileData.id.toString() : "";
+            // fileData contains id, accessHash, fileReference, dcId
+            let currentDcId = documentDcCache.get(docIdStr) || (fileData.dcId ? parseInt(fileData.dcId) : null);
+            const maxAttempts = 3;
+
+            while (attempts < maxAttempts) {
+                attempts++;
+                try {
+                    // CRITICAL BUG FIX (Web): Ensure fileReference is reconstructed as a real Buffer
+                    // When passing arrays over the bridge, they arrive as JS arrays. GramJS requires Buffer.
+                    let refBuffer;
+                    if (fileData.fileReference && Array.isArray(fileData.fileReference)) {
+                        refBuffer = GramJSWorker.Buffer.from(fileData.fileReference);
+                    } else if (typeof fileData.fileReference === 'string') {
+                        refBuffer = GramJSWorker.Buffer.from(fileData.fileReference, 'base64');
+                    } else {
+                        refBuffer = GramJSWorker.Buffer.from([]);
+                    }
+
+                    const location = new GramJSWorker.Api.InputDocumentFileLocation({
+                        id: fileData.id ? BigInt(fileData.id) : undefined,
+                        accessHash: fileData.accessHash ? BigInt(fileData.accessHash) : undefined,
+                        fileReference: refBuffer,
+                        thumbSize: ""
+                    });
+
+                    const getFileRequest = new GramJSWorker.Api.upload.GetFile({
+                        location,
+                        offset: BigInt(offset),
+                        limit: limit,
+                        precise: true
+                    });
+
+                    let result;
+                    try {
+                        const timeoutMs = 15000;
+                        const timeoutPromise = new Promise((_, reject) => 
+                            setTimeout(() => reject(new Error('TIMEOUT_INVOKE')), timeoutMs)
+                        );
+                        
+                        if (currentDcId) {
+                            if (!dcSenders.has(currentDcId)) {
+                                const sender = await client.getSender(currentDcId);
+                                dcSenders.set(currentDcId, sender);
+                            }
+                            const sender = dcSenders.get(currentDcId);
+                            result = await Promise.race([
+                                client.invokeWithSender(getFileRequest, sender),
+                                timeoutPromise
+                            ]);
+                        } else {
+                            result = await Promise.race([
+                                client.invoke(getFileRequest),
+                                timeoutPromise
+                            ]);
+                        }
+                    } catch (error) {
+                        const errorMsg = error.toString();
+                        if (
+                            errorMsg.includes('FILE_MIGRATE') ||
+                            errorMsg.includes('DC_ID_INVALID') ||
+                            errorMsg.includes('currently stored in DC')
+                        ) {
+                            const match = errorMsg.match(/(?:DC\s*|_)(\d+)/i);
+                            if (match) {
+                                currentDcId = parseInt(match[1]);
+                                documentDcCache.set(docIdStr, currentDcId);
+                                console.log("🔄 DC Migration required. Switching to DC " + currentDcId);
+                                if (attempts < maxAttempts) continue;
+                            }
+                        } else if (errorMsg.includes('disconnected') || errorMsg.includes('Cannot send requests while disconnected') || errorMsg.includes('TIMEOUT_INVOKE')) {
+                            console.log("🔄 Disconnected from DC or TIMEOUT. Reconnecting...");
+                            if (currentDcId) {
+                                dcSenders.delete(currentDcId);
+                            }
+                            if (client && !client.connected) {
+                                await client.connect();
+                            }
+                            if (attempts < maxAttempts) continue;
+                        }
+                        throw error;
+                    }
+
+                    // Convert bytes to base64 for reliable transmission over JavascriptChannel
+                    let base64String = GramJSWorker.Buffer.from(result.bytes).toString('base64');
+                    
+                    sendToFlutter({
+                        type: "chunkResult",
+                        requestId: requestId,
+                        data: base64String
+                    });
+                    return; // Success
+                } catch (err) {
+                    const errorMsg = err.toString();
+                    const waitMatch = errorMsg.match(/FLOOD_WAIT_(\d+)/) || errorMsg.match(/wait of (\d+) seconds/i);
+                    if (waitMatch) {
+                        const waitMs = parseInt(waitMatch[1]) * 1000;
+                        console.log(`fetchChunk hitting flood wait. Pausing for ${waitMs}ms`);
+                        await new Promise(resolve => setTimeout(resolve, waitMs + 500));
+                        attempts--; // Flood wait doesn't count against limit
+                        continue;
+                    }
+                    
+                    if (attempts >= maxAttempts) {
+                        sendToFlutter({
+                            type: "chunkError",
+                            requestId: requestId,
+                            error: errorMsg
+                        });
+                        return;
+                    }
+                    // Wait before retry
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                }
+            }
+        }
+
+        // Message listener from Flutter
+        window.handleFlutterMessage = async function(jsonStr) {
+            try {
+                const msg = JSON.parse(jsonStr);
+                
+                if (msg.type === "init") {
+                    if (msg.apiId) apiId = msg.apiId;
+                    if (msg.apiHash) apiHash = msg.apiHash;
+                    initPromise = initClient(msg.session);
+                    await initPromise;
+                } 
+                else if (msg.type === "sendCode") {
+                    await sendCode(msg.phoneNumber);
+                }
+                else if (msg.type === "signIn") {
+                    await signIn(msg.phoneNumber, msg.phoneCodeHash, msg.phoneCode);
+                }
+                else if (msg.type === "checkPassword") {
+                    await signInWithPassword(msg.password);
+                }
+                else if (msg.type === "appResumed") {
+                    console.log("📱 App resumed. Forcing GramJS reconnect to drop dead sockets...");
+                    // Clear sender cache to ensure fresh DC connections
+                    dcSenders.clear();
+                    
+                    if (client) {
+                        try {
+                            await client.disconnect();
+                        } catch (e) {}
+                        await client.connect();
+                    }
+                }
+                else if (msg.type === "fetchChunk") {
+                    await fetchChunk(msg.requestId, msg.fileData, msg.offset, msg.limit);
+                }
+                else if (msg.type === "startParallelDownload") {
+                    startParallelDownload(msg);
+                }
+                else if (msg.type === "cancelParallelDownload") {
+                    cancelParallelDownload(msg.mediaId);
+                }
+                else if (msg.type === "setParallelWorkerCount") {
+                    setParallelWorkerCount(msg);
+                }
+                else if (msg.type === "refreshFileReference") {
+                    try {
+                        let channelIdStr = msg.channelId.toString();
+                        // Handle -100 prefix if missing for some reason, though it should be passed correctly
+                        if (!channelIdStr.startsWith('-100')) {
+                            channelIdStr = '-100' + channelIdStr.replace('-', '');
+                        }
+                        const channel = await client.getEntity(channelIdStr);
+                        const result = await client.invoke(new GramJSWorker.Api.channels.GetMessages({
+                            channel: channel,
+                            id: [new GramJSWorker.Api.InputMessageID({ id: parseInt(msg.messageId) })]
+                        }));
+                        if (result.messages && result.messages.length > 0 && result.messages[0].media && result.messages[0].media.document) {
+                            const doc = result.messages[0].media.document;
+                            const newRef = doc.fileReference;
+                            const base64String = GramJSWorker.Buffer.from(newRef).toString('base64');
+                            sendToFlutter({ 
+                                type: "fileReferenceRefreshed", 
+                                requestId: msg.requestId, 
+                                data: base64String,
+                                accessHash: doc.accessHash ? doc.accessHash.toString() : undefined,
+                                id: doc.id ? doc.id.toString() : undefined
+                            });
+                        } else {
+                            sendToFlutter({ type: "fileReferenceError", requestId: msg.requestId, error: "Message or document not found" });
+                        }
+                    } catch (err) {
+                        sendToFlutter({ type: "fileReferenceError", requestId: msg.requestId, error: err.toString() });
+                    }
+                }
+            } catch(e) {
+                sendToFlutter({ type: "error", error: "Bad message format: " + e.toString() });
+            }
+        };
+
+        // Notify flutter that webview is loaded
+        sendToFlutter({ type: "webviewLoaded" });
+    

@@ -23,6 +23,7 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const path = require('path');
 const os = require('os');
+const cookieParser = require('cookie-parser');
 const { requireAdmin } = require('./middleware/auth');
 
 const streamRoutes = require('./routes/streamRoutes');
@@ -155,6 +156,7 @@ app.use(morgan('dev', {
     return isStatic || isData || isHeartbeat;
   }
 }));
+app.use(cookieParser());
 app.use(express.json({ limit: '5mb' }));
 app.use(express.urlencoded({ extended: true, limit: '5mb' }));
 
@@ -172,17 +174,14 @@ app.use('/api/proxy', express.static(path.join(__dirname, 'data')));
 
 // Serve local images ONLY — no proxy to TMDB or anywhere else
 app.use('/data/posters', express.static(path.join(__dirname, 'data/posters'), {
-  fallthrough: false,
   maxAge: '7d'
 }));
 
 app.use('/data/backdrops', express.static(path.join(__dirname, 'data/backdrops'), {
-  fallthrough: false,
   maxAge: '7d'
 }));
 
 app.use('/data/stills', express.static(path.join(__dirname, 'data/stills'), {
-  fallthrough: false,
   maxAge: '7d'
 }));
 
@@ -200,6 +199,19 @@ app.use('/api/home', homeRoutes);
 app.use('/api/tv', tvRoutes);
 app.use('/api/progress', watchProgressRoutes);
 app.use('/internal', internalRoutes);
+
+const alertBot = require('./services/bot/alertBot');
+app.use((err, req, res, next) => {
+    if (err) {
+        alertBot.notifyError(req.user, err.message || err.toString(), `${req.method} ${req.originalUrl}`);
+        console.error('Global Error Handler caught:', err);
+        if (!res.headersSent) {
+            res.status(err.status || 500).json({ success: false, error: err.message || 'Internal Server Error' });
+        }
+    } else {
+        next();
+    }
+});
 
 // ============================================================
 // ADMIN WORKER ROUTES

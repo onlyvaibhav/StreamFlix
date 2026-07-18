@@ -22,6 +22,10 @@ class LocalLoopbackServer {
   // Map of fileId -> { documentId, accessHash, fileReference, size }
   final Map<String, Map<String, dynamic>> _registeredFiles = {};
 
+  final Set<String> activeStreams = {};
+  final ValueNotifier<int> activeStreamCount = ValueNotifier(0);
+
+
   /// Optional callback to refresh file info when FILE_REFERENCE_EXPIRED occurs
   FileInfoRefresher? _fileInfoRefresher;
 
@@ -66,6 +70,10 @@ class LocalLoopbackServer {
     _registeredFiles.clear();
   }
 
+  bool isRegistered(String fileId) {
+    return _registeredFiles.containsKey(fileId);
+  }
+
   /// Refresh the file reference for a given fileId by calling the backend
   Future<bool> _refreshFileReference(String fileId) async {
     if (_fileInfoRefresher == null) {
@@ -88,7 +96,7 @@ class LocalLoopbackServer {
   }
 
   Future<Response> _handleRequest(Request request) async {
-    if (request.method != 'GET') {
+    if (request.method != 'GET' && request.method != 'HEAD') {
       return Response(405, body: 'Method Not Allowed');
     }
 
@@ -105,6 +113,15 @@ class LocalLoopbackServer {
 
     final fileInfo = _registeredFiles[fileId]!;
     final int fileSize = fileInfo['size'];
+
+    if (request.method == 'HEAD') {
+      return Response.ok(null, headers: {
+        'Content-Type': 'video/mp4',
+        'Accept-Ranges': 'bytes',
+        'Content-Length': fileSize.toString(),
+        'Access-Control-Allow-Origin': '*',
+      });
+    }
 
     // Handle Range requests
     final rangeHeader = request.headers['range'];
@@ -225,9 +242,37 @@ class LocalLoopbackServer {
         'Access-Control-Allow-Origin': '*',
       };
 
+      // Wrap byteStream to track active streams
+      final trackingStream = byteStream().map((chunk) => chunk).handleError((error) {
+        throw error;
+      });
+      
+      final controller = StreamController<List<int>>();
+      final streamId = DateTime.now().millisecondsSinceEpoch.toString();
+      
+      controller.onListen = () {
+        activeStreams.add(streamId);
+        activeStreamCount.value = activeStreams.length;
+        trackingStream.listen(
+          controller.add,
+          onError: controller.addError,
+          onDone: () {
+            activeStreams.remove(streamId);
+            activeStreamCount.value = activeStreams.length;
+            controller.close();
+          },
+          cancelOnError: true,
+        );
+      };
+      
+      controller.onCancel = () {
+        activeStreams.remove(streamId);
+        activeStreamCount.value = activeStreams.length;
+      };
+
       return Response(
         206, // Partial Content
-        body: byteStream(),
+        body: controller.stream,
         headers: headers,
       );
     } catch (e) {

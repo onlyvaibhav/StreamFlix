@@ -57,13 +57,18 @@
                     useWSS: true,
                     connection: ConnectionTCPObfuscated,
                     networkSocket: PromisedWebSockets,
-                    autoReconnect: true
+                    autoReconnect: true,
+                    deviceModel: 'StreamFlix App',
+                    systemVersion: 'Mobile App',
+                    appVersion: '1.0.0'
                 });
 
                 // CRITICAL BUG FIX (Web): Disable the unnecessary update loop that causes timeouts/crashes
                 if (client._updateLoop) {
                     client._updateLoop = () => {};
                 }
+                
+                client.floodSleepThreshold = 0; // Disable automatic sleeping to handle it in our worker logic
 
                 await client.connect();
                 isConnected = true;
@@ -174,51 +179,498 @@
             }
         }
 
-        async function fetchChunk(requestId, fileData, offset, limit) {
-            try {
-                // fileData contains id, accessHash, fileReference, dcId
-                
-                // CRITICAL BUG FIX (Web): Ensure fileReference is reconstructed as a real Buffer
-                // When passing arrays over the bridge, they arrive as JS arrays. GramJS requires Buffer.
-                let refBuffer;
-                if (fileData.fileReference && Array.isArray(fileData.fileReference)) {
-                    refBuffer = GramJSWorker.Buffer.from(fileData.fileReference);
-                } else if (typeof fileData.fileReference === 'string') {
-                    refBuffer = GramJSWorker.Buffer.from(fileData.fileReference, 'base64');
-                } else {
-                    refBuffer = GramJSWorker.Buffer.from([]);
+        let dcSenders = new Map();
+        let documentDcCache = new Map();
+        let activeParallelDownloads = new Map();
+        let _jsHeartbeatTimer = null;
+        let _audioCtx = null;
+        let _silentOscillator = null;
+
+        function _startSilentAudio() {
+            if (!_audioCtx) {
+                _audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (_audioCtx.state === 'suspended') {
+                _audioCtx.resume();
+            }
+            if (!_silentOscillator) {
+                _silentOscillator = _audioCtx.createOscillator();
+                _silentOscillator.type = 'sine';
+                _silentOscillator.frequency.value = 1; // 1 Hz (inaudible sub-bass)
+                const gainNode = _audioCtx.createGain();
+                gainNode.gain.value = 0.01; // Non-zero to prevent Chromium from optimizing away the AudioTrack
+                _silentOscillator.connect(gainNode);
+                gainNode.connect(_audioCtx.destination);
+                _silentOscillator.start();
+                console.log("🔊 Started silent audio WakeLock to prevent WebView throttling.");
+            }
+        }
+
+        function _stopSilentAudio() {
+            if (_silentOscillator) {
+                _silentOscillator.stop();
+                _silentOscillator.disconnect();
+                _silentOscillator = null;
+            }
+            if (_audioCtx && _audioCtx.state === 'running') {
+                _audioCtx.suspend();
+                console.log("🔇 Stopped silent audio WakeLock.");
+            }
+        }
+
+        function _startJsHeartbeat() {
+            if (_jsHeartbeatTimer) return;
+            _startSilentAudio();
+            _jsHeartbeatTimer = setInterval(() => {
+                if (activeParallelDownloads.size === 0) {
+                    clearInterval(_jsHeartbeatTimer);
+                    _jsHeartbeatTimer = null;
+                    return;
                 }
+                sendToFlutter({ type: "log", message: `JS_HEARTBEAT t=${Date.now()} active_downloads=${activeParallelDownloads.size}` });
+            }, 2000);
+        }
 
-                const location = new GramJSWorker.Api.InputDocumentFileLocation({
-                    id: fileData.id ? BigInt(fileData.id) : undefined,
-                    accessHash: fileData.accessHash ? BigInt(fileData.accessHash) : undefined,
-                    fileReference: refBuffer,
-                    thumbSize: ""
-                });
+        function _stopJsHeartbeat() {
+            if (_jsHeartbeatTimer) {
+                clearInterval(_jsHeartbeatTimer);
+                _jsHeartbeatTimer = null;
+                _stopSilentAudio();
+            }
+        }
 
-                // CRITICAL BUG FIX (Web): Offset and limit MUST align to 1MB/512KB boundaries (1048576 or 524288)
-                // The loopback server in Dart must handle the exact slicing, but GramJS will fetch the exact aligned offset
-                const result = await client.invoke(new GramJSWorker.Api.upload.GetFile({
-                    location,
-                    offset: BigInt(offset),
-                    limit: limit,
-                    precise: true
-                }));
+        async function startParallelDownload(msg) {
+            const { mediaId, fileData, totalSize, startOffset, workers } = msg;
+            if (activeParallelDownloads.has(mediaId)) {
+                let existingState = activeParallelDownloads.get(mediaId);
+                if (existingState.isCancelled) {
+                    console.log(`⏳ Waiting for old workers to drain on ${mediaId} before resuming...`);
+                    await new Promise(resolve => {
+                        let check = setInterval(() => {
+                            if (!activeParallelDownloads.has(mediaId)) {
+                                clearInterval(check);
+                                resolve();
+                            }
+                        }, 50);
+                    });
+                } else {
+                    return;
+                }
+            }
+            
+            const chunkSize = 1024 * 1024; // 1MB
+            const queue = [];
+            for (let offset = startOffset; offset < totalSize; offset += chunkSize) {
+                let limit = Math.min(chunkSize, totalSize - offset);
+                if (limit % 4096 !== 0) {
+                    limit = limit + (4096 - (limit % 4096));
+                }
+                queue.push({ offset, limit });
+            }
+            
+            const state = {
+                queue,
+                isCancelled: false,
+                activeWorkers: 0,
+                targetWorkers: workers,
+                workerSenders: new Map(), // Per-worker isolated DC senders for true parallelism
+            };
+            activeParallelDownloads.set(mediaId, state);
+            _startJsHeartbeat();
+            
+            state.workerFn = async (workerId) => {
+                workerId = workerId ?? state.activeWorkers;
+                while (!state.isCancelled && state.queue.length > 0) {
+                    if (state.activeWorkers > state.targetWorkers) {
+                        break;
+                    }
+                    const chunk = state.queue.shift();
+                    let attempts = 0;
+                    let success = false;
+                    let abortedWorker = false;
+                    
+                    let docIdStr = fileData.id ? fileData.id.toString() : "";
+                    let currentDcId = documentDcCache.get(docIdStr) || (fileData.dcId ? parseInt(fileData.dcId) : client.session.dcId);
+                    
+                    while (attempts < 3 && !success && !state.isCancelled) {
+                        attempts++;
+                        try {
+                            let refBuffer;
+                            if (fileData.fileReference && Array.isArray(fileData.fileReference)) {
+                                refBuffer = GramJSWorker.Buffer.from(fileData.fileReference);
+                            } else if (typeof fileData.fileReference === 'string') {
+                                refBuffer = GramJSWorker.Buffer.from(fileData.fileReference, 'base64');
+                            } else {
+                                refBuffer = GramJSWorker.Buffer.from([]);
+                            }
 
-                // Convert bytes to base64 for reliable transmission over JavascriptChannel
-                let base64String = GramJSWorker.Buffer.from(result.bytes).toString('base64');
-                
-                sendToFlutter({
-                    type: "chunkResult",
-                    requestId: requestId,
-                    data: base64String
-                });
-            } catch (err) {
-                sendToFlutter({
-                    type: "chunkError",
-                    requestId: requestId,
-                    error: err.toString()
-                });
+                            const location = new GramJSWorker.Api.InputDocumentFileLocation({
+                                id: fileData.id ? BigInt(fileData.id) : undefined,
+                                accessHash: fileData.accessHash ? BigInt(fileData.accessHash) : undefined,
+                                fileReference: refBuffer,
+                                thumbSize: ""
+                            });
+
+                            const getFileRequest = new GramJSWorker.Api.upload.GetFile({
+                                location,
+                                offset: BigInt(chunk.offset),
+                                limit: chunk.limit,
+                                precise: true
+                            });
+
+                            // Phase D: Per-worker sender isolation — each worker gets its own DC connection
+                            let sender;
+                            if (currentDcId) {
+                                const senderKey = `${currentDcId}_${workerId}`;
+                                sender = state.workerSenders.get(senderKey);
+                                if (!sender) {
+                                    sender = client._createExportedSender(currentDcId);
+                                    sender._instrumentationId = `socket_${currentDcId}_${workerId}_${Math.random().toString(36).substr(2, 5)}`;
+                                    await client._connectSender(sender, currentDcId);
+                                    state.workerSenders.set(senderKey, sender);
+                                }
+                            }
+                            
+                            // Phase D Logging: Prove isolation by logging the unique socket identifier
+                            const socketId = sender ? sender._instrumentationId : 'client_default';
+                            console.log(`🔌 Worker ${workerId} issuing request using Sender ID: ${socketId} for offset ${chunk.offset}`);
+
+                            const t0 = performance.now();
+                            const invokePromise = currentDcId 
+                                ? client.invokeWithSender(getFileRequest, sender)
+                                : client.invoke(getFileRequest);
+                                
+                            const timeoutPromise = new Promise((_, reject) => 
+                                setTimeout(() => reject(new Error("Timeout: Socket likely dead in background")), 60000)
+                            );
+                            
+                            let result = await Promise.race([invokePromise, timeoutPromise]);
+                            const t1 = performance.now();
+                            
+                            let base64String = GramJSWorker.Buffer.from(result.bytes).toString('base64');
+                            const t2 = performance.now();
+                            if (result.bytes.length > 0 && result.bytes.length < chunk.limit) {
+                                const currentEnd = chunk.offset + result.bytes.length;
+                                if (currentEnd < totalSize) {
+                                    console.log(`⚠️ Telegram returned ${result.bytes.length} bytes (expected ${chunk.limit}) at offset ${chunk.offset}. Re-queueing the remaining ${chunk.limit - result.bytes.length} bytes.`);
+                                    const missingOffset = currentEnd;
+                                    let missingLimit = chunk.limit - result.bytes.length;
+                                    if (missingLimit % 4096 !== 0) missingLimit += (4096 - (missingLimit % 4096));
+                                    state.queue.push({ offset: missingOffset, limit: missingLimit });
+                                }
+                            }
+                            const networkMs = Math.round(t1 - t0);
+                            const encodeMs = Math.round(t2 - t1);
+                            
+                            // Phase E Logging: Log network vs bridge encoding overhead
+                            console.log(`⏱️ Worker ${workerId} Chunk ${chunk.offset}: Network=${networkMs}ms, Base64Encode=${encodeMs}ms`);
+                            
+                            sendToFlutter({
+                                type: "parallelChunkResult",
+                                mediaId: mediaId,
+                                offset: chunk.offset,
+                                data: base64String,
+                                networkMs: networkMs,
+                                encodeMs: encodeMs
+                            });
+                            success = true;
+                        } catch (error) {
+                            const errorMsg = error.toString();
+                            console.log(`❌ Chunk error at offset ${chunk.offset}: ${errorMsg}`);
+                            
+                            const waitMatch = errorMsg.match(/FLOOD_WAIT_(\d+)/) || errorMsg.match(/wait of (\d+) seconds/i);
+                            if (waitMatch) {
+                                const waitMs = parseInt(waitMatch[1]) * 1000;
+                                    console.log(`Worker hitting flood wait. Pausing for ${waitMs}ms`);
+                                    
+                                    if (state.targetWorkers > 1) {
+                                        state.targetWorkers--;
+                                        console.log(`📉 Reducing target workers for ${mediaId} to ${state.targetWorkers}`);
+                                        sendToFlutter({ type: "workerCountReduced", mediaId: mediaId, newCount: state.targetWorkers });
+                                    }
+                                    
+                                    // Add jitter so all workers don't wake up simultaneously
+                                    await new Promise(resolve => setTimeout(resolve, waitMs + (Math.random() * 2000)));
+                                    
+                                    if (state.activeWorkers > state.targetWorkers) {
+                                        console.log(`Aborting excess worker after flood wait.`);
+                                        state.queue.unshift(chunk);
+                                        abortedWorker = true;
+                                        break;
+                                    }
+                                    
+                                    attempts--; // Flood wait doesn't count against limit
+                                    continue;
+                                }
+                            
+
+                            if (errorMsg.includes('Timeout') || errorMsg.includes('Socket closed') || errorMsg.includes('ENOTFOUND') || errorMsg.includes('ECONNRESET')) {
+                                console.log(`Network error: ${errorMsg}. Retrying...`);
+                                if (currentDcId) {
+                                    // Clear this worker's sender so it reconnects
+                                    state.workerSenders.delete(`${currentDcId}_${workerId}`);
+                                }
+                                if (client && !client.connected) {
+                                    try { await client.connect(); } catch(e) {}
+                                }
+                                await new Promise(resolve => setTimeout(resolve, 3000));
+                                attempts--; // Don't fail the download, retry infinitely (useful for background disconnects)
+                                continue;
+                            }
+                            
+                            if (
+                                errorMsg.includes('FILE_MIGRATE') ||
+                                errorMsg.includes('DC_ID_INVALID') ||
+                                errorMsg.includes('currently stored in DC')
+                            ) {
+                                const match = errorMsg.match(/(?:DC\s*|_)(\d+)/i);
+                                if (match) {
+                                    currentDcId = parseInt(match[1]);
+                                    documentDcCache.set(docIdStr, currentDcId);
+                                    if (attempts < 3) continue;
+                                }
+                            } else if (errorMsg.includes('disconnected') || errorMsg.includes('Cannot send requests while disconnected') || errorMsg.includes('TIMEOUT') || errorMsg.includes('Not connected')) {
+                                console.log(`🔄 Network/DC disconnected: ${errorMsg}. Reconnecting...`);
+                                if (currentDcId) {
+                                    state.workerSenders.delete(`${currentDcId}_${workerId}`);
+                                }
+                                if (client && !client.connected) {
+                                    try { await client.connect(); } catch(e) {}
+                                }
+                                await new Promise(resolve => setTimeout(resolve, 3000));
+                                attempts--; // Retry infinitely for background flapping
+                                continue;
+                            }
+                        }
+                    }
+                    if (abortedWorker) break;
+                    
+                    if (!success && !state.isCancelled) {
+                        sendToFlutter({
+                            type: "parallelChunkError",
+                            mediaId: mediaId,
+                            offset: chunk.offset,
+                            error: "Failed to fetch chunk after max attempts"
+                        });
+                        state.isCancelled = true; // stop others
+                    }
+                }
+                state.activeWorkers--;
+                if (state.activeWorkers === 0 && !state.isCancelled && state.queue.length === 0) {
+                    sendToFlutter({
+                        type: "parallelDownloadComplete",
+                        mediaId: mediaId
+                    });
+                    activeParallelDownloads.delete(mediaId);
+                    if (activeParallelDownloads.size === 0) _stopJsHeartbeat();
+                }
+            };
+            
+            // Pre-connect to the DC to ensure workers don't bunch up waiting for the connection
+            let initialDcId = fileData.dcId ? parseInt(fileData.dcId) : client.session.dcId;
+            if (initialDcId && !dcSenders.has(initialDcId)) {
+                if (!window.pendingDcConnections) window.pendingDcConnections = {};
+                if (!window.pendingDcConnections[initialDcId]) {
+                    window.pendingDcConnections[initialDcId] = (async () => {
+                        console.log(`🔌 Pre-connecting to DC ${initialDcId} before spawning workers...`);
+                        try {
+                            const sender = await client.getSender(initialDcId);
+                            dcSenders.set(initialDcId, sender);
+                            // Force the socket to fully open and handshake by sending a dummy request.
+                            // This prevents GramJS from queueing the staggered worker requests and sending them in a single burst!
+                            const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error('TIMEOUT_PRECONNECT')), 10000));
+                            await Promise.race([
+                                client.invokeWithSender(new GramJSWorker.Api.help.GetNearestDc(), sender),
+                                timeoutPromise
+                            ]);
+                            console.log(`🔥 Socket to DC ${initialDcId} is fully warm and ready.`);
+                        } catch(e) {
+                            console.log(`Failed to pre-connect to DC ${initialDcId}: ${e.toString()}`);
+                        }
+                        delete window.pendingDcConnections[initialDcId];
+                    })();
+                }
+                await window.pendingDcConnections[initialDcId];
+            }
+            
+            // Pre-warm per-worker senders for true parallel connections
+            if (initialDcId) {
+                console.log(`🔌 Pre-warming ${workers} isolated senders to DC ${initialDcId}...`);
+                for (let i = 0; i < workers; i++) {
+                    const senderKey = `${initialDcId}_${i}`;
+                    if (!state.workerSenders.has(senderKey)) {
+                        try {
+                            const s = client._createExportedSender(initialDcId);
+                            s._instrumentationId = `socket_${initialDcId}_${i}_${Math.random().toString(36).substr(2, 5)}`;
+                            await client._connectSender(s, initialDcId);
+                            state.workerSenders.set(senderKey, s);
+                            await new Promise(resolve => setTimeout(resolve, 250)); // Stagger connection opens
+                        } catch(e) {
+                            console.log(`Failed to pre-warm sender ${i}: ${e.toString()}`);
+                        }
+                    }
+                }
+                console.log(`🔥 ${state.workerSenders.size} isolated senders ready.`);
+            }
+
+            state.activeWorkers = workers;
+            let workerId = 0;
+            for (let i = 0; i < workers; i++) {
+                const wid = workerId++;
+                setTimeout(() => {
+                    if (!state.isCancelled) {
+                        state.workerFn(wid);
+                    } else {
+                        state.activeWorkers--;
+                        if (state.activeWorkers === 0) {
+                            activeParallelDownloads.delete(mediaId);
+                        }
+                    }
+                }, i * 250);
+            }
+        }
+        
+        function setParallelWorkerCount(msg) {
+            const { mediaId, workers } = msg;
+            if (activeParallelDownloads.has(mediaId)) {
+                const state = activeParallelDownloads.get(mediaId);
+                state.targetWorkers = workers;
+                // If we increased workers, spawn new ones with unique IDs
+                let nextWorkerId = state.workerSenders.size;
+                while (state.activeWorkers < state.targetWorkers && state.queue.length > 0 && !state.isCancelled) {
+                    state.activeWorkers++;
+                    state.workerFn(nextWorkerId++);
+                }
+            }
+        }
+
+        function cancelParallelDownload(mediaId) {
+            const state = activeParallelDownloads.get(mediaId);
+            if (state) {
+                state.isCancelled = true;
+                activeParallelDownloads.delete(mediaId);
+                if (activeParallelDownloads.size === 0) _stopJsHeartbeat();
+            }
+        }
+
+        async function fetchChunk(requestId, fileData, offset, limit) {
+            let attempts = 0;
+            let docIdStr = fileData.id ? fileData.id.toString() : "";
+            // fileData contains id, accessHash, fileReference, dcId
+            let currentDcId = documentDcCache.get(docIdStr) || (fileData.dcId ? parseInt(fileData.dcId) : client.session.dcId);
+            const maxAttempts = 3;
+
+            while (attempts < maxAttempts) {
+                attempts++;
+                try {
+                    // CRITICAL BUG FIX (Web): Ensure fileReference is reconstructed as a real Buffer
+                    // When passing arrays over the bridge, they arrive as JS arrays. GramJS requires Buffer.
+                    let refBuffer;
+                    if (fileData.fileReference && Array.isArray(fileData.fileReference)) {
+                        refBuffer = GramJSWorker.Buffer.from(fileData.fileReference);
+                    } else if (typeof fileData.fileReference === 'string') {
+                        refBuffer = GramJSWorker.Buffer.from(fileData.fileReference, 'base64');
+                    } else {
+                        refBuffer = GramJSWorker.Buffer.from([]);
+                    }
+
+                    const location = new GramJSWorker.Api.InputDocumentFileLocation({
+                        id: fileData.id ? BigInt(fileData.id) : undefined,
+                        accessHash: fileData.accessHash ? BigInt(fileData.accessHash) : undefined,
+                        fileReference: refBuffer,
+                        thumbSize: ""
+                    });
+
+                    const getFileRequest = new GramJSWorker.Api.upload.GetFile({
+                        location,
+                        offset: BigInt(offset),
+                        limit: limit,
+                        precise: true
+                    });
+
+                    let result;
+                    try {
+                        const timeoutMs = 60000;
+                        const timeoutPromise = new Promise((_, reject) => 
+                            setTimeout(() => reject(new Error('TIMEOUT_INVOKE')), timeoutMs)
+                        );
+                        
+                        if (currentDcId) {
+                            if (!dcSenders.has(currentDcId)) {
+                                const sender = await client.getSender(currentDcId);
+                                dcSenders.set(currentDcId, sender);
+                            }
+                            const sender = dcSenders.get(currentDcId);
+                            result = await Promise.race([
+                                client.invokeWithSender(getFileRequest, sender),
+                                timeoutPromise
+                            ]);
+                        } else {
+                            result = await Promise.race([
+                                client.invoke(getFileRequest),
+                                timeoutPromise
+                            ]);
+                        }
+                    } catch (error) {
+                        const errorMsg = error.toString();
+                        if (
+                            errorMsg.includes('FILE_MIGRATE') ||
+                            errorMsg.includes('DC_ID_INVALID') ||
+                            errorMsg.includes('currently stored in DC')
+                        ) {
+                            const match = errorMsg.match(/(?:DC\s*|_)(\d+)/i);
+                            if (match) {
+                                currentDcId = parseInt(match[1]);
+                                documentDcCache.set(docIdStr, currentDcId);
+                                console.log("🔄 DC Migration required. Switching to DC " + currentDcId);
+                                if (attempts < maxAttempts) continue;
+                            }
+                        } else if (errorMsg.includes('disconnected') || errorMsg.includes('Cannot send requests while disconnected') || errorMsg.includes('TIMEOUT') || errorMsg.includes('Not connected')) {
+                            console.log("🔄 Disconnected from DC or TIMEOUT. Reconnecting...");
+                            if (currentDcId) {
+                                dcSenders.delete(currentDcId);
+                            }
+                            if (client && !client.connected) {
+                                try { await client.connect(); } catch(e) {}
+                            }
+                            await new Promise(resolve => setTimeout(resolve, 3000));
+                            attempts--; // Retry infinitely
+                            continue;
+                        }
+                        throw error;
+                    }
+
+                    // Convert bytes to base64 for reliable transmission over JavascriptChannel
+                    let base64String = GramJSWorker.Buffer.from(result.bytes).toString('base64');
+                    
+                    sendToFlutter({
+                        type: "chunkResult",
+                        requestId: requestId,
+                        data: base64String
+                    });
+                    return; // Success
+                } catch (err) {
+                    const errorMsg = err.toString();
+                    const waitMatch = errorMsg.match(/FLOOD_WAIT_(\d+)/) || errorMsg.match(/wait of (\d+) seconds/i);
+                    if (waitMatch) {
+                        const waitMs = parseInt(waitMatch[1]) * 1000;
+                        console.log(`fetchChunk hitting flood wait. Pausing for ${waitMs}ms`);
+                        await new Promise(resolve => setTimeout(resolve, waitMs + 500));
+                        attempts--; // Flood wait doesn't count against limit
+                        continue;
+                    }
+                    
+                    if (attempts >= maxAttempts) {
+                        sendToFlutter({
+                            type: "chunkError",
+                            requestId: requestId,
+                            error: errorMsg
+                        });
+                        return;
+                    }
+                    // Wait before retry
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                }
             }
         }
 
@@ -230,6 +682,17 @@
                 if (msg.type === "init") {
                     if (msg.apiId) apiId = msg.apiId;
                     if (msg.apiHash) apiHash = msg.apiHash;
+                    
+                    if (client) {
+                        try {
+                            console.log("Disconnecting old client before re-init...");
+                            await client.disconnect();
+                        } catch (e) {}
+                        dcSenders.clear();
+                        client = null;
+                        isConnected = false;
+                    }
+
                     initPromise = initClient(msg.session);
                     await initPromise;
                 } 
@@ -242,8 +705,29 @@
                 else if (msg.type === "checkPassword") {
                     await signInWithPassword(msg.password);
                 }
+                else if (msg.type === "appResumed") {
+                    console.log("📱 App resumed. Forcing GramJS reconnect to drop dead sockets...");
+                    // Clear sender cache to ensure fresh DC connections
+                    dcSenders.clear();
+                    
+                    if (client) {
+                        try {
+                            await client.disconnect();
+                        } catch (e) {}
+                        await client.connect();
+                    }
+                }
                 else if (msg.type === "fetchChunk") {
                     await fetchChunk(msg.requestId, msg.fileData, msg.offset, msg.limit);
+                }
+                else if (msg.type === "startParallelDownload") {
+                    startParallelDownload(msg);
+                }
+                else if (msg.type === "cancelParallelDownload") {
+                    cancelParallelDownload(msg.mediaId);
+                }
+                else if (msg.type === "setParallelWorkerCount") {
+                    setParallelWorkerCount(msg);
                 }
                 else if (msg.type === "refreshFileReference") {
                     try {

@@ -16,7 +16,11 @@ router.get('/:id/heartbeat', (req, res) => {
     const fileId = req.params.id;
     const ip = req.ip || req.connection.remoteAddress || 'unknown';
     const userAgent = req.headers['user-agent'] || 'unknown';
-    activityTracker.registerActivity(fileId, { ip, userAgent });
+    let userId = (req.cookies && req.cookies.auth_token) ? req.cookies.auth_token : null;
+    if (!userId && req.headers.authorization && req.headers.authorization.startsWith('Bearer ')) {
+        userId = req.headers.authorization.substring(7);
+    }
+    activityTracker.registerActivity(fileId, { ip, userAgent, userId });
     res.status(204).end();
 });
 

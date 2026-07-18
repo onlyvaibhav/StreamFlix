@@ -21,7 +21,7 @@
   <!-- Navigation -->
   <nav id="navbar" class="navbar">
     <div class="navbar-left">
-      <a href="#" class="logo" onclick="event.preventDefault(); navigate('home');">STREAMFLIX</a>
+      <a href="#" class="logo" onclick="event.preventDefault(); navigate('home');">StreamFlix</a>
       <button id="hamburger-btn" class="hamburger-btn" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
@@ -47,7 +47,7 @@
   <!-- Mobile Nav Overlay -->
   <div id="mobile-nav" class="mobile-nav-overlay hidden">
     <div class="mobile-nav-header">
-      <a href="#" class="logo" onclick="event.preventDefault(); navigate('home');">STREAMFLIX</a>
+      <a href="#" class="logo" onclick="event.preventDefault(); navigate('home');">StreamFlix</a>
       <button id="mobile-nav-close" class="mobile-nav-close" aria-label="Close menu">
         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -70,24 +70,32 @@
 
   <!-- Premium Telegram Login Screen Overlay -->
   <div id="login-screen" class="login-screen-overlay hidden">
-    <!-- Ambient Animated Background -->
-    <div class="login-ambient-bg">
-      <div class="login-blob-container">
-        <div class="login-blob red"></div>
-        <div class="login-blob blue"></div>
-        <div class="login-blob purple"></div>
-      </div>
-      <div class="login-vignette"></div>
-      <div class="login-noise"></div>
+    
+    <!-- Masonry background for entire page -->
+    <div class="login-masonry-bg" style="background-image: url('/images/login_bg.png');"></div>
+    
+    <!-- Top Nav for Login Screen -->
+    <div class="login-top-nav">
+      <a href="#" class="login-header-logo" onclick="event.preventDefault();">StreamFlix</a>
     </div>
 
-    <!-- Top Logo -->
-    <a href="#" class="login-header-logo" onclick="event.preventDefault();">STREAMFLIX</a>
+    <div class="login-split-layout">
+      <!-- Left Column (Marketing) -->
+      <div class="login-marketing-side">
+        
+        <div class="login-marketing-content">
+          <h1>Unlimited movies,<br>TV shows and more.</h1>
+          <p><span class="accent-bar"></span>Watch anywhere. Cancel anytime.</p>
+        </div>
+      </div>
 
-    <!-- Main Central Login Card -->
-    <div id="login-card" class="login-card-container">
-      
-      <!-- Error Notification Toast -->
+      <!-- Right Column (Auth) -->
+      <div class="login-auth-side">
+        <!-- Main Central Login Card -->
+        <div id="login-card" class="login-card-container">
+          
+          <!-- Error Notification Toast -->
+
       <div id="login-error" class="login-error-card hidden">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
@@ -95,8 +103,46 @@
         <span id="login-error-text">Error message goes here</span>
       </div>
 
+      <!-- Step 0: Intro (New) -->
+      <div id="step-intro" class="login-step active">
+        <div class="login-intro-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </div>
+        <h2 class="login-title">Login with Telegram</h2>
+        <p class="login-subtitle">Login or sign up using your Telegram account<br>to continue to StreamFlix.</p>
+        
+        <ul class="login-features">
+          <li>
+            <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#E50914" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg></div>
+            <div class="feature-text">
+              <strong>Secure & Private</strong>
+              <span>We never share your number<br>with anyone.</span>
+            </div>
+          </li>
+          <li>
+            <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#E50914" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+            <div class="feature-text">
+              <strong>Fast & Easy</strong>
+              <span>Login in just a few taps<br>using Telegram.</span>
+            </div>
+          </li>
+          <li>
+            <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#E50914" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+            <div class="feature-text">
+              <strong>Seamless Experience</strong>
+              <span>Access your watchlist and<br>resume across devices.</span>
+            </div>
+          </li>
+        </ul>
+
+        <button id="btn-intro-continue" class="login-btn-primary">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          <span>Continue with Telegram</span>
+        </button>
+      </div>
+
       <!-- Step 1: Phone Number -->
-      <div id="step-phone" class="login-step active">
+      <div id="step-phone" class="login-step enter-right">
         <h2 class="login-title">Sign In</h2>
         <p class="login-subtitle">We will send a login code to your Telegram account.</p>
         
@@ -215,6 +261,21 @@
       </div>
 
     </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="login-footer">
+      <div class="footer-links">
+        <a href="#">Terms of Service</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Help Center</a>
+        <a href="#">Contact Us</a>
+      </div>
+      <div class="footer-copyright">
+        © 2026 StreamFlix. All rights reserved.
+      </div>
+    </footer>
   </div>
 
   <!-- Detail Modal -->

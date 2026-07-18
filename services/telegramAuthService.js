@@ -89,7 +89,7 @@ setInterval(() => {
     if (now - session.createdAt > 10 * 60 * 1000) { // 10 minutes timeout
       console.log(`[TelegramAuth] Evicting stale login session: ${id}`);
       try {
-        session.client.disconnect();
+        session.client.destroy();
       } catch (err) {
         // Silent catch
       }
@@ -184,7 +184,7 @@ async function verifyCode(loginSessionId, code) {
     const sessionString = client.session.save();
 
     // Cleanup resources
-    await client.disconnect();
+    await client.destroy();
     pendingClients.delete(loginSessionId);
 
     return {
@@ -233,7 +233,7 @@ async function verifyPassword(loginSessionId, password) {
     const sessionString = client.session.save();
 
     // Cleanup resources
-    await client.disconnect();
+    await client.destroy();
     pendingClients.delete(loginSessionId);
 
     return {
@@ -266,12 +266,12 @@ async function validateSession(sessionString) {
   try {
     await client.connect();
     const isAuthorized = await client.checkAuthorization();
-    await client.disconnect();
+    await client.destroy();
     return isAuthorized;
   } catch (err) {
     console.error('[TelegramAuth] Session validation error:', err.message);
     try {
-      await client.disconnect();
+      await client.destroy();
     } catch (_) {}
     return false;
   }
@@ -298,13 +298,13 @@ async function logoutSession(sessionString) {
   try {
     await client.connect();
     // Log out standard session from Telegram servers
-    await client.logOut();
-    await client.disconnect();
+    await client.invoke(new Api.auth.LogOut());
+    await client.destroy();
     return true;
   } catch (err) {
     console.error('[TelegramAuth] Session logout error:', err.message);
     try {
-      await client.disconnect();
+      await client.destroy();
     } catch (_) {}
     return false;
   }

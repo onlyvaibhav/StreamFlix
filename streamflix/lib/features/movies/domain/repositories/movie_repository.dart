@@ -7,6 +7,7 @@ abstract class MovieRepository {
   Future<List<Movie>> getAllMovies();
   Future<Movie> getMovieById(String movieId);
   Future<List<Movie>> getMoviesByGenre(String genreId);
+  Future<List<Map<String, dynamic>>> getGenres();
   Future<List<Movie>> getFeaturedMovies();
 
   // Curated Content & Catalog Upgrades (Phase 3)

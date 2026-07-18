@@ -9,6 +9,8 @@ import 'package:streamflix/core/widgets/app_image.dart';
 import 'package:streamflix/features/movies/presentation/providers/movies_provider.dart';
 import 'package:streamflix/features/movies/presentation/widgets/movie_card.dart';
 import 'package:streamflix/features/shared/presentation/widgets/shimmer_loading.dart';
+import 'package:streamflix/core/widgets/error_widget.dart';
+import 'package:streamflix/core/network/connectivity_service.dart';
 
 class SearchScreen extends ConsumerStatefulWidget {
   const SearchScreen({super.key});
@@ -53,6 +55,17 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isOffline = ref.watch(isOfflineProvider);
+    if (isOffline) {
+      return Scaffold(
+        backgroundColor: AppColors.background,
+        body: AppErrorWidget(
+          error: 'offline', // State handled correctly inside AppErrorWidget
+          onRetry: () => ref.invalidate(searchCatalogProvider(_query)),
+        ),
+      );
+    }
+
     final searchAsync = ref.watch(searchCatalogProvider(_query));
     final curatedAsync = ref.watch(curatedContentProvider);
 

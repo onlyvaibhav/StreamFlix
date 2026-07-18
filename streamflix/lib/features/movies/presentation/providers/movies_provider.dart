@@ -3,10 +3,16 @@ import 'package:streamflix/features/movies/data/models/movie.dart';
 import 'package:streamflix/features/movies/data/models/tv_show.dart';
 import 'package:streamflix/features/movies/data/models/curated_response.dart';
 import 'package:streamflix/features/movies/data/repositories/movie_repository_impl.dart';
+import 'package:streamflix/core/network/api_endpoints.dart';
 
 import 'package:streamflix/features/movies/data/models/watch_history.dart';
 import 'package:flutter/foundation.dart';
 import 'package:streamflix/features/player/data/datasources/stream_remote_datasource.dart';
+import 'package:streamflix/features/downloads/data/download_manager.dart';
+import 'package:streamflix/features/downloads/data/download_item.dart';
+import 'package:streamflix/features/movies/data/models/split_part.dart';
+import 'package:streamflix/features/movies/data/models/season_info.dart';
+import 'package:streamflix/features/movies/data/models/tv_show_info.dart';
 part 'movies_provider.g.dart';
 
 /// Provider for all movies list
@@ -36,9 +42,80 @@ Future<List<Movie>> moviesByGenre(Ref ref, String genreId) async {
   return await repository.getMoviesByGenre(genreId);
 }
 
-/// Provider for single movie detail or TV show detail adapted to Movie model
 @riverpod
 Future<Movie> movieDetail(Ref ref, String movieId) async {
+  // 1. Check if the movie/episode is downloaded for offline playback
+  final downloadManager = ref.read(downloadManagerProvider);
+  final downloadedItem = downloadManager.getDownload(movieId);
+  if (downloadedItem != null && downloadedItem.overallStatus == DownloadStatus.completed) {
+    debugPrint('🎬 Serving movie details from offline registry for: $movieId');
+    
+    List<SeasonInfo>? reconstructedSeasons;
+    if (downloadedItem.type == 'episode' && downloadedItem.seriesId != null) {
+      // Find all completed downloads for this specific TV show
+      final allSeriesDownloads = downloadManager.sortedItems
+          .where((item) => item.seriesId == downloadedItem.seriesId && item.overallStatus == DownloadStatus.completed)
+          .toList();
+          
+      // Group them by season number
+      final seasonMap = <int, List<Movie>>{};
+      for (final item in allSeriesDownloads) {
+        final sNum = item.seasonNumber ?? 1;
+        seasonMap.putIfAbsent(sNum, () => []);
+        seasonMap[sNum]!.add(Movie(
+          id: item.mediaId,
+          title: item.title,
+          poster: item.posterUrl,
+          backdrop: item.backdropUrl,
+          type: item.type,
+          seasonNumber: item.seasonNumber,
+          episodeNumber: item.episodeNumber,
+          isSplit: item.parts.length > 1,
+          totalParts: item.parts.length,
+          parts: item.parts.map((p) => SplitPart(fileId: p.fileId, size: p.sizeBytes)).toList(),
+        ));
+      }
+      
+      // Convert to SeasonInfo list and sort
+      reconstructedSeasons = seasonMap.entries.map((e) {
+        final eps = e.value;
+        // Sort episodes numerically within the season
+        eps.sort((a, b) => (a.episodeNumber ?? 0).compareTo(b.episodeNumber ?? 0));
+        return SeasonInfo(seasonNumber: e.key, episodes: eps);
+      }).toList();
+      
+      // Sort seasons numerically
+      reconstructedSeasons.sort((a, b) => a.seasonNumber.compareTo(b.seasonNumber));
+    }
+
+    return Movie(
+      id: downloadedItem.mediaId,
+      title: downloadedItem.title,
+      poster: downloadedItem.posterUrl,
+      backdrop: downloadedItem.backdropUrl,
+      type: downloadedItem.type,
+      seasonNumber: downloadedItem.seasonNumber,
+      episodeNumber: downloadedItem.episodeNumber,
+      isSplit: downloadedItem.parts.length > 1,
+      totalParts: downloadedItem.parts.length,
+      seasons: reconstructedSeasons,
+      tv: downloadedItem.type == 'episode' && downloadedItem.seriesId != null
+          ? TvShowInfo(
+              showTmdbId: int.tryParse(downloadedItem.seriesId!) ?? 0,
+              showTitle: downloadedItem.showTitle ?? 'Unknown Series',
+              seasonNumber: downloadedItem.seasonNumber ?? 1,
+              episodeNumber: downloadedItem.episodeNumber ?? 1,
+              episodeTitle: downloadedItem.title,
+            )
+          : null,
+      parts: downloadedItem.parts.map((p) => SplitPart(
+        fileId: p.fileId,
+        size: p.sizeBytes,
+      )).toList(),
+    );
+  }
+
+  // 2. Fallback to network
   final repository = ref.watch(movieRepositoryProvider);
   if (movieId.startsWith('show_')) {
     final showTmdbId = movieId.replaceAll('show_', '');
@@ -50,7 +127,7 @@ Future<Movie> movieDetail(Ref ref, String movieId) async {
       overview: tvShow.overview,
       poster: tvShow.poster,
       backdrop: tvShow.backdrop,
-      logo: tvShow.logo,
+      logo: tvShow.logo ?? ApiEndpoints.movieLogoStatic('show_$showTmdbId'),
       year: tvShow.year,
       rating: tvShow.rating,
       popularity: tvShow.popularity,
@@ -59,7 +136,30 @@ Future<Movie> movieDetail(Ref ref, String movieId) async {
       seasons: tvShow.seasons,
     );
   } else {
-    return await repository.getMovieById(movieId);
+    final movie = await repository.getMovieById(movieId);
+    
+    // If the fetched item is a TV episode, seamlessly upgrade to the full TV show
+    if (movie.tv != null) {
+      final showTmdbId = movie.tv!.showTmdbId;
+      final tvShow = await repository.getTvShowById(showTmdbId.toString());
+
+      return Movie(
+        id: 'show_$showTmdbId',
+        title: tvShow.showTitle,
+        overview: tvShow.overview,
+        poster: tvShow.poster,
+        backdrop: tvShow.backdrop,
+        logo: tvShow.logo ?? ApiEndpoints.movieLogoStatic('show_$showTmdbId'),
+        year: tvShow.year,
+        rating: tvShow.rating,
+        popularity: tvShow.popularity,
+        genres: tvShow.genres,
+        type: 'tv',
+        seasons: tvShow.seasons,
+      );
+    }
+    
+    return movie;
   }
 }
 

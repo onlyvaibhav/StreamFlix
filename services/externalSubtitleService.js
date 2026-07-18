@@ -306,7 +306,12 @@ async function downloadSubDL(subtitle) {
             candidates = episodeFiles;
             console.log(`   🎯 Matched ${episodeFiles.length} file(s) for S${padSeason}E${padEp} from ${files.length} total`);
         } else {
-            console.log(`   ⚠️ No episode-specific match in ZIP (${files.length} files), using first`);
+            console.log(`   ⚠️ No episode-specific match in ZIP (${files.length} files)`);
+            const subFiles = files.filter(f => ['.srt', '.vtt', '.ass', '.ssa', '.sub'].includes(f.ext));
+            if (subFiles.length >= 3) {
+                throw new Error(`Subtitle for S${padSeason}E${padEp} not found in this pack`);
+            }
+            console.log(`   ⚠️ Using fallback (only ${subFiles.length} sub files in zip)`);
         }
     }
 

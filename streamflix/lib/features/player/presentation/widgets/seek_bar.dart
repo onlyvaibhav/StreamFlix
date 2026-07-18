@@ -41,7 +41,7 @@ class _SeekBarState extends ConsumerState<SeekBar> {
                 final rawDuration = durationSnapshot.data ?? Duration.zero;
                 final rawBuffer = bufferSnapshot.data ?? Duration.zero;
 
-                bool isMultipart = playerState.splitParts.isNotEmpty;
+                bool isMultipart = playerState.splitParts.length > 1;
                 
                 Duration position = rawPosition;
                 Duration duration = rawDuration;

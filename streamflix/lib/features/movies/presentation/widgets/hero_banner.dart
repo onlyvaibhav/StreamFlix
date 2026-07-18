@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:streamflix/core/constants/app_colors.dart';
 import 'package:streamflix/features/movies/data/models/movie.dart';
@@ -61,7 +62,7 @@ class _HeroBannerState extends State<HeroBanner> {
     final size = MediaQuery.of(context).size;
     final isLandscape = MediaQuery.of(context).orientation == Orientation.landscape;
     // Default poster aspect ratio is 2:3, meaning height = width * 1.5
-    final height = isLandscape ? size.height * 0.80 : (size.width * 1.5).clamp(400.0, size.height * 0.72);
+    final height = isLandscape ? size.height * 0.80 : (size.width * 1.5).clamp(400.0, math.max(400.0, size.height * 0.72)).toDouble();
 
     return SizedBox(
       height: height,

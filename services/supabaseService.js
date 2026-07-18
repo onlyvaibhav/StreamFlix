@@ -144,10 +144,11 @@ async function syncSession(sessionData) {
     telegram_id: telegramId,
     device_id: sessionData.deviceId,
     telegram_session: sessionData.telegramSession,
+    token_hash: sessionData.tokenHash || null,
+    status: sessionData.status || 'active',
     created_at: new Date().toISOString(),
     last_used: new Date().toISOString(),
-    expires_at: sessionData.expiresAt ? new Date(sessionData.expiresAt).toISOString() : null,
-    status: 'active'
+    expires_at: sessionData.expiresAt ? new Date(sessionData.expiresAt).toISOString() : null
   });
 
   if (!isEnabled()) {
@@ -160,9 +161,10 @@ async function syncSession(sessionData) {
       telegram_id: telegramId,
       device_id: sessionData.deviceId,
       telegram_session: sessionData.telegramSession, // Encrypted session string
+      token_hash: sessionData.tokenHash || null,
+      status: sessionData.status || 'active',
       last_used: new Date().toISOString(),
-      expires_at: sessionData.expiresAt ? new Date(sessionData.expiresAt).toISOString() : null,
-      status: 'active'
+      expires_at: sessionData.expiresAt ? new Date(sessionData.expiresAt).toISOString() : null
     };
 
     const { data, error } = await supabase
@@ -359,4 +361,5 @@ module.exports = {
   markSessionRevoked,
   syncWatchProgress,
   getWatchProgress,
+  supabase,
 };

@@ -286,8 +286,9 @@
       try {
         const response = await fetch('/api/auth/telegram/status', {
           method: 'GET',
+          credentials: 'include',
           headers: {
-            'Authorization': `Bearer ${this.sessionToken}`
+            'X-Device-Id': getDeviceFingerprint().deviceId
           }
         });
 
@@ -325,9 +326,10 @@
         try {
           await fetch('/api/auth/telegram/logout', {
             method: 'POST',
+            credentials: 'include',
             headers: {
-              'Authorization': `Bearer ${token}`,
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/json',
+              'X-Device-Id': getDeviceFingerprint().deviceId
             },
             body: JSON.stringify({ status: isRevoked ? 'revoked' : 'logout' })
           });

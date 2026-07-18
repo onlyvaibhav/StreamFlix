@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ExternalSubtitle {
 
- String get id; String? get label; String? get language; String? get rating; String get source; String? get endpoint;
+ String get id; String? get label; String? get language; String? get rating; String get source; String? get endpoint; String? get localPath;
 /// Create a copy of ExternalSubtitle
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $ExternalSubtitleCopyWith<ExternalSubtitle> get copyWith => _$ExternalSubtitleCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ExternalSubtitle&&(identical(other.id, id) || other.id == id)&&(identical(other.label, label) || other.label == label)&&(identical(other.language, language) || other.language == language)&&(identical(other.rating, rating) || other.rating == rating)&&(identical(other.source, source) || other.source == source)&&(identical(other.endpoint, endpoint) || other.endpoint == endpoint));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ExternalSubtitle&&(identical(other.id, id) || other.id == id)&&(identical(other.label, label) || other.label == label)&&(identical(other.language, language) || other.language == language)&&(identical(other.rating, rating) || other.rating == rating)&&(identical(other.source, source) || other.source == source)&&(identical(other.endpoint, endpoint) || other.endpoint == endpoint)&&(identical(other.localPath, localPath) || other.localPath == localPath));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,label,language,rating,source,endpoint);
+int get hashCode => Object.hash(runtimeType,id,label,language,rating,source,endpoint,localPath);
 
 @override
 String toString() {
-  return 'ExternalSubtitle(id: $id, label: $label, language: $language, rating: $rating, source: $source, endpoint: $endpoint)';
+  return 'ExternalSubtitle(id: $id, label: $label, language: $language, rating: $rating, source: $source, endpoint: $endpoint, localPath: $localPath)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $ExternalSubtitleCopyWith<$Res>  {
   factory $ExternalSubtitleCopyWith(ExternalSubtitle value, $Res Function(ExternalSubtitle) _then) = _$ExternalSubtitleCopyWithImpl;
 @useResult
 $Res call({
- String id, String? label, String? language, String? rating, String source, String? endpoint
+ String id, String? label, String? language, String? rating, String source, String? endpoint, String? localPath
 });
 
 
@@ -65,7 +65,7 @@ class _$ExternalSubtitleCopyWithImpl<$Res>
 
 /// Create a copy of ExternalSubtitle
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? label = freezed,Object? language = freezed,Object? rating = freezed,Object? source = null,Object? endpoint = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? label = freezed,Object? language = freezed,Object? rating = freezed,Object? source = null,Object? endpoint = freezed,Object? localPath = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,label: freezed == label ? _self.label : label // ignore: cast_nullable_to_non_nullable
@@ -73,6 +73,7 @@ as String?,language: freezed == language ? _self.language : language // ignore: 
 as String?,rating: freezed == rating ? _self.rating : rating // ignore: cast_nullable_to_non_nullable
 as String?,source: null == source ? _self.source : source // ignore: cast_nullable_to_non_nullable
 as String,endpoint: freezed == endpoint ? _self.endpoint : endpoint // ignore: cast_nullable_to_non_nullable
+as String?,localPath: freezed == localPath ? _self.localPath : localPath // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
@@ -155,10 +156,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String? label,  String? language,  String? rating,  String source,  String? endpoint)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String? label,  String? language,  String? rating,  String source,  String? endpoint,  String? localPath)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ExternalSubtitle() when $default != null:
-return $default(_that.id,_that.label,_that.language,_that.rating,_that.source,_that.endpoint);case _:
+return $default(_that.id,_that.label,_that.language,_that.rating,_that.source,_that.endpoint,_that.localPath);case _:
   return orElse();
 
 }
@@ -176,10 +177,10 @@ return $default(_that.id,_that.label,_that.language,_that.rating,_that.source,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String? label,  String? language,  String? rating,  String source,  String? endpoint)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String? label,  String? language,  String? rating,  String source,  String? endpoint,  String? localPath)  $default,) {final _that = this;
 switch (_that) {
 case _ExternalSubtitle():
-return $default(_that.id,_that.label,_that.language,_that.rating,_that.source,_that.endpoint);}
+return $default(_that.id,_that.label,_that.language,_that.rating,_that.source,_that.endpoint,_that.localPath);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -193,10 +194,10 @@ return $default(_that.id,_that.label,_that.language,_that.rating,_that.source,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String? label,  String? language,  String? rating,  String source,  String? endpoint)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String? label,  String? language,  String? rating,  String source,  String? endpoint,  String? localPath)?  $default,) {final _that = this;
 switch (_that) {
 case _ExternalSubtitle() when $default != null:
-return $default(_that.id,_that.label,_that.language,_that.rating,_that.source,_that.endpoint);case _:
+return $default(_that.id,_that.label,_that.language,_that.rating,_that.source,_that.endpoint,_that.localPath);case _:
   return null;
 
 }
@@ -208,7 +209,7 @@ return $default(_that.id,_that.label,_that.language,_that.rating,_that.source,_t
 @JsonSerializable()
 
 class _ExternalSubtitle implements ExternalSubtitle {
-  const _ExternalSubtitle({required this.id, this.label, this.language, this.rating, this.source = 'SubDL', this.endpoint});
+  const _ExternalSubtitle({required this.id, this.label, this.language, this.rating, this.source = 'SubDL', this.endpoint, this.localPath});
   factory _ExternalSubtitle.fromJson(Map<String, dynamic> json) => _$ExternalSubtitleFromJson(json);
 
 @override final  String id;
@@ -217,6 +218,7 @@ class _ExternalSubtitle implements ExternalSubtitle {
 @override final  String? rating;
 @override@JsonKey() final  String source;
 @override final  String? endpoint;
+@override final  String? localPath;
 
 /// Create a copy of ExternalSubtitle
 /// with the given fields replaced by the non-null parameter values.
@@ -231,16 +233,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ExternalSubtitle&&(identical(other.id, id) || other.id == id)&&(identical(other.label, label) || other.label == label)&&(identical(other.language, language) || other.language == language)&&(identical(other.rating, rating) || other.rating == rating)&&(identical(other.source, source) || other.source == source)&&(identical(other.endpoint, endpoint) || other.endpoint == endpoint));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ExternalSubtitle&&(identical(other.id, id) || other.id == id)&&(identical(other.label, label) || other.label == label)&&(identical(other.language, language) || other.language == language)&&(identical(other.rating, rating) || other.rating == rating)&&(identical(other.source, source) || other.source == source)&&(identical(other.endpoint, endpoint) || other.endpoint == endpoint)&&(identical(other.localPath, localPath) || other.localPath == localPath));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,label,language,rating,source,endpoint);
+int get hashCode => Object.hash(runtimeType,id,label,language,rating,source,endpoint,localPath);
 
 @override
 String toString() {
-  return 'ExternalSubtitle(id: $id, label: $label, language: $language, rating: $rating, source: $source, endpoint: $endpoint)';
+  return 'ExternalSubtitle(id: $id, label: $label, language: $language, rating: $rating, source: $source, endpoint: $endpoint, localPath: $localPath)';
 }
 
 
@@ -251,7 +253,7 @@ abstract mixin class _$ExternalSubtitleCopyWith<$Res> implements $ExternalSubtit
   factory _$ExternalSubtitleCopyWith(_ExternalSubtitle value, $Res Function(_ExternalSubtitle) _then) = __$ExternalSubtitleCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String? label, String? language, String? rating, String source, String? endpoint
+ String id, String? label, String? language, String? rating, String source, String? endpoint, String? localPath
 });
 
 
@@ -268,7 +270,7 @@ class __$ExternalSubtitleCopyWithImpl<$Res>
 
 /// Create a copy of ExternalSubtitle
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? label = freezed,Object? language = freezed,Object? rating = freezed,Object? source = null,Object? endpoint = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? label = freezed,Object? language = freezed,Object? rating = freezed,Object? source = null,Object? endpoint = freezed,Object? localPath = freezed,}) {
   return _then(_ExternalSubtitle(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,label: freezed == label ? _self.label : label // ignore: cast_nullable_to_non_nullable
@@ -276,6 +278,7 @@ as String?,language: freezed == language ? _self.language : language // ignore: 
 as String?,rating: freezed == rating ? _self.rating : rating // ignore: cast_nullable_to_non_nullable
 as String?,source: null == source ? _self.source : source // ignore: cast_nullable_to_non_nullable
 as String,endpoint: freezed == endpoint ? _self.endpoint : endpoint // ignore: cast_nullable_to_non_nullable
+as String?,localPath: freezed == localPath ? _self.localPath : localPath // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }

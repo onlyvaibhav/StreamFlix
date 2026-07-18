@@ -18,18 +18,7 @@
 
 /* --- Container Overlay --- */
 .login-screen-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 9999;
-  background-color: var(--bg-dark);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: 'Inter', sans-serif;
-  overflow: hidden;
+  /* Restyled at bottom of file */
 }
 
 .login-screen-overlay.hidden {
@@ -698,4 +687,257 @@
 .dropdown-item:hover {
   background-color: rgba(255, 255, 255, 0.05);
   color: var(--netflix-red);
+}
+/* --- Split Layout Redesign --- */
+.login-screen-overlay {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000;
+  overflow: hidden;
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+}
+
+.login-top-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 48px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  box-sizing: border-box;
+}
+
+.login-header-logo {
+  color: var(--netflix-red);
+  font-size: 28px;
+  font-weight: 800;
+  text-decoration: none;
+  letter-spacing: 1px;
+}
+
+.login-lang-selector {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: rgba(0,0,0,0.4);
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 6px 12px;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.login-lang-selector:hover {
+  background-color: rgba(255,255,255,0.1);
+}
+
+.login-split-layout {
+  display: flex;
+  width: 100%;
+  flex: 1;
+  position: relative;
+}
+
+.login-marketing-side {
+  flex: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 48px;
+  z-index: 1;
+}
+
+.login-masonry-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 1;
+  z-index: -2;
+}
+
+.login-marketing-content h1 {
+  font-size: 52px;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+
+.login-marketing-content p {
+  font-size: 22px;
+  color: #ccc;
+  display: flex;
+  align-items: center;
+}
+
+.accent-bar {
+  display: inline-block;
+  width: 4px;
+  height: 24px;
+  background-color: var(--netflix-red);
+  margin-right: 16px;
+}
+
+.login-auth-side {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  z-index: 2;
+  position: relative;
+}
+
+.login-card-container {
+  background: #111;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 48px;
+  width: 100%;
+  max-width: 440px;
+  box-shadow: 0 25px 50px -12px rgba(0,0,0,0.8);
+  position: relative;
+}
+
+.login-intro-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 72px;
+  height: 72px;
+  background-color: rgba(229, 9, 20, 0.1);
+  border-radius: 50%;
+  margin: 0 auto 24px auto;
+  color: var(--netflix-red);
+}
+
+.login-step.active h2.login-title {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+
+.login-step.active p.login-subtitle {
+  text-align: center;
+  color: #888;
+  font-size: 15px;
+  margin-bottom: 32px;
+  line-height: 1.5;
+}
+
+.login-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 40px 0;
+}
+
+.login-features li {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 24px;
+}
+
+.feature-icon {
+  margin-right: 16px;
+  margin-top: 2px;
+}
+
+.feature-text strong {
+  display: block;
+  font-size: 15px;
+  color: #fff;
+  margin-bottom: 4px;
+}
+
+.feature-text span {
+  display: block;
+  font-size: 14px;
+  color: #888;
+  line-height: 1.4;
+}
+
+#btn-intro-continue {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 16px;
+  font-size: 16px;
+  font-weight: 600;
+  background-color: var(--netflix-red);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+#btn-intro-continue:hover {
+  background-color: var(--netflix-red-hover);
+}
+
+.login-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 48px;
+  background-color: #000;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  font-size: 13px;
+  color: #666;
+  position: relative;
+  z-index: 10;
+}
+
+.footer-links a {
+  color: #666;
+  text-decoration: none;
+  margin-right: 24px;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover {
+  color: #fff;
+}
+
+@media (max-width: 900px) {
+  .login-split-layout {
+    flex-direction: column;
+  }
+  .login-marketing-side {
+    flex: 0.8;
+    padding: 32px 24px;
+  }
+  .login-marketing-content h1 {
+    font-size: 36px;
+  }
+  .login-auth-side {
+    flex: 1.2;
+    padding: 24px;
+    align-items: flex-start;
+  }
+  .login-top-nav {
+    padding: 24px;
+  }
+  .login-footer {
+    flex-direction: column;
+    padding: 24px;
+    gap: 16px;
+  }
 }

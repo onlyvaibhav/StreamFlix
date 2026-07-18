@@ -94,11 +94,8 @@ async function initTelegramWorker() {
       const token = StreamFlixAuth.sessionToken;
       if (!token) throw new Error('No session');
 
-      const configRes = await fetch('/api/auth/telegram/streaming-config', { headers: { 'Authorization': `Bearer ${token}` }});
-      const config = await configRes.json();
-      
-      const sessionRes = await fetch('/api/auth/telegram/session-string', { headers: { 'Authorization': `Bearer ${token}` }});
-      const session = await sessionRes.json();
+      const config = await api('/api/auth/telegram/streaming-config');
+      const session = await api('/api/auth/telegram/session-string');
       
       if (!config.success || !session.success) throw new Error('Failed to fetch streaming credentials');
       
@@ -162,9 +159,39 @@ const progressRefs = {
 // ============================================================
 // API — Only source of data, no fallbacks or defaults
 // ============================================================
-async function api(endpoint, silent404 = false) {
+function getDeviceId() {
+  let deviceId = localStorage.getItem('streamflix_device_id');
+  if (!deviceId) {
+    deviceId = 'web_' + Date.now() + '_' + Math.random().toString(36).substring(2, 11);
+    localStorage.setItem('streamflix_device_id', deviceId);
+  }
+  return deviceId;
+}
+
+async function api(endpoint, silent404 = false, customOptions = {}) {
   try {
-    const response = await fetch(endpoint);
+    const fetchOptions = {
+      ...customOptions,
+      credentials: 'include',
+      headers: {
+        ...customOptions.headers,
+        'X-Device-Id': getDeviceId()
+      }
+    };
+
+    const response = await fetch(endpoint, fetchOptions);
+    
+    if (response.status === 401) {
+      console.warn('Unauthorized (401) - redirecting to login');
+      // Forcing login redirect per Phase D by triggering auth service
+      if (window.StreamFlixAuth) {
+         window.StreamFlixAuth.logout(false);
+      } else {
+         window.location.reload(); 
+      }
+      return null;
+    }
+
     if (!response.ok) {
       if (response.status === 404 && silent404) return null;
       console.error(`API ${response.status}: ${endpoint}`);
@@ -1070,8 +1097,9 @@ async function openDetail(id, type, pushState = true) {
     </div>`;
 
   let data;
-  if (type === 'tv' && id.startsWith('show_')) {
-    data = await api(`/api/tv/${id.replace('show_', '')}`);
+  if (type === 'tv') {
+    const tmdbId = id.startsWith('show_') ? id.replace('show_', '') : id;
+    data = await api(`/api/tv/${tmdbId}`);
     if (data) renderShowModal(body, data);
   } else {
     data = await api(`/api/metadata/${id}`);
@@ -1163,11 +1191,20 @@ function renderMovieModal(container, movie) {
 }
 
 function renderShowModal(container, show) {
-  const seasons = show.seasons || {};
+  let seasonsMap = {};
+  if (Array.isArray(show.seasons)) {
+    show.seasons.forEach(s => {
+      seasonsMap[s.seasonNumber] = s.episodes || [];
+    });
+  } else {
+    seasonsMap = show.seasons || {};
+  }
+  const seasons = seasonsMap;
   const seasonNums = Object.keys(seasons).map(Number).sort((a, b) => a - b);
   const firstS = seasonNums[0] || 1;
   const episodes = seasons[firstS] || [];
   const firstEp = episodes[0]; // Restored for badges/spec info
+  const totalEpisodes = Object.values(seasons).reduce((sum, eps) => sum + eps.length, 0);
   let targetEp = episodes[0];
   let targetS = firstS;
   let playLabel = targetEp ? `Play S${targetS}E${targetEp.tv.episodeNumber}` : 'Play';
@@ -1246,7 +1283,7 @@ function renderShowModal(container, show) {
           ${show.rating ? `<span class="match-score">★ ${Number(show.rating).toFixed(1)}</span>` : ''}
           ${show.year ? `<span>${show.year}</span>` : ''}
           <span>${seasonNums.length} Seasons</span>
-          <span>${show.availableEpisodeCount} Episodes</span>
+          <span>${totalEpisodes} Episodes</span>
        </div>
        <div class="badge-container">
           ${firstEp ? getBadges(firstEp) : ''}
@@ -2450,6 +2487,11 @@ async function playVideo(params, pushState = true) {
 
   // Only use external subtitles natively on web
   state.player.subtitleTracks = [...externalSubs];
+  
+  // Automatically select the first available subtitle track
+  if (externalSubs.length > 0) {
+    switchSubs(0).catch(e => console.warn('Auto sub failed', e));
+  }
 
   // Safari/MKV fallback detect
   const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
@@ -4143,6 +4185,7 @@ async function switchSubs(index, event, startTime = null) {
       if (cues.length === 0) console.log('[Subtitle] No cues found in cached VTT');
       state.player.parsedCues = cues;
       renderSubtitleSyncUI();
+      audioInfo.classList.remove('hidden');
       audioInfo.textContent = (sub.language || sub.languageLabel || 'Subtitles') + ' loaded (' + cues.length + ' cues)';
       setTimeout(() => audioInfo.classList.add('hidden'), 2000);
     } else {
@@ -4198,6 +4241,7 @@ async function switchSubs(index, event, startTime = null) {
       renderSubtitleSyncUI();
 
       if (startTime === null) {
+        audioInfo.classList.remove('hidden');
         audioInfo.textContent = (sub.language || sub.languageLabel || 'Subtitles') + ' loaded (' + state.player.parsedCues.length + ' cues)';
         setTimeout(() => audioInfo.classList.add('hidden'), 2000);
       }
@@ -4626,12 +4670,14 @@ function showMembershipScreen(inviteLink) {
   document.getElementById('navbar').classList.add('hidden');
   
   // Transition directly to the membership step
+  const introStep = document.getElementById('step-intro');
   const phoneStep = document.getElementById('step-phone');
   const otpStep = document.getElementById('step-otp');
   const pwdStep = document.getElementById('step-password');
   const successStep = document.getElementById('step-success');
   const membershipStep = document.getElementById('step-membership');
   
+  if (introStep) introStep.className = 'login-step';
   phoneStep.className = 'login-step';
   otpStep.className = 'login-step';
   pwdStep.className = 'login-step';
@@ -4656,13 +4702,15 @@ function resetLoginState() {
   document.querySelectorAll('.otp-box').forEach(b => b.value = '');
   document.getElementById('btn-otp-verify').disabled = true;
   
+  const introStep = document.getElementById('step-intro');
   const phoneStep = document.getElementById('step-phone');
   const otpStep = document.getElementById('step-otp');
   const pwdStep = document.getElementById('step-password');
   const successStep = document.getElementById('step-success');
   const membershipStep = document.getElementById('step-membership');
   
-  phoneStep.className = 'login-step active';
+  if (introStep) introStep.className = 'login-step active';
+  phoneStep.className = 'login-step enter-right';
   otpStep.className = 'login-step enter-right';
   pwdStep.className = 'login-step enter-right';
   successStep.className = 'login-step enter-right';
@@ -4695,10 +4743,37 @@ function transitionStep(fromEl, toEl, direction = 'next') {
   }
 }
 
+function formatTelegramError(errorMsg) {
+  if (typeof errorMsg !== 'string') return "An unexpected error occurred.";
+  if (errorMsg.includes('Object [Event]')) return "Our Telegram pigeon got distracted. 🕊️ Give it another shot.";
+  if (errorMsg.includes('Worker crashed') || errorMsg.includes('Background service error')) return "Our tiny streaming hamster fell off the wheel. 🐹 We're getting it back on track!";
+  if (errorMsg.includes('PHONE_NUMBER_INVALID')) return "That phone number looks like it skipped a few digits. 📱 Double-check and try again!";
+  if (errorMsg.includes('FLOOD_WAIT')) return "Whoa there, speedrunner! 🚦 Telegram asked us to slow down for a bit.";
+  if (errorMsg.includes('Timeout waiting for code')) return "The verification code took the scenic route. 🚌 Try again in a moment.";
+  if (errorMsg.includes('Network timeout')) return "Your internet is taking a coffee break. ☕ We'll wait...";
+  if (errorMsg.includes('PHONE_CODE_INVALID')) return "That OTP is having an identity crisis. 🔢 Give the latest one a try!";
+  if (errorMsg.includes('PHONE_CODE_EXPIRED')) return "Your OTP retired before you could use it. ⏳ Let's get a fresh one!";
+  if (errorMsg.includes('PHONE_CODE_EMPTY')) return "The OTP box is feeling lonely. 🥲 Pop the code in first!";
+  if (errorMsg.includes('SESSION_PASSWORD_NEEDED')) return "Your account has a secret level unlocked. 🔐 Enter your 2-Step password.";
+  if (errorMsg.includes('SRP_PASSWORD_INVALID') || errorMsg.includes('PASSWORD_HASH_INVALID')) return "That password isn't the chosen one. 🗡️ Give it another swing!";
+  if (errorMsg.includes('Backend sync failed')) return "We logged you in, but our servers are still putting on their shoes. 👟 Hang tight!";
+  if (errorMsg.includes('Backend unavailable') || errorMsg.includes('500 error') || errorMsg.includes('500')) return "Our servers are currently arguing with each other. 🤖 Please try again shortly.";
+  if (errorMsg.includes('User object from GramJS worker is null')) return "Telegram forgot to introduce you. 😅 Let's try that again.";
+  if (errorMsg.includes('Connection refused')) return "Looks like the internet ghosted us. 👻 Check your connection and try again.";
+  if (errorMsg.includes('No internet') || errorMsg.includes('SocketException')) return "Your internet is feeling a little shy today. 🌐 Give it a gentle nudge.";
+  if (errorMsg.includes('Server timeout') || errorMsg.includes('TimeoutException')) return "Our server blinked... and took a little too long. 😴 Try once more.";
+  if (errorMsg.includes('Invalid API response')) return "The server replied in ancient alien language. 👽 We're working on a translator.";
+  if (errorMsg.includes('JSON parsing error') || errorMsg.includes('FormatException')) return "We opened the package and confetti came out instead. 🎉 That wasn't expected.";
+  if (errorMsg.includes('Authentication failed')) return "The VIP list couldn't find your name... yet. 🎟️ Let's try again.";
+  if (errorMsg.includes('Rate limited') || errorMsg.includes('429')) return "Easy there, turbo! 🚀 Even Telegram needs to catch its breath.";
+  if (errorMsg.includes('Unknown authentication error')) return "Well... that wasn't in the script. 🎬 Let's try that scene again.";
+  return `Achievement unlocked: You found a bug we weren't expecting. 🏆 Please try again!\n(${errorMsg.replace('Exception: ', '')})`;
+}
+
 function showError(msg) {
   const errorCard = document.getElementById('login-error');
   const errorText = document.getElementById('login-error-text');
-  errorText.textContent = msg;
+  errorText.innerText = formatTelegramError(msg);
   errorCard.classList.remove('hidden');
   
   const card = document.getElementById('login-card');
@@ -4730,6 +4805,13 @@ function initLoginFlow() {
   const membershipVerifyBtn = document.getElementById('btn-membership-verify');
   const membershipBackBtn = document.getElementById('btn-membership-back');
   
+  const introBtn = document.getElementById('btn-intro-continue');
+  if (introBtn) {
+    introBtn.addEventListener('click', () => {
+      transitionStep(document.getElementById('step-intro'), document.getElementById('step-phone'), 'next');
+    });
+  }
+
   phoneBtn.addEventListener('click', async () => {
     const rawNumber = phoneInput.value.trim();
     if (!rawNumber) {
@@ -5075,13 +5157,8 @@ function setupNavbarUser(user) {
 async function fetchWatchProgress() {
   if (!StreamFlixAuth.isLoggedIn()) return [];
   try {
-    const res = await fetch('/api/progress', {
-      headers: {
-        'Authorization': `Bearer ${StreamFlixAuth.sessionToken}`
-      }
-    });
-    const data = await res.json();
-    return data.success && data.progress ? data.progress : [];
+    const data = await api('/api/progress');
+    return data && data.success && data.progress ? data.progress : [];
   } catch (e) {
     console.error('Failed to fetch watch progress:', e);
     return [];
@@ -5091,11 +5168,10 @@ async function fetchWatchProgress() {
 async function saveWatchProgress(fileId, positionSeconds, durationSeconds, title, posterPath, mediaType, season, episode, showId) {
   if (!StreamFlixAuth.isLoggedIn()) return;
   try {
-    await fetch('/api/progress', {
+    await api('/api/progress', false, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${StreamFlixAuth.sessionToken}`
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         fileId,

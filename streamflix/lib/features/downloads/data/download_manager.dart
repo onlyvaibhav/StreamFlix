@@ -4,18 +4,24 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:streamflix/core/config/app_config.dart';
 import 'package:streamflix/core/network/local_loopback_server.dart';
+import 'package:streamflix/core/network/telegram_client_service.dart';
 import 'package:streamflix/features/downloads/data/download_item.dart';
+import 'package:streamflix/core/services/download_service_channel.dart';
 import 'package:streamflix/features/movies/data/models/movie.dart';
 import 'package:streamflix/features/movies/data/models/split_part.dart';
+import 'package:flutter/material.dart';
+import 'package:streamflix/main.dart';
+import 'package:streamflix/core/constants/app_colors.dart';
+import 'package:go_router/go_router.dart';
+import 'package:streamflix/core/router/route_names.dart';
+import 'package:streamflix/core/router/app_router.dart';
+import 'package:streamflix/core/services/download_service_channel.dart';
 
-/// Maximum number of downloads running concurrently across the entire queue.
-const int _kMaxConcurrentDownloads = 2;
-
-/// Maximum retry attempts per part before marking it as failed.
-const int _kMaxRetryAttempts = 3;
+const int _kMaxConcurrentDownloads = 1;
 
 /// DownloadManager — singleton ChangeNotifier that owns the download queue,
 /// persists state to `downloads.json`, and drives dio downloads.
@@ -36,6 +42,9 @@ class DownloadManager extends ChangeNotifier {
   /// Number of downloads currently in-flight.
   int _activeDownloads = 0;
 
+  /// Phase A: Dart-side heartbeat timer for background diagnostics
+  Timer? _dartHeartbeatTimer;
+
   /// Dedicated Dio instance for downloads (long timeout, no JSON headers).
   late final Dio _dio = Dio(BaseOptions(
     connectTimeout: const Duration(seconds: 30),
@@ -55,13 +64,18 @@ class DownloadManager extends ChangeNotifier {
   List<DownloadItem> get sortedItems {
     final list = _items.values.toList();
     list.sort((a, b) {
-      // Active downloads first, then by downloadedAt descending
       final aActive = a.overallStatus == DownloadStatus.downloading ||
           a.overallStatus == DownloadStatus.queued;
       final bActive = b.overallStatus == DownloadStatus.downloading ||
           b.overallStatus == DownloadStatus.queued;
       if (aActive && !bActive) return -1;
       if (!aActive && bActive) return 1;
+
+      final aFailed = a.overallStatus == DownloadStatus.failed;
+      final bFailed = b.overallStatus == DownloadStatus.failed;
+      if (aFailed && !bFailed) return -1;
+      if (!aFailed && bFailed) return 1;
+
       final aDate = a.downloadedAt ?? DateTime(1970);
       final bDate = b.downloadedAt ?? DateTime(1970);
       return bDate.compareTo(aDate);
@@ -87,6 +101,21 @@ class DownloadManager extends ChangeNotifier {
   /// Total bytes used by all completed + partial downloads.
   int get totalStorageUsed =>
       _items.values.fold(0, (sum, item) => sum + item.aggregateDownloadedBytes);
+
+  void _showSnackBar(String message, {bool isError = false}) {
+    final messenger = scaffoldMessengerKey.currentState;
+    if (messenger == null) return;
+    
+    messenger.hideCurrentSnackBar();
+    messenger.showSnackBar(
+      SnackBar(
+        content: Text(message, style: const TextStyle(color: Colors.white)),
+        backgroundColor: isError ? AppColors.error : AppColors.success,
+        behavior: SnackBarBehavior.floating,
+        duration: const Duration(seconds: 4),
+      ),
+    );
+  }
 
   // ─── Initialization ──────────────────────────────────────
 
@@ -131,9 +160,6 @@ class DownloadManager extends ChangeNotifier {
 
     _loaded = true;
     notifyListeners();
-
-    // Resume any downloads that were in-progress when the app was killed
-    _resumeIncompleteDownloads();
   }
 
   // ─── Public API: Actions ─────────────────────────────────
@@ -209,6 +235,7 @@ class DownloadManager extends ChangeNotifier {
       title: movie.title,
       posterUrl: movie.poster,
       backdropUrl: movie.backdrop,
+      stillUrl: movie.episodeStill,
       type: isTv ? 'episode' : 'movie',
       seriesId: isTv ? movie.tv?.showTmdbId.toString() : null,
       showTitle: isTv ? movie.tv?.showTitle : null,
@@ -217,11 +244,16 @@ class DownloadManager extends ChangeNotifier {
       parts: downloadParts,
     );
 
+    // Fetch offline assets (images, metadata, subs) before persisting and queuing
+    _showSnackBar('Preparing download... (Fetching metadata & subtitles)');
+    await _fetchOfflineAssets(item);
+
     _items[mediaId] = item;
     await _persist();
     notifyListeners();
 
     debugPrint('📥 Enqueued download: ${movie.title} (${downloadParts.length} parts)');
+    _showSnackBar('Download queued: ${movie.title}');
     _processQueue();
   }
 
@@ -318,6 +350,7 @@ class DownloadManager extends ChangeNotifier {
       try {
         final file = File(part.filePath);
         if (await file.exists()) {
+          // No-op
           final stat = await file.stat();
           freedBytes += stat.size;
           await file.delete();
@@ -438,12 +471,24 @@ class DownloadManager extends ChangeNotifier {
     }
 
     debugPrint('🧹 Reconciliation complete. ${_items.length} entries remain.');
+    
+    // Resume any downloads that were in-progress when the app was killed
+    _resumeIncompleteDownloads();
   }
 
   // ─── Download Queue Processor ────────────────────────────
 
   /// Process the download queue: start downloads up to the concurrency cap.
   void _processQueue() {
+    // Defensive check to prevent queue from getting stuck permanently
+    int actualActive = 0;
+    for (final item in _items.values) {
+      if (item.overallStatus == DownloadStatus.downloading) {
+        actualActive++;
+      }
+    }
+    _activeDownloads = actualActive;
+
     if (_activeDownloads >= _kMaxConcurrentDownloads) return;
 
     // Find next queued item
@@ -470,189 +515,394 @@ class DownloadManager extends ChangeNotifier {
   Future<void> _startDownload(DownloadItem item) async {
     item.overallStatus = DownloadStatus.downloading;
     _activeDownloads++;
+    _startDartHeartbeat();
     notifyListeners();
+
+    // Start Android foreground service to prevent process suspension
+    DownloadServiceChannel.startService(item.title);
 
     debugPrint('📥 Starting download: ${item.title} (${item.parts.length} parts)');
 
-    bool failed = false;
+    try {
+      bool failed = false;
+      int currentIndex = 0;
+      final List<Future<void>> workers = [];
 
-    for (final part in item.parts) {
-      // Skip already-completed parts
-      if (part.status == DownloadPartStatus.completed) continue;
+      Future<void> workerTask() async {
+        while (currentIndex < item.parts.length) {
+          if (item.overallStatus == DownloadStatus.paused) break;
+          final part = item.parts[currentIndex++];
+          
+          if (part.status == DownloadPartStatus.completed) continue;
 
-      // Check if download was paused/cancelled
-      if (item.overallStatus == DownloadStatus.paused) break;
-
-      final success = await _downloadPart(item, part);
-      if (!success) {
-        failed = true;
-        break;
+          final result = await _downloadPart(item, part);
+          if (result == false) {
+            failed = true;
+          }
+        }
       }
+
+      // Process parts sequentially to avoid flood waits
+      final workerCount = 1;
+      for (int i = 0; i < workerCount; i++) {
+        workers.add(workerTask());
+      }
+
+      await Future.wait(workers);
+
+      if (item.overallStatus == DownloadStatus.paused) {
+        // User paused — don't change status
+      } else if (failed) {
+        item.overallStatus = DownloadStatus.failed;
+        _showSnackBar('Download failed: ${item.title}', isError: true);
+      } else if (item.isFullyDownloaded) {
+        item.overallStatus = DownloadStatus.completed;
+        item.downloadedAt = DateTime.now();
+        debugPrint('✅ Download complete: ${item.title}');
+        _showSnackBar('Download complete: ${item.title}');
+      }
+
+      await _persist();
+      notifyListeners();
+    } finally {
+      _activeDownloads--;
+      if (_activeDownloads <= 0) {
+        _stopDartHeartbeat();
+        DownloadServiceChannel.stopService();
+      }
+      // Process next in queue
+      _processQueue();
     }
-
-    _activeDownloads--;
-
-    if (item.overallStatus == DownloadStatus.paused) {
-      // User paused — don't change status
-    } else if (failed) {
-      item.overallStatus = DownloadStatus.failed;
-    } else if (item.isFullyDownloaded) {
-      item.overallStatus = DownloadStatus.completed;
-      item.downloadedAt = DateTime.now();
-      debugPrint('✅ Download complete: ${item.title}');
-    }
-
-    await _persist();
-    notifyListeners();
-
-    // Process next in queue
-    _processQueue();
   }
 
-  /// Download a single part with retry logic.
-  Future<bool> _downloadPart(DownloadItem item, DownloadPart part) async {
-    for (int attempt = 1; attempt <= _kMaxRetryAttempts; attempt++) {
-      if (item.overallStatus == DownloadStatus.paused) return false;
+  Future<bool?> _downloadPart(DownloadItem item, DownloadPart part) async {
+    if (item.overallStatus == DownloadStatus.paused) return null;
 
-      part.status = DownloadPartStatus.downloading;
-      notifyListeners();
+    part.status = DownloadPartStatus.downloading;
+    notifyListeners();
 
-      final cancelToken = CancelToken();
-      final tokenKey = '${item.mediaId}:${part.partIndex}';
-      _cancelTokens[tokenKey] = cancelToken;
+    final cancelToken = CancelToken();
+    final tokenKey = '${item.mediaId}:${part.partIndex}';
+    _cancelTokens[tokenKey] = cancelToken;
 
-      try {
-        // Check if partial file exists for resume
-        final partFile = File(part.filePath);
-        int existingBytes = 0;
-        if (await partFile.exists()) {
-          existingBytes = await partFile.length();
-          part.downloadedBytes = existingBytes;
-        }
+    final partFile = File(part.filePath);
+    int existingBytes = 0;
 
-        // If the file size is unknown (0), do a HEAD request to get Content-Length
-        if (part.sizeBytes <= 0) {
-          try {
-            final headUrl = 'http://127.0.0.1:${LocalLoopbackServer().port}/stream/${part.fileId}';
-            final headResponse = await _dio.head(headUrl, cancelToken: cancelToken);
-            final contentLength = headResponse.headers.value('content-length');
-            if (contentLength != null) {
-              part.sizeBytes = int.tryParse(contentLength) ?? 0;
-            }
-          } catch (e) {
-            debugPrint('⚠️ HEAD request failed for size: $e');
-          }
-        }
-
-        // If already fully downloaded, skip
-        if (existingBytes > 0 && part.sizeBytes > 0 && existingBytes >= part.sizeBytes) {
-          part.status = DownloadPartStatus.completed;
-          part.downloadedBytes = part.sizeBytes;
-          _cancelTokens.remove(tokenKey);
-          await _persist();
-          notifyListeners();
-          debugPrint('⏭️ Part ${part.partIndex} already complete, skipping');
-          return true;
-        }
-
-        final downloadUrl = 'http://127.0.0.1:${LocalLoopbackServer().port}/stream/${part.fileId}';
-        final options = Options(
-          responseType: ResponseType.stream,
-        );
-
-        // Add Range header for resume
-        if (existingBytes > 0) {
-          options.headers = {
-            'Range': 'bytes=$existingBytes-',
-          };
-          debugPrint('📥 Resuming part ${part.partIndex} from byte $existingBytes');
-        }
-
-        final response = await _dio.get<ResponseBody>(
-          downloadUrl,
-          options: options,
-          cancelToken: cancelToken,
-        );
-
-        // Get content length from response
-        final contentLengthHeader = response.headers.value('content-length');
-        if (contentLengthHeader != null && part.sizeBytes <= 0) {
-          final contentRange = response.headers.value('content-range');
-          if (contentRange != null) {
-            // Parse "bytes start-end/total"
-            final match = RegExp(r'bytes \d+-\d+/(\d+)').firstMatch(contentRange);
-            if (match != null) {
-              part.sizeBytes = int.tryParse(match.group(1)!) ?? 0;
-            }
-          } else {
-            part.sizeBytes = (int.tryParse(contentLengthHeader) ?? 0) + existingBytes;
-          }
-        }
-
-        // Stream data to file
-        final sink = partFile.openWrite(mode: existingBytes > 0 ? FileMode.append : FileMode.write);
-        int bytesReceived = existingBytes;
-
-        try {
-          await for (final chunk in response.data!.stream) {
-            sink.add(chunk);
-            bytesReceived += chunk.length;
-            part.downloadedBytes = bytesReceived;
-
-            // Throttle UI updates to avoid excessive notifyListeners calls
-            // Update UI every ~256KB
-            if (bytesReceived % (256 * 1024) < chunk.length) {
-              item.downloadedBytes = item.aggregateDownloadedBytes;
-              notifyListeners();
-            }
-          }
-        } finally {
-          await sink.flush();
-          await sink.close();
-        }
-
-        // Verify download completed
-        part.downloadedBytes = bytesReceived;
-        part.status = DownloadPartStatus.completed;
-        item.downloadedBytes = item.aggregateDownloadedBytes;
-        _cancelTokens.remove(tokenKey);
-
-        await _persist();
-        notifyListeners();
-        debugPrint('✅ Part ${part.partIndex} complete: ${DownloadItem.formatBytes(bytesReceived)}');
-        return true;
-      } on DioException catch (e) {
-        _cancelTokens.remove(tokenKey);
-
-        if (e.type == DioExceptionType.cancel) {
-          debugPrint('⏸️ Part ${part.partIndex} download cancelled');
-          return false;
-        }
-
-        debugPrint('❌ Part ${part.partIndex} attempt $attempt/$_kMaxRetryAttempts failed: ${e.message}');
-
-        if (attempt < _kMaxRetryAttempts) {
-          // Exponential backoff: 2s, 4s, 8s
-          final delay = Duration(seconds: 2 * (1 << (attempt - 1)));
-          debugPrint('🔄 Retrying in ${delay.inSeconds}s...');
-          await Future.delayed(delay);
-        }
-      } catch (e) {
-        _cancelTokens.remove(tokenKey);
-        debugPrint('❌ Part ${part.partIndex} attempt $attempt/$_kMaxRetryAttempts failed: $e');
-
-        if (attempt < _kMaxRetryAttempts) {
-          final delay = Duration(seconds: 2 * (1 << (attempt - 1)));
-          await Future.delayed(delay);
+    if (await partFile.exists()) {
+      existingBytes = await partFile.length();
+      
+      // Rollback truncated append if app crashed mid-write
+      if (existingBytes > 0 && part.sizeBytes > 0 && existingBytes < part.sizeBytes) {
+        final remainder = existingBytes % (1024 * 1024);
+        if (remainder != 0) {
+          debugPrint('⚠️ Detected truncated append of $remainder bytes. Rolling back to last 1MB boundary.');
+          existingBytes -= remainder;
+          final raf = await partFile.open(mode: FileMode.append);
+          await raf.truncate(existingBytes);
+          await raf.close();
         }
       }
+      
+      part.downloadedBytes = existingBytes;
+      
+      // Clean up orphaned chunk files from previous interrupted runs
+      try {
+         final dir = partFile.parent;
+         await for (final entity in dir.list()) {
+            if (entity is File && entity.path.startsWith('${partFile.path}.chunk_')) {
+               await entity.delete();
+            }
+         }
+      } catch (_) {}
+    } else {
+      part.downloadedBytes = 0;
+      await _persist();
     }
 
-    // All attempts exhausted
-    part.status = DownloadPartStatus.failed;
-    await _persist();
-    notifyListeners();
-    return false;
+    Map<String, dynamic>? fileLoc;
+    try {
+      final token = Hive.box('authBox').get('token') as String?;
+      final infoRes = await _dio.get(
+        '${AppConfig.v1BaseUrl}/api/stream/${part.fileId}/file-info',
+        options: Options(headers: {
+          if (token != null) 'Authorization': 'Bearer $token',
+        }),
+      );
+      if (infoRes.data != null && infoRes.data['fileLocation'] != null) {
+        fileLoc = infoRes.data['fileLocation'];
+        if (part.sizeBytes <= 0) {
+          part.sizeBytes = infoRes.data['fileSize'] ?? 0;
+        }
+      }
+    } catch (e) {
+      debugPrint('⚠️ Failed to fetch file info for download: $e');
+    }
+
+    if (fileLoc == null) {
+      part.status = DownloadPartStatus.failed;
+      await _persist();
+      notifyListeners();
+      return false;
+    }
+
+    if (existingBytes > 0 && part.sizeBytes > 0 && existingBytes >= part.sizeBytes) {
+      part.status = DownloadPartStatus.completed;
+      part.downloadedBytes = part.sizeBytes;
+      _cancelTokens.remove(tokenKey);
+      await _persist();
+      notifyListeners();
+      debugPrint('⏭️ Part ${part.partIndex} already complete, skipping');
+      return true;
+    }
+
+    final raf = await partFile.open(mode: FileMode.append);
+
+    // Dynamic worker throttling
+    // Reset worker count to default at the start of each part — flood-wait reductions
+    // from previous sessions should not permanently cripple parallelism.
+    item.currentWorkerCount = 4;
+    int workers = item.currentWorkerCount;
+    void onActiveStreamsChanged() {
+      if (LocalLoopbackServer().activeStreamCount.value > 0 && workers > 1) {
+         workers = 1;
+         debugPrint('🍿 Active playback detected, throttling download workers to 1');
+         TelegramClientService().setParallelWorkerCount(tokenKey, 1);
+      } else if (LocalLoopbackServer().activeStreamCount.value == 0 && workers == 1) {
+         workers = item.currentWorkerCount;
+         debugPrint('🍿 Playback stopped, restoring download workers to ${item.currentWorkerCount}');
+         TelegramClientService().setParallelWorkerCount(tokenKey, item.currentWorkerCount);
+      }
+    }
+    LocalLoopbackServer().activeStreamCount.addListener(onActiveStreamsChanged);
+    
+    // Initial check
+    if (LocalLoopbackServer().activeStreamCount.value > 0) {
+      workers = 1;
+      debugPrint('🍿 Active playback detected, starting download with 1 worker');
+    }
+
+    final completer = Completer<bool?>();
+    StreamSubscription? sub;
+
+    cancelToken.whenCancel.then((_) {
+      if (!completer.isCompleted) {
+        completer.complete(null);
+      }
+    });
+
+    int expectedOffset = existingBytes;
+    bool isWriting = false;
+    bool jsCompleted = false;
+
+    sub = TelegramClientService().parallelDownloadStream.listen((msg) async {
+      try {
+        if (msg['mediaId'] != tokenKey) return;
+        
+        if (msg['type'] == 'parallelChunkResult') {
+          final offset = msg['offset'] as int;
+          final data = base64Decode(msg['data']);
+          
+          if (offset == expectedOffset) {
+             isWriting = true;
+             try {
+                 await raf.writeFrom(data);
+                 expectedOffset += data.length;
+                 
+                 // Consume any queued contiguous chunks from disk
+                 while (true) {
+                    final nextChunkFile = File('${partFile.path}.chunk_$expectedOffset');
+                    if (await nextChunkFile.exists()) {
+                       // We no longer strictly validate chunk size because Telegram can return smaller chunks at volume boundaries.
+                       // Out-of-order chunks are flushed fully during write, and if corrupt due to a rare crash, a pause/resume clears them.
+                       final chunkData = await nextChunkFile.readAsBytes();
+                       await raf.writeFrom(chunkData);
+                       expectedOffset += chunkData.length;
+                       try { await nextChunkFile.delete(); } catch(_) {}
+                    } else {
+                       break;
+                    }
+                 }
+                 
+                 part.downloadedBytes = expectedOffset;
+                 item.downloadedBytes = item.aggregateDownloadedBytes;
+                 
+                 if (part.downloadedBytes % (1024 * 1024) < data.length) {
+                    await _persist();
+                    notifyListeners();
+                 }
+             } finally {
+                 isWriting = false;
+                 if (jsCompleted && !completer.isCompleted) {
+                     if (expectedOffset >= part.sizeBytes) {
+                         completer.complete(true);
+                     } else {
+                         completer.completeError(Exception("Download completed prematurely. Expected ${part.sizeBytes}, got $expectedOffset"));
+                     }
+                 }
+             }
+          } else if (offset > expectedOffset) {
+             // Out of order chunk, store it temporarily
+             final chunkFile = File('${partFile.path}.chunk_$offset');
+             await chunkFile.writeAsBytes(data);
+          }
+        } else if (msg['type'] == 'parallelChunkError') {
+          if (!completer.isCompleted) {
+             completer.completeError(Exception(msg['error']));
+          }
+        } else if (msg['type'] == 'workerCountReduced') {
+          final newCount = msg['newCount'] as int;
+          if (newCount < item.currentWorkerCount) {
+            item.currentWorkerCount = newCount;
+            await _persist();
+          }
+        } else if (msg['type'] == 'parallelDownloadComplete') {
+          jsCompleted = true;
+          if (!isWriting && !completer.isCompleted) {
+             if (expectedOffset >= part.sizeBytes) {
+                 completer.complete(true);
+             } else {
+                 completer.completeError(Exception("Download completed prematurely. Expected ${part.sizeBytes}, got $expectedOffset"));
+             }
+          }
+        }
+      } catch (e) {
+        debugPrint('⚠️ Ignored async exception in listen handler (likely post-completion chunk): $e');
+      }
+    });
+
+    try {
+      await TelegramClientService().startParallelDownload(
+        mediaId: tokenKey,
+        fileData: {
+          'id': fileLoc['id'] is int ? fileLoc['id'].toString() : fileLoc['id'],
+          'accessHash': fileLoc['accessHash'],
+          'fileReference': fileLoc['fileReference'],
+          'dcId': fileLoc['dcId'],
+        },
+        totalSize: part.sizeBytes,
+        startOffset: part.downloadedBytes,
+        workers: workers,
+      );
+
+      final result = await completer.future;
+
+      if (result == true) {
+        // Fix up contiguous prefix to match exact size on success
+        part.downloadedBytes = part.sizeBytes;
+        part.status = DownloadPartStatus.completed;
+        item.downloadedBytes = item.aggregateDownloadedBytes;
+        debugPrint('✅ Part ${part.partIndex} complete: ${DownloadItem.formatBytes(part.sizeBytes)}');
+      } else {
+        debugPrint('⏸️ Part ${part.partIndex} download cancelled');
+        TelegramClientService().cancelParallelDownload(tokenKey);
+      }
+      
+      LocalLoopbackServer().activeStreamCount.removeListener(onActiveStreamsChanged);
+      _cancelTokens.remove(tokenKey);
+      await raf.close();
+      if (sub != null) await sub.cancel();
+      await _persist();
+      notifyListeners();
+      return result;
+    } catch (e) {
+      LocalLoopbackServer().activeStreamCount.removeListener(onActiveStreamsChanged);
+      _cancelTokens.remove(tokenKey);
+      TelegramClientService().cancelParallelDownload(tokenKey);
+      await raf.close();
+      if (sub != null) await sub.cancel();
+      debugPrint('❌ Part ${part.partIndex} failed: $e');
+      
+      if (e is FileSystemException && e.osError?.errorCode == 28) {
+        debugPrint('🧹 No space left on device. Cleaning up partial file...');
+        try {
+          if (await partFile.exists()) await partFile.delete();
+        } catch (_) {}
+        part.downloadedBytes = 0;
+      }
+      
+      part.status = DownloadPartStatus.failed;
+      await _persist();
+      notifyListeners();
+      return false;
+    }
+  }
+
+  // ─── Offline Assets & Metadata Fetching ──────────────────
+
+  Future<void> _fetchOfflineAssets(DownloadItem item) async {
+    try {
+      final assetsDir = Directory('$_storageDir/downloads/assets/${item.mediaId}');
+      if (!await assetsDir.exists()) {
+        await assetsDir.create(recursive: true);
+      }
+
+      // 1. Fetch File Info (Track Info / Media Info)
+      try {
+        final infoRes = await _dio.get('${AppConfig.v1BaseUrl}/api/stream/${item.mediaId}/tracks');
+        if (infoRes.data != null) {
+          item.mediaInfo = infoRes.data as Map<String, dynamic>;
+        }
+      } catch (e) {
+        debugPrint('⚠️ DownloadManager: Failed to fetch track info for ${item.mediaId}: $e');
+      }
+
+      // 2. Fetch Images (Poster & Backdrop)
+      try {
+        if (item.posterUrl != null) {
+          final posterExt = item.posterUrl!.split('.').last.split('?').first;
+          final posterPath = '${assetsDir.path}/poster.$posterExt';
+          await _dio.download(item.posterUrl!, posterPath);
+          item.localPosterPath = posterPath;
+        }
+        if (item.backdropUrl != null) {
+          final backdropExt = item.backdropUrl!.split('.').last.split('?').first;
+          final backdropPath = '${assetsDir.path}/backdrop.$backdropExt';
+          await _dio.download(item.backdropUrl!, backdropPath);
+          item.localBackdropPath = backdropPath;
+        }
+        if (item.stillUrl != null) {
+          final stillExt = item.stillUrl!.split('.').last.split('?').first;
+          final stillPath = '${assetsDir.path}/still.$stillExt';
+          await _dio.download(item.stillUrl!, stillPath);
+          item.localStillPath = stillPath;
+        }
+      } catch (e) {
+        debugPrint('⚠️ DownloadManager: Failed to download images for ${item.mediaId}: $e');
+      }
+
+      // 3. Fetch External Subtitles
+      try {
+        final subsRes = await _dio.get('${AppConfig.v1BaseUrl}/api/subtitles/movie/${item.mediaId}');
+        if (subsRes.data != null && subsRes.data is List) {
+          final subsList = subsRes.data as List;
+          final savedSubs = <Map<String, dynamic>>[];
+          
+          for (final sub in subsList) {
+            final subId = sub['id'];
+            if (subId != null) {
+              final subPath = '${assetsDir.path}/$subId.vtt';
+              try {
+                // Download the subtitle file content
+                await _dio.download('${AppConfig.v1BaseUrl}/api/subtitles/file/$subId', subPath);
+                
+                // Add local path to the subtitle metadata
+                final subMeta = Map<String, dynamic>.from(sub);
+                subMeta['localPath'] = subPath;
+                savedSubs.add(subMeta);
+              } catch (e) {
+                debugPrint('⚠️ DownloadManager: Failed to download subtitle $subId: $e');
+              }
+            }
+          }
+          item.externalSubtitles = savedSubs;
+        }
+      } catch (e) {
+        debugPrint('⚠️ DownloadManager: Failed to fetch external subtitles list for ${item.mediaId}: $e');
+      }
+
+    } catch (e) {
+      debugPrint('⚠️ DownloadManager: Critical error fetching offline assets for ${item.mediaId}: $e');
+    }
   }
 
   // ─── Persistence ─────────────────────────────────────────
@@ -675,6 +925,24 @@ class DownloadManager extends ChangeNotifier {
     } catch (e) {
       debugPrint('⚠️ DownloadManager: Failed to persist registry: $e');
     }
+  }
+
+  // ─── Phase A: Heartbeat Diagnostics ───────────────────────
+
+  void _startDartHeartbeat() {
+    if (_dartHeartbeatTimer != null) return;
+    _dartHeartbeatTimer = Timer.periodic(const Duration(seconds: 2), (_) {
+      debugPrint('DART_HEARTBEAT t=${DateTime.now().millisecondsSinceEpoch} active=$_activeDownloads');
+      if (!kIsWeb && defaultTargetPlatform == TargetPlatform.android) {
+        DownloadServiceChannel.resumeWebviewTimers();
+        TelegramClientService().pingWebview();
+      }
+    });
+  }
+
+  void _stopDartHeartbeat() {
+    _dartHeartbeatTimer?.cancel();
+    _dartHeartbeatTimer = null;
   }
 }
 

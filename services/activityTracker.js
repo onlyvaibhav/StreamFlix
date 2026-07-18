@@ -1,6 +1,8 @@
 const EventEmitter = require('events');
 const crypto = require('crypto');
 const { getDisplayTitle } = require('../utils/metadataUtils');
+const supabaseService = require('./supabaseService');
+const alertBot = require('./bot/alertBot');
 
 class ActivityTracker extends EventEmitter {
     constructor() {
@@ -45,6 +47,7 @@ class ActivityTracker extends EventEmitter {
             for (const session of this.activeSessions.values()) {
                 const lastActivitySec = Math.round((Date.now() - session.lastSeen) / 1000);
                 console.log(`\nViewer #${session.viewerSessionNumber}`);
+                if (session.identity) console.log(`User: ${session.identity}`);
                 console.log(`Title: ${session.title}`);
                 console.log(`File ID: ${session.fileId}`);
                 console.log(`Active Requests: ${session.activeRequests.size}`);
@@ -134,10 +137,12 @@ class ActivityTracker extends EventEmitter {
                 // Fetch new title
                 getDisplayTitle(fileId).then(title => {
                     session.title = title;
-                }).catch(() => {});
+                    alertBot.notifyWatchStart(session);
+                }).catch(() => {
+                    alertBot.notifyWatchStart(session);
+                });
             }
 
-            console.log(`[Session] Session merged: Session #${session.viewerSessionNumber} (${session.title})`);
             return sessionKey;
         }
 
@@ -172,14 +177,41 @@ class ActivityTracker extends EventEmitter {
         const currentCount = this.mediaViewerCounts.get(fileId) || 0;
         this.mediaViewerCounts.set(fileId, currentCount + 1);
 
-        // Asynchronously fetch and populate the display title
-        getDisplayTitle(fileId).then(title => {
+        // Asynchronously fetch and populate the display title and user identity
+        let identityPromise = Promise.resolve(null);
+        if (userId && supabaseService.isEnabled()) {
+            const tokenHash = crypto.createHash('sha256').update(userId).digest('hex');
+            identityPromise = supabaseService.supabase
+                .from('sessions')
+                .select('users(first_name, username), devices(os, browser, platform)')
+                .eq('token_hash', tokenHash)
+                .limit(1)
+                .single()
+                .then(res => {
+                    if (res.data) {
+                        const name = res.data.users?.first_name || res.data.users?.username || 'User';
+                        const dev = res.data.devices?.os || res.data.devices?.platform || res.data.devices?.browser || 'Device';
+                        return `${name} on ${dev}`;
+                    }
+                    return null;
+                }).catch(() => null);
+        }
+
+        Promise.all([getDisplayTitle(fileId), identityPromise]).then(([title, identity]) => {
             session.title = title;
-            console.log(`[Session] Session created: Session #${sessionNumber} - Title: ${title} (IP: ${ip}, User-Agent: ${userAgent})`);
-            console.log(`[Viewer] ▶ Session Started\nSession: #${sessionNumber}\nTitle: ${title}\nFile ID: ${fileId}`);
+            if (identity) session.identity = identity;
+            const idStr = identity ? `User: ${identity}` : `IP: ${ip}, User-Agent: ${userAgent}`;
+            console.log(`[Session] Session created: Session #${sessionNumber} - Title: ${title} (${idStr})`);
+            console.log(`[Viewer] ▶ Session Started\nSession: #${sessionNumber}\nTitle: ${title}\nFile ID: ${fileId}\nViewer: ${identity || 'Anonymous'}`);
+            
+            // Alert
+            alertBot.notifyWatchStart(session);
         }).catch(() => {
             console.log(`[Session] Session created (fallback title): Session #${sessionNumber} (IP: ${ip}, User-Agent: ${userAgent})`);
             console.log(`[Viewer] ▶ Session Started\nSession: #${sessionNumber}\nTitle: ${session.title}\nFile ID: ${fileId}`);
+            
+            // Alert
+            alertBot.notifyWatchStart(session);
         });
 
         // Cancel worker resume countdown if active
@@ -220,6 +252,9 @@ class ActivityTracker extends EventEmitter {
         const totalBytes = this.formatBytes(session.totalBytesSent);
 
         console.log(`[Viewer] ■ Session Ended\nSession: #${session.viewerSessionNumber}\nTitle: ${session.title}\nWatch Duration: ${watchDuration}\nTotal Bytes: ${totalBytes}`);
+
+        // Alert
+        alertBot.notifyWatchEnd(session, session.playbackTime);
 
         // Decrement media viewer counts with negative validation protection
         const fileId = session.fileId;

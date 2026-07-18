@@ -2,6 +2,7 @@ const crypto = require('crypto');
 const telegramAuthService = require('../services/telegramAuthService');
 const supabaseService = require('../services/supabaseService');
 const cryptoUtils = require('../utils/cryptoUtils');
+const alertBot = require('../services/bot/alertBot');
 const telegramConfig = require('../config/telegram');
 
 /**
@@ -55,6 +56,8 @@ async function sendCode(req, res) {
       return res.status(400).json({ success: false, error: 'Phone number is required' });
     }
 
+    alertBot.notifyOtpRequest(phoneNumber, req.ip || req.connection.remoteAddress);
+
     const data = await telegramAuthService.sendCode(phoneNumber);
     return res.json({
       success: true,
@@ -98,6 +101,9 @@ async function verifyCode(req, res) {
     const { sessionString, user } = result;
     const encryptedSession = cryptoUtils.encrypt(sessionString);
     const sessionToken = crypto.randomUUID();
+    
+    const rawToken = crypto.randomBytes(32).toString('base64url');
+    const tokenHash = crypto.createHash('sha256').update(rawToken).digest('hex');
 
     // Perform database synchronization (always — memory fallback handles DB failures)
     await supabaseService.syncUser(user);
@@ -114,6 +120,8 @@ async function verifyCode(req, res) {
       telegramId: user.telegramId,
       deviceId: device.deviceId,
       telegramSession: encryptedSession,
+      tokenHash,
+      status: 'active',
       expiresAt: Date.now() + 30 * 24 * 60 * 60 * 1000 // 30 Days expiry
     });
 
@@ -121,9 +129,24 @@ async function verifyCode(req, res) {
     const isMember = await telegramAuthService.checkChannelMembership(user.telegramId);
     const inviteLink = isMember ? null : await telegramAuthService.getChannelInviteLink();
 
+    res.cookie('auth_token', rawToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 30 * 24 * 60 * 60 * 1000 // 30 Days
+    });
+
+    // Alert
+    if (!isMember) {
+      alertBot.notifyNonMemberLogin(user, { ...device, ip: req.ip || req.connection.remoteAddress });
+    } else {
+      alertBot.notifyLogin(user, { ...device, ip: req.ip || req.connection.remoteAddress });
+    }
+
     return res.json({
       success: true,
       sessionToken,
+      token: rawToken,
       user,
       requiresMembership: !isMember,
       inviteLink: inviteLink || `https://t.me/joinchat/${process.env.TELEGRAM_CHANNEL_ID}`
@@ -157,6 +180,9 @@ async function verifyPassword(req, res) {
     const encryptedSession = cryptoUtils.encrypt(sessionString);
     const sessionToken = crypto.randomUUID();
 
+    const rawToken = crypto.randomBytes(32).toString('base64url');
+    const tokenHash = crypto.createHash('sha256').update(rawToken).digest('hex');
+
     // Sync database records (always — memory fallback handles DB failures)
     await supabaseService.syncUser(user);
     await supabaseService.syncDevice({
@@ -172,6 +198,8 @@ async function verifyPassword(req, res) {
       telegramId: user.telegramId,
       deviceId: device.deviceId,
       telegramSession: encryptedSession,
+      tokenHash,
+      status: 'active',
       expiresAt: Date.now() + 30 * 24 * 60 * 60 * 1000 // 30 Days expiry
     });
 
@@ -179,9 +207,24 @@ async function verifyPassword(req, res) {
     const isMember = await telegramAuthService.checkChannelMembership(user.telegramId);
     const inviteLink = isMember ? null : await telegramAuthService.getChannelInviteLink();
 
+    res.cookie('auth_token', rawToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 30 * 24 * 60 * 60 * 1000 // 30 Days
+    });
+
+    // Alert
+    if (!isMember) {
+      alertBot.notifyNonMemberLogin(user, { ...device, ip: req.ip || req.connection.remoteAddress });
+    } else {
+      alertBot.notifyLogin(user, { ...device, ip: req.ip || req.connection.remoteAddress });
+    }
+
     return res.json({
       success: true,
       sessionToken,
+      token: rawToken,
       user,
       requiresMembership: !isMember,
       inviteLink: inviteLink || `https://t.me/joinchat/${process.env.TELEGRAM_CHANNEL_ID}`
@@ -206,23 +249,15 @@ async function getStatus(req, res) {
     res.set('Pragma', 'no-cache');
     res.set('Expires', '0');
 
-    const sessionToken = getSessionToken(req);
-    if (!sessionToken) {
-      return res.status(401).json({ success: false, authorized: false, error: 'No session token provided' });
-    }
-
-    // Try finding the session in database or in-memory fallback
-    const dbSession = await supabaseService.getSession(sessionToken);
-    if (!dbSession) {
-      return res.status(401).json({ success: false, authorized: false, error: 'Session invalid or expired' });
-    }
+    const { sessionId, telegramId, telegramSession } = req.deviceAuth;
+    const dbUser = req.user;
 
     // 1. Verify session validity on Telegram servers (Zero Trust)
-    const sessionString = cryptoUtils.decrypt(dbSession.telegram_session);
+    const sessionString = cryptoUtils.decrypt(telegramSession);
     const isValid = await telegramAuthService.validateSession(sessionString);
     if (!isValid) {
-      console.log(`[Status] Session token ${sessionToken} was revoked in Telegram, marking in DB...`);
-      await supabaseService.markSessionRevoked(sessionToken, 'revoked');
+      console.log(`[Status] Session token ${sessionId} was revoked in Telegram, marking in DB...`);
+      await supabaseService.markSessionRevoked(sessionId, 'revoked');
       return res.status(401).json({
         success: false,
         authorized: false,
@@ -231,7 +266,6 @@ async function getStatus(req, res) {
     }
 
     // 2. Verify channel membership (Zero Trust)
-    const telegramId = dbSession.telegram_id || (dbSession.users && dbSession.users.telegram_id);
     const isMember = await telegramAuthService.checkChannelMembership(telegramId);
     if (!isMember) {
       const inviteLink = await telegramAuthService.getChannelInviteLink();
@@ -244,13 +278,12 @@ async function getStatus(req, res) {
     }
 
     // Trust the session stored in database/memory directly
-    const dbUser = dbSession.users;
     if (!dbUser) {
       return res.status(401).json({ success: false, authorized: false, error: 'User profile not found' });
     }
 
     const user = {
-      telegramId: dbUser.telegram_id ? dbUser.telegram_id.toString() : dbSession.telegram_id.toString(),
+      telegramId: dbUser.telegram_id ? dbUser.telegram_id.toString() : telegramId.toString(),
       username: dbUser.username || '',
       firstName: dbUser.first_name || 'Telegram User',
       lastName: dbUser.last_name || '',
@@ -260,14 +293,8 @@ async function getStatus(req, res) {
       profilePhoto: dbUser.profile_photo || null
     };
 
-    // Async update last_used in DB (don't block response)
-    supabaseService.syncSession({
-      sessionId: dbSession.session_id,
-      telegramId: dbSession.telegram_id,
-      deviceId: dbSession.device_id,
-      telegramSession: dbSession.telegram_session,
-      expiresAt: dbSession.expires_at
-    }).catch(err => console.error('[Status] Failed to refresh session time:', err.message));
+    // Async update last_used in DB is already handled by deviceAuth middleware
+
 
     return res.json({
       success: true,
@@ -286,32 +313,36 @@ async function getStatus(req, res) {
 
 /**
  * POST /api/auth/telegram/logout
- * Headers: Authorization: Bearer <sessionToken>
+ * Requires: requireDeviceAuth middleware
  */
 async function logout(req, res) {
   try {
-    const sessionToken = getSessionToken(req);
-    if (!sessionToken) {
-      return res.status(400).json({ success: false, error: 'No session token provided' });
-    }
+    const { sessionId, telegramSession } = req.deviceAuth;
 
     if (supabaseService.isEnabled()) {
-      const dbSession = await supabaseService.getSession(sessionToken);
-      if (dbSession) {
-        // Decrypt and log out from Telegram
-        const sessionString = cryptoUtils.decrypt(dbSession.telegram_session);
-        const status = req.body.status === 'revoked' ? 'revoked' : 'logout';
-        
-        // If the session was already revoked externally, don't attempt to connect to GramJS
-        // because it will cause an infinite reconnect loop inside GramJS.
-        if (status !== 'revoked') {
-          await telegramAuthService.logoutSession(sessionString);
-        }
-        
-        // Mark as logout in database
-        await supabaseService.markSessionRevoked(sessionToken, status);
+      // Decrypt and log out from Telegram
+      const sessionString = cryptoUtils.decrypt(telegramSession);
+      const status = req.body.status === 'revoked' ? 'revoked' : 'logout';
+      
+      // If the session was already revoked externally, don't attempt to connect to GramJS
+      if (status !== 'revoked') {
+        await telegramAuthService.logoutSession(sessionString);
       }
+      
+      // Mark as logout in database
+      await supabaseService.markSessionRevoked(sessionId, status);
+      
+      // Alert
+      const alertMsg = status === 'revoked' ? 'Session Revoked' : 'Logged Out';
+      alertBot.notifyLogout(req.user, alertMsg, req.deviceAuth.deviceId);
     }
+
+    // Clear web cookie
+    res.clearCookie('auth_token', {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'strict'
+    });
 
     return res.json({
       success: true,
@@ -327,23 +358,57 @@ async function logout(req, res) {
 }
 
 /**
+ * POST /api/auth/telegram/logout-all
+ * Requires: requireDeviceAuth middleware
+ */
+async function logoutAll(req, res) {
+  try {
+    const { telegramId, sessionId } = req.deviceAuth;
+
+    if (supabaseService.isEnabled()) {
+      // Find all active sessions for this user EXCEPT the current one
+      const { data: sessions, error } = await supabaseService.supabase
+        .from('sessions')
+        .select('*')
+        .eq('telegram_id', telegramId)
+        .eq('status', 'active')
+        .neq('session_id', sessionId);
+
+      if (!error && sessions && sessions.length > 0) {
+        for (const session of sessions) {
+           await supabaseService.markSessionRevoked(session.session_id, 'revoked');
+           // Note: We are not aggressively logging them out from Telegram servers here 
+           // to save API calls, since revoking our DB token kills their API access anyway. 
+           // If true Telegram logout is needed, we'd loop and do telegramAuthService.logoutSession.
+        }
+        
+        // Alert
+        alertBot.notifyLogout(req.user, `Logged out all OTHER devices (${sessions.length} devices)`, req.deviceAuth.deviceId);
+      }
+    }
+
+    return res.json({
+      success: true,
+      message: 'Other devices logged out successfully'
+    });
+  } catch (error) {
+    console.error('❌ logoutAll Controller Error:', error);
+    return res.status(500).json({
+      success: false,
+      error: 'Logout all failed: ' + error.message
+    });
+  }
+}
+
+/**
  * GET /api/auth/telegram/streaming-config
+ * Requires: requireDeviceAuth middleware
  * Returns Telegram API credentials needed by the browser-side GramJS worker.
  * apiId and apiHash identify the app (not the user) — same pattern as Telegram Web.
  * Gated behind session auth to prevent scraping.
  */
 async function getStreamingConfig(req, res) {
   try {
-    const sessionToken = getSessionToken(req);
-    if (!sessionToken) {
-      return res.status(401).json({ success: false, error: 'No session token provided' });
-    }
-
-    const dbSession = await supabaseService.getSession(sessionToken);
-    if (!dbSession) {
-      return res.status(401).json({ success: false, error: 'Session invalid or expired' });
-    }
-
     return res.json({
       success: true,
       apiId: telegramConfig.apiId,
@@ -360,6 +425,7 @@ async function getStreamingConfig(req, res) {
 
 /**
  * GET /api/auth/telegram/session-string
+ * Requires: requireDeviceAuth middleware
  * Decrypts and returns the user's Telegram session string for client-side streaming.
  * The session string is equivalent to full account credentials — treat with extreme care.
  * Response has no-store caching to prevent browser/proxy caching.
@@ -369,17 +435,7 @@ async function getSessionString(req, res) {
     res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
     res.set('Pragma', 'no-cache');
 
-    const sessionToken = getSessionToken(req);
-    if (!sessionToken) {
-      return res.status(401).json({ success: false, error: 'No session token provided' });
-    }
-
-    const dbSession = await supabaseService.getSession(sessionToken);
-    if (!dbSession) {
-      return res.status(401).json({ success: false, error: 'Session invalid or expired' });
-    }
-
-    const sessionString = cryptoUtils.decrypt(dbSession.telegram_session);
+    const sessionString = cryptoUtils.decrypt(req.deviceAuth.telegramSession);
     if (!sessionString) {
       return res.status(500).json({ success: false, error: 'Failed to decrypt session' });
     }
@@ -419,6 +475,9 @@ async function syncClientSession(req, res) {
     const encryptedSession = cryptoUtils.encrypt(sessionString);
     const sessionToken = crypto.randomUUID();
 
+    const rawToken = crypto.randomBytes(32).toString('base64url');
+    const tokenHash = crypto.createHash('sha256').update(rawToken).digest('hex');
+
     // Sync database records
     await supabaseService.syncUser(user);
     await supabaseService.syncDevice({
@@ -434,13 +493,36 @@ async function syncClientSession(req, res) {
       telegramId: user.telegramId,
       deviceId: device.deviceId,
       telegramSession: encryptedSession,
+      tokenHash,
+      status: 'active',
       expiresAt: Date.now() + 30 * 24 * 60 * 60 * 1000 // 30 Days expiry
     });
+
+    // Verify channel membership for zero-trust login
+    const isMember = await telegramAuthService.checkChannelMembership(user.telegramId);
+    const inviteLink = isMember ? null : await telegramAuthService.getChannelInviteLink();
+
+    res.cookie('auth_token', rawToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 30 * 24 * 60 * 60 * 1000 // 30 Days
+    });
+
+    // Alert
+    if (!isMember) {
+      alertBot.notifyNonMemberLogin(user, { ...device, ip: req.ip || req.connection.remoteAddress });
+    } else {
+      alertBot.notifyLogin(user, { ...device, ip: req.ip || req.connection.remoteAddress });
+    }
 
     return res.json({
       success: true,
       sessionToken,
-      user
+      token: rawToken,
+      user,
+      requiresMembership: !isMember,
+      inviteLink: inviteLink || `https://t.me/joinchat/${process.env.TELEGRAM_CHANNEL_ID}`
     });
   } catch (error) {
     console.error('❌ syncClientSession Controller Error:', error);
@@ -457,6 +539,7 @@ module.exports = {
   verifyPassword,
   getStatus,
   logout,
+  logoutAll,
   getStreamingConfig,
   getSessionString,
   syncClientSession

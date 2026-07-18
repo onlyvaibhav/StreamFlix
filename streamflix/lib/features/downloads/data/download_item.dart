@@ -65,6 +65,7 @@ class DownloadItem {
   final String title;
   final String? posterUrl;
   final String? backdropUrl;
+  final String? stillUrl;
   final String type; // 'movie' | 'episode'
   final String? seriesId; // showTmdbId for TV episodes
   final String? showTitle;
@@ -75,12 +76,19 @@ class DownloadItem {
   int downloadedBytes;
   DateTime? downloadedAt;
   List<DownloadPart> parts;
+  int currentWorkerCount;
+  String? localPosterPath;
+  String? localBackdropPath;
+  String? localStillPath;
+  Map<String, dynamic>? mediaInfo;
+  List<Map<String, dynamic>>? externalSubtitles;
 
   DownloadItem({
     required this.mediaId,
     required this.title,
     this.posterUrl,
     this.backdropUrl,
+    this.stillUrl,
     required this.type,
     this.seriesId,
     this.showTitle,
@@ -91,6 +99,12 @@ class DownloadItem {
     this.downloadedBytes = 0,
     this.downloadedAt,
     required this.parts,
+    this.currentWorkerCount = 4,
+    this.localPosterPath,
+    this.localBackdropPath,
+    this.localStillPath,
+    this.mediaInfo,
+    this.externalSubtitles,
   });
 
   /// Aggregate downloaded bytes from all parts.
@@ -127,6 +141,7 @@ class DownloadItem {
     'title': title,
     'posterUrl': posterUrl,
     'backdropUrl': backdropUrl,
+    'stillUrl': stillUrl,
     'type': type,
     'seriesId': seriesId,
     'showTitle': showTitle,
@@ -137,6 +152,12 @@ class DownloadItem {
     'downloadedBytes': aggregateDownloadedBytes,
     'downloadedAt': downloadedAt?.toIso8601String(),
     'parts': parts.map((p) => p.toJson()).toList(),
+    'currentWorkerCount': currentWorkerCount,
+    'localPosterPath': localPosterPath,
+    'localBackdropPath': localBackdropPath,
+    'localStillPath': localStillPath,
+    'mediaInfo': mediaInfo,
+    'externalSubtitles': externalSubtitles,
   };
 
   factory DownloadItem.fromJson(Map<String, dynamic> json) => DownloadItem(
@@ -144,6 +165,7 @@ class DownloadItem {
     title: json['title'] as String,
     posterUrl: json['posterUrl'] as String?,
     backdropUrl: json['backdropUrl'] as String?,
+    stillUrl: json['stillUrl'] as String?,
     type: json['type'] as String? ?? 'movie',
     seriesId: json['seriesId'] as String?,
     showTitle: json['showTitle'] as String?,
@@ -162,6 +184,14 @@ class DownloadItem {
             ?.map((p) => DownloadPart.fromJson(p as Map<String, dynamic>))
             .toList() ??
         [],
+    currentWorkerCount: json['currentWorkerCount'] as int? ?? 4,
+    localPosterPath: json['localPosterPath'] as String?,
+    localBackdropPath: json['localBackdropPath'] as String?,
+    localStillPath: json['localStillPath'] as String?,
+    mediaInfo: json['mediaInfo'] as Map<String, dynamic>?,
+    externalSubtitles: (json['externalSubtitles'] as List<dynamic>?)
+        ?.map((e) => e as Map<String, dynamic>)
+        .toList(),
   );
 
   static String formatBytes(int bytes) {

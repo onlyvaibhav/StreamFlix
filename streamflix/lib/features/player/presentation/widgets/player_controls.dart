@@ -211,7 +211,7 @@ class _PlayerControlsState extends ConsumerState<PlayerControls> {
                               final rawPosition = positionSnapshot.data ?? Duration.zero;
                               final rawDuration = durationSnapshot.data ?? Duration.zero;
                               
-                              bool isMultipart = playerState.splitParts.isNotEmpty;
+                              bool isMultipart = playerState.splitParts.length > 1;
                               
                               Duration position = rawPosition;
                               Duration duration = rawDuration;

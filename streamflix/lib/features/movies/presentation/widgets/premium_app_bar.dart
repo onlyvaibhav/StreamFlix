@@ -56,11 +56,12 @@ class PremiumAppBar extends StatelessWidget implements PreferredSizeWidget {
                   // Left: Dynamic Greeting
                   Expanded(
                     child: Text(
-                      'STREAMFLIX',
-                      style: GoogleFonts.bebasNeue(
-                        fontSize: 32,
+                      'StreamFlix',
+                      style: GoogleFonts.inter(
+                        fontSize: 26,
+                        fontWeight: FontWeight.w900,
                         color: const Color(0xFFE50914), // Netflix Red
-                        letterSpacing: 1.5,
+                        letterSpacing: -1.0,
                       ),
                       maxLines: 1,
                     ),

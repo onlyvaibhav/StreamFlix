@@ -1,7 +1,9 @@
 package com.streamflix.streamflix
 
 import android.content.Context
+import android.content.pm.PackageManager
 import android.media.AudioManager
+import android.os.Build
 import android.view.WindowManager
 import androidx.annotation.NonNull
 import io.flutter.embedding.android.FlutterActivity
@@ -10,9 +12,54 @@ import io.flutter.plugin.common.MethodChannel
 
 class MainActivity : FlutterActivity() {
     private val CHANNEL = "com.streamflix.app/native_controls"
+    private val DOWNLOAD_CHANNEL = "com.streamflix.app/download_service"
+    private val NOTIFICATION_PERMISSION_REQUEST_CODE = 1001
 
     override fun configureFlutterEngine(@NonNull flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
+
+        // ─── Download Service Channel ───────────────────────────
+        MethodChannel(flutterEngine.dartExecutor.binaryMessenger, DOWNLOAD_CHANNEL).setMethodCallHandler { call, result ->
+            when (call.method) {
+                "startService" -> {
+                    val title = call.argument<String>("title") ?: "Downloading..."
+                    try {
+                        DownloadForegroundService.start(this, title)
+                        result.success(true)
+                    } catch (e: Exception) {
+                        result.error("SERVICE_ERROR", e.message, null)
+                    }
+                }
+                "stopService" -> {
+                    try {
+                        DownloadForegroundService.stop(this)
+                        result.success(true)
+                    } catch (e: Exception) {
+                        result.error("SERVICE_ERROR", e.message, null)
+                    }
+                }
+                "updateNotification" -> {
+                    val title = call.argument<String>("title") ?: "Downloading..."
+                    try {
+                        DownloadForegroundService.update(this, title)
+                        result.success(true)
+                    } catch (e: Exception) {
+                        result.error("SERVICE_ERROR", e.message, null)
+                    }
+                }
+                "resumeWebviewTimers" -> {
+                    try {
+                        android.webkit.WebView(this@MainActivity).resumeTimers()
+                        result.success(true)
+                    } catch (e: Exception) {
+                        result.error("SERVICE_ERROR", e.message, null)
+                    }
+                }
+                else -> result.notImplemented()
+            }
+        }
+
+        // ─── Native Controls Channel ────────────────────────────
         MethodChannel(flutterEngine.dartExecutor.binaryMessenger, CHANNEL).setMethodCallHandler { call, result ->
             when (call.method) {
                 "getVolume" -> {

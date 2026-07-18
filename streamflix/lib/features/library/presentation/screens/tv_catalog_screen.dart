@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:streamflix/core/constants/app_colors.dart';
 import 'package:streamflix/core/widgets/error_widget.dart';
 import 'package:streamflix/features/movies/presentation/providers/movies_provider.dart';
+import 'package:streamflix/core/network/connectivity_service.dart';
 import 'package:streamflix/features/movies/presentation/widgets/hero_banner.dart';
 import 'package:streamflix/features/movies/presentation/widgets/movie_row.dart';
 import 'package:streamflix/features/movies/presentation/widgets/premium_app_bar.dart';
@@ -38,6 +39,17 @@ class _TvCatalogScreenState extends ConsumerState<TvCatalogScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isOffline = ref.watch(isOfflineProvider);
+    if (isOffline) {
+      return Scaffold(
+        backgroundColor: AppColors.background,
+        body: AppErrorWidget(
+          error: 'offline', // State handled correctly inside AppErrorWidget
+          onRetry: () => ref.invalidate(allTvShowsProvider),
+        ),
+      );
+    }
+
     final tvShowsAsync = ref.watch(allTvShowsProvider);
 
     return Scaffold(

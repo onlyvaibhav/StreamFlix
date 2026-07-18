@@ -12,6 +12,8 @@ import 'package:streamflix/features/auth/presentation/providers/auth_provider.da
 import 'package:dio/dio.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:uuid/uuid.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -48,12 +50,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           _isLoading = false;
           _statusMessage = event.substring(6);
         });
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(_statusMessage ?? 'Unknown error'),
-            backgroundColor: Colors.redAccent,
-          ),
-        );
       } else if (event == 'ready' && mounted) {
         setState(() {
           _statusMessage = 'Telegram connected. Ready to login.';
@@ -95,18 +91,77 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   }
 
   String _formatTelegramError(String errorMsg) {
-    if (errorMsg.contains('PHONE_CODE_INVALID')) {
-      return 'The verification code is incorrect. Please check the code and try again.';
-    } else if (errorMsg.contains('PHONE_CODE_EXPIRED')) {
-      return 'The verification code has expired. Please request a new one.';
+    if (errorMsg.contains('Object [Event]')) {
+      return "Our Telegram pigeon got distracted. 🕊️ Give it another shot.";
+    } else if (errorMsg.contains('Worker crashed') || errorMsg.contains('Background service error')) {
+      return "Our tiny streaming hamster fell off the wheel. 🐹 We're getting it back on track!";
     } else if (errorMsg.contains('PHONE_NUMBER_INVALID')) {
-      return 'The phone number you entered is invalid. Please check the country code and digits.';
-    } else if (errorMsg.contains('FLOOD_WAIT_')) {
-      return 'Too many attempts. Please wait a while before trying again.';
-    } else if (errorMsg.contains('PASSWORD_HASH_INVALID') || errorMsg.contains('SRP_PASSWORD_INVALID')) {
-      return 'The 2-Step Verification password you entered is incorrect.';
+      return "That phone number looks like it skipped a few digits. 📱 Double-check and try again!";
+    } else if (errorMsg.contains('FLOOD_WAIT')) {
+      return "Whoa there, speedrunner! 🚦 Telegram asked us to slow down for a bit.";
+    } else if (errorMsg.contains('Timeout waiting for code')) {
+      return "The verification code took the scenic route. 🚌 Try again in a moment.";
+    } else if (errorMsg.contains('Network timeout')) {
+      return "Your internet is taking a coffee break. ☕ We'll wait...";
+    } else if (errorMsg.contains('PHONE_CODE_INVALID')) {
+      return "That OTP is having an identity crisis. 🔢 Give the latest one a try!";
+    } else if (errorMsg.contains('PHONE_CODE_EXPIRED')) {
+      return "Your OTP retired before you could use it. ⏳ Let's get a fresh one!";
+    } else if (errorMsg.contains('PHONE_CODE_EMPTY')) {
+      return "The OTP box is feeling lonely. 🥲 Pop the code in first!";
+    } else if (errorMsg.contains('SESSION_PASSWORD_NEEDED')) {
+      return "Your account has a secret level unlocked. 🔐 Enter your 2-Step password.";
+    } else if (errorMsg.contains('SRP_PASSWORD_INVALID') || errorMsg.contains('PASSWORD_HASH_INVALID')) {
+      return "That password isn't the chosen one. 🗡️ Give it another swing!";
+    } else if (errorMsg.contains('Backend sync failed')) {
+      return "We logged you in, but our servers are still putting on their shoes. 👟 Hang tight!";
+    } else if (errorMsg.contains('Backend unavailable') || errorMsg.contains('500 error') || errorMsg.contains('500')) {
+      return "Our servers are currently arguing with each other. 🤖 Please try again shortly.";
+    } else if (errorMsg.contains('User object from GramJS worker is null')) {
+      return "Telegram forgot to introduce you. 😅 Let's try that again.";
+    } else if (errorMsg.contains('Connection refused')) {
+      return "Looks like the internet ghosted us. 👻 Check your connection and try again.";
+    } else if (errorMsg.contains('No internet') || errorMsg.contains('SocketException')) {
+      return "Your internet is feeling a little shy today. 🌐 Give it a gentle nudge.";
+    } else if (errorMsg.contains('Server timeout') || errorMsg.contains('TimeoutException')) {
+      return "Our server blinked... and took a little too long. 😴 Try once more.";
+    } else if (errorMsg.contains('Invalid API response')) {
+      return "The server replied in ancient alien language. 👽 We're working on a translator.";
+    } else if (errorMsg.contains('JSON parsing error') || errorMsg.contains('FormatException')) {
+      return "We opened the package and confetti came out instead. 🎉 That wasn't expected.";
+    } else if (errorMsg.contains('Authentication failed')) {
+      return "The VIP list couldn't find your name... yet. 🎟️ Let's try again.";
+    } else if (errorMsg.contains('Rate limited') || errorMsg.contains('429')) {
+      return "Easy there, turbo! 🚀 Even Telegram needs to catch its breath.";
+    } else if (errorMsg.contains('Unknown authentication error')) {
+      return "Well... that wasn't in the script. 🎬 Let's try that scene again.";
+    } else if (errorMsg.contains('MEMBERSHIP_REQUIRED')) {
+      final link = errorMsg.split('Invite Link: ').last.replaceAll(')', '').trim();
+      return "Access Denied! 🚫 You must join our Telegram channel first.\nLink: $link";
     }
-    return errorMsg.replaceAll('Exception: ', '');
+    
+    return "Achievement unlocked: You found a bug we weren't expecting. 🏆 Please try again!\n(${errorMsg.replaceAll('Exception: ', '')})";
+  }
+
+  void _showErrorSnackBar(String errorMsg) {
+    if (!mounted) return;
+    final bottomInset = MediaQuery.of(context).viewInsets.bottom;
+    
+    ScaffoldMessenger.of(context).clearSnackBars();
+    
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(_formatTelegramError(errorMsg)), 
+        backgroundColor: Colors.redAccent,
+        duration: const Duration(seconds: 4),
+        behavior: SnackBarBehavior.floating,
+        margin: EdgeInsets.only(
+          bottom: bottomInset > 0 ? bottomInset + 16 : 16,
+          left: 16,
+          right: 16,
+        ),
+      ),
+    );
   }
 
   Future<void> _handleSendCode() async {
@@ -149,13 +204,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           _isLoading = false; 
           _statusMessage = null;
         });
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(_formatTelegramError(e.toString())), 
-            backgroundColor: Colors.redAccent,
-            duration: const Duration(seconds: 4),
-          ),
-        );
+        _showErrorSnackBar(e.toString());
       }
     }
   }
@@ -199,10 +248,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         
         try {
           final box = Hive.box('authBox');
-          String? deviceId = box.get('device_id');
+          const storage = FlutterSecureStorage();
+          
+          String? deviceId = await storage.read(key: 'device_id');
           if (deviceId == null) {
-            deviceId = 'fl_${DateTime.now().millisecondsSinceEpoch}_${Random().nextInt(100000)}';
-            box.put('device_id', deviceId);
+            deviceId = const Uuid().v4();
+            await storage.write(key: 'device_id', value: deviceId);
           }
           
           final userObj = TelegramClientService().userObj;
@@ -240,6 +291,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           );
           
           if (response.statusCode == 200 && response.data['success'] == true) {
+            if (response.data['requiresMembership'] == true) {
+               throw Exception('MEMBERSHIP_REQUIRED: Please join our Telegram channel first! Invite Link: ${response.data['inviteLink']}');
+            }
+
+            final rawToken = response.data['token'];
+            if (rawToken != null) await storage.write(key: 'auth_token', value: rawToken);
+            
             final sessionToken = response.data['sessionToken'];
             if (sessionToken != null) box.put('sessionToken', sessionToken);
             if (response.data['user'] != null) box.put('user', response.data['user']);
@@ -267,13 +325,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           _isLoading = false;
           _statusMessage = e.toString().replaceFirst('Exception: ', '');
         });
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(_formatTelegramError(e.toString())), 
-            backgroundColor: Colors.redAccent,
-            duration: const Duration(seconds: 4),
-          ),
-        );
+        _showErrorSnackBar(e.toString());
       }
     }
   }
@@ -347,6 +399,14 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           );
           
           if (response.statusCode == 200 && response.data['success'] == true) {
+            if (response.data['requiresMembership'] == true) {
+               throw Exception('MEMBERSHIP_REQUIRED: Please join our Telegram channel first! Invite Link: ${response.data['inviteLink']}');
+            }
+
+            const storage = FlutterSecureStorage();
+            final rawToken = response.data['token'];
+            if (rawToken != null) await storage.write(key: 'auth_token', value: rawToken);
+            
             final sessionToken = response.data['sessionToken'];
             if (sessionToken != null) box.put('sessionToken', sessionToken);
             if (response.data['user'] != null) box.put('user', response.data['user']);
@@ -371,13 +431,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           _isLoading = false;
           _statusMessage = e.toString().replaceFirst('Exception: ', '');
         });
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(e.toString()), 
-            backgroundColor: Colors.redAccent,
-            duration: const Duration(seconds: 4),
-          ),
-        );
+        _showErrorSnackBar(e.toString());
       }
     }
   }
@@ -387,12 +441,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       children: [
         const SizedBox(height: 60),
         Text(
-          'STREAMFLIX',
+          'StreamFlix',
           textAlign: TextAlign.center,
-          style: GoogleFonts.bebasNeue(
+          style: GoogleFonts.inter(
             color: AppColors.netflixRed,
-            fontSize: 56,
-            letterSpacing: 2.0,
+            fontSize: 48,
+            fontWeight: FontWeight.w900,
+            letterSpacing: -1.0,
           ),
         ),
         const SizedBox(height: 20),

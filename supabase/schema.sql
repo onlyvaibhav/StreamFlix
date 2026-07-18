@@ -62,6 +62,8 @@ CREATE TABLE IF NOT EXISTS sessions (
     telegram_id BIGINT REFERENCES users(telegram_id) ON DELETE CASCADE,
     device_id VARCHAR(255) REFERENCES devices(device_id) ON DELETE CASCADE,
     telegram_session TEXT NOT NULL, -- Encrypted session string
+    token_hash TEXT UNIQUE,
+    status VARCHAR(20) DEFAULT 'active',
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
     last_used TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
     expires_at TIMESTAMP WITH TIME ZONE
@@ -77,6 +79,11 @@ CREATE INDEX IF NOT EXISTS idx_sessions_device_id ON sessions(device_id);
 ALTER TABLE users ENABLE ROW LEVEL SECURITY;
 ALTER TABLE devices ENABLE ROW LEVEL SECURITY;
 ALTER TABLE sessions ENABLE ROW LEVEL SECURITY;
+
+-- Explicitly revoke access from anon and public to ensure lockdown
+REVOKE ALL ON users FROM anon, public;
+REVOKE ALL ON devices FROM anon, public;
+REVOKE ALL ON sessions FROM anon, public;
 
 -- Grant full access to service_role (used by backend server)
 GRANT ALL ON users TO service_role;
@@ -159,6 +166,7 @@ CREATE INDEX IF NOT EXISTS idx_watch_progress_telegram_id ON watch_progress(tele
 CREATE INDEX IF NOT EXISTS idx_watch_progress_updated_at ON watch_progress(updated_at DESC);
 
 ALTER TABLE watch_progress ENABLE ROW LEVEL SECURITY;
+REVOKE ALL ON watch_progress FROM anon, public;
 GRANT ALL ON watch_progress TO service_role;
 GRANT ALL ON watch_progress TO authenticated;
 

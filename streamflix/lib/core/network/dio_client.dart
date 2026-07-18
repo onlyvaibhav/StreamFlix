@@ -2,7 +2,9 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:streamflix/core/config/app_config.dart';
+import 'package:streamflix/features/auth/presentation/providers/auth_provider.dart';
 
 /// Cache entry model for ETag validation
 class CacheEntry {
@@ -17,16 +19,42 @@ class CacheEntry {
   });
 }
 
-/// Injects custom session token into requests
+/// Injects custom session token and device ID into requests
 class AuthInterceptor extends Interceptor {
+  final Future<void> Function() onUnauthorized;
+  final _storage = const FlutterSecureStorage();
+
+  AuthInterceptor({required this.onUnauthorized});
+
   @override
-  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    final box = Hive.box('authBox');
-    final sessionToken = box.get('sessionToken') as String?;
-    if (sessionToken != null && sessionToken.isNotEmpty) {
-      options.headers['Authorization'] = 'Bearer $sessionToken';
+  void onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
+    final token = await _storage.read(key: 'auth_token');
+    final deviceId = await _storage.read(key: 'device_id');
+
+    if (token != null && token.isNotEmpty) {
+      options.headers['Authorization'] = 'Bearer $token';
+    } else {
+      // Fallback for transition
+      final box = Hive.box('authBox');
+      final sessionToken = box.get('sessionToken') as String?;
+      if (sessionToken != null && sessionToken.isNotEmpty) {
+        options.headers['Authorization'] = 'Bearer $sessionToken';
+      }
     }
+
+    if (deviceId != null && deviceId.isNotEmpty) {
+      options.headers['X-Device-Id'] = deviceId;
+    }
+
     return handler.next(options);
+  }
+
+  @override
+  void onError(DioException err, ErrorInterceptorHandler handler) {
+    if (err.response?.statusCode == 401 && !(err.requestOptions.path.contains('/logout'))) {
+      onUnauthorized();
+    }
+    return super.onError(err, handler);
   }
 }
 
@@ -48,6 +76,16 @@ class ETagCacheInterceptor extends Interceptor {
     final cachedEntry = _cache[cacheKey];
 
     if (cachedEntry != null) {
+      final isFresh = DateTime.now().difference(cachedEntry.timestamp).inMinutes < 30;
+      if (isFresh) {
+        debugPrint('📦 App Cache: Serving fresh data for ${options.uri} directly from cache');
+        final cachedResponse = Response(
+          requestOptions: options,
+          data: cachedEntry.data,
+          statusCode: 200,
+        );
+        return handler.resolve(cachedResponse);
+      }
       options.headers['If-None-Match'] = cachedEntry.etag;
       debugPrint('📦 ETag Cache [REQUEST]: Found cached entry for ${options.uri}, sending If-None-Match: ${cachedEntry.etag}');
     }
@@ -130,7 +168,7 @@ class RetryInterceptor extends Interceptor {
 
   RetryInterceptor({
     required this.dio,
-    this.maxRetries = 3,
+    this.maxRetries = 1,
     this.baseDelayMs = 1000,
   });
 
@@ -146,6 +184,7 @@ class RetryInterceptor extends Interceptor {
     final innerErrorStr = err.error?.toString().toLowerCase() ?? '';
     final isNoInternet = innerErrorStr.contains('failed host lookup') || 
                          innerErrorStr.contains('network is unreachable') ||
+                         innerErrorStr.contains('software caused connection abort') ||
                          innerErrorStr.contains('no route to host');
 
     int retryCount = requestOptions.extra['retry_count'] ?? 0;
@@ -171,13 +210,12 @@ class RetryInterceptor extends Interceptor {
   }
 }
 
-/// Dio HTTP client provider
 final dioProvider = Provider<Dio>((ref) {
   final dio = Dio(
     BaseOptions(
       baseUrl: AppConfig.v1BaseUrl,
-      connectTimeout: const Duration(seconds: AppConfig.timeoutSeconds),
-      receiveTimeout: const Duration(seconds: AppConfig.timeoutSeconds),
+      connectTimeout: const Duration(seconds: 5), // Reduced to 5s to fail faster
+      receiveTimeout: const Duration(seconds: 15), // Let receive take longer
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
@@ -186,7 +224,13 @@ final dioProvider = Provider<Dio>((ref) {
   );
 
   // Register Auth interceptor
-  dio.interceptors.add(AuthInterceptor());
+  dio.interceptors.add(AuthInterceptor(
+    onUnauthorized: () async {
+      Future.microtask(() {
+        ref.read(authStateProvider.notifier).logout(isRevoked: true);
+      });
+    },
+  ));
 
   // Register ETag caching interceptor
   final cacheInterceptor = ETagCacheInterceptor();

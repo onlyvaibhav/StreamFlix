@@ -13,6 +13,7 @@ sealed class ExternalSubtitle with _$ExternalSubtitle {
     String? rating,
     @Default('SubDL') String source,
     String? endpoint,
+    String? localPath,
   }) = _ExternalSubtitle;
 
   factory ExternalSubtitle.fromJson(Map<String, dynamic> json) =>

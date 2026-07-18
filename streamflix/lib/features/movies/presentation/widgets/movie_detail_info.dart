@@ -196,7 +196,11 @@ class _MovieDetailInfoState extends State<MovieDetailInfo> {
                 const SizedBox(width: 12),
                 SizedBox(
                   height: 48,
-                  child: DownloadButton(movie: widget.movie, compact: false),
+                  width: 48,
+                  child: DownloadButton(
+                    movie: widget.movie,
+                    resolvedParts: widget.movie.parts,
+                  ),
                 ),
               ],
             ],
@@ -407,7 +411,7 @@ class _MovieDetailInfoState extends State<MovieDetailInfo> {
                       ),
                       const SizedBox(width: 8),
                       // Download button for episode
-                      DownloadButton(movie: episode, compact: true),
+                      DownloadButton(movie: episode),
                     ],
                   ),
                 );

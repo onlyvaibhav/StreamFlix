@@ -16,6 +16,8 @@ import 'package:streamflix/features/movies/data/repositories/movie_repository_im
 import 'package:streamflix/features/player/data/datasources/stream_remote_datasource.dart';
 import 'package:streamflix/core/network/telegram_client_service.dart';
 import 'package:streamflix/core/network/local_loopback_server.dart';
+import 'package:streamflix/features/downloads/data/download_manager.dart';
+import 'package:streamflix/features/downloads/data/download_item.dart';
 
 part 'player_provider.g.dart';
 
@@ -323,7 +325,7 @@ class MoviePlayer extends _$MoviePlayer {
         debugPrint('⚠️ Failed to pre-fetch part-info: $e');
       }
 
-      List<SeasonInfo> tvSeasons = keepSettings ? state.tvSeasons : [];
+      List<SeasonInfo> tvSeasons = keepSettings ? state.tvSeasons : (movie.seasons ?? []);
       List<SplitPart> splitParts = mediaToPlay.parts ?? [];
       int currentPartIndex = 0;
 
@@ -357,13 +359,46 @@ class MoviePlayer extends _$MoviePlayer {
 
       // Fetch seasons for TV show episode if seasons list is empty
       final showTmdbId = mediaToPlay.tv?.showTmdbId ?? mediaToPlay.tmdbId;
-      if (tvSeasons.isEmpty && showTmdbId != null && (mediaToPlay.type == 'tv' || mediaToPlay.tv != null)) {
-        try {
-          debugPrint('📺 Pre-fetching seasons mapping for TV TMDB: $showTmdbId');
-          final tvShow = await ref.read(movieRepositoryProvider).getTvShowById(showTmdbId.toString());
-          tvSeasons = tvShow.seasons;
-        } catch (e) {
-          debugPrint('⚠️ Failed to pre-fetch TV show details: $e');
+      if (tvSeasons.isEmpty && (mediaToPlay.type == 'tv' || mediaToPlay.type == 'episode' || mediaToPlay.tv != null)) {
+        if (showTmdbId != null) {
+          try {
+            debugPrint('📺 Pre-fetching seasons mapping for TV TMDB: $showTmdbId');
+            final tvShow = await ref.read(movieRepositoryProvider).getTvShowById(showTmdbId.toString());
+            tvSeasons = tvShow.seasons;
+          } catch (e) {
+            debugPrint('⚠️ Failed to pre-fetch TV show details: $e');
+          }
+        }
+        
+        if (tvSeasons.isEmpty) {
+          // Offline fallback: construct from downloaded episodes
+          final allDownloads = DownloadManager().items;
+          final showDownloads = allDownloads.where((d) => 
+            (showTmdbId != null && d.seriesId == showTmdbId.toString()) || 
+            (d.type == 'episode' && (d.showTitle == mediaToPlay.tv?.showTitle || d.showTitle == mediaToPlay.title))
+          ).toList();
+          
+          if (showDownloads.isNotEmpty) {
+             final Map<int, List<Movie>> seasonMap = {};
+             for (final d in showDownloads) {
+                final sNum = d.seasonNumber ?? 1;
+                final ep = Movie(
+                   id: d.mediaId,
+                   title: d.title,
+                   type: 'episode',
+                   seasonNumber: sNum,
+                   episodeNumber: d.episodeNumber ?? 1,
+                   poster: d.posterUrl,
+                );
+                seasonMap.putIfAbsent(sNum, () => []).add(ep);
+             }
+             tvSeasons = seasonMap.entries.map((e) {
+                e.value.sort((a, b) => (a.episodeNumber ?? 0).compareTo(b.episodeNumber ?? 0));
+                return SeasonInfo(seasonNumber: e.key, episodes: e.value);
+             }).toList();
+             tvSeasons.sort((a, b) => a.seasonNumber.compareTo(b.seasonNumber));
+             debugPrint('📺 Constructed offline TV seasons from DownloadManager');
+          }
         }
       }
 
@@ -425,20 +460,37 @@ class MoviePlayer extends _$MoviePlayer {
 
       final streamDataSource = ref.read(streamRemoteDataSourceProvider);
 
-      // Parallel fetch: track probe + external subtitles
-      final List<dynamic> results = await Future.wait<dynamic>([
-        streamDataSource.getTrackInfo(_currentFileId!).catchError((e) {
-          debugPrint('⚠️ Track probe failed: $e');
-          return TrackInfo(fileId: _currentFileId!);
-        }),
-        streamDataSource.getExternalSubtitles(_currentFileId!).catchError((e) {
-          debugPrint('⚠️ External subtitle fetch failed: $e');
-          return <ExternalSubtitle>[];
-        }),
-      ]);
+      final downloadItem = DownloadManager().getDownload(mediaToPlay.id);
+      final isOfflineItem = downloadItem != null && downloadItem.overallStatus == DownloadStatus.completed;
 
-      final trackInfo = results[0] as TrackInfo;
-      final externalSubs = results[1] as List<ExternalSubtitle>;
+      TrackInfo trackInfo;
+      List<ExternalSubtitle> externalSubs;
+
+      if (isOfflineItem && (downloadItem.mediaInfo != null || downloadItem.externalSubtitles != null)) {
+        debugPrint('📦 Using cached offline metadata and subtitles');
+        trackInfo = downloadItem.mediaInfo != null 
+            ? TrackInfo.fromJson(downloadItem.mediaInfo!) 
+            : TrackInfo(fileId: _currentFileId!);
+            
+        externalSubs = (downloadItem.externalSubtitles ?? []).map((s) {
+           return ExternalSubtitle.fromJson(s);
+        }).toList();
+      } else {
+        // Parallel fetch: track probe + external subtitles
+        final List<dynamic> results = await Future.wait<dynamic>([
+          streamDataSource.getTrackInfo(_currentFileId!).catchError((e) {
+            debugPrint('⚠️ Track probe failed: $e');
+            return TrackInfo(fileId: _currentFileId!);
+          }),
+          streamDataSource.getExternalSubtitles(_currentFileId!).catchError((e) {
+            debugPrint('⚠️ External subtitle fetch failed: $e');
+            return <ExternalSubtitle>[];
+          }),
+        ]);
+
+        trackInfo = results[0] as TrackInfo;
+        externalSubs = results[1] as List<ExternalSubtitle>;
+      }
 
       // Sort external subtitles prioritising HI/SDH tracks to match V1 logic
       externalSubs.sort((a, b) {
@@ -517,11 +569,27 @@ class MoviePlayer extends _$MoviePlayer {
       // Build stream URL
       String streamUrl = '';
       bool useClientStreaming = false;
+      bool isOffline = false;
 
-      try {
-        final telegramService = TelegramClientService();
-        // With the auth guard in place, if we have a session, use client-side streaming
-        if (telegramService.sessionString != null && telegramService.sessionString!.isNotEmpty) {
+      if (downloadItem != null && downloadItem.overallStatus == DownloadStatus.completed) {
+        if (splitParts.isNotEmpty) {
+           final localPart = downloadItem.parts.firstWhere(
+             (p) => p.fileId == splitParts[currentPartIndex].fileId, 
+             orElse: () => downloadItem.parts[currentPartIndex]
+           );
+           streamUrl = 'file://${localPart.filePath}';
+        } else {
+           streamUrl = 'file://${downloadItem.parts.first.filePath}';
+        }
+        isOffline = true;
+        debugPrint('🎬 Offline playback: using local file -> $streamUrl');
+      }
+
+      if (!isOffline) {
+        try {
+          final telegramService = TelegramClientService();
+          // With the auth guard in place, if we have a session, use client-side streaming
+          if (telegramService.sessionString != null && telegramService.sessionString!.isNotEmpty) {
           final dataSource = ref.read(streamRemoteDataSourceProvider);
           if (splitParts.isNotEmpty) {
              for (final part in splitParts) {
@@ -560,15 +628,16 @@ class MoviePlayer extends _$MoviePlayer {
         debugPrint('⚠️ Client-Side streaming setup failed, falling back to server: $e');
       }
 
-      if (!useClientStreaming) {
-        if (useRemux) {
-          streamUrl = StreamRemoteDataSource.buildStreamUrl(
-            _currentFileId!,
-            audioTrack: selectedAudio,
-            startSeconds: 0,
-          );
-        } else {
-          streamUrl = StreamRemoteDataSource.buildStreamUrl(_currentFileId!);
+        if (!useClientStreaming) {
+          if (useRemux) {
+            streamUrl = StreamRemoteDataSource.buildStreamUrl(
+              _currentFileId!,
+              audioTrack: selectedAudio,
+              startSeconds: 0,
+            );
+          } else {
+            streamUrl = StreamRemoteDataSource.buildStreamUrl(_currentFileId!);
+          }
         }
       }
 
@@ -622,6 +691,64 @@ class MoviePlayer extends _$MoviePlayer {
       }
 
       await state.player.play();
+      
+      // If we are offline (track probe failed), fallback to native track probing
+      if (trackInfo.audioTracks.isEmpty && trackInfo.subtitleTracks.isEmpty) {
+         // media_kit on Android often drops the initial seek if the demuxer hasn't fully loaded the HTTP stream.
+         // Waiting for a non-zero duration ensures libmpv is ready to receive seek commands.
+         if (state.player.state.duration == Duration.zero) {
+           try {
+             debugPrint('⏳ Waiting for media demuxer to load before offline track probe...');
+             await state.player.stream.duration
+                 .firstWhere((d) => d > Duration.zero)
+                 .timeout(const Duration(seconds: 5));
+           } catch (_) { }
+         }
+         
+         final nativeAudio = state.player.state.tracks.audio.where((t) => t.id != 'auto' && t.id != 'no').toList();
+         final nativeSubs = state.player.state.tracks.subtitle.where((t) => t.id != 'auto' && t.id != 'no').toList();
+         
+         final fallbackAudio = nativeAudio.asMap().entries.map((e) => AudioTrack(
+            index: e.key,
+            streamIndex: e.key,
+            language: e.value.language ?? 'Unknown',
+            languageCode: e.value.language ?? 'und',
+            title: e.value.title ?? '',
+            channels: int.tryParse(e.value.channels?.toString() ?? '') ?? 0,
+         )).toList();
+         
+         final fallbackSubs = nativeSubs.asMap().entries.map((e) => SubtitleTrack(
+            index: e.key,
+            streamIndex: e.key,
+            language: e.value.language ?? 'Unknown',
+            languageCode: e.value.language ?? 'und',
+            title: e.value.title ?? '',
+         )).toList();
+         
+         trackInfo = trackInfo.copyWith(
+            audioTracks: fallbackAudio,
+            subtitleTracks: fallbackSubs,
+         );
+         
+         if (!keepSettings) {
+             selectedAudio = fallbackAudio.isNotEmpty ? 0 : selectedAudio;
+             if (fallbackSubs.isNotEmpty) {
+                 selectedSub = 0;
+             } else if (externalSubs.isNotEmpty) {
+                 selectedSub = 100;
+             } else {
+                 selectedSub = -1;
+             }
+         }
+         
+         // Update state with newly discovered fallback tracks
+         state = state.copyWith(
+            trackInfo: trackInfo,
+            currentAudioTrack: selectedAudio,
+            currentSubtitleTrack: selectedSub,
+         );
+      }
+
       state = state.copyWith(isInitialized: true, isLoading: false);
       debugPrint('🎬 Playback started successfully');
 
@@ -778,8 +905,21 @@ class MoviePlayer extends _$MoviePlayer {
       final extSubs = state.externalSubtitles;
       if (trackIndex < 0 || trackIndex >= extSubs.length) return;
       final sub = extSubs[trackIndex];
-      final vttUrl = '${AppConfig.v1BaseUrl}/api/subtitles/file/${sub.id}';
-      debugPrint('🔤 Loading external subtitle: $vttUrl');
+      String vttUrl = '';
+      
+      bool isOffline = false;
+      final downloadItem = DownloadManager().getDownload(state.movie?.id ?? '');
+      if (downloadItem != null && downloadItem.overallStatus == DownloadStatus.completed) {
+        isOffline = true;
+      }
+
+      if (sub.localPath != null && isOffline) {
+        vttUrl = 'file://${sub.localPath}';
+        debugPrint('Subtitle: Loading local offline subtitle: $vttUrl');
+      } else {
+        vttUrl = '${AppConfig.v1BaseUrl}/api/subtitles/file/${sub.id}';
+        debugPrint('Subtitle: Loading external subtitle: $vttUrl');
+      }
       
       final action = () async {
         if (!kIsWeb) {
@@ -846,7 +986,10 @@ class MoviePlayer extends _$MoviePlayer {
 
   /// Seek to position
   Future<void> seekTo(Duration position) async {
-    if (state.splitParts.isNotEmpty) {
+    final bool hasValidDurations = state.splitParts.isNotEmpty && 
+        state.splitParts.fold(0.0, (sum, p) => sum + (p.duration ?? 0.0)) > 0.0;
+
+    if (hasValidDurations) {
       double globalSeekSeconds = position.inSeconds.toDouble();
       
       // Determine which part the target seek position belongs to
@@ -883,10 +1026,23 @@ class MoviePlayer extends _$MoviePlayer {
         _currentFileId = targetFileId;
         
         String streamUrl = '';
-        if (LocalLoopbackServer().port > 0 && TelegramClientService().sessionString?.isNotEmpty == true) {
-          streamUrl = 'http://127.0.0.1:${LocalLoopbackServer().port}/stream/$_currentFileId';
-        } else {
-          streamUrl = StreamRemoteDataSource.buildStreamUrl(targetFileId);
+        bool isOffline = false;
+        final downloadItem = DownloadManager().getDownload(state.movie?.id ?? '');
+        if (downloadItem != null && downloadItem.overallStatus == DownloadStatus.completed) {
+           final localPart = downloadItem.parts.firstWhere(
+             (p) => p.fileId == targetFileId,
+             orElse: () => downloadItem.parts[targetPartIndex]
+           );
+           streamUrl = 'file://${localPart.filePath}';
+           isOffline = true;
+        }
+
+        if (!isOffline) {
+          if (LocalLoopbackServer().port > 0 && TelegramClientService().sessionString?.isNotEmpty == true) {
+            streamUrl = 'http://127.0.0.1:${LocalLoopbackServer().port}/stream/$_currentFileId';
+          } else {
+            streamUrl = StreamRemoteDataSource.buildStreamUrl(targetFileId);
+          }
         }
         
         // Load track info for the new part
@@ -1013,7 +1169,10 @@ class MoviePlayer extends _$MoviePlayer {
     int virtualPosition = currentSec;
     int virtualDuration = durationSec;
 
-    if (state.splitParts.isNotEmpty) {
+    final bool hasValidDurations = state.splitParts.isNotEmpty && 
+        state.splitParts.fold(0.0, (sum, p) => sum + (p.duration ?? 0.0)) > 0.0;
+
+    if (hasValidDurations) {
       double accumulated = 0.0;
       for (int i = 0; i < state.currentPartIndex; i++) {
         accumulated += state.splitParts[i].duration ?? 0.0;
@@ -1099,10 +1258,23 @@ class MoviePlayer extends _$MoviePlayer {
       );
       
       String streamUrl = '';
-      if (LocalLoopbackServer().port > 0 && TelegramClientService().sessionString?.isNotEmpty == true) {
-        streamUrl = 'http://127.0.0.1:${LocalLoopbackServer().port}/stream/$targetFileId';
-      } else {
-        streamUrl = StreamRemoteDataSource.buildStreamUrl(targetFileId);
+      bool isOffline = false;
+      final downloadItem = DownloadManager().getDownload(state.movie?.id ?? '');
+      if (downloadItem != null && downloadItem.overallStatus == DownloadStatus.completed) {
+         final localPart = downloadItem.parts.firstWhere(
+           (p) => p.fileId == targetFileId,
+           orElse: () => downloadItem.parts[nextPartIndex]
+         );
+         streamUrl = 'file://${localPart.filePath}';
+         isOffline = true;
+      }
+
+      if (!isOffline) {
+        if (LocalLoopbackServer().port > 0 && TelegramClientService().sessionString?.isNotEmpty == true) {
+          streamUrl = 'http://127.0.0.1:${LocalLoopbackServer().port}/stream/$targetFileId';
+        } else {
+          streamUrl = StreamRemoteDataSource.buildStreamUrl(targetFileId);
+        }
       }
       _currentFileId = targetFileId;
       

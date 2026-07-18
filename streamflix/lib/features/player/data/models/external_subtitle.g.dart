@@ -14,6 +14,7 @@ _ExternalSubtitle _$ExternalSubtitleFromJson(Map<String, dynamic> json) =>
       rating: json['rating'] as String?,
       source: json['source'] as String? ?? 'SubDL',
       endpoint: json['endpoint'] as String?,
+      localPath: json['localPath'] as String?,
     );
 
 Map<String, dynamic> _$ExternalSubtitleToJson(_ExternalSubtitle instance) =>
@@ -24,4 +25,5 @@ Map<String, dynamic> _$ExternalSubtitleToJson(_ExternalSubtitle instance) =>
       'rating': instance.rating,
       'source': instance.source,
       'endpoint': instance.endpoint,
+      'localPath': instance.localPath,
     };
