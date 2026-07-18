@@ -533,6 +533,38 @@ async function syncClientSession(req, res) {
   }
 }
 
+/**
+ * POST /api/auth/telegram/pre-login-device-logout
+ * Body: { deviceId }
+ * Cleans up any active session for the device ID before a new login is attempted.
+ */
+async function preLoginDeviceLogout(req, res) {
+  try {
+    const { deviceId } = req.body;
+    if (!deviceId) {
+      return res.status(400).json({ success: false, error: 'Device ID is required' });
+    }
+
+    const revokedCount = await supabaseService.revokeSessionsByDevice(deviceId, 'logout');
+    console.log(`🧹 Pre-login cleanup: Revoked ${revokedCount} active sessions for device ${deviceId}`);
+
+    if (revokedCount > 0) {
+      alertBot.notifyPreLoginCleanup(deviceId, revokedCount);
+    }
+
+    return res.json({
+      success: true,
+      message: `Stale device sessions cleaned up. Revoked: ${revokedCount}`
+    });
+  } catch (error) {
+    console.error('❌ preLoginDeviceLogout Controller Error:', error);
+    return res.status(500).json({
+      success: false,
+      error: 'Pre-login cleanup failed: ' + error.message
+    });
+  }
+}
+
 module.exports = {
   sendCode,
   verifyCode,
@@ -542,5 +574,6 @@ module.exports = {
   logoutAll,
   getStreamingConfig,
   getSessionString,
-  syncClientSession
+  syncClientSession,
+  preLoginDeviceLogout
 };

@@ -25,6 +25,9 @@ router.post('/logout-all', apiLimiter, requireDeviceAuth, telegramAuthController
 // Client-side session sync for native apps (Flutter)
 router.post('/sync-client-session', apiLimiter, telegramAuthController.syncClientSession);
 
+// Client-side pre-login session cleanup by device ID
+router.post('/pre-login-device-logout', apiLimiter, telegramAuthController.preLoginDeviceLogout);
+
 // Client-side streaming support
 router.get('/streaming-config', requireDeviceAuth, telegramAuthController.getStreamingConfig);
 router.get('/session-string', requireDeviceAuth, telegramAuthController.getSessionString);

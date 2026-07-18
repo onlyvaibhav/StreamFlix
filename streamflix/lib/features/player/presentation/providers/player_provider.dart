@@ -160,6 +160,7 @@ class PlayerState {
 class MoviePlayer extends _$MoviePlayer {
   Timer? _heartbeatTimer;
   StreamSubscription? _errorSubscription;
+  StreamSubscription? _durationSubscription;
   StreamSubscription? _positionSubscription;
   String? _currentFileId;
 
@@ -237,11 +238,36 @@ class MoviePlayer extends _$MoviePlayer {
       state = state.copyWith(error: errStr);
     });
 
+    // Dynamically heal multipart estimated durations as native durations are discovered
+    _durationSubscription = player.stream.duration.listen((dur) {
+      final trueDuration = dur.inMilliseconds / 1000.0;
+      if (trueDuration > 0 && state.movie?.isSplit == true && state.splitParts.isNotEmpty) {
+          final idx = state.currentPartIndex;
+          if (idx >= 0 && idx < state.splitParts.length) {
+              // Only heal if it differs significantly to prevent rapid state rebuilds
+              final currentDur = state.splitParts[idx].duration ?? 0.0;
+              if ((currentDur - trueDuration).abs() > 1.0) {
+                  final updatedSplitParts = List<SplitPart>.from(state.splitParts);
+                  updatedSplitParts[idx] = updatedSplitParts[idx].copyWith(duration: trueDuration);
+                  state = state.copyWith(splitParts: updatedSplitParts);
+                  
+                  if (state.movie != null) {
+                      final offlineItem = DownloadManager().getDownload(state.movie!.id);
+                      if (offlineItem != null && offlineItem.overallStatus == DownloadStatus.completed) {
+                          DownloadManager().updatePartDuration(state.movie!.id, idx, trueDuration);
+                      }
+                  }
+              }
+          }
+      }
+    });
+
     // Clean up when provider is disposed
     ref.onDispose(() {
       debugPrint('🎬 Disposing player for movie $movieId');
       _stopHeartbeat();
       _errorSubscription?.cancel();
+      _durationSubscription?.cancel();
       _positionSubscription?.cancel();
       player.dispose();
       
@@ -254,6 +280,22 @@ class MoviePlayer extends _$MoviePlayer {
     // Register completion listener for sequential playback of split parts
     player.stream.completed.listen((completed) {
       if (completed) {
+        final pos = player.state.position;
+        final dur = player.state.duration;
+        debugPrint('🔍 COMPLETION EVALUATED: position=$pos, duration=$dur');
+        
+        if (dur == Duration.zero) {
+           debugPrint('🚫 Ignored premature completion (duration is 0)');
+           return;
+        }
+        
+        // Use a generous threshold (e.g. 5 seconds) to avoid missing true EOF due to imprecise position tracking near EOF, 
+        // while safely ignoring instant false completions at the start of a seek
+        if (dur.inSeconds > 0 && pos.inSeconds < dur.inSeconds - 5) {
+           debugPrint('🚫 Ignored premature completion (position $pos is >5s before duration $dur)');
+           return;
+        }
+
         _handlePlaybackCompleted();
       }
     });
@@ -307,27 +349,89 @@ class MoviePlayer extends _$MoviePlayer {
 
       Movie mediaToPlay = movie;
 
+      final offlineItem = DownloadManager().getDownload(movie.id);
+      final isOfflineItem = offlineItem != null && offlineItem.overallStatus == DownloadStatus.completed;
+
       // 1. Check if the movie has multiple parts (Seamless Playback Engine)
-      try {
-        final partInfo = await ref.read(streamRemoteDataSourceProvider).getPartInfo(movie.id);
-        if (partInfo['parts'] != null && (partInfo['parts'] as List).length > 1) {
-          final partsList = (partInfo['parts'] as List)
-              .map((p) => SplitPart.fromJson(p as Map<String, dynamic>))
-              .toList();
-          mediaToPlay = mediaToPlay.copyWith(
-            isSplit: true,
-            totalParts: partsList.length,
-            parts: partsList,
-          );
-          debugPrint('🎬 Resolved multipart media: ${partsList.length} parts found for ${movie.id}');
+      if (!isOfflineItem) {
+        try {
+          final partInfo = await ref.read(streamRemoteDataSourceProvider).getPartInfo(movie.id);
+          if (partInfo['parts'] != null && (partInfo['parts'] as List).length > 1) {
+            final partsList = (partInfo['parts'] as List)
+                .map((p) => SplitPart.fromJson(p as Map<String, dynamic>))
+                .toList();
+            mediaToPlay = mediaToPlay.copyWith(
+              isSplit: true,
+              totalParts: partsList.length,
+              parts: partsList,
+            );
+            debugPrint('🎬 Resolved multipart media: ${partsList.length} parts found for ${movie.id}');
+          }
+        } catch (e) {
+          debugPrint('⚠️ Failed to pre-fetch part-info: $e');
         }
-      } catch (e) {
-        debugPrint('⚠️ Failed to pre-fetch part-info: $e');
+      } else {
+        debugPrint('🎬 Offline playback: skipping network /part-info fetch.');
       }
 
       List<SeasonInfo> tvSeasons = keepSettings ? state.tvSeasons : (movie.seasons ?? []);
       List<SplitPart> splitParts = mediaToPlay.parts ?? [];
       int currentPartIndex = 0;
+
+      // If we are offline and partInfo failed (or was skipped), fallback to download manager parts
+      bool missingDurations = splitParts.isEmpty || splitParts.any((p) => (p.duration ?? 0) <= 0);
+      
+      if (missingDurations && offlineItem != null && offlineItem.overallStatus == DownloadStatus.completed) {
+         if (offlineItem.parts.length > 1) {
+            debugPrint('🎬 Estimating offline multipart durations for combined seekbar...');
+            
+            double part1Duration = 0;
+            if (offlineItem.mediaInfo != null) {
+               try {
+                   final tInfo = TrackInfo.fromJson(offlineItem.mediaInfo!);
+                   part1Duration = tInfo.duration.toDouble();
+               } catch (e) {
+                   debugPrint('⚠️ Could not extract Part 1 duration from mediaInfo: $e');
+               }
+            }
+
+            double estimatedBitrate = 0;
+            if (part1Duration > 0 && offlineItem.parts.isNotEmpty) {
+                estimatedBitrate = offlineItem.parts.first.sizeBytes / part1Duration;
+            } else if (mediaToPlay.duration != null && mediaToPlay.duration! > 0) {
+                // Fallback to TMDB total duration if available
+                estimatedBitrate = offlineItem.aggregateTotalSizeBytes / (mediaToPlay.duration! * 60.0);
+            }
+
+            if (estimatedBitrate <= 0) {
+                debugPrint('🎬 Metadata durations are completely missing. Falling back to generic bitrate estimation (1GB/hr).');
+                estimatedBitrate = 300000.0; // ~1GB per hour
+            }
+            
+            splitParts = offlineItem.parts.map((p) {
+               double realDuration = p.duration ?? 0.0;
+               if (realDuration <= 0) {
+                   realDuration = p.sizeBytes / estimatedBitrate;
+               }
+               return SplitPart(
+                  partNumber: p.partIndex + 1,
+                  fileId: p.fileId,
+                  size: p.sizeBytes,
+                  duration: realDuration,
+               );
+            }).toList();
+            
+            // Sort to ensure correct order
+            splitParts.sort((a, b) => (a.partNumber ?? 0).compareTo(b.partNumber ?? 0));
+            
+            mediaToPlay = mediaToPlay.copyWith(
+               isSplit: true,
+               totalParts: splitParts.length,
+               parts: splitParts,
+            );
+            debugPrint('🎬 Resolved offline multipart media: ${splitParts.length} parts (estimated durations)');
+         }
+      }
 
       // If playing a TV show series container (NOT an individual episode), auto-resolve to S1E1
       if (movie.type == 'tv' && movie.tv == null && (movie.seasons == null || movie.seasons!.isEmpty)) {
@@ -423,30 +527,38 @@ class MoviePlayer extends _$MoviePlayer {
 
       // If playing a split multipart movie, resolve correct starting part and time offset from virtual position
       if (mediaToPlay.isSplit == true && splitParts.isNotEmpty) {
-        // Calculate cumulative durations to map global resume position to specific part
-        double accumulated = 0.0;
-        int resolvedPartIndex = 0;
-        double localResumeSeconds = resumePosition?.inSeconds.toDouble() ?? 0.0;
+        bool hasValidDurations = splitParts.any((p) => (p.duration ?? 0) > 0);
 
-        bool foundPart = false;
-        for (int i = 0; i < splitParts.length; i++) {
-          final partDur = splitParts[i].duration?.toDouble() ?? 0.0;
-          if (localResumeSeconds < accumulated + partDur) {
-            resolvedPartIndex = i;
-            localResumeSeconds = localResumeSeconds - accumulated;
-            foundPart = true;
-            break;
+        if (hasValidDurations) {
+          // Calculate cumulative durations to map global resume position to specific part
+          double accumulated = 0.0;
+          int resolvedPartIndex = 0;
+          double localResumeSeconds = resumePosition?.inSeconds.toDouble() ?? 0.0;
+
+          bool foundPart = false;
+          for (int i = 0; i < splitParts.length; i++) {
+            final partDur = splitParts[i].duration?.toDouble() ?? 0.0;
+            if (localResumeSeconds < accumulated + partDur) {
+              resolvedPartIndex = i;
+              localResumeSeconds = localResumeSeconds - accumulated;
+              foundPart = true;
+              break;
+            }
+            accumulated += partDur;
           }
-          accumulated += partDur;
-        }
 
-        // If seek was beyond the end, clamp to last part
-        if (!foundPart) {
-          currentPartIndex = splitParts.length - 1;
-          resumePosition = Duration(seconds: (splitParts.last.duration ?? 0.0).round());
+          // If seek was beyond the end, clamp to last part
+          if (!foundPart) {
+            currentPartIndex = splitParts.length - 1;
+            resumePosition = Duration(seconds: (splitParts.last.duration ?? 0.0).round());
+          } else {
+            currentPartIndex = resolvedPartIndex;
+            resumePosition = Duration(seconds: localResumeSeconds.round());
+          }
         } else {
-          currentPartIndex = resolvedPartIndex;
-          resumePosition = Duration(seconds: localResumeSeconds.round());
+          currentPartIndex = 0;
+          resumePosition = null;
+          debugPrint('⚠️ Cannot map resume position: offline parts missing duration metadata. Starting from beginning.');
         }
 
         final targetPartFileId = splitParts[currentPartIndex].fileId ?? '';
@@ -461,12 +573,12 @@ class MoviePlayer extends _$MoviePlayer {
       final streamDataSource = ref.read(streamRemoteDataSourceProvider);
 
       final downloadItem = DownloadManager().getDownload(mediaToPlay.id);
-      final isOfflineItem = downloadItem != null && downloadItem.overallStatus == DownloadStatus.completed;
+      final isMediaOffline = downloadItem != null && downloadItem.overallStatus == DownloadStatus.completed;
 
       TrackInfo trackInfo;
       List<ExternalSubtitle> externalSubs;
 
-      if (isOfflineItem && (downloadItem.mediaInfo != null || downloadItem.externalSubtitles != null)) {
+      if (isMediaOffline && (downloadItem!.mediaInfo != null || downloadItem.externalSubtitles != null)) {
         debugPrint('📦 Using cached offline metadata and subtitles');
         trackInfo = downloadItem.mediaInfo != null 
             ? TrackInfo.fromJson(downloadItem.mediaInfo!) 
@@ -992,6 +1104,10 @@ class MoviePlayer extends _$MoviePlayer {
     if (hasValidDurations) {
       double globalSeekSeconds = position.inSeconds.toDouble();
       
+      // BUG 1 DIAGNOSTIC LOG: Log the durations being used for this seek
+      final durationLog = state.splitParts.map((p) => 'P${p.partNumber}: ${p.duration}s').join(', ');
+      debugPrint('📐 Seek target calculation for ${globalSeekSeconds}s: using durations [$durationLog]');
+
       // Determine which part the target seek position belongs to
       double accumulated = 0.0;
       int targetPartIndex = 0;
@@ -1017,7 +1133,10 @@ class MoviePlayer extends _$MoviePlayer {
       if (targetPartIndex != state.currentPartIndex) {
         // Cross-part seek detected! Change current file ID and re-open media
         final targetFileId = state.splitParts[targetPartIndex].fileId ?? '';
-        debugPrint('🎬 Cross-part seek: switching to part ${targetPartIndex + 1} (offset ${localSeekSeconds}s)');
+        debugPrint('🎬 [USER-SEEK] Cross-part seek: switching to part ${targetPartIndex + 1} (fileId: $targetFileId, offset: ${localSeekSeconds}s)');
+        
+        // BUG 2 FIX: Immediately pause/stop audio output of current part to prevent bleed-over
+        await state.player.pause();
         
         state = state.copyWith(
           currentPartIndex: targetPartIndex,
@@ -1051,7 +1170,8 @@ class MoviePlayer extends _$MoviePlayer {
           state = state.copyWith(trackInfo: trackInfo, duration: trackInfo.duration);
         } catch (_) {}
 
-        await state.player.open(mk.Media(streamUrl), play: false);
+        // MUST use play: true to force the demuxer to load and emit the duration on Android!
+        await state.player.open(mk.Media(streamUrl), play: true);
         
         // Wait for demuxer to load before seeking
         if (state.player.state.duration == Duration.zero) {
@@ -1065,7 +1185,15 @@ class MoviePlayer extends _$MoviePlayer {
           }
         }
         
-        await state.player.seek(Duration(seconds: localSeekSeconds.round()));
+        // Clamp seek to prevent SIGABRT if generic bitrate estimation overshot true duration
+        double clampedSeek = localSeekSeconds;
+        final trueDuration = state.player.state.duration.inMilliseconds / 1000.0;
+        if (trueDuration > 0 && clampedSeek >= trueDuration) {
+            clampedSeek = trueDuration - 0.5; // Clamp to just before EOF
+            if (clampedSeek < 0) clampedSeek = 0;
+        }
+        
+        await state.player.seek(Duration(milliseconds: (clampedSeek * 1000).round()));
         await state.player.play();
         
         _startHeartbeat(targetFileId);
@@ -1073,7 +1201,14 @@ class MoviePlayer extends _$MoviePlayer {
         return;
       } else {
         // In same part
-        await state.player.seek(Duration(seconds: localSeekSeconds.round()));
+        double clampedSeek = localSeekSeconds;
+        final trueDuration = state.player.state.duration.inMilliseconds / 1000.0;
+        if (trueDuration > 0 && clampedSeek >= trueDuration) {
+            clampedSeek = trueDuration - 0.5;
+            if (clampedSeek < 0) clampedSeek = 0;
+        }
+        
+        await state.player.seek(Duration(milliseconds: (clampedSeek * 1000).round()));
         return;
       }
     }
@@ -1141,6 +1276,16 @@ class MoviePlayer extends _$MoviePlayer {
 
   void _startHeartbeat(String fileId) {
     _stopHeartbeat();
+    
+    // Skip heartbeat if offline
+    if (state.movie != null) {
+      final offlineItem = DownloadManager().getDownload(state.movie!.id);
+      if (offlineItem != null && offlineItem.overallStatus == DownloadStatus.completed) {
+        debugPrint('💓 Offline playback: skipping /heartbeat for $fileId');
+        return;
+      }
+    }
+
     final streamDataSource = ref.read(streamRemoteDataSourceProvider);
     
     // Send immediately
@@ -1207,6 +1352,12 @@ class MoviePlayer extends _$MoviePlayer {
     // Tell the home screen to refresh the Continue Watching row
     ref.invalidate(continueWatchingProvider);
 
+    final offlineItem = DownloadManager().getDownload(movie.id);
+    if (offlineItem != null && offlineItem.overallStatus == DownloadStatus.completed) {
+      debugPrint('💾 Offline playback: skipping remote save progress for ${movie.id}');
+      return;
+    }
+
     try {
       final isTvShow = movie.type == 'tv' || movie.tv != null;
       await ref.read(streamRemoteDataSourceProvider).saveWatchProgress(
@@ -1250,7 +1401,7 @@ class MoviePlayer extends _$MoviePlayer {
       final nextPartIndex = state.currentPartIndex + 1;
       final nextPart = state.splitParts[nextPartIndex];
       final targetFileId = nextPart.fileId ?? '';
-      debugPrint('🎬 Multipart: Part ${state.currentPartIndex + 1} completed! Auto-advancing to Part ${nextPart.partNumber} (fileId: $targetFileId)');
+      debugPrint('🎬 [AUTO-ADVANCE] Multipart: Part ${state.currentPartIndex + 1} completed! Auto-advancing to Part ${nextPart.partNumber} (fileId: $targetFileId)');
       
       state = state.copyWith(
         currentPartIndex: nextPartIndex,
@@ -1279,8 +1430,8 @@ class MoviePlayer extends _$MoviePlayer {
       _currentFileId = targetFileId;
       
       // Probe new track info for this part
-      final streamDataSource = ref.read(streamRemoteDataSourceProvider);
       try {
+        final streamDataSource = ref.read(streamRemoteDataSourceProvider);
         final trackInfo = await streamDataSource.getTrackInfo(targetFileId);
         state = state.copyWith(
           trackInfo: trackInfo,
@@ -1291,6 +1442,35 @@ class MoviePlayer extends _$MoviePlayer {
       }
 
       await state.player.open(mk.Media(streamUrl), play: true);
+      
+      // If we are offline (track probe failed), fallback to native track probing for this next part
+      if (state.trackInfo == null || (state.trackInfo!.audioTracks.isEmpty && state.trackInfo!.subtitleTracks.isEmpty)) {
+         if (state.player.state.duration == Duration.zero) {
+           try {
+             await state.player.stream.duration.firstWhere((d) => d > Duration.zero).timeout(const Duration(seconds: 5));
+           } catch (_) {}
+         }
+         
+         final nativeAudio = state.player.state.tracks.audio.where((t) => t.id != 'auto' && t.id != 'no').toList();
+         final nativeSubs = state.player.state.tracks.subtitle.where((t) => t.id != 'auto' && t.id != 'no').toList();
+         
+         final fallbackAudio = nativeAudio.asMap().entries.map((e) => AudioTrack(
+            index: e.key, streamIndex: e.key, language: e.value.language ?? 'Unknown', languageCode: e.value.language ?? 'und', title: e.value.title ?? '', channels: int.tryParse(e.value.channels?.toString() ?? '') ?? 0,
+         )).toList();
+         
+         final fallbackSubs = nativeSubs.asMap().entries.map((e) => SubtitleTrack(
+            index: e.key, streamIndex: e.key, language: e.value.language ?? 'Unknown', languageCode: e.value.language ?? 'und', title: e.value.title ?? '',
+         )).toList();
+         
+         final currentTrackInfo = state.trackInfo ?? TrackInfo(fileId: targetFileId);
+         state = state.copyWith(
+            trackInfo: currentTrackInfo.copyWith(
+               audioTracks: fallbackAudio,
+               subtitleTracks: fallbackSubs,
+            ),
+         );
+      }
+
       state = state.copyWith(isLoading: false);
       
       _startHeartbeat(targetFileId);

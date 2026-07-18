@@ -26,6 +26,7 @@ class DownloadPart {
   int sizeBytes;
   int downloadedBytes;
   String fileId; // Original Telegram file ID for building download URL
+  double? duration;
 
   DownloadPart({
     required this.partIndex,
@@ -34,6 +35,7 @@ class DownloadPart {
     required this.sizeBytes,
     this.downloadedBytes = 0,
     required this.fileId,
+    this.duration,
   });
 
   Map<String, dynamic> toJson() => {
@@ -43,6 +45,7 @@ class DownloadPart {
     'sizeBytes': sizeBytes,
     'downloadedBytes': downloadedBytes,
     'fileId': fileId,
+    if (duration != null) 'duration': duration,
   };
 
   factory DownloadPart.fromJson(Map<String, dynamic> json) => DownloadPart(
@@ -55,6 +58,7 @@ class DownloadPart {
     sizeBytes: json['sizeBytes'] as int? ?? 0,
     downloadedBytes: json['downloadedBytes'] as int? ?? 0,
     fileId: json['fileId'] as String,
+    duration: (json['duration'] as num?)?.toDouble(),
   );
 }
 

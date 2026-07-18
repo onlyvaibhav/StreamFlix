@@ -392,6 +392,18 @@ class DownloadManager extends ChangeNotifier {
     return 1024 * 1024 * 1024 * 10; // 10GB fallback
   }
 
+  /// Update the real duration of a specific downloaded part (called during offline playback).
+  Future<void> updatePartDuration(String mediaId, int partIndex, double duration) async {
+    final item = _items[mediaId];
+    if (item == null) return;
+    
+    if (partIndex >= 0 && partIndex < item.parts.length) {
+       item.parts[partIndex].duration = duration;
+       await _persist();
+       debugPrint('💾 Persisted real duration for ${item.title} Part ${partIndex + 1}: ${duration}s');
+    }
+  }
+
   /// Reconcile registry vs disk on app start.
   /// Removes orphaned entries and orphaned files.
   Future<void> reconcile() async {

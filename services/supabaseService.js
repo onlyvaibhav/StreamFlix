@@ -264,6 +264,40 @@ async function markSessionRevoked(sessionId, status) {
 }
 
 /**
+ * Revoke all active sessions for a specific device ID.
+ */
+async function revokeSessionsByDevice(deviceId, status = 'logout') {
+  // Memory update
+  let count = 0;
+  for (const session of memorySessions.values()) {
+    if (session.device_id === deviceId && session.status === 'active') {
+      session.status = status;
+      count++;
+    }
+  }
+
+  if (!isEnabled()) return count;
+
+  try {
+    const { data, error } = await supabase
+      .from('sessions')
+      .update({ status: status })
+      .eq('device_id', deviceId)
+      .eq('status', 'active')
+      .select();
+
+    if (error) {
+      console.error('❌ Supabase revokeSessionsByDevice error:', error.message);
+      return count;
+    }
+    return data ? data.length : 0;
+  } catch (err) {
+    console.error('❌ Failed to revoke sessions by device in Supabase:', err.message);
+    return count;
+  }
+}
+
+/**
  * Watch Progress Methods
  */
 const memoryWatchProgress = new Map(); // telegramId -> Map(fileId -> data)
@@ -359,6 +393,7 @@ module.exports = {
   syncSession,
   getSession,
   markSessionRevoked,
+  revokeSessionsByDevice,
   syncWatchProgress,
   getWatchProgress,
   supabase,

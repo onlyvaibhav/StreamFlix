@@ -696,6 +696,22 @@
                     initPromise = initClient(msg.session);
                     await initPromise;
                 } 
+                else if (msg.type === "logout") {
+                    if (client) {
+                        try {
+                            console.log("Logging out client from Telegram...");
+                            await client.invoke(new GramJSWorker.Api.auth.LogOut());
+                            await client.disconnect();
+                        } catch (e) {
+                            console.log("Logout error (ignored):", e);
+                        }
+                        dcSenders.clear();
+                        client = null;
+                        isConnected = false;
+                    }
+                    initPromise = initClient("");
+                    await initPromise;
+                }
                 else if (msg.type === "sendCode") {
                     await sendCode(msg.phoneNumber);
                 }

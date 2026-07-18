@@ -32,12 +32,17 @@ class AuthState extends _$AuthState {
 
   Future<void> logout({bool isRevoked = false}) async {
     // Fire and forget the backend logout so the UI redirects instantly
-    try {
-      final dio = ref.read(dioProvider);
-      dio.post('/api/auth/telegram/logout', data: {'status': isRevoked ? 'revoked' : 'logout'});
-    } catch (e) {
-      // Ignore
+    final session = Hive.box('authBox').get('telegram_session') as String?;
+    if (session != null && session.isNotEmpty) {
+      try {
+        final dio = ref.read(dioProvider);
+        dio.post('/api/auth/telegram/logout', data: {'status': isRevoked ? 'revoked' : 'logout'});
+      } catch (e) {
+        // Ignore
+      }
     }
+
+    TelegramClientService().logout();
 
     Hive.box('authBox').delete('telegram_session');
     Hive.box('authBox').delete('sessionToken');

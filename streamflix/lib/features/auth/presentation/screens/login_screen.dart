@@ -14,6 +14,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:uuid/uuid.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -164,6 +165,98 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     );
   }
 
+  void _showMembershipDialog(String inviteLink) {
+    if (!mounted) return;
+    
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: AppColors.backgroundCard,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+            side: const BorderSide(color: Colors.white10),
+          ),
+          title: const Row(
+            children: [
+              Icon(Icons.lock_outline, color: AppColors.netflixRed),
+              SizedBox(width: 8),
+              Text(
+                'Membership Required',
+                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+          content: const Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'You must join our Telegram channel to stream movies and TV shows on StreamFlix.',
+                style: TextStyle(color: Colors.white70, fontSize: 14, height: 1.4),
+              ),
+              SizedBox(height: 12),
+              Text(
+                'Once you join, you can log back in immediately.',
+                style: TextStyle(color: Colors.white54, fontSize: 12, height: 1.4),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () async {
+                Navigator.of(context).pop();
+                
+                setState(() {
+                  _isLoading = true;
+                  _statusMessage = 'Logging out...';
+                });
+                
+                await TelegramClientService().logout();
+                
+                if (mounted) {
+                  setState(() {
+                    _isLoading = false;
+                    _statusMessage = null;
+                  });
+                  _phoneController.clear();
+                  _otpController.clear();
+                  _passwordController.clear();
+                  _goToPage(0);
+                }
+              },
+              child: const Text(
+                'Sign Out',
+                style: TextStyle(color: Colors.white54),
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                final uri = Uri.parse(inviteLink);
+                if (await canLaunchUrl(uri)) {
+                  await launchUrl(uri, mode: LaunchMode.externalApplication);
+                } else {
+                  if (context.mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Could not open invite link: $inviteLink')),
+                    );
+                  }
+                }
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.netflixRed,
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+              ),
+              child: const Text('Join Channel'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   Future<void> _handleSendCode() async {
     final phone = _phoneController.text.trim();
     if (phone.isEmpty) return;
@@ -177,6 +270,24 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     });
 
     try {
+      // Clean up stale device session on backend prior to login if server is online
+      try {
+        const storage = FlutterSecureStorage();
+        String? deviceId = await storage.read(key: 'device_id');
+        if (deviceId == null) {
+          deviceId = const Uuid().v4();
+          await storage.write(key: 'device_id', value: deviceId);
+        }
+        final dio = ref.read(dioProvider);
+        await dio.post(
+          '/api/auth/telegram/pre-login-device-logout',
+          data: {'deviceId': deviceId},
+        );
+        debugPrint('🧹 Pre-login device cleanup completed for $deviceId');
+      } catch (e) {
+        debugPrint('⚠️ Pre-login device cleanup skipped/failed: $e');
+      }
+
       await TelegramClientService().sendCode(fullPhone);
       
       setState(() { _statusMessage = 'Code request sent. Waiting for confirmation...'; });
@@ -292,7 +403,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           
           if (response.statusCode == 200 && response.data['success'] == true) {
             if (response.data['requiresMembership'] == true) {
-               throw Exception('MEMBERSHIP_REQUIRED: Please join our Telegram channel first! Invite Link: ${response.data['inviteLink']}');
+               setState(() => _isLoading = false);
+               _showMembershipDialog(response.data['inviteLink'] ?? '');
+               return;
             }
 
             final rawToken = response.data['token'];
@@ -400,7 +513,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           
           if (response.statusCode == 200 && response.data['success'] == true) {
             if (response.data['requiresMembership'] == true) {
-               throw Exception('MEMBERSHIP_REQUIRED: Please join our Telegram channel first! Invite Link: ${response.data['inviteLink']}');
+               setState(() => _isLoading = false);
+               _showMembershipDialog(response.data['inviteLink'] ?? '');
+               return;
             }
 
             const storage = FlutterSecureStorage();
@@ -437,20 +552,25 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   }
 
   Widget _buildTopLogo() {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final topSpacing = screenHeight < 700 ? 20.0 : 50.0;
+    final bottomSpacing = screenHeight < 700 ? 10.0 : 20.0;
+    final fontSize = screenHeight < 700 ? 38.0 : 48.0;
+
     return Column(
       children: [
-        const SizedBox(height: 60),
+        SizedBox(height: topSpacing),
         Text(
           'StreamFlix',
           textAlign: TextAlign.center,
           style: GoogleFonts.inter(
             color: AppColors.netflixRed,
-            fontSize: 48,
+            fontSize: fontSize,
             fontWeight: FontWeight.w900,
             letterSpacing: -1.0,
           ),
         ),
-        const SizedBox(height: 20),
+        SizedBox(height: bottomSpacing),
       ],
     );
   }
@@ -496,16 +616,19 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   }
 
   Widget _buildIntroPage() {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final isSmall = screenHeight < 700;
+
     return SingleChildScrollView(
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Column(
         children: [
-          const SizedBox(height: 20),
+          SizedBox(height: isSmall ? 10 : 20),
           const Text('Welcome to StreamFlix', style: TextStyle(color: Colors.white, fontSize: 26, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 12),
+          SizedBox(height: isSmall ? 8 : 12),
           const Text('Login or sign up using your Telegram account\nto continue watching your favorite content.',
               textAlign: TextAlign.center, style: TextStyle(color: Colors.white54, fontSize: 14, height: 1.5)),
-          const SizedBox(height: 50),
+          SizedBox(height: isSmall ? 20 : 50),
           Stack(
             clipBehavior: Clip.none,
             alignment: Alignment.topCenter,
@@ -548,7 +671,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               ),
             ],
           ),
-          const SizedBox(height: 32),
+          SizedBox(height: isSmall ? 16 : 32),
           SizedBox(
             width: double.infinity,
             height: 56,
@@ -569,7 +692,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               ),
             ),
           ),
-          const SizedBox(height: 24),
+          SizedBox(height: isSmall ? 12 : 24),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -594,6 +717,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   }
 
   Widget _buildPhonePage() {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final isSmall = screenHeight < 700;
+
     return SingleChildScrollView(
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Column(
@@ -605,14 +731,14 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               onPressed: () => _goToPage(0),
             ),
           ),
-          const SizedBox(height: 12),
+          SizedBox(height: isSmall ? 6 : 12),
           _buildStepper(3, 0),
-          const SizedBox(height: 40),
+          SizedBox(height: isSmall ? 20 : 40),
           const Text('Enter Your Phone Number', style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 12),
+          SizedBox(height: isSmall ? 8 : 12),
           const Text('We\'ll send you a verification code\non Telegram.',
               textAlign: TextAlign.center, style: TextStyle(color: Colors.white54, fontSize: 14, height: 1.5)),
-          const SizedBox(height: 40),
+          SizedBox(height: isSmall ? 20 : 40),
           Container(
             decoration: BoxDecoration(
               color: Colors.white.withOpacity(0.05),
@@ -643,7 +769,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               ),
             ),
           ),
-          const SizedBox(height: 40),
+          SizedBox(height: isSmall ? 20 : 40),
           SizedBox(
             width: double.infinity,
             height: 56,
@@ -659,7 +785,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 : const Text('Continue', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
             ),
           ),
-          const SizedBox(height: 40),
+          SizedBox(height: isSmall ? 20 : 40),
           const Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -725,6 +851,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   }
 
   Widget _buildOtpPage() {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final isSmall = screenHeight < 700;
+
     return SingleChildScrollView(
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Column(
@@ -739,16 +868,16 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               },
             ),
           ),
-          const SizedBox(height: 12),
+          SizedBox(height: isSmall ? 6 : 12),
           _buildStepper(3, 1),
-          const SizedBox(height: 40),
+          SizedBox(height: isSmall ? 20 : 40),
           const Text('Enter Verification Code', style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 12),
+          SizedBox(height: isSmall ? 8 : 12),
           const Text('We\'ve sent a 5-digit code to your\nTelegram app.',
               textAlign: TextAlign.center, style: TextStyle(color: Colors.white54, fontSize: 14, height: 1.5)),
-          const SizedBox(height: 40),
+          SizedBox(height: isSmall ? 20 : 40),
           _buildOtpBoxes(),
-          const SizedBox(height: 32),
+          SizedBox(height: isSmall ? 16 : 32),
           Text(
             _resendCountdown > 0 ? 'Resend code in 00:${_resendCountdown.toString().padLeft(2, '0')}' : 'Resend code',
             style: TextStyle(
@@ -787,6 +916,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   }
 
   Widget _buildPasswordPage() {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final isSmall = screenHeight < 700;
+
     return SingleChildScrollView(
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Column(
@@ -801,14 +933,14 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               },
             ),
           ),
-          const SizedBox(height: 12),
+          SizedBox(height: isSmall ? 6 : 12),
           _buildStepper(4, 2),
-          const SizedBox(height: 40),
+          SizedBox(height: isSmall ? 20 : 40),
           const Text('Two-Step Verification', style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 12),
+          SizedBox(height: isSmall ? 8 : 12),
           const Text('Your account is protected with an additional password.',
               textAlign: TextAlign.center, style: TextStyle(color: Colors.white54, fontSize: 14, height: 1.5)),
-          const SizedBox(height: 40),
+          SizedBox(height: isSmall ? 20 : 40),
           Container(
             decoration: BoxDecoration(
               color: Colors.white.withOpacity(0.05),
@@ -830,7 +962,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               onSubmitted: (_) => _handlePasswordSubmit(),
             ),
           ),
-          const SizedBox(height: 32),
+          SizedBox(height: isSmall ? 16 : 32),
           SizedBox(
             width: double.infinity,
             height: 56,
@@ -852,6 +984,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   }
 
   Widget _buildSuccessPage() {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final isSmall = screenHeight < 700;
+
     return SingleChildScrollView(
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Column(
@@ -863,9 +998,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               onPressed: null,
             ),
           ),
-          const SizedBox(height: 12),
+          SizedBox(height: isSmall ? 6 : 12),
           _buildStepper(3, 2),
-          const SizedBox(height: 60),
+          SizedBox(height: isSmall ? 30 : 60),
           Container(
             padding: const EdgeInsets.all(24),
             decoration: BoxDecoration(
@@ -874,12 +1009,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             ),
             child: const Icon(Icons.check, color: AppColors.netflixRed, size: 64),
           ),
-          const SizedBox(height: 40),
+          SizedBox(height: isSmall ? 20 : 40),
           const Text('You\'re All Set!', style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 12),
+          SizedBox(height: isSmall ? 8 : 12),
           const Text('Login successful. Enjoy unlimited\nmovies, TV shows and more.',
               textAlign: TextAlign.center, style: TextStyle(color: Colors.white54, fontSize: 14, height: 1.5)),
-          const SizedBox(height: 40),
+          SizedBox(height: isSmall ? 20 : 40),
           SizedBox(
             width: double.infinity,
             height: 56,
@@ -897,7 +1032,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               child: const Text('Let\'s Go', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
             ),
           ),
-          const SizedBox(height: 40),
+          SizedBox(height: isSmall ? 20 : 40),
           const Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

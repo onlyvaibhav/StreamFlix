@@ -342,6 +342,16 @@ class _WatchScreenState extends ConsumerState<WatchScreen> {
                     ),
                   ),
                 ),
+              // 2. Loading overlay during part transitions
+              if (playerState.isLoading)
+                Positioned.fill(
+                  child: Container(
+                    color: Colors.black,
+                    child: const Center(
+                      child: CircularProgressIndicator(color: AppColors.netflixRed),
+                    ),
+                  ),
+                ),
 
               // 3. Double-Tap Seek Pulse Indicators
               if (_showSeekFlash)

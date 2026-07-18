@@ -314,6 +314,7 @@ class _MovieDetailInfoState extends State<MovieDetailInfo> {
               itemBuilder: (context, index) {
                 final episode = widget.movie.seasons![_selectedSeasonIndex].episodes[index];
                 return GestureDetector(
+                  behavior: HitTestBehavior.opaque,
                   onTap: () {
                     context.push(RouteNames.watchPath(episode.id));
                   },

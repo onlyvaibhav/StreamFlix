@@ -245,6 +245,14 @@ class TelegramClientService with WidgetsBindingObserver {
   Map<String, dynamic>? get userObj => _userObj;
   String? get lastRawMsg => _lastRawMsg;
 
+  Future<void> logout() async {
+    _sessionString = null;
+    _userObj = null;
+    if (_readyCompleter.isCompleted) {
+      _sendToJS({'type': 'logout'});
+    }
+  }
+
   Future<Uint8List> fetchChunk({
     required int documentId,
     required String accessHash,

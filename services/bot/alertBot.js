@@ -42,6 +42,11 @@ function notifyNonMemberLogin(user, device) {
     return sendAlert(msg);
 }
 
+function notifyPreLoginCleanup(deviceId, revokedCount) {
+    const msg = `🧹 <b>Pre-Login Session Cleanup</b>\nDevice: <code>${deviceId}</code>\nSessions Revoked: ${revokedCount}`;
+    return sendAlert(msg);
+}
+
 function notifyWatchStart(session) {
     const name = session.identity || 'Anonymous';
     const msg = `▶️ <b>Started Watching</b>\nUser: ${name}\nTitle: ${session.title}\nFile ID: ${session.fileId}`;
@@ -77,5 +82,6 @@ module.exports = {
     notifyWatchEnd,
     notifyError,
     notifyOtpRequest,
-    notifyNonMemberLogin
+    notifyNonMemberLogin,
+    notifyPreLoginCleanup
 };
