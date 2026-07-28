@@ -281,6 +281,29 @@ class MovieRemoteDataSource {
     }
   }
 
+  /// Fetch More Like This recommendations
+  Future<List<Movie>> getMoreLikeThis(String id, String type) async {
+    try {
+      final cleanId = id.replaceAll('show_', '');
+      final endpoint = type == 'tv' 
+          ? ApiEndpoints.moreLikeThisTv.replaceAll(':id', cleanId)
+          : ApiEndpoints.moreLikeThisMovie.replaceAll(':id', cleanId);
+          
+      final response = await _dio.get(endpoint);
+      
+      if (response.data is Map<String, dynamic> && response.data['success'] == true) {
+        final results = response.data['results'] as List? ?? [];
+        return results
+            .map((json) => Movie.fromJson(json as Map<String, dynamic>))
+            .toList();
+      }
+      return [];
+    } catch (e) {
+      // Don't throw for recommendations, just return empty list to hide the row
+      return [];
+    }
+  }
+
   /// Convert DioException to user-friendly error message
   Exception _handleDioError(DioException e) {
     switch (e.type) {

@@ -85,12 +85,7 @@ _CuratedHomepage _$CuratedHomepageFromJson(Map<String, dynamic> json) =>
           .map((e) => Movie.fromJson(e as Map<String, dynamic>))
           .toList(),
       rows: (json['rows'] as Map<String, dynamic>).map(
-        (k, e) => MapEntry(
-          k,
-          (e as List<dynamic>)
-              .map((e) => Movie.fromJson(e as Map<String, dynamic>))
-              .toList(),
-        ),
+        (k, e) => MapEntry(k, CuratedRow.fromJson(e as Map<String, dynamic>)),
       ),
     );
 

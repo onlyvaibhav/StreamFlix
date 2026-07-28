@@ -704,8 +704,7 @@ class MoviePlayer extends _$MoviePlayer {
           if (telegramService.sessionString != null && telegramService.sessionString!.isNotEmpty) {
           final dataSource = ref.read(streamRemoteDataSourceProvider);
           if (splitParts.isNotEmpty) {
-             for (final part in splitParts) {
-                if (part.fileId == null) continue;
+             await Future.wait(splitParts.where((p) => p.fileId != null).map((part) async {
                 final fileInfo = await dataSource.getFileInfo(part.fileId!);
                 if (fileInfo != null && fileInfo.fileLocation != null) {
                   LocalLoopbackServer().registerFile(
@@ -717,7 +716,7 @@ class MoviePlayer extends _$MoviePlayer {
                     channelId: fileInfo.channelId,
                   );
                 }
-             }
+             }));
              streamUrl = 'http://127.0.0.1:${LocalLoopbackServer().port}/stream/$_currentFileId';
              useClientStreaming = true;
           } else {
@@ -1042,7 +1041,12 @@ class MoviePlayer extends _$MoviePlayer {
       if (preservePosition) {
         await _withPositionPreservation(action);
       } else {
-        await action();
+        state = state.copyWith(isLoading: true);
+        try {
+          await action();
+        } finally {
+          state = state.copyWith(isLoading: false);
+        }
       }
       state = state.copyWith(currentSubtitleTrack: trackIndex + 100); // 100+ offset representing external index
     } else {
@@ -1063,7 +1067,12 @@ class MoviePlayer extends _$MoviePlayer {
       if (preservePosition) {
         await _withPositionPreservation(action);
       } else {
-        await action();
+        state = state.copyWith(isLoading: true);
+        try {
+          await action();
+        } finally {
+          state = state.copyWith(isLoading: false);
+        }
       }
       state = state.copyWith(currentSubtitleTrack: trackIndex);
     }

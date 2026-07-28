@@ -170,7 +170,7 @@ class _EpisodeListSheetState extends ConsumerState<EpisodeListSheet> {
                                     child: Stack(
                                       children: [
                                         AppImage(
-                                          imageUrl: episode.episodeStill ?? '/api/movies/${episode.id}/thumbnail',
+                                          imageUrl: episode.fullEpisodeStillUrl ?? '/api/movies/${episode.id}/thumbnail',
                                           fit: BoxFit.cover,
                                           width: 140,
                                           height: 80,

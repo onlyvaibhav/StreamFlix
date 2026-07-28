@@ -11,6 +11,8 @@ import 'package:streamflix/features/movies/presentation/widgets/movie_card.dart'
 import 'package:streamflix/features/shared/presentation/widgets/shimmer_loading.dart';
 import 'package:streamflix/core/widgets/error_widget.dart';
 import 'package:streamflix/core/network/connectivity_service.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:streamflix/features/movies/presentation/widgets/continue_watching_row.dart';
 
 class SearchScreen extends ConsumerStatefulWidget {
   const SearchScreen({super.key});
@@ -24,17 +26,41 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
   final FocusNode _focusNode = FocusNode();
   String _query = '';
   Timer? _debounce;
+  List<String> _recentSearches = [];
 
-  final List<String> _popularTags = [
-    'Action',
-    'Comedy',
-    'Drama',
-    'Sci-Fi',
-    'Anime',
-    'Hindi',
-    'English',
-    'KDrama',
-  ];
+  @override
+  void initState() {
+    super.initState();
+    _loadRecentSearches();
+  }
+
+  void _loadRecentSearches() {
+    final box = Hive.box('authBox');
+    final saved = box.get('recent_searches') as List<dynamic>?;
+    if (saved != null) {
+      _recentSearches = saved.map((e) => e.toString()).toList();
+    }
+  }
+
+  void _saveRecentSearch(String query) {
+    if (query.trim().isEmpty) return;
+    final q = query.trim();
+    setState(() {
+      _recentSearches.removeWhere((s) => s.toLowerCase() == q.toLowerCase());
+      _recentSearches.insert(0, q);
+      if (_recentSearches.length > 8) {
+        _recentSearches = _recentSearches.sublist(0, 8);
+      }
+    });
+    Hive.box('authBox').put('recent_searches', _recentSearches);
+  }
+
+  void _clearRecentSearches() {
+    setState(() {
+      _recentSearches.clear();
+    });
+    Hive.box('authBox').delete('recent_searches');
+  }
 
   void _onSearchChanged(String value) {
     if (_debounce?.isActive ?? false) _debounce!.cancel();
@@ -88,7 +114,9 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                   focusNode: _focusNode,
                   style: const TextStyle(color: Colors.white, fontSize: 16),
                   cursorColor: AppColors.netflixRed,
-                  onChanged: _onSearchChanged,
+                  onSubmitted: (value) {
+                    _saveRecentSearch(value);
+                  },
                   decoration: InputDecoration(
                     hintText: 'Search movies, TV shows...',
                     hintStyle: const TextStyle(color: AppColors.textTertiary),
@@ -110,38 +138,63 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                       vertical: 12,
                     ),
                   ),
+                  onChanged: _onSearchChanged,
                 ),
               ),
             ),
 
-            // Popular tags row when query is empty
-            if (_query.trim().isEmpty)
-              SizedBox(
-                height: 40,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  itemCount: _popularTags.length,
-                  itemBuilder: (context, index) {
-                    final tag = _popularTags[index];
-                    return Padding(
-                      padding: const EdgeInsets.only(right: 8.0),
-                      child: ActionChip(
-                        label: Text(tag),
-                        labelStyle: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold),
-                        backgroundColor: AppColors.backgroundCard,
-                        side: BorderSide(color: Colors.white.withValues(alpha: 0.1), width: 1),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                        onPressed: () {
-                          _searchController.text = tag;
-                          setState(() {
-                            _query = tag;
-                          });
-                        },
-                      ),
-                    );
-                  },
-                ),
+            // Recent Searches row when query is empty
+            if (_query.trim().isEmpty && _recentSearches.isNotEmpty)
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text('Recent Searches', style: AppTextStyles.heading3),
+                        TextButton(
+                          onPressed: _clearRecentSearches,
+                          style: TextButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                            minimumSize: const Size(50, 30),
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          ),
+                          child: const Text('Clear All', style: TextStyle(color: Colors.white70, fontSize: 13)),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 40,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      itemCount: _recentSearches.length,
+                      itemBuilder: (context, index) {
+                        final tag = _recentSearches[index];
+                        return Padding(
+                          padding: const EdgeInsets.only(right: 8.0),
+                          child: ActionChip(
+                            label: Text(tag),
+                            labelStyle: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold),
+                            backgroundColor: AppColors.backgroundCard,
+                            side: BorderSide(color: Colors.white.withValues(alpha: 0.1), width: 1),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                            onPressed: () {
+                              _searchController.text = tag;
+                              _saveRecentSearch(tag);
+                              setState(() {
+                                _query = tag;
+                              });
+                            },
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ],
               ),
             const SizedBox(height: 8),
 
@@ -158,25 +211,49 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                       ),
                       data: (curated) {
                         final trending = curated.homepage.trending;
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                              child: Text(
-                                'Recommended Searches',
-                                style: AppTextStyles.heading3,
+                        final continueWatchingAsync = ref.watch(continueWatchingProvider);
+                        return CustomScrollView(
+                          slivers: [
+                            continueWatchingAsync.when(
+                              data: (items) {
+                                if (items.isEmpty) return const SliverToBoxAdapter(child: SizedBox.shrink());
+                                return SliverToBoxAdapter(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      const Padding(
+                                        padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                                        child: Text(
+                                          'From your list',
+                                          style: AppTextStyles.heading3,
+                                        ),
+                                      ),
+                                      ContinueWatchingRow(items: items),
+                                      const SizedBox(height: 16),
+                                    ],
+                                  ),
+                                );
+                              },
+                              loading: () => const SliverToBoxAdapter(child: SizedBox.shrink()),
+                              error: (_, __) => const SliverToBoxAdapter(child: SizedBox.shrink()),
+                            ),
+                            const SliverToBoxAdapter(
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                                child: Text(
+                                  'Recommended Searches',
+                                  style: AppTextStyles.heading3,
+                                ),
                               ),
                             ),
-                            Expanded(
-                              child: ListView.builder(
-                                itemCount: trending.length,
-                                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                                itemBuilder: (context, index) {
+                            SliverList(
+                              delegate: SliverChildBuilderDelegate(
+                                (context, index) {
                                   final item = trending[index];
                                   return ListTile(
                                     contentPadding: const EdgeInsets.symmetric(vertical: 4.0),
                                     onTap: () {
+                                      _saveRecentSearch(item.title);
                                       context.push(RouteNames.movieDetailPath(item.id));
                                     },
                                     leading: ClipRRect(
@@ -202,6 +279,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                                     ),
                                   );
                                 },
+                                childCount: trending.length,
                               ),
                             ),
                           ],

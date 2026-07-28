@@ -72,47 +72,97 @@
     "buy": []
   },
   "recommendations": [
+    810223,
     550231,
     1241921,
-    810223,
-    426203,
-    518497,
-    10056,
     9816,
+    364733,
+    426203,
+    10056,
     26243,
-    35064,
-    14834,
-    16659,
     10712,
+    26022,
     2044,
     632322,
     16153,
-    26022,
+    631,
     24086,
+    14834,
+    273059,
     688,
     293863,
     1587
   ],
   "similar": [
-    1440,
-    1541,
-    1371763,
-    804005,
-    618473,
-    1181291,
-    439128,
-    1371832,
-    1371839,
-    258413,
-    616573,
-    801831,
-    260519,
-    1181508,
-    1622,
-    1181346,
-    260649,
-    260655,
-    260674,
-    1372069
-  ]
+    272325,
+    272334,
+    272420,
+    272565,
+    15419,
+    15467,
+    21905,
+    21906,
+    825685,
+    1017579,
+    1017589,
+    1017640,
+    22158,
+    22233,
+    277700,
+    21555,
+    21557,
+    21566,
+    21567,
+    21570
+  ],
+  "productionCompanies": [
+    {
+      "id": 19142,
+      "name": "DAR Motion Pictures",
+      "logoPath": "/l6xlRIeV7DOmAhtojP1UnXjpPpZ.png"
+    },
+    {
+      "id": 14819,
+      "name": "A.S.A.P. Films",
+      "logoPath": null
+    },
+    {
+      "id": 22486,
+      "name": "Sikhya Entertainment",
+      "logoPath": "/a101r8HZ9dk6xvXyFHcEyh73Qpr.png"
+    },
+    {
+      "id": 32413,
+      "name": "National Film Development Corporation of India",
+      "logoPath": "/jXHqu6xyG8l5mKwK66u5ahzYdfD.png"
+    },
+    {
+      "id": 18485,
+      "name": "Rohfilm",
+      "logoPath": "/q49Qk6zMyhWVjowLXlpoboONqHx.png"
+    },
+    {
+      "id": 21864,
+      "name": "Cine Mosaic",
+      "logoPath": null
+    },
+    {
+      "id": 94,
+      "name": "ARTE France Cinéma",
+      "logoPath": "/huC7HqorvUThGIrENrbcHmQVUA0.png"
+    },
+    {
+      "id": 159375,
+      "name": "Nittin Keni Creations",
+      "logoPath": null
+    }
+  ],
+  "certifications": {
+    "BR": "12",
+    "CH": "0",
+    "DE": "0",
+    "IE": "12",
+    "IN": "U",
+    "JP": "G"
+  }
 }

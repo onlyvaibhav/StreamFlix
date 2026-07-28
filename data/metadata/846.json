@@ -79,25 +79,43 @@
   },
   "recommendations": [
     14834,
-    426203,
     447362,
-    35064,
+    426203,
     31005,
-    762975,
-    413884,
-    47525,
-    132316,
-    226857,
-    550231,
-    574451,
     745376,
-    47359,
-    518497,
-    239571,
-    18538,
     16022,
-    16659,
-    228205
+    364733,
+    47525,
+    762975,
+    35064,
+    550231,
+    226857,
+    574451,
+    239571,
+    47359,
+    29946,
+    228205,
+    413884,
+    14752,
+    810223
   ],
-  "similar": []
+  "similar": [],
+  "productionCompanies": [
+    {
+      "id": 93991,
+      "name": "Colour Yellow Productions",
+      "logoPath": "/qFcZA3BpKxAsy8QBGlDVc9X1dDy.png"
+    },
+    {
+      "id": 3522,
+      "name": "T-Series",
+      "logoPath": "/d3u51JgEP5KwPfxS13ocqvtzZeX.png"
+    }
+  ],
+  "certifications": {
+    "AR": "+13",
+    "GB": "12A",
+    "ID": "13+",
+    "IN": "U/A 16+"
+  }
 }

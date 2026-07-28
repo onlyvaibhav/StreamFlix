@@ -32,7 +32,29 @@ self.addEventListener('fetch', (event) => {
 
 async function handleStreamRequest(request) {
   if (!telegramWorkerPort) {
-    return new Response('Telegram Worker not initialized', { status: 503 });
+    // Service Worker may have restarted. Attempt to recover port from clients.
+    const allClients = await clients.matchAll({ type: 'window', includeUncontrolled: true });
+    for (const client of allClients) {
+      client.postMessage({ type: 'REQUEST_PORT' });
+    }
+    
+    // Wait up to 5 seconds for a response
+    const portAcquired = await new Promise((resolve) => {
+      let checks = 0;
+      const interval = setInterval(() => {
+        if (telegramWorkerPort) {
+          clearInterval(interval);
+          resolve(true);
+        } else if (++checks > 50) {
+          clearInterval(interval);
+          resolve(false);
+        }
+      }, 100);
+    });
+
+    if (!portAcquired) {
+      return new Response('Telegram Worker not initialized and could not be recovered', { status: 503 });
+    }
   }
 
   const url = new URL(request.url);

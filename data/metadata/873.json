@@ -101,23 +101,63 @@
     94686,
     90966,
     47813,
-    71887,
     494,
+    71887,
     1530,
     42548,
     32815,
-    133727,
     2251,
-    223438,
-    4241,
     215902,
+    4241,
+    133727,
+    62375,
     124010,
     3690,
+    60550,
     81127,
     39357,
-    91814,
-    749,
-    101352
+    3696,
+    1823
   ],
-  "similar": []
+  "similar": [],
+  "productionCompanies": [
+    {
+      "id": 56341,
+      "name": "Juggernaut Productions",
+      "logoPath": "/7LSnxoVAHiUZWbxaS4VEHZ4pNsK.png"
+    },
+    {
+      "id": 213,
+      "name": "Netflix",
+      "logoPath": "/wwemzKWzjKYJFfCeiB57q3r4Bcm.png"
+    }
+  ],
+  "certifications": {
+    "SG": "NC16",
+    "BR": "12",
+    "IN": "U/A 13+",
+    "AR": "SAM 13",
+    "AT": "10",
+    "AU": "M",
+    "BE": "9",
+    "CA": "18+",
+    "DE": "12",
+    "ES": "12",
+    "FR": "10",
+    "GB": "15",
+    "IE": "15",
+    "KR": "15",
+    "MX": "C",
+    "MY": "P13",
+    "NL": "9",
+    "NZ": "M",
+    "PR": "TV-MA",
+    "PT": "10",
+    "TH": "น 13+",
+    "TR": "13+",
+    "US": "TV-MA",
+    "VI": "TV-MA",
+    "ZA": "13",
+    "RU": "12+"
+  }
 }

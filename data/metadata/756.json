@@ -307,47 +307,226 @@
     "buy": []
   },
   "recommendations": [
-    202821,
     43018,
-    48561,
+    202821,
     138357,
+    48561,
     196285,
     88806,
-    60843,
-    288590,
-    15260,
-    154743,
     231357,
-    34708,
-    75865,
+    60843,
+    15260,
     229443,
+    154743,
+    288590,
+    34708,
     57706,
+    75865,
     138441,
-    276349,
-    19238,
     36250,
-    912
+    912,
+    61695,
+    206630
   ],
   "similar": [
-    27838,
-    27845,
-    27885,
-    27866,
-    27816,
-    27942,
-    27813,
-    27977,
-    28136,
-    89742,
-    234868,
-    28037,
-    28061,
-    89796,
-    89811,
-    203704,
-    121840,
-    121848,
-    57287,
-    203521
-  ]
+    240213,
+    240125,
+    240247,
+    276109,
+    276110,
+    276204,
+    276253,
+    209707,
+    209829,
+    209845,
+    95559,
+    95560,
+    95572,
+    95623,
+    95631,
+    64375,
+    64492,
+    64552,
+    4355,
+    32676
+  ],
+  "productionCompanies": [
+    {
+      "id": 113161,
+      "name": "Lesprit",
+      "logoPath": "/tY06cHth3hQbs483trFSbVYLubI.png"
+    },
+    {
+      "id": 5141,
+      "name": "Shin-Ei Animation",
+      "logoPath": "/fK2QKfHdSdw42Xx4MiD7KhDufBV.png"
+    },
+    {
+      "id": 69968,
+      "name": "NBCUniversal Entertainment Japan",
+      "logoPath": "/cN8Qhl29ZrmWYgkYTS6CDhPK0A5.png"
+    },
+    {
+      "id": 59118,
+      "name": "Kodansha",
+      "logoPath": "/9nTCEBgGaaI5swkv8gy2vny0Mb5.png"
+    },
+    {
+      "id": 98553,
+      "name": "Crunchyroll",
+      "logoPath": "/qqyXcZlJQKlRmAD1TCKV7mGLQlt.png"
+    },
+    {
+      "id": 8157,
+      "name": "jeki",
+      "logoPath": "/pEqcMX1aG3JvtDgfh2wNZJLCcb4.png"
+    },
+    {
+      "id": 9300,
+      "name": "TV Asahi",
+      "logoPath": "/9sSD1XufVCJWAadNiC9Mwu994VD.png"
+    },
+    {
+      "id": 6681,
+      "name": "THE KLOCKWORX",
+      "logoPath": "/s4RElEnQyM2VrHZCQ3jYemPdxML.png"
+    },
+    {
+      "id": 188144,
+      "name": "BS Asahi",
+      "logoPath": "/tft4KzwjS3okGiN6duB3qwHkIX1.png"
+    },
+    {
+      "id": 113034,
+      "name": "FuRyu",
+      "logoPath": "/hL98ifueUh5UdbiQnTRop1Q551z.png"
+    },
+    {
+      "id": 12,
+      "name": "HTB",
+      "logoPath": "/eJSYeF1YIyQbZdTRNxuvVKaZOIK.png"
+    },
+    {
+      "id": 103,
+      "name": "tv asahi",
+      "logoPath": "/j3xAzk1SYQQwrQOD7acdSz675Wa.png"
+    },
+    {
+      "id": 576,
+      "name": "Nagoya TV",
+      "logoPath": "/kW9bMQqnMFtPHvdoyCDpRqh7Gxt.png"
+    },
+    {
+      "id": 1278,
+      "name": "KBC",
+      "logoPath": "/49D825cN3Zb4slobKyGqIaI3Fx9.png"
+    },
+    {
+      "id": 1410,
+      "name": "ABC TV",
+      "logoPath": "/ca3Qw7exc3RPSd0CQFOZuSNbGjF.png"
+    },
+    {
+      "id": 3756,
+      "name": "NCC",
+      "logoPath": "/3lh8IYJbV6eHOaF0UFCvmmSJNvf.png"
+    },
+    {
+      "id": 4794,
+      "name": "OAB",
+      "logoPath": "/vYcEzZlLmrxV9xKZx9jIUcHF1RC.png"
+    },
+    {
+      "id": 4798,
+      "name": "ABA",
+      "logoPath": "/tiUMGPJVHYc5h1ZOt2jK80oNPz9.png"
+    },
+    {
+      "id": 6270,
+      "name": "Niigata Television Network 21",
+      "logoPath": "/xnHINTAs2GnfXJ3lalaQ0se8aup.png"
+    },
+    {
+      "id": 6284,
+      "name": "khb",
+      "logoPath": "/8QybJL7YGkOr3ECilGaGTqeId7A.png"
+    },
+    {
+      "id": 6285,
+      "name": "KFB",
+      "logoPath": "/cFOQIanQr8wKvJKgIgaKiM3xnMU.png"
+    },
+    {
+      "id": 6288,
+      "name": "HOME",
+      "logoPath": "/gm3ksoi7zQMWpHsJJDzotTwF2GM.png"
+    },
+    {
+      "id": 6289,
+      "name": "KSB",
+      "logoPath": "/sSE8F5yoFoVzClCkzLBksTDK7iI.png"
+    },
+    {
+      "id": 6290,
+      "name": "Kagoshima Broadcasting",
+      "logoPath": "/kgfTkjNRsR0f2QEiaXf2fymKB6V.png"
+    },
+    {
+      "id": 6365,
+      "name": "Iwate Asahi TV",
+      "logoPath": "/c1pvlKoEVLjejgQUCBFq5Q9n8gL.png"
+    },
+    {
+      "id": 6366,
+      "name": "Akita Asahi Broadcasting",
+      "logoPath": "/dmSnk8fI8hpQOyCIrUDhj3TxTT8.png"
+    },
+    {
+      "id": 6367,
+      "name": "Yamagata Television System",
+      "logoPath": "/jJWtS13oV0os1M5djVT6zjvnyq3.png"
+    },
+    {
+      "id": 6368,
+      "name": "Shizuoka Asahi TV",
+      "logoPath": "/34nBfbkqxcjrbpVraEfI6MkCvgY.png"
+    },
+    {
+      "id": 6369,
+      "name": "Asahi Broadcasting Nagano",
+      "logoPath": "/ztA2E1CY6L3aF2roadAOHtLiDCP.png"
+    },
+    {
+      "id": 6370,
+      "name": "Hokuriku Asahi Broadcasting",
+      "logoPath": "/onsaMWqPfrINyAfgi2FnP8conv1.png"
+    },
+    {
+      "id": 6372,
+      "name": "Ehime Asahi TV",
+      "logoPath": "/1UunNUsoq9k1nMNppuY5qhgdWT3.png"
+    },
+    {
+      "id": 6373,
+      "name": "Yamaguchi Asahi Broadcasting",
+      "logoPath": "/6iuVpZdxAE8lgPENUBuwzCspYF7.png"
+    },
+    {
+      "id": 6374,
+      "name": "Kumamoto Asahi Broadcasting",
+      "logoPath": "/qBX8z5bj0EISsASQo5IE76BYpu5.png"
+    },
+    {
+      "id": 6375,
+      "name": "Ryu-Q Asahi Broadcasting",
+      "logoPath": "/7hIrDssIDTG2sGLdq1IfYddv9tz.png"
+    }
+  ],
+  "certifications": {
+    "BR": "12",
+    "ES": "12",
+    "AU": "PG",
+    "TW": "6+",
+    "SG": "PG13"
+  }
 }

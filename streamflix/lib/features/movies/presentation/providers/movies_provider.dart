@@ -218,6 +218,13 @@ Future<List<Movie>> allTvShows(Ref ref) async {
   return await repository.getAllTvShows();
 }
 
+/// Provider for More Like This recommendations
+@riverpod
+Future<List<Movie>> moreLikeThis(Ref ref, String id, String type) async {
+  final repository = ref.watch(movieRepositoryProvider);
+  return await repository.getMoreLikeThis(id, type);
+}
+
 /// Provider for managing and retrieving watch progress history
 @riverpod
 class ContinueWatching extends _$ContinueWatching {

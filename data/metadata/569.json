@@ -198,44 +198,107 @@
     26707,
     218493,
     218843,
-    285166,
-    87142,
-    66053,
     31911,
-    91764,
     34791,
-    260463,
-    9410,
-    237233,
-    123525,
-    76125,
-    270474,
+    66053,
+    285166,
+    91764,
+    87142,
     92090,
+    9410,
+    123525,
+    237233,
+    270474,
     208891,
     38251,
-    261745,
-    214587
+    274069,
+    135335,
+    76125,
+    61374
   ],
   "similar": [
-    42140,
-    42173,
-    219527,
-    219532,
-    219533,
-    219556,
-    285275,
-    285291,
-    249360,
-    73361,
-    73395,
-    73396,
-    137178,
-    137194,
-    249418,
-    13780,
-    285356,
-    285357,
-    73433,
-    73435
-  ]
+    28037,
+    57436,
+    28061,
+    57646,
+    57647,
+    57528,
+    90144,
+    27942,
+    90293,
+    90305,
+    90210,
+    90215,
+    28109,
+    1,
+    151,
+    152,
+    57564,
+    57565,
+    27885,
+    90325
+  ],
+  "productionCompanies": [
+    {
+      "id": 58035,
+      "name": "Passione",
+      "logoPath": "/rtFGLtHkjVqq042Ky5gbOEnXFlN.png"
+    },
+    {
+      "id": 165500,
+      "name": "ENISHIYA",
+      "logoPath": "/7bjX7wBCWo3w9xzEFW0VXTQ2cnt.png"
+    },
+    {
+      "id": 882,
+      "name": "TOHO",
+      "logoPath": "/fRSWWjquvzcHjACbtF53utZFIll.png"
+    },
+    {
+      "id": 2073,
+      "name": "KADOKAWA",
+      "logoPath": "/tWxRSaKmRJNTcmtlXsmn5R4KOSU.png"
+    },
+    {
+      "id": 3034,
+      "name": "TV Tokyo",
+      "logoPath": "/jnuO8pZNEBLEq5YaOP1f5OkmG91.png"
+    },
+    {
+      "id": 3466,
+      "name": "movic",
+      "logoPath": "/lmCg0zarmM52wrmsZRUY0QlPKLh.png"
+    },
+    {
+      "id": 60197,
+      "name": "Good Smile Company",
+      "logoPath": "/D5B8l99tlFJGoMpYJk1kqxYdey.png"
+    },
+    {
+      "id": 98,
+      "name": "TV Tokyo",
+      "logoPath": "/jnuO8pZNEBLEq5YaOP1f5OkmG91.png"
+    },
+    {
+      "id": 252,
+      "name": "TV Aichi",
+      "logoPath": "/zFZ5KCuvx7K0vP9XgGcidfXjuUd.png"
+    },
+    {
+      "id": 824,
+      "name": "TV Osaka",
+      "logoPath": "/6foQmoPac7WCDnDuDbuCZklmDuA.png"
+    }
+  ],
+  "certifications": {
+    "SG": "NC16",
+    "BR": "14",
+    "KR": "15",
+    "ES": "16",
+    "AU": "M",
+    "TH": "น 13+",
+    "MX": "C",
+    "FI": "K16",
+    "CA": "18+"
+  }
 }

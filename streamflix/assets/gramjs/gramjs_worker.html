@@ -73,6 +73,16 @@
                 await client.connect();
                 isConnected = true;
                 
+                // Keep the connection alive since we disabled _updateLoop
+                setInterval(() => {
+                    if (isConnected && client && client.connected) {
+                        try {
+                            const pingId = BigInt(Math.floor(Math.random() * 1000000));
+                            client.invoke(new GramJSWorker.Api.Ping({ pingId })).catch(() => {});
+                        } catch (e) {}
+                    }
+                }, 15000);
+
                 sendToFlutter({ type: "ready", session: client.session.save() });
             } catch (err) {
                 sendToFlutter({ type: "error", error: err.toString() });

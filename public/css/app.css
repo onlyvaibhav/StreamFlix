@@ -444,6 +444,27 @@ body {
     transition: color var(--transition-normal);
 }
 
+.row-title-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 15px;
+    padding-left: 4%;
+}
+
+.row-title-container .row-title {
+    margin-bottom: 0;
+    padding-left: 0;
+}
+
+.row-logo {
+    height: 24px;
+    width: auto;
+    max-width: 60px;
+    object-fit: contain;
+    border-radius: 4px;
+}
+
 .row:hover .row-title {
     color: white;
 }
@@ -826,6 +847,19 @@ body {
 .match-score {
     color: #46d369;
     font-weight: 700;
+}
+
+.certification-badge {
+    display: inline-block;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    padding: 1px 7px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    letter-spacing: 0.5px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.08);
+    vertical-align: middle;
 }
 
 .modal-overview {

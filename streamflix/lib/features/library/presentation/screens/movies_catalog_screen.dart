@@ -122,13 +122,14 @@ class _MoviesCatalogScreenState extends ConsumerState<MoviesCatalogScreen> {
                 }
 
                 // Custom dynamic genre lists filtered by movie type
-                homepage.rows.forEach((key, list) {
-                  final moviesInGenre = list.where((i) => i.type == 'movie').toList();
+                homepage.rows.forEach((key, rowData) {
+                  final moviesInGenre = rowData.items.where((i) => i.type == 'movie').toList();
                   if (moviesInGenre.isNotEmpty) {
                     sliverItems.add(
                       SliverToBoxAdapter(
                         child: MovieRow(
                           title: _formatSlug(key),
+                          logo: rowData.logo,
                           movies: moviesInGenre,
                         ),
                       ),

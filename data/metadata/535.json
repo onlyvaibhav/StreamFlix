@@ -66,25 +66,38 @@
   },
   "recommendations": [
     156473,
-    84007,
     138108,
+    84007,
     2850,
-    119845,
     100414,
-    4170,
-    64836,
-    75666,
-    85385,
-    223438,
+    119845,
+    126167,
     10370,
-    204290,
+    85385,
+    203202,
     67384,
-    86588,
     226174,
-    58057,
+    306603,
     3828,
-    241549,
-    203202
+    3216,
+    64836,
+    64199,
+    71715,
+    86588,
+    79086
   ],
-  "similar": []
+  "similar": [],
+  "productionCompanies": [
+    {
+      "id": 19145,
+      "name": "Prakash Jha Productions",
+      "logoPath": null
+    },
+    {
+      "id": 2964,
+      "name": "MX Player",
+      "logoPath": "/xKMlXKggJ1mTsfC5OSnlBKuFccO.png"
+    }
+  ],
+  "certifications": {}
 }

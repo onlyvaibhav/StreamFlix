@@ -169,8 +169,8 @@ class LocalLoopbackServer {
           Uint8List? bytes;
           bool retried = false;
 
-          // Attempt to fetch the chunk, with one retry on FILE_REFERENCE_EXPIRED
-          for (int attempt = 0; attempt < 2; attempt++) {
+          // Attempt to fetch the chunk, with up to 3 retries (4 attempts total)
+          for (int attempt = 0; attempt < 4; attempt++) {
             try {
               // Always read from the (potentially refreshed) _registeredFiles map
               final currentFileInfo = _registeredFiles[fileId]!;
@@ -184,7 +184,7 @@ class LocalLoopbackServer {
               break; // Success — exit retry loop
             } catch (e) {
               final errorStr = e.toString().toUpperCase();
-              if (attempt == 0 && (errorStr.contains('FILE_REFERENCE_EXPIRED') || errorStr.contains('FILE_REFERENCE'))) {
+              if (errorStr.contains('FILE_REFERENCE_EXPIRED') || errorStr.contains('FILE_REFERENCE')) {
                 debugPrint('🔄 FILE_REFERENCE_EXPIRED at offset $currentOffset, refreshing...');
                 
                 final channelId = _registeredFiles[fileId]?['channelId'];
@@ -208,7 +208,14 @@ class LocalLoopbackServer {
                   debugPrint('❌ Cannot refresh file reference because channelId is missing.');
                 }
               }
-              debugPrint('❌ Chunk stream interrupted at offset $currentOffset: $e');
+              
+              if (attempt < 3) {
+                 debugPrint('🔄 Chunk stream error at offset $currentOffset, retrying in 1s (Attempt ${attempt + 1}/3): $e');
+                 await Future.delayed(const Duration(seconds: 1));
+                 continue;
+              }
+              
+              debugPrint('❌ Chunk stream interrupted at offset $currentOffset after 4 attempts: $e');
               return; // Give up
             }
           }

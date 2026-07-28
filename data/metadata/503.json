@@ -128,7 +128,6 @@
     ]
   },
   "recommendations": [
-    608,
     339964,
     607,
     54138,
@@ -138,36 +137,89 @@
     24428,
     102382,
     262504,
-    1724,
-    49521,
     886396,
-    75612,
+    1724,
     1497,
+    49521,
+    75612,
     188927,
     299534,
     49529,
+    618354,
     330459,
-    408648
+    667
   ],
   "similar": [
-    446893,
-    11860,
-    11862,
-    11843,
-    11850,
-    11932,
-    11956,
-    11966,
-    12118,
-    12129,
-    12139,
-    12095,
-    12096,
-    12098,
-    12178,
-    12242,
-    12268,
-    12279,
-    269148
-  ]
+    106,
+    121,
+    122,
+    331,
+    339,
+    1550797,
+    558,
+    561,
+    580,
+    601,
+    607,
+    682,
+    439058,
+    433,
+    440,
+    455,
+    414,
+    415,
+    427
+  ],
+  "productionCompanies": [
+    {
+      "id": 56,
+      "name": "Amblin Entertainment",
+      "logoPath": "/cEaxANEisCqeEoRvODv2dO1I0iI.png"
+    },
+    {
+      "id": 49325,
+      "name": "Parkes+MacDonald Image Nation",
+      "logoPath": "/hzGYbyLwuLKPqtM194l3WmfasgQ.png"
+    },
+    {
+      "id": 5,
+      "name": "Columbia Pictures",
+      "logoPath": "/71BqEFAF4V3qjjMPCpLuyJFB9A.png"
+    },
+    {
+      "id": 81620,
+      "name": "Tencent Pictures",
+      "logoPath": "/7LkIVuWBVScdujpKhBPx1TMnPQE.png"
+    }
+  ],
+  "certifications": {
+    "AU": "M",
+    "BR": "12",
+    "CH": "12",
+    "CZ": "U",
+    "DE": "12",
+    "DK": "11",
+    "ES": "7",
+    "FI": "K-12",
+    "FR": "TP",
+    "GB": "12A",
+    "GR": "K-12",
+    "HU": "12",
+    "IE": "12A",
+    "IN": "U",
+    "IT": "T",
+    "JP": "R15+",
+    "KR": "12",
+    "MX": "B",
+    "NL": "12",
+    "NZ": "M",
+    "PL": "12",
+    "RO": "15",
+    "RU": "16+",
+    "SE": "11",
+    "SG": "PG13",
+    "SK": "12",
+    "TH": "G",
+    "US": "PG-13"
+  }
 }

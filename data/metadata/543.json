@@ -92,24 +92,39 @@
   "recommendations": [
     95439,
     47665,
-    114165,
     88118,
-    247174,
+    114165,
     222766,
     93352,
-    26777,
     219760,
     114922,
-    300894,
+    247174,
+    240459,
     2321,
-    99799,
-    262280,
-    285807,
-    1403,
-    167,
-    1412,
     120911,
-    4297
+    1403,
+    1412,
+    262280,
+    26777,
+    300894,
+    285807,
+    99799,
+    167
   ],
-  "similar": []
+  "similar": [],
+  "productionCompanies": [
+    {
+      "id": 204983,
+      "name": "Dashami Studioz",
+      "logoPath": null
+    },
+    {
+      "id": 3919,
+      "name": "Disney+ Hotstar",
+      "logoPath": "/eBa3TplonEHlR6S2wjJ616KnwIh.png"
+    }
+  ],
+  "certifications": {
+    "US": "TV-14"
+  }
 }

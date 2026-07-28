@@ -236,6 +236,46 @@ async function getSession(sessionId) {
 }
 
 /**
+ * Retrieve session by token hash, with memory fallback.
+ */
+async function getSessionByTokenHash(tokenHash) {
+  let dbData = null;
+
+  if (isEnabled()) {
+    try {
+      const { data, error } = await supabase
+        .from('sessions')
+        .select('*, users(*)')
+        .eq('token_hash', tokenHash)
+        .maybeSingle();
+
+      if (!error) {
+        dbData = data;
+      }
+    } catch (err) {
+      console.error('❌ Failed to retrieve session by token hash:', err.message);
+    }
+  }
+
+  if (dbData) {
+    return dbData;
+  }
+
+  // Fallback to memory
+  for (const session of memorySessions.values()) {
+    if (session.token_hash === tokenHash || session.tokenHash === tokenHash) {
+      const memUser = memoryUsers.get(session.telegram_id);
+      return {
+        ...session,
+        users: memUser || { telegram_id: session.telegram_id, first_name: 'Telegram User' }
+      };
+    }
+  }
+
+  return null;
+}
+
+/**
  * Update session expiry status (revocation/logout).
  */
 async function markSessionRevoked(sessionId, status) {
@@ -397,4 +437,7 @@ module.exports = {
   syncWatchProgress,
   getWatchProgress,
   supabase,
+  memorySessions,
+  memoryUsers,
+  getSessionByTokenHash
 };

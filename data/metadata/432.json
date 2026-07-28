@@ -136,47 +136,98 @@
     ]
   },
   "recommendations": [
-    401689,
     34560,
     121,
     9610,
     417320,
-    370687,
+    401689,
     338952,
     674,
     102651,
-    57158,
     12445,
+    57158,
     512200,
     779782,
     122,
     10150,
     672,
+    370687,
     454294,
-    506574,
+    34205,
     767,
-    675
+    506574
   ],
   "similar": [
-    1450,
-    1491,
-    995980,
-    1267,
-    438885,
-    1362,
-    1372,
-    803878,
-    1654,
-    1724,
-    1726,
-    1832,
-    618463,
-    253,
     120,
     121,
     122,
     123,
-    258251,
-    218
-  ]
+    331,
+    1374094,
+    438885,
+    492,
+    564,
+    561,
+    587,
+    682,
+    433,
+    411,
+    414,
+    415,
+    490,
+    653,
+    668,
+    271
+  ],
+  "productionCompanies": [
+    {
+      "id": 2,
+      "name": "Walt Disney Pictures",
+      "logoPath": "/wdrCwmRnLFJhEoH8GSfymY85KHT.png"
+    },
+    {
+      "id": 130,
+      "name": "Jerry Bruckheimer Films",
+      "logoPath": "/c9dVHPOL3cqCr2593Ahk0nEKTEM.png"
+    },
+    {
+      "id": 831,
+      "name": "Saturn Films",
+      "logoPath": "/vLENXiYTyITnMDrTKabUXhgTKX2.png"
+    },
+    {
+      "id": 8000,
+      "name": "Broken Road Productions",
+      "logoPath": "/f8NwLg72BByt3eav7lX1lcJfe60.png"
+    },
+    {
+      "id": 19097,
+      "name": "Junction Entertainment",
+      "logoPath": null
+    }
+  ],
+  "certifications": {
+    "AT": "12",
+    "AU": "PG",
+    "BR": "10",
+    "CH": "12",
+    "CZ": "12",
+    "DE": "12",
+    "DK": "11",
+    "ES": "7",
+    "FI": "K-11",
+    "FR": "12",
+    "GB": "PG",
+    "HU": "12",
+    "IE": "PG",
+    "JP": "PG12",
+    "KR": "ALL",
+    "NL": "9",
+    "NO": "12",
+    "NZ": "PG",
+    "PL": "12",
+    "PT": "M/12",
+    "TW": "普遍級",
+    "US": "PG"
+  }
 }

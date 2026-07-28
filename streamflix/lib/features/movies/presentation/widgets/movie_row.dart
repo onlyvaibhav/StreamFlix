@@ -4,15 +4,18 @@ import 'package:streamflix/core/constants/app_text_styles.dart';
 import 'package:streamflix/features/movies/data/models/movie.dart';
 import 'package:streamflix/features/movies/presentation/widgets/movie_card.dart';
 import 'package:streamflix/features/shared/presentation/widgets/shimmer_loading.dart';
+import 'package:streamflix/core/widgets/app_image.dart';
 
 /// Horizontal scrollable row of movie cards
 class MovieRow extends StatelessWidget {
   final String title;
+  final String? logo;
   final List<Movie> movies;
 
   const MovieRow({
     super.key,
     required this.title,
+    this.logo,
     required this.movies,
   });
 
@@ -30,9 +33,29 @@ class MovieRow extends StatelessWidget {
             top: AppDimensions.spaceLarge,
             bottom: AppDimensions.spaceSmall,
           ),
-          child: Text(
-            title,
-            style: AppTextStyles.heading2,
+          child: Row(
+            children: [
+              if (logo != null) ...[
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(4),
+                  child: AppImage(
+                    imageUrl: logo!,
+                    height: 24,
+                    width: 24, // Using square dimensions to keep it constrained
+                    fit: BoxFit.contain,
+                  ),
+                ),
+                const SizedBox(width: 8),
+              ],
+              Expanded(
+                child: Text(
+                  title,
+                  style: AppTextStyles.heading2,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
           ),
         ),
 

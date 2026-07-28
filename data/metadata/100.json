@@ -153,5 +153,65 @@
     234859,
     234868,
     234957
-  ]
+  ],
+  "productionCompanies": [
+    {
+      "id": 2849,
+      "name": "BONES"
+    },
+    {
+      "id": 87536,
+      "name": "C2C"
+    },
+    {
+      "id": 45188,
+      "name": "David Production"
+    },
+    {
+      "id": 11846,
+      "name": "Hakuhodo DY Media Partners"
+    },
+    {
+      "id": 60195,
+      "name": "Docomo Anime Store"
+    },
+    {
+      "id": 59206,
+      "name": "BS Fuji"
+    },
+    {
+      "id": 131015,
+      "name": "Hakusensha"
+    },
+    {
+      "id": 6681,
+      "name": "THE KLOCKWORX"
+    },
+    {
+      "id": 17392,
+      "name": "Showgate"
+    },
+    {
+      "id": 3627,
+      "name": "Warner Bros. Japan"
+    },
+    {
+      "id": 614,
+      "name": "Tokyo MX",
+      "logoPath": "/hSdroyVthq3CynxTIIY7lnS8w1.png"
+    }
+  ],
+  "certifications": {
+    "US": "TV-14",
+    "AU": "M",
+    "DE": "12",
+    "KR": "12",
+    "GB": "12",
+    "IE": "15",
+    "NL": "16",
+    "MX": "B-15",
+    "FI": "K16",
+    "CA": "14+",
+    "BR": "14"
+  }
 }

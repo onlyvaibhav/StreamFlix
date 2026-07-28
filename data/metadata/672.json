@@ -138,42 +138,106 @@
     28460,
     31347,
     430447,
-    372058,
     572154,
+    372058,
     14069,
+    431819,
+    30575,
     896499,
+    16516,
     242828,
     37797,
     802699,
-    916192,
-    16859,
-    810693,
     618851,
-    21057,
-    32328,
-    26945,
-    152042
+    37585,
+    916192,
+    364111,
+    16859
   ],
   "similar": [
-    438695,
-    259907,
-    996056,
-    1427,
-    1481,
-    1491,
-    1494,
-    1362,
-    1555,
-    803878,
-    803905,
-    618352,
-    804095,
-    439191,
-    1371850,
-    618151,
-    803796,
-    439096,
-    1547861,
-    803675
-  ]
+    1380545,
+    10072,
+    10112,
+    626210,
+    626218,
+    265564,
+    9100,
+    9259,
+    9261,
+    265693,
+    1558684,
+    815026,
+    11469,
+    448515,
+    1382244,
+    11559,
+    11596,
+    11633,
+    448851,
+    448967
+  ],
+  "productionCompanies": [
+    {
+      "id": 20556,
+      "name": "Studio Colorido",
+      "logoPath": "/ykMSMe47GblevqgtJhMk3dJ7i7S.png"
+    },
+    {
+      "id": 3341,
+      "name": "Fuji Television Network",
+      "logoPath": "/dTG5dXE1kU2mpmL9BNnraffckLU.png"
+    },
+    {
+      "id": 120469,
+      "name": "Twin Engine",
+      "logoPath": "/bm5DrqAdNW3dlHsCTUntcmGkLhV.png"
+    },
+    {
+      "id": 64421,
+      "name": "Fuji Creative Corporation",
+      "logoPath": "/mB7zlD6FiYd0j0AtQ9AGyPbyAUA.png"
+    },
+    {
+      "id": 882,
+      "name": "TOHO",
+      "logoPath": "/fRSWWjquvzcHjACbtF53utZFIll.png"
+    },
+    {
+      "id": 11848,
+      "name": "KDDI",
+      "logoPath": "/A3abKfh7dXwPdXJc3A551q8XnOC.png"
+    },
+    {
+      "id": 2073,
+      "name": "KADOKAWA",
+      "logoPath": "/tWxRSaKmRJNTcmtlXsmn5R4KOSU.png"
+    },
+    {
+      "id": 59206,
+      "name": "BS Fuji",
+      "logoPath": "/oMtJVGvqLAyQZvYTvjDIcbVEzwD.png"
+    },
+    {
+      "id": 221037,
+      "name": "Dentsu Meitetsu Communications",
+      "logoPath": "/c270dqVwNack5Tzxl4U8Ji4Vpkx.png"
+    }
+  ],
+  "certifications": {
+    "AU": "PG",
+    "BR": "10",
+    "DE": "6",
+    "FR": "10",
+    "GB": "PG",
+    "IE": "PG",
+    "IN": "U/A 7+",
+    "JP": "G",
+    "KR": "All",
+    "NL": "6",
+    "PL": "7",
+    "RU": "6+",
+    "SG": "PG",
+    "TH": "G",
+    "US": "PG"
+  }
 }

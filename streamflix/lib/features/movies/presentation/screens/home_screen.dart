@@ -4,6 +4,7 @@ import 'package:streamflix/core/constants/app_colors.dart';
 import 'package:streamflix/core/widgets/error_widget.dart';
 import 'package:streamflix/features/movies/presentation/providers/movies_provider.dart';
 import 'package:streamflix/core/network/connectivity_service.dart';
+import 'package:streamflix/features/movies/data/models/curated_row.dart';
 import 'package:streamflix/features/movies/presentation/widgets/continue_watching_row.dart';
 import 'package:streamflix/features/movies/presentation/widgets/hero_banner.dart';
 import 'package:streamflix/features/movies/presentation/widgets/movie_row.dart';
@@ -104,6 +105,34 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                           child: ContinueWatchingRow(items: items),
                         ),
                       );
+
+                      // 2.5 Because You Watched
+                      final latestItem = items.first;
+                      final isTv = latestItem.movieId.startsWith('show_');
+                      final cleanId = isTv ? latestItem.movieId.replaceAll('show_', '') : latestItem.movieId;
+                      final type = isTv ? 'tv' : 'movie';
+                      final String cleanTitle = isTv ? (latestItem.tvShowName ?? latestItem.title) : latestItem.title;
+
+                      sliverItems.add(
+                        SliverToBoxAdapter(
+                          child: Consumer(
+                            builder: (context, ref, _) {
+                              final recommendationsAsync = ref.watch(moreLikeThisProvider(cleanId, type));
+                              return recommendationsAsync.when(
+                                loading: () => const MovieRowSkeleton(),
+                                error: (_, __) => const SizedBox.shrink(),
+                                data: (recommendations) {
+                                  if (recommendations.isEmpty) return const SizedBox.shrink();
+                                  return MovieRow(
+                                    title: 'Because You Watched $cleanTitle',
+                                    movies: recommendations,
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                        ),
+                      );
                     }
                   },
                   loading: () {}, // Optional: Add a skeleton here if desired
@@ -146,50 +175,99 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   );
                 }
 
-                // Define special dynamic rows
+                // Dynamic Bucketing and Interleaving
+                final Map<String, List<CuratedRow>> buckets = {
+                  'special': [],
+                  'discover': [],
+                  'provider': [],
+                  'collection': [],
+                  'keyword': [],
+                  'original': [],
+                  'genre': [],
+                };
+
                 final rows = homepage.rows;
-                const specialKeys = [
-                  'multi_audio',
-                  'hindi',
-                  'english',
-                  'kdrama',
-                  'anime',
-                  'quick_watch',
-                  'recently_fixed',
-                  'needs_attention'
-                ];
+                
+                rows.forEach((key, rowData) {
+                  final items = rowData.items;
+                  if (items.isEmpty) return;
+                  int minItems = 3;
+                  String type = 'special';
+                  
+                  if (key.startsWith('provider_')) { type = 'provider'; }
+                  else if (key.startsWith('original_')) { type = 'original'; }
+                  else if (key.startsWith('collection_')) { type = 'collection'; minItems = 2; }
+                  else if (key.startsWith('keyword_')) { type = 'keyword'; minItems = 2; }
+                  else if (key.startsWith('genre_')) { type = 'genre'; }
+                  else if (key.startsWith('special_') || ['hindi', 'english', 'multi_audio', 'quick_watch', 'recently_fixed'].contains(key)) { type = 'special'; }
+                  else if (['kdrama', 'anime'].contains(key)) { type = 'special'; minItems = 2; }
+                  else { return; }
+                  
+                  if (items.length >= minItems) {
+                    buckets[type]!.add(rowData);
+                  }
+                });
 
-                // Render special collections
-                for (final key in specialKeys) {
-                  final list = rows[key];
-                  if (list != null && list.isNotEmpty) {
+                // Flush Originals explicitly at the top
+                if (buckets['original']!.isNotEmpty) {
+                  for (final originalRow in buckets['original']!) {
                     sliverItems.add(
                       SliverToBoxAdapter(
                         child: MovieRow(
-                          title: _formatSlug(key),
-                          movies: list,
+                          title: originalRow.title,
+                          movies: originalRow.items,
                         ),
                       ),
                     );
                   }
+                  buckets['original']!.clear();
                 }
-
-                // Render other genres alphabetically
-                final otherKeys = rows.keys.where((k) => !specialKeys.contains(k)).toList();
-                otherKeys.sort((a, b) => _formatSlug(a).compareTo(_formatSlug(b)));
-
-                for (final key in otherKeys) {
-                  final list = rows[key];
-                  if (list != null && list.isNotEmpty) {
+                
+                // Shuffle buckets for variety
+                for (final key in buckets.keys) {
+                  buckets[key]!.shuffle();
+                }
+                
+                // Interleave naturally
+                final pattern = ['special', 'discover', 'provider', 'collection', 'keyword', 'original', 'special', 'genre', 'discover', 'collection'];
+                int patternIdx = 0;
+                
+                while (buckets.values.any((b) => b.isNotEmpty)) {
+                  final type = pattern[patternIdx % pattern.length];
+                  
+                  if (buckets[type]!.isNotEmpty) {
+                    final row = buckets[type]!.removeLast();
                     sliverItems.add(
                       SliverToBoxAdapter(
                         child: MovieRow(
-                          title: _formatSlug(key),
-                          movies: list,
+                          title: row.title,
+                          logo: row.logo,
+                          movies: row.items,
                         ),
                       ),
                     );
+                  } else {
+                    int maxLen = 0;
+                    String? maxKey;
+                    for (final k in buckets.keys) {
+                      if (buckets[k]!.length > maxLen) {
+                        maxLen = buckets[k]!.length;
+                        maxKey = k;
+                      }
+                    }
+                    if (maxKey != null) {
+                      final row = buckets[maxKey]!.removeLast();
+                      sliverItems.add(
+                        SliverToBoxAdapter(
+                          child: MovieRow(
+                            title: row.title,
+                            movies: row.items,
+                          ),
+                        ),
+                      );
+                    }
                   }
+                  patternIdx++;
                 }
 
                 sliverItems.add(
@@ -222,24 +300,5 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         ],
       ),
     );
-  }
-
-  String _formatSlug(String slug) {
-    if (slug == 'multi_audio') return 'Multi-Audio Hits';
-    if (slug == 'hindi') return 'Hindi Movies';
-    if (slug == 'english') return 'English Movies';
-    if (slug == 'kdrama') return 'K-Drama Collection';
-    if (slug == 'anime') return 'Anime Collection';
-    if (slug == 'quick_watch') return 'Quick Watches';
-    if (slug == 'recently_fixed') return 'Recently Restored';
-    if (slug == 'needs_attention') return 'Needs Attention';
-
-    return slug.split('_').map((word) {
-      if (word == 'and') return '&';
-      if (word == 'sci') return 'Sci-Fi';
-      if (word == 'fi') return 'Fantasy';
-      if (word.isEmpty) return '';
-      return word[0].toUpperCase() + word.substring(1);
-    }).join(' ').replaceAll('Sci-Fi Fantasy', 'Sci-Fi & Fantasy');
   }
 }

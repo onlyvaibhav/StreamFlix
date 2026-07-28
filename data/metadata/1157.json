@@ -1,0 +1,298 @@
+{
+  "fileId": "1157",
+  "fileName": "SpiderMan.(2002).mkv",
+  "type": "movie",
+  "title": "Spider-Man",
+  "originalTitle": "Spider-Man",
+  "overview": "After being bitten by a genetically altered spider at Oscorp, nerdy but endearing high school student Peter Parker is endowed with amazing powers to become the superhero known as Spider-Man.",
+  "releaseDate": "2002-05-01",
+  "year": 2002,
+  "runtime": 121,
+  "genres": [
+    "Action",
+    "Science Fiction"
+  ],
+  "rating": 7.337,
+  "popularity": 41.1158,
+  "awards": "Nominated for 2 Oscars. 17 wins & 65 nominations total",
+  "poster": "/data/posters/1157.jpg",
+  "backdrop": "/data/backdrops/1157_bd.jpg",
+  "tmdbId": 557,
+  "fetchedAt": "2026-07-25T08:19:13.243Z",
+  "needsRetry": false,
+  "tv": null,
+  "keywords": [
+    "new york city",
+    "adolescence",
+    "photographer",
+    "loss of loved one",
+    "photography",
+    "secret identity",
+    "hostility",
+    "superhero",
+    "spider",
+    "bad boss",
+    "villain",
+    "based on comic",
+    "teenage boy",
+    "teenage love",
+    "evil",
+    "super villain",
+    "taking responsibility"
+  ],
+  "collection": {
+    "id": 556,
+    "name": "Spider-Man Collection",
+    "posterPath": "/bp5PqLa06QA1LsELA1SsKZ008H7.jpg",
+    "backdropPath": "/waZqriYTuBE3WqXI3SDGi3kfDQE.jpg"
+  },
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/557-spider-man/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      },
+      {
+        "id": 237,
+        "name": "Sony Liv",
+        "logoPath": "/3973zlBbBXdXxaWqRWzGG2GYxbT.jpg"
+      },
+      {
+        "id": 561,
+        "name": "Lionsgate Play",
+        "logoPath": "/e2hCUg2Z3sJ6yWF9NLU24SIKeWa.jpg"
+      },
+      {
+        "id": 2053,
+        "name": "Lionsgate Play Apple TV Channel",
+        "logoPath": "/p8i1zUcZYQ7qU6RrGvGbDItvcx4.jpg"
+      },
+      {
+        "id": 2074,
+        "name": "Lionsgate Play Amazon Channel",
+        "logoPath": "/yVbjPWEbsStanRAxwKMDARVOvsn.jpg"
+      },
+      {
+        "id": 2180,
+        "name": "Sony Pictures Amazon Channel",
+        "logoPath": "/i7FaDWpD2xoIWB5lyF191cykfck.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
+      }
+    ],
+    "rent": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 232,
+        "name": "Zee5",
+        "logoPath": "/gP67NRy1ShUJilrzMsbOmEmdmcv.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Amazon Video",
+        "logoPath": "/qR6FKvnPBx2O37FDg8PNM7efwF3.jpg"
+      }
+    ],
+    "buy": [
+      {
+        "id": 2,
+        "name": "Apple TV Store",
+        "logoPath": "/SPnB1qiCkYfirS2it3hZORwGVn.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Google Play Movies",
+        "logoPath": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg"
+      },
+      {
+        "id": 192,
+        "name": "YouTube",
+        "logoPath": "/pTnn5JwWr4p3pG8H6VrpiQo7Vs0.jpg"
+      }
+    ]
+  },
+  "recommendations": [
+    1930,
+    634649,
+    315635,
+    569094,
+    102382,
+    791155,
+    558,
+    526896,
+    986056,
+    559,
+    283995,
+    566525,
+    71689,
+    9806,
+    580489,
+    38055,
+    1724,
+    46529,
+    453395,
+    324857
+  ],
+  "similar": [
+    305470,
+    54007,
+    1421414,
+    487242,
+    52466,
+    51876,
+    51786,
+    1051180,
+    861666,
+    490321,
+    55458,
+    490707,
+    55887,
+    55892,
+    55949,
+    56996,
+    491633,
+    308322,
+    57269,
+    670792
+  ],
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "_tracksDetected": true,
+  "metadataStatus": "COMPLETE",
+  "logo": "/data/logos/1157_logo.png",
+  "container": "matroska,webm",
+  "duration": 7272.363,
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "KartiKing Movies.DigitalMaza.Org",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": true
+    },
+    {
+      "index": 1,
+      "streamIndex": 2,
+      "codec": "aac",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "KartiKing Movies.DigitalMaza.Org",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": false
+    }
+  ],
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 3,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "KartiKing Movies.DigitalMaza.Org",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    },
+    {
+      "index": 1,
+      "streamIndex": 4,
+      "codec": "subrip",
+      "language": "Unknown",
+      "languageCode": "und",
+      "title": "KartiKing Movies.DigitalMaza.Org",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": true,
+      "isForced": true
+    }
+  ],
+  "productionCompanies": [
+    {
+      "id": 19551,
+      "name": "Marvel Enterprises",
+      "logoPath": "/2WpWp9b108hizjHKdA107hFmvQ5.png"
+    },
+    {
+      "id": 326,
+      "name": "Laura Ziskin Productions",
+      "logoPath": null
+    },
+    {
+      "id": 5,
+      "name": "Columbia Pictures",
+      "logoPath": "/71BqEFAF4V3qjjMPCpLuyJFB9A.png"
+    }
+  ],
+  "certifications": {
+    "AR": "+13",
+    "AU": "M",
+    "BE": "12",
+    "BR": "12",
+    "CH": "16",
+    "CZ": "U",
+    "DE": "12",
+    "DK": "11",
+    "ES": "APTA",
+    "FI": "K-12",
+    "FR": "TP",
+    "GB": "12A",
+    "GR": "13",
+    "HK": "IIA",
+    "HU": "16",
+    "ID": "13+",
+    "IE": "PG",
+    "IL": "12",
+    "IN": "U",
+    "IT": "T",
+    "JP": "G",
+    "KR": "12",
+    "MX": "B",
+    "MY": "U",
+    "NL": "12",
+    "NO": "12",
+    "NZ": "PG",
+    "PL": "12",
+    "PR": "PG",
+    "PT": "M/12",
+    "RO": "15",
+    "RU": "12+",
+    "SE": "11",
+    "SK": "12",
+    "US": "PG-13"
+  },
+  "certification": "PG-13"
+}

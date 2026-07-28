@@ -81,7 +81,13 @@
   "collection": null,
   "watchProviders": {
     "link": "https://www.themoviedb.org/movie/10201-yes-man/watch?locale=IN",
-    "flatrate": [],
+    "flatrate": [
+      {
+        "id": 8,
+        "name": "Netflix",
+        "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      }
+    ],
     "rent": [
       {
         "id": 2,
@@ -128,42 +134,91 @@
     32856,
     17927,
     184098,
-    1321439,
     11452,
+    1321439,
     114,
+    15037,
     8872,
-    9029,
     12309,
-    1618945,
+    9029,
     981,
+    1618945,
     9472,
-    137093,
     9293,
-    12919,
-    272693,
-    15128,
-    523773
+    137093,
+    523773,
+    14848,
+    12919
   ],
   "similar": [
-    13053,
-    13105,
-    13162,
-    1557066,
-    12705,
-    12708,
-    12797,
-    12637,
-    12771,
-    12776,
-    12795,
-    1381548,
-    13160,
-    13161,
-    13247,
-    13335,
-    13342,
-    13408,
-    13562,
-    13596
-  ]
+    378,
+    496,
+    585,
+    433,
+    452,
+    430,
+    177,
+    634,
+    1551320,
+    105,
+    114,
+    115,
+    1190085,
+    9362,
+    9377,
+    9384,
+    9388,
+    265903,
+    9410,
+    9448
+  ],
+  "productionCompanies": [
+    {
+      "id": 174,
+      "name": "Warner Bros. Pictures",
+      "logoPath": "/zhD3hhtKB5qyv7ZeL4uLpNxgMVU.png"
+    },
+    {
+      "id": 79,
+      "name": "Village Roadshow Pictures",
+      "logoPath": "/at4uYdwAAgNRKhZuuFX8ShKSybw.png"
+    },
+    {
+      "id": 437,
+      "name": "Heyday Films",
+      "logoPath": "/nu20mtwbEIhUNnQ5NXVhHsNknZj.png"
+    },
+    {
+      "id": 80,
+      "name": "The Zanuck Company",
+      "logoPath": "/i6B0AIrUESLt5Fm6MOPXmuPhsvA.png"
+    }
+  ],
+  "certifications": {
+    "AT": "6",
+    "AU": "M",
+    "BG": "C",
+    "BR": "14",
+    "CA": "G",
+    "CH": "6",
+    "CZ": "12+",
+    "DE": "6",
+    "FR": "U",
+    "GB": "12A",
+    "HU": "16",
+    "IE": "15",
+    "IT": "T",
+    "JP": "G",
+    "KR": "15",
+    "MX": "B",
+    "NL": "6",
+    "NO": "12",
+    "PL": "12",
+    "PT": "M/12",
+    "RU": "16+",
+    "SE": "7",
+    "SK": "12",
+    "US": "PG-13"
+  },
+  "certification": "PG-13"
 }

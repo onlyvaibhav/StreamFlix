@@ -222,40 +222,105 @@
     45501,
     60843,
     75865,
-    276349,
     42253,
-    66875,
     207250,
-    61379,
     76047,
-    235758,
+    66875,
+    61379,
     43018,
+    235758,
     154743,
+    276349,
     217407,
-    257790,
+    31665,
     155779,
-    201889
+    53918
   ],
   "similar": [
-    60286,
-    206437,
-    60424,
-    30964,
-    30979,
-    30984,
-    30986,
-    30991,
-    30992,
-    124572,
-    124576,
-    92835,
-    92892,
-    206483,
-    206490,
-    30801,
-    206629,
-    206630,
-    206561,
-    30977
-  ]
+    27866,
+    28061,
+    27977,
+    47,
+    52,
+    137,
+    151,
+    155,
+    246,
+    255,
+    28037,
+    115,
+    57431,
+    57528,
+    57406,
+    57407,
+    57564,
+    57577,
+    27885,
+    27942
+  ],
+  "productionCompanies": [
+    {
+      "id": 20867,
+      "name": "P.A.WORKS",
+      "logoPath": "/8xKcaZSIRdsR616LQ7nMptjkUvg.png"
+    },
+    {
+      "id": 2883,
+      "name": "Aniplex",
+      "logoPath": "/rDYExnBV61jGQnkhVVrPN4Yl7O1.png"
+    },
+    {
+      "id": 86839,
+      "name": "ABC Animation",
+      "logoPath": "/cnOJAkVVmKZLIzmgw4fRRZ2dctT.png"
+    },
+    {
+      "id": 81418,
+      "name": "Nagoya Broadcasting Network",
+      "logoPath": "/kW9bMQqnMFtPHvdoyCDpRqh7Gxt.png"
+    },
+    {
+      "id": 157002,
+      "name": "Tokyo MX",
+      "logoPath": "/hSdroyVthq3CynxTIIY7lnS8w1.png"
+    },
+    {
+      "id": 118502,
+      "name": "BS11",
+      "logoPath": "/JQ5bx6n7Qmdmyqz6sqjo5Fz2iR.png"
+    },
+    {
+      "id": 3466,
+      "name": "movic",
+      "logoPath": "/lmCg0zarmM52wrmsZRUY0QlPKLh.png"
+    },
+    {
+      "id": 343,
+      "name": "Gunma TV",
+      "logoPath": "/9rNqtDYAnD6yTOutvHI3synSEs2.png"
+    },
+    {
+      "id": 614,
+      "name": "Tokyo MX",
+      "logoPath": "/hSdroyVthq3CynxTIIY7lnS8w1.png"
+    },
+    {
+      "id": 861,
+      "name": "BS11",
+      "logoPath": "/JQ5bx6n7Qmdmyqz6sqjo5Fz2iR.png"
+    },
+    {
+      "id": 2478,
+      "name": "Tochigi TV",
+      "logoPath": "/2v82HpzoKRveJEJcGHkeTcktMRM.png"
+    }
+  ],
+  "certifications": {
+    "TW": "0+",
+    "FR": "12",
+    "BR": "10",
+    "AU": "PG",
+    "IN": "U/A 7+",
+    "ID": "R"
+  }
 }

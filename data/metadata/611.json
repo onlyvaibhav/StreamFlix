@@ -91,25 +91,45 @@
   },
   "recommendations": [
     119845,
-    4170,
     67384,
-    2850,
     85385,
     226174,
+    2850,
     100414,
-    230034,
+    4170,
     153657,
-    96567,
-    72742,
-    138108,
-    204290,
-    81358,
-    158083,
+    126167,
     1409,
-    132016,
-    90399,
-    65628,
-    86588
+    138108,
+    81358,
+    10370,
+    158083,
+    64199,
+    10305,
+    44856,
+    96567,
+    86588,
+    76231
   ],
-  "similar": []
+  "similar": [],
+  "productionCompanies": [
+    {
+      "id": 34088,
+      "name": "Applause Entertainment",
+      "logoPath": "/P7yqIC1NpxvSDyr1BLGTElL0lo.png"
+    },
+    {
+      "id": 115215,
+      "name": "Banijay Asia",
+      "logoPath": "/4FoNChngLnjhs2B7gvrlTiO8Dyr.png"
+    },
+    {
+      "id": 2646,
+      "name": "SonyLIV",
+      "logoPath": "/1PAnuglMmNBiUSFn6HWWtE7GOAJ.png"
+    }
+  ],
+  "certifications": {
+    "IN": "A"
+  }
 }

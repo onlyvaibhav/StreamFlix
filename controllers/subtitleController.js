@@ -125,10 +125,15 @@ exports.getSubtitleFile = async (req, res) => {
 
         res.send(result.content);
     } catch (error) {
-        console.error('Get subtitle file error:', error);
-        res.status(500).json({
+        console.error('Get subtitle file error:', error.message);
+        
+        // Return 404 if the upstream source returned a 404 or it wasn't found
+        const isNotFound = error.response?.status === 404 || error.message.includes('not found') || error.message.includes('status code 404');
+        const status = isNotFound ? 404 : 500;
+        
+        res.status(status).json({
             error: 'Failed to fetch subtitle',
-            message: error.message,
+            details: error.message
         });
     }
 };

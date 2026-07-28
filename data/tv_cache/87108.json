@@ -1,0 +1,67 @@
+{
+  "showTmdbId": 87108,
+  "showTitle": "Chernobyl",
+  "overview": "The true story of one of the worst man-made catastrophes in history: the catastrophic nuclear accident at Chernobyl. A tale of the brave men and women who sacrificed to save Europe from unimaginable disaster.",
+  "genres": [
+    "Drama"
+  ],
+  "rating": 8.718,
+  "poster": "/data/posters/show_87108.jpg",
+  "backdrop": "/data/backdrops/show_87108_bd.jpg",
+  "year": 2019,
+  "totalSeasons": 1,
+  "totalEpisodes": 5,
+  "seasons": {
+    "1": [
+      {
+        "fileId": "1158",
+        "fileName": "Chernobyl_S01E01_1_23_45_720p_x264_BluRay_Hindi_English_Esubs_Vegamovies.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 1,
+        "episodeTitle": "1:23:45",
+        "episodeOverview": "April 26, 1986, Ukrainian SSR. Plant workers and firefighters put their lives on the line to control a catastrophic 1986 explosion at a Soviet nuclear power plant.",
+        "runtime": 61
+      },
+      {
+        "fileId": "1159",
+        "fileName": "Chernobyl_S01E02_Please_Remain_Calm_720p_x264_BluRay_Hindi_English.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 2,
+        "episodeTitle": "Please Remain Calm",
+        "episodeOverview": "With untold millions at risk after the Chernobyl explosion, nuclear physicist Ulana Khomyuk makes a desperate attempt to reach Valery Legasov, a leading Soviet nuclear physicist, and warn him about the threat of second explosion that could devastate the continent.",
+        "runtime": 66
+      },
+      {
+        "fileId": "1160",
+        "fileName": "Chernobyl_S01E03_Open_Wide_O_Earth_720p_x264_BluRay_Hindi_English.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 3,
+        "episodeTitle": "Open Wide, O Earth",
+        "episodeOverview": "Lyudmilla Ignatenko, a Pripyat resident, ignores warning about her firefighter husband's contamination. Valery Legasov lays out a decontamination plan, complete with human risks.",
+        "runtime": 64
+      },
+      {
+        "fileId": "1161",
+        "fileName": "Chernobyl_S01E04_The_Happiness_of_All_Mankind_720p_x264_BluRay_Hindi.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 4,
+        "episodeTitle": "The Happiness of All Mankind",
+        "episodeOverview": "Valery Legasov and Soviet Deputy Prime Minister Boris Shcherbina consider using lunar rovers to remove radioactive debris, while Ulana Khomyuk faces government hurdles in determining the truth about the cause of the explosion.",
+        "runtime": 67
+      },
+      {
+        "fileId": "1162",
+        "fileName": "Chernobyl_S01E05_Vichnaya_Pamyat_720p_x264_BluRay_Hindi_English.mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 5,
+        "episodeTitle": "Vichnaya Pamyat",
+        "episodeOverview": "Valery Legasov, Boris Shcherbina and Ulana Khomyuk risk their lives and reputations to expose the truth about Chernobyl.",
+        "runtime": 73
+      }
+    ]
+  },
+  "availableSeasons": [
+    1
+  ],
+  "availableEpisodeCount": 5
+}

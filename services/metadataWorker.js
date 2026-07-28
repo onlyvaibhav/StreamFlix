@@ -6,6 +6,8 @@ const TMDBClient = require('./tmdbClient');
 const { cleanMediaFilename, detectTVEpisode, extractTVShowTitle } = require('../utils/filenameUtils');
 const activityTracker = require('./activityTracker');
 const logger = require('./logger');
+const discoverRows = require('../config/discoverRows');
+const tmdbService = require('./tmdbService');
 
 const DATA_DIR = path.join(__dirname, '../data/metadata');
 const TV_CACHE_DIR = path.join(__dirname, '../data/tv_cache');
@@ -598,6 +600,8 @@ async function getAllMetadata() {
         const results = [];
         for (const file of files) {
             if (!file.endsWith('.json')) continue;
+            if (file === 'discoverRows.json') continue; // Skip discoverRows
+
             try {
                 const data = await fs.readFile(path.join(DATA_DIR, file), 'utf-8');
                 results.push(JSON.parse(data));
@@ -635,11 +639,11 @@ class MetadataWorker {
 
     // ==================== BATCH DOWNLOAD MISSING STILLS ====================
     async downloadMissingStills() {
-        if (this.isRunning) {
-            logger.warn('Already running a task', 'worker');
+        if (this.isDownloadingStills) {
+            logger.warn('Already downloading stills', 'worker');
             return;
         }
-        this.isRunning = true;
+        this.isDownloadingStills = true;
         try {
             const all = await getAllMetadata();
             const episodes = all.filter(m => m.type === 'tv' && m.tmdbId && !m.episode_still);
@@ -651,24 +655,35 @@ class MetadataWorker {
                 }
 
                 try {
-                    const episodeDetails = await this.tmdb.fetchEpisodeDetails(
-                        ep.tv.showTmdbId, ep.tv.seasonNumber, ep.tv.episodeNumber
-                    );
+                    let stillPath = ep._stillPath;
                     
-                    if (episodeDetails && episodeDetails.stillPath) {
-                        ep._stillPath = episodeDetails.stillPath;
-                        ep.episode_still = await downloadEpisodeStill(ep.fileId, ep._stillPath);
-                        await saveMetadata(ep);
-                        console.log(`    ✓ Downloaded still for S${String(ep.tv.seasonNumber).padStart(2, '0')}E${String(ep.tv.episodeNumber).padStart(2, '0')}`);
+                    if (!stillPath) {
+                        const episodeDetails = await this.tmdb.fetchEpisodeDetails(
+                            ep.tv.showTmdbId, ep.tv.seasonNumber, ep.tv.episodeNumber
+                        );
+                        if (episodeDetails && episodeDetails.stillPath) {
+                            stillPath = episodeDetails.stillPath;
+                            ep._stillPath = stillPath;
+                        }
+                    }
+                    
+                    if (stillPath) {
+                        ep.episode_still = await downloadEpisodeStill(ep.fileId, stillPath);
+                        if (ep.episode_still) {
+                            await saveMetadata(ep);
+                            console.log(`    ✓ Downloaded still for S${String(ep.tv.seasonNumber).padStart(2, '0')}E${String(ep.tv.episodeNumber).padStart(2, '0')}`);
+                        } else {
+                            console.log(`    ✗ Failed to download still image for S${String(ep.tv.seasonNumber).padStart(2, '0')}E${String(ep.tv.episodeNumber).padStart(2, '0')}`);
+                        }
                     }
                 } catch (e) {
-                    console.error(`    ✗ Failed to download still for fileId ${ep.fileId}:`, e.message);
+                    console.error(`    ✗ Failed to fetch still info for fileId ${ep.fileId}:`, e.message);
                 }
 
                 await sleep(500);
             }
         } finally {
-            this.isRunning = false;
+            this.isDownloadingStills = false;
         }
     }
 
@@ -2167,6 +2182,9 @@ let lastTelegramSync = 0;
 // FIXED: Increased interval to 7 mins Telegram Sync 
 const TELEGRAM_SYNC_INTERVAL = 7 * 60 * 1000;
 
+let lastDiscoverRefreshTime = 0;
+const DISCOVER_REFRESH_INTERVAL = 12 * 60 * 60 * 1000; // 12 hours
+
 function setLastSyncTime(time) {
     lastTelegramSync = time;
 }
@@ -2290,6 +2308,35 @@ async function startIdleLoop() {
                 }
             }
 
+            // 7. Refresh Discover Rows
+            if (!activityTracker.isPaused()) {
+                const now = Date.now();
+                if (now - lastDiscoverRefreshTime > DISCOVER_REFRESH_INTERVAL) {
+                    console.log('[Worker] 🔎 Refreshing Discover Rows from TMDB...');
+                    try {
+                        const results = {};
+                        for (const row of discoverRows) {
+                            try {
+                                const res = await tmdbService.discover(row.type, row.params);
+                                if (res && res.results) {
+                                    results[row.id] = res.results.map(r => r.id);
+                                }
+                                await sleep(500);
+                            } catch (err) {
+                                console.warn(`[Worker] Failed to fetch discover row ${row.id}:`, err.message);
+                            }
+                        }
+                        await fs.writeFile(path.join(DATA_DIR, 'discoverRows.json'), JSON.stringify(results, null, 2));
+                        console.log('[Worker] ✅ Discover Rows saved to discoverRows.json');
+                        lastDiscoverRefreshTime = now;
+                        didWork = true;
+                    } catch (err) {
+                        console.warn('[Worker] Discover Rows refresh error:', err.message);
+                    }
+                }
+            }
+
+
         } catch (err) {
             console.error('[Worker] Idle loop error:', err.message);
         }
@@ -2373,6 +2420,8 @@ async function rebuildTVCaches() {
                     totalEpisodes: data.tv.totalEpisodes || 0,
                     year: data.year || null,
                     releaseDate: data.releaseDate || null,
+                    certification: data.certification || null,
+                    certifications: data.certifications || null,
                     seasons: {},
                     episodes: []
                 });
@@ -3231,6 +3280,8 @@ function needsBackfill(meta) {
     if (meta.watchProviders === undefined) return true;
     if (meta.recommendations === undefined) return true;
     if (meta.similar === undefined) return true;
+    if (meta.productionCompanies === undefined) return true;
+    if (meta.certifications === undefined) return true;
     if (!isTv && meta.collection === undefined) return true;
     
     return false;
@@ -3352,6 +3403,11 @@ async function backfillExtendedMetadata() {
                     } : null;
 
                     item.meta.keywords = (d.keywords?.keywords || []).map(k => k.name);
+                    item.meta.productionCompanies = (d.production_companies || []).map(c => ({
+                        id: c.id,
+                        name: c.name,
+                        logoPath: c.logo_path
+                    }));
                     item.meta.collection = d.belongs_to_collection ? {
                         id: d.belongs_to_collection.id,
                         name: d.belongs_to_collection.name,
@@ -3361,6 +3417,12 @@ async function backfillExtendedMetadata() {
                     item.meta.watchProviders = watchProviders;
                     item.meta.recommendations = (d.recommendations?.results || []).slice(0, 20).map(r => r.id);
                     item.meta.similar = (d.similar?.results || []).slice(0, 20).map(s => s.id);
+
+                    const certData = await worker.tmdb.fetchCertification('movie', item.meta.tmdbId);
+                    item.meta.certifications = certData.map || {};
+                    if (certData.flat) {
+                        item.meta.certification = certData.flat;
+                    }
 
                     await saveMetadata(item.meta);
                     backfillState.updated++;
@@ -3415,8 +3477,29 @@ async function backfillExtendedMetadata() {
                     } : null;
 
                     const keywords = (d.keywords?.results || []).map(k => k.name);
+                    const productionCompanies = (d.production_companies || []).map(c => ({
+                        id: c.id,
+                        name: c.name,
+                        logoPath: c.logo_path
+                    }));
+                    
+                    // Phase 4: Fix Originals Detection - Merge networks into productionCompanies
+                    if (d.networks && d.networks.length > 0) {
+                        for (const net of d.networks) {
+                            if (!productionCompanies.some(c => c.id === net.id)) {
+                                productionCompanies.push({
+                                    id: net.id,
+                                    name: net.name,
+                                    logoPath: net.logo_path
+                                });
+                            }
+                        }
+                    }
+
                     const recommendations = (d.recommendations?.results || []).slice(0, 20).map(r => r.id);
                     const similar = (d.similar?.results || []).slice(0, 20).map(s => s.id);
+                    
+                    const certData = await worker.tmdb.fetchCertification('tv', showId);
 
                     // Update all episodes in the group
                     for (const ep of episodes) {
@@ -3426,10 +3509,15 @@ async function backfillExtendedMetadata() {
 
                         try {
                             ep.meta.keywords = keywords;
+                            ep.meta.productionCompanies = productionCompanies;
                             ep.meta.collection = null;
                             ep.meta.watchProviders = watchProviders;
                             ep.meta.recommendations = recommendations;
                             ep.meta.similar = similar;
+                            ep.meta.certifications = certData.map || {};
+                            if (certData.flat) {
+                                ep.meta.certification = certData.flat;
+                            }
 
                             await saveMetadata(ep.meta);
                             backfillState.updated++;

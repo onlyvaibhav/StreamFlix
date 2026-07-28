@@ -61,6 +61,16 @@ class HeroBannerSlide extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                // Provider Logo
+                if (movie.fullProviderLogoUrl != null) ...[
+                  AppImage(
+                    imageUrl: movie.fullProviderLogoUrl!,
+                    height: 18,
+                    fit: BoxFit.contain,
+                  ),
+                  const SizedBox(height: 12),
+                ],
+
                 // Series / Movie tag
                 if (movie.type == 'tv')
                   Row(

@@ -106,46 +106,90 @@
   "watchProviders": null,
   "recommendations": [
     1056444,
-    896499,
-    378064,
-    482150,
     16516,
+    378064,
     572154,
-    741335,
+    482150,
+    896499,
     1104844,
     998731,
     916192,
-    372058,
     632632,
-    360404,
-    15080,
-    680041,
+    372058,
     887870,
+    15080,
+    360404,
+    784500,
+    431819,
+    680041,
     14069,
     1575337,
-    1244492,
-    798544
+    461763
   ],
   "similar": [
-    13078,
-    13079,
-    449176,
-    12795,
-    12839,
-    12919,
-    12924,
-    449132,
-    13190,
-    269650,
-    448967,
-    448969,
-    449245,
-    13243,
-    13342,
-    13346,
-    13398,
-    13416,
-    449487,
-    13648
-  ]
+    643058,
+    282915,
+    29248,
+    29362,
+    284200,
+    1395773,
+    30783,
+    1204629,
+    464678,
+    30575,
+    30606,
+    30620,
+    30491,
+    283984,
+    284235,
+    30807,
+    283831,
+    832606,
+    1395615,
+    832596
+  ],
+  "productionCompanies": [
+    {
+      "id": 13113,
+      "name": "A-1 Pictures",
+      "logoPath": "/xV5tPYKZhP2Ko9dOh5A3FahuKsx.png"
+    },
+    {
+      "id": 35971,
+      "name": "Graphinica",
+      "logoPath": "/5q5P83YiDQa34FgGd2Wtw7aWBnr.png"
+    },
+    {
+      "id": 104184,
+      "name": "Lawson Entertainment",
+      "logoPath": "/reEBh8dBl2y1DbXe2EdgxtMtaim.png"
+    },
+    {
+      "id": 9149,
+      "name": "Shogakukan",
+      "logoPath": "/isLUpud9N56ifftJZ4XvzwBBpoG.png"
+    },
+    {
+      "id": 1778,
+      "name": "dentsu",
+      "logoPath": "/b5rT6VbYza3LyfltCmz1OcqzWJM.png"
+    },
+    {
+      "id": 3341,
+      "name": "Fuji Television Network",
+      "logoPath": "/dTG5dXE1kU2mpmL9BNnraffckLU.png"
+    },
+    {
+      "id": 2883,
+      "name": "Aniplex",
+      "logoPath": "/rDYExnBV61jGQnkhVVrPN4Yl7O1.png"
+    }
+  ],
+  "certifications": {
+    "AU": "PG",
+    "DE": "6",
+    "IE": "PG",
+    "KR": "12",
+    "TW": "6+"
+  }
 }

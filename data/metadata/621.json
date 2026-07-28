@@ -93,44 +93,85 @@
     631843,
     1308757,
     790,
-    10493,
-    463843,
     9645,
+    463843,
     493922,
     431185,
     1933,
     8413,
-    424121,
+    13937,
     1340110,
+    424121,
     458723,
     565,
     9424,
-    1388808,
     82507,
-    13937,
     588,
+    10836,
+    1388808,
     913290
   ],
   "similar": [
-    617891,
-    1256,
-    1547,
-    1560,
-    1569,
-    1678,
-    1690,
-    801937,
-    437342,
-    244,
-    437041,
-    616404,
-    136,
-    1181429,
-    1696,
-    1730,
-    348,
-    1933,
-    1923,
-    1548209
-  ]
+    15203,
+    15206,
+    15239,
+    452507,
+    21841,
+    22033,
+    277686,
+    21781,
+    457710,
+    21790,
+    21800,
+    457955,
+    22440,
+    22307,
+    1569102,
+    458133,
+    34223,
+    34311,
+    34312,
+    647931
+  ],
+  "productionCompanies": [
+    {
+      "id": 1854,
+      "name": "Dan Films",
+      "logoPath": "/3p1fIgAgsULm8wBTCTGk2mqh6yT.png"
+    },
+    {
+      "id": 3207,
+      "name": "Pictures in Paradise",
+      "logoPath": null
+    },
+    {
+      "id": 152,
+      "name": "Icon Productions",
+      "logoPath": "/rC2pFo4IBQVSVZvucDLwMRvZHfi.png"
+    },
+    {
+      "id": 100886,
+      "name": "Creative Europe Media",
+      "logoPath": "/zTgOHuAj3Kc9vM9DtIw9Qgcwves.png"
+    },
+    {
+      "id": 2452,
+      "name": "UK Film Council",
+      "logoPath": "/gOkUB0TdXRLAl6s0s6jCSLS3sOb.png"
+    },
+    {
+      "id": 13534,
+      "name": "First Look Pictures",
+      "logoPath": "/vAbdXfuYEakiBnrCDJf3ez50geK.png"
+    }
+  ],
+  "certifications": {
+    "AU": "MA 15+",
+    "DE": "16",
+    "GB": "15",
+    "IE": "18",
+    "PL": "16",
+    "PT": "M/16",
+    "US": "R"
+  }
 }

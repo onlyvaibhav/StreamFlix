@@ -133,42 +133,104 @@
     233643,
     23374,
     68005,
-    36157,
     88090,
-    61422,
-    42855,
-    154861,
     26201,
-    61289,
-    260463,
-    95897,
-    3251,
-    52878,
-    28061,
-    223121,
+    36157,
+    42855,
+    61422,
     66958,
-    61512
+    52878,
+    260463,
+    27866,
+    95897,
+    61289,
+    154861,
+    223121,
+    85940,
+    218493
   ],
   "similar": [
-    236740,
-    236809,
-    91750,
-    205493,
-    205516,
-    123784,
-    123802,
-    91764,
-    91765,
-    91825,
-    91827,
-    91885,
-    205226,
-    123525,
-    123528,
-    236602,
-    59081,
-    123644,
-    59150,
-    91584
-  ]
+    57406,
+    57407,
+    122180,
+    122204,
+    122206,
+    203936,
+    203937,
+    203949,
+    300831,
+    300808,
+    258901,
+    258912,
+    201346,
+    201347,
+    201363,
+    201395,
+    258764,
+    232615,
+    52304,
+    52306
+  ],
+  "productionCompanies": [
+    {
+      "id": 43368,
+      "name": "Ajiado",
+      "logoPath": "/cDPK8iNO14z2oxbl57Dcd8m23RZ.png"
+    },
+    {
+      "id": 3363,
+      "name": "MBS",
+      "logoPath": "/sj3vD7n63bTCih7bcf6GnWvRf1Q.png"
+    },
+    {
+      "id": 59118,
+      "name": "Kodansha",
+      "logoPath": "/9nTCEBgGaaI5swkv8gy2vny0Mb5.png"
+    },
+    {
+      "id": 182571,
+      "name": "NetEase Games",
+      "logoPath": "/jhSApjK8kM6pkKH2EfOVTsAADhW.png"
+    },
+    {
+      "id": 157002,
+      "name": "Tokyo MX",
+      "logoPath": "/hSdroyVthq3CynxTIIY7lnS8w1.png"
+    },
+    {
+      "id": 69968,
+      "name": "NBCUniversal Entertainment Japan",
+      "logoPath": "/cN8Qhl29ZrmWYgkYTS6CDhPK0A5.png"
+    },
+    {
+      "id": 98553,
+      "name": "Crunchyroll",
+      "logoPath": "/qqyXcZlJQKlRmAD1TCKV7mGLQlt.png"
+    },
+    {
+      "id": 614,
+      "name": "Tokyo MX",
+      "logoPath": "/hSdroyVthq3CynxTIIY7lnS8w1.png"
+    },
+    {
+      "id": 3220,
+      "name": "BS Nippon TV",
+      "logoPath": "/naTpOY8AjRtgBw0JXafrhAD8ZBT.png"
+    }
+  ],
+  "certifications": {
+    "BR": "14",
+    "SG": "PG13",
+    "KR": "15",
+    "TW": "0+",
+    "AU": "M",
+    "MX": "C",
+    "DK": "15",
+    "NO": "15",
+    "FI": "K16",
+    "LU": "16",
+    "CA": "18+",
+    "US": "TV-14",
+    "FR": "12"
+  }
 }

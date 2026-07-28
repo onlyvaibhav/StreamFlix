@@ -10,6 +10,8 @@ class ApiEndpoints {
   // Details
   static const String movieDetail = '/api/metadata/:id';
   static const String tvDetail = '/api/tv/:id';
+  static const String moreLikeThisMovie = '/api/movies/:id/more-like-this';
+  static const String moreLikeThisTv = '/api/tv/:id/more-like-this';
 
   // Streaming & Player Probing
   static const String stream = '/api/stream/:id';

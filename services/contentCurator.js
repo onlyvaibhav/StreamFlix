@@ -12,6 +12,13 @@
  */
 
 // ============================================================
+// CONFIGURATIONS
+// ============================================================
+const collectionNames = require('../config/collectionNames');
+const topStreamingServices = require('../config/topStreamingServices');
+const originalStudios = require('../config/originalStudios');
+
+// ============================================================
 // HELPERS
 // ============================================================
 
@@ -74,6 +81,8 @@ function buildShowMap(allItems) {
         _curationType: 'tv',
         showTmdbId: showId,
         id: `show_${showId}`,
+        fileId: item.fileId || '',
+        maxFileId: Number(item.fileId) || 0,
         type: 'tv',
         title: item.tv.showTitle || item.title,
         originalTitle: item.tv.originalShowTitle || item.originalTitle || '',
@@ -97,6 +106,11 @@ function buildShowMap(allItems) {
         episodeCount: 1,
         _hasMultiAudio: false,
         _allAudioLanguages: new Set(),
+        collection: item.collection || null,
+        releaseDate: item.tv.firstAirDate || item.releaseDate,
+        watchProviders: item.watchProviders || null,
+        productionCompanies: item.productionCompanies || [],
+        keywords: item.keywords || [],
       });
     }
 
@@ -119,6 +133,12 @@ function buildShowMap(allItems) {
     if (item.popularity > show.popularity) show.popularity = item.popularity;
     if (item._tracksDetected) show._tracksDetected = true;
     if (item.needsTranscoding) show.needsTranscoding = true;
+
+    const epFileId = Number(item.fileId) || 0;
+    if (epFileId > (show.maxFileId || 0)) {
+      show.maxFileId = epFileId;
+      show.fileId = item.fileId;
+    }
 
     // Use the most recent fetchedAt
     if (item.fetchedAt && (!show.fetchedAt || new Date(item.fetchedAt) > new Date(show.fetchedAt))) {
@@ -172,6 +192,11 @@ function groupMoviesByTmdb(allItems) {
       tmdbId: item.tmdbId,
       isSplit: item.isSplit || false,
       totalParts: item.totalParts || 1,
+      collection: item.collection || null,
+      releaseDate: item.releaseDate || item.year,
+      watchProviders: item.watchProviders || null,
+      productionCompanies: item.productionCompanies || [],
+      keywords: item.keywords || [],
     };
 
     if (item.tmdbId && item.tmdbId !== 0) {
@@ -190,6 +215,7 @@ function groupMoviesByTmdb(allItems) {
     } else {
       // Multiple files with same tmdbId = split movie. Use first as representative.
       const primary = { ...group[0] };
+      primary.maxFileId = Math.max(...group.map(g => Number(g.fileId) || 0));
       primary.isSplit = true;
       primary.totalParts = group.length;
       result.push(primary);
@@ -237,17 +263,21 @@ class SectionBuilder {
   }
 
   _formatItem(item) {
+    const itemId = item.id || item.fileId || (item.tmdbId ? String(item.tmdbId) : (item.showTmdbId ? 'show_' + item.showTmdbId : null));
+    const itemTitle = item.title || item.showTitle || item.name || (item.tv && item.tv.episodeTitle) || 'Untitled';
     return {
-      id: item.id,
-      title: item.title,
-      thumbnail: item.poster,
+      id: itemId || ('item_' + Math.random().toString(36).substring(2, 9)),
+      fileId: item.fileId || item.id || '',
+      maxFileId: item.maxFileId || Number(item.fileId) || 0,
+      title: itemTitle,
+      thumbnail: item.poster || item.thumbnail || '',
       backdrop: item.backdrop || null,
       rating: item.rating || 0,
       year: item.year || 0,
       duration: item.runtime || 0,
       genres: item.genres || [],
       description: item.overview ? item.overview.substring(0, 200) : '',
-      type: item.type || 'movie',
+      type: item.type || (item.showTmdbId ? 'tv' : 'movie'),
       logo: item.logo || null,
       certification: item.certification || '',
       episodeCount: item.episodeCount || 0,
@@ -261,7 +291,7 @@ class SectionBuilder {
 // MAIN CURATION FUNCTION
 // ============================================================
 
-function curate(allRawItems) {
+async function curate(allRawItems) {
   // 1. Build unified content pool (deduplicated shows + grouped movies)
   const shows = buildShowMap(allRawItems);
   const movies = groupMoviesByTmdb(allRawItems);
@@ -278,6 +308,18 @@ function curate(allRawItems) {
   const byPopularity = (a, b) => (b.popularity - a.popularity) || preferComplete(a, b);
   const byRating = (a, b) => (b.rating - a.rating) || preferComplete(a, b);
   const byRecent = (a, b) => {
+    const getId = (item) => {
+      if (item.maxFileId) return Number(item.maxFileId);
+      if (item.fileId) return Number(item.fileId);
+      if (typeof item.id === 'number') return item.id;
+      if (typeof item.id === 'string') return Number(item.id.replace(/\D/g, '')) || 0;
+      return 0;
+    };
+    const aId = getId(a);
+    const bId = getId(b);
+    if (aId !== bId) {
+      return bId - aId;
+    }
     const aTime = a.fetchedAt ? new Date(a.fetchedAt).getTime() : 0;
     const bTime = b.fetchedAt ? new Date(b.fetchedAt).getTime() : 0;
     return (bTime - aTime) || preferComplete(a, b);
@@ -304,7 +346,39 @@ function curate(allRawItems) {
   const heroMovies = heroCandidates.filter(i => i.type === 'movie').slice(0, 8 - heroTV.length);
   let heroItems = [...heroMovies, ...heroTV];
   shuffleArray(heroItems);
-  const hero = builder.take(heroItems, 8, false); // hero doesn't count towards appearance limit
+  
+  const heroMovie = { ...heroCandidates[0] };
+  
+  // Attach provider logo for the hero banner
+  if (heroMovie.productionCompanies && heroMovie.productionCompanies.length > 0) {
+    for (const [normName, studios] of Object.entries(originalStudios)) {
+      const isOriginal = heroMovie.productionCompanies.some(company => studios.includes(company.name.toLowerCase()));
+      if (isOriginal) {
+        if (heroMovie.watchProviders && heroMovie.watchProviders.flatrate) {
+          const prov = heroMovie.watchProviders.flatrate.find(p => topStreamingServices.normalized[p.name.toLowerCase()] === normName);
+          if (prov) heroMovie.providerLogo = prov.logo_path;
+        }
+        break;
+      }
+    }
+  }
+  if (!heroMovie.providerLogo && heroMovie.watchProviders && heroMovie.watchProviders.flatrate) {
+    const priority = ['Netflix', 'Prime Video', 'Apple TV+', 'SonyLIV', 'JioHotstar', 'ZEE5', 'Aha'];
+    let chosenLogo = null;
+    for (const p of priority) {
+      const prov = heroMovie.watchProviders.flatrate.find(prov => topStreamingServices.normalized[prov.name.toLowerCase()] === p);
+      if (prov) {
+        chosenLogo = prov.logo_path;
+        break;
+      }
+    }
+    if (!chosenLogo && heroMovie.watchProviders.flatrate.length > 0) {
+      chosenLogo = heroMovie.watchProviders.flatrate[0].logo_path;
+    }
+    heroMovie.providerLogo = chosenLogo;
+  }
+  
+  const hero = [builder._formatItem(heroMovie), ...builder.take(heroItems.filter(h => h.id !== heroMovie.id), 7, false)];
 
   // Trending Now
   const trending = builder.take([...allContent].sort(byPopularity), 15);
@@ -367,19 +441,13 @@ function curate(allRawItems) {
   });
   const quickWatch = builder.take([...quickWatchItems].sort(byPopularity), 15);
 
+  // ============================================================
+  // SPECIAL COLLECTIONS
+  // ============================================================
+
   // Recently Fixed (_tracksDetected recently added)
   const recentlyFixed = builder.take(
     [...allContent].filter(i => i._tracksDetected === true).sort(byRecent),
-    10
-  );
-
-  // Needs Attention
-  const needsAttention = builder.take(
-    [...allContent].filter(i => {
-      if (i.needsTranscoding === true) return true;
-      if (!i.audioTracks || !Array.isArray(i.audioTracks) || i.audioTracks.length === 0) return true;
-      return false;
-    }).sort(byRecent),
     10
   );
 
@@ -427,10 +495,196 @@ function curate(allRawItems) {
   for (const genre of discoveredGenres) {
     const genreItems = allContent.filter(i => matchesGenre(i, genre));
     if (genreItems.length >= 4) {
-      const slug = genre.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/_+$/, '');
-      genreRows[slug] = builder.take([...genreItems].sort(byPopularity), 20);
+      const slug = 'genre_' + genre.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/_+$/, '');
+      genreRows[slug] = {
+        title: genre,
+        items: builder.take([...genreItems].sort(byPopularity), 20)
+      };
     }
   }
+
+  // ========== COLLECTION ROWS ==========
+  let collectionNames = {};
+  try {
+    collectionNames = require('../config/collectionNames');
+  } catch (err) {
+    console.warn('[Curator] config/collectionNames.js not found or invalid.');
+  }
+
+  const collectionsMap = new Map();
+  for (const item of allContent) {
+    if (item.collection && item.collection.id) {
+      if (!collectionsMap.has(item.collection.id)) {
+        collectionsMap.set(item.collection.id, {
+          id: item.collection.id,
+          name: item.collection.name,
+          items: []
+        });
+      }
+      collectionsMap.get(item.collection.id).items.push(item);
+    }
+  }
+
+  const collectionRows = {};
+  for (const [colId, colData] of collectionsMap.entries()) {
+    if (colData.items.length >= 2) {
+      let displayName = collectionNames[colData.name] || collectionNames[colId] || colData.name;
+      if (!displayName.toLowerCase().includes('collection')) {
+        displayName += ' Collection';
+      }
+      const slug = 'collection_' + colId;
+      // Sort by release order (oldest first)
+      const sortedItems = [...colData.items].sort((a, b) => {
+        const dateA = a.releaseDate ? new Date(a.releaseDate).getTime() : (a.year ? new Date(a.year, 0, 1).getTime() : 0);
+        const dateB = b.releaseDate ? new Date(b.releaseDate).getTime() : (b.year ? new Date(b.year, 0, 1).getTime() : 0);
+        return dateA - dateB;
+      });
+      collectionRows[slug] = {
+        title: displayName,
+        items: sortedItems.map(item => builder._formatItem(item)) // Bypass deduplication for collections
+      };
+    }
+  }
+
+  // ========== STREAMING PROVIDER & ORIGINALS ROWS ==========
+  const providerGroups = new Map();
+  const originalsGroups = new Map();
+
+  for (const item of allContent) {
+    let isOriginalContent = false;
+    let primaryProvider = null;
+
+    if (item.productionCompanies && item.productionCompanies.length > 0) {
+      for (const [normName, studios] of Object.entries(originalStudios)) {
+        const isOriginal = item.productionCompanies.some(company => {
+          return studios.includes(company.name.toLowerCase());
+        });
+        if (isOriginal) {
+          primaryProvider = normName;
+          isOriginalContent = true;
+          break;
+        }
+      }
+    }
+
+    if (isOriginalContent) {
+      if (!originalsGroups.has(primaryProvider)) {
+        let logo = null;
+        if (item.watchProviders && item.watchProviders.flatrate) {
+          const prov = item.watchProviders.flatrate.find(p => topStreamingServices.normalized[p.name.toLowerCase()] === primaryProvider);
+          if (prov) logo = prov.logo_path;
+        }
+        originalsGroups.set(primaryProvider, { items: [], logoPath: logo });
+      }
+      originalsGroups.get(primaryProvider).items.push(item);
+    }
+
+    if (item.watchProviders && item.watchProviders.flatrate) {
+      const validProviders = new Set();
+      for (const prov of item.watchProviders.flatrate) {
+        const rawName = prov.name.toLowerCase();
+        const normName = topStreamingServices.normalized[rawName];
+        if (normName) {
+          validProviders.add(normName);
+        }
+      }
+
+      if (validProviders.size > 0 && !isOriginalContent) {
+        let chosenProvider = null;
+        const priority = ['Netflix', 'Prime Video', 'Apple TV+', 'SonyLIV', 'JioHotstar', 'ZEE5', 'Aha'];
+        for (const p of priority) {
+          if (validProviders.has(p)) {
+            chosenProvider = p;
+            break;
+          }
+        }
+        if (!chosenProvider) {
+          chosenProvider = validProviders.values().next().value;
+        }
+
+        if (!providerGroups.has(chosenProvider)) {
+          let chosenLogo = null;
+          const prov = item.watchProviders.flatrate.find(p => topStreamingServices.normalized[p.name.toLowerCase()] === chosenProvider);
+          if (prov) chosenLogo = prov.logo_path;
+          providerGroups.set(chosenProvider, { items: [], logoPath: chosenLogo });
+        }
+        providerGroups.get(chosenProvider).items.push(item);
+      }
+    }
+  }
+
+  const providerRows = {};
+  for (const [provider, data] of providerGroups.entries()) {
+    if (data.items.length >= topStreamingServices.threshold) {
+      const slug = 'provider_' + provider.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/_+$/, '');
+      providerRows[slug] = {
+        title: `Now Streaming on ${provider}`,
+        logo: data.logoPath,
+        items: builder.take([...data.items].sort(byPopularity), data.items.length, true)
+      };
+    }
+  }
+
+  const originalsRows = {};
+  for (const [provider, data] of originalsGroups.entries()) {
+    if (data.items.length >= topStreamingServices.threshold) {
+      const slug = 'original_' + provider.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/_+$/, '');
+      const sortedItems = [...data.items].sort(byRecent);
+      originalsRows[slug] = {
+        title: `${provider} Originals`,
+        logo: data.logoPath,
+        items: sortedItems.map(item => builder._formatItem(item))
+      };
+    }
+  }
+
+  // ========== KEYWORD ROWS ==========
+  const keywordFreq = new Map();
+  for (const item of allContent) {
+    if (item.keywords && Array.isArray(item.keywords)) {
+      for (const kw of item.keywords) {
+        if (!kw || typeof kw !== 'string') continue;
+        const lowerKw = kw.toLowerCase().trim();
+        keywordFreq.set(lowerKw, (keywordFreq.get(lowerKw) || 0) + 1);
+      }
+    }
+  }
+
+  const GENERIC_KEYWORDS = new Set([
+    'based on novel or book', 'based on true story', 'sequel', 'prequel', 'superhero',
+    'duringcreditsstinger', 'aftercreditsstinger', 'marvel cinematic universe (mcu)', 'remake',
+    'based on comic', 'murder', 'police', 'revenge', 'romance', 'anime', 'based on manga',
+    'school', 'school life', 'shounen', 'shoujo', 'high school', 'japanese high school',
+    'friendship', 'violence', 'tragedy'
+  ]);
+
+  const MIN_KEYWORD_COUNT = 5;
+  const validKeywords = [];
+  for (const [kw, count] of keywordFreq.entries()) {
+    if (count >= MIN_KEYWORD_COUNT && !GENERIC_KEYWORDS.has(kw)) {
+      validKeywords.push({ keyword: kw, count });
+    }
+  }
+
+  // Sort by count descending, pick top 8
+  validKeywords.sort((a, b) => b.count - a.count);
+  const topKeywords = validKeywords.slice(0, 8);
+
+  const keywordRows = {};
+  for (const tk of topKeywords) {
+    const kwItems = allContent.filter(i => 
+      (i.keywords || []).some(k => k.toLowerCase().trim() === tk.keyword)
+    );
+    if (kwItems.length >= MIN_KEYWORD_COUNT) {
+      const slug = 'keyword_' + tk.keyword.replace(/[^a-z0-9]+/g, '_').replace(/_+$/, '');
+      const titleCase = tk.keyword.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+      keywordRows[slug] = {
+        title: `Because you like ${titleCase}`,
+        items: builder.take([...kwItems].sort(byPopularity), 20)
+      };
+    }
+  }
+  console.log('[Curator] keywordRows generated:', Object.keys(keywordRows).length);
 
   // ========== GENRES PAGE ==========
   const genresPage = buildGenresPage(allContent, discoveredGenres);
@@ -438,22 +692,56 @@ function curate(allRawItems) {
   // ========== SPECIAL SECTIONS ==========
   const specialSections = buildSpecialSections(allContent, movies, shows, builder);
 
+  // ========== DISCOVER ROWS (Phase 7) ==========
+  const discoverRowsData = {};
+  try {
+    const fs = require('fs');
+    const path = require('path');
+    const tmdbResolver = require('./tmdbResolver');
+    const discoverConfig = require('../config/discoverRows');
+    const discoverJsonPath = path.join(__dirname, '../data/metadata/discoverRows.json');
+    if (fs.existsSync(discoverJsonPath)) {
+      const parsed = JSON.parse(fs.readFileSync(discoverJsonPath, 'utf8'));
+      for (const row of discoverConfig) {
+        if (parsed[row.id] && Array.isArray(parsed[row.id])) {
+          const resolved = await tmdbResolver.resolveTmdbIds(parsed[row.id]);
+          if (resolved.length >= 5) {
+            discoverRowsData[row.id] = {
+              title: row.title,
+              items: builder.take(resolved, 20)
+            };
+          }
+        }
+      }
+    }
+  } catch (err) {
+    console.error('[Curator] Error resolving discover rows:', err);
+  }
+
   return {
     homepage: {
       hero,
       trending,
       recently_added: recentlyAdded,
       top_rated: topRated,
+      discover: discoverRowsData,
       rows: {
-        multi_audio: multiAudio,
-        hindi,
-        english,
-        kdrama,
-        anime,
-        quick_watch: quickWatch,
-        recently_fixed: recentlyFixed,
-        needs_attention: needsAttention,
+        multi_audio: { title: 'Multi-Audio Hits', items: multiAudio },
+        hindi: { title: 'Hindi Movies', items: hindi },
+        english: { title: 'English Movies', items: english },
+        kdrama: { title: 'K-Drama Collection', items: kdrama },
+        anime: { title: 'Anime Collection', items: anime },
+        quick_watch: { title: 'Quick Watches', items: quickWatch },
+        recently_fixed: { title: 'Recently Restored', items: recentlyFixed },
+        special_top_rated: { title: 'Top Rated', items: topRated },
+        special_movies: { title: 'Movies', items: builder.take([...movies].sort(byPopularity), 20) },
+        special_tv_shows: { title: 'TV Shows', items: builder.take([...shows].sort(byPopularity), 20) },
+        ...originalsRows,
+        ...providerRows,
+        ...collectionRows,
+        ...keywordRows,
         ...genreRows,
+        ...discoverRowsData
       }
     },
     genres_page: genresPage,

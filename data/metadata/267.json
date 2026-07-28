@@ -82,23 +82,43 @@
     5721,
     62704,
     211,
+    87393,
     85727,
     116450,
     100883,
-    261545,
     73925,
-    156812,
+    261545,
     126914,
-    96734,
     107365,
-    72001,
-    84150,
-    78950,
-    61637,
-    243861,
-    136745,
+    156812,
     136044,
-    82862
+    67384,
+    82862,
+    42282,
+    78950,
+    900,
+    84150,
+    136745
   ],
-  "similar": []
+  "similar": [],
+  "productionCompanies": [
+    {
+      "id": 136951,
+      "name": "Girliyapa",
+      "logoPath": null
+    },
+    {
+      "id": 57574,
+      "name": "The Viral Fever",
+      "logoPath": "/1uj5bcBvNAZZuwSv8EM6CrjclFy.png"
+    },
+    {
+      "id": 5920,
+      "name": "Amazon miniTV",
+      "logoPath": "/uYMmqUhXsZEZHBWfWks0voGjLy1.png"
+    }
+  ],
+  "certifications": {
+    "IN": "U/A 16+"
+  }
 }

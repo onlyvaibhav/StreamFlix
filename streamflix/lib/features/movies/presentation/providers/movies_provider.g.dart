@@ -546,6 +546,90 @@ final class AllTvShowsProvider
 
 String _$allTvShowsHash() => r'a2d3d88b70bc6cb241ff43b808751435e62c9be8';
 
+/// Provider for More Like This recommendations
+
+@ProviderFor(moreLikeThis)
+final moreLikeThisProvider = MoreLikeThisFamily._();
+
+/// Provider for More Like This recommendations
+
+final class MoreLikeThisProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<List<Movie>>,
+          List<Movie>,
+          FutureOr<List<Movie>>
+        >
+    with $FutureModifier<List<Movie>>, $FutureProvider<List<Movie>> {
+  /// Provider for More Like This recommendations
+  MoreLikeThisProvider._({
+    required MoreLikeThisFamily super.from,
+    required (String, String) super.argument,
+  }) : super(
+         retry: null,
+         name: r'moreLikeThisProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$moreLikeThisHash();
+
+  @override
+  String toString() {
+    return r'moreLikeThisProvider'
+        ''
+        '$argument';
+  }
+
+  @$internal
+  @override
+  $FutureProviderElement<List<Movie>> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<List<Movie>> create(Ref ref) {
+    final argument = this.argument as (String, String);
+    return moreLikeThis(ref, argument.$1, argument.$2);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is MoreLikeThisProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
+}
+
+String _$moreLikeThisHash() => r'ffef82c7d1e967e3a1d27e2252397cd7fee5262a';
+
+/// Provider for More Like This recommendations
+
+final class MoreLikeThisFamily extends $Family
+    with $FunctionalFamilyOverride<FutureOr<List<Movie>>, (String, String)> {
+  MoreLikeThisFamily._()
+    : super(
+        retry: null,
+        name: r'moreLikeThisProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  /// Provider for More Like This recommendations
+
+  MoreLikeThisProvider call(String id, String type) =>
+      MoreLikeThisProvider._(argument: (id, type), from: this);
+
+  @override
+  String toString() => r'moreLikeThisProvider';
+}
+
 /// Provider for managing and retrieving watch progress history
 
 @ProviderFor(ContinueWatching)

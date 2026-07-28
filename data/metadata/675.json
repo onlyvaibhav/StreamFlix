@@ -136,23 +136,38 @@
     246483,
     42548,
     90872,
-    47813,
     94686,
-    37780,
-    90966,
     1205,
-    72743,
-    32549,
-    133727,
-    101352,
+    37780,
+    47813,
+    90966,
     4123,
+    72743,
+    133727,
+    32549,
     2251,
-    71887,
-    124010,
+    101352,
     494,
-    223438,
-    156993,
-    2093
+    124010,
+    2093,
+    1803,
+    71766,
+    62375
   ],
-  "similar": []
+  "similar": [],
+  "productionCompanies": [
+    {
+      "id": 57574,
+      "name": "The Viral Fever",
+      "logoPath": "/1uj5bcBvNAZZuwSv8EM6CrjclFy.png"
+    },
+    {
+      "id": 2646,
+      "name": "SonyLIV",
+      "logoPath": "/1PAnuglMmNBiUSFn6HWWtE7GOAJ.png"
+    }
+  ],
+  "certifications": {
+    "IN": "U/A 13+"
+  }
 }

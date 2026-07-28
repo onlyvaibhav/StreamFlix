@@ -92,6 +92,11 @@ exports.getByGenre = async (type = 'movie', genreId, page = 1) => {
     });
 };
 
+exports.discover = async (type = 'movie', params = {}) => {
+    return await fetchTMDB(`/discover/${type}`, params);
+};
+
+
 exports.getGenres = async (type = 'movie') => {
     return await fetchTMDB(`/genre/${type}/list`);
 };

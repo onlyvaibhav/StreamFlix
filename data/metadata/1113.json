@@ -66,47 +66,115 @@
     "buy": []
   },
   "recommendations": [
-    271607,
-    287591,
     247859,
+    271607,
+    283428,
+    287591,
     239761,
+    207347,
     35790,
     297438,
-    82861,
     67389,
-    56568,
+    82861,
     43288,
+    56568,
     42557,
-    63495,
     82738,
-    278196,
     43926,
+    278196,
     63145,
-    61339,
     39434,
-    5405,
-    39218
+    61339,
+    5405
   ],
   "similar": [
-    205155,
-    1536,
-    123491,
-    123494,
-    123503,
-    236445,
-    205182,
-    205183,
-    205192,
-    236520,
-    301488,
-    236530,
-    236532,
-    236533,
-    301544,
-    205258,
-    91538,
-    91539,
-    91547,
-    91565
-  ]
+    47,
+    52,
+    95,
+    127,
+    137,
+    246,
+    253,
+    255,
+    269,
+    1,
+    151,
+    152,
+    155,
+    171,
+    178,
+    271758,
+    271814,
+    271605,
+    271607,
+    271609
+  ],
+  "productionCompanies": [
+    {
+      "id": 529,
+      "name": "Production I.G",
+      "logoPath": "/rwB6w2aPENQbx756pBWSw44Ouk.png"
+    },
+    {
+      "id": 2918,
+      "name": "Shueisha",
+      "logoPath": "/gyEWUBWwqrm3H5T2hkERD9LxpOq.png"
+    },
+    {
+      "id": 11725,
+      "name": "VAP",
+      "logoPath": "/3OZxd70DZ1LbVelmZK8mR5FIXxO.png"
+    },
+    {
+      "id": 14789,
+      "name": "D.N. Dream Partners",
+      "logoPath": "/dThbJAnUAeQCANrj3kV7RGnLM7R.png"
+    },
+    {
+      "id": 6755,
+      "name": "Nippon Television Network Corporation",
+      "logoPath": "/bWiM2iY82B32NGmPCOFatgfekIR.png"
+    },
+    {
+      "id": 57,
+      "name": "Nippon TV",
+      "logoPath": "/uxaXSoT8K0S2NE5PWsBpHUl3GGU.png"
+    },
+    {
+      "id": 213,
+      "name": "Netflix",
+      "logoPath": "/wwemzKWzjKYJFfCeiB57q3r4Bcm.png"
+    }
+  ],
+  "certifications": {
+    "US": "TV-G",
+    "BR": "10",
+    "AT": "8",
+    "IE": "PG",
+    "CH": "12",
+    "PL": "7",
+    "HU": "Unrated",
+    "CZ": "7+",
+    "RO": "Unrated",
+    "AU": "PG",
+    "KR": "12",
+    "CA": "14+",
+    "DE": "6",
+    "SG": "PG",
+    "DK": "7",
+    "NL": "6",
+    "FI": "K7",
+    "IN": "U/A 13+",
+    "RU": "6+",
+    "ES": "7",
+    "SE": "Från 7 år",
+    "BE": "6",
+    "CL": "I10",
+    "GB": "PG",
+    "MA": "10",
+    "NZ": "PG",
+    "PR": "TV-14",
+    "VI": "TV-14"
+  },
+  "certification": "TV-14"
 }

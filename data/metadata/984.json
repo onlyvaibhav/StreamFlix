@@ -90,25 +90,64 @@
   },
   "recommendations": [
     138108,
-    204290,
-    156473,
     226174,
-    119845,
-    10370,
-    2850,
-    64836,
     126167,
-    86588,
+    10370,
+    119845,
+    156473,
+    2850,
     81358,
-    4170,
-    100729,
-    230034,
-    64199,
-    241549,
+    204290,
     100414,
+    64199,
     10305,
-    225265,
-    65628
+    86588,
+    64836,
+    67384,
+    241549,
+    85385,
+    203202,
+    80213,
+    153657
   ],
-  "similar": []
+  "similar": [],
+  "_stillPath": "/wu9KrrcMtzmipVdfA2w0Ft5lbVZ.jpg",
+  "episode_still": "/data/stills/984_still.jpg",
+  "productionCompanies": [
+    {
+      "id": 124042,
+      "name": "Roy Kapur Films",
+      "logoPath": "/yAphiXGgomJpDZfHYpjw3FX975R.png"
+    },
+    {
+      "id": 150130,
+      "name": "Aatpat Production",
+      "logoPath": "/nYKMJbxF2QQaMyEWDYeCX3QExuY.png"
+    },
+    {
+      "id": 293714,
+      "name": "SMR Productions",
+      "logoPath": null
+    },
+    {
+      "id": 1024,
+      "name": "Prime Video",
+      "logoPath": "/w7HfLNm9CWwRmAMU58udl2L7We7.png"
+    }
+  ],
+  "certifications": {
+    "SG": "M18",
+    "US": "TV-14",
+    "TR": "13+",
+    "VI": "TV-14",
+    "PR": "TV-14",
+    "CA": "14+",
+    "IN": "A",
+    "GB": "15",
+    "IE": "15",
+    "DE": "12",
+    "AU": "M",
+    "NZ": "M"
+  },
+  "certification": "TV-14"
 }

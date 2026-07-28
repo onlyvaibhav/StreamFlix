@@ -14,7 +14,7 @@ class ActivityTracker extends EventEmitter {
         this.workerPaused = false;
         this.idleTimer = null;
         this.IDLE_DELAY_MS = 15000; // 15 seconds debounce for worker resume
-        this.SESSION_TIMEOUT_MS = 60000; // 60 seconds inactivity timeout
+        this.SESSION_TIMEOUT_MS = 90000; // 90 seconds inactivity timeout
         this.pausePromise = null;
         this.pauseResolve = null;
 
@@ -105,12 +105,7 @@ class ActivityTracker extends EventEmitter {
         if (this.activeSessions.has(sessionKey)) {
             const session = this.activeSessions.get(sessionKey);
             
-            // Calculate playbackTime (delta since lastSeen up to 25s threshold)
-            const delta = now - session.lastSeen;
-            if (delta <= 25000) {
-                session.playbackTime += delta;
-            }
-            
+            // Refresh activity time
             session.lastSeen = now;
 
             if (session.expiryTimer) clearTimeout(session.expiryTimer);
@@ -163,7 +158,6 @@ class ActivityTracker extends EventEmitter {
             lastSeen: now,
             activeRequests: new Map(),
             totalBytesSent: 0,
-            playbackTime: 0,
             rangeRequests: [], // For analytics / history tracking
             expiryTimer: setTimeout(() => {
                 this._handleSessionExpiry(sessionKey);
@@ -179,19 +173,12 @@ class ActivityTracker extends EventEmitter {
 
         // Asynchronously fetch and populate the display title and user identity
         let identityPromise = Promise.resolve(null);
-        if (userId && supabaseService.isEnabled()) {
+        if (userId) {
             const tokenHash = crypto.createHash('sha256').update(userId).digest('hex');
-            identityPromise = supabaseService.supabase
-                .from('sessions')
-                .select('users(first_name, username), devices(os, browser, platform)')
-                .eq('token_hash', tokenHash)
-                .limit(1)
-                .single()
-                .then(res => {
-                    if (res.data) {
-                        const name = res.data.users?.first_name || res.data.users?.username || 'User';
-                        const dev = res.data.devices?.os || res.data.devices?.platform || res.data.devices?.browser || 'Device';
-                        return `${name} on ${dev}`;
+            identityPromise = supabaseService.getSessionByTokenHash(tokenHash)
+                .then(data => {
+                    if (data && data.users) {
+                        return data.users.first_name + (data.users.username ? ` (@${data.users.username})` : '');
                     }
                     return null;
                 }).catch(() => null);
@@ -239,22 +226,15 @@ class ActivityTracker extends EventEmitter {
         const session = this.activeSessions.get(sessionKey);
         if (!session) return;
 
-        // Perform final check and add final playbackTime slice if applicable
-        const now = Date.now();
-        const delta = now - session.lastSeen;
-        if (delta > 0 && delta <= 25000) {
-            session.playbackTime += delta;
-        }
-
-        console.log(`[Session] Session expired: Session #${session.viewerSessionNumber} (${session.title})`);
-
-        const watchDuration = this.formatDuration(Math.round(session.playbackTime / 1000));
+        // Calculate exact wall-clock duration from first activity to last activity
+        const durationMs = session.lastSeen - session.firstSeen;
+        const watchDuration = this.formatDuration(Math.round(durationMs / 1000));
         const totalBytes = this.formatBytes(session.totalBytesSent);
 
-        console.log(`[Viewer] ■ Session Ended\nSession: #${session.viewerSessionNumber}\nTitle: ${session.title}\nWatch Duration: ${watchDuration}\nTotal Bytes: ${totalBytes}`);
+        console.log(`[Viewer] ■ Session Ended\nSession: #${session.viewerSessionNumber}\nViewer: ${session.identity || 'Anonymous'}\nTitle: ${session.title}\nWatch Duration: ${watchDuration}\nTotal Bytes: ${totalBytes}`);
 
         // Alert
-        alertBot.notifyWatchEnd(session, session.playbackTime);
+        alertBot.notifyWatchEnd(session, durationMs);
 
         // Decrement media viewer counts with negative validation protection
         const fileId = session.fileId;
@@ -305,10 +285,6 @@ class ActivityTracker extends EventEmitter {
         } else {
             // Refresh activity time
             const now = Date.now();
-            const delta = now - session.lastSeen;
-            if (delta <= 25000) {
-                session.playbackTime += delta;
-            }
             session.lastSeen = now;
 
             if (session.expiryTimer) clearTimeout(session.expiryTimer);
@@ -347,10 +323,6 @@ class ActivityTracker extends EventEmitter {
         }
 
         const now = Date.now();
-        const delta = now - session.lastSeen;
-        if (delta <= 25000) {
-            session.playbackTime += delta;
-        }
         session.lastSeen = now;
 
         if (session.expiryTimer) clearTimeout(session.expiryTimer);
@@ -372,10 +344,6 @@ class ActivityTracker extends EventEmitter {
             }
 
             const now = Date.now();
-            const delta = now - session.lastSeen;
-            if (delta <= 25000) {
-                session.playbackTime += delta;
-            }
             session.lastSeen = now;
 
             if (session.expiryTimer) clearTimeout(session.expiryTimer);
@@ -508,7 +476,7 @@ class ActivityTracker extends EventEmitter {
                 firstSeen: new Date(session.firstSeen).toISOString(),
                 lastSeen: new Date(session.lastSeen).toISOString(),
                 totalBytesSent: session.totalBytesSent,
-                playbackTime: Math.round(session.playbackTime / 1000), // in seconds
+                playbackTime: Math.round((session.lastSeen - session.firstSeen) / 1000), // in seconds
                 rangeRequests: Array.from(session.activeRequests.values()).map(req => ({
                     rangeHeader: req.rangeHeader,
                     startOffset: req.startOffset,

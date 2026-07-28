@@ -15,4 +15,5 @@ abstract class MovieRepository {
   Future<TvShow> getTvShowById(String showTmdbId);
   Future<List<Movie>> getAllTvShows();
   Future<List<Movie>> searchCatalog(String query);
+  Future<List<Movie>> getMoreLikeThis(String id, String type);
 }

@@ -6,7 +6,8 @@ const { apiLimiter } = require('../middleware/rateLimit');
 // /api/tv/*
 router.get('/:id/details', apiLimiter, movieController.getTmdbTVDetails);
 router.get('/:id/local', apiLimiter, movieController.getLocalTVDetails);
-router.get('/:id', apiLimiter, movieController.getLocalTVDetails);
+router.get('/:id/more-like-this', apiLimiter, movieController.getMoreLikeThisTV);
 router.get('/:id/season/:season', apiLimiter, movieController.getTmdbSeasonDetails);
+router.get('/:id', apiLimiter, movieController.getLocalTVDetails);
 
 module.exports = router;

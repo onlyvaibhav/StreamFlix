@@ -53,6 +53,13 @@ class AppErrorWidget extends ConsumerWidget {
     }
     
     final errorStr = error.toString().toLowerCase();
+    
+    if (errorStr.contains('failed to open http') || 
+        errorStr.contains('stream') || 
+        errorStr.contains('failed to load video')) {
+      return 'stream_failed';
+    }
+
     if (errorStr.contains('failed host lookup') || 
         errorStr.contains('network is unreachable') ||
         errorStr.contains('no route to host')) {
@@ -284,6 +291,76 @@ class AppErrorWidget extends ConsumerWidget {
     );
   }
 
+  Widget _buildStreamError(BuildContext context) {
+    return RefreshIndicator(
+      onRefresh: () async {
+        onRetry?.call();
+        await Future.delayed(const Duration(milliseconds: 500));
+      },
+      child: Center(
+        child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(Icons.broken_image_rounded, size: 64, color: AppColors.error),
+              const SizedBox(height: 24),
+              RichText(
+                textAlign: TextAlign.center,
+                text: TextSpan(
+                  style: GoogleFonts.inter(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.white),
+                  children: [
+                    TextSpan(text: "Stream is\n"),
+                    TextSpan(text: "Unavailable", style: GoogleFonts.inter(color: AppColors.error)),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 16),
+              Text(
+                "We couldn't open the video stream.\nThe source file might be deleted or Telegram is disconnected.",
+                textAlign: TextAlign.center,
+                style: GoogleFonts.inter(fontSize: 14, color: Colors.white70),
+              ),
+              const SizedBox(height: 32),
+              if (onRetry != null) ...[
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton.icon(
+                    onPressed: onRetry,
+                    icon: const Icon(Icons.refresh),
+                    label: Text("Try Again", style: GoogleFonts.inter(fontSize: 16, fontWeight: FontWeight.bold)),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.error,
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 12),
+              ],
+              SizedBox(
+                width: double.infinity,
+                child: OutlinedButton.icon(
+                  onPressed: () => context.pop(),
+                  icon: const Icon(Icons.arrow_back_rounded),
+                  label: Text("Go Back", style: GoogleFonts.inter(fontSize: 16, fontWeight: FontWeight.bold)),
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    side: const BorderSide(color: Colors.white24, width: 1.5),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isOffline = ref.watch(isOfflineProvider);
@@ -293,6 +370,8 @@ class AppErrorWidget extends ConsumerWidget {
       return _buildOfflineError(context);
     } else if (state == 'server_down') {
       return _buildServerError(context);
+    } else if (state == 'stream_failed') {
+      return _buildStreamError(context);
     }
     
     IconData icon = Icons.error_outline;

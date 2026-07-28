@@ -168,5 +168,27 @@
     1181508,
     1939,
     1645
-  ]
+  ],
+  "productionCompanies": [
+    {
+      "id": 78688,
+      "name": "Blue Waters Motion Pictures"
+    },
+    {
+      "id": 78691,
+      "name": "Kross Pictures"
+    },
+    {
+      "id": 158444,
+      "name": "Endemol Shine India"
+    },
+    {
+      "id": 7294,
+      "name": "Reliance Entertainment"
+    }
+  ],
+  "certifications": {
+    "IN": "UA"
+  },
+  "certification": "UA"
 }

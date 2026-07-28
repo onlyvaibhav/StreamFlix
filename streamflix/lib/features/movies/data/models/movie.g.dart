@@ -8,6 +8,8 @@ part of 'movie.dart';
 
 _Movie _$MovieFromJson(Map<String, dynamic> json) => _Movie(
   id: _readId(json, 'id') as String,
+  fileId: json['fileId'] as String?,
+  maxFileId: (json['maxFileId'] as num?)?.toInt(),
   messageId: (json['messageId'] as num?)?.toInt(),
   title: _readTitle(json, 'title') as String,
   fileName: json['fileName'] as String?,
@@ -31,11 +33,12 @@ _Movie _$MovieFromJson(Map<String, dynamic> json) => _Movie(
   poster: _readPoster(json, 'poster') as String?,
   backdrop: json['backdrop'] as String?,
   logo: json['logo'] as String?,
+  providerLogo: json['providerLogo'] as String?,
   tmdbId: (json['tmdbId'] as num?)?.toInt(),
   awards: json['awards'] as String?,
   certification: json['certification'] as String?,
-  seasonNumber: (json['seasonNumber'] as num?)?.toInt(),
-  episodeNumber: (json['episodeNumber'] as num?)?.toInt(),
+  seasonNumber: (_readSeasonNumber(json, 'seasonNumber') as num?)?.toInt(),
+  episodeNumber: (_readEpisodeNumber(json, 'episodeNumber') as num?)?.toInt(),
   tv: json['tv'] == null
       ? null
       : TvShowInfo.fromJson(json['tv'] as Map<String, dynamic>),
@@ -47,11 +50,13 @@ _Movie _$MovieFromJson(Map<String, dynamic> json) => _Movie(
   parts: (json['parts'] as List<dynamic>?)
       ?.map((e) => SplitPart.fromJson(e as Map<String, dynamic>))
       .toList(),
-  episodeStill: json['episode_still'] as String?,
+  episodeStill: _readEpisodeStill(json, 'episodeStill') as String?,
 );
 
 Map<String, dynamic> _$MovieToJson(_Movie instance) => <String, dynamic>{
   'id': instance.id,
+  'fileId': instance.fileId,
+  'maxFileId': instance.maxFileId,
   'messageId': instance.messageId,
   'title': instance.title,
   'fileName': instance.fileName,
@@ -75,6 +80,7 @@ Map<String, dynamic> _$MovieToJson(_Movie instance) => <String, dynamic>{
   'poster': instance.poster,
   'backdrop': instance.backdrop,
   'logo': instance.logo,
+  'providerLogo': instance.providerLogo,
   'tmdbId': instance.tmdbId,
   'awards': instance.awards,
   'certification': instance.certification,
@@ -85,5 +91,5 @@ Map<String, dynamic> _$MovieToJson(_Movie instance) => <String, dynamic>{
   'isSplit': instance.isSplit,
   'totalParts': instance.totalParts,
   'parts': instance.parts,
-  'episode_still': instance.episodeStill,
+  'episodeStill': instance.episodeStill,
 };

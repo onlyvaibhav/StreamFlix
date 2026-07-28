@@ -267,9 +267,22 @@ async function downloadSubDL(subtitle) {
 
     console.log(`   ⬇️ SubDL: Downloading ${subtitle.label}...`);
 
-    const response = await httpClient.get(subtitle.downloadUrl, {
-        responseType: 'arraybuffer'
-    });
+    let response;
+    let retries = 3;
+    while (retries > 0) {
+        try {
+            response = await httpClient.get(subtitle.downloadUrl, {
+                responseType: 'arraybuffer'
+            });
+            break;
+        } catch (e) {
+            retries--;
+            const status = e.response?.status;
+            if (retries === 0 || status === 404 || status === 403 || status === 400) throw e;
+            console.log(`   ⚠️ SubDL download failed, retrying in 1s... (${e.message})`);
+            await new Promise(r => setTimeout(r, 1000));
+        }
+    }
 
     // SubDL returns ZIP files
     const files = await extractZip(response.data);

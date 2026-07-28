@@ -235,7 +235,7 @@ class DownloadManager extends ChangeNotifier {
       title: movie.title,
       posterUrl: movie.poster,
       backdropUrl: movie.backdrop,
-      stillUrl: movie.episodeStill,
+      stillUrl: movie.fullEpisodeStillUrl,
       type: isTv ? 'episode' : 'movie',
       seriesId: isTv ? movie.tv?.showTmdbId.toString() : null,
       showTitle: isTv ? movie.tv?.showTitle : null,

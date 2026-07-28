@@ -89,7 +89,7 @@ process.on('unhandledRejection', (reason, promise) => {
 
 process.on('uncaughtException', (error) => {
   const message = error?.message || String(error);
-  
+
   if (
     message.includes('TIMEOUT') ||
     message.includes('Timeout') ||
@@ -113,7 +113,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 app.set('internalPort', PORT);
 
-// Fix rate limiter X-Forwarded-For warning
+// Fix rate limiter X-Forwarded-For warning and correctly parse client IP behind reverse proxies
 app.set('trust proxy', 1);
 
 // ============================================================
@@ -147,12 +147,12 @@ app.use(cors({
 app.use(morgan('dev', {
   skip: (req, res) => {
     if (process.env.DEBUG_LOGS === 'true') return false;
-    
+
     const url = req.originalUrl || req.url;
     const isStatic = url.match(/\.(css|js|ico|jpg|png|vtt|webp)$/i);
     const isData = url.startsWith('/data/') || url.startsWith('/api/proxy/');
     const isHeartbeat = url.includes('/heartbeat');
-    
+
     return isStatic || isData || isHeartbeat;
   }
 }));
@@ -202,15 +202,15 @@ app.use('/internal', internalRoutes);
 
 const alertBot = require('./services/bot/alertBot');
 app.use((err, req, res, next) => {
-    if (err) {
-        alertBot.notifyError(req.user, err.message || err.toString(), `${req.method} ${req.originalUrl}`);
-        console.error('Global Error Handler caught:', err);
-        if (!res.headersSent) {
-            res.status(err.status || 500).json({ success: false, error: err.message || 'Internal Server Error' });
-        }
-    } else {
-        next();
+  if (err) {
+    alertBot.notifyError(req.user, err.message || err.toString(), `${req.method} ${req.originalUrl}`);
+    console.error('Global Error Handler caught:', err);
+    if (!res.headersSent) {
+      res.status(err.status || 500).json({ success: false, error: err.message || 'Internal Server Error' });
     }
+  } else {
+    next();
+  }
 });
 
 // ============================================================
@@ -265,38 +265,38 @@ let _cacheInvalidateReasons = new Set();
 
 function invalidateCache(reason, forceImmediate = false, stats = null) {
   if (reason === 'sync' && stats) {
-      const totalChanges = (stats.added || 0) + (stats.removed || 0) + (stats.changed || 0);
-      if (totalChanges === 0) {
-          console.log('[Cache] Skipping invalidation — no changes detected in sync');
-          return;
-      }
+    const totalChanges = (stats.added || 0) + (stats.removed || 0) + (stats.changed || 0);
+    if (totalChanges === 0) {
+      console.log('[Cache] Skipping invalidation — no changes detected in sync');
+      return;
+    }
   }
 
   _cacheInvalidateCount++;
-  
+
   if (reason) {
-      _cacheInvalidateReasons.add(reason);
+    _cacheInvalidateReasons.add(reason);
   }
 
   if (forceImmediate) {
-      _metadataCache = null;
-      _metadataCacheTime = 0;
-      _curatedCache = null;
-      _curatedCacheTime = 0;
-      if (_cacheInvalidateTimer) {
-          clearTimeout(_cacheInvalidateTimer);
-          _cacheInvalidateTimer = null;
-      }
-      const reasonText = _cacheInvalidateReasons.size > 0 
-          ? ` Reasons: ${Array.from(_cacheInvalidateReasons).join(', ')}` 
-          : '';
-      console.log(`\n🗑️ [Cache] Invalidated metadata cache immediately.${reasonText}\n`);
-      if (worker.worker && worker.worker.telegramService && worker.worker.telegramService.invalidateCache) {
-          worker.worker.telegramService.invalidateCache();
-      }
-      _cacheInvalidateCount = 0;
-      _cacheInvalidateReasons.clear();
-      return;
+    _metadataCache = null;
+    _metadataCacheTime = 0;
+    _curatedCache = null;
+    _curatedCacheTime = 0;
+    if (_cacheInvalidateTimer) {
+      clearTimeout(_cacheInvalidateTimer);
+      _cacheInvalidateTimer = null;
+    }
+    const reasonText = _cacheInvalidateReasons.size > 0
+      ? ` Reasons: ${Array.from(_cacheInvalidateReasons).join(', ')}`
+      : '';
+    console.log(`\n🗑️ [Cache] Invalidated metadata cache immediately.${reasonText}\n`);
+    if (worker.worker && worker.worker.telegramService && worker.worker.telegramService.invalidateCache) {
+      worker.worker.telegramService.invalidateCache();
+    }
+    _cacheInvalidateCount = 0;
+    _cacheInvalidateReasons.clear();
+    return;
   }
 
   if (_cacheInvalidateTimer) clearTimeout(_cacheInvalidateTimer);
@@ -307,10 +307,10 @@ function invalidateCache(reason, forceImmediate = false, stats = null) {
     _curatedCache = null;
     _curatedCacheTime = 0;
 
-    const reasonText = _cacheInvalidateReasons.size > 0 
-        ? ` Reasons: ${Array.from(_cacheInvalidateReasons).join(', ')}` 
-        : '';
-        
+    const reasonText = _cacheInvalidateReasons.size > 0
+      ? ` Reasons: ${Array.from(_cacheInvalidateReasons).join(', ')}`
+      : '';
+
     console.log(`\n🗑️ [Cache] Invalidated metadata cache (${_cacheInvalidateCount} changes).${reasonText}\n`);
 
     // Invalidate Telegram service cache too (Debounced)
@@ -594,7 +594,7 @@ app.get('/api/curated', async (req, res) => {
     }
 
     const allMetadata = await loadAllValidMetadata();
-    const curated = contentCurator.curate(allMetadata);
+    const curated = await contentCurator.curate(allMetadata);
 
     _curatedCache = curated;
     _curatedCacheTime = Date.now();
@@ -746,30 +746,30 @@ app.get('/api/metadata', async (req, res) => {
     heroPool.sort((a, b) => {
       const aAgeDays = (now - a.fetchedAt) / (1000 * 60 * 60 * 24);
       const bAgeDays = (now - b.fetchedAt) / (1000 * 60 * 60 * 24);
-      
+
       const aScore = a.rating + (aAgeDays < 30 ? 2 : 0) + (aAgeDays < 7 ? 2 : 0);
       const bScore = b.rating + (bAgeDays < 30 ? 2 : 0) + (bAgeDays < 7 ? 2 : 0);
-      
+
       return bScore - aScore; // Descending
     });
 
     // Step 2: Take top 30 candidates, shuffle them
     const topCandidates = heroPool.slice(0, 30);
     for (let i = topCandidates.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [topCandidates[i], topCandidates[j]] = [topCandidates[j], topCandidates[i]];
+      const j = Math.floor(Math.random() * (i + 1));
+      [topCandidates[i], topCandidates[j]] = [topCandidates[j], topCandidates[i]];
     }
-    
+
     // Step 3: Ensure a mix of Movies and TV (max 8)
     let heroItems = [];
     const chosenTv = topCandidates.filter(t => t.type === 'tv').slice(0, 3);
     const chosenMovies = topCandidates.filter(t => t.type === 'movie').slice(0, 8 - chosenTv.length);
     heroItems = [...chosenMovies, ...chosenTv];
-    
+
     // Shuffle the final 8 so TVs don't consistently stick to the end
     for (let i = heroItems.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [heroItems[i], heroItems[j]] = [heroItems[j], heroItems[i]];
+      const j = Math.floor(Math.random() * (i + 1));
+      [heroItems[i], heroItems[j]] = [heroItems[j], heroItems[i]];
     }
 
     // Fallback if no hero items have backdrops
@@ -1103,8 +1103,10 @@ app.get('/api/search', async (req, res) => {
 
     for (const item of allMetadata) {
       const title = (item.title || '').toLowerCase();
+      const originalTitle = (item.originalTitle || '').toLowerCase();
       const overview = (item.overview || '').toLowerCase();
       const genres = (item.genres || []).map(g => g.toLowerCase());
+      const keywords = (item.keywords || []).map(k => k.toLowerCase());
 
       let isTV = isTVContent(item);
       let showTitle = '';
@@ -1116,20 +1118,25 @@ app.get('/api/search', async (req, res) => {
       let score = 0;
 
       // 1. Exact Title Match (Highest Priority)
-      if (title === query || (isTV && showTitle === query)) {
+      if (title === query || (isTV && showTitle === query) || originalTitle === query) {
         score += 100;
       }
       // 2. Starts With Title (High Priority)
-      else if (title.startsWith(query) || (isTV && showTitle.startsWith(query))) {
+      else if (title.startsWith(query) || (isTV && showTitle.startsWith(query)) || originalTitle.startsWith(query)) {
         score += 80;
       }
       // 3. Title Contains Query (Medium Priority)
-      else if (title.includes(query) || (isTV && showTitle.includes(query))) {
+      else if (title.includes(query) || (isTV && showTitle.includes(query)) || originalTitle.includes(query)) {
         score += 60;
       }
 
       // 4. Genre Match
       if (genres.some(g => g.includes(query))) {
+        score += 40;
+      }
+
+      // 4.5. Keyword Match
+      if (keywords.some(k => k.includes(query))) {
         score += 40;
       }
 
@@ -1194,7 +1201,7 @@ app.get('/api/health', async (req, res) => {
     const allMetadata = await loadAllValidMetadata();
     const movies = allMetadata.filter(isMovieContent);
     const tvEpisodes = allMetadata.filter(isTVContent);
-    
+
     const uniqueShows = new Set();
     for (const ep of tvEpisodes) {
       if (ep.tv && ep.tv.showTmdbId) uniqueShows.add(ep.tv.showTmdbId);
@@ -1325,13 +1332,33 @@ app.get('/api/admin/incomplete-metadata', requireAdmin, async (req, res) => {
   }
 });
 
+// POST /api/admin/backfill - Manually trigger extended metadata backfill
+app.post('/api/admin/backfill', requireAdmin, async (req, res) => {
+  try {
+    const status = await metadataWorker.backfillExtendedMetadata();
+    res.json({ message: 'Backfill triggered', status });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+// GET /api/admin/backfill/status - Get status of backfill
+app.get('/api/admin/backfill/status', requireAdmin, (req, res) => {
+  try {
+    const status = metadataWorker.getBackfillStatus();
+    res.json(status);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
 // POST /api/admin/metadata/retry-failed - Manually trigger retry for MANUAL_REVIEW items
 app.post('/api/admin/metadata/retry-failed', requireAdmin, async (req, res) => {
   try {
     const { getAllMetadata, saveMetadata } = require('./services/metadataWorker');
     const all = await getAllMetadata();
     let resetCount = 0;
-    
+
     for (const entry of all) {
       if (entry.metadataStatus === 'MANUAL_REVIEW' || entry.metadataStatus === 'FAILED') {
         entry.metadataStatus = 'NEW';
@@ -1341,7 +1368,7 @@ app.post('/api/admin/metadata/retry-failed', requireAdmin, async (req, res) => {
         resetCount++;
       }
     }
-    
+
     res.json({ success: true, message: `Successfully reset ${resetCount} items back to NEW.` });
   } catch (e) {
     console.error('[Admin] Retry Failed Metadata Error:', e);
@@ -1402,7 +1429,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Public config
 app.get('/api/config', (req, res) => {
   res.json({
-    appDownloadUrl: process.env.APP_DOWNLOAD_URL || 'https://github.com/StreamFlix/StreamFlix/releases'
+    appDownloadUrl: process.env.APP_DOWNLOAD_URL || 'https://github.com/onlyvaibhav/StreamFlix/releases'
   });
 });
 
@@ -1481,6 +1508,11 @@ async function startServer() {
       // Start File Watcher + Idle Loop (replaces old setInterval approach)
       console.log('📅 Starting file watcher and idle loop...');
       startFileWatcher();
+
+      // Start Bot Polling
+      const botCommands = require('./services/bot/botCommands');
+      botCommands.startPolling().catch(e => console.error('[BotCommands] Failed to start:', e));
+      console.log('🤖 Telegram Bot Commands polling started');
 
       // Start idle loop after 30s to let server stabilize
       setTimeout(() => {

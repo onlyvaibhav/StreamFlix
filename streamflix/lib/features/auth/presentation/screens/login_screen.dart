@@ -470,11 +470,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         }
         
         try {
-          final box = Hive.box('authBox');
-          String? deviceId = box.get('device_id');
+          const storage = FlutterSecureStorage();
+          String? deviceId = await storage.read(key: 'device_id');
           if (deviceId == null) {
-            deviceId = 'fl_${DateTime.now().millisecondsSinceEpoch}_${Random().nextInt(100000)}';
-            box.put('device_id', deviceId);
+            deviceId = const Uuid().v4();
+            await storage.write(key: 'device_id', value: deviceId);
           }
           
           final userObj = TelegramClientService().userObj;
@@ -522,6 +522,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             final rawToken = response.data['token'];
             if (rawToken != null) await storage.write(key: 'auth_token', value: rawToken);
             
+            final box = Hive.box('authBox');
             final sessionToken = response.data['sessionToken'];
             if (sessionToken != null) box.put('sessionToken', sessionToken);
             if (response.data['user'] != null) box.put('user', response.data['user']);

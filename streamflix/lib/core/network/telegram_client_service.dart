@@ -142,7 +142,7 @@ class TelegramClientService with WidgetsBindingObserver {
           }
           final upperError = error.toUpperCase();
           if (upperError.contains('AUTH_KEY_UNREGISTERED') || upperError.contains('SESSION_REVOKED') || upperError.contains('USER_DEACTIVATED')) {
-            _authStream.add('error:revoked');
+            debugPrint('⚠️ Ignored GramJS chunk error: $error');
           }
           break;
         case 'fileReferenceRefreshed':
@@ -170,8 +170,13 @@ class TelegramClientService with WidgetsBindingObserver {
           _parallelDownloadStream.add(msg);
           break;
         case 'error':
-          debugPrint('❌ GramJS Error: ${msg['error']}');
-          _authStream.add('error:${msg['error']}');
+          final upperError = msg['error'].toString().toUpperCase();
+          if (upperError.contains('AUTH_KEY_UNREGISTERED') || upperError.contains('SESSION_REVOKED') || upperError.contains('USER_DEACTIVATED')) {
+            debugPrint('⚠️ Ignored GramJS Error: ${msg['error']} (Session dead)');
+          } else {
+            debugPrint('❌ GramJS Error: ${msg['error']}');
+            _authStream.add('error:${msg['error']}');
+          }
           break;
         case 'log':
           debugPrint('📄 JS Log: ${msg['message']}');

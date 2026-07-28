@@ -55,6 +55,11 @@ class MovieRepositoryImpl implements MovieRepository {
   Future<List<Movie>> searchCatalog(String query) async {
     return await _remoteDataSource.searchCatalog(query);
   }
+
+  @override
+  Future<List<Movie>> getMoreLikeThis(String id, String type) async {
+    return await _remoteDataSource.getMoreLikeThis(id, type);
+  }
 }
 
 /// Provider for MovieRepository

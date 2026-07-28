@@ -111,45 +111,117 @@
   "recommendations": [
     130237,
     72509,
-    36697,
-    209845,
-    63330,
-    96316,
-    56354,
-    65944,
-    72523,
     121792,
-    83121,
-    127549,
-    139287,
-    50076,
-    105556,
+    36697,
+    63330,
+    84666,
+    96316,
+    209845,
+    56354,
     42500,
+    83121,
     52891,
-    239214,
+    105556,
+    139287,
+    70880,
+    127549,
     98986,
-    72296
+    43017,
+    72296,
+    258994
   ],
   "similar": [
-    123737,
-    236740,
-    91715,
-    236809,
-    91729,
-    91750,
-    205487,
-    205493,
-    205460,
-    205516,
-    123784,
-    123802,
-    91764,
-    91765,
-    91780,
-    1786,
-    91825,
-    91827,
-    91883,
-    91885
-  ]
+    126687,
+    94453,
+    94462,
+    63084,
+    63085,
+    63087,
+    63088,
+    63089,
+    63102,
+    94412,
+    94413,
+    94423,
+    94388,
+    94404,
+    94405,
+    63145,
+    63146,
+    63164,
+    94498,
+    208580
+  ],
+  "productionCompanies": [
+    {
+      "id": 59118,
+      "name": "Kodansha",
+      "logoPath": "/9nTCEBgGaaI5swkv8gy2vny0Mb5.png"
+    },
+    {
+      "id": 20867,
+      "name": "P.A.WORKS",
+      "logoPath": "/8xKcaZSIRdsR616LQ7nMptjkUvg.png"
+    },
+    {
+      "id": 160595,
+      "name": "DMM music",
+      "logoPath": "/bBaHtW5M153OOOsQYVpWvEiSyy9.png"
+    },
+    {
+      "id": 182571,
+      "name": "NetEase Games",
+      "logoPath": "/jhSApjK8kM6pkKH2EfOVTsAADhW.png"
+    },
+    {
+      "id": 7549,
+      "name": "Kansai Television",
+      "logoPath": "/bXc1vp0lER6PDHtsVe12pSPwNkv.png"
+    },
+    {
+      "id": 87211,
+      "name": "DMM.com",
+      "logoPath": "/lzBP1lTYoqqfvGriMMdlvFWDRH7.png"
+    },
+    {
+      "id": 188144,
+      "name": "BS Asahi",
+      "logoPath": "/tft4KzwjS3okGiN6duB3qwHkIX1.png"
+    },
+    {
+      "id": 194291,
+      "name": "A-Sketch",
+      "logoPath": null
+    },
+    {
+      "id": 98553,
+      "name": "Crunchyroll",
+      "logoPath": "/qqyXcZlJQKlRmAD1TCKV7mGLQlt.png"
+    },
+    {
+      "id": 614,
+      "name": "Tokyo MX",
+      "logoPath": "/hSdroyVthq3CynxTIIY7lnS8w1.png"
+    }
+  ],
+  "certifications": {
+    "US": "TV-14",
+    "BR": "12",
+    "RU": "12+",
+    "SG": "PG",
+    "AU": "PG",
+    "KR": "15",
+    "AT": "14",
+    "IE": "15",
+    "CH": "16",
+    "PL": "16",
+    "HU": "16",
+    "CZ": "15+",
+    "RO": "15",
+    "TW": "0+",
+    "TH": "น 13+",
+    "MX": "B-15",
+    "NO": "15",
+    "CA": "14+"
+  }
 }

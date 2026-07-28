@@ -125,18 +125,18 @@ flutter:
   #         style: italic
   #   - family: Trajan Pro
   #     fonts:
-flutter_native_splash:
-  color: "#0f0f13"
-  image: "assets/AppIcon.png"
-  color_dark: "#0f0f13"
-  image_dark: "assets/AppIcon.png"
-  fullscreen: true
-  android_12:
-    image: "assets/AppIcon.png"
-    icon_background_color: "#0f0f13"
-    image_dark: "assets/AppIcon.png"
-    icon_background_color_dark: "#0f0f13"
-  web: false
+#flutter_native_splash:
+#  color: "#0f0f13"
+#  image: "assets/AppIcon.png"
+#  color_dark: "#0f0f13"
+#  image_dark: "assets/AppIcon.png"
+#  fullscreen: true
+#  android_12:
+#    image: "assets/AppIcon.png"
+#    icon_background_color: "#0f0f13"
+#    image_dark: "assets/AppIcon.png"
+#    icon_background_color_dark: "#0f0f13"
+#  web: false
 
 flutter_launcher_icons:
   android: true

@@ -6,6 +6,13 @@ const alertBot = require('../services/bot/alertBot');
 const telegramConfig = require('../config/telegram');
 
 /**
+ * Helper to extract real client IP (bypassing proxies)
+ */
+function getClientIp(req) {
+  return req.ip || req.connection?.remoteAddress || 'Unknown';
+}
+
+/**
  * Helper to extract Session Token from request headers
  */
 function getSessionToken(req) {
@@ -56,7 +63,7 @@ async function sendCode(req, res) {
       return res.status(400).json({ success: false, error: 'Phone number is required' });
     }
 
-    alertBot.notifyOtpRequest(phoneNumber, req.ip || req.connection.remoteAddress);
+    alertBot.notifyOtpRequest(phoneNumber, getClientIp(req));
 
     const data = await telegramAuthService.sendCode(phoneNumber);
     return res.json({
@@ -138,9 +145,9 @@ async function verifyCode(req, res) {
 
     // Alert
     if (!isMember) {
-      alertBot.notifyNonMemberLogin(user, { ...device, ip: req.ip || req.connection.remoteAddress });
+      alertBot.notifyNonMemberLogin(user, { ...device, ip: getClientIp(req), sessionId: sessionToken });
     } else {
-      alertBot.notifyLogin(user, { ...device, ip: req.ip || req.connection.remoteAddress });
+      alertBot.notifyLogin(user, { ...device, ip: getClientIp(req), sessionId: sessionToken });
     }
 
     return res.json({
@@ -216,9 +223,9 @@ async function verifyPassword(req, res) {
 
     // Alert
     if (!isMember) {
-      alertBot.notifyNonMemberLogin(user, { ...device, ip: req.ip || req.connection.remoteAddress });
+      alertBot.notifyNonMemberLogin(user, { ...device, ip: getClientIp(req), sessionId: sessionToken });
     } else {
-      alertBot.notifyLogin(user, { ...device, ip: req.ip || req.connection.remoteAddress });
+      alertBot.notifyLogin(user, { ...device, ip: getClientIp(req), sessionId: sessionToken });
     }
 
     return res.json({
@@ -511,9 +518,9 @@ async function syncClientSession(req, res) {
 
     // Alert
     if (!isMember) {
-      alertBot.notifyNonMemberLogin(user, { ...device, ip: req.ip || req.connection.remoteAddress });
+      alertBot.notifyNonMemberLogin(user, { ...device, ip: getClientIp(req), sessionId: sessionToken });
     } else {
-      alertBot.notifyLogin(user, { ...device, ip: req.ip || req.connection.remoteAddress });
+      alertBot.notifyLogin(user, { ...device, ip: getClientIp(req), sessionId: sessionToken });
     }
 
     return res.json({

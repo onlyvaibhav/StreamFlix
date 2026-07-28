@@ -119,6 +119,11 @@ class TMDBClient {
             tv: null,
             // Extended fields
             keywords: (d.keywords?.keywords || []).map(k => k.name),
+            productionCompanies: (d.production_companies || []).map(c => ({
+                id: c.id,
+                name: c.name,
+                logoPath: c.logo_path
+            })),
             collection: d.belongs_to_collection ? {
                 id: d.belongs_to_collection.id,
                 name: d.belongs_to_collection.name,
@@ -216,6 +221,11 @@ class TMDBClient {
             totalEpisodes: d.number_of_episodes || 0,
             // Extended fields show-level
             keywords: (d.keywords?.results || []).map(k => k.name),
+            productionCompanies: (d.production_companies || []).map(c => ({
+                id: c.id,
+                name: c.name,
+                logoPath: c.logo_path
+            })),
             watchProviders,
             recommendations: (d.recommendations?.results || []).slice(0, 20).map(r => r.id),
             similar: (d.similar?.results || []).slice(0, 20).map(s => s.id)
@@ -253,10 +263,22 @@ class TMDBClient {
     // ==========================================================
     async fetchCertification(type, tmdbId) {
         try {
+            let flat = null;
+            let map = {};
+            
             if (type === 'movie') {
                 const d = await this.request(`/movie/${tmdbId}/release_dates`);
                 const results = d.results || [];
                 
+                results.forEach(r => {
+                    if (r.iso_3166_1 && r.release_dates) {
+                        const cert = r.release_dates.find(rd => rd.certification !== '');
+                        if (cert) {
+                            map[r.iso_3166_1] = cert.certification;
+                        }
+                    }
+                });
+
                 // Priority: US, IN, first available
                 const us = results.find(r => r.iso_3166_1 === 'US');
                 const in_ = results.find(r => r.iso_3166_1 === 'IN');
@@ -265,23 +287,29 @@ class TMDBClient {
                 if (target && target.release_dates && target.release_dates.length > 0) {
                     // Find the first non-empty certification
                     const cert = target.release_dates.find(rd => rd.certification !== '');
-                    return cert ? cert.certification : null;
+                    flat = cert ? cert.certification : null;
                 }
             } else if (type === 'tv') {
                 const d = await this.request(`/tv/${tmdbId}/content_ratings`);
                 const results = d.results || [];
+                
+                results.forEach(r => {
+                    if (r.iso_3166_1 && r.rating) {
+                        map[r.iso_3166_1] = r.rating;
+                    }
+                });
 
                 // Priority: US, IN, first available
                 const us = results.find(r => r.iso_3166_1 === 'US');
                 const in_ = results.find(r => r.iso_3166_1 === 'IN');
                 const target = us || in_ || results[0];
 
-                return target ? target.rating : null;
+                flat = target ? target.rating : null;
             }
-            return null;
+            return { flat, map };
         } catch (err) {
             console.error(`[TMDB] Failed to fetch certification for ${type} ${tmdbId}:`, err.message);
-            return null;
+            return { flat: null, map: {} };
         }
     }
 
@@ -313,6 +341,7 @@ class TMDBClient {
             needsRetry: false,
             // Extended fields show-level
             keywords: showMeta.keywords || [],
+            productionCompanies: showMeta.productionCompanies || [],
             collection: null, // TV shows don't have collections
             watchProviders: showMeta.watchProviders || null,
             recommendations: showMeta.recommendations || [],

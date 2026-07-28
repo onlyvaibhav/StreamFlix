@@ -91,6 +91,11 @@
         "logoPath": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
       },
       {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      },
+      {
         "id": 2336,
         "name": "JioHotstar",
         "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
@@ -114,6 +119,11 @@
         "id": 2182,
         "name": "Anime Times Amazon Channel",
         "logoPath": "/p2fVhnzr0znG2KnVLmH9bjj7F0S.jpg"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/8aBqoNeGGr0oSA85iopgNZUOTOc.jpg"
       }
     ],
     "rent": [],
@@ -125,42 +135,314 @@
     95269,
     30984,
     113808,
-    60833,
     67075,
+    60833,
     208493,
-    245842,
-    71000,
     64710,
+    71000,
+    245842,
+    120155,
+    38464,
+    240411,
+    61374,
+    30980,
     194774,
     136840,
-    38464,
-    120155,
-    240411,
-    66078,
-    61374,
-    56351,
-    127532
+    127532,
+    22634
   ],
   "similar": [
-    2426,
-    2429,
-    60286,
-    206534,
-    60424,
-    30979,
-    30984,
-    30986,
-    30991,
-    30992,
-    124572,
-    124576,
-    92835,
-    302705,
-    92892,
-    2603,
-    206470,
-    206483,
-    206490,
-    60306
-  ]
+    94456,
+    94462,
+    63084,
+    63085,
+    63087,
+    63088,
+    63089,
+    63102,
+    94412,
+    94423,
+    94388,
+    94404,
+    94405,
+    63145,
+    63146,
+    63164,
+    94498,
+    208580,
+    63187,
+    63210
+  ],
+  "container": "matroska,webm",
+  "duration": 1436.66,
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "Vegamovies.To",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": true
+    },
+    {
+      "index": 1,
+      "streamIndex": 2,
+      "codec": "aac",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Vegamovies.To",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": false
+    },
+    {
+      "index": 2,
+      "streamIndex": 3,
+      "codec": "aac",
+      "language": "Japanese",
+      "languageCode": "jpn",
+      "title": "Vegamovies.To",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": false
+    }
+  ],
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 4,
+      "codec": "ass",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Vegamovies.To",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    },
+    {
+      "index": 1,
+      "streamIndex": 5,
+      "codec": "ass",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Vegamovies.To",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": true,
+      "isForced": true
+    },
+    {
+      "index": 2,
+      "streamIndex": 6,
+      "codec": "ass",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Vegamovies.To",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    }
+  ],
+  "productionCompanies": [
+    {
+      "id": 21444,
+      "name": "MAPPA",
+      "logoPath": "/wSejGn3lAZdQ5muByxvzigwyDY6.png"
+    },
+    {
+      "id": 158200,
+      "name": "Sumzap",
+      "logoPath": "/rf4ZArxPuqx5hdeU7rPIU8IQlYx.png"
+    },
+    {
+      "id": 2918,
+      "name": "Shueisha",
+      "logoPath": "/gyEWUBWwqrm3H5T2hkERD9LxpOq.png"
+    },
+    {
+      "id": 3363,
+      "name": "MBS",
+      "logoPath": "/sj3vD7n63bTCih7bcf6GnWvRf1Q.png"
+    },
+    {
+      "id": 882,
+      "name": "TOHO",
+      "logoPath": "/fRSWWjquvzcHjACbtF53utZFIll.png"
+    },
+    {
+      "id": 94,
+      "name": "MBS",
+      "logoPath": "/7RNXnyiMbjgqtPAjja13wchcrGI.png"
+    },
+    {
+      "id": 160,
+      "name": "TBS",
+      "logoPath": "/lUACMATs6jcscXIrzNCQzbvNVN5.png"
+    },
+    {
+      "id": 201,
+      "name": "CBC",
+      "logoPath": "/qNooLje0YQh1y3y9LUM2Y5QCtiF.png"
+    },
+    {
+      "id": 896,
+      "name": "Tulip Television",
+      "logoPath": "/qfUzYnpnN5bnd2bqGUH0OlAMell.png"
+    },
+    {
+      "id": 1559,
+      "name": "SBC",
+      "logoPath": "/artkCykJgOAh6lAjfrNNgANasgk.png"
+    },
+    {
+      "id": 2460,
+      "name": "BSN",
+      "logoPath": "/34sNEcsgcTAuDidRMrgxdfNyVjL.png"
+    },
+    {
+      "id": 2461,
+      "name": "tys",
+      "logoPath": "/b4Ivxqz6UY0EogjYc09Y22ctC6F.png"
+    },
+    {
+      "id": 2462,
+      "name": "NBC",
+      "logoPath": "/7zXfwh5ZhFqvdOWgWX80weU6Sqb.png"
+    },
+    {
+      "id": 3658,
+      "name": "HBC",
+      "logoPath": "/sJwRsE1lfMwAwYZi1OtRfn7V03t.png"
+    },
+    {
+      "id": 3705,
+      "name": "RKK",
+      "logoPath": "/zOgixhlAa61yUb32bsXvRtD63wI.png"
+    },
+    {
+      "id": 3969,
+      "name": "i-Television",
+      "logoPath": "/nhCsLIGjzIIp6jIFCdHN0cQEzjP.png"
+    },
+    {
+      "id": 3970,
+      "name": "SBS",
+      "logoPath": "/9coKtCf4jSNCdSqGveVFyzvjrZt.png"
+    },
+    {
+      "id": 3971,
+      "name": "IBC",
+      "logoPath": "/6bhZ2SWdYTbSTQf8Bhmf1q0aBef.png"
+    },
+    {
+      "id": 3972,
+      "name": "BSS",
+      "logoPath": "/rL2IlndcEiQnIbym5EoSEM7rGlx.png"
+    },
+    {
+      "id": 3973,
+      "name": "MRO",
+      "logoPath": "/dh4E8hGvqD9Xqu51kbqUU06UKbt.png"
+    },
+    {
+      "id": 3974,
+      "name": "OBS",
+      "logoPath": "/yMQxsmGs88q54bslmcSeXlmpObC.png"
+    },
+    {
+      "id": 3975,
+      "name": "TUF",
+      "logoPath": "/6ACZlk44MWsIIwYHxjRGXGKlpRb.png"
+    },
+    {
+      "id": 3977,
+      "name": "RSK",
+      "logoPath": "/sGMMrdCmptaLLwJX7CsXTDaduLO.png"
+    },
+    {
+      "id": 3978,
+      "name": "TUY",
+      "logoPath": "/zOz9LK6WWLUWGuG0fthzDzCIXlA.png"
+    },
+    {
+      "id": 3979,
+      "name": "tbc",
+      "logoPath": "/yWlWHPUn6FHjNUulL1vp8croYFw.png"
+    },
+    {
+      "id": 4748,
+      "name": "RKB",
+      "logoPath": "/o5Hlt7ZXJPEm4Qrx2Pl2rtc9A5y.png"
+    },
+    {
+      "id": 4792,
+      "name": "KUTV",
+      "logoPath": "/8kzeHaKeW3gZubs3cqlGWFvfJI7.png"
+    },
+    {
+      "id": 4859,
+      "name": "RBC",
+      "logoPath": "/6jr76BpIItwLV5oKbZmRJsVh3c6.png"
+    },
+    {
+      "id": 6171,
+      "name": "UTY",
+      "logoPath": "/ekXN1cfYutjLfudy1MKyGzNynEa.png"
+    },
+    {
+      "id": 6172,
+      "name": "RCC",
+      "logoPath": "/mKslL0MTHHt9ukugWOv3Vh8Tn0E.png"
+    },
+    {
+      "id": 6173,
+      "name": "MRT",
+      "logoPath": "/YfewT1YYtAqkgvdu8oCX4mnJCs.png"
+    },
+    {
+      "id": 6174,
+      "name": "ATV",
+      "logoPath": "/aawphEBuBGT9RVP6xG3BZV8NOCw.png"
+    },
+    {
+      "id": 6175,
+      "name": "MBC",
+      "logoPath": "/iaaU6q82URj2mBbjQIbfAMUz14J.png"
+    }
+  ],
+  "certifications": {
+    "AU": "MA 15+",
+    "FR": "16",
+    "BR": "16",
+    "DE": "16",
+    "IN": "U/A 16+",
+    "SG": "M18",
+    "KR": "15",
+    "ES": "16",
+    "ID": "R",
+    "US": "TV-14",
+    "AT": "14",
+    "IE": "15",
+    "PL": "16",
+    "HU": "16",
+    "CZ": "15+",
+    "RO": "15",
+    "GB": "15",
+    "NL": "12",
+    "TW": "15+",
+    "AR": "SAM 16",
+    "BE": "12"
+  },
+  "certification": "TV-14"
 }

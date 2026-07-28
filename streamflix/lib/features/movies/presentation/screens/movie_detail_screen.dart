@@ -13,7 +13,7 @@ import 'package:streamflix/features/movies/presentation/widgets/more_like_this_s
 import 'package:streamflix/features/shared/presentation/widgets/shimmer_loading.dart';
 
 /// Full-screen movie detail page
-class MovieDetailScreen extends ConsumerWidget {
+class MovieDetailScreen extends ConsumerStatefulWidget {
   final String movieId;
 
   const MovieDetailScreen({
@@ -22,8 +22,27 @@ class MovieDetailScreen extends ConsumerWidget {
   });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final movieAsync = ref.watch(movieDetailProvider(movieId));
+  ConsumerState<MovieDetailScreen> createState() => _MovieDetailScreenState();
+}
+
+class _MovieDetailScreenState extends ConsumerState<MovieDetailScreen> {
+  late final ScrollController _scrollController;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final movieAsync = ref.watch(movieDetailProvider(widget.movieId));
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -35,10 +54,11 @@ class MovieDetailScreen extends ConsumerWidget {
         ),
         error: (error, stack) => AppErrorWidget(
           error: error,
-          onRetry: () => ref.invalidate(movieDetailProvider(movieId)),
+          onRetry: () => ref.invalidate(movieDetailProvider(widget.movieId)),
         ),
         data: (movie) {
           return CustomScrollView(
+            controller: _scrollController,
             slivers: [
               // Backdrop header with gradient
               SliverAppBar(

@@ -116,14 +116,18 @@
     "trapped",
     "cynical",
     "folk horror",
+    "complex",
     "supernatural horror",
     "lovecraftian",
     "suspense",
+    "absurd",
     "violence",
     "horror",
+    "depressing",
     "apathetic",
-    "complicated",
-    "cruel"
+    "cliché",
+    "cruel",
+    "pretentious"
   ],
   "collection": null,
   "watchProviders": {
@@ -145,46 +149,107 @@
   },
   "recommendations": [
     66732,
-    68315,
     10545,
+    68315,
+    120462,
     71116,
-    84647,
-    93826,
-    247721,
     1920,
     86423,
-    3470,
-    120462,
-    12832,
-    79240,
     82816,
+    3470,
+    12832,
+    247721,
     93784,
-    53425,
+    84647,
+    79240,
     54344,
+    53425,
+    1402,
+    50825,
     39351,
-    80213,
-    83659
+    253372
   ],
   "similar": [
-    105555,
-    219661,
-    42329,
-    13915,
-    13916,
-    42460,
-    137408,
-    137417,
-    13989,
-    73467,
-    249527,
-    42390,
-    73699,
-    249617,
-    73501,
-    73586,
-    42282,
-    42671,
-    249812,
-    249748
-  ]
+    52,
+    205,
+    206,
+    156,
+    271802,
+    318,
+    424,
+    365,
+    90257,
+    122235,
+    90296,
+    90181,
+    90462,
+    90464,
+    90399,
+    90571,
+    272055,
+    750,
+    764,
+    300999
+  ],
+  "productionCompanies": [
+    {
+      "id": 106544,
+      "name": "AGBO",
+      "logoPath": "/psd84iF7PTGrKf4yFOStKj8JbAh.png"
+    },
+    {
+      "id": 51593,
+      "name": "Midnight Radio",
+      "logoPath": "/qkmCZvtCAbNmRto9RdOd2mRm1IB.png"
+    },
+    {
+      "id": 6805,
+      "name": "Epix",
+      "logoPath": "/4774MDXAu1vsapNyTv1LK3S5Ww1.png"
+    },
+    {
+      "id": 2230,
+      "name": "MGM Television",
+      "logoPath": "/igOjospzsKQIbpuFCGhoN5F9icS.png"
+    },
+    {
+      "id": 190164,
+      "name": "MGM+ Studios",
+      "logoPath": "/1ZjUvqLGbp5vUcY235LAvQyI6N3.png"
+    },
+    {
+      "id": 922,
+      "name": "Epix",
+      "logoPath": "/9aH86hGHVQfvhAqrDRv1EINoxua.png"
+    },
+    {
+      "id": 6219,
+      "name": "MGM+",
+      "logoPath": "/4umnsbif8tOc6ILCmeO0pqRXWFP.png"
+    }
+  ],
+  "certifications": {
+    "US": "TV-MA",
+    "KR": "19",
+    "BR": "18",
+    "DE": "18",
+    "ES": "18",
+    "AU": "MA 15+",
+    "SE": "Från 15 år",
+    "GB": "18",
+    "NO": "15",
+    "NL": "16",
+    "IE": "18",
+    "PL": "18",
+    "HU": "16",
+    "CZ": "18+",
+    "RO": "15",
+    "PT": "16",
+    "FI": "K16",
+    "CA": "18+",
+    "RU": "18+",
+    "TR": "18+",
+    "TW": "15+",
+    "SG": "R21"
+  }
 }

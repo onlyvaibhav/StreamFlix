@@ -173,5 +173,61 @@
     1577,
     1654,
     1694
-  ]
+  ],
+  "productionCompanies": [
+    {
+      "id": 1302,
+      "name": "Davis Entertainment"
+    },
+    {
+      "id": 415,
+      "name": "Laurence Mark Productions"
+    },
+    {
+      "id": 19355,
+      "name": "Canlaws Productions"
+    },
+    {
+      "id": 25,
+      "name": "20th Century Fox"
+    },
+    {
+      "id": 907,
+      "name": "Overbrook Entertainment"
+    },
+    {
+      "id": 909,
+      "name": "Mediastream Vierte Film"
+    }
+  ],
+  "certifications": {
+    "AU": "M",
+    "BE": "16",
+    "BR": "10",
+    "CA": "PG",
+    "CH": "12",
+    "CZ": "15+",
+    "DE": "12",
+    "DK": "15",
+    "FI": "K-12",
+    "FR": "TP",
+    "GB": "12A",
+    "GR": "13",
+    "HU": "12",
+    "IE": "12",
+    "IT": "T",
+    "KR": "12",
+    "LT": "N-7",
+    "MX": "B",
+    "NL": "12",
+    "NO": "11 År",
+    "PL": "16",
+    "PT": "M/12",
+    "RO": "12",
+    "RU": "12+",
+    "SE": "11",
+    "TW": "普遍級",
+    "US": "PG-13"
+  },
+  "certification": "PG-13"
 }

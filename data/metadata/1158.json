@@ -1,0 +1,214 @@
+{
+  "fileId": "1158",
+  "fileName": "Chernobyl_S01E01_1_23_45_720p_x264_BluRay_Hindi_English_Esubs_Vegamovies.mkv",
+  "type": "tv",
+  "title": "Chernobyl",
+  "originalTitle": "Chernobyl",
+  "overview": "The true story of one of the worst man-made catastrophes in history: the catastrophic nuclear accident at Chernobyl. A tale of the brave men and women who sacrificed to save Europe from unimaginable disaster.",
+  "releaseDate": "2019-05-06",
+  "year": 2019,
+  "runtime": 61,
+  "genres": [
+    "Drama"
+  ],
+  "rating": 8.718,
+  "popularity": 32.9536,
+  "awards": "Won 10 Primetime Emmys. 87 wins & 60 nominations total",
+  "poster": "/data/posters/show_87108.jpg",
+  "backdrop": "/data/backdrops/show_87108_bd.jpg",
+  "tmdbId": 87108,
+  "fetchedAt": "2026-07-25T08:13:31.216Z",
+  "needsRetry": false,
+  "keywords": [
+    "based on true story",
+    "disaster",
+    "miniseries",
+    "nuclear catastrophe",
+    "1980s",
+    "chernobyl, ukraine"
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/tv/87108-chernobyl/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 2336,
+        "name": "JioHotstar",
+        "logoPath": "/kVqjgpcwvDJOhCupjcLzwwtOp52.jpg"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    244321,
+    232342,
+    138169,
+    90972,
+    248416,
+    48866,
+    199001,
+    223313,
+    109958,
+    73607,
+    87049,
+    67384,
+    72787,
+    211288,
+    156820,
+    54344,
+    197434,
+    80213,
+    62560,
+    225634
+  ],
+  "similar": [
+    27848,
+    90,
+    235,
+    260,
+    232,
+    57447,
+    27945,
+    122196,
+    28208,
+    28330,
+    28293,
+    235571,
+    28379,
+    301283,
+    301284,
+    57857,
+    28140,
+    28196,
+    28159,
+    352
+  ],
+  "tv": {
+    "showTitle": "Chernobyl",
+    "originalShowTitle": "Chernobyl",
+    "seasonNumber": 1,
+    "episodeNumber": 1,
+    "episodeTitle": "1:23:45",
+    "episodeOverview": "April 26, 1986, Ukrainian SSR. Plant workers and firefighters put their lives on the line to control a catastrophic 1986 explosion at a Soviet nuclear power plant.",
+    "showTmdbId": 87108,
+    "episodeRuntime": 61,
+    "totalSeasons": 1,
+    "totalEpisodes": 5
+  },
+  "_stillPath": "/thaMHLz5l6TVL8R4EzaBkjn2EZA.jpg",
+  "audioCodec": "aac",
+  "browserPlayable": true,
+  "_tracksDetected": true,
+  "metadataStatus": "COMPLETE",
+  "logo": "/data/logos/show_87108_logo.png",
+  "productionCompanies": [
+    {
+      "id": 112447,
+      "name": "SISTER",
+      "logoPath": "/kL6jD0jB836NqSfBusvjmYX1wAB.png"
+    },
+    {
+      "id": 115241,
+      "name": "The Mighty Mint",
+      "logoPath": null
+    },
+    {
+      "id": 119645,
+      "name": "Word Games",
+      "logoPath": null
+    },
+    {
+      "id": 3268,
+      "name": "HBO",
+      "logoPath": "/tuomPhY2UtuPTqqFnKMVHvSb724.png"
+    },
+    {
+      "id": 49,
+      "name": "HBO",
+      "logoPath": "/tuomPhY2UtuPTqqFnKMVHvSb724.png"
+    }
+  ],
+  "certifications": {
+    "US": "TV-MA",
+    "AU": "MA 15+",
+    "DE": "16",
+    "KR": "15",
+    "GB": "15",
+    "BR": "16",
+    "NL": "12",
+    "PT": "18",
+    "ES": "18",
+    "SG": "M18",
+    "MX": "B-15",
+    "AR": "SAM 18",
+    "CA": "14+",
+    "DK": "15",
+    "FI": "K16",
+    "FR": "12",
+    "HU": "18",
+    "IN": "U/A 16+",
+    "IT": "VM12",
+    "MY": "P13",
+    "NZ": "M",
+    "NO": "15",
+    "PL": "18",
+    "RU": "18+",
+    "ZA": "16",
+    "SE": "Från 15 år",
+    "LT": "S",
+    "TR": "18+",
+    "AT": "16",
+    "IE": "15",
+    "CH": "16",
+    "CZ": "18+",
+    "RO": "18",
+    "BE": "12",
+    "SK": "15",
+    "UA": "18+"
+  },
+  "certification": "TV-MA",
+  "container": "matroska,webm",
+  "duration": 3536.221,
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "aac",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "Vegamovies.To",
+      "channels": 2,
+      "channelLayout": "stereo",
+      "browserPlayable": true,
+      "isDefault": true
+    },
+    {
+      "index": 1,
+      "streamIndex": 2,
+      "codec": "aac",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Vegamovies.To",
+      "channels": 6,
+      "channelLayout": "5.1",
+      "browserPlayable": true,
+      "isDefault": false
+    }
+  ],
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 3,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": true,
+      "isForced": false
+    }
+  ]
+}

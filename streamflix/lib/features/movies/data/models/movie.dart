@@ -6,18 +6,26 @@ import 'package:streamflix/features/movies/data/models/split_part.dart';
 part 'movie.freezed.dart';
 part 'movie.g.dart';
 
-Object? _readId(Map json, String key) {
-  return json['id'] ?? json['fileId'] ?? json['tmdbId']?.toString();
+Object _readId(Map json, String key) {
+  final val = json['id'] ?? json['fileId'] ?? json['tmdbId']?.toString() ?? json['showTmdbId']?.toString();
+  if (val != null && val.toString().trim().isNotEmpty) {
+    return val.toString();
+  }
+  return 'item_${json.hashCode}';
 }
 
-Object? _readTitle(Map json, String key) {
+Object _readTitle(Map json, String key) {
   if (json['tv'] != null && json['tv'] is Map) {
     final tvMap = json['tv'] as Map;
     if (tvMap['episodeTitle'] != null && tvMap['episodeTitle'].toString().trim().isNotEmpty) {
-      return tvMap['episodeTitle'];
+      return tvMap['episodeTitle'].toString();
     }
   }
-  return json['title'] ?? json['episodeTitle'] ?? json['fileName'] ?? 'Unknown Item';
+  final val = json['title'] ?? json['showTitle'] ?? json['episodeTitle'] ?? json['fileName'] ?? json['name'];
+  if (val != null && val.toString().trim().isNotEmpty) {
+    return val.toString();
+  }
+  return 'Untitled';
 }
 
 Object? _readOverview(Map json, String key) {
@@ -38,10 +46,24 @@ Object? _readDateFormatted(Map json, String key) {
   return json['dateFormatted'] ?? json['releaseDate'] ?? json['airDate'] ?? json['tv']?['airDate'];
 }
 
+Object? _readSeasonNumber(Map json, String key) {
+  return json['seasonNumber'] ?? json['tv']?['seasonNumber'];
+}
+
+Object? _readEpisodeNumber(Map json, String key) {
+  return json['episodeNumber'] ?? json['tv']?['episodeNumber'];
+}
+
+Object? _readEpisodeStill(Map json, String key) {
+  return json['episode_still'] ?? json['episodeStill'] ?? json['thumbnail'] ?? json['still_path'] ?? json['stillPath'] ?? json['_stillPath'];
+}
+
 @freezed
 sealed class Movie with _$Movie {
   const factory Movie({
     @JsonKey(readValue: _readId) required String id,
+    String? fileId,
+    int? maxFileId,
     int? messageId,
     @JsonKey(readValue: _readTitle) required String title,
     String? fileName,
@@ -67,13 +89,15 @@ sealed class Movie with _$Movie {
     @JsonKey(readValue: _readPoster) String? poster,
     String? backdrop,
     String? logo,
+    String? providerLogo,
     int? tmdbId,
     String? awards,
     String? certification,
     
     // TV Flat Fields
-    int? seasonNumber,
-    int? episodeNumber,
+    @JsonKey(readValue: _readSeasonNumber) int? seasonNumber,
+    @JsonKey(readValue: _readEpisodeNumber) int? episodeNumber,
+
     
     // Grouping metadata
     TvShowInfo? tv,
@@ -83,7 +107,7 @@ sealed class Movie with _$Movie {
     List<SplitPart>? parts,
     
     // Episode specific metadata
-    @JsonKey(name: 'episode_still') String? episodeStill,
+    @JsonKey(readValue: _readEpisodeStill) String? episodeStill,
   }) = _Movie;
 
   factory Movie.fromJson(Map<String, dynamic> json) => _$MovieFromJson(json);
@@ -111,11 +135,25 @@ extension MovieX on Movie {
     return logo;
   }
 
+  /// Full provider logo URL
+  String? get fullProviderLogoUrl {
+    if (providerLogo == null) return null;
+    if (providerLogo!.startsWith('http')) return providerLogo;
+    return providerLogo; // AppImage wrapper handles prefixing the baseUrl
+  }
+
   /// Full episode still URL
   String? get fullEpisodeStillUrl {
     if (episodeStill == null) return null;
     if (episodeStill!.startsWith('http')) return episodeStill;
-    return episodeStill; // AppImage wrapper handles prefixing the baseUrl
+    if (episodeStill!.startsWith('/api/')) return episodeStill; // AppImage wrapper handles prefixing the baseUrl
+    
+    // If it's a raw TMDB path (like _stillPath), prepend TMDB base url!
+    if (episodeStill!.startsWith('/')) {
+       return 'https://image.tmdb.org/t/p/w300$episodeStill';
+    }
+    
+    return episodeStill;
   }
 
   /// Release year extracted from release_date

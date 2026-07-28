@@ -318,3 +318,123 @@ exports.getCacheStats = async (req, res) => {
     res.status(500).json({ error: 'Failed to get cache stats' });
   }
 };
+
+const tmdbResolver = require('../services/tmdbResolver');
+const fs = require('fs').promises;
+const path = require('path');
+
+exports.getMoreLikeThisMovie = async (req, res) => {
+    try {
+        const { id: fileId } = req.params;
+        const metaPath = path.join(__dirname, '../data/metadata', `${fileId}.json`);
+        
+        let meta;
+        try {
+            const raw = await fs.readFile(metaPath, 'utf-8');
+            meta = JSON.parse(raw);
+        } catch (e) {
+            return res.status(404).json({ error: 'Metadata not found' });
+        }
+        
+        let results = [];
+        
+        let collectionData = null;
+        
+        // 1. Collection Matches (Prioritized)
+        if (meta.collection && meta.collection.id) {
+            const collectionItems = await tmdbResolver.getCollectionRecommendations(meta);
+            
+            // For the general "Because you watched" row, we can still include them
+            results = [...collectionItems];
+            
+            // But we also pass the separate collection row data so frontend can build a dedicated row
+            if (collectionItems.length > 0) {
+                const collectionNames = require('../config/collectionNames');
+                const displayName = collectionNames[meta.collection.name] || collectionNames[meta.collection.id] || meta.collection.name;
+                
+                // Add the current movie back into the collection row to make it complete
+                const index = await tmdbResolver.getIndex();
+                const currentEntry = index.get(meta.tmdbId);
+                const fullCollection = currentEntry ? [currentEntry, ...collectionItems] : collectionItems;
+                fullCollection.sort((a, b) => (a.year || 0) - (b.year || 0));
+
+                collectionData = {
+                    title: displayName,
+                    items: fullCollection 
+                };
+            }
+        }
+        
+        // 2. TMDB Recommendations & Similar
+        if (results.length < 50) {
+            const recs = meta.recommendations || [];
+            const sim = meta.similar || [];
+            const combined = [...new Set([...recs, ...sim])];
+            
+            const tmdbMatches = await tmdbResolver.resolveTmdbIds(combined, meta.tmdbId);
+            
+            for (const match of tmdbMatches) {
+                if (!results.find(r => r.fileId === match.fileId)) {
+                    results.push(match);
+                }
+                if (results.length >= 50) break;
+            }
+        }
+        
+        // 3. Fallback Genres and Keywords
+        if (results.length < 50) {
+            const fallbacks = await tmdbResolver.getFallbackRecommendations(meta, 50 - results.length);
+            for (const match of fallbacks) {
+                if (!results.find(r => r.fileId === match.fileId)) {
+                    results.push(match);
+                }
+            }
+        }
+        
+        res.json({ success: true, results });
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to fetch recommendations', message: error.message });
+    }
+};
+
+exports.getMoreLikeThisTV = async (req, res) => {
+    try {
+        const { id: showTmdbId } = req.params;
+        const index = await tmdbResolver.getIndex();
+        const entry = index.get(Number(showTmdbId));
+        
+        if (!entry || !entry.originalFileId) {
+             return res.status(404).json({ error: 'TV Show not found in library' });
+        }
+        
+        const metaPath = path.join(__dirname, '../data/metadata', `${entry.originalFileId}.json`);
+        let meta;
+        try {
+            const raw = await fs.readFile(metaPath, 'utf-8');
+            meta = JSON.parse(raw);
+        } catch (e) {
+            return res.status(404).json({ error: 'Metadata not found' });
+        }
+        
+        const recs = meta.recommendations || [];
+        const sim = meta.similar || [];
+        const combined = [...new Set([...recs, ...sim])];
+        
+        let results = await tmdbResolver.resolveTmdbIds(combined, meta.tmdbId);
+        
+        if (results.length < 50) {
+            const fallbacks = await tmdbResolver.getFallbackRecommendations(meta, 50 - results.length);
+            for (const match of fallbacks) {
+                if (!results.find(r => r.fileId === match.fileId)) {
+                    results.push(match);
+                }
+            }
+        }
+        
+        results = results.slice(0, 50);
+        
+        res.json({ success: true, results });
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to fetch TV recommendations', message: error.message });
+    }
+};

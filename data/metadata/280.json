@@ -90,26 +90,41 @@
     "buy": []
   },
   "recommendations": [
-    223438,
     3828,
     3216,
-    134375,
+    223438,
     1059,
     254071,
     132117,
-    138181,
     6127,
+    134375,
     214259,
     95004,
+    218346,
     925,
-    120835,
+    138181,
     32692,
-    2072,
-    157409,
     790,
-    72743,
+    2072,
+    3572,
     21728,
-    120317
+    2751,
+    2774
   ],
-  "similar": []
+  "similar": [],
+  "productionCompanies": [
+    {
+      "id": 123348,
+      "name": "BBC Studios India",
+      "logoPath": "/enAjeGPTtVw8pt7HSzZYBXPfbOY.png"
+    },
+    {
+      "id": 4008,
+      "name": "JioCinema",
+      "logoPath": "/ghgjUR2vs2wIHziqCrtoHDf4rrK.png"
+    }
+  ],
+  "certifications": {
+    "IN": "U/A 13+"
+  }
 }

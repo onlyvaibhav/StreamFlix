@@ -825,7 +825,7 @@ as Map<String, List<Movie>>,
 /// @nodoc
 mixin _$CuratedHomepage {
 
- List<Movie> get hero; List<Movie> get trending;@JsonKey(name: 'recently_added') List<Movie> get recentlyAdded;@JsonKey(name: 'top_rated') List<Movie> get topRated; Map<String, List<Movie>> get rows;
+ List<Movie> get hero; List<Movie> get trending;@JsonKey(name: 'recently_added') List<Movie> get recentlyAdded;@JsonKey(name: 'top_rated') List<Movie> get topRated; Map<String, CuratedRow> get rows;
 /// Create a copy of CuratedHomepage
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -858,7 +858,7 @@ abstract mixin class $CuratedHomepageCopyWith<$Res>  {
   factory $CuratedHomepageCopyWith(CuratedHomepage value, $Res Function(CuratedHomepage) _then) = _$CuratedHomepageCopyWithImpl;
 @useResult
 $Res call({
- List<Movie> hero, List<Movie> trending,@JsonKey(name: 'recently_added') List<Movie> recentlyAdded,@JsonKey(name: 'top_rated') List<Movie> topRated, Map<String, List<Movie>> rows
+ List<Movie> hero, List<Movie> trending,@JsonKey(name: 'recently_added') List<Movie> recentlyAdded,@JsonKey(name: 'top_rated') List<Movie> topRated, Map<String, CuratedRow> rows
 });
 
 
@@ -882,7 +882,7 @@ as List<Movie>,trending: null == trending ? _self.trending : trending // ignore:
 as List<Movie>,recentlyAdded: null == recentlyAdded ? _self.recentlyAdded : recentlyAdded // ignore: cast_nullable_to_non_nullable
 as List<Movie>,topRated: null == topRated ? _self.topRated : topRated // ignore: cast_nullable_to_non_nullable
 as List<Movie>,rows: null == rows ? _self.rows : rows // ignore: cast_nullable_to_non_nullable
-as Map<String, List<Movie>>,
+as Map<String, CuratedRow>,
   ));
 }
 
@@ -964,7 +964,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<Movie> hero,  List<Movie> trending, @JsonKey(name: 'recently_added')  List<Movie> recentlyAdded, @JsonKey(name: 'top_rated')  List<Movie> topRated,  Map<String, List<Movie>> rows)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<Movie> hero,  List<Movie> trending, @JsonKey(name: 'recently_added')  List<Movie> recentlyAdded, @JsonKey(name: 'top_rated')  List<Movie> topRated,  Map<String, CuratedRow> rows)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CuratedHomepage() when $default != null:
 return $default(_that.hero,_that.trending,_that.recentlyAdded,_that.topRated,_that.rows);case _:
@@ -985,7 +985,7 @@ return $default(_that.hero,_that.trending,_that.recentlyAdded,_that.topRated,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<Movie> hero,  List<Movie> trending, @JsonKey(name: 'recently_added')  List<Movie> recentlyAdded, @JsonKey(name: 'top_rated')  List<Movie> topRated,  Map<String, List<Movie>> rows)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<Movie> hero,  List<Movie> trending, @JsonKey(name: 'recently_added')  List<Movie> recentlyAdded, @JsonKey(name: 'top_rated')  List<Movie> topRated,  Map<String, CuratedRow> rows)  $default,) {final _that = this;
 switch (_that) {
 case _CuratedHomepage():
 return $default(_that.hero,_that.trending,_that.recentlyAdded,_that.topRated,_that.rows);}
@@ -1002,7 +1002,7 @@ return $default(_that.hero,_that.trending,_that.recentlyAdded,_that.topRated,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<Movie> hero,  List<Movie> trending, @JsonKey(name: 'recently_added')  List<Movie> recentlyAdded, @JsonKey(name: 'top_rated')  List<Movie> topRated,  Map<String, List<Movie>> rows)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<Movie> hero,  List<Movie> trending, @JsonKey(name: 'recently_added')  List<Movie> recentlyAdded, @JsonKey(name: 'top_rated')  List<Movie> topRated,  Map<String, CuratedRow> rows)?  $default,) {final _that = this;
 switch (_that) {
 case _CuratedHomepage() when $default != null:
 return $default(_that.hero,_that.trending,_that.recentlyAdded,_that.topRated,_that.rows);case _:
@@ -1017,7 +1017,7 @@ return $default(_that.hero,_that.trending,_that.recentlyAdded,_that.topRated,_th
 @JsonSerializable()
 
 class _CuratedHomepage implements CuratedHomepage {
-  const _CuratedHomepage({required final  List<Movie> hero, required final  List<Movie> trending, @JsonKey(name: 'recently_added') required final  List<Movie> recentlyAdded, @JsonKey(name: 'top_rated') required final  List<Movie> topRated, required final  Map<String, List<Movie>> rows}): _hero = hero,_trending = trending,_recentlyAdded = recentlyAdded,_topRated = topRated,_rows = rows;
+  const _CuratedHomepage({required final  List<Movie> hero, required final  List<Movie> trending, @JsonKey(name: 'recently_added') required final  List<Movie> recentlyAdded, @JsonKey(name: 'top_rated') required final  List<Movie> topRated, required final  Map<String, CuratedRow> rows}): _hero = hero,_trending = trending,_recentlyAdded = recentlyAdded,_topRated = topRated,_rows = rows;
   factory _CuratedHomepage.fromJson(Map<String, dynamic> json) => _$CuratedHomepageFromJson(json);
 
  final  List<Movie> _hero;
@@ -1048,8 +1048,8 @@ class _CuratedHomepage implements CuratedHomepage {
   return EqualUnmodifiableListView(_topRated);
 }
 
- final  Map<String, List<Movie>> _rows;
-@override Map<String, List<Movie>> get rows {
+ final  Map<String, CuratedRow> _rows;
+@override Map<String, CuratedRow> get rows {
   if (_rows is EqualUnmodifiableMapView) return _rows;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableMapView(_rows);
@@ -1089,7 +1089,7 @@ abstract mixin class _$CuratedHomepageCopyWith<$Res> implements $CuratedHomepage
   factory _$CuratedHomepageCopyWith(_CuratedHomepage value, $Res Function(_CuratedHomepage) _then) = __$CuratedHomepageCopyWithImpl;
 @override @useResult
 $Res call({
- List<Movie> hero, List<Movie> trending,@JsonKey(name: 'recently_added') List<Movie> recentlyAdded,@JsonKey(name: 'top_rated') List<Movie> topRated, Map<String, List<Movie>> rows
+ List<Movie> hero, List<Movie> trending,@JsonKey(name: 'recently_added') List<Movie> recentlyAdded,@JsonKey(name: 'top_rated') List<Movie> topRated, Map<String, CuratedRow> rows
 });
 
 
@@ -1113,7 +1113,7 @@ as List<Movie>,trending: null == trending ? _self._trending : trending // ignore
 as List<Movie>,recentlyAdded: null == recentlyAdded ? _self._recentlyAdded : recentlyAdded // ignore: cast_nullable_to_non_nullable
 as List<Movie>,topRated: null == topRated ? _self._topRated : topRated // ignore: cast_nullable_to_non_nullable
 as List<Movie>,rows: null == rows ? _self._rows : rows // ignore: cast_nullable_to_non_nullable
-as Map<String, List<Movie>>,
+as Map<String, CuratedRow>,
   ));
 }
 

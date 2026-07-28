@@ -102,7 +102,10 @@
     "dark comedy",
     "spin off",
     "super power",
-    "college student"
+    "college student",
+    "absurd",
+    "depressing",
+    "cliché"
   ],
   "collection": null,
   "watchProviders": {
@@ -126,44 +129,121 @@
     75450,
     71663,
     66190,
+    88987,
     62643,
     1403,
     71340,
     195868,
-    158141,
-    93484,
-    75006,
     67195,
-    60708,
-    1639,
+    75006,
     62126,
-    88987,
+    60708,
+    158141,
+    1639,
+    93484,
     79788,
-    60735,
-    194583,
+    38472,
+    61889,
     63210,
-    61889
+    95557
   ],
   "similar": [
-    1794,
-    91885,
-    59427,
-    123542,
-    205285,
-    59150,
-    91613,
-    91656,
-    205335,
-    1639,
-    1550,
-    1570,
-    1578,
-    123670,
-    1618,
-    1620,
-    1487,
-    123496,
-    1771,
-    91801
-  ]
+    89,
+    196,
+    203,
+    205,
+    216,
+    236,
+    237,
+    131,
+    132,
+    160,
+    184,
+    186,
+    57564,
+    57577,
+    90257,
+    122369,
+    90024,
+    122424,
+    90260,
+    204099
+  ],
+  "productionCompanies": [
+    {
+      "id": 11073,
+      "name": "Sony Pictures Television",
+      "logoPath": "/wHs44fktdoj6c378ZbSWfzKsM2Z.png"
+    },
+    {
+      "id": 20580,
+      "name": "Amazon Studios",
+      "logoPath": "/oRR9EXVoKP9szDkVKlze5HVJS7g.png"
+    },
+    {
+      "id": 38398,
+      "name": "Kripke Enterprises",
+      "logoPath": null
+    },
+    {
+      "id": 16615,
+      "name": "Point Grey Pictures",
+      "logoPath": "/5au3v0r2brGaegO9EQ0nodLkmQ1.png"
+    },
+    {
+      "id": 333,
+      "name": "Original Film",
+      "logoPath": "/5xUJfzPZ8jWJUDzYtIeuPO4qPIa.png"
+    },
+    {
+      "id": 92828,
+      "name": "Fazekas & Butters",
+      "logoPath": null
+    },
+    {
+      "id": 2526,
+      "name": "Kickstart Entertainment",
+      "logoPath": "/kzIW6QWhacDwzGoXEIWhac8rb70.png"
+    },
+    {
+      "id": 33728,
+      "name": "Nightsky Productions",
+      "logoPath": null
+    },
+    {
+      "id": 210099,
+      "name": "Amazon MGM Studios",
+      "logoPath": "/g5oRCNCi8kNVb8gEoSoIcqkhjmR.png"
+    },
+    {
+      "id": 1024,
+      "name": "Prime Video",
+      "logoPath": "/w7HfLNm9CWwRmAMU58udl2L7We7.png"
+    }
+  ],
+  "certifications": {
+    "US": "TV-MA",
+    "PR": "TV-MA",
+    "NL": "16",
+    "DE": "18",
+    "GB": "18",
+    "BR": "18",
+    "MX": "C",
+    "IL": "18+",
+    "SG": "R21",
+    "ES": "18",
+    "RO": "18",
+    "AU": "R 18+",
+    "DK": "15",
+    "FI": "K18",
+    "NO": "18",
+    "SE": "Från 15 år",
+    "BE": "18",
+    "CA": "18+",
+    "RU": "18+",
+    "UA": "18+",
+    "TR": "18+",
+    "NZ": "18",
+    "KR": "19"
+  }
 }

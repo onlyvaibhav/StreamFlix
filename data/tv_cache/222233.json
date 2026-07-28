@@ -1,0 +1,167 @@
+{
+  "showTmdbId": 222233,
+  "showTitle": "Doctor Slump",
+  "overview": "Once rivals in school, two brilliant doctors reunite by chance — each facing life’s worst slump and unexpectedly finding solace in each other.",
+  "genres": [
+    "Drama",
+    "Comedy"
+  ],
+  "rating": 8.1,
+  "poster": "/data/posters/show_222233.jpg",
+  "backdrop": "/data/backdrops/show_222233_bd.jpg",
+  "year": 2024,
+  "totalSeasons": 1,
+  "totalEpisodes": 16,
+  "seasons": {
+    "1": [
+      {
+        "fileId": "961",
+        "fileName": "Doctor.Slump.S01E01.x265.720p.NF.WEB-DL-HHWEB [DRAMADAY.me].mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 1,
+        "episodeTitle": "Episode 1",
+        "episodeOverview": "After a successful career as a plastic surgeon, Yeo Jeong-woo faces a swift downfall. Nam Ha-neul collapses amid a brutal career as an anesthesiologist.",
+        "runtime": 62
+      },
+      {
+        "fileId": "962",
+        "fileName": "Doctor.Slump.S01E02.x265.720p.NF.WEB-DL-HHWEB [DRAMADAY.me].mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 2,
+        "episodeTitle": "Episode 2",
+        "episodeOverview": "Jeong-woo moves into a new home and runs into his old rival Ha-neul, who is his neighbor. As her well-being takes a toll, Ha-neul makes a stand at work.",
+        "runtime": 68
+      },
+      {
+        "fileId": "963",
+        "fileName": "Doctor.Slump.S01E03.x265.720p.NF.WEB-DL-HHWEB [DRAMADAY.me].mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 3,
+        "episodeTitle": "Episode 3",
+        "episodeOverview": "When Jeong-woo's home gets broken into, Ha-neul asks him to stay at her place. After the two share a night of fun, she decides to help him in his trial.",
+        "runtime": 67
+      },
+      {
+        "fileId": "964",
+        "fileName": "Doctor.Slump.S01E04.x265.720p.NF.WEB-DL-HHWEB [DRAMADAY.me].mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 4,
+        "episodeTitle": "Episode 4",
+        "episodeOverview": "After a trip together, Jeong-woo wonders if he was Ha-neul's first love — until she goes on a blind date. Ha-neul goes on an interview for a faraway job.",
+        "runtime": 75
+      },
+      {
+        "fileId": "965",
+        "fileName": "Doctor.Slump.S01E05.x265.720p.NF.WEB-DL-HHWEB [DRAMADAY.me].mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 5,
+        "episodeTitle": "Episode 5",
+        "episodeOverview": "Jeong-woo travels far to show up for Ha-neul after her interview — and several heart-to-heart moments force her to ask him how he truly feels.",
+        "runtime": 67
+      },
+      {
+        "fileId": "966",
+        "fileName": "Doctor.Slump.S01E06.x265.720p.NF.WEB-DL-HHWEB [DRAMADAY.me].mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 6,
+        "episodeTitle": "Episode 6",
+        "episodeOverview": "A run-in with an old classmate leaves Ha-neul feeling jealous. Regardless, she gives Jeong-woo much-needed emotional support, which opens him up.",
+        "runtime": 64
+      },
+      {
+        "fileId": "967",
+        "fileName": "Doctor.Slump.S01E07.x265.720p.NF.WEB-DL-HHWEB [DRAMADAY.me].mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 7,
+        "episodeTitle": "Episode 7",
+        "episodeOverview": "While Jeong-woo faces a mysterious attack, Ha-neul finds a crucial clue at his home. Jeong-woo encounters someone who may turn the tides of his trial.",
+        "runtime": 65
+      },
+      {
+        "fileId": "968",
+        "fileName": "Doctor.Slump.S01E08.x265.720p.NF.WEB-DL-HHWEB [DRAMADAY.me].mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 8,
+        "episodeTitle": "Episode 8",
+        "episodeOverview": "After holding hands with Jeong-woo, Ha-neul tries to decipher their relationship status — but her mental health begins to take a toll amid sudden news.",
+        "runtime": 65
+      },
+      {
+        "fileId": "969",
+        "fileName": "Doctor.Slump.S01E09.x265.720p.NF.WEB-DL-HHWEB [DRAMADAY.me].mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 9,
+        "episodeTitle": "Episode 9",
+        "episodeOverview": "Jeong-woo and Ha-neul navigate life without each other after she pushes him away. Jeong-woo panics as he operates for the first time since his trial.",
+        "runtime": 66
+      },
+      {
+        "fileId": "970",
+        "fileName": "Doctor.Slump.S01E10.x265.720p.NF.WEB-DL-HHWEB [DRAMADAY.me].mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 10,
+        "episodeTitle": "Episode 10",
+        "episodeOverview": "As Jeong-woo struggles with his trauma, Ha-neul shows up to support him. But after he rejects her help, he discovers what made her break up with him.",
+        "runtime": 66
+      },
+      {
+        "fileId": "971",
+        "fileName": "Doctor.Slump.S01E11.x265.720p.NF.WEB-DL-HHWEB [DRAMADAY.me].mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 11,
+        "episodeTitle": "Episode 11",
+        "episodeOverview": "As their love blossoms, Ha-neul and Jeong-woo struggle to keep their relationship a secret. Lee Hong-ran bonds with Bin Dae-yeong during his time of need.",
+        "runtime": 69
+      },
+      {
+        "fileId": "972",
+        "fileName": "Doctor.Slump.S01E12.x265.720p.NF.WEB-DL-HHWEB [DRAMADAY.me].mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 12,
+        "episodeTitle": "Episode 12",
+        "episodeOverview": "While on a nostalgic getaway, Ha-neul and Jeong-woo are joined by Hong-ran and Dae-yeong. Ha-neul confronts Min Kyung-min about a potential foul play.",
+        "runtime": 69
+      },
+      {
+        "fileId": "973",
+        "fileName": "Doctor.Slump.S01E13.x265.720p.NF.WEB-DL-HHWEB [DRAMADAY.me].mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 13,
+        "episodeTitle": "Episode 13",
+        "episodeOverview": "Jeong-woo, alongside Ha-neul's family, awaits the outcome of her surgery. Later, he learns the full depth of Kyung-min's complicated motives.",
+        "runtime": 68
+      },
+      {
+        "fileId": "974",
+        "fileName": "Doctor.Slump.S01E14.x265.720p.NF.WEB-DL-HHWEB [DRAMADAY.me].mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 14,
+        "episodeTitle": "Episode 14",
+        "episodeOverview": "Needing an escape, Jeong-woo takes a special trip to Busan with Ha-neul and her family. He later laments as Ha-neul's new job takes her away from him.",
+        "runtime": 68
+      },
+      {
+        "fileId": "975",
+        "fileName": "Doctor.Slump.S01E15.x265.720p.NF.WEB-DL-HHWEB [DRAMADAY.me].mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 15,
+        "episodeTitle": "Episode 15",
+        "episodeOverview": "Jeong-woo tries to surprise Ha-neul with a gift, but roadblocks keep getting in his way. Soon, they begin their joint operation and complications arise.",
+        "runtime": 71
+      },
+      {
+        "fileId": "976",
+        "fileName": "Doctor.Slump.S01E16.x265.720p.NF.WEB-DL-HHWEB [DRAMADAY.me].mkv",
+        "seasonNumber": 1,
+        "episodeNumber": 16,
+        "episodeTitle": "Episode 16",
+        "episodeOverview": "While Jeong-woo awaits an answer from Ha-neul, she contemplates an opportunity abroad—and he anguishes over the fate of their relationship.",
+        "runtime": 72
+      }
+    ]
+  },
+  "availableSeasons": [
+    1
+  ],
+  "availableEpisodeCount": 16
+}

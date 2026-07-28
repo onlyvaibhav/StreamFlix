@@ -88,7 +88,7 @@ async function initTelegramWorker() {
   }
 
   if (telegramWorkerReady) return telegramWorkerReady;
-  
+
   telegramWorkerReady = (async () => {
     try {
       const token = StreamFlixAuth.sessionToken;
@@ -96,11 +96,11 @@ async function initTelegramWorker() {
 
       const config = await api('/api/auth/telegram/streaming-config');
       const session = await api('/api/auth/telegram/session-string');
-      
+
       if (!config.success || !session.success) throw new Error('Failed to fetch streaming credentials');
-      
+
       telegramWorker = new Worker('/js/telegram-worker.js');
-      
+
       await new Promise((resolve, reject) => {
         telegramWorker.onmessage = async (event) => {
           if (event.data.type === 'INIT_OK') {
@@ -114,7 +114,7 @@ async function initTelegramWorker() {
             }
           }
         };
-        
+
         telegramWorker.postMessage({
           type: 'INIT',
           sessionString: session.sessionString,
@@ -122,18 +122,32 @@ async function initTelegramWorker() {
           apiHash: config.apiHash
         });
       });
-      
-      if (navigator.serviceWorker && navigator.serviceWorker.controller) {
-        const channel = new MessageChannel();
-        navigator.serviceWorker.controller.postMessage({ type: 'INIT_PORT' }, [channel.port1]);
-        telegramWorker.postMessage({ type: 'INIT_PORT' }, [channel.port2]);
+
+      if (navigator.serviceWorker) {
+        if (navigator.serviceWorker.controller) {
+          const channel = new MessageChannel();
+          navigator.serviceWorker.controller.postMessage({ type: 'INIT_PORT' }, [channel.port1]);
+          telegramWorker.postMessage({ type: 'INIT_PORT' }, [channel.port2]);
+        }
+        
+        // Listen for port recovery requests from the SW (in case SW restarts in background)
+        navigator.serviceWorker.addEventListener('message', (event) => {
+          if (event.data && event.data.type === 'REQUEST_PORT' && telegramWorker) {
+            console.log('[App] Service worker requested port recovery, sending...');
+            const channel = new MessageChannel();
+            if (navigator.serviceWorker.controller) {
+              navigator.serviceWorker.controller.postMessage({ type: 'INIT_PORT' }, [channel.port1]);
+            }
+            telegramWorker.postMessage({ type: 'INIT_PORT' }, [channel.port2]);
+          }
+        });
       }
     } catch (e) {
       console.warn('Client streaming init failed, will fallback to proxy:', e);
       telegramWorker = null;
     }
   })();
-  
+
   return telegramWorkerReady;
 }
 
@@ -180,14 +194,14 @@ async function api(endpoint, silent404 = false, customOptions = {}) {
     };
 
     const response = await fetch(endpoint, fetchOptions);
-    
+
     if (response.status === 401) {
       console.warn('Unauthorized (401) - redirecting to login');
       // Forcing login redirect per Phase D by triggering auth service
       if (window.StreamFlixAuth) {
-         window.StreamFlixAuth.logout(false);
+        window.StreamFlixAuth.logout(false);
       } else {
-         window.location.reload(); 
+        window.location.reload();
       }
       return null;
     }
@@ -345,15 +359,15 @@ function toggleOverview() {
 
 function getBadges(item) {
   const badges = [];
-  
+
   // 1. Resolution
   const res = parseResolution(item.fileName || (item.parts && item.parts[0]?.fileName));
   if (res) badges.push(res.toUpperCase());
-  
+
   // 2. Multi Audio
   const audioTracks = item.audioTracks || [];
   if (audioTracks.length > 1) badges.push('Multi Audio');
-  
+
   // 3. Needs Transcoding
   if (item.browserPlayable === false || item._needsTranscode === true) {
     badges.push('Needs Transcoding');
@@ -365,7 +379,7 @@ function getBadges(item) {
 function getLanguageSummary(item) {
   const audios = [...new Set((item.audioTracks || item.languages || []).map(l => typeof l === 'string' ? l : l.language).map(getLanguageName))].filter(Boolean);
   const subs = [...new Set((item.subtitleTracks || item.subtitles || []).map(l => typeof l === 'string' ? l : l.language).map(getLanguageName))].filter(Boolean);
-  
+
   let html = '';
   if (audios.length > 0) {
     html += `<div class="spec-line"><span class="icon">🎧</span><span class="value">${audios.join(', ')}</span></div>`;
@@ -474,9 +488,9 @@ function renderHome(container) {
           <div class="hero-gradient-left"></div>
           <div class="hero-gradient-bottom"></div>
           <div class="hero-content">
-            ${item.logo && item.logo !== 'N/A' 
-              ? `<img src="${item.logo}" alt="${esc(title)}" class="hero-logo" crossorigin="anonymous" onerror="this.outerHTML='<h1 class=\\'hero-title\\'>${esc(title)}</h1>'">` 
-              : `<h1 class="hero-title">${esc(title)}</h1>`}
+            ${item.logo && item.logo !== 'N/A'
+          ? `<img src="${item.logo}" alt="${esc(title)}" class="hero-logo" crossorigin="anonymous" onerror="this.outerHTML='<h1 class=\\'hero-title\\'>${esc(title)}</h1>'">`
+          : `<h1 class="hero-title">${esc(title)}</h1>`}
             <div class="hero-meta">
               ${item.rating ? `<span class="hero-rating">★ ${Number(item.rating).toFixed(1)}</span>` : ''}
               ${item.year ? `<span class="hero-year">${item.year}</span>` : ''}
@@ -563,6 +577,8 @@ function renderHome(container) {
     html += buildRow('Top Rated', topRated);
   }
 
+  html += '<div id="streaming-rows-container"></div>';
+
   if (movies.length >= 1) {
     html += buildRow('Movies', movies.map(m => ({
       id: m.fileId, type: 'movie', title: m.title,
@@ -613,50 +629,51 @@ async function loadCuratedRows() {
   state.curatedData = curated;
 
   let html = '';
-  
+
   // 1. Continue Watching
   if (typeof fetchWatchProgress === 'function') {
     const progressItems = await fetchWatchProgress();
     if (progressItems && progressItems.length > 0) {
       window._watchProgress = progressItems; // Store globally for modals to access
-      
+
       const seenShows = new Set();
       const continueItems = [];
-      
+
       for (const p of progressItems) {
         const isTVGuess = p.media_type === 'tv' || (p.title && p.title.includes(' - S') && p.title.includes('E'));
         const playType = isTVGuess ? 'tv' : 'movie';
         const season = p.season || (isTVGuess ? 1 : null);
         const episode = p.episode || null;
         let showId = p.show_id || null;
-        
+
         // Smart Recovery for older watch progress rows that lack show_id
         if (playType === 'tv' && !showId && state.data && state.data.tvShows) {
-           for (const show of state.data.tvShows) {
-             if (!show.seasons) continue;
-             for (const s of Object.keys(show.seasons)) {
-               for (const ep of show.seasons[s]) {
-                 if (String(ep.fileId) === String(p.file_id)) {
-                   showId = String(show.showTmdbId);
-                   break;
-                 }
-               }
-               if (showId) break;
-             }
-             if (showId) break;
-           }
+          for (const show of state.data.tvShows) {
+            if (!show.seasons) continue;
+            for (const s of Object.keys(show.seasons)) {
+              for (const ep of show.seasons[s]) {
+                if (String(ep.fileId) === String(p.file_id)) {
+                  showId = String(show.showTmdbId || show.tmdbId);
+                  break;
+                }
+              }
+              if (showId) break;
+            }
+            if (showId) break;
+          }
         }
-        
+
         if (playType === 'tv' && showId) {
           if (seenShows.has(showId)) continue; // Keep only the most recent episode for this show
           seenShows.add(showId);
         }
-        
+
         let displayTitle = p.title || 'Continue Watching';
         const onClickStr = (playType === 'tv' && showId) ? `openDetail('show_${showId}', 'tv')` : `openDetail('${p.file_id}', 'movie')`;
-        
+
         continueItems.push({
           id: p.file_id,
+          showId: showId, // Added for Because You Watched
           type: playType,
           title: displayTitle,
           season: season,
@@ -666,90 +683,119 @@ async function loadCuratedRows() {
           onClick: onClickStr
         });
       }
-      
+
       const cwContainer = document.getElementById('continue-watching-container');
       if (cwContainer) {
         cwContainer.innerHTML = buildRow('▶ Continue Watching', continueItems);
+        // Add Because You Watched container
+        if (!document.getElementById('because-you-watched-container')) {
+          cwContainer.insertAdjacentHTML('afterend', '<div id="because-you-watched-container"></div>');
+        }
       } else {
         html += buildRow('▶ Continue Watching', continueItems);
+        html += '<div id="because-you-watched-container"></div>';
+      }
+
+      // Trigger load for the most recent watch item
+      if (continueItems.length > 0) {
+        setTimeout(() => loadBecauseYouWatched(continueItems[0]), 100);
       }
     }
   }
 
   const rows = curated.homepage.rows || {};
 
-  // Section display config: key => {title, minItems}
-  const sectionConfig = [
-    { key: 'multi_audio', title: '🎧 Multi Audio Picks', min: 3 },
-    { key: 'hindi', title: '🇮🇳 Hindi Collection', min: 3 },
-    { key: 'english', title: '🇺🇸 English Collection', min: 3 },
-    { key: 'kdrama', title: '🇰🇷 K-Drama', min: 2 },
-    { key: 'anime', title: '🇯🇵 Anime', min: 2 },
-    { key: 'quick_watch', title: '⚡ Quick Watch', min: 3 },
-  ];
+  // ========== PHASE 8: DYNAMIC INTERLEAVED LAYOUT ==========
+  const buckets = {
+    discover: [], provider: [], original: [], collection: [], keyword: [], genre: [], special: []
+  };
 
-  for (const { key, title, min } of sectionConfig) {
-    const items = rows[key];
-    if (!items || items.length < min) continue;
-    html += buildRow(title, items.map(curatedToCard));
-  }
-
-  // Mood sections
-  if (curated.special_sections && curated.special_sections.mood) {
-    const moodConfig = [
-      { key: 'feel_good', title: '😊 Feel Good' },
-      { key: 'dark_thriller', title: '🔪 Dark & Thriller' },
-      { key: 'comedy_nights', title: '😂 Comedy Nights' },
-      { key: 'emotional', title: '💔 Emotional Drama' },
-    ];
-    for (const { key, title } of moodConfig) {
-      const items = curated.special_sections.mood[key];
-      if (!items || items.length < 3) continue;
-      html += buildRow(title, items.map(curatedToCard));
+  // 1. Discover Rows
+  if (curated.homepage.discover) {
+    for (const key of Object.keys(curated.homepage.discover)) {
+      const rowData = curated.homepage.discover[key];
+      if (rowData && rowData.items && rowData.items.length >= 5) {
+        buckets.discover.push({ title: rowData.title, items: rowData.items });
+      }
     }
   }
 
-  // Duration sections
-  if (curated.special_sections && curated.special_sections.duration) {
-    const durConfig = [
-      { key: 'long_movies', title: '🎬 Epic Movies (2.5h+)' },
-      { key: 'series', title: '📺 Series to Binge' },
-    ];
-    for (const { key, title } of durConfig) {
-      const items = curated.special_sections.duration[key];
-      if (!items || items.length < 3) continue;
-      html += buildRow(title, items.map(curatedToCard));
+  // 2. Provider, Original, Collection, Keyword, Genre, Special
+  for (const key of Object.keys(rows)) {
+    let type = 'special';
+    let title = key;
+    let minItems = 3;
+    let items = rows[key];
+
+    // All rows are now `{ title, items }` from backend
+    if (!rows[key] || !rows[key].items) continue;
+    title = rows[key].title;
+    items = rows[key].items;
+
+    if (key.startsWith('provider_')) { type = 'provider'; }
+    else if (key.startsWith('original_')) { type = 'original'; }
+    else if (key.startsWith('collection_')) { type = 'collection'; minItems = 2; }
+    else if (key.startsWith('keyword_')) { type = 'keyword'; minItems = 2; }
+    else if (key.startsWith('genre_')) { type = 'genre'; }
+    else if (key.startsWith('special_') || ['quick_watch', 'recently_fixed'].includes(key)) { type = 'special'; }
+    else if (key === 'kdrama' || key === 'anime') { type = 'special'; minItems = 2; }
+    else { continue; }
+
+    if (items && items.length >= minItems) {
+      buckets[type].push({ title, items, logo: rows[key].logo || null });
     }
   }
 
-  // Genre rows from curated (these may differ from /api/metadata genre rows — more variety)
-  const genreRowConfig = [
-    { key: 'action', title: 'Action' },
-    { key: 'comedy', title: 'Comedy' },
-    { key: 'drama', title: 'Drama' },
-    { key: 'romance', title: 'Romance' },
-    { key: 'crime', title: 'Crime' },
-    { key: 'thriller', title: 'Thriller' },
-    { key: 'animation', title: 'Animation' },
-    { key: 'family', title: 'Family' },
-    { key: 'horror', title: 'Horror' },
-    { key: 'mystery', title: 'Mystery' },
-    { key: 'documentary', title: 'Documentary' },
-  ];
-
-  for (const { key, title } of genreRowConfig) {
-    const items = rows[key];
-    if (!items || items.length < 4) continue;
-    // Skip if we already rendered this genre from /api/metadata
-    const existingRow = document.getElementById('row_' + title.replace(/[^a-zA-Z0-9]/g, '_'));
-    if (existingRow) continue;
-    html += buildRow(title, items.map(curatedToCard));
+  // 3. Trending & Top Rated & Originals (Fixed Order at Top)
+  if (curated.homepage.trending && curated.homepage.trending.length >= 3) {
+    html += buildRow('🔥 Trending Now', curated.homepage.trending.map(curatedToCard));
+  }
+  if (curated.homepage.top_rated && curated.homepage.top_rated.length >= 3) {
+    html += buildRow('⭐ Top Rated', curated.homepage.top_rated.map(curatedToCard));
+  }
+  // Flush all Originals right after Top Rated
+  if (buckets.original.length > 0) {
+    for (const originalRow of buckets.original) {
+      html += buildRow(originalRow.title, originalRow.items.map(curatedToCard), originalRow.logo);
+    }
+    buckets.original = []; // Clear so they don't get interleaved
   }
 
-  // Needs Attention row (only if items exist)
-  if (rows.needs_attention && rows.needs_attention.length > 0) {
-    html += buildRow('⚠️ Needs Attention', rows.needs_attention.map(curatedToCard));
+  // Shuffle remaining buckets for variety
+  for (const key of Object.keys(buckets)) {
+    if (key === 'original') continue;
+    buckets[key].sort(() => Math.random() - 0.5);
   }
+
+  // 4. Interleave naturally
+  const pattern = ['special', 'discover', 'provider', 'collection', 'keyword', 'original', 'special', 'genre', 'discover', 'collection'];
+  let patternIdx = 0;
+  
+  // We'll keep pulling until all buckets are empty
+  while (Object.values(buckets).some(b => b.length > 0)) {
+    const type = pattern[patternIdx % pattern.length];
+    
+    // If the preferred bucket is empty, pick the largest remaining bucket
+    if (buckets[type].length > 0) {
+      const row = buckets[type].pop();
+      html += buildRow(row.title, row.items.map(curatedToCard), row.logo);
+    } else {
+      let maxLen = 0;
+      let maxKey = null;
+      for (const k of Object.keys(buckets)) {
+        if (buckets[k].length > maxLen) {
+          maxLen = buckets[k].length;
+          maxKey = k;
+        }
+      }
+      if (maxKey) {
+        const row = buckets[maxKey].pop();
+        html += buildRow(row.title, row.items.map(curatedToCard), row.logo);
+      }
+    }
+    patternIdx++;
+  }
+
 
   if (html) {
     container.innerHTML = html;
@@ -947,9 +993,73 @@ function renderBrowse(container, type) {
   };
 }
 
+const RECENT_SEARCHES_KEY = 'streamflix_recent_searches';
+window.getRecentSearches = function() {
+  try { return JSON.parse(localStorage.getItem(RECENT_SEARCHES_KEY) || '[]'); } catch(e) { return []; }
+};
+window.saveRecentSearch = function(query) {
+  if (!query || query.trim().length === 0) return;
+  const q = query.trim();
+  let searches = window.getRecentSearches();
+  searches = searches.filter(s => s.toLowerCase() !== q.toLowerCase());
+  searches.unshift(q);
+  if (searches.length > 8) searches = searches.slice(0, 8);
+  localStorage.setItem(RECENT_SEARCHES_KEY, JSON.stringify(searches));
+};
+window.clearRecentSearches = function() {
+  localStorage.removeItem(RECENT_SEARCHES_KEY);
+};
+
 async function renderSearch(container, query) {
   if (!query || query.length < 2) {
-    container.innerHTML = `<div class="search-results"><div class="empty-state"><h2>Type to search...</h2></div></div>`;
+    const recent = window.getRecentSearches();
+    const progress = await fetchWatchProgress();
+
+    let recentHtml = '';
+    if (recent.length > 0) {
+      recentHtml = `
+        <div class="recent-searches">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 12px;">
+            <h3>Recent Searches</h3>
+            <button class="btn btn-secondary btn-sm" onclick="window.clearRecentSearches(); document.querySelector('.search-input').dispatchEvent(new Event('input'))" style="padding: 4px 8px; font-size: 12px; border-radius: 4px; background: #333; color: white; border: none; cursor: pointer;">Clear</button>
+          </div>
+          <div class="search-tags" style="display:flex; flex-wrap:wrap; gap:8px;">
+            ${recent.map(q => `<span class="search-tag" style="background:#2a2a2a; padding:6px 12px; border-radius:16px; cursor:pointer;" onclick="document.querySelector('.search-input').value='${esc(q)}'; document.querySelector('.search-input').dispatchEvent(new Event('input'))">${esc(q)}</span>`).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    let listHtml = '';
+    if (progress.length > 0) {
+      listHtml = `
+        <div class="from-your-list" style="margin-top: 30px;">
+          <h3>From your list</h3>
+          <div class="search-grid" style="margin-top: 12px;">
+            ${progress.slice(0, 6).map(item => card({
+              id: item.media_type === 'tv' ? 'show_' + item.show_id : item.file_id,
+              type: item.media_type,
+              title: item.title,
+              poster_path: item.poster_path
+            })).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    container.innerHTML = `
+      <div class="search-results">
+        ${recentHtml}
+        ${listHtml}
+        ${!recentHtml && !listHtml ? `<div class="empty-state"><h2>Type to search...</h2></div>` : ''}
+      </div>
+    `;
+    
+    // Bind click events on the newly generated cards
+    const cards = container.querySelectorAll('.card');
+    cards.forEach(c => {
+      c.onclick = () => openDetail(c.dataset.id, c.dataset.type);
+    });
     return;
   }
 
@@ -990,7 +1100,7 @@ async function renderSearch(container, query) {
 // CARD & ROW BUILDERS
 // ============================================================
 function card(item) {
-  const id = item.id || '';
+  const id = item.id || item.fileId || '';
   const type = item.type || 'movie';
   const title = item.title || 'Untitled';
   const isTV = type === 'tv' || (id && id.startsWith('show_'));
@@ -1014,13 +1124,20 @@ function card(item) {
     </div>`;
 }
 
-function buildRow(title, items) {
+function buildRow(title, items, logoUrl = null) {
   if (!items || items.length === 0) return '';
   const id = 'row_' + title.replace(/[^a-zA-Z0-9]/g, '_');
 
+  let titleHtml = '';
+  if (logoUrl && isValidLogo(logoUrl)) {
+    titleHtml = `<div class="row-title-container"><img src="${logoUrl}" class="row-logo" alt="${esc(title)}" crossorigin="anonymous" onerror="this.style.display='none'"> <h2 class="row-title">${esc(title)}</h2></div>`;
+  } else {
+    titleHtml = `<h2 class="row-title">${esc(title)}</h2>`;
+  }
+
   return `
     <div class="row">
-      <h2 class="row-title">${esc(title)}</h2>
+      ${titleHtml}
       <div class="row-slider-container">
         <div class="slider-arrow slider-arrow-left" onclick="slide('${id}', -1)">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
@@ -1074,6 +1191,12 @@ function closeModal(pushState = true) {
 }
 
 async function openDetail(id, type, pushState = true) {
+  if (state.currentRoute === 'search') {
+    const sInput = document.querySelector('.search-input');
+    if (sInput && sInput.value.trim().length > 0) {
+      window.saveRecentSearch(sInput.value);
+    }
+  }
   const modal = document.getElementById('detail-modal');
   const body = document.getElementById('modal-body');
 
@@ -1084,6 +1207,11 @@ async function openDetail(id, type, pushState = true) {
 
   modal.classList.remove('hidden');
   document.body.style.overflow = 'hidden';
+
+  const modalContainer = modal.querySelector('.modal-container');
+  if (modalContainer) {
+    modalContainer.scrollTop = 0;
+  }
 
   // Show modal skeleton instead of spinner
   body.innerHTML = `
@@ -1170,6 +1298,7 @@ function renderMovieModal(container, movie) {
     <div class="modal-body-inner">
       <div class="modal-meta-row">
         ${movie.rating ? `<span class="match-score">★ ${Number(movie.rating).toFixed(1)}</span>` : ''}
+        ${(movie.certifications && movie.certifications['IN']) || movie.certification ? `<span class="certification-badge">${(movie.certifications && movie.certifications['IN']) || movie.certification}</span>` : ''}
         ${metaItems.map(m => `<span>${m}</span>`).join('')}
       </div>
       <div class="badge-container">
@@ -1187,7 +1316,12 @@ function renderMovieModal(container, movie) {
       <div class="spec-info" style="margin-top:30px; border-top:1px solid #222; padding-top:30px;">
         ${getLanguageSummary(movie)}
       </div>
+      
+      <div id="more-like-this-container" style="margin-top:40px;"></div>
     </div>`;
+
+  // Start loading More Like This async
+  setTimeout(() => loadMoreLikeThis(`/api/movies/${movie.fileId}/more-like-this`), 50);
 }
 
 function renderShowModal(container, show) {
@@ -1217,23 +1351,23 @@ function renderShowModal(container, show) {
         allEpIds.add(String(ep.fileId));
       }
     }
-    let prog = window._watchProgress.find(p => 
-      String(p.show_id) === String(show.showTmdbId) || allEpIds.has(String(p.file_id))
+    let prog = window._watchProgress.find(p =>
+      String(p.show_id) === String(show.showTmdbId || show.tmdbId) || allEpIds.has(String(p.file_id))
     );
 
     if (prog) {
       let targetEpNum = prog.episode;
       let targetSeasonNum = prog.season;
-      
+
       if (!targetEpNum || !targetSeasonNum) {
-         for (const s of Object.keys(seasons)) {
-           const found = seasons[s].find(ep => String(ep.fileId) === String(prog.file_id));
-           if (found) {
-             targetSeasonNum = Number(s);
-             targetEpNum = found.tv.episodeNumber;
-             break;
-           }
-         }
+        for (const s of Object.keys(seasons)) {
+          const found = seasons[s].find(ep => String(ep.fileId) === String(prog.file_id));
+          if (found) {
+            targetSeasonNum = Number(s);
+            targetEpNum = found.tv.episodeNumber;
+            break;
+          }
+        }
       }
 
       if (targetSeasonNum && targetEpNum) {
@@ -1252,7 +1386,7 @@ function renderShowModal(container, show) {
 
   window._showSeasons = seasons;
   window._showTitle = show.showTitle;
-  window._showTmdbId = show.showTmdbId;
+  window._showTmdbId = show.showTmdbId || show.tmdbId;
   window._showPoster = show.poster || show.backdrop || '';
 
   const showTitle = getItemTitle(show);
@@ -1268,7 +1402,7 @@ function renderShowModal(container, show) {
         ${logoHtml}
         <div class="modal-actions">
            ${targetEp ? `
-           <button class="btn-premium-play" onclick="playVideo({fileId:'${targetEp.fileId}', title:'${escArg(showTitle)}', poster:'${escArg(show.poster || show.backdrop || '')}', season:${targetS}, episode:${targetEp.tv.episodeNumber}, episodeTitle:'${escArg(targetEp.tv.episodeTitle || `Episode ${targetEp.tv.episodeNumber}`)}', tmdbId:${show.showTmdbId}})">
+           <button class="btn-premium-play" onclick="playVideo({fileId:'${targetEp.fileId}', title:'${escArg(showTitle)}', poster:'${escArg(show.poster || show.backdrop || '')}', season:${targetS}, episode:${targetEp.tv.episodeNumber}, episodeTitle:'${escArg(targetEp.tv.episodeTitle || `Episode ${targetEp.tv.episodeNumber}`)}', tmdbId:${show.showTmdbId || show.tmdbId}})">
              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
              ${playLabel}
            </button>` : ''}
@@ -1281,6 +1415,7 @@ function renderShowModal(container, show) {
     <div class="modal-body-inner">
        <div class="modal-meta-row">
           ${show.rating ? `<span class="match-score">★ ${Number(show.rating).toFixed(1)}</span>` : ''}
+          ${(show.certifications && show.certifications['IN']) || show.certification ? `<span class="certification-badge">${(show.certifications && show.certifications['IN']) || show.certification}</span>` : ''}
           ${show.year ? `<span>${show.year}</span>` : ''}
           <span>${seasonNums.length} Seasons</span>
           <span>${totalEpisodes} Episodes</span>
@@ -1306,9 +1441,97 @@ function renderShowModal(container, show) {
           </select>
        </div>
        <div id="episode-list-container" class="episode-list">
-          ${renderEpisodeRows(episodes, showTitle, show.showTmdbId)}
+          ${renderEpisodeRows(episodes, showTitle, show.showTmdbId || show.tmdbId)}
        </div>
+       
+       <div id="more-like-this-container" style="margin-top:40px;"></div>
     </div>`;
+
+  // Start loading More Like This async
+  setTimeout(() => loadMoreLikeThis(`/api/tv/${show.showTmdbId || show.tmdbId}/more-like-this`), 50);
+}
+
+async function loadMoreLikeThis(endpoint) {
+  const container = document.getElementById('more-like-this-container');
+  if (!container) return;
+
+  // Add skeleton loader while fetching
+  container.innerHTML = `
+    <div class="row">
+      <div class="row-header"><h2 class="row-title">More Like This</h2></div>
+      <div class="row-slider" style="display:flex; gap:16px; overflow:hidden;">
+        ${Array(6).fill('<div class="card skeleton-card"><div class="skeleton-poster shimmer" style="height:220px;"></div></div>').join('')}
+      </div>
+    </div>
+  `;
+
+  try {
+    const data = await api(endpoint);
+    if (data && data.success && data.results && data.results.length > 0) {
+      const cards = data.results.map(item => ({
+        id: item.fileId,
+        type: item.type,
+        title: item.title,
+        poster: item.poster,
+        rating: item.rating,
+        year: item.year
+      }));
+      // buildRow already returns HTML like <div class="row">...</div>
+      container.innerHTML = buildRow("More Like This", cards);
+    } else {
+      container.innerHTML = '';
+    }
+  } catch (e) {
+    console.error('Failed to load More Like This', e);
+    container.innerHTML = '';
+  }
+}
+
+async function loadBecauseYouWatched(sourceItem) {
+  const container = document.getElementById('because-you-watched-container');
+  if (!container) return;
+  
+  // Extract clean ID for the API
+  let endpoint = '';
+  if (sourceItem.type === 'tv') {
+    const cleanId = String(sourceItem.showId || sourceItem.id || sourceItem.fileId).replace('show_', '');
+    endpoint = `/api/tv/${cleanId}/more-like-this`;
+  } else {
+    endpoint = `/api/movies/${sourceItem.id || sourceItem.fileId}/more-like-this`;
+  }
+
+  // Extract clean title without S1E1 text
+  let cleanTitle = sourceItem.title || '';
+  if (sourceItem.type === 'tv' && cleanTitle.includes(' - S')) {
+    cleanTitle = cleanTitle.split(' - S')[0];
+  }
+
+  // Add skeleton loader while fetching
+  container.innerHTML = `
+    <div class="row">
+      <div class="row-header"><h2 class="row-title">Because You Watched ${cleanTitle}</h2></div>
+      <div class="row-slider" style="display:flex; gap:16px; overflow:hidden;">
+        ${Array(6).fill('<div class="card skeleton-card"><div class="skeleton-poster shimmer" style="height:220px;"></div></div>').join('')}
+      </div>
+    </div>
+  `;
+
+  try {
+    const data = await api(endpoint);
+    if (data.success && data.results && data.results.length > 0) {
+      let html = '';
+      if (data.collection && data.collection.items && data.collection.items.length >= 2) {
+        html += buildRow(data.collection.title, data.collection.items);
+      }
+      html += buildRow(`Because You Watched ${cleanTitle}`, data.results);
+      container.innerHTML = html;
+    } else {
+      container.innerHTML = '';
+    }
+  } catch (err) {
+    console.error('Failed to load because you watched:', err);
+    container.innerHTML = ''; // Hide on error
+  }
 }
 
 function renderEpisodeRows(episodes, showTitle, tmdbId, poster = '') {
@@ -1394,7 +1617,7 @@ function startHero(length) {
   stopHero();
   // Ensure the internal state resets animation on current specific element
   heroGoTo(state.heroIndex);
-  
+
   state.heroTimer = setInterval(() => {
     let next = state.heroIndex + 1;
     if (next >= length) next = 0;
@@ -1488,6 +1711,7 @@ function resetPlayerState() {
   video.load();
   video.playbackRate = 1.0;
   video.currentTime = 0;
+  video._retryCount = 0;
 
   // Reset UI
   document.getElementById('progress-bar').style.width = '0%';
@@ -1531,12 +1755,12 @@ function resetPlayerState() {
   document.getElementById('speed-menu')?.classList.add('hidden');
   document.getElementById('next-episode-btn')?.classList.add('hidden');
   document.getElementById('btn-next-ep-control')?.classList.add('hidden');
-  
+
   document.getElementById('btn-episodes')?.classList.add('hidden');
-  
+
   const epSheet = document.getElementById('episodes-sheet');
   if (epSheet) epSheet.classList.add('hidden');
-  
+
   const epOverlay = document.getElementById('episodes-sheet-overlay');
   if (epOverlay) epOverlay.classList.add('hidden');
 
@@ -1694,7 +1918,7 @@ function getDisplayTimelineState(video, options = {}) {
   const elapsed = (video && isFinite(video.currentTime)) ? Math.max(0, video.currentTime) : 0;
   const totalDuration = Number(video?.duration || 0);
   const safeTotal = totalDuration > 0 ? totalDuration : 0;
-  
+
   const requestedCurrent = Number.isFinite(options.virtualTimeOverride)
     ? Number(options.virtualTimeOverride)
     : elapsed;
@@ -1885,7 +2109,7 @@ async function multipartAdvanceToNext() {
       } else if (sub && sub.source === 'embedded') {
         state.player.subtitleTracks[preservedState.subtitleTrackIndex].endpoint =
           `/api/stream/${nextPart.fileId}/subtitle/${sub.streamIndex}`;
-        switchSubs(preservedState.subtitleTrackIndex, null, 0).catch(() => {});
+        switchSubs(preservedState.subtitleTrackIndex, null, 0).catch(() => { });
       }
     }
 
@@ -1999,7 +2223,7 @@ async function multipartSeek(virtualTime) {
     console.warn(`[Multipart] Cross-part seek timed out for part ${targetPart.partNumber}`);
     buffering?.classList.add('hidden');
     seekState.isCrossPartSeeking = false;
-    if (wasPlaying) video.play().catch(() => {});
+    if (wasPlaying) video.play().catch(() => { });
   }, 15000);
 
   video.addEventListener('loadedmetadata', function onMeta() {
@@ -2021,7 +2245,7 @@ async function multipartSeek(virtualTime) {
     video.playbackRate = preservedRate;
 
     renderTimelineState(video, { virtualTimeOverride: targetVirtualTime });
-    if (wasPlaying) video.play().catch(() => {});
+    if (wasPlaying) video.play().catch(() => { });
     buffering?.classList.add('hidden');
 
     // Restore subtitle track for the new part
@@ -2029,7 +2253,7 @@ async function multipartSeek(virtualTime) {
       const sub = state.player.subtitleTracks[preservedSubIndex];
       if (sub && sub.source === 'embedded') {
         sub.endpoint = `/api/stream/${targetPart.fileId}/subtitle/${sub.streamIndex}`;
-        switchSubs(preservedSubIndex, null, 0).catch(() => {});
+        switchSubs(preservedSubIndex, null, 0).catch(() => { });
       }
       // External subs are per-movie, no endpoint change needed
     }
@@ -2139,7 +2363,7 @@ function parseVTT(vttText) {
     const startH = parseInt(match[1] || '0', 10);
     const startM = parseInt(match[2], 10);
     const startS = parseInt(match[3], 10);
-    
+
     // Pad milliseconds to 3 digits (e.g. .5 -> 500ms, .50 -> 500ms)
     const startMsStr = match[4].padEnd(3, '0');
     const startMs = parseInt(startMsStr, 10);
@@ -2147,7 +2371,7 @@ function parseVTT(vttText) {
     const endH = parseInt(match[5] || '0', 10);
     const endM = parseInt(match[6], 10);
     const endS = parseInt(match[7], 10);
-    
+
     const endMsStr = match[8].padEnd(3, '0');
     const endMs = parseInt(endMsStr, 10);
 
@@ -2298,27 +2522,27 @@ async function playVideo(params, pushState = true) {
       for (const show of state.data.tvShows) {
         if (!show.seasons) continue;
         for (const s of Object.keys(show.seasons)) {
-           for (const ep of show.seasons[s]) {
-              if (String(ep.fileId) === String(params.fileId)) {
-                 params.tmdbId = show.showTmdbId;
-                 params.season = Number(s);
-                 params.episode = ep.tv?.episodeNumber || Number(ep.episodeNumber) || 1;
-                 if (params.title === 'Movie' || params.title === 'Loading...') params.title = show.showTitle;
-                 params.poster = show.poster || show.backdrop;
-                 break;
-              }
-           }
+          for (const ep of show.seasons[s]) {
+            if (String(ep.fileId) === String(params.fileId)) {
+              params.tmdbId = show.showTmdbId || show.tmdbId;
+              params.season = Number(s);
+              params.episode = ep.tv?.episodeNumber || Number(ep.episodeNumber) || 1;
+              if (params.title === 'Movie' || params.title === 'Loading...') params.title = show.showTitle;
+              params.poster = show.poster || show.backdrop;
+              break;
+            }
+          }
         }
         if (params.tmdbId) break;
       }
     }
     // Also check movies to recover poster if missing
     if (!params.tmdbId && state.data && state.data.movies) {
-       const m = state.data.movies.find(mv => String(mv.fileId) === String(params.fileId));
-       if (m && !params.poster) {
-          params.poster = m.poster || m.backdrop;
-          if (params.title === 'Movie' || params.title === 'Loading...') params.title = m.title;
-       }
+      const m = state.data.movies.find(mv => String(mv.fileId) === String(params.fileId));
+      if (m && !params.poster) {
+        params.poster = m.poster || m.backdrop;
+        if (params.title === 'Movie' || params.title === 'Loading...') params.title = m.title;
+      }
     }
   }
 
@@ -2360,7 +2584,7 @@ async function playVideo(params, pushState = true) {
       if (meta) {
         if (meta.tv?.showTitle) state.player.title = meta.tv.showTitle;
         else if (meta.title) state.player.title = meta.title;
-        
+
         const titleEl = document.getElementById('player-title-main');
         if (titleEl) titleEl.textContent = state.player.title;
 
@@ -2477,7 +2701,7 @@ async function playVideo(params, pushState = true) {
   }
 
   state.player.audioTracks = tracks?.audioTracks || [];
-  
+
   // Browsers ignore the MKV `default` flag and just play the first physical stream (index 0).
   // Therefore, the only track that plays natively without transcoding is track 0.
   state.player.defaultAudioTrack = 0;
@@ -2487,7 +2711,7 @@ async function playVideo(params, pushState = true) {
 
   // Only use external subtitles natively on web
   state.player.subtitleTracks = [...externalSubs];
-  
+
   // Automatically select the first available subtitle track
   if (externalSubs.length > 0) {
     switchSubs(0).catch(e => console.warn('Auto sub failed', e));
@@ -2496,13 +2720,13 @@ async function playVideo(params, pushState = true) {
   // Safari/MKV fallback detect
   const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
   const isMKV = fileInfo && (fileInfo.mimeType === 'video/x-matroska' || fileInfo.fileName?.endsWith('.mkv'));
-  
+
   state.player.useClientStreaming = telegramWorker && !(isSafari && isMKV);
   const streamBaseUrl = state.player.useClientStreaming ? '/vstream' : '/api/stream';
 
   video.src = `${streamBaseUrl}/${params.fileId}`;
   video.currentTime = 0;
-  
+
   // Resume from where left off if available
   if (typeof fetchWatchProgress === 'function') {
     fetchWatchProgress().then(progressItems => {
@@ -2529,7 +2753,7 @@ async function playVideo(params, pushState = true) {
       }
     }).catch(e => console.warn('Failed to load resume position:', e));
   }
-  
+
   video.load();
 
   // Apply native track and correct multipart duration when first part's actual duration is discovered
@@ -2547,12 +2771,10 @@ async function playVideo(params, pushState = true) {
   // Check if default audio is unsupported and show modal automatically
   const defaultTrack = state.player.audioTracks[state.player.defaultAudioTrack];
   if (defaultTrack && !defaultTrack.browserPlayable) {
-    const downloadUrl = state.config?.appDownloadUrl || 'https://github.com/StreamFlix/StreamFlix/releases';
+    const downloadUrl = state.config?.appDownloadUrl || 'https://github.com/onlyvaibhav/StreamFlix/releases';
     showAppNudgeModal(downloadUrl, true);
   }
 
-  // Subtitles default to OFF based on user preference
-  state.player.currentSubtitleTrack = -1;
   try {
     await video.play();
   } catch (e) { console.warn('Autoplay blocked:', e); }
@@ -2573,7 +2795,7 @@ async function playVideo(params, pushState = true) {
     if (currentPos > 5 && totalDur > 0 && typeof saveWatchProgress === 'function') {
       let titleToSave = params.title || 'Movie';
       let posterToSave = params.poster;
-      
+
       let mediaTypeToSave = params.isTV ? 'tv' : 'movie';
       let seasonToSave = params.season || null;
       let episodeToSave = params.episode || null;
@@ -2587,7 +2809,7 @@ async function playVideo(params, pushState = true) {
           const showInfo = state.data?.tvShows?.find(s => String(s.showTmdbId) === String(params.tmdbId)) || {};
           posterToSave = showInfo.poster || showInfo.backdrop;
           if (titleToSave === 'TV Show' && showInfo.showTitle) {
-             titleToSave = showInfo.showTitle;
+            titleToSave = showInfo.showTitle;
           }
         }
       } else {
@@ -2595,7 +2817,7 @@ async function playVideo(params, pushState = true) {
           const movieInfo = state.data?.movies?.find(m => String(m.fileId) === String(params.fileId)) || {};
           posterToSave = movieInfo.poster || movieInfo.backdrop;
           if (titleToSave === 'Movie' && movieInfo.title) {
-             titleToSave = movieInfo.title;
+            titleToSave = movieInfo.title;
           }
         }
       }
@@ -2727,16 +2949,42 @@ async function closePlayer(pushState = true) {
 // ============================================================
 function startHeartbeat(fileId) {
   stopHeartbeat();
-  fetch(`/api/stream/${fileId}/heartbeat`).catch(() => { });
-  state.player.heartbeatTimer = setInterval(() => {
-    fetch(`/api/stream/${fileId}/heartbeat`).catch(() => { });
-  }, 20000);
+  
+  const workerCode = `
+    let timer;
+    self.onmessage = function(e) {
+      if (e.data === 'start') {
+        timer = setInterval(() => postMessage('tick'), 20000);
+      } else if (e.data === 'stop') {
+        clearInterval(timer);
+        close();
+      }
+    };
+  `;
+  const blob = new Blob([workerCode], { type: 'application/javascript' });
+  state.player.heartbeatWorker = new Worker(URL.createObjectURL(blob));
+  
+  const tick = () => {
+    if (state.player.useClientStreaming && telegramWorker) {
+      telegramWorker.postMessage({ type: 'PING' });
+    }
+    const headers = {};
+    if (window.StreamFlixAuth && window.StreamFlixAuth.sessionToken) {
+      headers['Authorization'] = 'Bearer ' + window.StreamFlixAuth.sessionToken;
+    }
+    fetch(`/api/stream/${fileId}/heartbeat`, { headers }).catch(() => { });
+  };
+  
+  state.player.heartbeatWorker.onmessage = tick;
+  state.player.heartbeatWorker.postMessage('start');
+  tick(); // Fire first tick immediately
 }
 
 function stopHeartbeat() {
-  if (state.player.heartbeatTimer) {
-    clearInterval(state.player.heartbeatTimer);
-    state.player.heartbeatTimer = null;
+  if (state.player.heartbeatWorker) {
+    state.player.heartbeatWorker.postMessage('stop');
+    state.player.heartbeatWorker.terminate();
+    state.player.heartbeatWorker = null;
   }
 }
 
@@ -2765,6 +3013,26 @@ function setupPlayerListeners() {
   on(video, 'playing', () => buffering.classList.add('hidden'));
   on(video, 'canplay', () => buffering.classList.add('hidden'));
   on(video, 'canplaythrough', () => buffering.classList.add('hidden'));
+
+  // ---- ERROR RECOVERY ----
+  on(video, 'error', () => {
+    const err = video.error;
+    if (err && (err.code === 2 || err.code === 3 || err.code === 4)) {
+      video._retryCount = (video._retryCount || 0) + 1;
+      if (video._retryCount > 2) {
+        console.error('[Player] Video failed after 2 retries', err);
+        return;
+      }
+      const savedTime = video.currentTime;
+      console.log(`[Player] Network error detected, retrying (attempt ${video._retryCount})...`);
+      setTimeout(() => {
+        let currentSrc = video.src.split('?')[0];
+        video.src = `${currentSrc}?retry=${Date.now()}`;
+        video.currentTime = savedTime;
+        video.play().catch(e => console.warn('Retry play failed', e));
+      }, 1500);
+    }
+  });
   on(video, 'seeked', () => { if (!video.paused) buffering.classList.add('hidden'); });
   on(video, 'stalled', () => { if (!video.paused) buffering.classList.remove('hidden'); });
 
@@ -2804,7 +3072,6 @@ function setupPlayerListeners() {
   });
   on(video, 'pause', () => {
     updatePlayPauseIcon();
-    stopHeartbeat();
   });
   on(video, 'volumechange', updateVolumeUI);
   on(video, 'ratechange', updateSpeedUI);
@@ -3429,13 +3696,13 @@ async function renderEpisodesPanel(params) {
 
   const btnEpisodes = document.getElementById('btn-episodes');
   const btnClose = document.getElementById('episodes-sheet-close');
-  
+
   // Attach event toggles securely
   if (btnEpisodes) {
     btnEpisodes.onclick = () => {
       sheet.classList.remove('hidden');
       overlay.classList.remove('hidden');
-      
+
       // Auto-scroll to active episode when opening
       setTimeout(() => {
         const listContainer = document.getElementById('episodes-list');
@@ -3444,12 +3711,12 @@ async function renderEpisodesPanel(params) {
       }, 300); // Wait for transition
     };
   }
-  
+
   const closeSheet = () => {
     sheet.classList.add('hidden');
     overlay.classList.add('hidden');
   };
-  
+
   if (btnClose) btnClose.onclick = closeSheet;
   overlay.onclick = closeSheet;
 
@@ -3474,10 +3741,10 @@ async function renderEpisodesPanel(params) {
   if (!seasons) return;
 
   const tabsContainer = document.getElementById('episodes-season-tabs');
-  
+
   // Render tabs
   const seasonNums = Object.keys(seasons).map(Number).sort((a, b) => a - b);
-  tabsContainer.innerHTML = seasonNums.map(n => 
+  tabsContainer.innerHTML = seasonNums.map(n =>
     `<button class="season-tab ${n === Number(params.season) ? 'active' : ''}" data-season="${n}" onclick="switchEpisodesPanelSeason(${n}, ${params.tmdbId})">Season ${n}</button>`
   ).join('');
 
@@ -3485,7 +3752,7 @@ async function renderEpisodesPanel(params) {
   renderEpisodesPanelList(seasons[params.season] || [], Number(params.episode));
 }
 
-window.switchEpisodesPanelSeason = function(seasonNum, tmdbId) {
+window.switchEpisodesPanelSeason = function (seasonNum, tmdbId) {
   const seasons = window._showSeasons;
   if (!seasons) return;
 
@@ -3518,7 +3785,7 @@ function renderEpisodesPanelList(episodes, highlightEpisode) {
     const isActive = e === highlightEpisode;
     const runtimeStr = ep.runtime || ep.tv.episodeRuntime;
     const runtimeHtml = runtimeStr ? `<span class="player-episode-item-runtime">${fmtRuntime(runtimeStr)}</span>` : '';
-    
+
     // Custom handler to switch stream
     return `
       <div class="player-episode-item ${isActive ? 'active' : ''}" 
@@ -3535,17 +3802,17 @@ function renderEpisodesPanelList(episodes, highlightEpisode) {
   }).join('');
 }
 
-window.handleEpisodesPanelClick = function(fileId, title, poster, season, episode, episodeTitle, tmdbId) {
+window.handleEpisodesPanelClick = function (fileId, title, poster, season, episode, episodeTitle, tmdbId) {
   const sheet = document.getElementById('episodes-sheet');
   const overlay = document.getElementById('episodes-sheet-overlay');
   if (sheet) sheet.classList.add('hidden');
   if (overlay) overlay.classList.add('hidden');
-  
+
   if (!poster && state.data && state.data.tvShows && tmdbId) {
     const show = state.data.tvShows.find(s => String(s.showTmdbId) === String(tmdbId));
     if (show) poster = show.poster || show.backdrop || '';
   }
-  
+
   playVideo({
     fileId,
     title,
@@ -3596,42 +3863,42 @@ function getVolume() {
 }
 
 function setVolume(val) {
-   const video = document.getElementById('video-player');
-   if (!video) return;
-   val = Math.max(0, Math.min(3, val)); // Clamp between 0 and 3 (300%)
-   video._logicalVolume = val;
-   
-   if (!video._audioContext) {
-      try {
-         const AudioCtx = window.AudioContext || window.webkitAudioContext;
-         if (AudioCtx) {
-             video._audioContext = new AudioCtx();
-             video._gainNode = video._audioContext.createGain();
-             video._sourceNode = video._audioContext.createMediaElementSource(video);
-             video._sourceNode.connect(video._gainNode);
-             video._gainNode.connect(video._audioContext.destination);
-         }
-      } catch (e) { console.warn("AudioContext init failed", e); }
-   }
+  const video = document.getElementById('video-player');
+  if (!video) return;
+  val = Math.max(0, Math.min(3, val)); // Clamp between 0 and 3 (300%)
+  video._logicalVolume = val;
 
-   if (video._audioContext && video._audioContext.state === 'suspended') {
-      video._audioContext.resume().catch(()=>{});
-   }
+  if (!video._audioContext) {
+    try {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (AudioCtx) {
+        video._audioContext = new AudioCtx();
+        video._gainNode = video._audioContext.createGain();
+        video._sourceNode = video._audioContext.createMediaElementSource(video);
+        video._sourceNode.connect(video._gainNode);
+        video._gainNode.connect(video._audioContext.destination);
+      }
+    } catch (e) { console.warn("AudioContext init failed", e); }
+  }
 
-   if (val > 1) {
-      video.volume = 1;
-      if (video._gainNode) {
-          video._gainNode.gain.value = val;
-      }
-   } else {
-      video.volume = val;
-      if (video._gainNode) {
-          video._gainNode.gain.value = 1;
-      }
-   }
-   
-   video.muted = (val === 0);
-   updateVolumeUI();
+  if (video._audioContext && video._audioContext.state === 'suspended') {
+    video._audioContext.resume().catch(() => { });
+  }
+
+  if (val > 1) {
+    video.volume = 1;
+    if (video._gainNode) {
+      video._gainNode.gain.value = val;
+    }
+  } else {
+    video.volume = val;
+    if (video._gainNode) {
+      video._gainNode.gain.value = 1;
+    }
+  }
+
+  video.muted = (val === 0);
+  updateVolumeUI();
 }
 
 function updateVolumeUI() {
@@ -3649,7 +3916,7 @@ function updateVolumeUI() {
   } else {
     svg = `<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>`;
   }
-  
+
   if (icon) {
     if (currentVol > 1) {
       // Show a green boost color when > 100%
@@ -3665,7 +3932,7 @@ function updateVolumeUI() {
     const percent = Math.round(currentVol * 100);
     toast.textContent = `Volume: ${percent}%`;
     toast.classList.remove("hidden");
-    
+
     if (window._volumeToastTimeout) {
       clearTimeout(window._volumeToastTimeout);
     }
@@ -3753,13 +4020,13 @@ function updateTrackInfoUI() {
          <span class="track-detail">${srcLabel}${t.isDefault ? ' · Default' : ''}${t.rating ? ' · ' + t.rating : ''}</span>
        </div>`;
   });
-  
+
   subHtml += `<input type="file" id="local-sub-upload" accept=".srt,.vtt" style="display:none" onchange="handleLocalSubtitleUpload(event)" />`;
   subHtml += `<div class="track-item" onclick="document.getElementById('local-sub-upload').click()">
          <span class="track-name">📁 Load Local Subtitle...</span>
          <span class="track-detail">From your device</span>
        </div>`;
-       
+
   sList.innerHTML = subHtml;
   renderSubtitleSyncUI();
 }
@@ -3960,10 +4227,10 @@ async function switchAudio(index, event) {
   if (index === state.player.defaultAudioTrack) {
     const track = state.player.audioTracks[index];
     if (track && !track.browserPlayable) {
-      const downloadUrl = state.config?.appDownloadUrl || 'https://github.com/StreamFlix/StreamFlix/releases';
+      const downloadUrl = state.config?.appDownloadUrl || 'https://github.com/onlyvaibhav/StreamFlix/releases';
       showAppNudgeModal(downloadUrl, true);
     }
-    
+
     state.player.currentAudioTrack = index;
     updateTrackInfoUI();
     const video = document.getElementById('video-player');
@@ -3977,15 +4244,15 @@ async function switchAudio(index, event) {
   }
 
   // Non-default track selected
-  const downloadUrl = state.config?.appDownloadUrl || 'https://github.com/StreamFlix/StreamFlix/releases';
+  const downloadUrl = state.config?.appDownloadUrl || 'https://github.com/onlyvaibhav/StreamFlix/releases';
   showAppNudgeModal(downloadUrl);
 }
 
 function showAppNudgeModal(downloadUrl, isUnsupportedCodec = false) {
   let overlay = document.getElementById('app-nudge-overlay');
-  
+
   const titleText = isUnsupportedCodec ? 'Audio Format Not Supported' : 'Use the App for Multi-Track Audio';
-  const bodyText = isUnsupportedCodec 
+  const bodyText = isUnsupportedCodec
     ? 'This video uses an audio format that browsers cannot play natively (it will play without sound). Download the StreamFlix app for full native playback.'
     : 'This audio track works best in the StreamFlix app. Download the app for native multi-track support without buffering.';
   const cancelBtnText = isUnsupportedCodec ? 'Play Without Sound' : 'Stay on Web (Default)';
@@ -4003,7 +4270,7 @@ function showAppNudgeModal(downloadUrl, isUnsupportedCodec = false) {
     overlay.style.alignItems = 'center';
     overlay.style.justifyContent = 'center';
     overlay.style.zIndex = '9999';
-    
+
     const box = document.createElement('div');
     box.style.backgroundColor = 'var(--bg-card)';
     box.style.padding = '2rem';
@@ -4026,7 +4293,7 @@ function showAppNudgeModal(downloadUrl, isUnsupportedCodec = false) {
     title.style.fontSize = '1.3rem';
     title.style.fontWeight = '700';
     box.appendChild(title);
-    
+
     const text = document.createElement('p');
     text.id = 'app-nudge-text';
     text.textContent = bodyText;
@@ -4076,22 +4343,22 @@ function showAppNudgeModal(downloadUrl, isUnsupportedCodec = false) {
     buttons.appendChild(downloadBtn);
     box.appendChild(buttons);
     overlay.appendChild(box);
-    
+
     const playerScreen = document.getElementById('player-screen');
     playerScreen.appendChild(overlay);
   } else {
     const downloadBtn = overlay.querySelector('#app-nudge-download');
     if (downloadBtn) downloadBtn.href = downloadUrl;
-    
+
     const titleEl = overlay.querySelector('#app-nudge-title');
     if (titleEl) titleEl.textContent = titleText;
-    
+
     const textEl = overlay.querySelector('#app-nudge-text');
     if (textEl) textEl.textContent = bodyText;
-    
+
     const cancelEl = overlay.querySelector('#app-nudge-cancel');
     if (cancelEl) cancelEl.textContent = cancelBtnText;
-    
+
     // update click handlers to handle state correctly
     cancelEl.onclick = (e) => {
       e.stopPropagation();
@@ -4257,20 +4524,46 @@ async function switchSubs(index, event, startTime = null) {
     audioInfo.textContent = 'Failed to load subtitles: ' + err.message;
     setTimeout(() => audioInfo.classList.add('hidden'), 4000);
 
-    // DO NOT automatically turn off the subtitle track
-    // Let the user manually switch it off or try again.
-    // state.player.currentSubtitleTrack = -1;
-    // updateTrackInfoUI();
+    // Auto-fallback to the next track of the same language if the initial load failed
+    if (startTime === null) {
+      const sub = state.player.subtitleTracks[index];
+      const lang = sub?.language?.toLowerCase() || sub?.languageLabel?.toLowerCase();
+      if (lang) {
+        const nextIndex = state.player.subtitleTracks.findIndex((s, i) => 
+          i > index && (s.language?.toLowerCase() === lang || s.languageLabel?.toLowerCase() === lang)
+        );
+        if (nextIndex !== -1) {
+          console.log(`[Subtitle] Auto-falling back to next track (${nextIndex}) for language ${lang}...`);
+          
+          // Update the UI select box if it exists
+          const select = document.getElementById('subtitle-track-select');
+          if (select) select.value = nextIndex;
+          
+          // Try the next track
+          switchSubs(nextIndex, null, 0).catch(() => {});
+        } else {
+          // No more tracks of same language, optionally turn off
+          state.player.currentSubtitleTrack = -1;
+          updateTrackInfoUI();
+        }
+      } else {
+        state.player.currentSubtitleTrack = -1;
+        updateTrackInfoUI();
+      }
+    } else {
+      // DO NOT automatically turn off the subtitle track on mid-playback fetch failure
+      // Let the user manually switch it off or try again.
+    }
   }
 }
 // Clean and HTML escape for subtitle text (removes <i>, <b>, and ASS/SSA tags safely)
 function escapeSubHTML(str) {
   if (!str) return "";
-  
+
   // Match standard subtitle styling HTML tags (i, b, u, c, font, v) and ASS style overrides {\...}
   const tagRegex = /<\/?(?:i|b|u|c|font|v)(?:\s+[^>]*)?>/gi;
   const braceRegex = /\{\\[^}]*\}/g;
-  
+
   const cleaned = str
     .replace(/<br\s*\/?>/gi, "\n") // Convert explicit BR tags to newlines
     .replace(tagRegex, "")
@@ -4338,15 +4631,24 @@ document.addEventListener('DOMContentLoaded', () => {
   // Search
   let searchTimer;
   const sInput = document.querySelector('.search-input');
+  sInput.addEventListener('focus', () => {
+    if (state.currentRoute !== 'search') {
+      navigate('search', { query: sInput.value.trim() });
+    }
+  });
+  sInput.addEventListener('keyup', (e) => {
+    if (e.key === 'Enter' && sInput.value.trim().length > 0) {
+      window.saveRecentSearch(sInput.value);
+    }
+  });
   sInput.oninput = (e) => {
     clearTimeout(searchTimer);
     const q = e.target.value.trim();
     searchTimer = setTimeout(() => {
-      if (q.length > 0) {
-        if (state.currentRoute !== 'search') navigate('search', { query: q });
-        else renderSearch(document.getElementById('app'), q);
+      if (state.currentRoute !== 'search') {
+        navigate('search', { query: q });
       } else {
-        navigate('home');
+        renderSearch(document.getElementById('app'), q);
       }
     }, 300);
   };
@@ -4409,14 +4711,14 @@ function parseUrlAndRoute(path, search) {
       if (state.data && state.data.tvShows) {
         const show = state.data.tvShows.find(s => String(s.showTmdbId) === String(mainId) || String(s.id) === String(mainId) || String(s.fileId) === String(mainId));
         if (show) {
-           title = show.showTitle || show.title || title;
-           poster = show.poster || show.backdrop || '';
+          title = show.showTitle || show.title || title;
+          poster = show.poster || show.backdrop || '';
         }
       }
-      
+
       // If mainId matches fileId, it means tmdbId was missing from the URL. Pass null so Smart Recovery runs.
       const actualTmdbId = (mainId === (urlParams.get('f') || mainId)) ? null : mainId;
-      
+
       playVideo({
         fileId: urlParams.get('f') || mainId,
         tmdbId: actualTmdbId,
@@ -4621,16 +4923,16 @@ window.addEventListener('offline', handleConnectionChange);
 // Initial connection check and event binding
 document.addEventListener('DOMContentLoaded', () => {
   handleConnectionChange();
-  
+
   // Fetch app config
   fetch('/api/config')
     .then(r => r.json())
     .then(data => { state.config = data; })
     .catch(err => console.warn('Failed to load config', err));
-  
+
   // Initialize login UI bindings
   initLoginFlow();
-  
+
   const retryBtn = document.getElementById('btn-retry-connection');
   if (retryBtn) {
     retryBtn.addEventListener('click', () => {
@@ -4668,7 +4970,7 @@ function showLoginScreen(errorMessage = null) {
 function showMembershipScreen(inviteLink) {
   document.getElementById('login-screen').classList.remove('hidden');
   document.getElementById('navbar').classList.add('hidden');
-  
+
   // Transition directly to the membership step
   const introStep = document.getElementById('step-intro');
   const phoneStep = document.getElementById('step-phone');
@@ -4676,19 +4978,19 @@ function showMembershipScreen(inviteLink) {
   const pwdStep = document.getElementById('step-password');
   const successStep = document.getElementById('step-success');
   const membershipStep = document.getElementById('step-membership');
-  
+
   if (introStep) introStep.className = 'login-step';
   phoneStep.className = 'login-step';
   otpStep.className = 'login-step';
   pwdStep.className = 'login-step';
   successStep.className = 'login-step';
   membershipStep.className = 'login-step active';
-  
+
   const joinBtn = document.getElementById('btn-join-channel');
   if (joinBtn) {
     joinBtn.href = inviteLink || '#';
   }
-  
+
   hideError();
 }
 
@@ -4696,26 +4998,26 @@ function resetLoginState() {
   currentLoginSessionId = null;
   currentPhoneNumber = null;
   if (otpResendTimer) clearInterval(otpResendTimer);
-  
+
   document.getElementById('phone-number').value = '';
   document.getElementById('cloud-password').value = '';
   document.querySelectorAll('.otp-box').forEach(b => b.value = '');
   document.getElementById('btn-otp-verify').disabled = true;
-  
+
   const introStep = document.getElementById('step-intro');
   const phoneStep = document.getElementById('step-phone');
   const otpStep = document.getElementById('step-otp');
   const pwdStep = document.getElementById('step-password');
   const successStep = document.getElementById('step-success');
   const membershipStep = document.getElementById('step-membership');
-  
+
   if (introStep) introStep.className = 'login-step active';
   phoneStep.className = 'login-step enter-right';
   otpStep.className = 'login-step enter-right';
   pwdStep.className = 'login-step enter-right';
   successStep.className = 'login-step enter-right';
   membershipStep.className = 'login-step enter-right';
-  
+
   hideError();
 }
 
@@ -4729,14 +5031,14 @@ function transitionStep(fromEl, toEl, direction = 'next') {
   if (direction === 'next') {
     fromEl.classList.remove('active');
     fromEl.classList.add('exit-left');
-    
+
     toEl.classList.remove('exit-left');
     toEl.classList.remove('enter-right');
     toEl.classList.add('active');
   } else {
     fromEl.classList.remove('active');
     fromEl.classList.add('enter-right');
-    
+
     toEl.classList.remove('exit-left');
     toEl.classList.remove('enter-right');
     toEl.classList.add('active');
@@ -4775,7 +5077,7 @@ function showError(msg) {
   const errorText = document.getElementById('login-error-text');
   errorText.innerText = formatTelegramError(msg);
   errorCard.classList.remove('hidden');
-  
+
   const card = document.getElementById('login-card');
   card.classList.remove('shake-effect');
   void card.offsetWidth; // Trigger reflow
@@ -4791,12 +5093,12 @@ function initLoginFlow() {
   const phoneInput = document.getElementById('phone-number');
   const phoneBtn = document.getElementById('btn-phone-continue');
   const countrySelect = document.getElementById('phone-country');
-  
+
   const otpInputs = document.querySelectorAll('.otp-box');
   const otpBtn = document.getElementById('btn-otp-verify');
   const otpBackBtn = document.getElementById('btn-otp-back');
   const resendLink = document.getElementById('btn-resend-otp');
-  
+
   const pwdInput = document.getElementById('cloud-password');
   const pwdToggleBtn = document.getElementById('btn-password-toggle');
   const pwdBtn = document.getElementById('btn-password-submit');
@@ -4804,7 +5106,7 @@ function initLoginFlow() {
 
   const membershipVerifyBtn = document.getElementById('btn-membership-verify');
   const membershipBackBtn = document.getElementById('btn-membership-back');
-  
+
   const introBtn = document.getElementById('btn-intro-continue');
   if (introBtn) {
     introBtn.addEventListener('click', () => {
@@ -4818,36 +5120,36 @@ function initLoginFlow() {
       showError('Please enter your phone number.');
       return;
     }
-    
+
     // Clean all spacing, brackets, dashes, and extra plus signs
     let cleanNumber = rawNumber.replace(/[\s\(\)\-\+]/g, '');
-    
+
     // Check if the user typed the country code again
     const selectedCountryCode = countrySelect.value.replace('+', '');
     if (cleanNumber.startsWith(selectedCountryCode)) {
       cleanNumber = cleanNumber.substring(selectedCountryCode.length);
     }
-    
+
     // Validate phone number format (must contain 7 to 15 digits)
     if (!/^\d{7,15}$/.test(cleanNumber)) {
       showError('Please enter a valid phone number.');
       return;
     }
-    
+
     const fullNumber = countrySelect.value + cleanNumber;
     currentPhoneNumber = fullNumber;
-    
+
     setButtonLoading(phoneBtn, true);
     hideError();
-    
+
     try {
       const data = await StreamFlixAuth.sendOTP(fullNumber);
       currentLoginSessionId = data.loginSessionId;
-      
+
       document.getElementById('otp-phone-display').textContent = formatPhoneForDisplay(fullNumber);
       transitionStep(document.getElementById('step-phone'), document.getElementById('step-otp'), 'next');
       startOtpCountdown();
-      
+
       setTimeout(() => otpInputs[0].focus(), 200);
     } catch (err) {
       showError(err.message);
@@ -4862,24 +5164,24 @@ function initLoginFlow() {
       phoneBtn.click();
     }
   });
-  
+
   otpInputs.forEach((input, index) => {
     input.addEventListener('input', (e) => {
       e.target.value = e.target.value.replace(/[^0-9]/g, '');
       const val = e.target.value;
-      
+
       if (val.length === 1 && index < 4) {
         otpInputs[index + 1].focus();
       }
       checkOtpComplete();
     });
-    
+
     input.addEventListener('keydown', (e) => {
       if (e.key === 'Backspace' && e.target.value.length === 0 && index > 0) {
         otpInputs[index - 1].focus();
       }
     });
-    
+
     input.addEventListener('paste', (e) => {
       e.preventDefault();
       const pastedData = (e.clipboardData || window.clipboardData).getData('text').trim().replace(/[^0-9]/g, '');
@@ -4893,21 +5195,21 @@ function initLoginFlow() {
       }
     });
   });
-  
+
   function checkOtpComplete() {
     let code = '';
     otpInputs.forEach(b => code += b.value);
     otpBtn.disabled = code.length !== 5;
   }
-  
+
   otpBtn.addEventListener('click', async () => {
     let code = '';
     otpInputs.forEach(b => code += b.value);
     if (code.length !== 5) return;
-    
+
     setButtonLoading(otpBtn, true);
     hideError();
-    
+
     try {
       const result = await StreamFlixAuth.verifyOTP(currentLoginSessionId, code);
       if (result.requiresPassword) {
@@ -4927,19 +5229,19 @@ function initLoginFlow() {
       setButtonLoading(otpBtn, false);
     }
   });
-  
+
   otpBackBtn.addEventListener('click', () => {
     transitionStep(document.getElementById('step-otp'), document.getElementById('step-phone'), 'back');
     if (otpResendTimer) clearInterval(otpResendTimer);
   });
-  
+
   resendLink.addEventListener('click', async (e) => {
     e.preventDefault();
     if (!resendLink.classList.contains('active')) return;
-    
+
     hideError();
     resendLink.classList.remove('active');
-    
+
     try {
       const data = await StreamFlixAuth.sendOTP(currentPhoneNumber);
       currentLoginSessionId = data.loginSessionId;
@@ -4952,11 +5254,11 @@ function initLoginFlow() {
       resendLink.classList.add('active');
     }
   });
-  
+
   pwdToggleBtn.addEventListener('click', () => {
     const isPwd = pwdInput.type === 'password';
     pwdInput.type = isPwd ? 'text' : 'password';
-    pwdToggleBtn.innerHTML = isPwd 
+    pwdToggleBtn.innerHTML = isPwd
       ? `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>
          </svg>`
@@ -4964,17 +5266,17 @@ function initLoginFlow() {
            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
          </svg>`;
   });
-  
+
   pwdBtn.addEventListener('click', async () => {
     const password = pwdInput.value;
     if (!password) {
       showError('Please enter your 2-Step Verification password.');
       return;
     }
-    
+
     setButtonLoading(pwdBtn, true);
     hideError();
-    
+
     try {
       const result = await StreamFlixAuth.verify2FAPassword(currentLoginSessionId, password);
       if (result.requiresMembership) {
@@ -4997,7 +5299,7 @@ function initLoginFlow() {
       pwdBtn.click();
     }
   });
-  
+
   pwdBackBtn.addEventListener('click', () => {
     transitionStep(document.getElementById('step-password'), document.getElementById('step-otp'), 'back');
   });
@@ -5036,16 +5338,16 @@ function startOtpCountdown() {
   const timerDisplay = document.getElementById('otp-timer');
   const resendLink = document.getElementById('btn-resend-otp');
   resendLink.classList.remove('active');
-  
+
   let duration = 120;
   if (otpResendTimer) clearInterval(otpResendTimer);
-  
+
   function updateTimer() {
     const minutes = Math.floor(duration / 60);
     const seconds = duration % 60;
-    
+
     timerDisplay.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-    
+
     if (duration <= 0) {
       clearInterval(otpResendTimer);
       timerDisplay.textContent = '00:00';
@@ -5053,35 +5355,35 @@ function startOtpCountdown() {
     }
     duration--;
   }
-  
+
   updateTimer();
   otpResendTimer = setInterval(updateTimer, 1000);
 }
 
 function showSuccessScreen(user) {
   hideError();
-  
+
   const displayName = user.firstName + (user.lastName ? ' ' + user.lastName : '');
   document.getElementById('success-user-name').textContent = displayName;
-  
+
   const activeStep = document.querySelector('.login-step.active');
   const successStep = document.getElementById('step-success');
   transitionStep(activeStep, successStep, 'next');
-  
+
   setTimeout(() => {
     const loginScreen = document.getElementById('login-screen');
     loginScreen.style.transition = 'opacity 0.6s ease';
     loginScreen.style.opacity = '0';
-    
+
     setTimeout(() => {
       loginScreen.classList.add('hidden');
       loginScreen.style.opacity = '1';
-      
+
       document.getElementById('navbar').classList.remove('hidden');
       setupNavbarUser(user);
       loadLibrary(true);  // Skip auth re-check — we just authenticated
     }, 600);
-    
+
   }, 2000);
 }
 
@@ -5105,14 +5407,14 @@ function formatPhoneForDisplay(phone) {
 function setupNavbarUser(user) {
   const navbarRight = document.querySelector('.navbar-right');
   if (!navbarRight) return;
-  
+
   const existing = navbarRight.querySelector('.nav-profile-container');
   if (existing) existing.remove();
-  
+
   const initial = (user && user.firstName) ? user.firstName.charAt(0).toUpperCase() : 'U';
   const name = (user && user.firstName) ? (user.firstName + (user.lastName ? ' ' + user.lastName : '')) : 'StreamFlix User';
   const phone = user && user.phone ? user.phone : '';
-  
+
   const container = document.createElement('div');
   container.className = 'nav-profile-container';
   container.innerHTML = `
@@ -5128,21 +5430,21 @@ function setupNavbarUser(user) {
       <button id="btn-logout" class="dropdown-item">Sign Out of StreamFlix</button>
     </div>
   `;
-  
+
   navbarRight.appendChild(container);
-  
+
   const profileBtn = container.querySelector('#btn-user-profile');
   const dropdown = container.querySelector('#profile-dropdown');
-  
+
   profileBtn.addEventListener('click', (e) => {
     e.stopPropagation();
     dropdown.classList.toggle('hidden');
   });
-  
+
   document.addEventListener('click', () => {
     dropdown.classList.add('hidden');
   });
-  
+
   container.querySelector('#btn-logout').addEventListener('click', async () => {
     container.querySelector('#btn-logout').textContent = 'Signing out...';
     await StreamFlixAuth.logout();
@@ -5192,12 +5494,12 @@ async function saveWatchProgress(fileId, positionSeconds, durationSeconds, title
 
 // ==================== LOCAL SUBTITLE UPLOAD ====================
 
-window.handleLocalSubtitleUpload = async function(event) {
+window.handleLocalSubtitleUpload = async function (event) {
   const file = event.target.files[0];
   if (!file) return;
 
   const reader = new FileReader();
-  reader.onload = async function(e) {
+  reader.onload = async function (e) {
     const text = e.target.result;
     let vttText = text;
 
@@ -5225,10 +5527,10 @@ window.handleLocalSubtitleUpload = async function(event) {
     state.player.subtitleVTTCache[url] = vttText;
 
     updateTrackInfoUI();
-    
+
     // Switch to the newly added track
     switchSubs(newTrackIndex);
-    
+
     // Reset file input so same file can be uploaded again if needed
     event.target.value = '';
   };

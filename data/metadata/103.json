@@ -112,46 +112,116 @@
   "watchProviders": null,
   "recommendations": [
     240641,
-    244624,
-    232926,
     156510,
+    244624,
     196944,
-    196950,
+    232926,
     36250,
     73223,
     26318,
-    249882,
-    281058,
-    42828,
     282662,
+    288659,
+    281058,
+    249882,
     239761,
-    117886,
     62430,
+    12599,
     237150,
+    271607,
     39218,
-    283891,
-    261301
+    42828,
+    35610
   ],
   "similar": [
-    27838,
-    27845,
-    27885,
     27866,
-    27816,
-    27942,
-    27813,
+    28061,
     27977,
-    28136,
-    89742,
-    89891,
-    89941,
-    89949,
-    89905,
-    89964,
-    89972,
-    203617,
-    234859,
-    234868,
-    234957
-  ]
+    1,
+    95,
+    137,
+    151,
+    152,
+    171,
+    28037,
+    28109,
+    57528,
+    57557,
+    57406,
+    57407,
+    57564,
+    57565,
+    57577,
+    57646,
+    57647
+  ],
+  "productionCompanies": [
+    {
+      "id": 2849,
+      "name": "BONES",
+      "logoPath": "/cN3JNIKawjOMtfk0GBVIbsx69bg.png"
+    },
+    {
+      "id": 87536,
+      "name": "C2C",
+      "logoPath": "/59FqPKWsfCc4e1LmKoVfXeblaRK.png"
+    },
+    {
+      "id": 45188,
+      "name": "David Production",
+      "logoPath": "/aPH68PzQDtz7QorAU369IlxwgnU.png"
+    },
+    {
+      "id": 11846,
+      "name": "Hakuhodo DY Media Partners",
+      "logoPath": "/es3LvDA6wLWVDvZnAYYuAT6x8lJ.png"
+    },
+    {
+      "id": 60195,
+      "name": "Docomo Anime Store",
+      "logoPath": "/wR7YDBvNzdJRkmxOTgJobOpUG8X.png"
+    },
+    {
+      "id": 59206,
+      "name": "BS Fuji",
+      "logoPath": "/oMtJVGvqLAyQZvYTvjDIcbVEzwD.png"
+    },
+    {
+      "id": 131015,
+      "name": "Hakusensha",
+      "logoPath": "/1VWKUVt895d6Wwnjxu4I7APPM8X.png"
+    },
+    {
+      "id": 6681,
+      "name": "THE KLOCKWORX",
+      "logoPath": "/s4RElEnQyM2VrHZCQ3jYemPdxML.png"
+    },
+    {
+      "id": 17392,
+      "name": "Showgate",
+      "logoPath": "/kqIFj3dASar2j9rm7jHph5493GB.png"
+    },
+    {
+      "id": 3627,
+      "name": "Warner Bros. Japan",
+      "logoPath": "/pBfPYpzg5o3EoBPfrFKzTRi8MGr.png"
+    },
+    {
+      "id": 614,
+      "name": "Tokyo MX",
+      "logoPath": "/hSdroyVthq3CynxTIIY7lnS8w1.png"
+    }
+  ],
+  "certifications": {
+    "US": "TV-14",
+    "AU": "M",
+    "DE": "12",
+    "KR": "12",
+    "GB": "12",
+    "IE": "15",
+    "NL": "16",
+    "MX": "B-15",
+    "FI": "K16",
+    "CA": "14+",
+    "BR": "14"
+  }
 }

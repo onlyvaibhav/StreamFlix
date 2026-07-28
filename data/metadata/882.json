@@ -81,5 +81,13 @@
   "collection": null,
   "watchProviders": null,
   "recommendations": [],
-  "similar": []
+  "similar": [],
+  "productionCompanies": [
+    {
+      "id": 270485,
+      "name": "Monkey Business (IN)",
+      "logoPath": null
+    }
+  ],
+  "certifications": {}
 }

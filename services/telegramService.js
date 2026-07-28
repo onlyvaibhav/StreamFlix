@@ -744,6 +744,11 @@ async function getThumbnail(messageId) {
 async function streamFile(messageId, start, end) {
   if (!client || !channelEntity) throw new Error('Telegram not initialized');
 
+  if (!client.connected) {
+    console.log('[TelegramService] Client disconnected. Attempting reconnect before streaming...');
+    await client.connect();
+  }
+
   const messages = await client.getMessages(channelEntity, { ids: [parseInt(messageId)] });
   if (!messages?.[0]?.media?.document) throw new Error('No media found');
 

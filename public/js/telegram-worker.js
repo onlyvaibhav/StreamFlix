@@ -98,6 +98,12 @@ self.addEventListener('message', async (event) => {
       self.postMessage({ type: 'INIT_ERROR', error: error.message });
     }
   } 
+  else if (data.type === 'PING') {
+    if (isConnected && client && client.connected) {
+      // Lightweight ping to keep the connection active
+      client.invoke(new Api.updates.GetState()).catch(() => {});
+    }
+  }
   else if (data.type === 'REGISTER_FILE') {
     files.set(data.fileId, {
       fileSize: data.fileSize,
@@ -123,10 +129,15 @@ self.addEventListener('message', async (event) => {
 
 async function handleFetchRange(fileId, requestedStart, requestedEnd, port) {
   try {
-    if (!client || !isConnected) {
-      throw new Error('Telegram client not initialized or connected');
+    if (!client) {
+      throw new Error('Telegram client not initialized');
     }
 
+    if (!client.connected || !isConnected) {
+      console.log('[TelegramWorker] Client disconnected, attempting to reconnect before fetching chunk...');
+      await client.connect();
+      isConnected = true;
+    }
     const fileInfo = files.get(fileId);
     if (!fileInfo) {
       throw new Error(`File ${fileId} not registered with worker`);

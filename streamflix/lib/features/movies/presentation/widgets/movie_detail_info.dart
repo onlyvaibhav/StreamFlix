@@ -330,7 +330,7 @@ class _MovieDetailInfoState extends State<MovieDetailInfo> {
                           child: Stack(
                             children: [
                               AppImage(
-                                imageUrl: episode.episodeStill ?? '/api/movies/${episode.id}/thumbnail',
+                                imageUrl: episode.fullEpisodeStillUrl ?? '/api/movies/${episode.id}/thumbnail',
                                 fit: BoxFit.cover,
                                 width: 130,
                                 height: 75,

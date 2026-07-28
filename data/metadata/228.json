@@ -95,18 +95,7 @@
   },
   "watchProviders": {
     "link": "https://www.themoviedb.org/movie/390043-the-hitman-s-bodyguard/watch?locale=IN",
-    "flatrate": [
-      {
-        "id": 2053,
-        "name": "Lionsgate Play Apple TV Channel",
-        "logoPath": "/p8i1zUcZYQ7qU6RrGvGbDItvcx4.jpg"
-      },
-      {
-        "id": 2074,
-        "name": "Lionsgate Play Amazon Channel",
-        "logoPath": "/yVbjPWEbsStanRAxwKMDARVOvsn.jpg"
-      }
-    ],
+    "flatrate": [],
     "rent": [
       {
         "id": 3,
@@ -141,44 +130,123 @@
     522931,
     7516,
     241554,
+    2207,
     12138,
     738652,
-    1217602,
+    9401,
     573435,
-    4824,
-    1319895,
-    342521,
-    9737,
     13809,
-    9618,
+    9737,
+    342521,
+    1319895,
     574060,
+    9618,
     974453,
     9874,
-    9401,
     4959,
     455236,
-    90
+    90,
+    1181540
   ],
   "similar": [
-    449074,
-    449077,
-    13053,
-    12702,
-    12704,
-    12708,
-    12709,
-    12715,
-    13022,
-    12633,
-    13005,
-    13007,
-    13012,
-    13051,
-    13184,
-    13191,
-    13158,
-    13253,
-    13335,
-    13343
-  ]
+    10074,
+    10097,
+    9065,
+    9047,
+    9053,
+    445495,
+    265626,
+    9090,
+    9268,
+    9279,
+    1558686,
+    11443,
+    11562,
+    11563,
+    11644,
+    11702,
+    269149,
+    268896,
+    11604,
+    11605
+  ],
+  "productionCompanies": [
+    {
+      "id": 48738,
+      "name": "Campbell Grobman Films",
+      "logoPath": null
+    },
+    {
+      "id": 94235,
+      "name": "East Light Media",
+      "logoPath": null
+    },
+    {
+      "id": 74795,
+      "name": "Nu Boyana Film Studios",
+      "logoPath": "/vcCcVEglw9nVcYeZf6xZzA4s1O3.png"
+    },
+    {
+      "id": 23011,
+      "name": "Tom de Mol Productions",
+      "logoPath": null
+    },
+    {
+      "id": 491,
+      "name": "Summit Entertainment",
+      "logoPath": "/5LvDUt3KmvRnXQ4NrdWJYHeuA8J.png"
+    },
+    {
+      "id": 1020,
+      "name": "Millennium Media",
+      "logoPath": "/kuUIHNwMec4dwOLghDhhZJzHZTd.png"
+    },
+    {
+      "id": 342,
+      "name": "Davis Films",
+      "logoPath": "/kZ99mxyNvNgyAFjm7rcl9vfYmU8.png"
+    },
+    {
+      "id": 197838,
+      "name": "Cristal Pictures",
+      "logoPath": null
+    },
+    {
+      "id": 1632,
+      "name": "Lionsgate",
+      "logoPath": "/cisLn1YAUuptXVBa0xjq7ST9cH0.png"
+    },
+    {
+      "id": 72441,
+      "name": "TIK Films",
+      "logoPath": null
+    }
+  ],
+  "certifications": {
+    "AU": "MA15+",
+    "BR": "14",
+    "CH": "16",
+    "CZ": "15+",
+    "DE": "16",
+    "DK": "15",
+    "ES": "16",
+    "FI": "K-16",
+    "FR": "12",
+    "GB": "15",
+    "IE": "16",
+    "IL": "הותר לבני 16 ומעלה",
+    "IT": "T",
+    "KR": "15",
+    "LT": "N-16",
+    "NL": "16",
+    "NO": "15",
+    "PL": "16",
+    "PT": "M/16",
+    "RO": "15",
+    "RU": "18+",
+    "SE": "15",
+    "SK": "15",
+    "TW": "輔導15歲級",
+    "US": "R"
+  }
 }

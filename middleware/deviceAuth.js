@@ -29,22 +29,14 @@ async function requireDeviceAuth(req, res, next) {
     // Hash the token
     const tokenHash = crypto.createHash('sha256').update(token).digest('hex');
 
-    if (!supabaseService.isEnabled()) {
-      return res.status(500).json({ success: false, error: 'Database authentication unavailable' });
-    }
+    // Token hash is checked via Supabase service which handles memory fallback
 
     // Look up session by token_hash
-    const { data: sessions, error } = await supabaseService.supabase
-      .from('sessions')
-      .select('*, users(*)')
-      .eq('token_hash', tokenHash)
-      .limit(1);
+    const session = await supabaseService.getSessionByTokenHash(tokenHash);
 
-    if (error || !sessions || sessions.length === 0) {
+    if (!session) {
       return res.status(401).json({ success: false, error: 'Invalid or expired session' });
     }
-
-    const session = sessions[0];
 
     if (session.status !== 'active') {
       return res.status(401).json({ success: false, error: 'Session has been revoked' });

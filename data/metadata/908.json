@@ -209,44 +209,123 @@
     90228,
     1403,
     158141,
-    67487,
     128839,
     75450,
+    67487,
     1412,
     71663,
     62643,
-    85273,
     79788,
-    62285,
-    93484,
     89247,
     1639,
     74440,
-    7704,
+    85273,
+    62285,
     2321,
-    203555,
-    195868
+    88987,
+    71340,
+    79501,
+    246412
   ],
   "similar": [
-    44,
-    196,
-    216,
-    131,
-    132,
-    160,
-    184,
-    237,
-    246,
-    122015,
-    354,
-    410,
-    416,
-    236,
-    326,
-    270931,
-    203573,
-    518,
-    520,
-    530
-  ]
+    94423,
+    63145,
+    63174,
+    63181,
+    63128,
+    208677,
+    239310,
+    239431,
+    3530,
+    3625,
+    3578,
+    3425,
+    3464,
+    31749,
+    31718,
+    126577,
+    208445,
+    31606,
+    126485,
+    208891
+  ],
+  "productionCompanies": [
+    {
+      "id": 20580,
+      "name": "Amazon Studios",
+      "logoPath": "/oRR9EXVoKP9szDkVKlze5HVJS7g.png"
+    },
+    {
+      "id": 333,
+      "name": "Original Film",
+      "logoPath": "/5xUJfzPZ8jWJUDzYtIeuPO4qPIa.png"
+    },
+    {
+      "id": 11073,
+      "name": "Sony Pictures Television",
+      "logoPath": "/wHs44fktdoj6c378ZbSWfzKsM2Z.png"
+    },
+    {
+      "id": 38398,
+      "name": "Kripke Enterprises",
+      "logoPath": null
+    },
+    {
+      "id": 16615,
+      "name": "Point Grey Pictures",
+      "logoPath": "/5au3v0r2brGaegO9EQ0nodLkmQ1.png"
+    },
+    {
+      "id": 2526,
+      "name": "Kickstart Entertainment",
+      "logoPath": "/kzIW6QWhacDwzGoXEIWhac8rb70.png"
+    },
+    {
+      "id": 33728,
+      "name": "Nightsky Productions",
+      "logoPath": null
+    },
+    {
+      "id": 210099,
+      "name": "Amazon MGM Studios",
+      "logoPath": "/g5oRCNCi8kNVb8gEoSoIcqkhjmR.png"
+    },
+    {
+      "id": 1024,
+      "name": "Prime Video",
+      "logoPath": "/w7HfLNm9CWwRmAMU58udl2L7We7.png"
+    }
+  ],
+  "certifications": {
+    "US": "TV-MA",
+    "AU": "R 18+",
+    "FR": "18",
+    "DE": "18",
+    "GB": "18",
+    "BR": "18",
+    "NL": "18",
+    "HU": "18",
+    "ES": "18",
+    "IN": "A",
+    "MX": "D",
+    "PR": "TV-MA",
+    "PT": "18",
+    "NZ": "18",
+    "KR": "19",
+    "IE": "18",
+    "RO": "18",
+    "DK": "15",
+    "FI": "K18",
+    "NO": "18",
+    "SE": "Från 15 år",
+    "BE": "18",
+    "CA": "18+",
+    "RU": "18+",
+    "TR": "18+",
+    "GR": "18",
+    "TW": "18+",
+    "AR": "SAM 18",
+    "UA": "18+",
+    "ID": "D"
+  }
 }

@@ -84,26 +84,46 @@
     "buy": []
   },
   "recommendations": [
-    45523,
+    65215,
     1118595,
     433941,
-    10192,
     554241,
-    65215,
     416153,
-    3053,
     24109,
+    22620,
+    39578,
     560044,
     13064,
-    11974,
+    32051,
+    45523,
     158990,
-    39578,
-    22620,
-    936061,
     12268,
+    11974,
+    33754,
+    185440,
     91739,
-    360605,
+    15360,
     54540
   ],
-  "similar": []
+  "similar": [],
+  "productionCompanies": [
+    {
+      "id": 175374,
+      "name": "Johnpaul George Productions",
+      "logoPath": null
+    },
+    {
+      "id": 175375,
+      "name": "Guppy Cinemas",
+      "logoPath": null
+    },
+    {
+      "id": 80317,
+      "name": "Goodwill Entertainments",
+      "logoPath": "/bETeYaOtL4SvaQn2x1kOTeq7QcE.png"
+    }
+  ],
+  "certifications": {
+    "IN": "U"
+  }
 }

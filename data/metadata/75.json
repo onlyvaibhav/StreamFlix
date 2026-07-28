@@ -78,7 +78,8 @@
     "power of love",
     "anime",
     "japanese high school",
-    "urban fantasy"
+    "urban fantasy",
+    "your name"
   ],
   "collection": null,
   "watchProviders": {
@@ -105,46 +106,108 @@
   },
   "recommendations": [
     916192,
-    14069,
-    680041,
     572154,
+    680041,
     21057,
-    225745,
+    14069,
     16516,
-    378064,
-    896499,
+    431819,
+    225745,
     615165,
-    667520,
-    568160,
-    12924,
-    1056803,
     364111,
-    798544,
+    896499,
+    667520,
+    378064,
+    568160,
     504253,
+    1056803,
     15080,
-    1104844,
-    632632
+    604605,
+    242828,
+    798544
   ],
   "similar": [
-    13078,
-    13079,
-    1381579,
-    449176,
-    12697,
-    12994,
-    1381413,
-    449025,
-    12795,
-    12839,
-    12919,
-    12924,
-    269795,
-    1557259,
-    448802,
-    449132,
-    1381548,
-    13185,
-    13188,
-    13190
-  ]
+    1235424,
+    1235431,
+    1235637,
+    53862,
+    305404,
+    53915,
+    53950,
+    305464,
+    668047,
+    53879,
+    305396,
+    53894,
+    53997,
+    1049282,
+    1235451,
+    1421053,
+    53566,
+    305312,
+    53739,
+    488548
+  ],
+  "productionCompanies": [
+    {
+      "id": 3756,
+      "name": "CoMix Wave Films",
+      "logoPath": "/t38uPdbKmyBB8brKKeTFWIwojRz.png"
+    },
+    {
+      "id": 882,
+      "name": "TOHO",
+      "logoPath": "/fRSWWjquvzcHjACbtF53utZFIll.png"
+    },
+    {
+      "id": 2073,
+      "name": "KADOKAWA",
+      "logoPath": "/tWxRSaKmRJNTcmtlXsmn5R4KOSU.png"
+    },
+    {
+      "id": 8157,
+      "name": "jeki",
+      "logoPath": "/pEqcMX1aG3JvtDgfh2wNZJLCcb4.png"
+    },
+    {
+      "id": 14602,
+      "name": "AMUSE",
+      "logoPath": "/t9eqx5QCHtu8LxxgYzivqrJAosp.png"
+    },
+    {
+      "id": 128617,
+      "name": "voque ting",
+      "logoPath": null
+    },
+    {
+      "id": 104184,
+      "name": "Lawson Entertainment",
+      "logoPath": "/reEBh8dBl2y1DbXe2EdgxtMtaim.png"
+    }
+  ],
+  "certifications": {
+    "AU": "PG",
+    "BR": "L",
+    "CA": "PG",
+    "DE": "6",
+    "DK": "7",
+    "ES": "APTA",
+    "FI": "K-7",
+    "FR": "TP",
+    "GB": "12A",
+    "HK": "I",
+    "IE": "12",
+    "IN": "U/A 13+",
+    "JP": "G",
+    "KR": "12",
+    "MX": "A",
+    "NL": "AL",
+    "PH": "PG",
+    "PR": "PG",
+    "RU": "12+",
+    "SE": "7",
+    "TW": "0+",
+    "US": "PG",
+    "VI": "PG"
+  }
 }

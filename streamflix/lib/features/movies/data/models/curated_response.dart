@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:streamflix/features/movies/data/models/movie.dart';
+import 'package:streamflix/features/movies/data/models/curated_row.dart';
 
 part 'curated_response.freezed.dart';
 part 'curated_response.g.dart';
@@ -46,7 +47,7 @@ sealed class CuratedHomepage with _$CuratedHomepage {
     required List<Movie> trending,
     @JsonKey(name: 'recently_added') required List<Movie> recentlyAdded,
     @JsonKey(name: 'top_rated') required List<Movie> topRated,
-    required Map<String, List<Movie>> rows,
+    required Map<String, CuratedRow> rows,
   }) = _CuratedHomepage;
 
   factory CuratedHomepage.fromJson(Map<String, dynamic> json) =>

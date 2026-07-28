@@ -240,47 +240,227 @@
     "buy": []
   },
   "recommendations": [
+    207250,
     115694,
     75865,
-    207250,
     235758,
     224753,
     201889,
     61379,
     45501,
-    276349,
     31665,
-    254492,
-    277513,
-    274622,
     66077,
+    276349,
+    277513,
+    254492,
+    116168,
+    69342,
+    27167,
+    274622,
     68960,
-    217407,
     45859,
-    43018,
-    117879,
-    257790
+    43018
   ],
   "similar": [
-    27838,
-    27845,
-    27885,
-    27813,
-    27866,
-    27942,
-    27816,
-    27977,
-    151,
-    171,
-    57238,
-    57239,
-    57255,
-    57287,
-    57406,
-    57407,
-    234868,
-    234910,
-    121840,
-    203704
-  ]
+    94453,
+    94462,
+    63084,
+    63085,
+    63087,
+    63088,
+    63089,
+    63102,
+    94412,
+    94423,
+    94388,
+    94404,
+    94405,
+    63145,
+    63146,
+    63164,
+    94498,
+    208580,
+    63187,
+    305714
+  ],
+  "productionCompanies": [
+    {
+      "id": 128785,
+      "name": "lapintrack",
+      "logoPath": "/leTqYkzdabEsxBQ0XdHxA7SDuU6.png"
+    },
+    {
+      "id": 192,
+      "name": "Shochiku",
+      "logoPath": "/93eAKlnQecDdMtucfOprzcjMw9V.png"
+    },
+    {
+      "id": 1778,
+      "name": "dentsu",
+      "logoPath": "/b5rT6VbYza3LyfltCmz1OcqzWJM.png"
+    },
+    {
+      "id": 2918,
+      "name": "Shueisha",
+      "logoPath": "/gyEWUBWwqrm3H5T2hkERD9LxpOq.png"
+    },
+    {
+      "id": 134892,
+      "name": "ABEMA",
+      "logoPath": "/euHs3v7wg48dr580eeilS1gZStQ.png"
+    },
+    {
+      "id": 3363,
+      "name": "MBS",
+      "logoPath": "/sj3vD7n63bTCih7bcf6GnWvRf1Q.png"
+    },
+    {
+      "id": 94,
+      "name": "MBS",
+      "logoPath": "/7RNXnyiMbjgqtPAjja13wchcrGI.png"
+    },
+    {
+      "id": 160,
+      "name": "TBS",
+      "logoPath": "/lUACMATs6jcscXIrzNCQzbvNVN5.png"
+    },
+    {
+      "id": 201,
+      "name": "CBC",
+      "logoPath": "/qNooLje0YQh1y3y9LUM2Y5QCtiF.png"
+    },
+    {
+      "id": 896,
+      "name": "Tulip Television",
+      "logoPath": "/qfUzYnpnN5bnd2bqGUH0OlAMell.png"
+    },
+    {
+      "id": 1559,
+      "name": "SBC",
+      "logoPath": "/artkCykJgOAh6lAjfrNNgANasgk.png"
+    },
+    {
+      "id": 2460,
+      "name": "BSN",
+      "logoPath": "/34sNEcsgcTAuDidRMrgxdfNyVjL.png"
+    },
+    {
+      "id": 2461,
+      "name": "tys",
+      "logoPath": "/b4Ivxqz6UY0EogjYc09Y22ctC6F.png"
+    },
+    {
+      "id": 2462,
+      "name": "NBC",
+      "logoPath": "/7zXfwh5ZhFqvdOWgWX80weU6Sqb.png"
+    },
+    {
+      "id": 3658,
+      "name": "HBC",
+      "logoPath": "/sJwRsE1lfMwAwYZi1OtRfn7V03t.png"
+    },
+    {
+      "id": 3705,
+      "name": "RKK",
+      "logoPath": "/zOgixhlAa61yUb32bsXvRtD63wI.png"
+    },
+    {
+      "id": 3969,
+      "name": "i-Television",
+      "logoPath": "/nhCsLIGjzIIp6jIFCdHN0cQEzjP.png"
+    },
+    {
+      "id": 3970,
+      "name": "SBS",
+      "logoPath": "/9coKtCf4jSNCdSqGveVFyzvjrZt.png"
+    },
+    {
+      "id": 3971,
+      "name": "IBC",
+      "logoPath": "/6bhZ2SWdYTbSTQf8Bhmf1q0aBef.png"
+    },
+    {
+      "id": 3972,
+      "name": "BSS",
+      "logoPath": "/rL2IlndcEiQnIbym5EoSEM7rGlx.png"
+    },
+    {
+      "id": 3973,
+      "name": "MRO",
+      "logoPath": "/dh4E8hGvqD9Xqu51kbqUU06UKbt.png"
+    },
+    {
+      "id": 3974,
+      "name": "OBS",
+      "logoPath": "/yMQxsmGs88q54bslmcSeXlmpObC.png"
+    },
+    {
+      "id": 3975,
+      "name": "TUF",
+      "logoPath": "/6ACZlk44MWsIIwYHxjRGXGKlpRb.png"
+    },
+    {
+      "id": 3977,
+      "name": "RSK",
+      "logoPath": "/sGMMrdCmptaLLwJX7CsXTDaduLO.png"
+    },
+    {
+      "id": 3978,
+      "name": "TUY",
+      "logoPath": "/zOz9LK6WWLUWGuG0fthzDzCIXlA.png"
+    },
+    {
+      "id": 3979,
+      "name": "tbc",
+      "logoPath": "/yWlWHPUn6FHjNUulL1vp8croYFw.png"
+    },
+    {
+      "id": 4748,
+      "name": "RKB",
+      "logoPath": "/o5Hlt7ZXJPEm4Qrx2Pl2rtc9A5y.png"
+    },
+    {
+      "id": 4792,
+      "name": "KUTV",
+      "logoPath": "/8kzeHaKeW3gZubs3cqlGWFvfJI7.png"
+    },
+    {
+      "id": 4859,
+      "name": "RBC",
+      "logoPath": "/6jr76BpIItwLV5oKbZmRJsVh3c6.png"
+    },
+    {
+      "id": 6171,
+      "name": "UTY",
+      "logoPath": "/ekXN1cfYutjLfudy1MKyGzNynEa.png"
+    },
+    {
+      "id": 6172,
+      "name": "RCC",
+      "logoPath": "/mKslL0MTHHt9ukugWOv3Vh8Tn0E.png"
+    },
+    {
+      "id": 6173,
+      "name": "MRT",
+      "logoPath": "/YfewT1YYtAqkgvdu8oCX4mnJCs.png"
+    },
+    {
+      "id": 6174,
+      "name": "ATV",
+      "logoPath": "/aawphEBuBGT9RVP6xG3BZV8NOCw.png"
+    },
+    {
+      "id": 6175,
+      "name": "MBC",
+      "logoPath": "/iaaU6q82URj2mBbjQIbfAMUz14J.png"
+    }
+  ],
+  "certifications": {
+    "SG": "PG13",
+    "BR": "12",
+    "FR": "12",
+    "TW": "6+",
+    "AU": "PG"
+  },
+  "certification": "PG13"
 }
