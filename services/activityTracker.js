@@ -258,7 +258,7 @@ class ActivityTracker extends EventEmitter {
         session.rangeRequests = [];
 
         this.completedSessions++;
-        this.totalSessionDurationSec += (now - session.firstSeen) / 1000;
+        this.totalSessionDurationSec += durationMs / 1000;
 
         this.activeSessions.delete(sessionKey);
 

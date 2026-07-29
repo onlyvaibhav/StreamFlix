@@ -127,17 +127,31 @@ self.addEventListener('message', async (event) => {
   }
 });
 
-async function handleFetchRange(fileId, requestedStart, requestedEnd, port) {
-  try {
-    if (!client) {
-      throw new Error('Telegram client not initialized');
-    }
+let connectPromise = null;
 
-    if (!client.connected || !isConnected) {
+async function ensureConnected() {
+  if (!client) {
+    throw new Error('Telegram client not initialized');
+  }
+  if (client.connected && isConnected) return;
+
+  if (!connectPromise) {
+    connectPromise = (async () => {
       console.log('[TelegramWorker] Client disconnected, attempting to reconnect before fetching chunk...');
       await client.connect();
       isConnected = true;
-    }
+      console.log('[TelegramWorker] Reconnected successfully.');
+    })().finally(() => {
+      connectPromise = null;
+    });
+  }
+  await connectPromise;
+}
+
+async function handleFetchRange(fileId, requestedStart, requestedEnd, port) {
+  try {
+    await ensureConnected();
+
     const fileInfo = files.get(fileId);
     if (!fileInfo) {
       throw new Error(`File ${fileId} not registered with worker`);
@@ -189,29 +203,36 @@ async function handleFetchRange(fileId, requestedStart, requestedEnd, port) {
           if (error.errorMessage && (error.errorMessage.includes('FILE_REFERENCE_EXPIRED') || error.errorMessage.includes('FILE_REFERENCE'))) {
             console.log(`[TelegramWorker] FILE_REFERENCE_EXPIRED at offset ${alignedStart}, refreshing...`);
             if (fileInfo.channelId) {
-              try {
-                let channelIdStr = fileInfo.channelId.toString();
-                if (!channelIdStr.startsWith('-100')) {
-                  channelIdStr = '-100' + channelIdStr.replace('-', '');
-                }
-                const channel = await client.getEntity(channelIdStr);
-                const result = await client.invoke(new Api.channels.GetMessages({
-                  channel: channel,
-                  id: [new Api.InputMessageID({ id: parseInt(fileId) })]
-                }));
-                if (result.messages && result.messages.length > 0 && result.messages[0].media && result.messages[0].media.document) {
-                  const doc = result.messages[0].media.document;
-                  // Update location with fresh reference and accessHash
-                  fileInfo.location.fileReference = doc.fileReference;
-                  if (doc.accessHash) fileInfo.location.accessHash = doc.accessHash;
-                  if (doc.id) fileInfo.location.id = doc.id;
-                  
-                  console.log(`[TelegramWorker] ✅ File reference refreshed successfully from Telegram.`);
-                  continue; // Retry with fresh reference
-                }
-              } catch (refErr) {
-                console.error(`[TelegramWorker] ❌ Failed to refresh file reference:`, refErr);
+              if (!fileInfo.refreshPromise) {
+                fileInfo.refreshPromise = (async () => {
+                  let channelIdStr = fileInfo.channelId.toString();
+                  if (!channelIdStr.startsWith('-100')) {
+                    channelIdStr = '-100' + channelIdStr.replace('-', '');
+                  }
+                  const channel = await client.getEntity(channelIdStr);
+                  const result = await client.invoke(new Api.channels.GetMessages({
+                    channel: channel,
+                    id: [new Api.InputMessageID({ id: parseInt(fileId) })]
+                  }));
+                  if (result.messages && result.messages.length > 0 && result.messages[0].media && result.messages[0].media.document) {
+                    const doc = result.messages[0].media.document;
+                    // Update location with fresh reference and accessHash
+                    fileInfo.location.fileReference = doc.fileReference;
+                    if (doc.accessHash) fileInfo.location.accessHash = doc.accessHash;
+                    if (doc.id) fileInfo.location.id = doc.id;
+                    
+                    console.log(`[TelegramWorker] ✅ File reference refreshed successfully from Telegram.`);
+                  }
+                })().catch(err => {
+                  console.error(`[TelegramWorker] ❌ Failed to refresh file reference:`, err);
+                }).finally(() => {
+                  fileInfo.refreshPromise = null;
+                });
+              } else {
+                console.log(`[TelegramWorker] ⏳ Waiting on existing file reference refresh...`);
               }
+              await fileInfo.refreshPromise;
+              continue; // Retry with fresh reference
             } else {
               console.error(`[TelegramWorker] ❌ Cannot refresh file reference because channelId is missing.`);
             }

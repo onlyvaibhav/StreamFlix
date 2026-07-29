@@ -17,7 +17,7 @@ class ApiEndpoints {
   static const String stream = '/api/stream/:id';
   static const String streamTracks = '/api/stream/:id/tracks';
   static const String streamPartInfo = '/api/stream/:id/part-info';
-  static const String streamHeartbeat = '/api/stream/:id/heartbeat';
+  static const String streamHeartbeat = '/api/stream/heartbeat';
   static const String streamEmbeddedSubtitle = '/api/stream/:id/subtitle/:streamIndex';
 
   // Subtitle Endpoints

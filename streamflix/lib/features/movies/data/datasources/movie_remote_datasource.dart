@@ -121,7 +121,8 @@ class MovieRemoteDataSource {
     try {
       final response = await _dio.get(ApiEndpoints.curated);
       if (response.data is Map<String, dynamic>) {
-        return CuratedResponse.fromJson(response.data as Map<String, dynamic>);
+        final sanitized = _sanitizeCuratedJson(response.data as Map<String, dynamic>);
+        return CuratedResponse.fromJson(sanitized);
       }
       throw Exception('Unexpected response format for curated content');
     } on DioException catch (e) {
@@ -259,6 +260,52 @@ class MovieRemoteDataSource {
       copy['availableEpisodeCount'] = sanitizedSeasons.fold<int>(0, (sum, s) => sum + (s['episodes'] as List).length);
     }
     
+    return copy;
+  }
+
+  /// Deeply sanitizes the CuratedResponse JSON to ensure empty maps aren't accidentally decoded as empty lists.
+  /// This fixes the "type 'List<dynamic>' is not a subtype of type 'Map<String, dynamic>' in type cast" error.
+  Map<String, dynamic> _sanitizeCuratedJson(Map<String, dynamic> json) {
+    final copy = Map<String, dynamic>.from(json);
+
+    // Fix homepage.rows
+    if (copy['homepage'] is Map) {
+      final homepage = Map<String, dynamic>.from(copy['homepage']);
+      if (homepage['rows'] is List && (homepage['rows'] as List).isEmpty) {
+        homepage['rows'] = <String, dynamic>{};
+      }
+      copy['homepage'] = homepage;
+    }
+
+    // Fix genres_page.sections and nested section maps
+    if (copy['genres_page'] is Map) {
+      final genresPage = Map<String, dynamic>.from(copy['genres_page']);
+      if (genresPage['sections'] is List && (genresPage['sections'] as List).isEmpty) {
+        genresPage['sections'] = <String, dynamic>{};
+      } else if (genresPage['sections'] is Map) {
+        final sections = Map<String, dynamic>.from(genresPage['sections']);
+        for (final key in sections.keys) {
+          if (sections[key] is List && (sections[key] as List).isEmpty) {
+            sections[key] = <String, dynamic>{};
+          }
+        }
+        genresPage['sections'] = sections;
+      }
+      copy['genres_page'] = genresPage;
+    }
+
+    // Fix special_sections
+    if (copy['special_sections'] is Map) {
+      final specialSections = Map<String, dynamic>.from(copy['special_sections']);
+      if (specialSections['mood'] is List && (specialSections['mood'] as List).isEmpty) {
+        specialSections['mood'] = <String, dynamic>{};
+      }
+      if (specialSections['duration'] is List && (specialSections['duration'] as List).isEmpty) {
+        specialSections['duration'] = <String, dynamic>{};
+      }
+      copy['special_sections'] = specialSections;
+    }
+
     return copy;
   }
 

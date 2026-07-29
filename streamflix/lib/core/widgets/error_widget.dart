@@ -11,7 +11,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:streamflix/core/network/connectivity_service.dart';
 
 /// Reusable error widget with retry button supporting connection vs server error states
-class AppErrorWidget extends ConsumerWidget {
+class AppErrorWidget extends ConsumerStatefulWidget {
   final Object error;
   final VoidCallback? onRetry;
 
@@ -20,6 +20,22 @@ class AppErrorWidget extends ConsumerWidget {
     required this.error,
     this.onRetry,
   });
+
+  @override
+  ConsumerState<AppErrorWidget> createState() => _AppErrorWidgetState();
+}
+
+class _AppErrorWidgetState extends ConsumerState<AppErrorWidget> {
+  bool _isRetrying = false;
+
+  void _handleRetry() async {
+    if (widget.onRetry == null || _isRetrying) return;
+    setState(() => _isRetrying = true);
+    widget.onRetry!();
+    // Simulate a minimum delay to show the spinner
+    await Future.delayed(const Duration(milliseconds: 800));
+    if (mounted) setState(() => _isRetrying = false);
+  }
 
   String _getErrorState(Object error, bool isOffline) {
     if (isOffline) {
@@ -92,7 +108,7 @@ class AppErrorWidget extends ConsumerWidget {
   Widget _buildOfflineError(BuildContext context) {
     return RefreshIndicator(
       onRefresh: () async {
-        onRetry?.call();
+        widget.onRetry?.call();
         await Future.delayed(const Duration(milliseconds: 500));
       },
       child: Center(
@@ -127,13 +143,15 @@ class AppErrorWidget extends ConsumerWidget {
               style: GoogleFonts.inter(fontSize: 14, color: Colors.white54),
             ),
             const SizedBox(height: 32),
-            if (onRetry != null) ...[
+            if (widget.onRetry != null) ...[
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton.icon(
-                  onPressed: onRetry,
-                  icon: const Icon(Icons.refresh),
-                  label: Text("Try Again", style: GoogleFonts.inter(fontSize: 16, fontWeight: FontWeight.bold)),
+                  onPressed: _isRetrying ? null : _handleRetry,
+                  icon: _isRetrying 
+                      ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
+                      : const Icon(Icons.refresh),
+                  label: Text(_isRetrying ? "Retrying..." : "Try Again", style: GoogleFonts.inter(fontSize: 16, fontWeight: FontWeight.bold)),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.error,
                     foregroundColor: Colors.white,
@@ -192,7 +210,7 @@ class AppErrorWidget extends ConsumerWidget {
   Widget _buildServerError(BuildContext context) {
     return RefreshIndicator(
       onRefresh: () async {
-        onRetry?.call();
+        widget.onRetry?.call();
         await Future.delayed(const Duration(milliseconds: 500));
       },
       child: Center(
@@ -221,13 +239,15 @@ class AppErrorWidget extends ConsumerWidget {
               style: GoogleFonts.inter(fontSize: 14, color: Colors.white70),
             ),
             const SizedBox(height: 32),
-            if (onRetry != null) ...[
+            if (widget.onRetry != null) ...[
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton.icon(
-                  onPressed: onRetry,
-                  icon: const Icon(Icons.refresh),
-                  label: Text("Try Again", style: GoogleFonts.inter(fontSize: 16, fontWeight: FontWeight.bold)),
+                  onPressed: _isRetrying ? null : _handleRetry,
+                  icon: _isRetrying 
+                      ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
+                      : const Icon(Icons.refresh),
+                  label: Text(_isRetrying ? "Retrying..." : "Try Again", style: GoogleFonts.inter(fontSize: 16, fontWeight: FontWeight.bold)),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.error,
                     foregroundColor: Colors.white,
@@ -294,7 +314,7 @@ class AppErrorWidget extends ConsumerWidget {
   Widget _buildStreamError(BuildContext context) {
     return RefreshIndicator(
       onRefresh: () async {
-        onRetry?.call();
+        widget.onRetry?.call();
         await Future.delayed(const Duration(milliseconds: 500));
       },
       child: Center(
@@ -323,13 +343,15 @@ class AppErrorWidget extends ConsumerWidget {
                 style: GoogleFonts.inter(fontSize: 14, color: Colors.white70),
               ),
               const SizedBox(height: 32),
-              if (onRetry != null) ...[
+              if (widget.onRetry != null) ...[
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton.icon(
-                    onPressed: onRetry,
-                    icon: const Icon(Icons.refresh),
-                    label: Text("Try Again", style: GoogleFonts.inter(fontSize: 16, fontWeight: FontWeight.bold)),
+                    onPressed: _isRetrying ? null : _handleRetry,
+                    icon: _isRetrying 
+                        ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
+                        : const Icon(Icons.refresh),
+                    label: Text(_isRetrying ? "Retrying..." : "Try Again", style: GoogleFonts.inter(fontSize: 16, fontWeight: FontWeight.bold)),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.error,
                       foregroundColor: Colors.white,
@@ -362,9 +384,9 @@ class AppErrorWidget extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final isOffline = ref.watch(isOfflineProvider);
-    final state = _getErrorState(error, isOffline);
+    final state = _getErrorState(widget.error, isOffline);
     
     if (state == 'no_internet') {
       return _buildOfflineError(context);
@@ -376,7 +398,7 @@ class AppErrorWidget extends ConsumerWidget {
     
     IconData icon = Icons.error_outline;
     String title = "An error occurred";
-    String subtitle = error.toString();
+    String subtitle = widget.error.toString();
 
     return Center(
       child: Padding(
@@ -405,12 +427,14 @@ class AppErrorWidget extends ConsumerWidget {
               ),
               textAlign: TextAlign.center,
             ),
-            if (onRetry != null) ...[
+            if (widget.onRetry != null) ...[
               const SizedBox(height: AppDimensions.spaceLarge),
               ElevatedButton.icon(
-                onPressed: onRetry,
-                icon: const Icon(Icons.refresh),
-                label: Text('Retry'),
+                onPressed: _isRetrying ? null : _handleRetry,
+                icon: _isRetrying 
+                    ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
+                    : const Icon(Icons.refresh),
+                label: Text(_isRetrying ? 'Retrying...' : 'Retry'),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.netflixRed,
                   foregroundColor: AppColors.textPrimary,

@@ -271,6 +271,24 @@ class _WatchScreenState extends ConsumerState<WatchScreen> {
     final movieAsync = ref.watch(movieDetailProvider(widget.movieId));
     final playerState = ref.watch(moviePlayerProvider(widget.movieId));
 
+    // Listen for non-fatal errors to show a toast instead of a full page error
+    ref.listen(moviePlayerProvider(widget.movieId).select((state) => state.nonFatalError), (previous, String? current) {
+      if (current != null && current != previous) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(current, style: const TextStyle(color: Colors.white)),
+            backgroundColor: AppColors.netflixRed,
+            duration: const Duration(seconds: 3),
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+        // Clear it so it can fire again if needed
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          ref.read(moviePlayerProvider(widget.movieId).notifier).clearNonFatalError();
+        });
+      }
+    });
+
     return Scaffold(
       backgroundColor: Colors.black,
       body: movieAsync.when(

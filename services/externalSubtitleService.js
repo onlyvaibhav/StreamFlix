@@ -223,8 +223,18 @@ async function searchSubDL(tmdbId, mediaType = 'movie', seasonNumber = null, epi
 
         console.log(`   ✅ SubDL: Found ${subtitleList.length} subtitle(s)`);
 
-        const mappedSubs = subtitleList.map((sub, index) => ({
-            id: `subdl_${index}_${Date.now()}`,
+        const mappedSubs = subtitleList.map((sub, index) => {
+            const statelessData = {
+                u: sub.url,
+                s: seasonNumber || null,
+                e: episodeNumber || null,
+                l: sub.release_name || sub.name || `Subtitle ${index + 1}`,
+                lang: sub.lang || sub.language || 'en'
+            };
+            const idBase64 = Buffer.from(JSON.stringify(statelessData)).toString('base64url');
+
+            return {
+            id: `subdl_${idBase64}`,
             provider: 'subdl',
             label: sub.release_name || sub.name || `Subtitle ${index + 1}`,
             language: sub.lang || sub.language || 'en',
@@ -238,7 +248,8 @@ async function searchSubDL(tmdbId, mediaType = 'movie', seasonNumber = null, epi
             // Store episode info for correct ZIP extraction
             seasonNumber: seasonNumber || null,
             episodeNumber: episodeNumber || null,
-        })).filter(sub => sub.downloadUrl);
+        };
+        }).filter(sub => sub.downloadUrl);
 
         // Pre-sort SubDL results to prioritize 'HI' (Hearing Impaired) at the top of the list 
         // using the embedded boolean flag or text matching
@@ -529,6 +540,8 @@ async function searchSubtitles(mediaInfo, languages = ['en'], providers = ['subd
     return results;
 }
 
+const downloadPromises = new Map();
+
 /**
  * Download a subtitle by its ID
  */
@@ -540,36 +553,89 @@ async function downloadSubtitle(subtitleId, allResults = []) {
         return cached.data;
     }
 
-    // Find the subtitle in results
-    const subtitle = allResults.find(s => s.id === subtitleId);
-    if (!subtitle) throw new Error(`Subtitle ${subtitleId} not found`);
-
-    let vttContent;
-
-    if (subtitle.provider === 'subdl') {
-        vttContent = await downloadSubDL(subtitle);
-    } else if (subtitle.provider === 'opensubtitles') {
-        vttContent = await downloadOpenSubtitles(subtitle);
-    } else {
-        throw new Error(`Unknown provider: ${subtitle.provider}`);
+    // Check if a download is already in flight
+    if (downloadPromises.has(subtitleId)) {
+        console.log(`   ⏳ Reusing in-flight download for: ${subtitleId}`);
+        return downloadPromises.get(subtitleId);
     }
+
+    const downloadTask = (async () => {
+        let subtitle;
+        
+        // 1. Check if the ID is a stateless base64 string
+        try {
+            if (subtitleId.startsWith('subdl_') && subtitleId.length > 30) {
+                const base64Data = subtitleId.replace('subdl_', '');
+                const jsonStr = Buffer.from(base64Data, 'base64url').toString('utf8');
+                const decoded = JSON.parse(jsonStr);
+                subtitle = {
+                    provider: 'subdl',
+                    downloadUrl: decoded.u ? `https://dl.subdl.com${decoded.u}` : null,
+                    seasonNumber: decoded.s,
+                    episodeNumber: decoded.e,
+                    label: decoded.l,
+                    language: decoded.lang,
+                    isZip: true,
+                    source: 'SubDL'
+                };
+            } else if (subtitleId.startsWith('os_')) {
+                // For OpenSubtitles, the id is simply os_{file_id}
+                const fileId = subtitleId.replace('os_', '');
+                subtitle = {
+                    provider: 'opensubtitles',
+                    fileId: fileId,
+                    label: 'OS Subtitle',
+                    language: 'en',
+                    source: 'OpenSubtitles'
+                };
+            }
+        } catch (e) {
+            console.warn(`   ⚠️ Failed to parse stateless subtitle ID: ${subtitleId}`, e.message);
+        }
+
+        // 2. Fallback to in-memory store for backwards compatibility
+        if (!subtitle) {
+            subtitle = allResults.find(s => s.id === subtitleId);
+        }
+
+        if (!subtitle) throw new Error(`Subtitle ${subtitleId} not found or expired from memory.`);
+
+        let vttContent;
+
+        if (subtitle.provider === 'subdl') {
+            vttContent = await downloadSubDL(subtitle);
+        } else if (subtitle.provider === 'opensubtitles') {
+            vttContent = await downloadOpenSubtitles(subtitle);
+        } else {
+            throw new Error(`Unknown provider: ${subtitle.provider}`);
+        }
 
     // Ensure it starts with WEBVTT
     if (!vttContent.trim().startsWith('WEBVTT')) {
         vttContent = 'WEBVTT\n\n' + vttContent;
     }
 
-    const result = {
-        content: vttContent,
-        fileName: `${subtitle.label}.vtt`,
-        format: 'vtt',
-        mimeType: 'text/vtt',
-        language: subtitle.language,
-        source: subtitle.source,
-    };
+        const result = {
+            content: vttContent,
+            fileName: `${subtitle.label}.vtt`,
+            format: 'vtt',
+            mimeType: 'text/vtt',
+            language: subtitle.language,
+            source: subtitle.source,
+        };
 
-    downloadCache.set(subtitleId, { data: result, time: Date.now() });
-    return result;
+        downloadCache.set(subtitleId, { data: result, time: Date.now() });
+        return result;
+    })();
+
+    downloadPromises.set(subtitleId, downloadTask);
+
+    try {
+        const result = await downloadTask;
+        return result;
+    } finally {
+        downloadPromises.delete(subtitleId);
+    }
 }
 
 // ==================== HELPERS ====================

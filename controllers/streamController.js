@@ -183,6 +183,16 @@ exports.getFileInfo = async (req, res) => {
     }
 
     const config = require('../config/telegram');
+    
+    // Prevent caching of this response, as the Telegram file reference expires
+    // and if cached, the client will fail to reconnect/download with a stale reference.
+    res.set({
+      'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+      'Pragma': 'no-cache',
+      'Expires': '0',
+      'Surrogate-Control': 'no-store'
+    });
+
     res.json({
       fileId: resolvedId,
       fileSize: fileInfo.fileSize,

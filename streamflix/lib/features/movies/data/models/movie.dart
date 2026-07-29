@@ -146,7 +146,7 @@ extension MovieX on Movie {
   String? get fullEpisodeStillUrl {
     if (episodeStill == null) return null;
     if (episodeStill!.startsWith('http')) return episodeStill;
-    if (episodeStill!.startsWith('/api/')) return episodeStill; // AppImage wrapper handles prefixing the baseUrl
+    if (episodeStill!.startsWith('/api/') || episodeStill!.startsWith('/data/')) return episodeStill; // AppImage wrapper handles prefixing the baseUrl
     
     // If it's a raw TMDB path (like _stillPath), prepend TMDB base url!
     if (episodeStill!.startsWith('/')) {

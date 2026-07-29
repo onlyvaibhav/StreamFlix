@@ -122,17 +122,21 @@ async function handleUpdate(update) {
                     const lines = origText.split('\n');
                     let userInfo = 'Unknown User';
                     let deviceInfo = 'Unknown Device';
+                    let ipInfo = 'Unknown IP';
+                    let locInfo = 'Unknown Location';
                     
                     lines.forEach(l => {
                         if (l.startsWith('User:')) userInfo = l.replace('User:', '').trim();
                         if (l.startsWith('Device:')) deviceInfo = l.replace('Device:', '').trim();
+                        if (l.startsWith('IP:')) ipInfo = l.replace('IP:', '').trim();
+                        if (l.startsWith('Location:')) locInfo = l.replace('Location:', '').trim();
                     });
 
                     // Remove the button from original message
                     await editMessageReplyMarkup(ADMIN_CHAT_ID, update.callback_query.message.message_id, { inline_keyboard: [] });
                     
                     // Send a detailed reply
-                    const replyMsg = `🚫 <b>Session Kicked Successfully</b>\nUser: ${userInfo}\nDevice: ${deviceInfo}\nSession ID: <code>${sessionId}</code>`;
+                    const replyMsg = `🚫 <b>Session Kicked Successfully</b>\nUser: ${userInfo}\nDevice: ${deviceInfo}\nIP: ${ipInfo}\nLocation: ${locInfo}\nSession ID: <code>${sessionId}</code>`;
                     await sendTelegramReply(ADMIN_CHAT_ID, replyMsg, update.callback_query.message.message_id);
                 } catch (e) {
                     await answerCallbackQuery(update.callback_query.id, 'Failed to revoke session: ' + e.message);

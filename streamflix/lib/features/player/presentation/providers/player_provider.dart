@@ -28,6 +28,7 @@ class PlayerState {
   final bool isInitialized;
   final bool isLoading;
   final String? error;
+  final String? nonFatalError;
 
   // Active movie details
   final Movie? movie;
@@ -63,6 +64,7 @@ class PlayerState {
     this.isInitialized = false,
     this.isLoading = false,
     this.error,
+    this.nonFatalError,
     this.movie,
     this.tvSeasons = const [],
     this.trackInfo,
@@ -85,6 +87,7 @@ class PlayerState {
     bool? isInitialized,
     bool? isLoading,
     String? error,
+    String? nonFatalError,
     Movie? movie,
     List<SeasonInfo>? tvSeasons,
     TrackInfo? trackInfo,
@@ -106,6 +109,7 @@ class PlayerState {
       isInitialized: isInitialized ?? this.isInitialized,
       isLoading: isLoading ?? this.isLoading,
       error: error,
+      nonFatalError: nonFatalError,
       movie: movie ?? this.movie,
       tvSeasons: tvSeasons ?? this.tvSeasons,
       trackInfo: trackInfo ?? this.trackInfo,
@@ -163,6 +167,13 @@ class MoviePlayer extends _$MoviePlayer {
   StreamSubscription? _durationSubscription;
   StreamSubscription? _positionSubscription;
   String? _currentFileId;
+  int _retryCount = 0;
+
+  void clearNonFatalError() {
+    if (state.nonFatalError != null) {
+      state = state.copyWith(nonFatalError: null);
+    }
+  }
 
   @override
   PlayerState build(String movieId) {
@@ -218,20 +229,40 @@ class MoviePlayer extends _$MoviePlayer {
           errStrLower.contains('decoder') ||
           errStrLower.contains('failed to initialize hardware') ||
           errStrLower.contains('failed to open http')) {
-        debugPrint('⚠️ Codec/Stream error detected. Switching to software decoder.');
-        try {
-          final platform = player.platform;
-          if (platform != null) {
-            final dynamic dynPlatform = platform;
-            dynPlatform.setProperty('hwdec', 'no');
-          }
-        } catch (e) {
-          debugPrint('⚠️ Failed to apply hwdec=no: $e');
+        // Do not restart the entire video if it was just an external subtitle that failed to load
+        if (errStrLower.contains('/api/subtitles/file/')) {
+            debugPrint('⚠️ External subtitle failed to load, ignoring to prevent video restart.');
+            state = state.copyWith(nonFatalError: 'Subtitle failed to load. Please try another.');
+            return;
         }
 
-        // Restart current media without recreating VideoController
+        debugPrint('⚠️ Codec/Stream error detected.');
         if (state.movie != null) {
-          Future.microtask(() => play(state.movie!, keepSettings: true));
+          if (_retryCount < 3) {
+            _retryCount++;
+            debugPrint('🔄 Silent retry $_retryCount/3 for stream error...');
+            
+            try {
+              final platform = player.platform;
+              if (platform != null) {
+                final dynamic dynPlatform = platform;
+                dynPlatform.setProperty('hwdec', 'no');
+              }
+            } catch (e) {
+              debugPrint('⚠️ Failed to apply hwdec=no: $e');
+            }
+
+            // Quietly retry playback from the current position after a short delay
+            // This gives the GramJS proxy time to migrate DCs or refresh expired file references
+            Future.delayed(const Duration(milliseconds: 1500), () {
+              if (state.movie != null) {
+                play(state.movie!, keepSettings: true);
+              }
+            });
+            return; // Exit early, DO NOT set state.error
+          } else {
+            debugPrint('❌ Max retries reached. Surrendering to error.');
+          }
         }
       }
       
@@ -308,10 +339,13 @@ class MoviePlayer extends _$MoviePlayer {
 
   /// Full player startup: probe tracks, fetch subtitles, determine mode, start stream
   Future<void> play(Movie movie, {bool keepSettings = false, int? explicitStartTime}) async {
-    // If playing the exact same media (e.g. from fullscreen toggle), ignore
+    if (!keepSettings) {
+      _retryCount = 0;
+    }
+
     if (state.isInitialized && _currentFileId == movie.id && explicitStartTime == null) {
       if (!state.player.state.playing) {
-        state.player.play();
+        await _safePlay();
       }
       return;
     }
@@ -1253,9 +1287,25 @@ class MoviePlayer extends _$MoviePlayer {
     }
   }
 
+  /// Safely play, protecting against restarting from 0 if we hit a premature EOF 
+  /// (e.g., socket closed while app was backgrounded).
+  Future<void> _safePlay() async {
+    final pState = state.player.state;
+    if (pState.completed && pState.duration.inSeconds > 0) {
+      final posSec = pState.position.inSeconds;
+      final durSec = pState.duration.inSeconds;
+      if (posSec < durSec - 5) {
+        debugPrint('⚠️ Intercepted play() on premature EOF (network drop). Seeking to $posSec to recover stream...');
+        await state.player.seek(pState.position);
+        await Future.delayed(const Duration(milliseconds: 150));
+      }
+    }
+    await state.player.play();
+  }
+
   /// Resume playback
   Future<void> resume() async {
-    await state.player.play();
+    await _safePlay();
     if (_currentFileId != null) {
       _startHeartbeat(_currentFileId!);
     }

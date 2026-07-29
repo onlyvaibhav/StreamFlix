@@ -8,7 +8,7 @@
 </a>
 
 <h3 align="center">StreamFlix</h3>
-<h4 align="center"><a href="https://streamflix-a0l5.onrender.com/">🔴 View Live Project</a></h4>
+<h4 align="center"><a href="https://streamflix-a0l5.onrender.com/">🔴 View Live Web Project</a></h4>
 
   <p align="center">
     A fully-featured, Netflix-like streaming platform that uses Telegram as a highly scalable backend storage server.
@@ -29,75 +29,82 @@
 
 ## 🚀 About The Project
 
-StreamFlix is a self-hosted streaming video platform delivering a premium, minimalist, Netflix-like user experience. It provides a fully-featured Single Page Application (SPA) and an advanced HTML5 custom video player designed to consume a specific set of backend APIs, leveraging the unlimited storage capabilities of Telegram. By utilizing Telegram channels as a content delivery network (CDN) and storage backend, StreamFlix bypasses traditional hosting limitations.
+StreamFlix is a self-hosted streaming video platform delivering a premium, minimalist, Netflix-like user experience. It provides **two** fully-featured frontend clients (a Vanilla Web SPA and a cross-platform Flutter App) paired with an advanced Express.js backend designed to leverage the unlimited storage capabilities of Telegram. By utilizing Telegram channels as a content delivery network (CDN) and storage backend, StreamFlix bypasses traditional hosting limitations.
 
-It gracefully handles everything from on-the-fly video transcoding and DASH streaming to automatic TMDB metadata fetching and multi-track subtitle syncing.
+It gracefully handles everything from on-the-fly video remuxing and DASH streaming to automatic TMDB metadata fetching, multi-track subtitle syncing, and robust stream auto-recovery for the ultimate resilient streaming experience.
 
-### ✨ Features
+---
 
-- **Netflix-like UI:** A beautiful, highly responsive, and dynamic vanilla HTML/CSS/JS frontend featuring smooth animations, carousels, and grid layouts.
+## ✨ Features
+
+### 🎬 Universal Features (Web & App)
+- **Netflix-like UI:** A beautiful, highly responsive, and dynamic frontend featuring smooth animations, carousels, and grid layouts.
 - **Telegram Video Streaming:** Streams media formats on-the-fly directly from Telegram channels. No need to download the full file before playing.
 - **Library browsing:** Seamlessly browse categorized content (Movies, TV Shows) and perform search queries.
-- **Hero carousel:** Engaging, auto-rotating hero slider for featured content with swipe navigation support.
-- **Custom player:** A sophisticated, fully-custom HTML5 video player overlay featuring:
-  - Play, pause, and seek functionalities.
-  - 10-second skip forward/backward.
-  - Volume, mute, and playback speed controls.
-  - Fullscreen modes.
-  - Comprehensive keyboard shortcuts (Space/K for play/pause, Arrows for seek/volume, F for fullscreen, M for mute, < / > for speed, Esc to close).
-- **Multi‑audio & subtitles:** Dynamically switch between multiple embedded audio tracks, subtitles and load external subtitles (supports custom WebVTT/SRT parsing and rendering).
-- **Support Unsupported Audio like EAC3:** Transcode EAC3 to AAC on-the-fly.
-- **Next episode auto navigation:** Easily seamlessly jump to the next episode in a TV series.
-- **Mobile gestures:** Touch-friendly controls with tap/double-tap for play/seek and swipe gestures in the hero section.
-- **Smart Playback:** Resume playback from where you left off (using local storage), and automatic grouping of multi-part split movies.
-- **Admin Dashboard(in progress):** Manage your streams, caches, and system directly via a unified web interface with authentication.
+- **Multi‑audio & subtitles:** Dynamically switch between multiple embedded audio tracks, subtitles and load external subtitles.
+- **Support Unsupported Audio like EAC3:** Transcodes EAC3 to AAC on-the-fly.
+- **Next episode auto navigation:** Seamlessly jump to the next episode in a TV series.
+- **Smart Playback:** Resume playback from where you left off, with automatic grouping of multi-part split movies.
+
+### 🌐 Web Client (`public/`)
+- **Vanilla DOM-Driven Rendering:** No heavy JavaScript frameworks (like React or Vue). The UI is dynamically assembled and injected into the DOM for blazing fast performance.
+- **Custom Player Overlay:** A sophisticated HTML5 video player overlay featuring play/pause, seek, volume, speed controls, fullscreen, and keyboard shortcuts (Space, K, F, M, Arrows).
+- **DASH Processing:** Integrated adaptive streaming using `dash.js`.
+
+### 📱 Flutter App (`streamflix/`)
+- **Cross-Platform:** Write once, run on Android, iOS, Windows, macOS, Linux, and Web.
+- **Bulletproof Streaming Engine:** Smart 3-strike auto-retry system gracefully handles Telegram DC migrations and expired file references behind the scenes without interrupting your video.
+- **Background Suspension Recovery:** Intelligently intercepts fake EOF states caused by minimizing the app, seamlessly restoring your stream from your exact last known position when you resume.
+- **Stateless Subtitles & Error Handling:** External subtitles are fetched via stateless base64url payloads. Non-fatal errors (like a corrupted subtitle file) show a non-intrusive toast instead of crashing the video.
+- **Advanced Player:** A sophisticated `media_kit` powered video player featuring hardware decoding fallback mechanisms.
 
 ---
 
 ## 🏗 Architecture
 
-This project is built as a Single Page Application (SPA) utilizing vanilla web technologies:
+The project consists of a detached Node.js backend acting as a proxy/CDN, serving data to two distinct frontends:
 
-- **Routing:** Uses the browser History API (`history.pushState` / `popstate`) for seamless client-side routing without page reloads.
-- **DOM‑driven rendering:** No heavy JavaScript frameworks (like React or Vue) are used. The UI is dynamically assembled and injected into the DOM.
-- **Global Data Management:** A globally accessible `state` object tracks library data, the current route, and all playback details (file ID, seasons/episodes, selected audio/subtitles, etc.).
-- **Player Overlay:** The video player is architected as a full-screen overlay rather than a separate page. Navigating to the `/play/:fileId` route simply presents the interactive player on top of the existing DOM, ensuring instant loading and smooth transitions.
-- **Entry point:** The application initializes centrally in `app.js`, which wires up all event listeners, routers, and initial data fetches upon `DOMContentLoaded`.
+- **Backend (Express.js):** Acts as a bridge between the Telegram MTProto API (via GramJS) and standard HTTP requests. It proxies byte ranges, extracts metadata, fetches subtitles, and caches chunks in memory.
+- **Frontend (Web Client):** Built as a Single Page Application (SPA) utilizing vanilla web technologies and the browser History API for routing.
+- **Frontend (Flutter App):** Built entirely with Flutter, enabling high-performance rendering. Utilizes `flutter_riverpod` for responsive, decoupled state management, and `media_kit` (FFmpeg-based) for near-native video performance.
 
 ---
 
 ## 🛠 Tech Stack
 
-**Frontend**
-* Vanilla HTML5 & CSS3 (Custom styling, Netflix aesthetics, zero heavy CSS frameworks)
-* Vanilla JavaScript (ES6+, DOM manipulation without React/Vue)
-* Custom HTML5 Video Player overlay with DASH processing via `dash.js`
+**Frontend (Web Client)**
+* Vanilla HTML5 & CSS3
+* Vanilla JavaScript (ES6+)
+* HTML5 Video & `dash.js`
 
-**Backend**
+**Frontend (Flutter App)**
+* [Flutter](https://flutter.dev/) & Dart
+* `flutter_riverpod` (State Management)
+* `media_kit` (Advanced FFmpeg-based Video Player)
+* `go_router` (Routing)
+
+**Backend (Node.js)**
 * [Node.js](https://nodejs.org/) & [Express.js](https://expressjs.com/)
 * [MTProto (gramjs)](https://github.com/gram-js/gramjs) for interacting natively with the Telegram API
 * [FFmpeg](https://ffmpeg.org/) for media processing, adaptive streaming, and on-the-fly remuxing
-* LRU-Cache for chunk optimization
-
-**Infrastructure**
-* [Docker](https://www.docker.com/) & [Docker Compose](https://docs.docker.com/compose/)
+* Memory LRU-Cache for chunk optimization
 
 ---
 
 ## 🔌 API Overview
 
-StreamFlix is designed with a detached **frontend** relying on a backend implementation that adheres to the following REST API contracts:
+StreamFlix is designed with a detached backend that adheres to the following REST API contracts:
 
 - `/api/metadata` (or fallback `/api/movies/library`) - Provides the initial library data including movies, TV shows, hero items, and genre-based rows.
 - `/api/search?q=...` - Returns library items matching the search query.
 - `/api/metadata/:fileId` - Fetches detailed information for a specific movie.
 - `/api/tv/:tmdbId` - Fetches detailed data for a specific TV show, including seasons and episodes.
 - `/api/stream/:fileId` - The main media stream endpoint for playback.
-- `/api/stream/:fileId/tracks` - Returns available audio and subtitle tracks, stream duration, and flags (such as `hasUnsupportedAudio`).
+- `/api/stream/:fileId/tracks` - Returns available audio and subtitle tracks, stream duration, and flags.
 - `/api/stream/:fileId/subtitle/:streamIndex` - Serves embedded subtitles for the specified stream index.
 - `/api/subtitles/movie/:fileId` - Lists available external subtitle options.
 - `/api/subtitles/file/:subtitleId` - Fetches the raw text (SRT/VTT) of an external subtitle.
-- `/api/stream/:fileId/heartbeat` - Pinged every 20 seconds during active playback to notify the server that the stream session is alive.
+- `/api/stream/:fileId/heartbeat` - Pinged during active playback to notify the server that the stream session is alive.
 
 ---
 
@@ -118,53 +125,55 @@ To get a local copy up and running, follow these simple steps.
    * Note the channel ID (format: `-100XXXXXXXXXX`).
 4. **System Requirements**
    * `Node.js >= 18.0.0`
-   * `FFmpeg` installed on your host machine (if running natively)
-   * `Docker` (if running via containerized stack)
+   * `FFmpeg` installed on your host machine
+   * `Flutter SDK` (for building the app)
 
 ### Installation
 
-#### Option 1: Using Docker (Recommended)
-This approach sets up the Node backend and Nginx reverse proxy automatically.
-
+#### 1. Setup the Backend
 1. **Clone the repository:**
    ```bash
    git clone https://github.com/vaibhav-btc/Telegram_Streaming.git
    cd StreamFlix
    ```
-2. **Configure Environment variables:**
-   Inside the `backend` folder, duplicate `.env.example` as `.env` and fill in your details (API IDs, TMDB keys, etc.).
+2. **Install dependencies:**
    ```bash
-   cp backend/.env.example backend/.env
-   ```
-3. **Start the containers:**
-   ```bash
-   docker-compose up --build -d
-   ```
-4. **Access the app:** Open `http://localhost` in your browser.
-
-#### Option 2: Running Locally
-
-1. **Clone & Install backend dependencies:**
-   ```bash
-   cd backend
    npm install
    ```
-2. **Configure Environment:** Set up your `.env` file (same as above).
-3. **Start the backend server** (development mode with Nodemon):
+3. **Configure Environment:** 
+   Duplicate `.env.example` to `.env` and fill in your details (API IDs, TMDB keys, etc.).
+   ```bash
+   cp .env.example .env
+   ```
+4. **Start the backend server:**
    ```bash
    npm run dev
    ```
-4. **Serve the Frontend:** Open `public/index.html` via any static file server, for example:
+
+#### 2. Run the Web Client
+1. Open a new terminal.
+2. Serve the `public/` directory via any static file server:
    ```bash
    npx serve public/
    ```
-5. **Access the app:** Navigate to `http://localhost:5000` (or whichever port your static server specifies).
+3. Navigate to `http://localhost:3000` (or whichever port your static server specifies).
+
+#### 3. Run the Flutter App
+1. Open a new terminal.
+2. Navigate to the `streamflix` directory and run the app:
+   ```bash
+   cd streamflix
+   flutter pub get
+   flutter run -d chrome  # or run on Android/iOS/Windows
+   ```
+
+*(Alternatively, you can run the entire backend via Docker Compose using `docker-compose up --build -d`)*
 
 ---
 
 ## ⚙️ Configuration
 
-The application is highly configurable via the `.env` file located in the `backend` directory.
+The application is highly configurable via the `.env` file located in the root directory.
 
 | Variable | Description | Example |
 | -------- | ----------- | ------- |
@@ -176,25 +185,14 @@ The application is highly configurable via the `.env` file located in the `backe
 | `TMDB_API_KEY` | TMDB API Key for metadata | `d5f8...` |
 | `MAX_CACHE_SIZE` | Memory size limit for chunks | `104857600` |
 
-- **External Media Limits:** Images and posters typically utilize proxy routes or local URLs defined by the `/api` responses. If direct HTTP/HTTPS URLs are intentionally rejected by your frontend CSS styling or CSP, data must traverse your local backend proxy instead.
-
----
-
-## ⏯ Player Details
-
-- **Local Resume:** Playback progress, selected audio tracks, and selected subtitles are stored in the browser's `localStorage` under the `streamflix_playback` key, keyed by `fileId`. Entries older than 7 days are automatically pruned to conserve space.
-- **Track Discovery:** Upon opening a video, the player inherently requests the `/tracks` API endpoint to inventory stream variants. It categorizes audio streams and identifies subtitles available for dynamic switching.
-- **Subtitle Handling:** Expects subtitles in SRT or WebVTT formats. The UI gracefully fetches, parses cues, and renders texts into a specialized `<div id="subtitle-display">` element synchronized with the `timeupdate` event.
-- **Video Decoding:** Relies on native browser decoding capabilities. H.264 video streams and AAC audio formats generally have the widest compatibility.
-
 ---
 
 ## 📁 Project Structure
 
-- `index.html` - The core HTML skeleton, containing root container elements and overlay templates.
-- `app.js` - The main workhorse containing routing logic, state management, API service fetching, DOM rendering routines, and custom player logic.
-- `public/css/` or `styles.css` - Custom CSS rules handling responsive grids, hero layouts, skeleton loaders, and player UI without relying on heavy external frameworks.
-- `public/` - Static assets including icons, placeholder images, and manifest files.
+- `backend/` *(Root directory)* - Contains the Express.js server, GramJS MTProto proxy, FFmpeg transcoders, and memory LRU caches.
+- `public/` - The Web Client SPA. Contains `index.html`, `app.js`, styles, and static assets.
+- `streamflix/` - The Flutter App source code. `lib/` contains screens, providers (`riverpod`), and the `media_kit` video player.
+- `controllers/` & `routes/` - Node.js API route handlers for stream logic, metadata fetching, and subtitle extraction.
 
 ---
 
@@ -202,11 +200,10 @@ The application is highly configurable via the `.env` file located in the `backe
 
 - **Remuxing Limitations:** If the backend utilizes FFmpeg remuxing on-the-fly to handle incompatible native codecs, seeking may introduce momentary audio/video sync offsets tied to keyframe precision.
 - **Unsupported Audio:** Some original audio codecs (e.g., EAAC or specific DTS builds) may lack native browser support. The system monitors a `hasUnsupportedAudio` flag from the tracks endpoint to react if transcoding is unavoidable.
-- **Autoplay Restrictions:** Browsers aggressively restrict autoplaying videos with sound. The custom player adheres to requiring human interaction to initialize un-muted playback.
-- **Subtile Desync:** If Audio switch from default to non default then can experience subtitle desync.Use Quick Sync to sync subtitle with audio.
+- **Autoplay Restrictions (Web):** Browsers aggressively restrict autoplaying videos with sound. The custom player adheres to requiring human interaction to initialize un-muted playback.
+- **Subtitle Desync:** If Audio switches from default to non-default, you might experience subtitle desync. Use Quick Sync features in the player to re-align them.
 
 ---
-
 
 ## ⚠️ Disclaimer
 
@@ -217,9 +214,8 @@ This project is for educational and personal use only. Streaming copyrighted con
 ## 🤝 Contributing
 
 Contributions are welcome! If you plan to introduce new components, please adhere to:
-- Keeping dependencies zero for the frontend (no React/Vue/Svelte or heavy libraries).
-- Using ES6+ features efficiently while retaining readability.
-- Validating mobile scaling and custom player interactions on varied screen layouts.
+- Keeping dependencies zero for the Web Client frontend (no React/Vue/Svelte).
+- Using Flutter Best Practices for the App frontend.
 
 1. Fork the Project.
 2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`).

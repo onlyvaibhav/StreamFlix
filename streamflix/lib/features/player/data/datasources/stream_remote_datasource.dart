@@ -88,13 +88,14 @@ class StreamRemoteDataSource {
   }
 
   /// Send heartbeat ping to keep backend session alive
-  /// GET /api/stream/:id/heartbeat (fire-and-forget)
+  /// POST /api/stream/heartbeat
   Future<void> sendHeartbeat(String fileId) async {
     try {
-      await _dio.get(
-        ApiEndpoints.streamHeartbeat.replaceAll(':id', fileId),
+      await _dio.post(
+        ApiEndpoints.streamHeartbeat,
+        data: {'fileId': fileId},
       );
-    } catch (_) {
+    } catch (e) {
       // Heartbeat failures are non-fatal
     }
   }

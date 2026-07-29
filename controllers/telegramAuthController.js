@@ -9,6 +9,14 @@ const telegramConfig = require('../config/telegram');
  * Helper to extract real client IP (bypassing proxies)
  */
 function getClientIp(req) {
+  const forwarded = req.headers['x-forwarded-for'];
+  if (forwarded) {
+    return forwarded.split(',')[0].trim();
+  }
+  const realIp = req.headers['x-real-ip'];
+  if (realIp) {
+    return realIp;
+  }
   return req.ip || req.connection?.remoteAddress || 'Unknown';
 }
 

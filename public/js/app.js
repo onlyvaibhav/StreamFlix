@@ -2952,11 +2952,21 @@ function startHeartbeat(fileId) {
   
   const workerCode = `
     let timer;
+    let expected = Date.now() + 20000;
+    function tick() {
+      const now = Date.now();
+      if (now >= expected - 1000) {
+        postMessage('tick');
+        expected = now + 20000;
+      }
+      timer = setTimeout(tick, 1000);
+    }
     self.onmessage = function(e) {
       if (e.data === 'start') {
-        timer = setInterval(() => postMessage('tick'), 20000);
+        expected = Date.now() + 20000;
+        timer = setTimeout(tick, 1000);
       } else if (e.data === 'stop') {
-        clearInterval(timer);
+        clearTimeout(timer);
         close();
       }
     };
@@ -2972,7 +2982,12 @@ function startHeartbeat(fileId) {
     if (window.StreamFlixAuth && window.StreamFlixAuth.sessionToken) {
       headers['Authorization'] = 'Bearer ' + window.StreamFlixAuth.sessionToken;
     }
-    fetch(`/api/stream/${fileId}/heartbeat`, { headers }).catch(() => { });
+    // Phase C: Lightweight POST heartbeat
+    fetch('/api/stream/heartbeat', { 
+      method: 'POST',
+      headers: { ...headers, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ fileId: fileId })
+    }).catch(() => { });
   };
   
   state.player.heartbeatWorker.onmessage = tick;
