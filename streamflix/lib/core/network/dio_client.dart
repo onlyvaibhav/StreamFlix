@@ -67,8 +67,8 @@ class ETagCacheInterceptor extends Interceptor {
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    // Only cache GET requests
-    if (options.method != 'GET') {
+    // Only cache GET requests, and skip if Cache-Control: no-cache is requested
+    if (options.method != 'GET' || options.headers['Cache-Control'] == 'no-cache') {
       return handler.next(options);
     }
 

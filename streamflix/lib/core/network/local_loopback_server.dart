@@ -1,14 +1,10 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart' as shelf_io;
 import 'package:streamflix/core/network/telegram_client_service.dart';
-
-/// Callback type for refreshing file info when a file reference expires.
-/// Returns a map with keys: documentId, accessHash, fileReference, size
-typedef FileInfoRefresher = Future<Map<String, dynamic>?> Function(String fileId);
 
 class LocalLoopbackServer {
   static final LocalLoopbackServer _instance = LocalLoopbackServer._internal();
@@ -19,19 +15,14 @@ class LocalLoopbackServer {
   int get port => _server?.port ?? 8080;
 
   // Store pre-registered parts for multipart handling
-  // Map of fileId -> { documentId, accessHash, fileReference, size }
+  // Map of fileId -> { documentId, accessHash, fileReference, size, channelId, messageId }
   final Map<String, Map<String, dynamic>> _registeredFiles = {};
 
   final Set<String> activeStreams = {};
   final ValueNotifier<int> activeStreamCount = ValueNotifier(0);
 
-
-  /// Optional callback to refresh file info when FILE_REFERENCE_EXPIRED occurs
-  FileInfoRefresher? _fileInfoRefresher;
-
-  void setFileInfoRefresher(FileInfoRefresher refresher) {
-    _fileInfoRefresher = refresher;
-  }
+  /// De-duplication lock for concurrent refresh calls per fileId
+  final Map<String, Completer<bool>> _pendingRefreshes = {};
 
   Future<void> start() async {
     if (_server != null) return;
@@ -55,6 +46,7 @@ class LocalLoopbackServer {
     required List<int> fileReference,
     required int size,
     String? channelId,
+    String? messageId,
   }) {
     _registeredFiles[fileId] = {
       'documentId': documentId,
@@ -62,8 +54,9 @@ class LocalLoopbackServer {
       'fileReference': fileReference,
       'size': size,
       'channelId': channelId,
+      'messageId': messageId,
     };
-    debugPrint('📦 Registered part $fileId in loopback server (size: $size, channelId: $channelId)');
+    debugPrint('📦 Registered part $fileId in loopback server (size: $size, channelId: $channelId, messageId: $messageId)');
   }
 
   void clearRegisteredFiles() {
@@ -78,25 +71,73 @@ class LocalLoopbackServer {
     return _registeredFiles.containsKey(fileId);
   }
 
-  /// Refresh the file reference for a given fileId by calling the backend
+  /// Stop and remove a specific ReadAheadManager (e.g. when playback gives up)
+  void stopManager(String fileId) {
+    final manager = _readAheadManagers.remove(fileId);
+    if (manager != null) {
+      manager.stop();
+      debugPrint('🛑 Stopped ReadAheadManager for $fileId');
+    }
+  }
+
+  /// Refresh the file reference for a given fileId using the DEVICE's own GramJS session.
+  /// This is critical: file references are session-scoped, so we must refresh using
+  /// the same Telegram session that will call upload.GetFile.
   Future<bool> _refreshFileReference(String fileId) async {
-    if (_fileInfoRefresher == null) {
-      debugPrint('⚠️ No file info refresher registered, cannot refresh file reference');
-      return false;
+    // De-duplicate: if a refresh is already in flight for this fileId, wait for it
+    if (_pendingRefreshes.containsKey(fileId)) {
+      debugPrint('⏳ Refresh already in flight for $fileId, waiting...');
+      return _pendingRefreshes[fileId]!.future;
     }
 
+    final completer = Completer<bool>();
+    _pendingRefreshes[fileId] = completer;
+
     try {
-      debugPrint('🔄 Refreshing file reference for $fileId...');
-      final freshInfo = await _fileInfoRefresher!(fileId);
-      if (freshInfo != null) {
-        _registeredFiles[fileId] = freshInfo;
-        debugPrint('✅ File reference refreshed for $fileId');
+      final fileInfo = _registeredFiles[fileId];
+      if (fileInfo == null) {
+        debugPrint('⚠️ Cannot refresh: no registered file info for $fileId');
+        completer.complete(false);
+        return false;
+      }
+
+      final channelId = fileInfo['channelId']?.toString();
+      final messageId = fileInfo['messageId']?.toString() ?? fileId;
+
+      if (channelId == null) {
+        debugPrint('⚠️ Cannot refresh file reference for $fileId: missing channelId');
+        completer.complete(false);
+        return false;
+      }
+
+      debugPrint('🔄 Refreshing file reference for $fileId via device GramJS (channelId: $channelId, messageId: $messageId)...');
+      
+      final refreshed = await TelegramClientService().refreshFileReference(channelId, messageId);
+      
+      // refreshed contains: { fileReference: List<int>, accessHash: String, id: int/String }
+      final newRef = refreshed['fileReference'];
+      if (newRef != null) {
+        // Update the registered file with the fresh reference from this device's session
+        fileInfo['fileReference'] = newRef is List<int> ? newRef : (newRef as Uint8List).toList();
+        if (refreshed['accessHash'] != null) {
+          fileInfo['accessHash'] = refreshed['accessHash'].toString();
+        }
+        final refHash = base64Encode((fileInfo['fileReference'] as List<int>).take(8).toList());
+        debugPrint('✅ File reference refreshed for $fileId (ref prefix: $refHash)');
+        completer.complete(true);
         return true;
+      } else {
+        debugPrint('❌ Refresh returned null fileReference for $fileId');
+        completer.complete(false);
+        return false;
       }
     } catch (e) {
-      debugPrint('❌ Failed to refresh file reference: $e');
+      debugPrint('❌ Failed to refresh file reference via GramJS: $e');
+      completer.complete(false);
+      return false;
+    } finally {
+      _pendingRefreshes.remove(fileId);
     }
-    return false;
   }
 
   Future<Response> _handleRequest(Request request) async {
@@ -171,15 +212,17 @@ class LocalLoopbackServer {
 
         while (bytesRemaining > 0) {
           Uint8List? bytes;
-          bool retried = false;
 
           // Attempt to fetch the chunk from the read-ahead manager, with up to 3 retries (4 attempts total)
           for (int attempt = 0; attempt < 4; attempt++) {
             try {
-              final manager = _getOrCreateManager(fileId!);
+              final manager = _getOrCreateManager(fileId);
               bytes = await manager.getChunk(currentOffset);
               break; // Success — exit retry loop
             } catch (e) {
+              if (e.toString().contains("ReadAheadManager stopped")) {
+                return;
+              }
               if (e.toString().contains("Seek aborted fetch")) {
                 debugPrint('🔄 Chunk stream seek aborted fetch, retrying immediately');
                 continue; // Immediate retry if aborted due to a seek race condition
@@ -339,6 +382,8 @@ class _ReadAheadManager {
       try {
         await Future.delayed(const Duration(milliseconds: 40)); 
         
+        if (_isStopped) break; // Check before fetching
+        
         final currentFileInfo = server.getRegisteredFile(fileId);
         if (currentFileInfo == null) break;
 
@@ -359,9 +404,18 @@ class _ReadAheadManager {
         
         _cache.removeWhere((k, v) => k < _targetOffset - (chunkSize * 2));
       } catch (e) {
+        if (_isStopped) break; // Don't refresh if we've been stopped
+        
         final errorStr = e.toString().toUpperCase();
+        debugPrint('⚠️ Chunk fetch caught error: $e');
+        
         if (errorStr.contains('FILE_REFERENCE_EXPIRED') || errorStr.contains('FILE_REFERENCE')) {
-             await server.refreshFileReferenceForFile(fileId);
+             bool refreshed = await server.refreshFileReferenceForFile(fileId);
+             if (_isStopped) break; // Check after async refresh
+             if (!refreshed) {
+                 debugPrint('❌ File reference refresh failed. Backing off for 2 seconds.');
+                 await Future.delayed(const Duration(seconds: 2));
+             }
         } else {
              await Future.delayed(const Duration(milliseconds: 500));
         }

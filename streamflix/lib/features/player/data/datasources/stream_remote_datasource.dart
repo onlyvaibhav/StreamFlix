@@ -50,10 +50,11 @@ class StreamRemoteDataSource {
 
   /// Get file metadata including GramJS authentication details
   /// GET /api/stream/:id/file-info
-  Future<FileInfo?> getFileInfo(String fileId) async {
+  Future<FileInfo?> getFileInfo(String fileId, {bool forceRefresh = false}) async {
     try {
       final response = await _dio.get(
         '${AppConfig.v1BaseUrl}/api/stream/$fileId/file-info',
+        options: forceRefresh ? Options(headers: {'Cache-Control': 'no-cache'}) : null,
       );
       if (response.data is Map<String, dynamic>) {
         return FileInfo.fromJson(response.data as Map<String, dynamic>);

@@ -305,6 +305,10 @@ class MoviePlayer extends _$MoviePlayer {
             return; // Exit early, DO NOT set state.error
           } else {
             debugPrint('❌ Max retries reached. Surrendering to error.');
+            // Cancel orphaned fetch loops for this file
+            if (_currentFileId != null) {
+              LocalLoopbackServer().stopManager(_currentFileId!);
+            }
           }
         }
       }
@@ -344,6 +348,11 @@ class MoviePlayer extends _$MoviePlayer {
       _durationSubscription?.cancel();
       _positionSubscription?.cancel();
       player.dispose();
+      
+      // Stop any orphaned ReadAheadManagers for the current file
+      if (_currentFileId != null) {
+        LocalLoopbackServer().stopManager(_currentFileId!);
+      }
       
       // Refresh home screen continue watching row after exiting player
       Future.microtask(() {
@@ -757,15 +766,10 @@ class MoviePlayer extends _$MoviePlayer {
         await _setPropertySafe('sub-delay', '0.0');
         await _setPropertySafe('audio-delay', '0.0');
 
-        final embeddedSubs = trackInfo.subtitleTracks;
-        if (embeddedSubs.isNotEmpty) {
-          final defaultSubIdx = embeddedSubs.indexWhere((t) => t.isDefault);
-          selectedSub = defaultSubIdx >= 0 ? defaultSubIdx : 0;
-        } else if (externalSubs.isNotEmpty) {
-          selectedSub = 100;
-        } else {
-          selectedSub = -1;
-        }
+        selectedSub = _selectDefaultSubtitleIndex(
+          embeddedSubs: trackInfo.subtitleTracks,
+          externalSubs: externalSubs,
+        );
       }
 
       // Determine streaming mode
@@ -796,6 +800,7 @@ class MoviePlayer extends _$MoviePlayer {
           // With the auth guard in place, if we have a session, use client-side streaming
           if (telegramService.sessionString != null && telegramService.sessionString!.isNotEmpty) {
           final dataSource = ref.read(streamRemoteDataSourceProvider);
+          
           if (splitParts.isNotEmpty) {
              await Future.wait(splitParts.where((p) => p.fileId != null).map((part) async {
                 final fileInfo = await dataSource.getFileInfo(part.fileId!);
@@ -807,6 +812,7 @@ class MoviePlayer extends _$MoviePlayer {
                     fileReference: fileInfo.fileLocation!.fileReference,
                     size: fileInfo.fileSize,
                     channelId: fileInfo.channelId,
+                    messageId: part.messageId?.toString() ?? fileInfo.messageId ?? mediaToPlay.messageId?.toString() ?? part.fileId ?? _currentFileId,
                   );
                 }
              }));
@@ -822,6 +828,7 @@ class MoviePlayer extends _$MoviePlayer {
                   fileReference: fileInfo.fileLocation!.fileReference,
                   size: fileInfo.fileSize,
                   channelId: fileInfo.channelId,
+                  messageId: fileInfo.messageId ?? mediaToPlay.messageId?.toString() ?? _currentFileId,
                 );
                 streamUrl = 'http://127.0.0.1:${LocalLoopbackServer().port}/stream/$_currentFileId';
                 useClientStreaming = true;
@@ -936,13 +943,10 @@ class MoviePlayer extends _$MoviePlayer {
          
          if (!keepSettings) {
              selectedAudio = fallbackAudio.isNotEmpty ? 0 : selectedAudio;
-             if (fallbackSubs.isNotEmpty) {
-                 selectedSub = 0;
-             } else if (externalSubs.isNotEmpty) {
-                 selectedSub = 100;
-             } else {
-                 selectedSub = -1;
-             }
+             selectedSub = _selectDefaultSubtitleIndex(
+               embeddedSubs: fallbackSubs,
+               externalSubs: externalSubs,
+             );
          }
          
          // Update state with newly discovered fallback tracks
@@ -1595,5 +1599,62 @@ class MoviePlayer extends _$MoviePlayer {
     } else {
       debugPrint('🎬 Playback completed (no next parts).');
     }
+  }
+
+  /// Select default subtitle track prioritizing English if available.
+  int _selectDefaultSubtitleIndex({
+    required List<SubtitleTrack> embeddedSubs,
+    required List<ExternalSubtitle> externalSubs,
+  }) {
+    if (embeddedSubs.isNotEmpty) {
+      // 1. Search for English in embedded subtitle tracks (language code or title)
+      final engIdx = embeddedSubs.indexWhere((t) {
+        final code = t.languageCode.toLowerCase();
+        final lang = t.language.toLowerCase();
+        final title = t.title.toLowerCase();
+        return code == 'eng' ||
+            code == 'en' ||
+            code.startsWith('en-') ||
+            code.startsWith('en_') ||
+            lang.contains('english') ||
+            lang == 'eng' ||
+            title.contains('english') ||
+            title.contains('eng');
+      });
+
+      if (engIdx >= 0) {
+        debugPrint('📝 Defaulting to English embedded subtitle track at index $engIdx (${embeddedSubs[engIdx].title.isNotEmpty ? embeddedSubs[engIdx].title : embeddedSubs[engIdx].language})');
+        return engIdx;
+      }
+
+      // 2. If no English track found, pick track marked isDefault if available
+      final defaultSubIdx = embeddedSubs.indexWhere((t) => t.isDefault);
+      if (defaultSubIdx >= 0) {
+        debugPrint('📝 No English embedded subtitle found, defaulting to isDefault track at index $defaultSubIdx');
+        return defaultSubIdx;
+      }
+
+      // 3. Otherwise default to index 0 of embedded subs
+      debugPrint('📝 No English or default embedded subtitle found, defaulting to first track at index 0');
+      return 0;
+    } else if (externalSubs.isNotEmpty) {
+      final engExtIdx = externalSubs.indexWhere((s) {
+        final lang = (s.language ?? '').toLowerCase();
+        final title = (s.label ?? '').toLowerCase();
+        return lang == 'en' ||
+            lang == 'eng' ||
+            lang.startsWith('en-') ||
+            lang.startsWith('en_') ||
+            lang.contains('english') ||
+            title.contains('english') ||
+            title.contains('eng');
+      });
+
+      final chosen = engExtIdx >= 0 ? engExtIdx + 100 : 100;
+      debugPrint('📝 Defaulting to external subtitle track $chosen');
+      return chosen;
+    }
+
+    return -1;
   }
 }

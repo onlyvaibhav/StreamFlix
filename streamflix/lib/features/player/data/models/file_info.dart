@@ -7,6 +7,7 @@ class FileInfo {
   final String fileName;
   final int? dcId;
   final String? channelId;
+  final String? messageId;
   final FileLocation? fileLocation;
 
   FileInfo({
@@ -16,6 +17,7 @@ class FileInfo {
     required this.fileName,
     this.dcId,
     this.channelId,
+    this.messageId,
     this.fileLocation,
   });
 
@@ -27,6 +29,7 @@ class FileInfo {
       fileName: json['fileName'] as String? ?? '',
       dcId: json['dcId'] as int?,
       channelId: json['channelId']?.toString(),
+      messageId: json['messageId']?.toString() ?? json['message_id']?.toString(),
       fileLocation: json['fileLocation'] != null
           ? FileLocation.fromJson(json['fileLocation'] as Map<String, dynamic>)
           : null,
