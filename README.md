@@ -3,7 +3,6 @@
 <br/>
 <div align="center">
 <a href="https://github.com/onlyvaibhav/StreamFlix.git">
-<!-- You can add a logo image here in the future -->
 <img src="logo/Logo.png" alt="Logo" width="700" height="175">
 </a>
 
@@ -14,16 +13,40 @@
     A fully-featured, Netflix-like streaming platform that uses Telegram as a highly scalable backend storage server.
     <br/>
     <br/>
-    <a href="#features"><strong>Explore the features »</strong></a>
-    <br/>
-    <br/>
-    <a href="#getting-started">Getting Started</a>
+    <a href="#-screenshots--preview"><strong>View Screenshots »</strong></a>
     ·
-    <a href="#tech-stack">Tech Stack</a>
+    <a href="#-features">Explore Features</a>
     ·
-    <a href="#configuration">Configuration</a>
+    <a href="#-getting-started">Getting Started</a>
+    ·
+    <a href="#-tech-stack">Tech Stack</a>
   </p>
 </div>
+
+---
+
+## 📸 Screenshots & Preview
+
+### 🌐 Web Client SPA
+
+| Web Home Page |
+| :---: |
+| <img src="screenshots/Web_Home_Page.png" width="850" alt="Web Home Page"> |
+
+<br/>
+
+| Web Genres Page | Telegram Login Overlay |
+| :---: | :---: |
+| <img src="screenshots/Web_Genres_Page.png" width="420" alt="Web Genres Page"> | <img src="screenshots/Web_Login_Page.png" width="420" alt="Web Login Page"> |
+
+### 📱 Cross-Platform Flutter App
+| App Home Screen | App Genres Screen |
+| :---: | :---: |
+| <img src="screenshots/App_Home_Page.jpg" width="320" alt="App Home Screen"> | <img src="screenshots/App_Genres_Page.jpg" width="320" alt="App Genres Screen"> |
+
+| Offline Downloads | App Profile & Settings |
+| :---: | :---: |
+| <img src="screenshots/App_Download_Page.jpg" width="320" alt="Offline Downloads"> | <img src="screenshots/App_Profile%20Page.jpg" width="320" alt="App Profile Screen"> |
 
 ---
 
@@ -31,32 +54,42 @@
 
 StreamFlix is a self-hosted streaming video platform delivering a premium, minimalist, Netflix-like user experience. It provides **two** fully-featured frontend clients (a Vanilla Web SPA and a cross-platform Flutter App) paired with an advanced Express.js backend designed to leverage the unlimited storage capabilities of Telegram. By utilizing Telegram channels as a content delivery network (CDN) and storage backend, StreamFlix bypasses traditional hosting limitations.
 
-It gracefully handles everything from on-the-fly video remuxing and DASH streaming to automatic TMDB metadata fetching, multi-track subtitle syncing, and robust stream auto-recovery for the ultimate resilient streaming experience.
+It gracefully handles everything from on-the-fly video remuxing and DASH streaming to automatic TMDB metadata fetching, multi-track subtitle syncing, offline playback, and robust stream auto-recovery for the ultimate resilient streaming experience.
 
 ---
 
 ## ✨ Features
 
 ### 🎬 Universal Features (Web & App)
-- **Netflix-like UI:** A beautiful, highly responsive, and dynamic frontend featuring smooth animations, carousels, and grid layouts.
+- **Netflix-like UI:** A beautiful, highly responsive, and dynamic frontend featuring smooth animations, hero carousels, category filters, and grid layouts.
 - **Telegram Video Streaming:** Streams media formats on-the-fly directly from Telegram channels. No need to download the full file before playing.
-- **Library browsing:** Seamlessly browse categorized content (Movies, TV Shows) and perform search queries.
-- **Multi‑audio & subtitles:** Dynamically switch between multiple embedded audio tracks, subtitles and load external subtitles.
-- **Support Unsupported Audio like EAC3:** Transcodes EAC3 to AAC on-the-fly.
-- **Next episode auto navigation:** Seamlessly jump to the next episode in a TV series.
-- **Smart Playback:** Resume playback from where you left off, with automatic grouping of multi-part split movies.
+- **Library & Genre Browsing:** Seamlessly browse categorized content (Movies, TV Series, Genres) and perform instant search queries.
+- **Multi-audio & Subtitle Management:** Dynamically switch between multiple embedded audio tracks, subtitles, and external subtitle SRT/VTT files with default language selection.
+- **Support Unsupported Audio (EAC3/DTS):** Automatically detects unsupported audio codecs and transcodes EAC3/DTS to AAC on-the-fly.
+- **Smart Playback & Watch Progress Sync:** Automatically saves and syncs watch positions across web and app clients, handling offline progress saves and cross-device resuming seamlessly.
+- **Next Episode Auto Navigation:** Jump to the next episode in a TV series automatically upon episode completion.
 
 ### 🌐 Web Client (`public/`)
-- **Vanilla DOM-Driven Rendering:** No heavy JavaScript frameworks (like React or Vue). The UI is dynamically assembled and injected into the DOM for blazing fast performance.
-- **Custom Player Overlay:** A sophisticated HTML5 video player overlay featuring play/pause, seek, volume, speed controls, fullscreen, and keyboard shortcuts (Space, K, F, M, Arrows).
+- **Vanilla DOM-Driven Rendering:** Lightweight, zero-framework JavaScript (SPA) for blazing fast load times and clean component mounting.
+- **Custom Player Overlay:** Sophisticated HTML5 video player overlay featuring play/pause, seek bar, volume, speed controls, fullscreen, and keyboard shortcuts (Space, K, F, M, Arrow Keys).
+- **Interactive Help & Support Pages:** Full **Help Center** with FAQ categories & search, **Contact Us** form with direct backend email & Telegram bot integration, plus Terms of Service and Privacy Policy modals.
 - **DASH Processing:** Integrated adaptive streaming using `dash.js`.
 
 ### 📱 Flutter App (`streamflix/`)
 - **Cross-Platform:** Write once, run on Android, iOS, Windows, macOS, Linux, and Web.
-- **Bulletproof Streaming Engine:** Smart 3-strike auto-retry system gracefully handles Telegram DC migrations and expired file references behind the scenes without interrupting your video.
-- **Background Suspension Recovery:** Intelligently intercepts fake EOF states caused by minimizing the app, seamlessly restoring your stream from your exact last known position when you resume.
-- **Stateless Subtitles & Error Handling:** External subtitles are fetched via stateless base64url payloads. Non-fatal errors (like a corrupted subtitle file) show a non-intrusive toast instead of crashing the video.
-- **Advanced Player:** A sophisticated `media_kit` powered video player featuring hardware decoding fallback mechanisms.
+- **Offline Download Manager:** Download media files for offline viewing with intelligent progress sync when reconnected to the internet.
+- **Bulletproof Streaming Engine:** Smart 3-strike auto-retry system gracefully handles Telegram DC migrations and expired file references behind the scenes without interrupting video playback.
+- **Background Suspension Recovery:** Intelligently intercepts fake EOF states caused by minimizing the app, seamlessly restoring your stream from your exact last known position upon resuming.
+- **Stateless Subtitles & Error Handling:** External subtitles are fetched via stateless base64url payloads with non-intrusive error toasts for non-fatal stream warnings.
+- **Advanced Media Player:** Powered by `media_kit` (FFmpeg) with hardware decoding fallback mechanisms.
+
+### 🤖 Telegram Admin Bot
+- **Real-Time Alerts:** Receives instant notifications for logins, security events, and contact form submissions.
+- **Bot Commands:** Control and inspect your streaming platform right from Telegram:
+  - `/messages` — View all submitted user inquiries & messages
+  - `/stats` — View today's logins and active viewer metrics
+  - `/activenow` — List active stream sessions in real time
+  - `/recentlogins` — Review recent device authorization logs
 
 ---
 
@@ -64,7 +97,7 @@ It gracefully handles everything from on-the-fly video remuxing and DASH streami
 
 The project consists of a detached Node.js backend acting as a proxy/CDN, serving data to two distinct frontends:
 
-- **Backend (Express.js):** Acts as a bridge between the Telegram MTProto API (via GramJS) and standard HTTP requests. It proxies byte ranges, extracts metadata, fetches subtitles, and caches chunks in memory.
+- **Backend (Express.js):** Acts as a bridge between the Telegram MTProto API (via GramJS) and standard HTTP requests. It proxies byte ranges, extracts metadata, fetches subtitles, logs events, and caches chunks in memory.
 - **Frontend (Web Client):** Built as a Single Page Application (SPA) utilizing vanilla web technologies and the browser History API for routing.
 - **Frontend (Flutter App):** Built entirely with Flutter, enabling high-performance rendering. Utilizes `flutter_riverpod` for responsive, decoupled state management, and `media_kit` (FFmpeg-based) for near-native video performance.
 
@@ -73,7 +106,7 @@ The project consists of a detached Node.js backend acting as a proxy/CDN, servin
 ## 🛠 Tech Stack
 
 **Frontend (Web Client)**
-* Vanilla HTML5 & CSS3
+* Vanilla HTML5 & Vanilla CSS3
 * Vanilla JavaScript (ES6+)
 * HTML5 Video & `dash.js`
 
@@ -86,6 +119,7 @@ The project consists of a detached Node.js backend acting as a proxy/CDN, servin
 **Backend (Node.js)**
 * [Node.js](https://nodejs.org/) & [Express.js](https://expressjs.com/)
 * [MTProto (gramjs)](https://github.com/gram-js/gramjs) for interacting natively with the Telegram API
+* [Telegram Bot API](https://core.telegram.org/bots/api) for administrative alerts & management commands
 * [FFmpeg](https://ffmpeg.org/) for media processing, adaptive streaming, and on-the-fly remuxing
 * Memory LRU-Cache for chunk optimization
 
@@ -95,15 +129,17 @@ The project consists of a detached Node.js backend acting as a proxy/CDN, servin
 
 StreamFlix is designed with a detached backend that adheres to the following REST API contracts:
 
-- `/api/metadata` (or fallback `/api/movies/library`) - Provides the initial library data including movies, TV shows, hero items, and genre-based rows.
+- `/api/metadata` (or fallback `/api/movies/library`) - Provides initial library data including movies, TV shows, hero items, and genre-based rows.
 - `/api/search?q=...` - Returns library items matching the search query.
 - `/api/metadata/:fileId` - Fetches detailed information for a specific movie.
 - `/api/tv/:tmdbId` - Fetches detailed data for a specific TV show, including seasons and episodes.
-- `/api/stream/:fileId` - The main media stream endpoint for playback.
+- `/api/stream/:fileId` - Main media stream endpoint for playback.
 - `/api/stream/:fileId/tracks` - Returns available audio and subtitle tracks, stream duration, and flags.
-- `/api/stream/:fileId/subtitle/:streamIndex` - Serves embedded subtitles for the specified stream index.
+- `/api/stream/:fileId/subtitle/:streamIndex` - Serves embedded subtitles for specified stream index.
 - `/api/subtitles/movie/:fileId` - Lists available external subtitle options.
-- `/api/subtitles/file/:subtitleId` - Fetches the raw text (SRT/VTT) of an external subtitle.
+- `/api/subtitles/file/:subtitleId` - Fetches raw text (SRT/VTT) of an external subtitle.
+- `/api/contact` - Submits user inquiry messages to Telegram admin bot.
+- `/api/progress` - GET/POST endpoint to fetch and save watch progress.
 - `/api/stream/:fileId/heartbeat` - Pinged during active playback to notify the server that the stream session is alive.
 
 ---
@@ -182,6 +218,7 @@ The application is highly configurable via the `.env` file located in the root d
 | `TELEGRAM_SESSION_STRING` | Base64 Session string | `1BQA...` |
 | `TELEGRAM_CHANNEL_ID` | Target Telegram channel | `-1001752608946` |
 | `TELEGRAM_BOT_TOKEN` | Your BotFather token | `123:ABC...` |
+| `TELEGRAM_ADMIN_CHAT_ID` | Telegram Chat ID for Admin Bot | `987654321` |
 | `TMDB_API_KEY` | TMDB API Key for metadata | `d5f8...` |
 | `MAX_CACHE_SIZE` | Memory size limit for chunks | `104857600` |
 
@@ -190,17 +227,19 @@ The application is highly configurable via the `.env` file located in the root d
 ## 📁 Project Structure
 
 - `backend/` *(Root directory)* - Contains the Express.js server, GramJS MTProto proxy, FFmpeg transcoders, and memory LRU caches.
-- `public/` - The Web Client SPA. Contains `index.html`, `app.js`, styles, and static assets.
-- `streamflix/` - The Flutter App source code. `lib/` contains screens, providers (`riverpod`), and the `media_kit` video player.
+- `public/` - Web Client SPA. Contains `index.html`, `app.js`, styles, and static assets.
+- `streamflix/` - Flutter App source code. `lib/` contains screens, providers (`riverpod`), and the `media_kit` video player.
+- `screenshots/` - Showcase screenshots of Web SPA and Flutter App screens.
 - `controllers/` & `routes/` - Node.js API route handlers for stream logic, metadata fetching, and subtitle extraction.
+- `services/bot/` - Telegram Admin Bot service for real-time notifications and `/messages`, `/stats`, `/activenow` bot commands.
 
 ---
 
 ## ⚠️ Known Issues / Limitations
 
 - **Remuxing Limitations:** If the backend utilizes FFmpeg remuxing on-the-fly to handle incompatible native codecs, seeking may introduce momentary audio/video sync offsets tied to keyframe precision.
-- **Unsupported Audio:** Some original audio codecs (e.g., EAAC or specific DTS builds) may lack native browser support. The system monitors a `hasUnsupportedAudio` flag from the tracks endpoint to react if transcoding is unavoidable.
-- **Autoplay Restrictions (Web):** Browsers aggressively restrict autoplaying videos with sound. The custom player adheres to requiring human interaction to initialize un-muted playback.
+- **Unsupported Audio:** Some original audio codecs (e.g., EAC3 or specific DTS builds) may lack native browser support. The system transcodes EAC3/DTS to AAC on-the-fly.
+- **Autoplay Restrictions (Web):** Browsers restrict autoplaying videos with sound. The custom player requires user interaction to initialize un-muted playback.
 - **Subtitle Desync:** If Audio switches from default to non-default, you might experience subtitle desync. Use Quick Sync features in the player to re-align them.
 
 ---
