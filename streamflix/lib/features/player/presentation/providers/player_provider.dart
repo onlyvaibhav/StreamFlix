@@ -157,6 +157,42 @@ class PlayerState {
     }
     return null;
   }
+
+  Duration getGlobalPosition(Duration rawPosition) {
+    if (splitParts.isNotEmpty) {
+      double accumulated = 0.0;
+      for (int i = 0; i < currentPartIndex; i++) {
+        accumulated += splitParts[i].duration ?? 0.0;
+      }
+      return rawPosition + Duration(milliseconds: (accumulated * 1000).round());
+    } else if (isRemuxing) {
+      return rawPosition + Duration(milliseconds: (seekOffset * 1000).round());
+    }
+    return rawPosition;
+  }
+
+  Duration getGlobalDuration(Duration rawDuration) {
+    if (splitParts.isNotEmpty) {
+      double total = 0.0;
+      for (final p in splitParts) {
+        total += p.duration ?? 0.0;
+      }
+      if (total > 0) {
+        return Duration(milliseconds: (total * 1000).round());
+      }
+    } 
+    
+    if (isRemuxing && duration > 0) {
+      return Duration(seconds: duration.round());
+    }
+    
+    // Fallback to cached track duration if the player hasn't emitted a valid duration yet
+    if (rawDuration.inMilliseconds == 0 && duration > 0) {
+      return Duration(seconds: duration.round());
+    }
+    
+    return rawDuration;
+  }
 }
 
 /// Provider for video player instance with full streaming pipeline
@@ -225,17 +261,20 @@ class MoviePlayer extends _$MoviePlayer {
         return;
       }
       
+      // Ignore subtitle errors entirely so they never cause a fatal crash or retry loop
+      if (errStrLower.contains('/api/subtitles/file/') || 
+          errStrLower.contains('can not open external file') ||
+          errStrLower.contains('failed to open https://streamflix') && errStrLower.contains('subdl')) {
+          debugPrint('⚠️ External subtitle failed to load, ignoring to prevent video restart.');
+          state = state.copyWith(nonFatalError: 'Subtitle failed to load. Please try another.');
+          return;
+      }
+      
       if (errStrLower.contains('could not open codec') || 
           errStrLower.contains('decoder') ||
           errStrLower.contains('failed to initialize hardware') ||
           errStrLower.contains('failed to open http')) {
-        // Do not restart the entire video if it was just an external subtitle that failed to load
-        if (errStrLower.contains('/api/subtitles/file/')) {
-            debugPrint('⚠️ External subtitle failed to load, ignoring to prevent video restart.');
-            state = state.copyWith(nonFatalError: 'Subtitle failed to load. Please try another.');
-            return;
-        }
-
+        
         debugPrint('⚠️ Codec/Stream error detected.');
         if (state.movie != null) {
           if (_retryCount < 3) {
@@ -254,9 +293,13 @@ class MoviePlayer extends _$MoviePlayer {
 
             // Quietly retry playback from the current position after a short delay
             // This gives the GramJS proxy time to migrate DCs or refresh expired file references
+            final currentPos = player.state.position.inSeconds;
+            // Force re-initialization by setting isInitialized to false
+            state = state.copyWith(isInitialized: false);
+            
             Future.delayed(const Duration(milliseconds: 1500), () {
               if (state.movie != null) {
-                play(state.movie!, keepSettings: true);
+                play(state.movie!, keepSettings: true, explicitStartTime: currentPos > 0 ? currentPos : null);
               }
             });
             return; // Exit early, DO NOT set state.error
@@ -338,7 +381,7 @@ class MoviePlayer extends _$MoviePlayer {
   }
 
   /// Full player startup: probe tracks, fetch subtitles, determine mode, start stream
-  Future<void> play(Movie movie, {bool keepSettings = false, int? explicitStartTime}) async {
+  Future<void> play(Movie movie, {bool keepSettings = false, int? explicitStartTime, String? targetEpisodeId}) async {
     if (!keepSettings) {
       _retryCount = 0;
     }
@@ -386,10 +429,55 @@ class MoviePlayer extends _$MoviePlayer {
       final offlineItem = DownloadManager().getDownload(movie.id);
       final isOfflineItem = offlineItem != null && offlineItem.overallStatus == DownloadStatus.completed;
 
+      List<SeasonInfo> tvSeasons = keepSettings ? state.tvSeasons : (movie.seasons ?? []);
+
+      // If playing a TV show series container (NOT an individual episode), resolve the episode
+      if (movie.type == 'tv' && movie.tv == null && (movie.seasons == null || movie.seasons!.isEmpty)) {
+        debugPrint('📺 Play request for TV Show series ${movie.id} - Fetching show details...');
+        final showTmdbId = movie.tv?.showTmdbId ?? movie.tmdbId;
+        if (showTmdbId != null) {
+          try {
+            final tvShow = await ref.read(movieRepositoryProvider).getTvShowById(showTmdbId.toString());
+            tvSeasons = tvShow.seasons;
+          } catch (e) {
+            debugPrint('⚠️ Failed to pre-fetch TV show details: $e');
+          }
+        }
+      } else if (movie.type == 'tv' && movie.tv == null && movie.seasons != null && movie.seasons!.isNotEmpty) {
+        tvSeasons = movie.seasons!;
+      }
+
+      // Now resolve the specific episode using targetEpisodeId or fallback to S1E1
+      if (movie.type == 'tv' && movie.tv == null && tvSeasons.isNotEmpty) {
+        Movie? targetEp;
+        if (targetEpisodeId != null && !targetEpisodeId.startsWith('show_')) {
+            for (final season in tvSeasons) {
+                for (final ep in season.episodes) {
+                    if (ep.id == targetEpisodeId) {
+                        targetEp = ep;
+                        break;
+                    }
+                }
+                if (targetEp != null) break;
+            }
+        }
+        
+        if (targetEp != null) {
+            mediaToPlay = targetEp;
+            debugPrint('📺 Resolved TV Show ${movie.title} to requested episode: ${targetEp.title}');
+        } else {
+            final firstEp = tvSeasons.first.episodes.firstOrNull;
+            if (firstEp != null) {
+                mediaToPlay = firstEp;
+                debugPrint('📺 Resolved TV Show ${movie.title} to fallback S1E1: ${firstEp.title}');
+            }
+        }
+      }
+
       // 1. Check if the movie has multiple parts (Seamless Playback Engine)
       if (!isOfflineItem) {
         try {
-          final partInfo = await ref.read(streamRemoteDataSourceProvider).getPartInfo(movie.id);
+          final partInfo = await ref.read(streamRemoteDataSourceProvider).getPartInfo(mediaToPlay.id);
           if (partInfo['parts'] != null && (partInfo['parts'] as List).length > 1) {
             final partsList = (partInfo['parts'] as List)
                 .map((p) => SplitPart.fromJson(p as Map<String, dynamic>))
@@ -399,7 +487,7 @@ class MoviePlayer extends _$MoviePlayer {
               totalParts: partsList.length,
               parts: partsList,
             );
-            debugPrint('🎬 Resolved multipart media: ${partsList.length} parts found for ${movie.id}');
+            debugPrint('🎬 Resolved multipart media: ${partsList.length} parts found for ${mediaToPlay.id}');
           }
         } catch (e) {
           debugPrint('⚠️ Failed to pre-fetch part-info: $e');
@@ -408,7 +496,6 @@ class MoviePlayer extends _$MoviePlayer {
         debugPrint('🎬 Offline playback: skipping network /part-info fetch.');
       }
 
-      List<SeasonInfo> tvSeasons = keepSettings ? state.tvSeasons : (movie.seasons ?? []);
       List<SplitPart> splitParts = mediaToPlay.parts ?? [];
       int currentPartIndex = 0;
 
@@ -465,34 +552,6 @@ class MoviePlayer extends _$MoviePlayer {
             );
             debugPrint('🎬 Resolved offline multipart media: ${splitParts.length} parts (estimated durations)');
          }
-      }
-
-      // If playing a TV show series container (NOT an individual episode), auto-resolve to S1E1
-      if (movie.type == 'tv' && movie.tv == null && (movie.seasons == null || movie.seasons!.isEmpty)) {
-        debugPrint('📺 Play request for TV Show series ${movie.id} - Fetching show details...');
-        final showTmdbId = movie.tv?.showTmdbId ?? movie.tmdbId;
-        if (showTmdbId != null) {
-          try {
-            final tvShow = await ref.read(movieRepositoryProvider).getTvShowById(showTmdbId.toString());
-            tvSeasons = tvShow.seasons;
-            if (tvSeasons.isNotEmpty) {
-              final firstEp = tvSeasons.first.episodes.firstOrNull;
-              if (firstEp != null) {
-                mediaToPlay = firstEp;
-                debugPrint('📺 Resolved TV Show ${movie.title} to S1E1: ${firstEp.title}');
-              }
-            }
-          } catch (e) {
-            debugPrint('⚠️ Failed to pre-fetch TV show details: $e');
-          }
-        }
-      } else if (movie.type == 'tv' && movie.tv == null && movie.seasons != null && movie.seasons!.isNotEmpty) {
-        tvSeasons = movie.seasons!;
-        final firstEp = tvSeasons.first.episodes.firstOrNull;
-        if (firstEp != null) {
-          mediaToPlay = firstEp;
-          debugPrint('📺 Resolved TV Show ${movie.title} (offline) to S1E1: ${firstEp.title}');
-        }
       }
 
       // Fetch seasons for TV show episode if seasons list is empty
@@ -826,7 +885,7 @@ class MoviePlayer extends _$MoviePlayer {
             debugPrint('⏳ Waiting for media demuxer to load before seeking...');
             await state.player.stream.duration
                 .firstWhere((d) => d > Duration.zero)
-                .timeout(const Duration(seconds: 5));
+                .timeout(const Duration(seconds: 20));
           } catch (_) {
             debugPrint('⚠️ Timeout waiting for duration. Attempting seek anyway.');
           }
@@ -846,7 +905,7 @@ class MoviePlayer extends _$MoviePlayer {
              debugPrint('⏳ Waiting for media demuxer to load before offline track probe...');
              await state.player.stream.duration
                  .firstWhere((d) => d > Duration.zero)
-                 .timeout(const Duration(seconds: 5));
+                 .timeout(const Duration(seconds: 20));
            } catch (_) { }
          }
          
@@ -1222,7 +1281,7 @@ class MoviePlayer extends _$MoviePlayer {
             debugPrint('⏳ Waiting for media demuxer to load before cross-part seeking...');
             await state.player.stream.duration
                 .firstWhere((d) => d > Duration.zero)
-                .timeout(const Duration(seconds: 5));
+                .timeout(const Duration(seconds: 20));
           } catch (_) {
             debugPrint('⚠️ Timeout waiting for duration. Attempting seek anyway.');
           }
@@ -1506,7 +1565,7 @@ class MoviePlayer extends _$MoviePlayer {
       if (state.trackInfo == null || (state.trackInfo!.audioTracks.isEmpty && state.trackInfo!.subtitleTracks.isEmpty)) {
          if (state.player.state.duration == Duration.zero) {
            try {
-             await state.player.stream.duration.firstWhere((d) => d > Duration.zero).timeout(const Duration(seconds: 5));
+             await state.player.stream.duration.firstWhere((d) => d > Duration.zero).timeout(const Duration(seconds: 20));
            } catch (_) {}
          }
          

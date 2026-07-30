@@ -563,8 +563,19 @@
             }
         }
 
+        let _chunkFetchLock = Promise.resolve();
+
         async function fetchChunk(requestId, fileData, offset, limit) {
-            let attempts = 0;
+            let releaseLock = null;
+            const currentLock = _chunkFetchLock;
+            _chunkFetchLock = new Promise(r => { releaseLock = r; });
+            await currentLock;
+            
+            try {
+                // Throttle with a 50ms delay to avoid Telegram flood limits
+                await new Promise(r => setTimeout(r, 50));
+                
+                let attempts = 0;
             let docIdStr = fileData.id ? fileData.id.toString() : "";
             // fileData contains id, accessHash, fileReference, dcId
             let currentDcId = documentDcCache.get(docIdStr) || (fileData.dcId ? parseInt(fileData.dcId) : client.session.dcId);
@@ -681,6 +692,9 @@
                     // Wait before retry
                     await new Promise(resolve => setTimeout(resolve, 1000));
                 }
+            }
+            } finally {
+                if (releaseLock) releaseLock();
             }
         }
 

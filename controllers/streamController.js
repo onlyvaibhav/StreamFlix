@@ -7,6 +7,7 @@ const bigInt = require('big-integer');
 const { getTelegramChunk } = require('../services/chunkCacheService');
 const { getDisplayTitle } = require('../utils/metadataUtils');
 const activityTracker = require('../services/activityTracker');
+const { getClientIp } = require('../utils/ipHelper');
 
 // ==================== CHECK DEPENDENCIES ====================
 let HAS_FFMPEG = false;
@@ -494,7 +495,7 @@ async function streamDirect(fileInfo, fileSize, start, end, range, res, req = nu
   if (!telegramClient) throw new Error('Telegram client not ready');
 
   const requestId = ++streamRequestCounter;
-  const clientIp = req?.ip || req?.connection?.remoteAddress || 'unknown';
+  const clientIp = getClientIp(req);
   const userAgent = req?.headers['user-agent'] || 'unknown';
   const fileId = fileInfo.id;
 

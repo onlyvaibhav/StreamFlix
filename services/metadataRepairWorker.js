@@ -38,17 +38,13 @@ function withTimeout(promise, ms, name) {
  * Check if metadata is incomplete based on audio/container fields
  */
 function isIncomplete(meta) {
-    // A file is incomplete if:
-    // - audioTracks is missing OR empty
-    // - OR _tracksDetected !== true
-    // - OR audioCodec missing
-    // - OR duration missing
-    const hasAudioTracks = meta.audioTracks && meta.audioTracks.length > 0;
+    const hasAudioTracks = Array.isArray(meta.audioTracks);
+    const hasSubtitleTracks = Array.isArray(meta.subtitleTracks);
     const hasTracksDetected = meta._tracksDetected === true;
     const hasAudioCodec = !!meta.audioCodec;
     const hasDuration = !!meta.duration || (meta.tv && !!meta.tv.episodeRuntime) || !!meta.runtime;
 
-    return !hasAudioTracks || !hasTracksDetected || !hasAudioCodec || !hasDuration;
+    return !hasAudioTracks || !hasSubtitleTracks || !hasTracksDetected || !hasAudioCodec || !hasDuration;
 }
 
 /**

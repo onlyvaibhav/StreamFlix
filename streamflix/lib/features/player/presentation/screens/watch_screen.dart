@@ -48,11 +48,12 @@ class _WatchScreenState extends ConsumerState<WatchScreen> {
   int _accumulatedSeekSeconds = 0;
   Timer? _seekAccumulationTimer;
   DateTime? _lastTapTime;
+  
+  bool _initRequested = false;
 
   @override
   void initState() {
     super.initState();
-    _initializePlayer();
     _setLandscapeOrientation();
 
     // Fetch initial native brightness on Android
@@ -75,17 +76,6 @@ class _WatchScreenState extends ConsumerState<WatchScreen> {
     _seekAccumulationTimer?.cancel();
     _restoreOrientation();
     super.dispose();
-  }
-
-  Future<void> _initializePlayer() async {
-    Future.microtask(() {
-      if (!mounted) return;
-      final movieAsync = ref.read(movieDetailProvider(widget.movieId));
-      if (movieAsync is AsyncData<Movie>) {
-        final playerNotifier = ref.read(moviePlayerProvider(widget.movieId).notifier);
-        playerNotifier.play(movieAsync.value, explicitStartTime: widget.startTime);
-      }
-    });
   }
 
   void _setLandscapeOrientation() {
@@ -164,22 +154,8 @@ class _WatchScreenState extends ConsumerState<WatchScreen> {
   void _executeImmediateSeek(int seconds, bool isForward, mk.Player player, PlayerState playerState) {
     final notifier = ref.read(moviePlayerProvider(widget.movieId).notifier);
     
-    final bool isMultipart = playerState.splitParts.isNotEmpty;
-    
-    Duration currentPos = player.state.position;
-    Duration totalDur = player.state.duration;
-
-    if (isMultipart) {
-      double accumulated = 0.0;
-      for (int i = 0; i < playerState.currentPartIndex; i++) {
-        accumulated += playerState.splitParts[i].duration ?? 0.0;
-      }
-      currentPos = player.state.position + Duration(milliseconds: (accumulated * 1000).round());
-      totalDur = Duration(seconds: playerState.duration.round());
-    } else if (playerState.isRemuxing) {
-      currentPos = player.state.position + Duration(milliseconds: (playerState.seekOffset * 1000).round());
-      totalDur = Duration(seconds: playerState.duration.round());
-    }
+    Duration currentPos = playerState.getGlobalPosition(player.state.position);
+    Duration totalDur = playerState.getGlobalDuration(player.state.duration);
 
     Duration targetPos;
     if (isForward) {
@@ -299,13 +275,20 @@ class _WatchScreenState extends ConsumerState<WatchScreen> {
           error: error,
           onRetry: () {
             ref.invalidate(movieDetailProvider(widget.movieId));
-            _initializePlayer();
+            setState(() {
+              _initRequested = false;
+            });
           },
         ),
         data: (playingMovie) {
-          if (playerState.movie == null && playerState.error == null && !playerState.isLoading) {
+          if (!_initRequested && playerState.movie == null && playerState.error == null && !playerState.isLoading) {
+            _initRequested = true;
             WidgetsBinding.instance.addPostFrameCallback((_) {
-              ref.read(moviePlayerProvider(widget.movieId).notifier).play(playingMovie);
+              ref.read(moviePlayerProvider(widget.movieId).notifier).play(
+                playingMovie, 
+                explicitStartTime: widget.startTime,
+                targetEpisodeId: widget.movieId,
+              );
             });
           }
 
@@ -315,7 +298,11 @@ class _WatchScreenState extends ConsumerState<WatchScreen> {
                 error: playerState.error!,
                 onRetry: () {
                   ref.invalidate(moviePlayerProvider(widget.movieId));
-                  ref.read(moviePlayerProvider(widget.movieId).notifier).play(playingMovie);
+                  ref.read(moviePlayerProvider(widget.movieId).notifier).play(
+                    playingMovie, 
+                    explicitStartTime: widget.startTime,
+                    targetEpisodeId: widget.movieId,
+                  );
                 },
               ),
             );
@@ -360,16 +347,24 @@ class _WatchScreenState extends ConsumerState<WatchScreen> {
                     ),
                   ),
                 ),
-              // 2. Loading overlay during part transitions
-              if (playerState.isLoading)
-                Positioned.fill(
-                  child: Container(
-                    color: Colors.black,
-                    child: const Center(
-                      child: CircularProgressIndicator(color: AppColors.netflixRed),
-                    ),
-                  ),
-                ),
+              // 2. Loading overlay during part transitions and buffering
+              StreamBuilder<bool>(
+                stream: playerState.player.stream.buffering,
+                builder: (context, snapshot) {
+                  final isBuffering = snapshot.data ?? playerState.player.state.buffering;
+                  if (playerState.isLoading || isBuffering) {
+                    return Positioned.fill(
+                      child: Container(
+                        color: playerState.isLoading ? Colors.black : Colors.black54,
+                        child: const Center(
+                          child: CircularProgressIndicator(color: AppColors.netflixRed),
+                        ),
+                      ),
+                    );
+                  }
+                  return const SizedBox.shrink();
+                },
+              ),
 
               // 3. Double-Tap Seek Pulse Indicators
               if (_showSeekFlash)
@@ -455,10 +450,10 @@ class _WatchScreenState extends ConsumerState<WatchScreen> {
               StreamBuilder<Duration>(
                 stream: playerState.player.stream.position,
                 builder: (context, posSnapshot) {
-                  final position = posSnapshot.data ?? Duration.zero;
-                  final duration = playerState.isRemuxing && playerState.duration > 0
-                      ? Duration(seconds: playerState.duration.round())
-                      : playerState.player.state.duration;
+                  final rawPosition = posSnapshot.data ?? Duration.zero;
+                  final rawDuration = playerState.player.state.duration;
+                  final position = playerState.getGlobalPosition(rawPosition);
+                  final duration = playerState.getGlobalDuration(rawDuration);
                   
                   final nextEp = playerState.nextEpisode;
                   if (duration.inSeconds > 45 && 

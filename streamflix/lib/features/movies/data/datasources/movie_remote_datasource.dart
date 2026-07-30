@@ -193,54 +193,53 @@ class MovieRemoteDataSource {
       copy['showTitle'] = copy['title'] ?? 'Unknown TV Show';
     }
     
-    // 1. Sanitize seasons Map/List
+    // 1. Extract ALL episodes from whatever structure the backend sent
     final seasonsRaw = copy['seasons'];
-    List<dynamic> sanitizedSeasons = [];
-    
+    final episodesRaw = copy['episodes'];
+    final List<dynamic> allEpisodes = [];
+
     if (seasonsRaw is List) {
-      sanitizedSeasons = seasonsRaw.map((s) {
-        if (s is Map<String, dynamic>) {
-          final sCopy = Map<String, dynamic>.from(s);
-          sCopy['episodes'] = sCopy['episodes'] as List? ?? [];
-          return sCopy;
+      for (final s in seasonsRaw) {
+        if (s is Map<String, dynamic> && s['episodes'] is List) {
+          allEpisodes.addAll(s['episodes'] as List);
         }
-        return s;
-      }).toList();
+      }
     } else if (seasonsRaw is Map) {
-      final List<Map<String, dynamic>> list = [];
       seasonsRaw.forEach((key, value) {
-        final seasonNumber = int.tryParse(key.toString()) ?? 0;
         if (value is List) {
-          list.add({
-            'seasonNumber': seasonNumber,
-            'episodes': value,
-          });
+          allEpisodes.addAll(value);
         }
       });
-      list.sort((a, b) => (a['seasonNumber'] as int).compareTo(b['seasonNumber'] as int));
-      sanitizedSeasons = list;
-    } else {
-      // If seasons is missing, try to build from flat episodes list
-      final episodesRaw = copy['episodes'];
-      if (episodesRaw is List) {
-        final Map<int, List<dynamic>> grouped = {};
-        for (final ep in episodesRaw) {
-          if (ep is Map<String, dynamic>) {
-            final sNum = ep['seasonNumber'] ?? ep['tv']?['seasonNumber'] ?? 0;
-            grouped.putIfAbsent(sNum, () => []).add(ep);
-          }
-        }
-        final List<Map<String, dynamic>> list = [];
-        grouped.forEach((seasonNumber, episodes) {
-          list.add({
-            'seasonNumber': seasonNumber,
-            'episodes': episodes,
-          });
-        });
-        list.sort((a, b) => (a['seasonNumber'] as int).compareTo(b['seasonNumber'] as int));
-        sanitizedSeasons = list;
+    }
+
+    if (episodesRaw is List) {
+      allEpisodes.addAll(episodesRaw);
+    }
+
+    // 2. Regroup all extracted episodes by their ACTUAL season number
+    final Map<int, List<dynamic>> grouped = {};
+    for (final ep in allEpisodes) {
+      if (ep is Map<String, dynamic>) {
+        final sNum = ep['seasonNumber'] ?? ep['tv']?['seasonNumber'] ?? 1;
+        grouped.putIfAbsent(sNum, () => []).add(ep);
       }
     }
+
+    // 3. Build sanitized seasons list and sort
+    List<Map<String, dynamic>> sanitizedSeasons = [];
+    grouped.forEach((seasonNumber, episodes) {
+      // Sort episodes numerically within the season
+      episodes.sort((a, b) {
+         final aNum = a['episodeNumber'] ?? a['tv']?['episodeNumber'] ?? 0;
+         final bNum = b['episodeNumber'] ?? b['tv']?['episodeNumber'] ?? 0;
+         return (aNum as int).compareTo(bNum as int);
+      });
+      sanitizedSeasons.add({
+        'seasonNumber': seasonNumber,
+        'episodes': episodes,
+      });
+    });
+    sanitizedSeasons.sort((a, b) => (a['seasonNumber'] as int).compareTo(b['seasonNumber'] as int));
     
     copy['seasons'] = sanitizedSeasons;
     

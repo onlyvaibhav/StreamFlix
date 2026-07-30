@@ -73,6 +73,10 @@ function isTrackUnsupported(track) {
 }
 
 function buildAudioSummary(entry) {
+    const hasRealAudioTracks = Array.isArray(entry.audioTracks);
+    const hasRealSubtitleTracks = Array.isArray(entry.subtitleTracks);
+    const hasRealTracks = hasRealAudioTracks && hasRealSubtitleTracks && entry._tracksDetected === true;
+
     const rawAudioTracks = Array.isArray(entry.audioTracks) ? entry.audioTracks : [];
     const audioTracks = rawAudioTracks.length > 0
         ? rawAudioTracks
@@ -89,7 +93,7 @@ function buildAudioSummary(entry) {
         }] : []);
     const subtitleTracks = Array.isArray(entry.subtitleTracks) ? entry.subtitleTracks : [];
     const unsupportedTracks = audioTracks.filter(isTrackUnsupported);
-    const hasAudioDetected = entry._tracksDetected === true || audioTracks.length > 0 || !!entry.audioCodec;
+    const hasAudioDetected = entry._tracksDetected === true && hasRealAudioTracks;
 
     const type = entry.type || (entry.tv?.showTmdbId ? 'tv' : 'movie');
     const title = entry.title || entry.tv?.showTitle || entry.fileName || String(entry.fileId || '');
@@ -112,6 +116,7 @@ function buildAudioSummary(entry) {
         audioCodec: entry.audioCodec || audioTracks[0]?.codec || '',
         browserPlayable: unsupportedTracks.length === 0 && entry.browserPlayable !== false,
         tracksDetected: hasAudioDetected,
+        hasRealTracks,
         manualProbeNeeded: !!entry.manualProbeNeeded,
         audioTracks,
         subtitleTrackCount: subtitleTracks.length,
@@ -231,7 +236,8 @@ router.get('/audio/audit', async (req, res) => {
         const unsupported = summaries.filter(item => item.unsupportedTracks.length > 0 || item.browserPlayable === false);
         const incomplete = summaries.filter(item =>
             !item.container ||
-            !item.duration
+            !item.duration ||
+            !item.hasRealTracks
         );
         const manualProbeNeeded = summaries.filter(item => item.manualProbeNeeded);
 
@@ -280,7 +286,8 @@ router.post('/audio/sweep', async (req, res) => {
         const concurrency = Number.isFinite(Number(req.body?.concurrency)) ? parseInt(req.body.concurrency, 10) : 3;
         const minDelayMs = Number.isFinite(Number(req.body?.minDelayMs)) ? parseInt(req.body.minDelayMs, 10) : 900;
 
-        fetchMissingAudioInfo(limit, concurrency, { minDelayMs }).catch(error => {
+        const force = req.body?.force === true;
+        fetchMissingAudioInfo(limit, concurrency, { minDelayMs, force }).catch(error => {
             console.error('[Admin] Audio sweep failed:', error.message);
         });
 
@@ -392,7 +399,8 @@ router.post('/refetch-logos', (req, res) => {
 router.post('/refetch-audio', (req, res) => {
     try {
         invalidateHealthCache();
-        fetchMissingAudioInfo(0, 3, { minDelayMs: 900 }).catch(error => {
+        const force = req.body?.force !== false;
+        fetchMissingAudioInfo(0, 3, { minDelayMs: 900, force }).catch(error => {
             console.error('[Admin] Audio info sweep failed:', error.message);
         });
         res.json({ success: true, message: 'Full audio info sweep started', sweep: getAudioSweepStatus() });
@@ -401,20 +409,29 @@ router.post('/refetch-audio', (req, res) => {
     }
 });
 
-// POST /api/admin/retry-failed
-router.post('/retry-failed', async (req, res) => {
+// POST /api/admin/retry-failed & /api/admin/metadata/retry-failed
+router.post(['/retry-failed', '/metadata/retry-failed'], async (req, res) => {
     try {
-        if (worker && worker.isRunning) {
-            return res.json({ success: false, message: 'Worker already running' });
+        const all = await getAllMetadata();
+        let resetCount = 0;
+
+        for (const entry of all) {
+            if (entry.metadataStatus === 'MANUAL_REVIEW' || entry.metadataStatus === 'FAILED' || entry.needsRetry) {
+                entry.metadataStatus = 'NEW';
+                entry.needsRetry = false;
+                entry.refetchAttempts = 0;
+                delete entry.manualProbeNeeded;
+                delete entry.needs_manual_fix;
+                await saveMetadata(entry);
+                resetCount++;
+            }
         }
 
-        // Trigger in bg
         if (worker) {
             worker.retryFailedLookups().catch(e => console.error(e));
-            res.json({ success: true, message: 'Retry triggered' });
-        } else {
-            res.status(500).json({ error: 'Worker not available' });
         }
+
+        res.json({ success: true, message: `Successfully reset ${resetCount} items and triggered retry worker.` });
 
     } catch (error) {
         if (!res.headersSent) {
@@ -425,24 +442,26 @@ router.post('/retry-failed', async (req, res) => {
 
 // ==================== NEW ENDPOINTS ====================
 
-// POST /api/admin/metadata/:fileId/fix — Fix wrong TMDB match
+// POST /api/admin/metadata/:fileId/fix — Fix wrong TMDB match or trigger auto match if tmdbId is not set
 router.post('/metadata/:fileId/fix', async (req, res) => {
     try {
         const { fileId } = req.params;
         const { tmdbId, type } = req.body;
-
-        if (!tmdbId || typeof tmdbId !== 'number') {
-            return res.status(400).json({ error: 'tmdbId (number) is required in body' });
-        }
 
         const existing = await loadMetadata(fileId);
         if (!existing) {
             return res.status(404).json({ error: `No metadata found for fileId: ${fileId}` });
         }
 
-        console.log(`[Admin] Manual fix: fileId=${fileId}, tmdbId=${tmdbId}, type=${type || existing.type}`);
+        const numTmdbId = Number(tmdbId);
+        const options = { type: type || existing.type, isManual: true };
+        if (numTmdbId && numTmdbId > 0) {
+            options.tmdbId = numTmdbId;
+        }
 
-        const updated = await worker.refetchMetadata(fileId, { tmdbId, type, isManual: true });
+        console.log(`[Admin] Manual fix: fileId=${fileId}, tmdbId=${options.tmdbId || 'auto'}, type=${options.type}`);
+
+        const updated = await worker.refetchMetadata(fileId, options);
         res.json({ success: true, metadata: updated });
 
     } catch (error) {

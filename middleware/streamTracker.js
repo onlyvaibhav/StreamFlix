@@ -1,9 +1,10 @@
 const activityTracker = require('../services/activityTracker');
+const { getClientIp } = require('../utils/ipHelper');
 
 function trackStream(req, res, next) {
     try {
         const fileId = req.params.fileId || req.params.id || 'unknown';
-        const clientIp = req.ip || req.connection.remoteAddress || 'unknown';
+        const clientIp = getClientIp(req);
         const userAgent = req.headers['user-agent'] || 'unknown';
         let userId = (req.cookies && req.cookies.auth_token) ? req.cookies.auth_token : null;
         if (!userId && req.headers.authorization && req.headers.authorization.startsWith('Bearer ')) {

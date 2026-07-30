@@ -2,6 +2,7 @@ const axios = require('axios');
 const dotenv = require('dotenv');
 const fs = require('fs').promises;
 const path = require('path');
+const { formatIpForDisplay } = require('../../utils/ipHelper');
 dotenv.config();
 
 const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
@@ -147,7 +148,7 @@ function notifyPreLoginCleanup(deviceId, revokedCount) {
 
 function notifyWatchStart(session) {
     const name = session.identity || 'Anonymous';
-    const ip = session.ip || 'Unknown';
+    const ip = formatIpForDisplay(session.ip || 'Unknown');
     const msg = `▶️ <b>Started Watching</b>\nUser: ${name}\nTitle: ${session.title}\nFile ID: ${session.fileId}\nIP: ${ip}`;
     logEvent('WatchStart', { user: name, title: session.title, fileId: session.fileId, ip });
     return sendAlert(msg, 'WatchStart');
@@ -180,7 +181,7 @@ function formatDuration(ms) {
 function notifyWatchEnd(session, durationMs) {
     const name = session.identity || 'Anonymous';
     const duration = formatDuration(durationMs);
-    const ip = session.ip || 'Unknown';
+    const ip = formatIpForDisplay(session.ip || 'Unknown');
     const msg = `🛑 <b>Stopped Watching</b>\nUser: ${name}\nTitle: ${session.title}\nDuration: ${duration}\nIP: ${ip}`;
     logEvent('WatchEnd', { user: name, title: session.title, durationMs, ip });
     return sendAlert(msg, 'WatchEnd');

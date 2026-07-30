@@ -113,8 +113,8 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 app.set('internalPort', PORT);
 
-// Fix rate limiter X-Forwarded-For warning and correctly parse client IP behind reverse proxies
-app.set('trust proxy', 1);
+// Fix rate limiter X-Forwarded-For warning and correctly parse client IP behind reverse proxies (Render, Cloudflare, NGINX)
+app.set('trust proxy', true);
 
 // ============================================================
 // MIDDLEWARE

@@ -90,11 +90,11 @@ class _PlayerControlsState extends ConsumerState<PlayerControls> {
       notifier.playOrPause();
       return KeyEventResult.handled;
     } else if (event.logicalKey == LogicalKeyboardKey.arrowLeft) {
-      final currentPos = playerState.player.state.position;
+      final currentPos = playerState.getGlobalPosition(playerState.player.state.position);
       notifier.seekTo(currentPos - const Duration(seconds: 10));
       return KeyEventResult.handled;
     } else if (event.logicalKey == LogicalKeyboardKey.arrowRight) {
-      final currentPos = playerState.player.state.position;
+      final currentPos = playerState.getGlobalPosition(playerState.player.state.position);
       notifier.seekTo(currentPos + const Duration(seconds: 10));
       return KeyEventResult.handled;
     } else if (event.logicalKey == LogicalKeyboardKey.escape) {
@@ -211,25 +211,8 @@ class _PlayerControlsState extends ConsumerState<PlayerControls> {
                               final rawPosition = positionSnapshot.data ?? Duration.zero;
                               final rawDuration = durationSnapshot.data ?? Duration.zero;
                               
-                              bool hasValidDurations = playerState.splitParts.any((p) => (p.duration ?? 0) > 0);
-                              bool isMultipart = playerState.splitParts.length > 1 && hasValidDurations;
-                              
-                              Duration position = rawPosition;
-                              Duration duration = rawDuration;
-
-                              if (isMultipart) {
-                                double accumulated = 0.0;
-                                for (int i = 0; i < playerState.currentPartIndex; i++) {
-                                  accumulated += playerState.splitParts[i].duration ?? 0.0;
-                                }
-                                position = rawPosition + Duration(milliseconds: (accumulated * 1000).round());
-                                duration = Duration(seconds: playerState.duration.round());
-                              } else if (playerState.isRemuxing) {
-                                position = rawPosition + Duration(milliseconds: (playerState.seekOffset * 1000).round());
-                                if (playerState.duration > 0) {
-                                  duration = Duration(seconds: playerState.duration.round());
-                                }
-                              }
+                              Duration position = playerState.getGlobalPosition(rawPosition);
+                              Duration duration = playerState.getGlobalDuration(rawDuration);
 
                               return Text(
                                 '${_formatDuration(position)} / ${_formatDuration(duration)}',
@@ -293,9 +276,7 @@ class _PlayerControlsState extends ConsumerState<PlayerControls> {
                                   icon: const Icon(Icons.replay_10_rounded, color: Colors.white, size: 28),
                                   onPressed: () {
                                     _onUserInteraction();
-                                    final currentPos = playerState.isRemuxing
-                                        ? player.state.position + Duration(milliseconds: (playerState.seekOffset * 1000).round())
-                                        : player.state.position;
+                                    final currentPos = playerState.getGlobalPosition(player.state.position);
                                     final targetPos = currentPos - const Duration(seconds: 10);
                                     notifier.seekTo(targetPos.isNegative ? Duration.zero : targetPos);
                                   },
@@ -308,12 +289,8 @@ class _PlayerControlsState extends ConsumerState<PlayerControls> {
                                   icon: const Icon(Icons.forward_10_rounded, color: Colors.white, size: 28),
                                   onPressed: () {
                                     _onUserInteraction();
-                                    final currentPos = playerState.isRemuxing
-                                        ? player.state.position + Duration(milliseconds: (playerState.seekOffset * 1000).round())
-                                        : player.state.position;
-                                    final totalDur = playerState.isRemuxing
-                                        ? Duration(seconds: playerState.duration.round())
-                                        : player.state.duration;
+                                    final currentPos = playerState.getGlobalPosition(player.state.position);
+                                    final totalDur = playerState.getGlobalDuration(player.state.duration);
                                     final targetPos = currentPos + const Duration(seconds: 10);
                                     notifier.seekTo(targetPos > totalDur ? totalDur : targetPos);
                                   },

@@ -637,6 +637,27 @@ class MetadataWorker {
         this.telegramService = service;
     }
 
+    // ==================== BULK AUTO MATCH ALL ====================
+    async autoMatchAll() {
+        const all = await getAllMetadata();
+        const candidates = all.filter(e => e && e.fileId && (e.needsRetry || !e.tmdbId || e.metadataStatus === 'NEW' || e.metadataStatus === 'FAILED' || e.metadataStatus === 'STUB'));
+        
+        console.log(`[Worker] autoMatchAll: queuing ${candidates.length} items for TMDB auto-matching...`);
+        
+        (async () => {
+            for (const entry of candidates) {
+                try {
+                    await this.refetchMetadata(entry.fileId, { isManual: true });
+                    await sleep(300);
+                } catch (err) {
+                    console.warn(`[Worker] Auto-match failed for ${entry.fileId}:`, err.message);
+                }
+            }
+        })().catch(err => console.error('[Worker] autoMatchAll background error:', err.message));
+
+        return candidates.length;
+    }
+
     // ==================== BATCH DOWNLOAD MISSING STILLS ====================
     async downloadMissingStills() {
         if (this.isDownloadingStills) {
@@ -2835,20 +2856,19 @@ function getAudioSweepStatus() {
     };
 }
 
-function metadataNeedsAudioInfo(meta) {
-    if (!meta || !meta.fileId || !meta.fetchedAt || meta.needsRetry || meta.manualProbeNeeded) return false;
+function metadataNeedsAudioInfo(meta, options = {}) {
+    if (!meta || !meta.fileId || !meta.fetchedAt || meta.needsRetry) return false;
 
-    // If we have already run the probe successfully (even if it found no audio), do not probe again.
-    if (meta._tracksDetected) return false;
+    // Unless force option is set, skip files that failed 3+ times
+    if (meta.manualProbeNeeded && !options?.force) return false;
 
-    const hasValidAudioTracks = Array.isArray(meta.audioTracks) &&
-        meta.audioTracks.length > 0 &&
-        meta.audioTracks.every(t => t && String(t.codec || t.codecName || '').trim());
-    const hasValidSubtitleTracks = Array.isArray(meta.subtitleTracks);
+    const hasAudioTracks = Array.isArray(meta.audioTracks);
+    const hasSubTracks = Array.isArray(meta.subtitleTracks);
     const hasContainer = !!meta.container;
     const hasDuration = Number.isFinite(Number(meta.duration)) && Number(meta.duration) > 0;
+    const hasTracksDetected = meta._tracksDetected === true;
 
-    return !(hasValidAudioTracks && hasValidSubtitleTracks && hasContainer && hasDuration);
+    return !(hasAudioTracks && hasSubTracks && hasContainer && hasDuration && hasTracksDetected);
 }
 
 function getAudioInfoPriority(meta) {
@@ -3101,7 +3121,7 @@ async function fetchMissingAudioInfo(limit = 0, concurrency = 3, options = {}) {
             const raw = await fs.readFile(path.join(DATA_DIR, file), 'utf-8');
             const meta = JSON.parse(raw);
 
-            if (!metadataNeedsAudioInfo(meta)) continue;
+            if (!metadataNeedsAudioInfo(meta, options)) continue;
             candidates.push({ file, filePath: path.join(DATA_DIR, file), meta });
         } catch { continue; }
     }
@@ -3162,15 +3182,17 @@ async function fetchMissingAudioInfo(limit = 0, concurrency = 3, options = {}) {
                 if (tracks.error) throw new Error(tracks.error);
                 let changed = false;
 
-                if (tracks.audioTracks && tracks.audioTracks.length > 0) {
+                if (Array.isArray(tracks.audioTracks)) {
                     meta.audioTracks = tracks.audioTracks;
-                    const defaultAudio = tracks.audioTracks.find(t => t.isDefault) || tracks.audioTracks[0];
-                    meta.audioCodec = defaultAudio.codec;
-                    meta.browserPlayable = defaultAudio.browserPlayable;
+                    if (tracks.audioTracks.length > 0) {
+                        const defaultAudio = tracks.audioTracks.find(t => t.isDefault) || tracks.audioTracks[0];
+                        meta.audioCodec = defaultAudio.codec;
+                        meta.browserPlayable = defaultAudio.browserPlayable;
+                    }
                     changed = true;
                 }
 
-                if (tracks.subtitleTracks) {
+                if (Array.isArray(tracks.subtitleTracks)) {
                     meta.subtitleTracks = tracks.subtitleTracks;
                     changed = true;
                 }
@@ -3193,6 +3215,7 @@ async function fetchMissingAudioInfo(limit = 0, concurrency = 3, options = {}) {
 
                 if (changed) {
                     meta._probeFailCount = 0; // Reset on success
+                    delete meta.manualProbeNeeded;
                     await fs.writeFile(filePath, JSON.stringify(meta, null, 2));
                     audioSweepState.updated++;
                     console.log(`[Worker] Saved audio info for: ${meta.title || meta.fileId}`);

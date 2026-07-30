@@ -4,6 +4,7 @@ const streamController = require('../controllers/streamController');
 const { streamLimiter } = require('../middleware/rateLimit');
 const { trackStream } = require('../middleware/streamTracker');
 const activityTracker = require('../services/activityTracker');
+const { getClientIp } = require('../utils/ipHelper');
 
 router.get('/:id', streamLimiter, trackStream, streamController.stream);
 router.get('/:id/transmux', streamLimiter, streamController.transmuxStream); // New endpoint for MKV/AVI
@@ -14,7 +15,7 @@ router.get('/:id/file-info', streamController.getFileInfo); // Expose file metad
 // Heartbeat — frontend pings every 20s while video is playing to keep session alive
 router.get('/:id/heartbeat', (req, res) => {
     const fileId = req.params.id;
-    const ip = req.ip || req.connection.remoteAddress || 'unknown';
+    const ip = getClientIp(req);
     const userAgent = req.headers['user-agent'] || 'unknown';
     let userId = (req.cookies && req.cookies.auth_token) ? req.cookies.auth_token : null;
     if (!userId && req.headers.authorization && req.headers.authorization.startsWith('Bearer ')) {
@@ -28,7 +29,7 @@ router.get('/:id/heartbeat', (req, res) => {
 router.post('/heartbeat', express.json(), (req, res) => {
     const fileId = req.body.fileId;
     if (!fileId) return res.status(400).end();
-    const ip = req.ip || req.connection.remoteAddress || 'unknown';
+    const ip = getClientIp(req);
     const userAgent = req.headers['user-agent'] || 'unknown';
     let userId = (req.cookies && req.cookies.auth_token) ? req.cookies.auth_token : null;
     if (!userId && req.headers.authorization && req.headers.authorization.startsWith('Bearer ')) {

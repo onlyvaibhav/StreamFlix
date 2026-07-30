@@ -245,8 +245,10 @@ const MetadataModule = (() => {
         if (!confirmed) return;
 
         try {
-            await Api.autoMatchAll();
-            Toast.success('Auto-match queue started');
+            const btn = event?.currentTarget;
+            if (btn) { btn.disabled = true; btn.innerHTML = '<i data-lucide="loader-2" class="animate-spin" style="width:16px"></i> Starting...'; if (typeof lucide !== 'undefined') lucide.createIcons({ nodes: [btn] }); }
+            const res = await Api.autoMatchAll();
+            Toast.success(res?.message || 'Auto-match queue started');
             _loadData();
         } catch (err) {
             Toast.error(err.message);
@@ -261,8 +263,10 @@ const MetadataModule = (() => {
         if (!confirmed) return;
 
         try {
-            await Api.downloadMissingStills();
-            Toast.success('Still download queue started');
+            const btn = event?.currentTarget;
+            if (btn) { btn.disabled = true; btn.innerHTML = '<i data-lucide="loader-2" class="animate-spin" style="width:16px"></i> Starting...'; if (typeof lucide !== 'undefined') lucide.createIcons({ nodes: [btn] }); }
+            const res = await Api.downloadMissingStills();
+            Toast.success(res?.message || 'Still download queue started');
             _loadData();
         } catch (err) {
             Toast.error(err.message);
@@ -277,8 +281,10 @@ const MetadataModule = (() => {
         if (!confirmed) return;
 
         try {
-            await Api.retryFailed();
-            Toast.success('Retry queue started');
+            const btn = event?.currentTarget;
+            if (btn) { btn.disabled = true; btn.innerHTML = '<i data-lucide="loader-2" class="animate-spin" style="width:16px"></i> Starting...'; if (typeof lucide !== 'undefined') lucide.createIcons({ nodes: [btn] }); }
+            const res = await Api.retryFailed();
+            Toast.success(res?.message || 'Retry queue started');
             _loadData();
         } catch (err) {
             Toast.error(err.message);
@@ -287,18 +293,24 @@ const MetadataModule = (() => {
 
     async function _handleAutoMatch(fileId) {
         try {
-            await Api.fixMetadata(fileId, null, null); // passing null triggers auto-match in backend
-            Toast.success('Match queued');
+            const btn = event?.currentTarget;
+            if (btn) { btn.disabled = true; btn.innerHTML = '<i data-lucide="loader-2" class="animate-spin" style="width:14px"></i> Matching...'; if (typeof lucide !== 'undefined') lucide.createIcons({ nodes: [btn] }); }
+            await Api.refetchMetadata(fileId);
+            Toast.success(`Auto-match queued for ID: ${fileId}`);
             _loadData();
         } catch (err) {
             Toast.error(err.message);
+            _loadData();
         }
     }
 
     async function _handleFixBroken() {
         try {
+            const btn = event?.currentTarget;
+            if (btn) { btn.disabled = true; btn.innerHTML = '<i data-lucide="loader-2" class="animate-spin" style="width:16px"></i> Starting...'; if (typeof lucide !== 'undefined') lucide.createIcons({ nodes: [btn] }); }
             await Api.fixBroken();
             Toast.success('Repair worker started');
+            _loadData();
         } catch (err) {
             Toast.error(err.message);
         }

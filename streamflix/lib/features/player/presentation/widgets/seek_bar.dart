@@ -41,28 +41,9 @@ class _SeekBarState extends ConsumerState<SeekBar> {
                 final rawDuration = durationSnapshot.data ?? Duration.zero;
                 final rawBuffer = bufferSnapshot.data ?? Duration.zero;
 
-                bool hasValidDurations = playerState.splitParts.any((p) => (p.duration ?? 0) > 0);
-                bool isMultipart = playerState.splitParts.length > 1 && hasValidDurations;
-                
-                Duration position = rawPosition;
-                Duration duration = rawDuration;
-                Duration buffer = rawBuffer;
-
-                if (isMultipart) {
-                  double accumulated = 0.0;
-                  for (int i = 0; i < playerState.currentPartIndex; i++) {
-                    accumulated += playerState.splitParts[i].duration ?? 0.0;
-                  }
-                  position = rawPosition + Duration(milliseconds: (accumulated * 1000).round());
-                  buffer = rawBuffer + Duration(milliseconds: (accumulated * 1000).round());
-                  duration = Duration(seconds: playerState.duration.round());
-                } else if (playerState.isRemuxing) {
-                  position = rawPosition + Duration(milliseconds: (playerState.seekOffset * 1000).round());
-                  buffer = rawBuffer + Duration(milliseconds: (playerState.seekOffset * 1000).round());
-                  if (playerState.duration > 0) {
-                    duration = Duration(seconds: playerState.duration.round());
-                  }
-                }
+                Duration position = playerState.getGlobalPosition(rawPosition);
+                Duration duration = playerState.getGlobalDuration(rawDuration);
+                Duration buffer = playerState.getGlobalPosition(rawBuffer);
 
                 final durationMs = duration.inMilliseconds;
                 if (durationMs == 0) {
