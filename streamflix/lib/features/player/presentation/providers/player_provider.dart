@@ -343,6 +343,7 @@ class MoviePlayer extends _$MoviePlayer {
     // Clean up when provider is disposed
     ref.onDispose(() {
       debugPrint('🎬 Disposing player for movie $movieId');
+
       _stopHeartbeat();
       _errorSubscription?.cancel();
       _durationSubscription?.cancel();
@@ -1427,6 +1428,8 @@ class MoviePlayer extends _$MoviePlayer {
   }
 
   Future<void> _saveCurrentProgress(Movie movie, int currentSec) async {
+    if (!ref.mounted) return;
+
     final durationSec = state.player.state.duration.inSeconds > 0
         ? state.player.state.duration.inSeconds
         : state.duration.round();
@@ -1472,12 +1475,8 @@ class MoviePlayer extends _$MoviePlayer {
     );
 
     // Tell the home screen to refresh the Continue Watching row
-    ref.invalidate(continueWatchingProvider);
-
-    final offlineItem = DownloadManager().getDownload(movie.id);
-    if (offlineItem != null && offlineItem.overallStatus == DownloadStatus.completed) {
-      debugPrint('💾 Offline playback: skipping remote save progress for ${movie.id}');
-      return;
+    if (ref.mounted) {
+      ref.invalidate(continueWatchingProvider);
     }
 
     try {
@@ -1503,11 +1502,12 @@ class MoviePlayer extends _$MoviePlayer {
     int lastSavedSeconds = 0;
 
     _positionSubscription = state.player.stream.position.listen((pos) async {
+      if (!ref.mounted) return;
       final currentSec = pos.inSeconds;
       if (currentSec == lastSavedSeconds) return;
 
-      // Save every 15 seconds
-      if (currentSec % 15 == 0) {
+      // Save every 5 seconds
+      if (currentSec % 5 == 0) {
         lastSavedSeconds = currentSec;
         await _saveCurrentProgress(movie, currentSec);
       }
@@ -1607,8 +1607,7 @@ class MoviePlayer extends _$MoviePlayer {
     required List<ExternalSubtitle> externalSubs,
   }) {
     if (embeddedSubs.isNotEmpty) {
-      // 1. Search for English in embedded subtitle tracks (language code or title)
-      final engIdx = embeddedSubs.indexWhere((t) {
+      bool isEnglishTrack(SubtitleTrack t) {
         final code = t.languageCode.toLowerCase();
         final lang = t.language.toLowerCase();
         final title = t.title.toLowerCase();
@@ -1620,21 +1619,30 @@ class MoviePlayer extends _$MoviePlayer {
             lang == 'eng' ||
             title.contains('english') ||
             title.contains('eng');
-      });
+      }
 
+      // 1. Search for an embedded track that is BOTH marked isDefault AND English
+      final defaultEngIdx = embeddedSubs.indexWhere((t) => t.isDefault && isEnglishTrack(t));
+      if (defaultEngIdx >= 0) {
+        debugPrint('📝 Defaulting to container default English subtitle track at index $defaultEngIdx (${embeddedSubs[defaultEngIdx].title.isNotEmpty ? embeddedSubs[defaultEngIdx].title : embeddedSubs[defaultEngIdx].language})');
+        return defaultEngIdx;
+      }
+
+      // 2. Search for any English embedded subtitle track
+      final engIdx = embeddedSubs.indexWhere((t) => isEnglishTrack(t));
       if (engIdx >= 0) {
         debugPrint('📝 Defaulting to English embedded subtitle track at index $engIdx (${embeddedSubs[engIdx].title.isNotEmpty ? embeddedSubs[engIdx].title : embeddedSubs[engIdx].language})');
         return engIdx;
       }
 
-      // 2. If no English track found, pick track marked isDefault if available
+      // 3. If no English track found, pick track marked isDefault if available
       final defaultSubIdx = embeddedSubs.indexWhere((t) => t.isDefault);
       if (defaultSubIdx >= 0) {
         debugPrint('📝 No English embedded subtitle found, defaulting to isDefault track at index $defaultSubIdx');
         return defaultSubIdx;
       }
 
-      // 3. Otherwise default to index 0 of embedded subs
+      // 4. Otherwise default to index 0 of embedded subs
       debugPrint('📝 No English or default embedded subtitle found, defaulting to first track at index 0');
       return 0;
     } else if (externalSubs.isNotEmpty) {

@@ -107,6 +107,13 @@ class WatchHistoryManager {
     // Skip if duration is invalid or progress is less than 2s
     if (duration <= 0 || position < 2) return;
     
+    // Prevent older backend data from overwriting newer local progress
+    final existing = _items[movieId];
+    final newTime = updatedAt ?? DateTime.now();
+    if (existing != null && updatedAt != null && existing.updatedAt.isAfter(newTime)) {
+      return;
+    }
+
     // If completed (>95% watched), remove it
     if (position >= duration * 0.95) {
       _items.remove(movieId);
@@ -119,7 +126,7 @@ class WatchHistoryManager {
         backdrop: backdrop,
         position: position,
         duration: duration,
-        updatedAt: updatedAt ?? DateTime.now(),
+        updatedAt: newTime,
         tvShowName: tvShowName,
         seasonNumber: seasonNumber,
         episodeNumber: episodeNumber,

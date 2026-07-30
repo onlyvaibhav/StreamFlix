@@ -38,6 +38,7 @@ const tvRoutes = require('./routes/tvRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const watchProgressRoutes = require('./routes/watchProgressRoutes');
 const activityTracker = require('./services/activityTracker');
+const alertBot = require('./services/bot/alertBot');
 const { initTelegram, telegramService } = require('./services/telegramService');
 const {
   worker,
@@ -200,7 +201,22 @@ app.use('/api/tv', tvRoutes);
 app.use('/api/progress', watchProgressRoutes);
 app.use('/internal', internalRoutes);
 
-const alertBot = require('./services/bot/alertBot');
+app.post('/api/contact', async (req, res) => {
+  try {
+    const { name, email, subject, message } = req.body || {};
+    if (!name || !email || !message) {
+      return res.status(400).json({ success: false, error: 'Name, email, and message are required.' });
+    }
+
+    console.log(`[Contact Form] Submission from ${name} (${email}) - Topic: ${subject}`);
+    await alertBot.notifyContactForm(name, email, subject, message);
+    return res.json({ success: true, message: 'Message sent successfully.' });
+  } catch (e) {
+    console.error('❌ Error handling contact submission:', e);
+    return res.status(500).json({ success: false, error: 'Failed to process contact message.' });
+  }
+});
+
 app.use((err, req, res, next) => {
   if (err) {
     alertBot.notifyError(req.user, err.message || err.toString(), `${req.method} ${req.originalUrl}`);

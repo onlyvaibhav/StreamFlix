@@ -64,9 +64,28 @@ function parseBotEvents() {
     }).filter(Boolean);
 }
 
+function escapeHtml(str) {
+    if (!str) return '';
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+}
+
 async function handleCommand(text) {
     const cmd = text.split(' ')[0].toLowerCase();
     
+    if (cmd === '/start' || cmd === '/help') {
+        const helpText = `🤖 <b>StreamFlix Admin Bot Commands:</b>\n\n` +
+                         `📩 <b>/messages</b> - View all received contact messages\n` +
+                         `📊 <b>/stats</b> - View logins today & active viewer count\n` +
+                         `📺 <b>/activenow</b> - List currently active streaming sessions\n` +
+                         `🔐 <b>/recentlogins</b> - Show recent device logins`;
+        return sendTelegramMessage(ADMIN_CHAT_ID, helpText);
+    }
+
     if (cmd === '/stats') {
         const events = parseBotEvents();
         const todayStr = new Date().toISOString().split('T')[0];
@@ -94,6 +113,37 @@ async function handleCommand(text) {
         
         const lines = logins.map(l => `• <b>${l.data.user}</b> on ${l.data.os}/${l.data.browser}\n  IP: ${l.data.ip}`);
         return sendTelegramMessage(ADMIN_CHAT_ID, `🔐 <b>Recent Logins:</b>\n${lines.join('\n\n')}`);
+    }
+
+    if (cmd === '/messages' || cmd === '/contact' || cmd === '/inquiries') {
+        const events = parseBotEvents();
+        const contactMsgs = events.filter(e => e.type === 'ContactMessage').reverse();
+        
+        if (contactMsgs.length === 0) {
+            return sendTelegramMessage(ADMIN_CHAT_ID, '📩 <b>No contact messages received yet.</b>');
+        }
+        
+        const count = contactMsgs.length;
+        let replyText = `📩 <b>Received Contact Messages (${count})</b>\n\n`;
+
+        contactMsgs.slice(0, 10).forEach((m, i) => {
+            const time = m.timestamp ? new Date(m.timestamp).toLocaleString('en-US', { timeZone: 'Asia/Kolkata' }) : 'Unknown time';
+            const name = escapeHtml(m.data.name || 'Anonymous');
+            const email = escapeHtml(m.data.email || 'N/A');
+            const subject = escapeHtml(m.data.subject || 'General Inquiry');
+            const msg = escapeHtml(m.data.message || '');
+            
+            replyText += `<b>#${i + 1} | ${name}</b> (<code>${email}</code>)\n` +
+                         `🏷 Topic: <b>${subject}</b>\n` +
+                         `🕒 ${time}\n` +
+                         `💬 <i>"${msg.length > 150 ? msg.substring(0, 150) + '...' : msg}"</i>\n\n`;
+        });
+
+        if (count > 10) {
+            replyText += `<i>Showing latest 10 of ${count} messages.</i>`;
+        }
+
+        return sendTelegramMessage(ADMIN_CHAT_ID, replyText);
     }
 }
 

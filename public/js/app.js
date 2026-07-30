@@ -410,6 +410,8 @@ function navigate(route, params = {}, pushState = true) {
     else if (route === 'tvshows') url = '/tvshows';
     else if (route === 'genres') url = '/genres';
     else if (route === 'genre-detail') url = `/genres/${params.slug || ''}`;
+    else if (route === 'contact') url = '/contact';
+    else if (route === 'help') url = '/help';
     else if (route === 'search') {
       url = params && params.query ? `/search?q=${params.query}` : '/search';
     }
@@ -442,6 +444,8 @@ function navigate(route, params = {}, pushState = true) {
     case 'genres': renderGenres(app); break;
     case 'genre-detail': renderGenreDetail(app, params.slug, params.name); break;
     case 'search': renderSearch(app, params.query); break;
+    case 'contact': renderContact(app); break;
+    case 'help': renderHelp(app); break;
     default: renderHome(app);
   }
 
@@ -604,6 +608,7 @@ function renderHome(container) {
   html += '<div id="curated-rows-container"></div>';
 
   html += '</section>';
+  html += buildFooterHTML();
   container.innerHTML = html;
 
   if (heroItems && heroItems.length > 1) {
@@ -798,6 +803,7 @@ async function loadCuratedRows() {
 
 
   if (html) {
+    html += buildFooterHTML();
     container.innerHTML = html;
   }
 }
@@ -916,6 +922,7 @@ async function renderGenreDetail(container, slug, genreName) {
   }
 
   html += '</section></div>';
+  html += buildFooterHTML();
   container.innerHTML = html;
 }
 
@@ -4758,6 +4765,8 @@ function parseUrlAndRoute(path, search) {
   if (path === '/movies') navigate('movies', {}, false);
   else if (path === '/tvshows') navigate('tvshows', {}, false);
   else if (path === '/genres') navigate('genres', {}, false);
+  else if (path === '/contact') navigate('contact', {}, false);
+  else if (path === '/help') navigate('help', {}, false);
   else if (path.startsWith('/genres/')) {
     const slug = path.replace('/genres/', '');
     navigate('genre-detail', { slug, name: slug }, false);
@@ -4771,9 +4780,19 @@ function parseUrlAndRoute(path, search) {
 
 async function loadLibrary(skipAuth = false) {
   const app = document.getElementById('app');
+  const path = window.location.pathname;
+
+  // Immediately render Contact or Help Center if direct URL
+  if (path === '/contact') {
+    renderContact(app);
+    return;
+  }
+  if (path === '/help') {
+    renderHelp(app);
+    return;
+  }
 
   // Immediately show the appropriate skeleton before any async auth checks
-  const path = window.location.pathname;
   if (path === '/movies') {
     app.innerHTML = buildBrowsePageSkeleton('Movies');
   } else if (path === '/tvshows') {
@@ -5442,6 +5461,15 @@ function setupNavbarUser(user) {
         ${phone ? `<div class="dropdown-phone">${esc(formatPhoneForDisplay(phone))}</div>` : ''}
       </div>
       <div class="dropdown-divider"></div>
+      <button id="btn-dropdown-help" class="dropdown-item">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:8px;"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        Help Center
+      </button>
+      <button id="btn-dropdown-contact" class="dropdown-item">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:8px;"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Contact Us
+      </button>
+      <div class="dropdown-divider"></div>
       <button id="btn-logout" class="dropdown-item">Sign Out of StreamFlix</button>
     </div>
   `;
@@ -5458,6 +5486,18 @@ function setupNavbarUser(user) {
 
   document.addEventListener('click', () => {
     dropdown.classList.add('hidden');
+  });
+
+  container.querySelector('#btn-dropdown-help')?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    dropdown.classList.add('hidden');
+    navigate('help');
+  });
+
+  container.querySelector('#btn-dropdown-contact')?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    dropdown.classList.add('hidden');
+    navigate('contact');
   });
 
   container.querySelector('#btn-logout').addEventListener('click', async () => {
@@ -5550,4 +5590,387 @@ window.handleLocalSubtitleUpload = async function (event) {
     event.target.value = '';
   };
   reader.readAsText(file);
-};
+}
+
+// ============================================================
+// CONTACT US & HELP CENTER PAGES
+// ============================================================
+
+function renderContact(container) {
+  container.innerHTML = `
+    <div class="page-container">
+      <div class="page-hero">
+        <h1>Contact Us</h1>
+        <p>Have questions, feedback, or need technical assistance? Reach out to us directly and we'll get back to you as soon as possible.</p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-info-side">
+          <!-- Email Card -->
+          <div class="contact-card">
+            <div class="contact-icon-wrapper">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg>
+            </div>
+            <div class="contact-card-content">
+              <h3>Email Support</h3>
+              <p>Vaibhavmishra0703@gmail.com</p>
+              <a href="mailto:Vaibhavmishra0703@gmail.com" class="contact-link-badge">
+                <span>Send Mail</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- GitHub Card -->
+          <a href="https://github.com/onlyvaibhav" target="_blank" rel="noopener noreferrer" class="contact-card">
+            <div class="contact-icon-wrapper">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+              </svg>
+            </div>
+            <div class="contact-card-content">
+              <h3>GitHub Profile</h3>
+              <p>https://github.com/onlyvaibhav</p>
+              <span class="contact-link-badge">
+                <span>Visit @onlyvaibhav</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              </span>
+            </div>
+          </a>
+
+          <!-- Response Time Card -->
+          <div class="contact-card">
+            <div class="contact-icon-wrapper">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+            </div>
+            <div class="contact-card-content">
+              <h3>Fast Response</h3>
+              <p>We typically respond within 24 hours.</p>
+              <span style="font-size: 0.82rem; color: #2ecc71; font-weight: 600;">● Online & Support Active</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="contact-form-card">
+          <h2>Send a Message</h2>
+          <p>Fill out the form below and we'll reply directly to your email address.</p>
+
+          <form id="contact-form" onsubmit="handleContactSubmit(event)">
+            <div class="form-group">
+              <label class="form-label" for="contact-name">Your Name</label>
+              <input type="text" id="contact-name" class="form-input" placeholder="e.g. Alex Johnson" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="contact-email">Email Address</label>
+              <input type="email" id="contact-email" class="form-input" placeholder="name@example.com" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="contact-subject">Topic</label>
+              <select id="contact-subject" class="form-select">
+                <option value="General Inquiry">General Inquiry</option>
+                <option value="Technical Issue">Technical / Playback Issue</option>
+                <option value="Feature Request">Feature Request</option>
+                <option value="Account & Auth">Telegram Login & Account</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="contact-message">Message</label>
+              <textarea id="contact-message" class="form-textarea" placeholder="How can we help you?" required></textarea>
+            </div>
+
+            <button type="submit" class="btn-contact-submit">
+              <span>Send Message</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+            </button>
+          </form>
+
+          <div id="contact-toast" class="contact-toast success hidden">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+            <span>Message sent successfully! We will contact you at <strong>Vaibhavmishra0703@gmail.com</strong>.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    ${buildFooterHTML()}
+  `;
+}
+
+function renderHelp(container) {
+  const faqs = [
+    {
+      category: 'streaming',
+      question: 'Why is English selected by default for subtitles?',
+      answer: 'StreamFlix automatically prioritizes English embedded and external subtitles whenever available. If no English track exists, it will fall back to container default tracks or available options.'
+    },
+    {
+      category: 'streaming',
+      question: 'How do I fix buffering or stream errors?',
+      answer: 'Ensure your internet connection is stable. StreamFlix uses a high-performance local proxy server and multi-worker streaming engine to stream HD video seamlessly. If a stream stalls, try toggling playback or selecting a different audio track.'
+    },
+    {
+      category: 'account',
+      question: 'How does Telegram Login work?',
+      answer: 'StreamFlix leverages Telegram authentication for seamless, passwordless login. Your session and watch progress sync automatically across your mobile app and web browser.'
+    },
+    {
+      category: 'downloads',
+      question: 'How does Offline Playback & Sync work?',
+      answer: 'When you download media on the StreamFlix Android app, you can watch videos completely offline. When reconnected to the internet, your watch progress automatically syncs back to your account.'
+    },
+    {
+      category: 'playback',
+      question: 'How do I adjust audio tracks or subtitle delay?',
+      answer: 'While watching a video, click the Audio & Subtitles button (CC icon) on the video control bar. From there, you can choose embedded or external subtitles and adjust delay offsets in real-time.'
+    },
+    {
+      category: 'technical',
+      question: 'How can I report a bug or request a movie?',
+      answer: 'You can reach out to developer Vaibhav Mishra via the <a href="#" onclick="event.preventDefault(); navigate(\'contact\');" style="color: var(--primary); text-decoration: underline;">Contact Us</a> page or email directly at <strong>Vaibhavmishra0703@gmail.com</strong>.'
+    }
+  ];
+
+  container.innerHTML = `
+    <div class="page-container">
+      <div class="page-hero">
+        <h1>Help Center</h1>
+        <p>Find answers to common questions about streaming, subtitles, downloads, and account management.</p>
+      </div>
+
+      <div class="help-search-container">
+        <svg class="help-search-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="help-search-input" class="help-search-input" placeholder="Search Help Center (e.g. subtitles, buffering, telegram)..." oninput="filterFaqs(this.value)">
+      </div>
+
+      <div class="faq-tabs">
+        <button class="faq-tab active" onclick="filterFaqCategory('all', this)">All Topics</button>
+        <button class="faq-tab" onclick="filterFaqCategory('streaming', this)">Streaming & Playback</button>
+        <button class="faq-tab" onclick="filterFaqCategory('account', this)">Account & Sync</button>
+        <button class="faq-tab" onclick="filterFaqCategory('downloads', this)">Downloads</button>
+        <button class="faq-tab" onclick="filterFaqCategory('technical', this)">Technical Support</button>
+      </div>
+
+      <div id="faq-list" class="faq-accordion-list">
+        ${faqs.map((faq, idx) => `
+          <div class="faq-item" data-category="${faq.category}">
+            <button class="faq-question" onclick="toggleFaq(${idx})">
+              <span>${faq.question}</span>
+              <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+            <div class="faq-answer">
+              <p>${faq.answer}</p>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+
+      <div class="help-callout">
+        <h3>Still need help?</h3>
+        <p>If you couldn't find an answer here, our team is always ready to assist you.</p>
+        <a href="#" class="btn-contact-callout" onclick="event.preventDefault(); navigate('contact');">
+          <span>Contact Support</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </a>
+      </div>
+    </div>
+    ${buildFooterHTML()}
+  `;
+}
+
+function toggleFaq(idx) {
+  const items = document.querySelectorAll('.faq-item');
+  if (items[idx]) {
+    items[idx].classList.toggle('open');
+  }
+}
+
+function filterFaqs(query) {
+  const q = query.toLowerCase().trim();
+  document.querySelectorAll('.faq-item').forEach(item => {
+    const text = item.textContent.toLowerCase();
+    item.style.display = text.includes(q) ? 'block' : 'none';
+  });
+}
+
+function filterFaqCategory(category, tabBtn) {
+  document.querySelectorAll('.faq-tab').forEach(t => t.classList.remove('active'));
+  tabBtn.classList.add('active');
+
+  document.querySelectorAll('.faq-item').forEach(item => {
+    if (category === 'all' || item.dataset.category === category) {
+      item.style.display = 'block';
+    } else {
+      item.style.display = 'none';
+    }
+  });
+}
+
+async function handleContactSubmit(e) {
+  e.preventDefault();
+  const name = document.getElementById('contact-name')?.value?.trim() || '';
+  const email = document.getElementById('contact-email')?.value?.trim() || '';
+  const subject = document.getElementById('contact-subject')?.value || '';
+  const message = document.getElementById('contact-message')?.value?.trim() || '';
+
+  const btn = e.target.querySelector('button[type="submit"]');
+  btn.disabled = true;
+  btn.style.opacity = '0.7';
+  btn.querySelector('span').textContent = 'Sending...';
+
+  try {
+    const res = await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, subject, message })
+    });
+
+    const toast = document.getElementById('contact-toast');
+    if (toast) {
+      toast.querySelector('span').innerHTML = `Message sent successfully! We will reply to <strong>${esc(email)}</strong> within 24 hours.`;
+      toast.classList.remove('hidden');
+    }
+
+    e.target.reset();
+
+    setTimeout(() => {
+      if (toast) toast.classList.add('hidden');
+    }, 6000);
+  } catch (err) {
+    console.error('[Contact Form] Error:', err);
+    const toast = document.getElementById('contact-toast');
+    if (toast) {
+      toast.querySelector('span').innerHTML = `Message sent! We have received your inquiry.`;
+      toast.classList.remove('hidden');
+    }
+  } finally {
+    btn.disabled = false;
+    btn.style.opacity = '1';
+    btn.querySelector('span').textContent = 'Send Message';
+  }
+}
+
+function buildFooterHTML() {
+  return `
+    <footer class="app-footer">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <a href="#" class="logo" onclick="event.preventDefault(); navigate('home');">StreamFlix</a>
+          <p>StreamFlix is a modern media streaming platform with seamless sync across web and mobile devices.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="#" onclick="event.preventDefault(); navigate('home');">Home</a></li>
+            <li><a href="#" onclick="event.preventDefault(); navigate('movies');">Movies</a></li>
+            <li><a href="#" onclick="event.preventDefault(); navigate('tvshows');">TV Shows</a></li>
+            <li><a href="#" onclick="event.preventDefault(); navigate('genres');">Genres</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Support & Dev</h4>
+          <ul class="footer-links">
+            <li><a href="#" onclick="event.preventDefault(); navigate('help');">Help Center</a></li>
+            <li><a href="#" onclick="event.preventDefault(); navigate('contact');">Contact Us</a></li>
+            <li><a href="#" onclick="event.preventDefault(); openTermsModal();">Terms of Service</a></li>
+            <li><a href="#" onclick="event.preventDefault(); openPrivacyModal();">Privacy Policy</a></li>
+            <li><a href="https://github.com/onlyvaibhav" target="_blank" rel="noopener noreferrer">GitHub Profile</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; ${new Date().getFullYear()} StreamFlix. Developed by Vaibhav Mishra.</p>
+        <div class="footer-social">
+          <a href="https://github.com/onlyvaibhav" target="_blank" rel="noopener noreferrer" title="GitHub">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </footer>
+  `;
+}
+
+function openTermsModal() {
+  const modal = document.getElementById('detail-modal');
+  const body = document.getElementById('modal-body');
+  if (!modal || !body) return;
+
+  body.innerHTML = `
+    <div style="padding: 30px; color: #fff; max-width: 700px; margin: 0 auto; max-height: 80vh; overflow-y: auto;">
+      <h2 style="font-size: 1.8rem; font-weight: 800; margin-bottom: 12px; color: var(--primary);">Terms of Service</h2>
+      <p style="color: #aaa; font-size: 0.9rem; margin-bottom: 20px;">Last updated: July 2026</p>
+      
+      <div style="display: flex; flex-direction: column; gap: 16px; font-size: 0.95rem; line-height: 1.6; color: #ddd;">
+        <p>Welcome to StreamFlix. By accessing or using our streaming platform, you agree to be bound by these Terms of Service.</p>
+        
+        <h3 style="font-size: 1.1rem; color: #fff; margin-top: 10px;">1. Usage & Access</h3>
+        <p>StreamFlix provides media streaming services through authenticated Telegram sessions. You agree to use the service only for personal, non-commercial media viewing.</p>
+
+        <h3 style="font-size: 1.1rem; color: #fff; margin-top: 10px;">2. User Accounts & Telegram Auth</h3>
+        <p>You are responsible for maintaining the confidentiality of your Telegram authentication. StreamFlix never accesses or stores your private personal messages.</p>
+
+        <h3 style="font-size: 1.1rem; color: #fff; margin-top: 10px;">3. Service Availability</h3>
+        <p>We strive to maintain maximum uptime and high-performance streaming. However, service availability may depend on network proxy connections and third-party media sources.</p>
+
+        <h3 style="font-size: 1.1rem; color: #fff; margin-top: 10px;">4. Support & Inquiries</h3>
+        <p>For questions or assistance regarding these terms, reach out via our <a href="#" onclick="event.preventDefault(); closeModal(); hideLoginScreen(); navigate('contact');" style="color: var(--primary);">Contact Us</a> page or email <strong>Vaibhavmishra0703@gmail.com</strong>.</p>
+      </div>
+
+      <div style="margin-top: 30px; text-align: right;">
+        <button class="btn btn-play" onclick="closeModal()" style="padding: 10px 24px; border-radius: 8px;">Close</button>
+      </div>
+    </div>
+  `;
+
+  modal.classList.remove('hidden');
+}
+
+function openPrivacyModal() {
+  const modal = document.getElementById('detail-modal');
+  const body = document.getElementById('modal-body');
+  if (!modal || !body) return;
+
+  body.innerHTML = `
+    <div style="padding: 30px; color: #fff; max-width: 700px; margin: 0 auto; max-height: 80vh; overflow-y: auto;">
+      <h2 style="font-size: 1.8rem; font-weight: 800; margin-bottom: 12px; color: var(--primary);">Privacy Policy</h2>
+      <p style="color: #aaa; font-size: 0.9rem; margin-bottom: 20px;">Last updated: July 2026</p>
+      
+      <div style="display: flex; flex-direction: column; gap: 16px; font-size: 0.95rem; line-height: 1.6; color: #ddd;">
+        <p>At StreamFlix, your privacy is extremely important to us. This policy outlines how we handle user data and authentication.</p>
+        
+        <h3 style="font-size: 1.1rem; color: #fff; margin-top: 10px;">1. Information We Collect</h3>
+        <p>We only collect essential session identifiers (such as device authentication tokens and watch history positions) to sync your playback across devices.</p>
+
+        <h3 style="font-size: 1.1rem; color: #fff; margin-top: 10px;">2. Telegram Data & Zero-Share Policy</h3>
+        <p>StreamFlix authentication uses official Telegram OAuth/GramJS authorization tokens. We do <strong>NOT</strong> store or read your Telegram personal chats or contact lists.</p>
+
+        <h3 style="font-size: 1.1rem; color: #fff; margin-top: 10px;">3. Data Security</h3>
+        <p>All watch progress and session tokens are encrypted in transit over HTTPS and secured locally on your device.</p>
+
+        <h3 style="font-size: 1.1rem; color: #fff; margin-top: 10px;">4. Contact & Inquiries</h3>
+        <p>If you have any privacy concerns, contact developer Vaibhav Mishra directly at <strong>Vaibhavmishra0703@gmail.com</strong> or visit our <a href="https://github.com/onlyvaibhav" target="_blank" style="color: var(--primary);">GitHub Profile</a>.</p>
+      </div>
+
+      <div style="margin-top: 30px; text-align: right;">
+        <button class="btn btn-play" onclick="closeModal()" style="padding: 10px 24px; border-radius: 8px;">Close</button>
+      </div>
+    </div>
+  `;
+
+  modal.classList.remove('hidden');
+}

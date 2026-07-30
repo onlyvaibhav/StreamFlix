@@ -245,6 +245,32 @@ async function sendDailyDigest() {
     }
 }
 
+function escapeHtml(str) {
+    if (!str) return '';
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+}
+
+async function notifyContactForm(name, email, subject, message) {
+    const safeName = escapeHtml(name);
+    const safeEmail = escapeHtml(email);
+    const safeSubject = escapeHtml(subject || 'General Inquiry');
+    const safeMsg = escapeHtml(message);
+
+    const text = `📩 <b>New Contact Form Submission</b>\n\n` +
+                 `👤 <b>Name:</b> ${safeName}\n` +
+                 `📧 <b>Email:</b> ${safeEmail}\n` +
+                 `🏷 <b>Topic:</b> ${safeSubject}\n\n` +
+                 `💬 <b>Message:</b>\n${safeMsg}`;
+
+    await logEvent('ContactMessage', { name, email, subject, message });
+    await sendAlert(text, 'ContactMessage', true);
+}
+
 module.exports = {
     sendAlert,
     sendDailyDigest,
@@ -255,5 +281,6 @@ module.exports = {
     notifyError,
     notifyOtpRequest,
     notifyNonMemberLogin,
-    notifyPreLoginCleanup
+    notifyPreLoginCleanup,
+    notifyContactForm
 };
