@@ -196,6 +196,36 @@
         let _audioCtx = null;
         let _silentOscillator = null;
 
+        // Global lock to serialize MTProto DC sender connections & authorization exports across workers.
+        // Calling exportAuthorization concurrently on the main client causes ticket invalidation (AUTH_BYTES_INVALID).
+        let _senderConnectLock = Promise.resolve();
+
+        async function _connectSenderLocked(sender, dcId) {
+            let release;
+            const previousLock = _senderConnectLock;
+            _senderConnectLock = new Promise(resolve => { release = resolve; });
+            try {
+                await previousLock;
+                if (!sender.isReady || !sender.isConnected) {
+                    await client._connectSender(sender, dcId);
+                }
+            } finally {
+                release();
+            }
+        }
+
+        async function _getSenderLocked(dcId) {
+            let release;
+            const previousLock = _senderConnectLock;
+            _senderConnectLock = new Promise(resolve => { release = resolve; });
+            try {
+                await previousLock;
+                return await client.getSender(dcId);
+            } finally {
+                release();
+            }
+        }
+
         function _startSilentAudio() {
             if (!_audioCtx) {
                 _audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -333,10 +363,10 @@
                             if (currentDcId) {
                                 const senderKey = `${currentDcId}_${workerId}`;
                                 sender = state.workerSenders.get(senderKey);
-                                if (!sender) {
+                                if (!sender || !sender.isConnected) {
                                     sender = client._createExportedSender(currentDcId);
                                     sender._instrumentationId = `socket_${currentDcId}_${workerId}_${Math.random().toString(36).substr(2, 5)}`;
-                                    await client._connectSender(sender, currentDcId);
+                                    await _connectSenderLocked(sender, currentDcId);
                                     state.workerSenders.set(senderKey, sender);
                                 }
                             }
@@ -417,8 +447,13 @@
                             if (errorMsg.includes('Timeout') || errorMsg.includes('Socket closed') || errorMsg.includes('ENOTFOUND') || errorMsg.includes('ECONNRESET')) {
                                 console.log(`Network error: ${errorMsg}. Retrying...`);
                                 if (currentDcId) {
-                                    // Clear this worker's sender so it reconnects
-                                    state.workerSenders.delete(`${currentDcId}_${workerId}`);
+                                    // Clear and disconnect this worker's sender so it reconnects cleanly
+                                    const key = `${currentDcId}_${workerId}`;
+                                    const s = state.workerSenders.get(key);
+                                    if (s) {
+                                        try { s.disconnect(); } catch(e) {}
+                                        state.workerSenders.delete(key);
+                                    }
                                 }
                                 if (client && !client.connected) {
                                     try { await client.connect(); } catch(e) {}
@@ -436,13 +471,21 @@
                                 const match = errorMsg.match(/(?:DC\s*|_)(\d+)/i);
                                 if (match) {
                                     currentDcId = parseInt(match[1]);
-                                    documentDcCache.set(docIdStr, currentDcId);
+                                    if (docIdStr) {
+                                        documentDcCache.set(docIdStr, currentDcId);
+                                    }
+                                    console.log(`🔄 Document ${docIdStr} migrated to DC ${currentDcId}. Re-routing workers...`);
                                     if (attempts < 3) continue;
                                 }
                             } else if (errorMsg.includes('disconnected') || errorMsg.includes('Cannot send requests while disconnected') || errorMsg.includes('TIMEOUT') || errorMsg.includes('Not connected')) {
                                 console.log(`🔄 Network/DC disconnected: ${errorMsg}. Reconnecting...`);
                                 if (currentDcId) {
-                                    state.workerSenders.delete(`${currentDcId}_${workerId}`);
+                                    const key = `${currentDcId}_${workerId}`;
+                                    const s = state.workerSenders.get(key);
+                                    if (s) {
+                                        try { s.disconnect(); } catch(e) {}
+                                        state.workerSenders.delete(key);
+                                    }
                                 }
                                 if (client && !client.connected) {
                                     try { await client.connect(); } catch(e) {}
@@ -467,6 +510,12 @@
                 }
                 state.activeWorkers--;
                 if (state.activeWorkers === 0 && !state.isCancelled && state.queue.length === 0) {
+                    if (state.workerSenders) {
+                        for (const s of state.workerSenders.values()) {
+                            try { s.disconnect(); } catch (e) {}
+                        }
+                        state.workerSenders.clear();
+                    }
                     sendToFlutter({
                         type: "parallelDownloadComplete",
                         mediaId: mediaId
@@ -477,14 +526,17 @@
             };
             
             // Pre-connect to the DC to ensure workers don't bunch up waiting for the connection
-            let initialDcId = fileData.dcId ? parseInt(fileData.dcId) : client.session.dcId;
+            let docIdStr = fileData.id ? fileData.id.toString() : "";
+            let cachedDcId = docIdStr ? documentDcCache.get(docIdStr) : null;
+            let initialDcId = cachedDcId || (fileData.dcId ? parseInt(fileData.dcId) : client.session.dcId);
+
             if (initialDcId && !dcSenders.has(initialDcId)) {
                 if (!window.pendingDcConnections) window.pendingDcConnections = {};
                 if (!window.pendingDcConnections[initialDcId]) {
                     window.pendingDcConnections[initialDcId] = (async () => {
                         console.log(`🔌 Pre-connecting to DC ${initialDcId} before spawning workers...`);
                         try {
-                            const sender = await client.getSender(initialDcId);
+                            const sender = await _getSenderLocked(initialDcId);
                             dcSenders.set(initialDcId, sender);
                             // Force the socket to fully open and handshake by sending a dummy request.
                             // This prevents GramJS from queueing the staggered worker requests and sending them in a single burst!
@@ -512,9 +564,9 @@
                         try {
                             const s = client._createExportedSender(initialDcId);
                             s._instrumentationId = `socket_${initialDcId}_${i}_${Math.random().toString(36).substr(2, 5)}`;
-                            await client._connectSender(s, initialDcId);
+                            await _connectSenderLocked(s, initialDcId);
                             state.workerSenders.set(senderKey, s);
-                            await new Promise(resolve => setTimeout(resolve, 250)); // Stagger connection opens
+                            await new Promise(resolve => setTimeout(resolve, 100)); // Stagger connection opens
                         } catch(e) {
                             console.log(`Failed to pre-warm sender ${i}: ${e.toString()}`);
                         }
@@ -558,6 +610,12 @@
             const state = activeParallelDownloads.get(mediaId);
             if (state) {
                 state.isCancelled = true;
+                if (state.workerSenders) {
+                    for (const s of state.workerSenders.values()) {
+                        try { s.disconnect(); } catch (e) {}
+                    }
+                    state.workerSenders.clear();
+                }
                 activeParallelDownloads.delete(mediaId);
                 if (activeParallelDownloads.size === 0) _stopJsHeartbeat();
             }
@@ -618,7 +676,7 @@
                         
                         if (currentDcId) {
                             if (!dcSenders.has(currentDcId)) {
-                                const sender = await client.getSender(currentDcId);
+                                const sender = await _getSenderLocked(currentDcId);
                                 dcSenders.set(currentDcId, sender);
                             }
                             const sender = dcSenders.get(currentDcId);

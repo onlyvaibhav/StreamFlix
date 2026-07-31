@@ -116,6 +116,18 @@ async function getTelegramChunk(client, fileInfo, alignedOffset, limit, sender =
                 } catch (error) {
                     const errorMsg = error.message || error.errorMessage || '';
                     
+                    // Auth Key or Session Invalidated error on DC Sender
+                    if (
+                        errorMsg.includes('AUTH_KEY_UNREGISTERED') ||
+                        errorMsg.includes('AUTH_KEY_INVALID') ||
+                        errorMsg.includes('SESSION_REVOKED') ||
+                        errorMsg.includes('USER_DEACTIVATED')
+                    ) {
+                        console.warn(`⚠️ [Telegram] Auth key error on sender (${errorMsg}). Marking sender as broken to trigger auth re-export.`);
+                        error.isSenderBroken = true;
+                        error.isAuthKeyError = true;
+                    }
+
                     // Specific handling for disconnection and "hanging states"
                     // These are often recoverable if we wait for GramJS to reconnect.
                     if (
