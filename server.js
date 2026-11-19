@@ -1492,10 +1492,15 @@ async function startServer() {
       console.log('   Ubuntu: sudo apt install ffmpeg');
     }
 
-    // Initialize Telegram client
+    // Initialize Telegram client. Keep the web/API server available during
+    // Telegram account recovery; syncWithTelegram retries initialization later.
     console.log('🔄 Initializing Telegram client...');
-    await initTelegram();
-    console.log('✅ Telegram client initialized');
+    try {
+      await initTelegram();
+      console.log('✅ Telegram client initialized');
+    } catch (telegramError) {
+      logger.warn(`Telegram unavailable; starting in catalog-only mode: ${telegramError.message}`, 'system');
+    }
 
     // Register Activity Hooks
     activityTracker.onPause(() => {

@@ -1,0 +1,116 @@
+{
+  "fileId": "1328",
+  "fileName": "Vibe.2026.720p.AMZN.WEB-DL.Hindi.DDP5.1.H.264-Vegamovies.tw.mkv",
+  "type": "movie",
+  "title": "Vibe",
+  "originalTitle": "वाइब",
+  "overview": "Two inseparable friends' ordinary, unassuming lives spiral into an unpredictable, high-energy adventure that pushes their survival instincts and friendship to the limit.",
+  "releaseDate": "2026-09-18",
+  "year": 2026,
+  "runtime": 145,
+  "genres": [
+    "Action",
+    "Comedy",
+    "Drama"
+  ],
+  "rating": 5.722,
+  "popularity": 8.0261,
+  "awards": "",
+  "poster": "/data/posters/1328.jpg",
+  "backdrop": "/data/backdrops/1328_bd.jpg",
+  "tmdbId": 1654566,
+  "fetchedAt": "2026-11-19T15:32:47.405Z",
+  "needsRetry": false,
+  "tv": null,
+  "keywords": [],
+  "productionCompanies": [
+    {
+      "id": 292620,
+      "name": "Drongo Films",
+      "logoPath": null
+    },
+    {
+      "id": 210099,
+      "name": "Amazon MGM Studios",
+      "logoPath": "/g5oRCNCi8kNVb8gEoSoIcqkhjmR.png"
+    }
+  ],
+  "collection": null,
+  "watchProviders": {
+    "link": "https://www.themoviedb.org/movie/1654566-vaib/watch?locale=IN",
+    "flatrate": [
+      {
+        "id": 119,
+        "name": "Amazon Prime Video",
+        "logoPath": "/gMZdpavHmxFNnLpMHwVxfqeux2g.png"
+      },
+      {
+        "id": 2100,
+        "name": "Amazon Prime Video with Ads",
+        "logoPath": "/tpwTT1FpWqLLhxUfAuDavIXDDfI.png"
+      }
+    ],
+    "rent": [],
+    "buy": []
+  },
+  "recommendations": [
+    1130818,
+    951470,
+    34421,
+    846433,
+    848123,
+    591237,
+    32049,
+    945937,
+    1387382,
+    172631,
+    79026,
+    1161617,
+    455236,
+    1319951,
+    95755,
+    73499,
+    879444,
+    671318,
+    227300,
+    48129
+  ],
+  "similar": [],
+  "audioCodec": "eac3",
+  "browserPlayable": false,
+  "_tracksDetected": true,
+  "metadataStatus": "COMPLETE",
+  "audioTracks": [
+    {
+      "index": 0,
+      "streamIndex": 1,
+      "codec": "eac3",
+      "language": "Hindi",
+      "languageCode": "hin",
+      "title": "Vegamovies.tw",
+      "channels": 6,
+      "channelLayout": "5.1(side)",
+      "browserPlayable": false,
+      "isDefault": true
+    }
+  ],
+  "subtitleTracks": [
+    {
+      "index": 0,
+      "streamIndex": 2,
+      "codec": "subrip",
+      "language": "English",
+      "languageCode": "eng",
+      "title": "Vegamovies.tw",
+      "isTextBased": true,
+      "isImageBased": false,
+      "extractable": true,
+      "isDefault": false,
+      "isForced": false
+    }
+  ],
+  "container": "matroska,webm",
+  "duration": 8665.504,
+  "_probeFailCount": 0,
+  "logo": "/data/logos/1328_logo.png"
+}

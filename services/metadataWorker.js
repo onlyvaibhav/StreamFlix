@@ -1792,11 +1792,33 @@ async function syncWithTelegram() {
         if (!worker.telegramService) {
             throw new Error('Telegram service not linked');
         }
+        // Re-initialize on demand so a temporarily expired or unavailable session
+        // does not prevent the HTTP server from starting and can recover later.
+        if (typeof worker.telegramService.initTelegram === 'function') {
+            await worker.telegramService.initTelegram();
+        }
         telegramFiles = await worker.telegramService.scanChannelFiles();
         console.log(`[Worker] 📡 Telegram: ${telegramFiles.length} files`);
     } catch (err) {
         console.error('[Worker] ❌ Failed to fetch Telegram files:', err.message);
         return { added: 0, removed: 0, updated: 0, error: err.message };
+    }
+
+    // An empty result can mean the channel was emptied, but can also happen
+    // during account recovery or a transient Telegram/API issue. Never treat
+    // it as an authoritative deletion of the local library unless explicitly
+    // enabled by an operator. Metadata and artwork are never deleted here.
+    if (telegramFiles.length === 0 && localCache.length > 0 && process.env.ALLOW_EMPTY_TELEGRAM_SYNC !== 'true') {
+        console.warn(`[Worker] ⚠️ Telegram returned an empty library; preserving ${localCache.length} cached file entries. Set ALLOW_EMPTY_TELEGRAM_SYNC=true to allow an empty scan to prune the index.`);
+        return {
+            added: 0,
+            removed: 0,
+            changed: 0,
+            totalLocal: localCache.length,
+            totalTelegram: 0,
+            skipped: true,
+            reason: 'empty_scan_preserved'
+        };
     }
 
     // Step 3: Build lookup maps

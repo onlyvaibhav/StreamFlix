@@ -38,5 +38,13 @@
     "tmdbId": 213635,
     "confidence": 1,
     "timestamp": 1785169881579
+  },
+  {
+    "title": "Avatar Fire and Ash",
+    "year": 2025,
+    "type": "movie",
+    "tmdbId": 83533,
+    "confidence": 1,
+    "timestamp": 1795101482164
   }
 ]
